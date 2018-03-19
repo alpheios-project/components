@@ -209,7 +209,7 @@
           tosend = features[0]
         }
         if (this.linkedfeatures.includes(tosend.type)) {
-          this.$parent.$emit('sendfeature',tosend)
+          this.$emit('sendfeature',tosend)
         }
         else return false
       },
