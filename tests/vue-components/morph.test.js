@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { shallow } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import Morph from '../../src/vue-components/morph.vue'
 
 describe('morph.test.js', () => {
@@ -20,30 +20,98 @@ describe('morph.test.js', () => {
     let mockNounInflectionGroup = [
       {
         groupingKey: {
-          prefix: '',
-          stem: 'f',
-          suffix: 'oo',
+          prefix: 'f',
+          stem: 'o',
+          suffix: 'o',
           'part of speech': mockFeature('part of speech', 'pronoun', latin),
           declension: mockFeature('declension', '2nd', latin)
         },
         inflections: [
           {
             groupingKey: {
-              number: mockFeature('number', 'singular', latin)
-            },
-            isCaseInflectionSet: true
+              number: mockFeature('number', 'singular', latin),
+              isCaseInflectionSet: true
+            }
+          },
+          {
+            groupingKey: {
+              number: mockFeature('number', 'plural', latin),
+              isCaseInflectionSet: true
+            }
+          }
+        ]
+
+      },
+      {
+        groupingKey: {
+          prefix: '',
+          stem: 'f',
+          suffix: 'oo',
+          'part of speech': mockFeature('part of speech', 'noun', latin),
+          declension: mockFeature('declension', '1st', latin)
+        },
+        inflections: [
+          {
+            groupingKey: {
+              number: mockFeature('number', 'singular', latin),
+              isCaseInflectionSet: true
+            }
 
           },
           {
             groupingKey: {
-              number: mockFeature('number', 'plural', latin)
-            },
-            isCaseInflectionSet: true
+              number: mockFeature('number', 'plural', latin),
+              isCaseInflectionSet: true
+            }
           }
         ]
 
       }
+    ]
 
+    let mockVerbInflectionGroup = [
+      {
+        groupingKey: {
+          prefix: '',
+          stem: 'fo',
+          suffix: 'o',
+          'part of speech': mockFeature('part of speech', 'verb', latin)
+        },
+        inflections: [
+          {
+            groupingKey: {
+              tense: mockFeature('tense', 'present', latin),
+              isCaseInflectionSet: false
+            }
+          }
+        ]
+      },
+      {
+        groupingKey: {
+          prefix: '',
+          stem: 'fo',
+          suffix: 'o',
+          'part of speech': mockFeature('part of speech', 'verb participle', latin)
+        },
+        inflections: [
+          {
+            groupingKey: {
+              number: mockFeature('number', 'singular', latin),
+              isCaseInflectionSet: true
+            },
+            inflections: [
+              {
+                groupingKey: {
+                  tense: mockFeature('tense', 'present', latin),
+                  voice: mockFeature('voice', 'active', latin),
+                  isCaseInflectionSet: true
+                },
+                inflecions: []
+              }
+            ]
+          }
+        ]
+      }
     ]
 
     mockLexemeNoun = {
@@ -67,7 +135,7 @@ describe('morph.test.js', () => {
       },
       getGroupedInflections: () => { return mockNounInflectionGroup }
     }
-    cmp = shallow(Morph, {
+    cmp = mount(Morph, {
       propsData: {
         lexemes: [
           mockLexemeNoun,
@@ -89,7 +157,7 @@ describe('morph.test.js', () => {
               key: 'foo-verb-lat-key',
               languageID: latin
             },
-            getGroupedInflections: () => { return [] }
+            getGroupedInflections: () => { return mockVerbInflectionGroup }
           }
         ],
         definitions: {
@@ -153,6 +221,7 @@ describe('morph.test.js', () => {
   })
   it('expects case and gender to be rendered with pofs for noun', () => {
     let pofsElem = cmp.find('div').find('div.alpheios-morph__dictentry').find('div.alpheios-morph__morphdata').find('span.alpheios-morph__pofs')
+    console.log(pofsElem.html())
     expect(pofsElem).toBeTruthy()
     expect(pofsElem.find('[data-feature="case"]').is('span')).toBeTruthy()
     expect(pofsElem.find('[data-feature="gender"]').is('span')).toBeTruthy()
@@ -169,7 +238,7 @@ describe('morph.test.js', () => {
   it('expects lemma feature kind to be rendered', () => {
     let elem = cmp.find('div').findAll('div.alpheios-morph__dictentry').at(2).find('div.alpheios-morph__morphdata').find('[data-feature="kind"]')
     expect(elem.exists()).toBeTruthy()
-    expect(elem.text()).toEqual('taking xyz')
+    expect(elem.text()).toEqual('(taking xyz)')
   })
 
   it('expects lemma feature conjugation to be rendered', () => {
@@ -228,6 +297,29 @@ describe('morph.test.js', () => {
     expect(inflset.find('.alpheios-morph__inflfeatures').text()).toEqual(expect.stringMatching(/pronoun/))
     expect(inflset.find('.alpheios-morph__inflfeatures').text()).toEqual(expect.stringMatching(/2nd declension/))
   })
-  // test that inflection group with same part of speech as lemma doesn't show part of speech
-  // test that inflection group with different part of speech as lemma does show part of speech
+
+  it('expects inflection group with same part of speech and declension as lemma to not render that', () => {
+    let inflset = cmp.find('div').findAll('div.alpheios-morph__dictentry').at(0).findAll('div.alpheios-morph__inflections div.alpheios-morph__inflset')
+    expect(inflset.at(1).find('.alpheios-morph__inflfeatures').exists()).toBeTruthy()
+    expect(inflset.at(1).find('.alpheios-morph__inflfeatures').text()).toEqual('')
+  })
+
+  it('expects inflection group to render form prefix stem suffix', () => {
+    let inflset = cmp.find('div').findAll('div.alpheios-morph__dictentry').at(0).findAll('div.alpheios-morph__inflections div.alpheios-morph__inflset')
+    expect(inflset.at(0).find('.alpheios-morph__formtext[data-feature="prefix"]').text()).toEqual('f')
+    expect(inflset.at(0).find('.alpheios-morph__formtext[data-feature="stem"]').text()).toEqual('o')
+    expect(inflset.at(0).find('.alpheios-morph__formtext[data-feature="suffix"]').text()).toEqual('-o')
+  })
+
+  it('expects inflection group to render tense only if caseInflection', () => {
+    let elem = cmp.find('div').findAll('div.alpheios-morph__dictentry').at(2).findAll('div.alpheios-morph__inflections div.alpheios-morph__inflset')
+    expect(elem.at(0).find('div.alpheios-morph__inflgroup span[data-feature="tense"]').exists()).toBeFalsy()
+    expect(elem.at(1).find('div.alpheios-morph__inflgroup span[data-feature="tense"]').text()).toEqual('present')
+  })
+  it('expects inflection group to render voice and tense only if caseInflection', () => {
+    let elem = cmp.find('div').findAll('div.alpheios-morph__dictentry').at(2).findAll('div.alpheios-morph__inflections div.alpheios-morph__inflset div.alpheios-morph__inflgroup')
+    console.log(cmp.find('div').findAll('div.alpheios-morph__dictentry').at(2).html())
+    console.log(elem.at(1).html())
+    expect(elem.at(1).find('span[data-grouplevel="2"]').exists()).toBeFalsy()
+  })
 })

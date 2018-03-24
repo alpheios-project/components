@@ -1308,8 +1308,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
 
 exports.default = {
   name: 'Morph',
@@ -10586,19 +10584,30 @@ var render = function() {
                     inflset.groupingKey.prefix
                       ? _c(
                           "span",
-                          { staticClass: "alpheios-morph__formtext" },
+                          {
+                            staticClass: "alpheios-morph__formtext",
+                            attrs: { "data-feature": "prefix" }
+                          },
                           [_vm._v(_vm._s(inflset.groupingKey.prefix) + " ")]
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("span", { staticClass: "alpheios-morph__formtext" }, [
-                      _vm._v(_vm._s(inflset.groupingKey.stem))
-                    ]),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "alpheios-morph__formtext",
+                        attrs: { "data-feature": "stem" }
+                      },
+                      [_vm._v(_vm._s(inflset.groupingKey.stem))]
+                    ),
                     _vm._v(" "),
                     inflset.groupingKey.suffix
                       ? _c(
                           "span",
-                          { staticClass: "alpheios-morph__formtext" },
+                          {
+                            staticClass: "alpheios-morph__formtext",
+                            attrs: { "data-feature": "suffix" }
+                          },
                           [_vm._v(" -" + _vm._s(inflset.groupingKey.suffix))]
                         )
                       : _vm._e(),
@@ -10668,58 +10677,65 @@ var render = function() {
                         "div",
                         { staticClass: "alpheios-morph__inflgroup" },
                         [
-                          group.groupingKey[_vm.types.number] &&
                           group.groupingKey.isCaseInflectionSet
-                            ? _c(
-                                "span",
-                                {
-                                  class: _vm.attributeClass(_vm.types.number),
-                                  attrs: { "data-feature": _vm.types.number },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.sendFeature(
-                                        group.groupingKey[_vm.types.number]
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                " +
-                                      _vm._s(
-                                        group.groupingKey.number.toString()
-                                      )
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          group.groupingKey[_vm.types.tense] &&
-                          group.groupingKey.isCaseInflectionSet
-                            ? _c(
-                                "span",
-                                {
-                                  class: _vm.attributeClass(_vm.types.tense),
-                                  attrs: { "data-feature": _vm.types.tense },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.sendFeature(
-                                        group.groupingKey[_vm.types.tense]
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                " +
-                                      _vm._s(
-                                        group.groupingKey[
+                            ? _c("span", [
+                                group.groupingKey[_vm.types.number]
+                                  ? _c(
+                                      "span",
+                                      {
+                                        class: _vm.attributeClass(
+                                          _vm.types.number
+                                        ),
+                                        attrs: {
+                                          "data-feature": _vm.types.number
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.sendFeature(
+                                              group.groupingKey[
+                                                _vm.types.number
+                                              ]
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(group.groupingKey.number.value)
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                group.groupingKey[_vm.types.tense]
+                                  ? _c(
+                                      "span",
+                                      {
+                                        class: _vm.attributeClass(
                                           _vm.types.tense
-                                        ].toString()
-                                      )
-                                  )
-                                ]
-                              )
+                                        ),
+                                        attrs: {
+                                          "data-feature": _vm.types.tense
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.sendFeature(
+                                              group.groupingKey[_vm.types.tense]
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            group.groupingKey[_vm.types.tense]
+                                              .value
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
                             : _vm._e(),
                           _vm._v(" "),
                           _vm._l(group.inflections, function(nextGroup) {
@@ -10729,41 +10745,6 @@ var render = function() {
                               [
                                 group.groupingKey.isCaseInflectionSet
                                   ? _c("span", [
-                                      group.groupingKey.isCaseInflectionSet &&
-                                      nextGroup.groupingKey.voice
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.voice
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.voice
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    nextGroup.groupingKey[
-                                                      _vm.types.voice
-                                                    ]
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                  " +
-                                                  _vm._s(
-                                                    nextGroup.groupingKey[
-                                                      _vm.types.voice
-                                                    ].toString()
-                                                  )
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      group.groupingKey.isCaseInflectionSet &&
                                       nextGroup.groupingKey.tense
                                         ? _c(
                                             "span",
@@ -10786,10 +10767,42 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    nextGroup.groupingKey.tense.toString()
+                                                _vm._s(
+                                                  nextGroup.groupingKey.tense
+                                                    .value
+                                                )
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      nextGroup.groupingKey.voice
+                                        ? _c(
+                                            "span",
+                                            {
+                                              class: _vm.attributeClass(
+                                                _vm.types.voice
+                                              ),
+                                              attrs: {
+                                                "data-feature": _vm.types.voice
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.sendFeature(
+                                                    nextGroup.groupingKey[
+                                                      _vm.types.voice
+                                                    ]
                                                   )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  nextGroup.groupingKey[
+                                                    _vm.types.voice
+                                                  ].value
+                                                )
                                               )
                                             ]
                                           )
@@ -10832,7 +10845,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.grmCase
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   "\n                    "
                                               ),
@@ -10918,7 +10931,7 @@ var render = function() {
                                                             infl.groupingKey[
                                                               _vm.types
                                                                 .comparison
-                                                            ].toString()
+                                                            ].value
                                                           ) +
                                                           "\n                    "
                                                       )
@@ -10955,7 +10968,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.person
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   " person\n                  "
                                               )
@@ -10990,7 +11003,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.number
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   "\n                  "
                                               )
@@ -11025,7 +11038,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.tense
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   "\n                  "
                                               )
@@ -11060,7 +11073,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.mood
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   "\n                  "
                                               )
@@ -11095,7 +11108,7 @@ var render = function() {
                                                   _vm._s(
                                                     infl.groupingKey[
                                                       _vm.types.voice
-                                                    ].toString()
+                                                    ].value
                                                   ) +
                                                   "\n                  "
                                               )
@@ -11114,9 +11127,7 @@ var render = function() {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    _vm._s(
-                                                      item.example.toString()
-                                                    )
+                                                    _vm._s(item.example.value)
                                                   )
                                                 ]
                                               )
