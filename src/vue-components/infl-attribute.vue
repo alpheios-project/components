@@ -1,5 +1,5 @@
 <template>
-  <span @click="sendFeature(data[type])" :class="attributeClass(type)" :data-feature="type" :data-grouplevel="group" v-if="data[type]">{{ decorate(data,type) }}</span>
+  <span @click="sendFeature(data[type])" :class="attributeClass(type)" :data-feature="type" :data-grouplevel="grouplevel" v-if="data[type]">{{ decorate(data,type) }}</span>
 </template>
 <script>
   export default {
@@ -13,7 +13,7 @@
         type: String,
         required: true,
       },
-      group: {
+      grouplevel: {
         type: Number,
         required: false,
         default: () => 0
@@ -43,7 +43,7 @@
       decorate(data,type) {
         let decorated = data[type].value
         if (this.decorators.includes('abbreviate')) {
-          decorated = data[type].toLocalStringAbbr()
+          decorated = data[type].toLocaleStringAbbr()
         }
         if (this.decorators.includes('appendtype')) {
           decorated = `${decorated} ${type}`
@@ -55,7 +55,19 @@
           decorated = `[${decorated}]`
         }
         return decorated
-      }
+      },
+      sendFeature(features) {
+        let tosend = features
+        if (Array.isArray(features)) {
+          // TODO eventually we should support multiple features but
+          // for the moment just send the first
+          tosend = features[0]
+        }
+        if (this.linkedfeatures.includes(tosend.type)) {
+          this.$emit('sendfeature',tosend)
+        }
+        else return false
+      },
     }
   }
 </script>

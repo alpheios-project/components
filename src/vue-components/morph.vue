@@ -1,29 +1,28 @@
 <template>
   <div class="alpheios-morph__lexemes">
     <div class="alpheios-morph__dictentry" v-for="lex in lexemes" v-show="showLexeme(lex)">
-      <span class="alpheios-morph__hdwd alpheios-morph__formtext"
-        v-if="! lex.lemma.principalParts.includes(lex.lemma.word)"
-        :lang="languageCode(lex.lemma.languageID)">{{ lex.lemma.word }}</span>
-      <span class="alpheios-morph__hdwd alpheios-morph__formtext">
-        <span class="alpheios-morph__listitem"
-          v-for="part in lex.lemma.principalParts" :lang="languageCode(lex.lemma.languageID)">{{ part }}</span>
-      </span> :
-      <span :class="attributeClass(types.pronunciation)" :data-feature="types.pronunciation"
-          v-if="lex.lemma.features[types.pronunciation]">
-        [{{lex.lemma.features[types.pronunciation].value}}]
+      <span>
+        <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
+          v-if="! lex.lemma.principalParts.includes(lex.lemma.word)"
+          :lang="languageCode(lex.lemma.languageID)">{{ lex.lemma.word }}</span>
+        <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem">
+          <span class="alpheios-morph__listitem"
+            v-for="part in lex.lemma.principalParts" :lang="languageCode(lex.lemma.languageID)">{{ part }}</span>
+        </span>
       </span>
+      <inflectionattribute :data="lex.lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
       <div class="alpheios-morph__morphdata">
         <span class="alpheios-morph__pofs">
-          <inflectionattribute :data="lex.lemma.features" :type="types.grmCase" :linkedfeatures="linkedfeatures"/>
-          <inflectionattribute :data="lex.lemma.features" :type="types.gender" :linkedfeatures="linkedfeatures"/>
-          <inflectionattribute :data="lex.lemma.features" :type="types.part" :linkedfeatures="linkedfeatures"/>
+          <inflectionattribute :data="lex.lemma.features" :type="types.grmCase" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
+          <inflectionattribute :data="lex.lemma.features" :type="types.gender" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
+          <inflectionattribute :data="lex.lemma.features" :type="types.part" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
         </span>
-        <inflectionattribute :data="lex.lemma.features" :type="types.kind" :linkedfeatures="linkedfeatures" :decorators="['parenthesize']"/>
-        <inflectionattribute :data="lex.lemma.features" :type="types.declension" :linkedfeatures="linkedfeatures" :decorators="['appendtype']"/>
-        <inflectionattribute :data="lex.lemma.features" :type="types.conjugation" :linkedfeatures="linkedfeatures" :decorators="['appendtype']"/>
-        <span data-feature="extras">{{ featureList(lex.lemma,['age','area','geo','frequency']) }}</span>
-        <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
-        <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
+        <inflectionattribute :data="lex.lemma.features" :type="types.kind" :linkedfeatures="linkedfeatures" :decorators="['parenthesize']" @sendfeature="sendFeature"/>
+        <inflectionattribute :data="lex.lemma.features" :type="types.declension" :linkedfeatures="linkedfeatures" :decorators="['appendtype']" @sendfeature="sendFeature"/>
+        <inflectionattribute :data="lex.lemma.features" :type="types.conjugation" :linkedfeatures="linkedfeatures" :decorators="['appendtype']" @sendfeature="sendFeature"/>
+        <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
+        <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
+        <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
       </div>
       <div v-if="definitions">
         <div v-for="definition in definitions[lex.lemma.key]" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.key">
@@ -37,36 +36,40 @@
             <span class="alpheios-morph__formtext" data-grouplevel="1" data-feature="stem">{{inflset.groupingKey.stem}}</span>
             <span class="alpheios-morph__formtext" data-grouplevel="1" data-feature="suffix" v-if="inflset.groupingKey.suffix"> -{{inflset.groupingKey.suffix}}</span>
             <span class="alpheios-morph__inflfeatures">
-              <inflectionattribute :data="inflset.groupingKey" :type="types.part" :linkedfeatures="linkedfeatures" :group="1"
+              <inflectionattribute :data="inflset.groupingKey" :type="types.part" :linkedfeatures="linkedfeatures" :grouplevel="1" @sendfeature="sendFeature"
                 v-if="! featureMatch(lex.lemma.features[types.part],inflset.groupingKey[types.part])"/>
-              <inflectionattribute :data="inflset.groupingKey" :type="types.declension" :linkedfeatures="linkedfeatures" :group="1" :decorators="['appendtype']"
-                v-if="inflset.groupingKey.declension && ! featureMatch(inflset.groupingKey.declension,lex.lemma.features.declension)"/>
+              <inflectionattribute :data="inflset.groupingKey" :type="types.declension" :linkedfeatures="linkedfeatures" :grouplevel="1" :decorators="['appendtype']"
+                @sendfeature="sendFeature" v-if="inflset.groupingKey.declension && ! featureMatch(inflset.groupingKey.declension,lex.lemma.features.declension)"/>
             </span>
             <div class="alpheios-morph__inflgroup" v-for="group in inflset.inflections">
               <span v-if="group.groupingKey.isCaseInflectionSet">
-                <inflectionattribute :data="group.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :group="2"/>
-                <inflectionattribute :data="group.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :group="2"/>
+                <inflectionattribute :data="group.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :grouplevel="2" @sendfeature="sendFeature"/>
+                <inflectionattribute :data="group.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="2" @sendfeature="sendFeature"/>
               </span>
               <div v-for="nextGroup in group.inflections"
                 :class="groupClass(group)">
-                <span v-if="group.groupingKey.isCaseInflectionSet" class="alpheios-morph__colonlast">
-                  <inflectionattribute :data="nextGroup.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :group="3"/>
-                  <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :group="3"/>
+                <span v-if="group.groupingKey.isCaseInflectionSet">
+                  <inflectionattribute :data="nextGroup.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
+                  <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                 </span>
+                <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span>
                 <div v-for="infl in nextGroup.inflections"
                   :class="groupClass(group)">
-                    <inflectionattributegroup :linkedfeatures="linkedfeatures" :parentType="types.grmCase" :childTypes="[types.gender,types.comparison]":group="4" :data="infl.groupingKey"></inflectionattributegroup>
-                    <inflectionattribute :data="infl.groupingKey" :type="types.person" :linkedfeatures="linkedfeatures" :group="4" :decorators="['appendtype']"/>
-                    <inflectionattribute :data="infl.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :group="4" :decorators="['appendtype']"
+                    <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.grmCase" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
+                    <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.gender" :grouplevel="4" :data="infl.groupingKey" :decorators="['parenthesize','abbreviate']"
+                      @sendfeature="sendFeature" v-if="! featureMatch(infl.groupingKey[types.gender],lex.lemma.features[types.gender])" />
+                    <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.comparison" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
+                    <inflectionattribute :data="infl.groupingKey" :type="types.person" :linkedfeatures="linkedfeatures" :grouplevel="4" :decorators="['appendtype']" @sendfeature="sendFeature"/>
+                    <inflectionattribute :data="infl.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :grouplevel="4" @sendfeature="sendFeature"
                       v-if="! group.groupingKey.isCaseInflectionSet"/>
-                    <inflectionattribute :data="infl.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :group="4" :decorators="['appendtype']"
+                    <inflectionattribute :data="infl.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="4" @sendfeature="sendFeature"
                       v-if="! group.groupingKey.isCaseInflectionSet"/>
-                    <inflectionattribute :data="infl.groupingKey" :type="types.mood" :linkedfeatures="linkedfeatures" :group="4" :decorators="['appendtype']"
+                    <inflectionattribute :data="infl.groupingKey" :type="types.mood" :linkedfeatures="linkedfeatures" :grouplevel="4" @sendfeature="sendFeature"
                       v-if="! group.groupingKey.isCaseInflectionSet"/>
-                    <inflectionattribute :data="infl.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :group="4" :decorators="['appendtype']"
+                    <inflectionattribute :data="infl.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="4" @sendfeature="sendFeature"
                       v-if="! group.groupingKey.isCaseInflectionSet"/>
                     <span v-for="item in infl.inflections">
-                      <span class="alpheios-morph__example" v-if="item.example">{{ item.example }}</span>
+                      <inflectionattribute :data="item" type="example" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
                     </span>
                 </div><!-- end infl -->
               </div><!-- end forms -->
@@ -81,11 +84,10 @@
   import { LanguageModelFactory, GrmFeature } from 'alpheios-data-models'
   import ShortDef from './shortdef.vue'
   import InflectionAttribute from './infl-attribute.vue'
-  import InflectionAttributeGroup from './infl-attribute-group.vue'
 
   export default {
     name: 'Morph',
-    components: { shortdef: ShortDef, inflectionattributegroup: InflectionAttributeGroup, inflectionattribute: InflectionAttribute },
+    components: { shortdef: ShortDef, inflectionattribute: InflectionAttribute },
     props: {
         lexemes: {
           type: Array,
@@ -114,16 +116,6 @@
       groupClass(group) {
         return group.groupingKey.isCaseInflectionSet ? 'alpheios-morph__inline' : 'alpheios-morph__block'
       },
-      attributeClass(featureType,...extras) {
-        let classList = []
-        if (this.linkedfeatures.includes(featureType)) {
-          classList.push('alpheios-morph__linkedattr')
-        } else {
-          classList.push('alpheios-morph__attr')
-        }
-        classList.push(...extras)
-        return classList.join(' ')
-      },
       featureMatch (a, b) {
         if (a && b) {
           return a.isEqual(b)
@@ -131,24 +123,18 @@
         return false
 
       },
-      sendFeature(features) {
-        let tosend = features
-        if (Array.isArray(features)) {
-          // TODO eventually we should support multiple features but
-          // for the moment just send the first
-          tosend = features[0]
-        }
-        if (this.linkedfeatures.includes(tosend.type)) {
-          this.$emit('sendfeature',tosend)
-        }
-        else return false
+      sendFeature (data) {
+        this.$emit('sendfeature',data)
       },
       showLexeme(lex) {
         return lex.isPopulated()
       },
-      featureList(lemma,features) {
+      featureList(lemma,features,name) {
         let list = features.map(i => lemma.features[i] ? GrmFeature.toFeature(lemma.features[i]): null).filter(i => i)
-        return list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
+        list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
+        let returnObj = {}
+        returnObj[name] = { value: list }
+        return returnObj
       },
       languageCode (languageID) {
         return LanguageModelFactory.getLanguageCodeFromId(languageID)
@@ -274,7 +260,8 @@
   .alpheios-morph__inflfeatures span:last-child:after {
     content: ')';
   }
-  .alpheios-morph__colonlast span:last-child:after {
+
+  .alpheios-morph__groupitem:last-child:after {
     content: ':';
   }
 </style>

@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client")) : factory(root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_22__, __WEBPACK_EXTERNAL_MODULE_92__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_97__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 31);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -175,7 +175,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(34)
+var listToStyles = __webpack_require__(35)
 
 /*
 type StyleObject = {
@@ -545,11 +545,11 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_popup_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_popup_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_popup_vue__);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_190d0968_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_popup_vue__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_190d0968_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_popup_vue__ = __webpack_require__(49);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(32)
+  __webpack_require__(33)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -609,15 +609,15 @@ var _morph = __webpack_require__(8);
 
 var _morph2 = _interopRequireDefault(_morph);
 
-var _setting = __webpack_require__(12);
+var _setting = __webpack_require__(13);
 
 var _setting2 = _interopRequireDefault(_setting);
 
-var _interactjs = __webpack_require__(14);
+var _interactjs = __webpack_require__(15);
 
 var _interactjs2 = _interopRequireDefault(_interactjs);
 
-var _close = __webpack_require__(15);
+var _close = __webpack_require__(16);
 
 var _close2 = _interopRequireDefault(_close);
 
@@ -1100,11 +1100,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_morph_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_morph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_morph_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_morph_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_morph_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_85d98878_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_morph_vue__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_85d98878_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_morph_vue__ = __webpack_require__(45);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(35)
+  __webpack_require__(36)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -1166,152 +1166,15 @@ var _shortdef = __webpack_require__(10);
 
 var _shortdef2 = _interopRequireDefault(_shortdef);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inflAttribute = __webpack_require__(41);
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _inflAttribute2 = _interopRequireDefault(_inflAttribute);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: 'Morph',
-  components: { shortdef: _shortdef2.default },
+  components: { shortdef: _shortdef2.default, inflectionattribute: _inflAttribute2.default },
   props: {
     lexemes: {
       type: Array,
@@ -1342,56 +1205,117 @@ exports.default = {
     groupClass: function groupClass(group) {
       return group.groupingKey.isCaseInflectionSet ? 'alpheios-morph__inline' : 'alpheios-morph__block';
     },
-    attributeClass: function attributeClass(featureType) {
-      var classList = [];
-      if (this.linkedfeatures.includes(featureType)) {
-        classList.push('alpheios-morph__linkedattr');
-      } else {
-        classList.push('alpheios-morph__attr');
-      }
-
-      for (var _len = arguments.length, extras = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        extras[_key - 1] = arguments[_key];
-      }
-
-      classList.push.apply(classList, extras);
-      return classList.join(' ');
-    },
     featureMatch: function featureMatch(a, b) {
       if (a && b) {
         return a.isEqual(b);
       }
       return false;
     },
-    sendFeature: function sendFeature(features) {
-      var tosend = features;
-      if (Array.isArray(features)) {
-        // TODO eventually we should support multiple features but
-        // for the moment just send the first
-        tosend = features[0];
-      }
-      if (this.linkedfeatures.includes(tosend.type)) {
-        this.$emit('sendfeature', tosend);
-      } else return false;
+    sendFeature: function sendFeature(data) {
+      this.$emit('sendfeature', data);
     },
     showLexeme: function showLexeme(lex) {
       return lex.isPopulated();
     },
-    featureList: function featureList(lemma, features) {
+    featureList: function featureList(lemma, features, name) {
       var list = features.map(function (i) {
         return lemma.features[i] ? _alpheiosDataModels.GrmFeature.toFeature(lemma.features[i]) : null;
       }).filter(function (i) {
         return i;
       });
-      return list.length > 0 ? '(' + list.map(function (f) {
-        return f.value;
+      list = list.length > 0 ? '(' + list.map(function (f) {
+        return f;
       }).join(', ') + ')' : '';
+      var returnObj = {};
+      returnObj[name] = { value: list };
+      return returnObj;
     },
     languageCode: function languageCode(languageID) {
       return _alpheiosDataModels.LanguageModelFactory.getLanguageCodeFromId(languageID);
     }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 10 */
@@ -1402,11 +1326,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_shortdef_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_shortdef_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_shortdef_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_shortdef_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_shortdef_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_31ff257d_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_shortdef_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_31ff257d_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_shortdef_vue__ = __webpack_require__(40);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(37)
+  __webpack_require__(38)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -1473,24 +1397,117 @@ exports.default = {
   props: ['definition'],
   methods: {},
   mounted: function mounted() {
-    console.log('ShortDef is mounted');
+    //console.log('ShortDef is mounted')
   }
 };
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+
+exports.default = {
+  name: 'InflectionAttribute',
+  props: {
+    data: {
+      type: Object,
+      required: true
+    },
+    type: {
+      type: String,
+      required: true
+    },
+    grouplevel: {
+      type: Number,
+      required: false,
+      default: function _default() {
+        return 0;
+      }
+    },
+    linkedfeatures: {
+      type: Array,
+      required: false,
+      default: function _default() {
+        return [];
+      }
+    },
+    decorators: {
+      type: Array,
+      required: false,
+      default: function _default() {
+        return [""];
+      }
+    }
+  },
+  methods: {
+    attributeClass: function attributeClass(featureType) {
+      var classList = [];
+      if (this.linkedfeatures.includes(featureType)) {
+        classList.push('alpheios-morph__linkedattr');
+      } else {
+        classList.push('alpheios-morph__attr');
+      }
+
+      for (var _len = arguments.length, extras = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        extras[_key - 1] = arguments[_key];
+      }
+
+      classList.push.apply(classList, extras);
+      return classList.join(' ');
+    },
+    decorate: function decorate(data, type) {
+      var decorated = data[type].value;
+      if (this.decorators.includes('abbreviate')) {
+        decorated = data[type].toLocaleStringAbbr();
+      }
+      if (this.decorators.includes('appendtype')) {
+        decorated = decorated + ' ' + type;
+      }
+      if (this.decorators.includes("parenthesize")) {
+        decorated = '(' + decorated + ')';
+      }
+      if (this.decorators.includes("brackets")) {
+        decorated = '[' + decorated + ']';
+      }
+      return decorated;
+    },
+    sendFeature: function sendFeature(features) {
+      var tosend = features;
+      if (Array.isArray(features)) {
+        // TODO eventually we should support multiple features but
+        // for the moment just send the first
+        tosend = features[0];
+      }
+      if (this.linkedfeatures.includes(tosend.type)) {
+        this.$emit('sendfeature', tosend);
+      } else return false;
+    }
+  }
+};
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_setting_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_20e7bc0c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_setting_vue__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_20e7bc0c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_setting_vue__ = __webpack_require__(48);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(41)
+  __webpack_require__(46)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -1536,7 +1553,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1590,7 +1607,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -8768,30 +8785,30 @@ win.init = init;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","stroke-width":"1.06","d":"M16 16L4 4M16 4L4 16"}})])}}};
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAArCAYAAADL7YBvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuOWwzfk4AAAXgSURBVGhDxZo/iyRlEMY3Mj4/gLBmlwgbaHKBdyYXiOBiIBooe3CRCrvZCSYLFxhOYKbiRoKYLIIYCet9gLuNL9pE4/MbtPXrq2eupvp9u3umu8eCh+n3fz31r3um56BpmoMl5M9//j0y3Mvw4f9X5iDthM4NV4YbQzOAF4ZLw5nh0LfZn+xK2pTFkxcGCJSIbQOMtb8o2Ja0KXfiSpaUnwr2PfKjlpOxpFHGlSopOzfO/NhlZAxpU2KVlNoHLvz4+aWPtB18y3AdFNk3liFeI20HEs5zFKmpmD/US6TtoMmEV78/afH1j782Dx5/twZt+r//62lxXQXzFrdM2g7YOqQhAKG3P3rYvP7We81rb74zCsy9+/lpa4jSvgHXrt48UiDNQ0Pp4A38/PR58/Gjb5s37nzQIQJ5xqJnha9WP7X9kI1rb9//ZMj7J67idImkbePjdFAHkH3/y282iMpbjJXW9AGirGcfDNZD/MbVnC4ibZsS1r2PkBBT+OIl2r89/7szD/KPf/ljnccReLpEjL1GEJ8ntwNpnoNLB7WQd1EKxfM4ijJHRhkCRsMwcQ/2ZYxQj/0Bq1bZqRJIV72McihT8gJeJYdFhjmEK16NuRxzOqYH13E/hTrrY79jVEGz9YeGW97sCqRtM25RpUPa8JX3MuEY7niHdhzvA8ZiDWsjcfrZE5RSx9XuCCQNJ4Zr9jRc+VBXnHT1MVO5lj2C13zzarhTwYkCyEGCa/ZhLXMgJeLRs1znvoCNb2M278hwwfwAiB/7lK446eoXCYVb9rJuN9m7OdyFfGuTEeVZ+rhWH236496OezaWvQpeGFaG4e/nTrq0eQuUzYcrx7P3MYwIKNxziNInA8iTKmAYS/PYm75Y7DDGu5+dQhSC7bjhyrDdPXyINBtHZYDCL1dfeTgbIyPWCXlXhlBEybB6BkjRA2lCerdfXaaQVm4ChWSeW4NqBXkf2zIY5GlHED0fnp5Dtl6ZTWyc6s08jNM1zFykVdgqxacDeVupE9s5/zk/1JRqgbK5kSxrbwxdA40hjYVjn0JPXgLyNArHuX1Q3vKpKi4Q1uyv8bAuV28VNXJb6yF9bihHxBBp5VLswyv0yUuC5qJkLmACxiGUmZM9qjaENV/9YQ+8yW0KUrF6A9oYoDf8Rbp6y5K1c9GSl2I4QwhD0M8nRoigP0PzVdDU1p5axzmVPSDKrar6XM6Y4dyba9LVhxOFcgqxdTijZLyH4+GSFwEhjBchoHqg54DchmAOeQd5St7i0cHq7fOU4y/nO+nqYyiAGMghq/trJr4NFEklIwF5l08zzCtvDYit4SEm5vmrezmkEVOg+oWjFMp5DEBAYVoCRsOjtVCFuPaLxROjel73frW0daWixvXmukCa1zLrgyJiKJdIUZgY00EoCKmIOB7nQVJj2k9eV1shb+iEs/WRr2eGS58jtEXNp21KIM2PCNUfA/EOm+Xbl4AXCfc+gowRDRgpGk+klCLytvJcaWSgYh/7JySVqwL53lvUWhFpxA6oehuosKBUaXxXiJQKnEhjDAxVKWgA0pDH0+N/VYmkEVOi+kso3pQCfO5avCCGt5XbCucByKvy9m7P3UiBdO9v3hBHUVegvZaHMrjdMUZI95FTOvDJfHme+X4uDyTK2d3JSjJpxA7hzeQG2Qw8NdJDG4A84StD6TaoCNL+Mqxdt6927JoQpm/6T8El0ogdNuqlHQVJoVqCvC5yNeTipfu3oX3Wtk+8TfuyVXCK1Egjdjgv3TsKLgGFNAakrSdBw/pdll1TnesKj5U+0ogpsJfXtHgYQniY9g9PnimH1561ax48xlfpmgyRRkwJcnzxN5iQJJftWnlMxZ7vzYZkDGnEFKGqL/quWsXMj4R0621vzidjSUtMOR5gFvH6nU+/aHPWEIvX9HDOsi1pxBQ8NMxZ5Piyw7cicnZNejHZhbTEFIU8nh/z37ESWLdx312cMDKFdBRTnpznJSDvt/uMwK803BHmD9tRcnDwH43ZW105a0tmAAAAAElFTkSuQmCC"
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_panel_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_panel_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_panel_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_panel_vue__);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_352b9280_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_panel_vue__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_352b9280_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_panel_vue__ = __webpack_require__(80);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(45)
+  __webpack_require__(50)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -8837,7 +8854,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8847,11 +8864,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inflections = __webpack_require__(47);
+var _inflections = __webpack_require__(52);
 
 var _inflections2 = _interopRequireDefault(_inflections);
 
-var _setting = __webpack_require__(12);
+var _setting = __webpack_require__(13);
 
 var _setting2 = _interopRequireDefault(_setting);
 
@@ -8863,15 +8880,15 @@ var _morph = __webpack_require__(8);
 
 var _morph2 = _interopRequireDefault(_morph);
 
-var _grammar = __webpack_require__(59);
+var _grammar = __webpack_require__(64);
 
 var _grammar2 = _interopRequireDefault(_grammar);
 
-var _info = __webpack_require__(63);
+var _info = __webpack_require__(68);
 
 var _info2 = _interopRequireDefault(_info);
 
-var _interactjs = __webpack_require__(14);
+var _interactjs = __webpack_require__(15);
 
 var _interactjs2 = _interopRequireDefault(_interactjs);
 
@@ -8879,39 +8896,39 @@ var _locales = __webpack_require__(4);
 
 var _locales2 = _interopRequireDefault(_locales);
 
-var _attachLeft = __webpack_require__(67);
+var _attachLeft = __webpack_require__(72);
 
 var _attachLeft2 = _interopRequireDefault(_attachLeft);
 
-var _attachRight = __webpack_require__(68);
+var _attachRight = __webpack_require__(73);
 
 var _attachRight2 = _interopRequireDefault(_attachRight);
 
-var _close = __webpack_require__(15);
+var _close = __webpack_require__(16);
 
 var _close2 = _interopRequireDefault(_close);
 
-var _definitions = __webpack_require__(69);
+var _definitions = __webpack_require__(74);
 
 var _definitions2 = _interopRequireDefault(_definitions);
 
-var _inflections3 = __webpack_require__(70);
+var _inflections3 = __webpack_require__(75);
 
 var _inflections4 = _interopRequireDefault(_inflections3);
 
-var _status = __webpack_require__(71);
+var _status = __webpack_require__(76);
 
 var _status2 = _interopRequireDefault(_status);
 
-var _options = __webpack_require__(72);
+var _options = __webpack_require__(77);
 
 var _options2 = _interopRequireDefault(_options);
 
-var _resources = __webpack_require__(73);
+var _resources = __webpack_require__(78);
 
 var _resources2 = _interopRequireDefault(_resources);
 
-var _info3 = __webpack_require__(74);
+var _info3 = __webpack_require__(79);
 
 var _info4 = _interopRequireDefault(_info3);
 
@@ -9202,7 +9219,7 @@ exports.default = {
 //
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9212,15 +9229,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inflectionsTableWide = __webpack_require__(50);
+var _inflectionsTableWide = __webpack_require__(55);
 
 var _inflectionsTableWide2 = _interopRequireDefault(_inflectionsTableWide);
 
-var _inflectionsSubtablesWide = __webpack_require__(54);
+var _inflectionsSubtablesWide = __webpack_require__(59);
 
 var _inflectionsSubtablesWide2 = _interopRequireDefault(_inflectionsSubtablesWide);
 
-var _alpheiosInflectionTables = __webpack_require__(22);
+var _alpheiosInflectionTables = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9633,7 +9650,7 @@ exports.default = {
 // Subcomponents
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9677,7 +9694,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9721,13 +9738,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9754,7 +9771,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9795,11 +9812,11 @@ exports.default = {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__message_bundle__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__message_bundle__ = __webpack_require__(81);
 
 
 /**
@@ -9843,7 +9860,7 @@ class L10n {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9881,23 +9898,23 @@ exports.hop = hop;
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = "{\n  \"COOKIE_TEST_MESSAGE\": {\n    \"message\": \"This is a test message about a cookie.\",\n    \"description\": \"A test message that is shown in a panel\",\n    \"component\": \"Panel\"\n  },\n  \"NUM_LINES_TEST_MESSAGE\": {\n    \"message\": \"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.\",\n    \"description\": \"A test message that is shown in a panel\",\n    \"component\": \"Panel\",\n    \"params\": [\"numLines\"]\n  },\n  \"TOOLTIP_MOVE_PANEL_LEFT\": {\n    \"message\": \"Move Panel to Left\",\n    \"description\": \"tooltip for moving the panel to the left\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_MOVE_PANEL_RIGHT\": {\n    \"message\": \"Move Panel to Right\",\n    \"description\": \"tooltip for moving the panel to the right\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_CLOSE_PANEL\": {\n    \"message\": \"Close Panel\",\n    \"description\": \"tooltip for closing the panel\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_HELP\": {\n    \"message\": \"Help\",\n    \"description\": \"tooltip for help tab\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_INFLECT\": {\n    \"message\": \"Inflection Tables\",\n    \"description\": \"tooltip for inflections tab\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_DEFINITIONS\": {\n    \"message\": \"Definitions\",\n    \"description\": \"tooltip for definitions tab\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_GRAMMAR\": {\n    \"message\": \"Grammar\",\n    \"description\": \"tooltip for grammar tab\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_OPTIONS\": {\n    \"message\": \"Options\",\n    \"description\": \"tooltip for settings tab\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_STATUS\": {\n    \"message\": \"Status Messages\",\n    \"description\": \"tooltip for status tab\",\n    \"component\": \"Panel\"\n  },\n  \"PLACEHOLDER_DEFINITIONS\":  {\n    \"message\": \"Lookup a word to show definitions...\",\n    \"description\": \"placeholder for definitions panel\",\n    \"component\": \"Panel\"\n  },\n  \"PLACEHOLDER_INFLECT\":  {\n    \"message\": \"Lookup a word to show inflections...\",\n    \"description\": \"placeholder for inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"PLACEHOLDER_INFLECT_UNAVAILABLE\":  {\n    \"message\": \"Inflection data is unavailable\",\n    \"description\": \"placeholder for inflections panel if unavailable\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFLECT_SELECT_POFS\":  {\n    \"message\": \"Part of speech:\",\n    \"description\": \"label for part of speech selector on inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFLECT_SHOWFULL\": {\n    \"message\": \"Full Table\",\n    \"description\": \"label for show full table button on inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFLECT_COLLAPSE\": {\n    \"message\": \"Collapse\",\n    \"description\": \"label for collapse table button on inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFLECT_HIDEEMPTY\": {\n    \"message\": \"Hide empty columns\",\n    \"description\": \"label for hide empty columns button on inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFLECT_SHOWEMPTY\": {\n    \"message\": \"Show empty columns\",\n    \"description\": \"label for show empty columns button on inflections panel\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_GETTINGSTARTED\": {\n    \"message\": \"Getting Started\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_GETTINGSTARTED\": {\n    \"message\": \"Getting Started\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_ACTIVATE\": {\n    \"message\": \"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_CLICK\": {\n    \"message\": \"Double-click on a word to retrieve morphology and short definitions.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_LANGDETECT\": {\n    \"message\": \"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"LABEL_INFO_CURRENTLANGUAGE\": {\n    \"message\": \"Current language:\",\n    \"description\": \"label for current language in info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_SETTINGS\": {\n    \"message\": \"Click the Settings wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_ARROW\": {\n    \"message\": \"Use the arrow at the top of this panel to move it from the right to left of your browser window.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_REOPEN\": {\n    \"message\": \"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TEXT_INFO_DEACTIVATE\": {\n    \"message\": \"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.\",\n    \"description\": \"info text\",\n    \"component\": \"Panel\"\n  },\n  \"TOOLTIP_POPUP_CLOSE\": {\n    \"message\": \"Close Popup\",\n    \"description\": \"tooltip for closing the popup\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_INFLECT\": {\n    \"message\": \"Inflect\",\n    \"description\": \"label for inflect button on popup\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_OPTIONS\": {\n    \"message\": \"Options\",\n    \"description\": \"label for options button on popup\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_DEFINE\": {\n    \"message\": \"Define\",\n    \"description\": \"label for define button on popup\",\n    \"component\": \"Popup\"\n  },\n  \"PLACEHOLDER_POPUP_DATA\": {\n    \"message\": \"No lexical data is available yet\",\n    \"description\": \"placeholder text for popup data\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_CREDITS\": {\n    \"message\": \"Credits:\",\n    \"description\": \"label for credits on popup\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_SHOWCREDITS\": {\n    \"message\": \"Credits\",\n    \"description\": \"label for show credits link on popup\",\n    \"component\": \"Popup\"\n  },\n  \"LABEL_POPUP_HIDECREDITS\": {\n    \"message\": \"Hide Credits\",\n    \"description\": \"label for hide credits link on popup\",\n    \"component\": \"Popup\"\n  },\n  \"TEXT_NOTICE_CHANGE_LANGUAGE\": {\n    \"message\": \"Language: {languageName}<br>Wrong? Change to:\",\n    \"description\": \"language notification\",\n    \"component\": \"UI\",\n    \"params\": [\"languageName\"]\n  },\n  \"TEXT_NOTICE_LANGUAGE_UNKNOWN\": {\n    \"message\": \"unknown\",\n    \"description\": \"unknown language notification\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_GRAMMAR_NOTFOUND\": {\n    \"message\": \"The requested grammar resource is not currently available\",\n    \"description\": \"grammar not found notification\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_MORPHDATA_READY\": {\n    \"message\": \"Morphological analyzer data is ready\",\n    \"description\": \"morph data ready notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_MORPHDATA_NOTFOUND\": {\n    \"message\": \"Morphological data not found. Definition queries pending.\",\n    \"description\": \"morph data not found notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_INFLDATA_READY\": {\n    \"message\": \"Inflection data is ready\",\n    \"description\": \"inflection data ready notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_DEFSDATA_READY\": {\n    \"message\":\"{requestType} request is completed successfully. Lemma: \\\"{lemma}\\\"\",\n    \"description\": \"definition request success notice\",\n    \"component\": \"UI\",\n    \"params\": [\"requestType\",\"lemma\"]\n  },\n  \"TEXT_NOTICE_DEFSDATA_NOTFOUND\": {\n    \"message\":\"{requestType} request failed. Lemma not found for: \\\"{word}\\\"\",\n    \"description\": \"definition request success notice\",\n    \"component\": \"UI\",\n    \"params\": [\"requestType\",\"word\"]\n  },\n  \"TEXT_NOTICE_LEXQUERY_COMPLETE\": {\n    \"message\": \"All lexical queries complete.\",\n    \"description\": \"lexical queries complete notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_GRAMMAR_READY\": {\n    \"message\": \"Grammar resource retrieved\",\n    \"description\": \"grammar retrieved notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_GRAMMAR_COMPLETE\": {\n    \"message\": \"All grammar resource data retrieved\",\n    \"description\": \"grammar retrieved notice\",\n    \"component\": \"UI\"\n  },\n  \"TEXT_NOTICE_RESQUERY_COMPLETE\": {\n    \"message\": \"All resource data retrieved\",\n    \"description\": \"resource query complete notice\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_BROWSERACTION_DEACTIVATE\": {\n    \"message\": \"Deactivate Alpheios\",\n    \"description\": \"Deactivate browser action title\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_BROWSERACTION_ACTIVATE\": {\n    \"message\": \"Activate Alpheios\",\n    \"description\": \"Activate browser action title\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_BROWSERACTION_DISABLED\": {\n    \"message\": \"(Alpheios Extension Disabled For Page)\",\n    \"description\": \"Disabled browser action title\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_DEACTIVATE\": {\n    \"message\": \"Deactivate\",\n    \"description\": \"Deactivate context menu label\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_ACTIVATE\": {\n    \"message\": \"Activate\",\n    \"description\": \"Activate context menu label\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_DISABLED\": {\n    \"message\": \"(Disabled)\",\n    \"description\": \"Disabled context menu label\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_OPENPANEL\": {\n    \"message\": \"Open Panel\",\n    \"description\": \"Open Panel context menu label\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_INFO\": {\n    \"message\": \"Info\",\n    \"description\": \"Info context menu label\",\n    \"component\": \"UI\"\n  },\n  \"LABEL_CTXTMENU_SENDEXP\": {\n    \"message\": \"Send Experiences to remote server\",\n    \"description\": \"send exp data context menu label\",\n    \"component\": \"UI\"\n  }\n}\n"
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = "{\n  \"COOKIE_TEST_MESSAGE\": {\n    \"message\": \"This is a test message about a biscuit.\",\n    \"description\": \"A test message that is shown in a panel\",\n    \"component\": \"Panel\"\n  },\n  \"NUM_LINES_TEST_MESSAGE\": {\n    \"message\": \"There {numLines, plural, =0 {are no queues} =1 {is one queue} other {are # queues}}.\",\n    \"description\": \"A test message that is shown in a panel\",\n    \"component\": \"Panel\",\n    \"params\": [\"numLines\"]\n  }\n}"
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__query_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__query_js__ = __webpack_require__(31);
 
 
 class ResourceQuery extends __WEBPACK_IMPORTED_MODULE_0__query_js__["a" /* default */] {
@@ -9986,11 +10003,11 @@ class ResourceQuery extends __WEBPACK_IMPORTED_MODULE_0__query_js__["a" /* defau
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid_v4__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid_v4__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid_v4___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uuid_v4__);
 
 
@@ -10086,26 +10103,26 @@ class Query {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vue_components_popup_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_components_panel_vue__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_l10n_l10n__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_components_panel_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_l10n_l10n__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__locales_locales__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__locales_en_us_messages_json__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__locales_en_us_messages_json__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__locales_en_us_messages_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__locales_en_us_messages_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locales_en_gb_messages_json__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locales_en_gb_messages_json__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locales_en_gb_messages_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__locales_en_gb_messages_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_controllers_ui_controller__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_controllers_ui_state__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_selection_media_html_selector__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_queries_lexical_query__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__lib_queries_resource_query__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_options_content_options__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__lib_options_resource_options__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_controllers_ui_controller__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_controllers_ui_state__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_selection_media_html_selector__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_queries_lexical_query__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__lib_queries_resource_query__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_options_content_options__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__lib_options_resource_options__ = __webpack_require__(109);
 /* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__vue_components_popup_vue__, "default")) __webpack_require__.d(__webpack_exports__, "Popup", function() { return __WEBPACK_IMPORTED_MODULE_0__vue_components_popup_vue__["default"]; });
 /* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1__vue_components_panel_vue__, "default")) __webpack_require__.d(__webpack_exports__, "Panel", function() { return __WEBPACK_IMPORTED_MODULE_1__vue_components_panel_vue__["default"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "L10n", function() { return __WEBPACK_IMPORTED_MODULE_2__lib_l10n_l10n__["a"]; });
@@ -10136,13 +10153,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(33);
+var content = __webpack_require__(34);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -10162,7 +10179,7 @@ if(false) {
 }
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -10176,7 +10193,7 @@ exports.push([module.i, "\n.alpheios-popup {\n  display: flex;\n  flex-direction
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 /**
@@ -10209,13 +10226,13 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(36);
+var content = __webpack_require__(37);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -10235,7 +10252,7 @@ if(false) {
 }
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -10243,19 +10260,19 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.alpheios-morph__lexemes {\n  color: #0E2233;\n}\n.alpheios-morph__dictentry {\n  margin-bottom: .5em;\n  padding-bottom: 5px;\n  clear: both;\n}\n.alpheios-morph__formtext {\n  font-weight: bold;\n}\n.alpheios-morph__dictentry .alpheios-morph__formtext {\n  font-size: larger;\n}\n.alpheios-morph__dictentry .alpheios-morph__forms .alpheios-morph__formtext {\n  font-size: inherit;\n}\n.alpheios-morph__source {\n  font-size: smaller;\n  color: #4E6476;\n  font-style: italic;\n}\n.alpheios-morph__dial {\n  font-size: smaller;\n}\n.alpheios-morph__attr {\n  font-weight: normal;\n  padding-right: .25em;\n}\n.alpheios-morph__linkedattr {\n  color: #3E8D9C;\n  font-weight: bold;\n  cursor: pointer;\n  padding-right: .25em;\n}\n.alpheios-morph__linkedattr:hover {\n  color: #5BC8DC !important;\n}\n.alpheios-morph__pofs span:last-child:after {\n  content: \";\";\n}\n.alpheios-morph__inflset {\n  margin-left: .5em;\n  margin-top: .5em;\n}\n.alpheios-morph__inflset h5 {\n  display: none;\n  font-size: 16px;\n  line-height: 1;\n  margin-bottom: .5em;\n}\n.alpheios-morph__inflset:first-child h5 {\n  color: #4E6476;\n  display: block;\n}\n.alpheios-morph__morphdata {\n  display: inline;\n}\n.alpheios-morph__inflections, .alpheios-morph__definition, .alpheios-morph__forms {\n  margin-left: .5em;\n}\n.alpheios-morph__listitem:after {\n  content: \", \";\n}\n.alpheios-morph__listitem:last-child:after {\n  content: \"\";\n}\n.alpheios-morph__list .alpheios-morph__infl:first-child .alpheios-morph__showiffirst {\n  display: block;\n}\n.alpheios-morph__list .alpheios-morph__infl .alpheios-morph__showiffirst {\n  display: none;\n}\n.alpheios-morph__lexemes .alpheios-definition__lemma {\n  display: none;\n}\ndiv.alpheios-morph__inline {\n  display: inline;\n}\ndiv.alpheios-morph__block {\n  display: block;\n}\n.alpheios-panel__tab-panel .alpheios-morph__lexemes {\n  font-size: .75rem;\n}\n.alpheios-morph__inflfeatures span:first-child:before {\n  content: '(';\n}\n.alpheios-morph__inflfeatures span:last-child:after {\n  content: ')';\n}\n", ""]);
+exports.push([module.i, "\n.alpheios-morph__lexemes {\n  color: #0E2233;\n}\n.alpheios-morph__dictentry {\n  margin-bottom: .5em;\n  padding-bottom: 5px;\n  clear: both;\n}\n.alpheios-morph__formtext {\n  font-weight: bold;\n}\n.alpheios-morph__dictentry .alpheios-morph__formtext {\n  font-size: larger;\n}\n.alpheios-morph__dictentry .alpheios-morph__forms .alpheios-morph__formtext {\n  font-size: inherit;\n}\n.alpheios-morph__source {\n  font-size: smaller;\n  color: #4E6476;\n  font-style: italic;\n}\n.alpheios-morph__dial {\n  font-size: smaller;\n}\n.alpheios-morph__attr {\n  font-weight: normal;\n  padding-right: .25em;\n}\n.alpheios-morph__linkedattr {\n  color: #3E8D9C;\n  font-weight: bold;\n  cursor: pointer;\n  padding-right: .25em;\n}\n.alpheios-morph__linkedattr:hover {\n  color: #5BC8DC !important;\n}\n.alpheios-morph__pofs span:last-child:after {\n  content: \";\";\n}\n.alpheios-morph__inflset {\n  margin-left: .5em;\n  margin-top: .5em;\n}\n.alpheios-morph__inflset h5 {\n  display: none;\n  font-size: 16px;\n  line-height: 1;\n  margin-bottom: .5em;\n}\n.alpheios-morph__inflset:first-child h5 {\n  color: #4E6476;\n  display: block;\n}\n.alpheios-morph__morphdata {\n  display: inline;\n}\n.alpheios-morph__inflections, .alpheios-morph__definition, .alpheios-morph__forms {\n  margin-left: .5em;\n}\n.alpheios-morph__listitem:after {\n  content: \", \";\n}\n.alpheios-morph__listitem:last-child:after {\n  content: \"\";\n}\n.alpheios-morph__list .alpheios-morph__infl:first-child .alpheios-morph__showiffirst {\n  display: block;\n}\n.alpheios-morph__list .alpheios-morph__infl .alpheios-morph__showiffirst {\n  display: none;\n}\n.alpheios-morph__lexemes .alpheios-definition__lemma {\n  display: none;\n}\ndiv.alpheios-morph__inline {\n  display: inline;\n}\ndiv.alpheios-morph__block {\n  display: block;\n}\n.alpheios-panel__tab-panel .alpheios-morph__lexemes {\n  font-size: .75rem;\n}\n.alpheios-morph__inflfeatures span:first-child:before {\n  content: '(';\n}\n.alpheios-morph__inflfeatures span:last-child:after {\n  content: ')';\n}\n.alpheios-morph__groupitem:last-child:after {\n  content: ':';\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(38);
+var content = __webpack_require__(39);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -10275,7 +10292,7 @@ if(false) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -10289,7 +10306,7 @@ exports.push([module.i, "\n.alpheios-definition__text {\n  color: #0E2233;\n  fo
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10319,7 +10336,144 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_b22c6c24_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_infl_attribute_vue__ = __webpack_require__(44);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(42)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_infl_attribute_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_b22c6c24_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_infl_attribute_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "vue-components/infl-attribute.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b22c6c24", Component.options)
+  } else {
+    hotAPI.reload("data-v-b22c6c24", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(43);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("37f9919a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b22c6c24\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./infl-attribute.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b22c6c24\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./infl-attribute.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.data[_vm.type]
+    ? _c(
+        "span",
+        {
+          class: _vm.attributeClass(_vm.type),
+          attrs: {
+            "data-feature": _vm.type,
+            "data-grouplevel": _vm.grouplevel
+          },
+          on: {
+            click: function($event) {
+              _vm.sendFeature(_vm.data[_vm.type])
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.decorate(_vm.data, _vm.type)))]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b22c6c24", esExports)
+  }
+}
+
+/***/ }),
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10345,215 +10499,149 @@ var render = function() {
           staticClass: "alpheios-morph__dictentry"
         },
         [
-          !lex.lemma.principalParts.includes(lex.lemma.word)
-            ? _c(
-                "span",
-                {
-                  staticClass: "alpheios-morph__hdwd alpheios-morph__formtext",
-                  attrs: { lang: _vm.languageCode(lex.lemma.languageID) }
-                },
-                [_vm._v(_vm._s(lex.lemma.word))]
-              )
-            : _vm._e(),
+          _c("span", [
+            !lex.lemma.principalParts.includes(lex.lemma.word)
+              ? _c(
+                  "span",
+                  {
+                    staticClass:
+                      "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem",
+                    attrs: { lang: _vm.languageCode(lex.lemma.languageID) }
+                  },
+                  [_vm._v(_vm._s(lex.lemma.word))]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass:
+                  "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
+              },
+              _vm._l(lex.lemma.principalParts, function(part) {
+                return _c(
+                  "span",
+                  {
+                    staticClass: "alpheios-morph__listitem",
+                    attrs: { lang: _vm.languageCode(lex.lemma.languageID) }
+                  },
+                  [_vm._v(_vm._s(part))]
+                )
+              })
+            )
+          ]),
+          _vm._v(" "),
+          _c("inflectionattribute", {
+            attrs: {
+              data: lex.lemma.features,
+              type: _vm.types.pronunciation,
+              linkedfeatures: _vm.linkedfeatures,
+              decorators: ["brackets"]
+            }
+          }),
           _vm._v(" "),
           _c(
-            "span",
-            { staticClass: "alpheios-morph__hdwd alpheios-morph__formtext" },
-            _vm._l(lex.lemma.principalParts, function(part) {
-              return _c(
+            "div",
+            { staticClass: "alpheios-morph__morphdata" },
+            [
+              _c(
                 "span",
-                {
-                  staticClass: "alpheios-morph__listitem",
-                  attrs: { lang: _vm.languageCode(lex.lemma.languageID) }
-                },
-                [_vm._v(_vm._s(part))]
-              )
-            })
-          ),
-          _vm._v(" :\n    "),
-          lex.lemma.features[_vm.types.pronunciation]
-            ? _c(
-                "span",
-                {
-                  class: _vm.attributeClass(_vm.types.pronunciation),
-                  attrs: { "data-feature": _vm.types.pronunciation }
-                },
+                { staticClass: "alpheios-morph__pofs" },
                 [
-                  _vm._v(
-                    "\n      [" +
-                      _vm._s(
-                        lex.lemma.features[_vm.types.pronunciation].value
-                      ) +
-                      "]\n    "
-                  )
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "alpheios-morph__morphdata" }, [
-            _c("span", { staticClass: "alpheios-morph__pofs" }, [
-              lex.lemma.features[_vm.types.grmCase]
-                ? _c(
-                    "span",
-                    {
-                      class: _vm.attributeClass(_vm.types.grmCase),
-                      attrs: { "data-feature": _vm.types.grmCase },
-                      on: {
-                        click: function($event) {
-                          _vm.sendFeature(lex.lemma.features[_vm.types.grmCase])
-                        }
-                      }
+                  _c("inflectionattribute", {
+                    attrs: {
+                      data: lex.lemma.features,
+                      type: _vm.types.grmCase,
+                      linkedfeatures: _vm.linkedfeatures
                     },
-                    [
-                      _vm._v(
-                        _vm._s(lex.lemma.features[_vm.types.grmCase].value)
-                      )
-                    ]
-                  )
-                : _vm._e(),
+                    on: { sendfeature: _vm.sendFeature }
+                  }),
+                  _vm._v(" "),
+                  _c("inflectionattribute", {
+                    attrs: {
+                      data: lex.lemma.features,
+                      type: _vm.types.gender,
+                      linkedfeatures: _vm.linkedfeatures
+                    },
+                    on: { sendfeature: _vm.sendFeature }
+                  }),
+                  _vm._v(" "),
+                  _c("inflectionattribute", {
+                    attrs: {
+                      data: lex.lemma.features,
+                      type: _vm.types.part,
+                      linkedfeatures: _vm.linkedfeatures
+                    },
+                    on: { sendfeature: _vm.sendFeature }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              lex.lemma.features[_vm.types.gender]
-                ? _c(
-                    "span",
-                    {
-                      class: _vm.attributeClass(_vm.types.gender),
-                      attrs: { "data-feature": _vm.types.gender },
-                      on: {
-                        click: function($event) {
-                          _vm.sendFeature(lex.lemma.features[_vm.types.gender])
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(lex.lemma.features[_vm.types.gender].value))]
-                  )
-                : _vm._e(),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: lex.lemma.features,
+                  type: _vm.types.kind,
+                  linkedfeatures: _vm.linkedfeatures,
+                  decorators: ["parenthesize"]
+                },
+                on: { sendfeature: _vm.sendFeature }
+              }),
               _vm._v(" "),
-              lex.lemma.features[_vm.types.part]
-                ? _c(
-                    "span",
-                    {
-                      class: _vm.attributeClass(_vm.types.part),
-                      attrs: { "data-feature": _vm.types.part },
-                      on: {
-                        click: function($event) {
-                          _vm.sendFeature(lex.lemma.features[_vm.types.part])
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(lex.lemma.features[_vm.types.part].value))]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            lex.lemma.features[_vm.types.kind]
-              ? _c(
-                  "span",
-                  {
-                    class: _vm.attributeClass(_vm.types.kind),
-                    attrs: { "data-feature": _vm.types.kind },
-                    on: {
-                      click: function($event) {
-                        _vm.sendFeature(lex.lemma.features[_vm.types.kind])
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(lex.lemma.features[_vm.types.kind].value))]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            lex.lemma.features[_vm.types.declension]
-              ? _c(
-                  "span",
-                  {
-                    class: _vm.attributeClass(_vm.types.declension),
-                    attrs: { "data-feature": _vm.types.declension },
-                    on: {
-                      click: function($event) {
-                        _vm.sendFeature(
-                          lex.lemma.features[_vm.types.declension]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      _vm._s(lex.lemma.features[_vm.types.declension].value) +
-                        " declension"
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            lex.lemma.features[_vm.types.conjugation]
-              ? _c(
-                  "span",
-                  {
-                    class: _vm.attributeClass(_vm.types.conjugation),
-                    attrs: { "data-feature": _vm.types.conjugation },
-                    on: {
-                      click: function($event) {
-                        _vm.sendFeature(
-                          lex.lemma.features[_vm.types.conjugation]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      _vm._s(lex.lemma.features[_vm.types.conjugation].value) +
-                        " conjugation"
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c("span", { attrs: { "data-feature": "extras" } }, [
-              _vm._v(
-                _vm._s(
-                  _vm.featureList(lex.lemma, [
-                    "age",
-                    "area",
-                    "geo",
-                    "frequency"
-                  ])
-                )
-              )
-            ]),
-            _vm._v(" "),
-            lex.lemma.features[_vm.types.source]
-              ? _c(
-                  "span",
-                  {
-                    staticClass: "alpheios-morph__attr",
-                    attrs: { "data-feature": _vm.types.source }
-                  },
-                  [
-                    _vm._v(
-                      "[" +
-                        _vm._s(lex.lemma.features[_vm.types.source].value) +
-                        "]"
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            lex.lemma.features[_vm.types.note]
-              ? _c(
-                  "span",
-                  {
-                    staticClass: "alpheios-morph__attr",
-                    attrs: { "data-feature": _vm.types.note }
-                  },
-                  [
-                    _vm._v(
-                      "[" +
-                        _vm._s(lex.lemma.features[_vm.types.note].value) +
-                        "]"
-                    )
-                  ]
-                )
-              : _vm._e()
-          ]),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: lex.lemma.features,
+                  type: _vm.types.declension,
+                  linkedfeatures: _vm.linkedfeatures,
+                  decorators: ["appendtype"]
+                },
+                on: { sendfeature: _vm.sendFeature }
+              }),
+              _vm._v(" "),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: lex.lemma.features,
+                  type: _vm.types.conjugation,
+                  linkedfeatures: _vm.linkedfeatures,
+                  decorators: ["appendtype"]
+                },
+                on: { sendfeature: _vm.sendFeature }
+              }),
+              _vm._v(" "),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: _vm.featureList(
+                    lex.lemma,
+                    ["age", "area", "geo", "frequency"],
+                    "extras"
+                  ),
+                  type: "extras"
+                },
+                on: { sendfeature: _vm.sendFeature }
+              }),
+              _vm._v(" "),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: lex.lemma.features,
+                  type: _vm.types.source,
+                  linkedfeatures: _vm.linkedfeatures,
+                  decorators: ["brackets"]
+                },
+                on: { sendfeature: _vm.sendFeature }
+              }),
+              _vm._v(" "),
+              _c("inflectionattribute", {
+                attrs: {
+                  data: lex.lemma.features,
+                  type: _vm.types.note,
+                  linkedfeatures: _vm.linkedfeatures,
+                  decorators: ["brackets"]
+                },
+                on: { sendfeature: _vm.sendFeature }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm.definitions
             ? _c(
@@ -10586,7 +10674,10 @@ var render = function() {
                           "span",
                           {
                             staticClass: "alpheios-morph__formtext",
-                            attrs: { "data-feature": "prefix" }
+                            attrs: {
+                              "data-grouplevel": "1",
+                              "data-feature": "prefix"
+                            }
                           },
                           [_vm._v(_vm._s(inflset.groupingKey.prefix) + " ")]
                         )
@@ -10596,7 +10687,10 @@ var render = function() {
                       "span",
                       {
                         staticClass: "alpheios-morph__formtext",
-                        attrs: { "data-feature": "stem" }
+                        attrs: {
+                          "data-grouplevel": "1",
+                          "data-feature": "stem"
+                        }
                       },
                       [_vm._v(_vm._s(inflset.groupingKey.stem))]
                     ),
@@ -10606,7 +10700,10 @@ var render = function() {
                           "span",
                           {
                             staticClass: "alpheios-morph__formtext",
-                            attrs: { "data-feature": "suffix" }
+                            attrs: {
+                              "data-grouplevel": "1",
+                              "data-feature": "suffix"
+                            }
                           },
                           [_vm._v(" -" + _vm._s(inflset.groupingKey.suffix))]
                         )
@@ -10620,27 +10717,15 @@ var render = function() {
                           lex.lemma.features[_vm.types.part],
                           inflset.groupingKey[_vm.types.part]
                         )
-                          ? _c(
-                              "span",
-                              {
-                                class: _vm.attributeClass(_vm.types.part),
-                                attrs: { "data-feature": _vm.types.part },
-                                on: {
-                                  click: function($event) {
-                                    _vm.sendFeature(
-                                      inflset.groupingKey[_vm.types.part]
-                                    )
-                                  }
-                                }
+                          ? _c("inflectionattribute", {
+                              attrs: {
+                                data: inflset.groupingKey,
+                                type: _vm.types.part,
+                                linkedfeatures: _vm.linkedfeatures,
+                                grouplevel: 1
                               },
-                              [
-                                _vm._v(
-                                  _vm._s(
-                                    inflset.groupingKey["part of speech"].value
-                                  )
-                                )
-                              ]
-                            )
+                              on: { sendfeature: _vm.sendFeature }
+                            })
                           : _vm._e(),
                         _vm._v(" "),
                         inflset.groupingKey.declension &&
@@ -10648,28 +10733,19 @@ var render = function() {
                           inflset.groupingKey.declension,
                           lex.lemma.features.declension
                         )
-                          ? _c(
-                              "span",
-                              {
-                                class: _vm.attributeClass(_vm.types.declension),
-                                attrs: { "data-feature": _vm.types.declension },
-                                on: {
-                                  click: function($event) {
-                                    _vm.sendFeature(
-                                      inflset.groupingKey[_vm.types.declension]
-                                    )
-                                  }
-                                }
+                          ? _c("inflectionattribute", {
+                              attrs: {
+                                data: inflset.groupingKey,
+                                type: _vm.types.declension,
+                                linkedfeatures: _vm.linkedfeatures,
+                                grouplevel: 1,
+                                decorators: ["appendtype"]
                               },
-                              [
-                                _vm._v(
-                                  _vm._s(inflset.groupingKey.declension.value) +
-                                    " declension"
-                                )
-                              ]
-                            )
+                              on: { sendfeature: _vm.sendFeature }
+                            })
                           : _vm._e()
-                      ]
+                      ],
+                      1
                     ),
                     _vm._v(" "),
                     _vm._l(inflset.inflections, function(group) {
@@ -10678,64 +10754,31 @@ var render = function() {
                         { staticClass: "alpheios-morph__inflgroup" },
                         [
                           group.groupingKey.isCaseInflectionSet
-                            ? _c("span", [
-                                group.groupingKey[_vm.types.number]
-                                  ? _c(
-                                      "span",
-                                      {
-                                        class: _vm.attributeClass(
-                                          _vm.types.number
-                                        ),
-                                        attrs: {
-                                          "data-feature": _vm.types.number
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.sendFeature(
-                                              group.groupingKey[
-                                                _vm.types.number
-                                              ]
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          _vm._s(group.groupingKey.number.value)
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                group.groupingKey[_vm.types.tense]
-                                  ? _c(
-                                      "span",
-                                      {
-                                        class: _vm.attributeClass(
-                                          _vm.types.tense
-                                        ),
-                                        attrs: {
-                                          "data-feature": _vm.types.tense
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.sendFeature(
-                                              group.groupingKey[_vm.types.tense]
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          _vm._s(
-                                            group.groupingKey[_vm.types.tense]
-                                              .value
-                                          )
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ])
+                            ? _c(
+                                "span",
+                                [
+                                  _c("inflectionattribute", {
+                                    attrs: {
+                                      data: group.groupingKey,
+                                      type: _vm.types.number,
+                                      linkedfeatures: _vm.linkedfeatures,
+                                      grouplevel: 2
+                                    },
+                                    on: { sendfeature: _vm.sendFeature }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("inflectionattribute", {
+                                    attrs: {
+                                      data: group.groupingKey,
+                                      type: _vm.types.tense,
+                                      linkedfeatures: _vm.linkedfeatures,
+                                      grouplevel: 2
+                                    },
+                                    on: { sendfeature: _vm.sendFeature }
+                                  })
+                                ],
+                                1
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           _vm._l(group.inflections, function(nextGroup) {
@@ -10744,73 +10787,46 @@ var render = function() {
                               { class: _vm.groupClass(group) },
                               [
                                 group.groupingKey.isCaseInflectionSet
-                                  ? _c("span", [
-                                      nextGroup.groupingKey.tense
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.tense
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.tense
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    nextGroup.groupingKey[
-                                                      _vm.types.tense
-                                                    ]
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  nextGroup.groupingKey.tense
-                                                    .value
-                                                )
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      nextGroup.groupingKey.voice
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.voice
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.voice
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    nextGroup.groupingKey[
-                                                      _vm.types.voice
-                                                    ]
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  nextGroup.groupingKey[
-                                                    _vm.types.voice
-                                                  ].value
-                                                )
-                                              )
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(
-                                        "\n                :\n              "
-                                      )
-                                    ])
+                                  ? _c(
+                                      "span",
+                                      [
+                                        _c("inflectionattribute", {
+                                          attrs: {
+                                            data: nextGroup.groupingKey,
+                                            type: _vm.types.tense,
+                                            linkedfeatures: _vm.linkedfeatures,
+                                            grouplevel: 3
+                                          },
+                                          on: { sendfeature: _vm.sendFeature }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("inflectionattribute", {
+                                          attrs: {
+                                            data: nextGroup.groupingKey,
+                                            type: _vm.types.voice,
+                                            linkedfeatures: _vm.linkedfeatures,
+                                            grouplevel: 3
+                                          },
+                                          on: { sendfeature: _vm.sendFeature }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                group.groupingKey.isCaseInflectionSet &&
+                                (group.groupingKey[_vm.types.number] ||
+                                  group.groupingKey[_vm.types.tense] ||
+                                  nextGroup.groupingKey[_vm.types.tense] ||
+                                  _vm.nextgroup.groupingKey[_vm.types.voice])
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "alpheios-morph__groupseparator"
+                                      },
+                                      [_vm._v(":")]
+                                    )
                                   : _vm._e(),
                                 _vm._v(" "),
                                 _vm._l(nextGroup.inflections, function(infl) {
@@ -10818,321 +10834,127 @@ var render = function() {
                                     "div",
                                     { class: _vm.groupClass(group) },
                                     [
-                                      infl.groupingKey[_vm.types.grmCase]
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.grmCase
-                                              ),
-                                              attrs: {
-                                                "data-feature":
-                                                  _vm.types.grmCase
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.grmCase
-                                                    ]
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.grmCase
-                                                    ].value
-                                                  ) +
-                                                  "\n                    "
-                                              ),
-                                              infl.groupingKey[
-                                                _vm.types.gender
-                                              ] &&
-                                              !_vm.featureMatch(
-                                                infl.groupingKey[
-                                                  _vm.types.gender
-                                                ],
-                                                lex.lemma.features[
-                                                  _vm.types.gender
-                                                ]
-                                              )
-                                                ? _c(
-                                                    "span",
-                                                    {
-                                                      class: _vm.attributeClass(
-                                                        _vm.types.gender
-                                                      ),
-                                                      attrs: {
-                                                        "data-feature":
-                                                          _vm.types.gender
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          _vm.sendFeature(
-                                                            infl.groupingKey[
-                                                              _vm.types.gender
-                                                            ]
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                      (" +
-                                                          _vm._s(
-                                                            infl.groupingKey[
-                                                              _vm.types.gender
-                                                            ]
-                                                              .toLocaleStringAbbr()
-                                                              .join(", ")
-                                                          ) +
-                                                          ")\n                    "
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
-                                              infl.groupingKey[
-                                                _vm.types.comparison
+                                      _c("inflectionattribute", {
+                                        attrs: {
+                                          linkedfeatures: _vm.linkedfeatures,
+                                          type: _vm.types.grmCase,
+                                          grouplevel: 4,
+                                          data: infl.groupingKey
+                                        },
+                                        on: { sendfeature: _vm.sendFeature }
+                                      }),
+                                      _vm._v(" "),
+                                      !_vm.featureMatch(
+                                        infl.groupingKey[_vm.types.gender],
+                                        lex.lemma.features[_vm.types.gender]
+                                      )
+                                        ? _c("inflectionattribute", {
+                                            attrs: {
+                                              linkedfeatures:
+                                                _vm.linkedfeatures,
+                                              type: _vm.types.gender,
+                                              grouplevel: 4,
+                                              data: infl.groupingKey,
+                                              decorators: [
+                                                "parenthesize",
+                                                "abbreviate"
                                               ]
-                                                ? _c(
-                                                    "span",
-                                                    {
-                                                      class: _vm.attributeClass(
-                                                        _vm.types.comparison
-                                                      ),
-                                                      attrs: {
-                                                        "data-feature":
-                                                          _vm.types.comparison
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          _vm.sendFeature(
-                                                            infl.groupingKey[
-                                                              _vm.types
-                                                                .comparison
-                                                            ]
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                      " +
-                                                          _vm._s(
-                                                            infl.groupingKey[
-                                                              _vm.types
-                                                                .comparison
-                                                            ].value
-                                                          ) +
-                                                          "\n                    "
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e()
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      infl.groupingKey[_vm.types.person]
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.person
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.person
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.person
-                                                    ]
-                                                  )
-                                                }
-                                              }
                                             },
-                                            [
-                                              _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.person
-                                                    ].value
-                                                  ) +
-                                                  " person\n                  "
-                                              )
-                                            ]
-                                          )
+                                            on: { sendfeature: _vm.sendFeature }
+                                          })
                                         : _vm._e(),
                                       _vm._v(" "),
-                                      infl.groupingKey[_vm.types.number] &&
+                                      _c("inflectionattribute", {
+                                        attrs: {
+                                          linkedfeatures: _vm.linkedfeatures,
+                                          type: _vm.types.comparison,
+                                          grouplevel: 4,
+                                          data: infl.groupingKey
+                                        },
+                                        on: { sendfeature: _vm.sendFeature }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("inflectionattribute", {
+                                        attrs: {
+                                          data: infl.groupingKey,
+                                          type: _vm.types.person,
+                                          linkedfeatures: _vm.linkedfeatures,
+                                          grouplevel: 4,
+                                          decorators: ["appendtype"]
+                                        },
+                                        on: { sendfeature: _vm.sendFeature }
+                                      }),
+                                      _vm._v(" "),
                                       !group.groupingKey.isCaseInflectionSet
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.number
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.number
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.number
-                                                    ]
-                                                  )
-                                                }
-                                              }
+                                        ? _c("inflectionattribute", {
+                                            attrs: {
+                                              data: infl.groupingKey,
+                                              type: _vm.types.number,
+                                              linkedfeatures:
+                                                _vm.linkedfeatures,
+                                              grouplevel: 4
                                             },
-                                            [
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.number
-                                                    ].value
-                                                  ) +
-                                                  "\n                  "
-                                              )
-                                            ]
-                                          )
+                                            on: { sendfeature: _vm.sendFeature }
+                                          })
                                         : _vm._e(),
                                       _vm._v(" "),
-                                      infl.groupingKey[_vm.types.tense] &&
                                       !group.groupingKey.isCaseInflectionSet
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.tense
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.tense
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.tense
-                                                    ]
-                                                  )
-                                                }
-                                              }
+                                        ? _c("inflectionattribute", {
+                                            attrs: {
+                                              data: infl.groupingKey,
+                                              type: _vm.types.tense,
+                                              linkedfeatures:
+                                                _vm.linkedfeatures,
+                                              grouplevel: 4
                                             },
-                                            [
-                                              _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.tense
-                                                    ].value
-                                                  ) +
-                                                  "\n                  "
-                                              )
-                                            ]
-                                          )
+                                            on: { sendfeature: _vm.sendFeature }
+                                          })
                                         : _vm._e(),
                                       _vm._v(" "),
-                                      infl.groupingKey[_vm.types.mood] &&
                                       !group.groupingKey.isCaseInflectionSet
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.mood
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.mood
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.mood
-                                                    ]
-                                                  )
-                                                }
-                                              }
+                                        ? _c("inflectionattribute", {
+                                            attrs: {
+                                              data: infl.groupingKey,
+                                              type: _vm.types.mood,
+                                              linkedfeatures:
+                                                _vm.linkedfeatures,
+                                              grouplevel: 4
                                             },
-                                            [
-                                              _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.mood
-                                                    ].value
-                                                  ) +
-                                                  "\n                  "
-                                              )
-                                            ]
-                                          )
+                                            on: { sendfeature: _vm.sendFeature }
+                                          })
                                         : _vm._e(),
                                       _vm._v(" "),
-                                      infl.groupingKey[_vm.types.voice] &&
                                       !group.groupingKey.isCaseInflectionSet
-                                        ? _c(
-                                            "span",
-                                            {
-                                              class: _vm.attributeClass(
-                                                _vm.types.voice
-                                              ),
-                                              attrs: {
-                                                "data-feature": _vm.types.voice
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.sendFeature(
-                                                    infl.groupingKey[
-                                                      _vm.types.voice
-                                                    ]
-                                                  )
-                                                }
-                                              }
+                                        ? _c("inflectionattribute", {
+                                            attrs: {
+                                              data: infl.groupingKey,
+                                              type: _vm.types.voice,
+                                              linkedfeatures:
+                                                _vm.linkedfeatures,
+                                              grouplevel: 4
                                             },
-                                            [
-                                              _vm._v(
-                                                "\n                    " +
-                                                  _vm._s(
-                                                    infl.groupingKey[
-                                                      _vm.types.voice
-                                                    ].value
-                                                  ) +
-                                                  "\n                  "
-                                              )
-                                            ]
-                                          )
+                                            on: { sendfeature: _vm.sendFeature }
+                                          })
                                         : _vm._e(),
                                       _vm._v(" "),
                                       _vm._l(infl.inflections, function(item) {
-                                        return _c("span", [
-                                          item.example
-                                            ? _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "alpheios-morph__example"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(item.example.value)
-                                                  )
-                                                ]
-                                              )
-                                            : _vm._e()
-                                        ])
+                                        return _c(
+                                          "span",
+                                          [
+                                            _c("inflectionattribute", {
+                                              attrs: {
+                                                data: item,
+                                                type: "example",
+                                                linkedfeatures:
+                                                  _vm.linkedfeatures
+                                              },
+                                              on: {
+                                                sendfeature: _vm.sendFeature
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
                                       })
                                     ],
                                     2
@@ -11152,7 +10974,8 @@ var render = function() {
               ])
             })
           )
-        ]
+        ],
+        1
       )
     })
   )
@@ -11169,13 +10992,13 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(42);
+var content = __webpack_require__(47);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -11195,7 +11018,7 @@ if(false) {
 }
 
 /***/ }),
-/* 42 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -11209,7 +11032,7 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 43 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11318,7 +11141,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11563,7 +11386,7 @@ var render = function() {
       _c("div", { staticClass: "alpheios-popup__providers" }, [
         _c("img", {
           staticClass: "alpheios-popup__logo",
-          attrs: { src: __webpack_require__(16) }
+          attrs: { src: __webpack_require__(17) }
         }),
         _vm._v(" "),
         _c(
@@ -11639,13 +11462,13 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(46);
+var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -11665,7 +11488,7 @@ if(false) {
 }
 
 /***/ }),
-/* 46 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -11679,19 +11502,19 @@ exports.push([module.i, "\n.alpheios-panel {\n  width: 400px;\n  height: 100vh;\
 
 
 /***/ }),
-/* 47 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05cff89c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_vue__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05cff89c_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_vue__ = __webpack_require__(63);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(48)
+  __webpack_require__(53)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -11737,13 +11560,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 48 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -11763,7 +11586,7 @@ if(false) {
 }
 
 /***/ }),
-/* 49 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -11777,19 +11600,19 @@ exports.push([module.i, "\nh3.alpheios-inflections__title {\n  font-size: 1.2rem
 
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_table_wide_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2d5411c6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_table_wide_vue__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2d5411c6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_table_wide_vue__ = __webpack_require__(58);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(51)
+  __webpack_require__(56)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -11835,13 +11658,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(52);
+var content = __webpack_require__(57);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -11861,7 +11684,7 @@ if(false) {
 }
 
 /***/ }),
-/* 52 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -11875,7 +11698,7 @@ exports.push([module.i, "\n.infl-prdgm-tbl {\n  display: table;\n  border-top: 1
 
 
 /***/ }),
-/* 53 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11920,19 +11743,19 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_inflections_subtables_wide_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0e0ca6a6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_subtables_wide_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0e0ca6a6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_inflections_subtables_wide_vue__ = __webpack_require__(62);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(55)
+  __webpack_require__(60)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -11978,13 +11801,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(56);
+var content = __webpack_require__(61);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -12004,7 +11827,7 @@ if(false) {
 }
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -12018,7 +11841,7 @@ exports.push([module.i, "\n.infl-prdgm-tbl {\n  display: table;\n  border-top: 1
 
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12059,7 +11882,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12326,19 +12149,19 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_grammar_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_73b291e3_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_grammar_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_73b291e3_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_grammar_vue__ = __webpack_require__(67);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(60)
+  __webpack_require__(65)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -12384,13 +12207,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(61);
+var content = __webpack_require__(66);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -12410,7 +12233,7 @@ if(false) {
 }
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -12424,7 +12247,7 @@ exports.push([module.i, "\n.alpheios-grammar {\n  display: flex;\n  flex-directi
 
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12457,19 +12280,19 @@ if (false) {
 }
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_info_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ce2840bc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_info_vue__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ce2840bc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_info_vue__ = __webpack_require__(71);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(64)
+  __webpack_require__(69)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
@@ -12515,13 +12338,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(65);
+var content = __webpack_require__(70);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -12541,7 +12364,7 @@ if(false) {
 }
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -12555,7 +12378,7 @@ exports.push([module.i, "\n.alpheios-info {\n  font-family: Arial, \"Helvetica N
 
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12609,55 +12432,55 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","stroke-width":"1.03","d":"M13 16l-6-6 6-6"}})])}}};
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","stroke-width":"1.03","d":"M7 4l6 6-6 6"}})])}}};
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])}}};
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-width":"0","d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])}}};
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])}}};
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])}}};
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"cx":"3","cy":"10","r":"2"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"2"}}),_c('circle',{attrs:{"cx":"17","cy":"10","r":"2"}})])}}};
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = {render: function () {with(this){return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])}}};
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13165,7 +12988,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alpheios-panel__header-logo" }, [
       _c("img", {
         staticClass: "alpheios-panel__header-logo-img",
-        attrs: { src: __webpack_require__(16) }
+        attrs: { src: __webpack_require__(17) }
       })
     ])
   }
@@ -13181,11 +13004,11 @@ if (false) {
 }
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_intl_messageformat__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_intl_messageformat__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_intl_messageformat___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_intl_messageformat__);
 
 
@@ -13277,7 +13100,7 @@ class MessageBundle {
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13285,11 +13108,11 @@ class MessageBundle {
 
 
 
-var IntlMessageFormat = __webpack_require__(78)['default'];
+var IntlMessageFormat = __webpack_require__(83)['default'];
 
 // Add all locale data to `IntlMessageFormat`. This module will be ignored when
 // bundling for the browser with Browserify/Webpack.
-__webpack_require__(85);
+__webpack_require__(90);
 
 // Re-export `IntlMessageFormat` as the CommonJS default exports with all the
 // locale data registered, and with English set as the default locale. Define
@@ -13299,14 +13122,14 @@ exports['default'] = exports;
 
 
 /***/ }),
-/* 78 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* jslint esnext: true */
 
 
-var src$core$$ = __webpack_require__(79), src$en$$ = __webpack_require__(84);
+var src$core$$ = __webpack_require__(84), src$en$$ = __webpack_require__(89);
 
 src$core$$["default"].__addLocaleData(src$en$$["default"]);
 src$core$$["default"].defaultLocale = 'en';
@@ -13316,7 +13139,7 @@ exports["default"] = src$core$$["default"];
 //# sourceMappingURL=main.js.map
 
 /***/ }),
-/* 79 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13329,7 +13152,7 @@ See the accompanying LICENSE file for terms.
 /* jslint esnext: true */
 
 
-var src$utils$$ = __webpack_require__(26), src$es5$$ = __webpack_require__(80), src$compiler$$ = __webpack_require__(81), intl$messageformat$parser$$ = __webpack_require__(82);
+var src$utils$$ = __webpack_require__(27), src$es5$$ = __webpack_require__(85), src$compiler$$ = __webpack_require__(86), intl$messageformat$parser$$ = __webpack_require__(87);
 exports["default"] = MessageFormat;
 
 // -- MessageFormat --------------------------------------------------------
@@ -13599,7 +13422,7 @@ MessageFormat.prototype._resolveLocale = function (locales) {
 //# sourceMappingURL=core.js.map
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13612,7 +13435,7 @@ See the accompanying LICENSE file for terms.
 /* jslint esnext: true */
 
 
-var src$utils$$ = __webpack_require__(26);
+var src$utils$$ = __webpack_require__(27);
 
 // Purposely using the same implementation as the Intl.js `Intl` polyfill.
 // Copyright 2013 Andy Earnshaw, MIT License
@@ -13655,7 +13478,7 @@ exports.defineProperty = defineProperty, exports.objCreate = objCreate;
 //# sourceMappingURL=es5.js.map
 
 /***/ }),
-/* 81 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13870,18 +13693,18 @@ SelectFormat.prototype.getOption = function (value) {
 //# sourceMappingURL=compiler.js.map
 
 /***/ }),
-/* 82 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports = module.exports = __webpack_require__(83)['default'];
+exports = module.exports = __webpack_require__(88)['default'];
 exports['default'] = exports;
 
 
 /***/ }),
-/* 83 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15288,7 +15111,7 @@ exports["default"] = (function() {
 //# sourceMappingURL=parser.js.map
 
 /***/ }),
-/* 84 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15299,33 +15122,33 @@ exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=
 //# sourceMappingURL=en.js.map
 
 /***/ }),
-/* 85 */
+/* 90 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 86 */
+/* 91 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_alpheios_data_models__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_alpheios_data_models___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_alpheios_data_models__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_dist_vue__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_dist_vue__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_dist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_dist_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_components_panel_vue__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_components_panel_vue__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_components_popup_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__l10n_l10n__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__l10n_l10n__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locales_locales__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locales_en_us_messages_json__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locales_en_us_messages_json__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__locales_en_us_messages_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__locales_en_us_messages_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__locales_en_gb_messages_json__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__locales_en_gb_messages_json__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__locales_en_gb_messages_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__locales_en_gb_messages_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__template_htmlf__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__template_htmlf__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__template_htmlf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__template_htmlf__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_alpheios_res_client__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_alpheios_res_client__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_alpheios_res_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_alpheios_res_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__queries_resource_query__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__queries_resource_query__ = __webpack_require__(30);
 /* global Node */
 
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
@@ -16069,7 +15892,7 @@ class UIController {
 
 
 /***/ }),
-/* 87 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -27020,10 +26843,10 @@ return Vue;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(88).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(93).setImmediate))
 
 /***/ }),
-/* 88 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -27076,7 +26899,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(89);
+__webpack_require__(94);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -27090,7 +26913,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 89 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -27280,10 +27103,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(90)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(95)))
 
 /***/ }),
-/* 90 */
+/* 95 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -27473,23 +27296,23 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"alpheios-popup\" >\n    <popup :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :linkedfeatures=\"linkedFeatures\"\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\">\n    </popup>\n</div>\n<div id=\"alpheios-panel\">\n    <panel :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\"\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\n           @changetab=\"changeTab\"></panel>\n</div>\n";
 
 /***/ }),
-/* 92 */
+/* 97 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_92__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_97__;
 
 /***/ }),
-/* 93 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(94);
-var bytesToUuid = __webpack_require__(95);
+var rng = __webpack_require__(99);
+var bytesToUuid = __webpack_require__(100);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -27520,7 +27343,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 94 */
+/* 99 */
 /***/ (function(module, exports) {
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -27558,7 +27381,7 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 95 */
+/* 100 */
 /***/ (function(module, exports) {
 
 /**
@@ -27587,7 +27410,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 96 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27681,16 +27504,16 @@ class UIStateAPI {
 
 
 /***/ }),
-/* 97 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_closest__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_closest__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_closest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_element_closest__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_alpheios_data_models__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_alpheios_data_models___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_alpheios_data_models__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__text_selector__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_selector__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__text_selector__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__media_selector__ = __webpack_require__(106);
  // To polyfill Element.closest() if required
 
 
@@ -27888,7 +27711,7 @@ class HTMLSelector extends __WEBPACK_IMPORTED_MODULE_3__media_selector__["a" /* 
 
 
 /***/ }),
-/* 98 */
+/* 103 */
 /***/ (function(module, exports) {
 
 // element-closest | CC0-1.0 | github.com/jonathantneal/closest
@@ -27927,11 +27750,11 @@ class HTMLSelector extends __WEBPACK_IMPORTED_MODULE_3__media_selector__["a" /* 
 
 
 /***/ }),
-/* 99 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__w3c_text_quote_selector__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__w3c_text_quote_selector__ = __webpack_require__(105);
 
 
 /**
@@ -28014,7 +27837,7 @@ class TextSelector {
 
 
 /***/ }),
-/* 100 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28028,7 +27851,7 @@ class TextQuoteSelector {
 
 
 /***/ }),
-/* 101 */
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28082,15 +27905,15 @@ class MediaSelector {
 
 
 /***/ }),
-/* 102 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_alpheios_data_models__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_alpheios_data_models___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_alpheios_data_models__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_alpheios_inflection_tables__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_alpheios_inflection_tables__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_alpheios_inflection_tables___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_alpheios_inflection_tables__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__query_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__query_js__ = __webpack_require__(31);
 
 
 
@@ -28268,7 +28091,7 @@ class LexicalQuery extends __WEBPACK_IMPORTED_MODULE_2__query_js__["a" /* defaul
 
 
 /***/ }),
-/* 103 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28402,7 +28225,7 @@ class ContentOptions {
 
 
 /***/ }),
-/* 104 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
