@@ -43,7 +43,8 @@ module.exports = {
             },
             {
               test: /\.json$/,
-              use: 'raw-loader'
+              use: 'raw-loader',
+              type: 'javascript/auto' // To prevent running Webpack's default JSON parser on the output of raw-loader
             },
             {
               test: /\.(jpg|png)$/,
