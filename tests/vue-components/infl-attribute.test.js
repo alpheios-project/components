@@ -7,12 +7,40 @@ describe('infl-attribute.test.js', () => {
   beforeEach(() => {
     cmp = shallow(InflectionAttribute, {
       propsData: {
-        data: {},
-        type: '',
+        data: {
+          'gender': {
+            value: 'feminine',
+            toLocaleStringAbbr: () => { return 'f' }
+          }
+        },
+        type: 'gender',
+        grouplevel: 1,
         linkedfeatures: ['declension']
       }
-
     })
+  })
+
+  it('expects element to be created', () => {
+    let elem = cmp.find('[data-feature="gender"]')
+    expect(elem.text()).toEqual('feminine')
+    expect(elem.attributes()['data-grouplevel']).toEqual('1')
+  })
+
+  it('expects element not to be created if the type does not exist in data', () => {
+    let mockCmp = shallow(InflectionAttribute, {
+      propsData: {
+        data: {
+          'gender': {
+            value: 'feminine',
+            toLocaleStringAbbr: () => { return 'f' }
+          }
+        },
+        type: 'tense',
+        grouplevel: 1,
+        linkedfeatures: ['declension']
+      }
+    })
+    expect(mockCmp.find('[data-feature="tense"]').exists()).toBeFalsy()
   })
 
   it('expects attributeClass method to obey linkedfeatures', () => {
