@@ -48,12 +48,6 @@
             </span>
         </div>
 
-        <div class="alpheios-panel__header-title">
-          <span class="alpheios-panel__header-selection"
-                v-show="data.status.selectedText">{{data.status.selectedText}}</span>
-          <span class="alpheios-panel__header-text"
-                  v-show="data.status.languageName && data.verboseMode">({{data.status.languageName}})</span>
-        </div>
         <div class="alpheios-panel__content">
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
@@ -380,11 +374,6 @@
     .alpheios-panel__header-logo {
         flex-grow: 0;
         justify-content: flex-start;
-    }
-
-    .alpheios-panel__header-title {
-        grid-area: title;
-        text-align: center;
     }
 
     .alpheios-panel__header-selection {
