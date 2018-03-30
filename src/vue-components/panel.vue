@@ -81,6 +81,8 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.settings.uiType" @change="settingChanged"
                          :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.settings.verboseMode" @change="settingChanged"
+                         :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"
