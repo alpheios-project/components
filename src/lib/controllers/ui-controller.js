@@ -72,6 +72,7 @@ export default class UIController {
           },
           verboseMode: this.state.verboseMode,
           grammarRes: {},
+          treebankRes: { url: 'http://localhost:4000/1999.02.0066.html' },
           lexemes: [],
           inflectionComponentData: {
             visible: false,

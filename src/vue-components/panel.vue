@@ -24,6 +24,10 @@
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_GRAMMAR">
                 <grammar-icon class="icon"></grammar-icon>
               </span>
+              <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
+                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_TREEBANK">
+                <treebank-icon class="icon"></treebank-icon>
+              </span>
               <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_OPTIONS">
                 <options-icon class="icon"></options-icon>
@@ -66,6 +70,10 @@
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
                   <grammar :res="data.grammarRes"></grammar>
+              </div>
+            <div v-show="data.tabs.treebank" class="alpheios-panel__tab-panel
+            alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
+                  <treebank :res="data.treebankRes"></treebank>
               </div>
             <div v-show="data.tabs.status" class="alpheios-panel__tab-panel">
                 <div v-for="message in data.messages">
@@ -110,6 +118,7 @@
   import ShortDef from './shortdef.vue'
   import Morph from './morph.vue'
   import Grammar from './grammar.vue'
+  import Treebank from './treebank.vue'
   import Info from './info.vue'
   import interact from 'interactjs'
   import Locales from '../locales/locales'
@@ -123,6 +132,7 @@
   import StatusIcon from '../images/inline-icons/status.svg';
   import OptionsIcon from '../images/inline-icons/options.svg';
   import GrammarIcon from '../images/inline-icons/resources.svg';
+  import TreebankIcon from '../images/inline-icons/resources.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
 
   export default {
@@ -134,6 +144,7 @@
       morph: Morph,
       info: Info,
       grammar: Grammar,
+      treebank: Treebank,
       attachLeftIcon: AttachLeftIcon,
       attachRightIcon: AttachRightIcon,
       closeIcon: CloseIcon,
@@ -142,7 +153,8 @@
       statusIcon: StatusIcon,
       optionsIcon: OptionsIcon,
       infoIcon: InfoIcon,
-      grammarIcon: GrammarIcon
+      grammarIcon: GrammarIcon,
+      treebankIcon: TreebankIcon
     },
     data: function () {
       return {
