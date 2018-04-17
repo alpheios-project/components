@@ -68,6 +68,15 @@ export default class LexicalQuery extends Query {
       this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
     }
 
+    let lexiconFullOpts = this.getLexiconOptions('lexicons')
+    let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
+
+    // if lexicon options are set for short definitions, we want to override any
+    // short definitions provided by the maAdapter
+    if (lexiconShortOpts.allow) {
+      this.homonym.lexemes.forEach((l) => { l.meaning.clearShortDefs() })
+    }
+
     this.ui.updateMorphology(this.homonym)
     this.ui.updateDefinitions(this.homonym)
     // Update status info with data from a morphological analyzer
@@ -78,8 +87,6 @@ export default class LexicalQuery extends Query {
     this.ui.updateInflections(this.lexicalData, this.homonym)
 
     let definitionRequests = []
-    let lexiconFullOpts = this.getLexiconOptions('lexicons')
-    let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 
     for (let lexeme of this.homonym.lexemes) {
       // Short definition requests
