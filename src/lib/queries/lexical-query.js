@@ -13,6 +13,7 @@ export default class LexicalQuery extends Query {
     this.lexicons = options.lexicons
     this.langOpts = options.langOpts
     this.resourceOptions = options.resourceOptions
+    this.siteOptions = options.siteOptions
     this.l10n = options.l10n
     let langID = LMF.getLanguageIdFromCode(this.selector.languageCode)
     if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {
@@ -77,20 +78,12 @@ export default class LexicalQuery extends Query {
     this.ui.updateInflections(this.lexicalData, this.homonym)
 
     let definitionRequests = []
-    let lexiconOpts =
-      this.resourceOptions.items.lexicons.filter(
-        (l) => this.resourceOptions.parseKey(l.name).language === this.selector.languageCode
-      ).map((l) => { return {allow: l.currentValue} }
-      )
-    if (lexiconOpts.length > 0) {
-      lexiconOpts = lexiconOpts[0]
-    } else {
-      lexiconOpts = {}
-    }
+    let lexiconFullOpts = this.getLexiconOptions('lexicons')
+    let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 
     for (let lexeme of this.homonym.lexemes) {
       // Short definition requests
-      let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconOpts)
+      let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconShortOpts)
       definitionRequests = definitionRequests.concat(requests.map(request => {
         return {
           request: request,
@@ -101,7 +94,7 @@ export default class LexicalQuery extends Query {
         }
       }))
       // Full definition requests
-      requests = this.lexicons.fetchFullDefs(lexeme.lemma, lexiconOpts)
+      requests = this.lexicons.fetchFullDefs(lexeme.lemma, lexiconFullOpts)
       definitionRequests = definitionRequests.concat(requests.map(request => {
         return {
           request: request,
@@ -168,5 +161,24 @@ export default class LexicalQuery extends Query {
     }
     Query.destroy(this)
     return result
+  }
+
+  getLexiconOptions (lexiconKey) {
+    let allOptions
+    let siteMatch = this.siteOptions.filter((s) => this.selector.location.match(new RegExp(s.uriMatch)))
+    if (siteMatch.length > 0 && siteMatch[0].resourceOptions.items[lexiconKey]) {
+      allOptions = [...siteMatch[0].resourceOptions.items[lexiconKey], ...this.resourceOptions.items[lexiconKey]]
+    } else {
+      allOptions = this.resourceOptions.items[lexiconKey] || []
+    }
+    let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === this.selector.languageCode
+    ).map((l) => { return {allow: l.currentValue} }
+    )
+    if (lexiconOpts.length > 0) {
+      lexiconOpts = lexiconOpts[0]
+    } else {
+      lexiconOpts = {}
+    }
+    return lexiconOpts
   }
 }

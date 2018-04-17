@@ -1,4 +1,3 @@
-
 /* eslint-env jest */
 import Options from '../../../src/lib/options/options'
 import LanguageOptionDefaults from '../../../src/lib/options/language-option-defaults'

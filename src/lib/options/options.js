@@ -124,10 +124,10 @@ export default class Options {
   * keys which combine the setting and the language)
   */
   parseKey (name) {
-    let [setting, language] = name.split('-')
+    let [setting, group] = name.split('-', 2)
     return {
       setting: setting,
-      language: language
+      group: group
     }
   }
 

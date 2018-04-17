@@ -25320,10 +25320,10 @@ class Options {
   * keys which combine the setting and the language)
   */
   parseKey (name) {
-    let [setting, language] = name.split('-')
+    let [setting, group] = name.split('-', 2)
     return {
       setting: setting,
-      language: language
+      group: group
     }
   }
 
@@ -25377,6 +25377,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     this.lexicons = options.lexicons
     this.langOpts = options.langOpts
     this.resourceOptions = options.resourceOptions
+    this.siteOptions = options.siteOptions
     this.l10n = options.l10n
     let langID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.selector.languageCode)
     if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {
@@ -25441,20 +25442,12 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     this.ui.updateInflections(this.lexicalData, this.homonym)
 
     let definitionRequests = []
-    let lexiconOpts =
-      this.resourceOptions.items.lexicons.filter(
-        (l) => this.resourceOptions.parseKey(l.name).language === this.selector.languageCode
-      ).map((l) => { return {allow: l.currentValue} }
-      )
-    if (lexiconOpts.length > 0) {
-      lexiconOpts = lexiconOpts[0]
-    } else {
-      lexiconOpts = {}
-    }
+    let lexiconFullOpts = this.getLexiconOptions('full')
+    let lexiconShortOpts = this.getLexiconOptions('short')
 
     for (let lexeme of this.homonym.lexemes) {
       // Short definition requests
-      let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconOpts)
+      let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconShortOpts)
       definitionRequests = definitionRequests.concat(requests.map(request => {
         return {
           request: request,
@@ -25465,7 +25458,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
         }
       }))
       // Full definition requests
-      requests = this.lexicons.fetchFullDefs(lexeme.lemma, lexiconOpts)
+      requests = this.lexicons.fetchFullDefs(lexeme.lemma, lexiconFullOpts)
       definitionRequests = definitionRequests.concat(requests.map(request => {
         return {
           request: request,
@@ -25532,6 +25525,27 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     }
     _query_js__WEBPACK_IMPORTED_MODULE_2__["default"].destroy(this)
     return result
+  }
+
+  getLexiconOptions (queryType) {
+    let siteOption
+    let siteMatch = this.siteOptions.items.filter((s) => this.selector.location.match(new RegExp(s.labelText)))
+    if (siteMatch.length > 0) {
+      siteOption = siteMatch[0][`lexicon_${queryType}_${this.selector.languageCode}`]
+    }
+    let lexiconOpts =
+      siteOption ? [ { allow: this.siteOption.currentValue } ]
+        : this.resourceOptions.items.lexicons.filter(
+          (l) =>
+            this.resourceOptions.parseKey(l.name).group === this.selector.languageCode
+        ).map((l) => { return {allow: l.currentValue} }
+        )
+    if (lexiconOpts.length > 0) {
+      lexiconOpts = lexiconOpts[0]
+    } else {
+      lexiconOpts = {}
+    }
+    return lexiconOpts
   }
 }
 
@@ -25974,6 +25988,7 @@ __webpack_require__.r(__webpack_exports__);
 class MediaSelector {
   constructor (event) {
     this.target = event.target // A selected text area in a document
+    this.location = event.target.ownerDocument.location
   }
 
   /**
@@ -26042,6 +26057,7 @@ class TextSelector {
     this.languageCode = ''
     this.languageID = undefined
     this.model = undefined
+    this.location = ''
     // this.language = undefined
 
     this.start = 0
