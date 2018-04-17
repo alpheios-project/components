@@ -30,6 +30,7 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.languageCode = this.getLanguageCode(this.defaultLanguageCode)
     textSelector.languageID = LanguageModelFactory.getLanguageIdFromCode(textSelector.languageCode)
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
+    textSelector.location = this.location
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
 
     if (this.wordSeparator.has(textSelector.model.baseUnit)) {
