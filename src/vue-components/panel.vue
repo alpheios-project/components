@@ -71,9 +71,11 @@
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
                   <grammar :res="data.grammarRes"></grammar>
               </div>
-            <div v-show="data.tabs.treebank" class="alpheios-panel__tab-panel
+            <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
-                  <treebank :res="data.treebankRes"></treebank>
+                  <treebank :res="data.treebankComponentData" :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
+                    :messages="data.l10n.messages" @treebankcontentwidth="setTreebankContentWidth">
+                  </treebank>
               </div>
             <div v-show="data.tabs.status" class="alpheios-panel__tab-panel">
                 <div v-for="message in data.messages">
@@ -195,6 +197,12 @@
         // Inform an inflection component about its visibility state change
         this.data.inflectionComponentData.visible = this.data.tabs.inflections
         return this.data.tabs.inflections
+      },
+
+      treebankTabVisible: function() {
+        // Inform treebank component about visibility state change
+        this.data.treebankComponentData.visible = this.data.tabs.treebank
+        return this.data.tabs.treebank
       }
     },
     methods: {
@@ -263,6 +271,11 @@
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
+      },
+
+      setTreebankContentWidth: function(width) {
+          console.log(`Set width to ${width}`)
+          this.$el.style.width = width
       }
     },
 

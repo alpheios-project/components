@@ -11,6 +11,7 @@ import enGB from '../../locales/en-gb/messages.json'
 import Template from './template.htmlf'
 import { Grammars } from 'alpheios-res-client'
 import ResourceQuery from '../queries/resource-query'
+import AnnotationQuery from '../queries/annotation-query'
 
 const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
@@ -68,11 +69,11 @@ export default class UIController {
             inflections: false,
             status: false,
             options: false,
-            info: true
+            info: true,
+            treebank: false
           },
           verboseMode: this.state.verboseMode,
           grammarRes: {},
-          treebankRes: { url: 'http://localhost:4000/1999.02.0066.html' },
           lexemes: [],
           inflectionComponentData: {
             visible: false,
@@ -107,6 +108,11 @@ export default class UIController {
             languageName: ''
           },
           settings: this.options.items,
+          treebankComponentData: {
+            tbsrc: null,
+            tbref: null,
+            visible: false
+          },
           resourceSettings: this.resourceOptions.items,
           classes: {
             [this.irregularBaseFontSizeClassName]: this.irregularBaseFontSize
@@ -168,6 +174,11 @@ export default class UIController {
           this.panelData.shortDefinitions = []
           this.panelData.fullDefinitions = ''
           this.panelData.messages = ''
+          this.panelData.treebankComponentData = {
+            tbsrc: null,
+            tbref: null,
+            visible: false
+          }
           this.clearNotifications()
           this.clearStatus()
           return this
@@ -353,6 +364,7 @@ export default class UIController {
           settings: this.options.items,
           verboseMode: this.state.verboseMode,
           defDataReady: false,
+          hasTreebank: false,
           inflDataReady: false,
           morphDataReady: false,
           showProviders: false,
@@ -453,6 +465,7 @@ export default class UIController {
           this.popupData.inflDataReady = false
           this.popupData.morphDataReady = false
           this.popupData.showProviders = false
+          this.popupData.hasTreebank = false
           this.clearNotifications()
           this.clearStatus()
           return this
@@ -711,6 +724,11 @@ export default class UIController {
     this.popup.popupData.updates = this.popup.popupData.updates + 1
   }
 
+  updateAnnotationData (data) {
+    this.panel.panelData.treebankComponentData = data
+    this.popup.popupData.hasTreebank = data.tbsrc && data.tbref
+  }
+
   updateLanguage (currentLanguage) {
     this.state.setItem('currentLanguage', currentLanguage)
     let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
@@ -749,4 +767,5 @@ export default class UIController {
     }
     return this
   }
+
 }

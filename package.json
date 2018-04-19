@@ -44,6 +44,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.11",
+    "dom-anchor-text-quote": "",
     "element-closest": "^2.0.2",
     "eslint": "^4.19.0",
     "eslint-plugin-import": "^2.11.0",
@@ -92,6 +93,7 @@
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-server": "^3.1.3",
     "webpack-merge": "^4.1.0",
+    "wrap-range-text": "",
     "zip-folder": "^1.0.0"
   },
   "peerDependencies": {
@@ -99,8 +101,10 @@
     "alpheios-experience": "github:alpheios-project/experience",
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-res-client": "github:alpheios-project/res-client",
+    "dom-anchor-text-quote": "4.0.2",
     "intl-messageformat": "2.x.x",
-    "uuid": "3.x.x"
+    "uuid": "3.x.x",
+    "wrap-range-text": ""
   },
   "engines": {
     "node": ">= 8.9.0",

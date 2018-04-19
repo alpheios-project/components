@@ -45,7 +45,7 @@
     "description": "tooltip for grammar tab",
     "component": "Panel"
   },
-  "TOOLTIP_Treebank": {
+  "TOOLTIP_TREEBANK": {
     "message": "Diagram",
     "description": "tooltip for treebank tab",
     "component": "Panel"
