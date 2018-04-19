@@ -3,7 +3,10 @@ const sass = require('./sass')
 const imagemin = require('./imagemin')
 const config = require('./config')
 
-const webpackTasks = config.webpack.tasks.map(task => Object.assign(task, config.webpack.common))
+const webpackTasks = {
+  production: config.webpack.tasks.map(task => Object.assign(task, config.webpack.common)),
+  development: config.webpack.devTasks.map(task => Object.assign(task, config.webpack.common))
+}
 
 let taskNamesAllowed = [
   'all', // Default one
@@ -42,23 +45,13 @@ for (let [index, value] of process.argv.entries()) {
   }
 }
 
-// Set mode-specific options
-if (mode === 'production') {
-  for (let task of webpackTasks) {
-    task.mode = 'production'
-  }
-} else if (mode === 'development') {
-  for (let task of webpackTasks) {
-    task.mode = 'development'
-  }
-}
-
+console.log(taskName, mode)
 if (taskName === 'all') {
   // Run all build tasks in a sequence
   let imageminResult = imagemin.run(config.image)
   let sassResult = sass.run(config.style)
   Promise.all([imageminResult, sassResult]).then(() => {
-    webpack.run(webpackTasks)
+    webpack.run(webpackTasks[mode])
   })
 } else if (taskName === 'images') {
   // Optimizes images for web
@@ -67,5 +60,5 @@ if (taskName === 'all') {
   // Creates output scss files
   sass.run(config.style)
 } else if (taskName === 'webpack') {
-  webpack.run(webpackTasks)
+  webpack.run(webpackTasks[mode])
 }
