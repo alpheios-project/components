@@ -15,7 +15,7 @@ export default class HTMLSelector extends MediaSelector {
       left: event.clientX
     }
     this.defaultLanguageCode = defaultLanguageCode
-
+    this.setDataAttributes()
     this.wordSeparator = new Map()
     this.wordSeparator.set(Constants.LANG_UNIT_WORD, this.doSpaceSeparatedWordSelection.bind(this))
     this.wordSeparator.set(Constants.LANG_UNIT_CHAR, this.doCharacterBasedWordSelection.bind(this))
@@ -31,6 +31,7 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.languageID = LanguageModelFactory.getLanguageIdFromCode(textSelector.languageCode)
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
+    textSelector.data = this.data
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
 
     if (this.wordSeparator.has(textSelector.model.baseUnit)) {
@@ -39,6 +40,23 @@ export default class HTMLSelector extends MediaSelector {
       console.warn(`No word separator function found for a "${textSelector.model.baseUnit}" base unit`)
     }
     return textSelector
+  }
+
+  /**
+   * Gather any alpheios specific data attributes from the target element
+   */
+  setDataAttributes () {
+    let tbSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_tb_src]')
+    let alignSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_align_src]')
+    this.data = {}
+    if (tbSrcElem) {
+      this.data.tbsrc = tbSrcElem.dataset.alpheios_tb_src
+      this.data.tbref = this.target.dataset.alpheios_tb_ref
+    }
+    if (alignSrcElem) {
+      this.data.alignsrc = alignSrcElem.dataset.alpheios_align_src
+      this.data.alignref = this.target.dataset.alpheios_align_ref
+    }
   }
 
   /**
