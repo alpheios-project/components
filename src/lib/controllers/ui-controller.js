@@ -11,7 +11,6 @@ import enGB from '../../locales/en-gb/messages.json'
 import Template from './template.htmlf'
 import { Grammars } from 'alpheios-res-client'
 import ResourceQuery from '../queries/resource-query'
-import AnnotationQuery from '../queries/annotation-query'
 
 const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
@@ -767,5 +766,4 @@ export default class UIController {
     }
     return this
   }
-
 }

@@ -17,6 +17,7 @@ describe('treebank.test.js', () => {
         messages: {},
         visible: false
       }
+    })
   })
 
   it('expects srcUrl to not be defined if not visible', () => {
