@@ -1,3 +1,7 @@
+// The following import will not probably used by any client directly,
+// but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
+import Style from './styles/style.scss'
+
 import Popup from './vue-components/popup.vue'
 import Panel from './vue-components/panel.vue'
 import L10n from './lib/l10n/l10n'
@@ -13,4 +17,4 @@ import LocalStorageArea from './lib/options/local-storage-area'
 import ContentOptions from './lib/options/content-options'
 import ResourceOptions from './lib/options/resource-options'
 export { Popup, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
-  LocalStorageArea, ContentOptions, ResourceOptions, UIStateAPI }
+  LocalStorageArea, ContentOptions, ResourceOptions, UIStateAPI, Style }

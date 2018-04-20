@@ -1,11 +1,14 @@
 const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const projectRoot = process.cwd()
 
 module.exports = {
   style: {
-    tasks: [
-      { source: 'src/styles/style.scss', target: 'dist/styles/style.css', style: 'compressed', sourceMap: true }
-    ]
+    // This will now be handled by a Webpack's MiniCssExtractPlugin so we don't really need to run any style tasks
+    tasks: []
   },
   image: {
     tasks: [
@@ -38,14 +41,19 @@ module.exports = {
         externals: ['alpheios-data-models', 'alpheios-inflection-tables'],
         output: {
           path: path.join(projectRoot, 'dist/'),
-          filename: 'alpheios-components.js',
+          filename: 'alpheios-components.min.js',
           libraryTarget: 'umd'
         },
         module: {
           rules: [
             {
-              test: /\.csv$/,
-              use: 'raw-loader'
+              test: /\.vue$/,
+              loader: 'vue-loader'
+            },
+            {
+              test: /\.js$/,
+              use: ['source-map-loader'],
+              enforce: 'pre'
             },
             {
               test: /\.json$/,
@@ -63,29 +71,28 @@ module.exports = {
             },
             {
               test: /\.svg$/,
-              loader: 'vue-svg-loader',
+              loader: 'vue-svg-loader', // `vue-svg` for webpack 1.x
               options: {
                 // optional [svgo](https://github.com/svg/svgo) options
                 svgo: {
                   plugins: [
                     {removeDoctype: true},
-                    {removeComments: true},
-                    {removeDimensions: true},
-                    {removeUselessStrokeAndFill: false}
+                    {removeComments: true}
                   ]
                 }
               }
             },
             {
-              test: /\.(htmlf)$/,
-              use: {
-                loader: 'html-loader'
-              }
+              test: /\.css$/,
+              use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader'
+              ]
             },
             {
               test: /\.scss$/,
               use: [
-                'style-loader',
+                MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
                   options: {
@@ -101,21 +108,29 @@ module.exports = {
               ]
             },
             {
-              test: /\.vue$/,
-              loader: 'vue-loader',
-              options: {
-                loaders: {
-                  scss: 'vue-style-loader!css-loader!sass-loader' // <style lang="scss">
-                }
+              test: /\.(htmlf)$/,
+              use: {
+                loader: 'html-loader'
               }
-            },
-            {
-              test: /\.js$/,
-              use: ['source-map-loader'],
-              enforce: 'pre'
             }
           ]
-        }
+        },
+        optimization: {
+          minimizer: [
+            new UglifyJsPlugin({
+              cache: true,
+              parallel: true,
+              sourceMap: true // set to true if you want JS source maps
+            }),
+            new OptimizeCSSAssetsPlugin({})
+          ]
+        },
+        plugins: [
+          new MiniCssExtractPlugin({
+            filename: 'style/style.min.css'
+          }),
+          new VueLoaderPlugin()
+        ]
       }
     ],
     devTasks: [
@@ -126,15 +141,20 @@ module.exports = {
         externals: ['alpheios-data-models', 'alpheios-inflection-tables'],
         output: {
           path: path.join(projectRoot, 'dist/'),
-          filename: 'alpheios-components.dev.js',
+          filename: 'alpheios-components.js',
           libraryTarget: 'umd'
         },
         devtool: 'source-map',
         module: {
           rules: [
             {
-              test: /\.csv$/,
-              use: 'raw-loader'
+              test: /\.vue$/,
+              loader: 'vue-loader'
+            },
+            {
+              test: /\.js$/,
+              use: ['source-map-loader'],
+              enforce: 'pre'
             },
             {
               test: /\.json$/,
@@ -152,29 +172,28 @@ module.exports = {
             },
             {
               test: /\.svg$/,
-              loader: 'vue-svg-loader',
+              loader: 'vue-svg-loader', // `vue-svg` for webpack 1.x
               options: {
                 // optional [svgo](https://github.com/svg/svgo) options
                 svgo: {
                   plugins: [
                     {removeDoctype: true},
-                    {removeComments: true},
-                    {removeDimensions: true},
-                    {removeUselessStrokeAndFill: false}
+                    {removeComments: true}
                   ]
                 }
               }
             },
             {
-              test: /\.(htmlf)$/,
-              use: {
-                loader: 'html-loader'
-              }
+              test: /\.css$/,
+              use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader'
+              ]
             },
             {
               test: /\.scss$/,
               use: [
-                'style-loader',
+                MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
                   options: {
@@ -190,21 +209,19 @@ module.exports = {
               ]
             },
             {
-              test: /\.vue$/,
-              loader: 'vue-loader',
-              options: {
-                loaders: {
-                  scss: 'vue-style-loader!css-loader!sass-loader' // <style lang="scss">
-                }
+              test: /\.(htmlf)$/,
+              use: {
+                loader: 'html-loader'
               }
-            },
-            {
-              test: /\.js$/,
-              use: ['source-map-loader'],
-              enforce: 'pre'
             }
           ]
-        }
+        },
+        plugins: [
+          new MiniCssExtractPlugin({
+            filename: 'style/style.css'
+          }),
+          new VueLoaderPlugin()
+        ]
       }
     ]
   }
