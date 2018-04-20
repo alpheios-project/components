@@ -11,7 +11,7 @@ const webpackTasks = {
 let taskNamesAllowed = [
   'all', // Default one
   'images',
-  'styles',
+  'skins',
   'webpack'
 ]
 let taskName = taskNamesAllowed[0]
@@ -45,20 +45,20 @@ for (let [index, value] of process.argv.entries()) {
   }
 }
 
-console.log(taskName, mode)
+console.log(`Running "${taskName}" task(s) in "${mode}" mode`)
 if (taskName === 'all') {
   // Run all build tasks in a sequence
   let imageminResult = imagemin.run(config.image)
-  let sassResult = sass.run(config.style)
-  Promise.all([imageminResult, sassResult]).then(() => {
+  let skinsResult = sass.run(config.skins())
+  Promise.all([imageminResult, skinsResult]).then(() => {
     webpack.run(webpackTasks[mode])
   })
 } else if (taskName === 'images') {
   // Optimizes images for web
   imagemin.run(config.image)
-} else if (taskName === 'styles') {
+} else if (taskName === 'skins') {
   // Creates output scss files
-  sass.run(config.style)
+  sass.run(config.skins())
 } else if (taskName === 'webpack') {
   webpack.run(webpackTasks[mode])
 }

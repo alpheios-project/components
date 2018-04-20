@@ -8,7 +8,7 @@
     "build": "standard --fix && node ./build/node/build.js",
     "build-dev": "standard --fix && node ./build/node/build.js all development",
     "lint": "standard --fix",
-    "buildstyles": "node ./build/node/build.js styles",
+    "buildskins": "node ./build/node/build.js skins",
     "buildimages": "node ./build/node/build.js images",
     "buildwebpack": "node ./build/node/build.js webpack",
     "buildwebpack-dev": "node ./build/node/build.js webpack development"

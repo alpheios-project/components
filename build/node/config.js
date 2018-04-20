@@ -6,9 +6,24 @@ const { VueLoaderPlugin } = require('vue-loader')
 const projectRoot = process.cwd()
 
 module.exports = {
-  style: {
-    // This will now be handled by a Webpack's MiniCssExtractPlugin so we don't really need to run any style tasks
-    tasks: []
+  skins: function () {
+    const skins = [
+      'blue',
+      'green'
+    ]
+
+    let tasks = []
+    for (const skin of skins) {
+      tasks.push({
+        source: `src/skins/${skin}/style.scss`,
+        target: `dist/skins/${skin}/style.css`,
+        style: 'compressed',
+        sourceMap: false
+      })
+    }
+    return {
+      tasks: tasks
+    }
   },
   image: {
     tasks: [
