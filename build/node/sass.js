@@ -71,6 +71,8 @@ let compileScss = async function (options) {
               let size = fs.statSync(options.cssMapFileName).size
               resolve(`${path.join(projectRoot, options.cssMapFileName)} ${chalk.yellow('[' + bytes.format(size) + ']')} ${chalk.green('[created]')}`)
             })
+          } else {
+            resolve(chalk.cyan(`CSS map is disabled for ${path.join(projectRoot, options.cssFileName)}`))
           }
         })
 

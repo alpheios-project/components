@@ -2,6 +2,7 @@ const webpack = require('./webpack')
 const sass = require('./sass')
 const imagemin = require('./imagemin')
 const config = require('./config')
+const chalk = require('chalk')
 
 const webpackTasks = {
   production: config.webpack.tasks.map(task => Object.assign(task, config.webpack.common)),
@@ -45,13 +46,15 @@ for (let [index, value] of process.argv.entries()) {
   }
 }
 
-console.log(`Running "${taskName}" task(s) in "${mode}" mode`)
+console.log(chalk.yellow(`Running ${taskName} task(s) in ${mode} mode`))
 if (taskName === 'all') {
   // Run all build tasks in a sequence
   let imageminResult = imagemin.run(config.image)
   let skinsResult = sass.run(config.skins())
   Promise.all([imageminResult, skinsResult]).then(() => {
     webpack.run(webpackTasks[mode])
+  }).catch(err => {
+    console.log(err)
   })
 } else if (taskName === 'images') {
   // Optimizes images for web

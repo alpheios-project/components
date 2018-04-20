@@ -3,6 +3,7 @@
 import Style from './styles/style.scss'
 
 import Popup from './vue-components/popup.vue'
+import PopupMod from './vue-components/popup-mod.vue'
 import Panel from './vue-components/panel.vue'
 import L10n from './lib/l10n/l10n'
 import Locales from './locales/locales'
@@ -16,5 +17,5 @@ import ResourceQuery from './lib/queries/resource-query'
 import LocalStorageArea from './lib/options/local-storage-area'
 import ContentOptions from './lib/options/content-options'
 import ResourceOptions from './lib/options/resource-options'
-export { Popup, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
+export { Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
   LocalStorageArea, ContentOptions, ResourceOptions, UIStateAPI, Style }

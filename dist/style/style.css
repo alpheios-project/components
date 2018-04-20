@@ -7681,6 +7681,11 @@ img.alpheios-popup__logo {
 }
 
 
+.alpheios-popup.alpheios-popup--mod {
+  padding-top: 25px;
+}
+
+
 .infl-prdgm-tbl {
   display: table;
   border-top: 1px solid gray;

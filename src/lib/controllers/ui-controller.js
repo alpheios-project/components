@@ -4,6 +4,7 @@ import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alph
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Panel from '../../vue-components/panel.vue'
 import Popup from '../../vue-components/popup.vue'
+// import PopupMod from '../../vue-components/popup-mod.vue'
 import L10n from '../l10n/l10n'
 import Locales from '../../locales/locales'
 import enUS from '../../locales/en-us/messages.json'
@@ -30,11 +31,14 @@ export default class UIController {
    * will be used.
    * @param {Object} template - object with the following properties:
    *                            html: HTML string for the container of the Alpheios components
-   *                            panelId: the id of the wrapper for the panel component
+   *                            panelId: the id of the wrapper for the panel component,
+   *                            panelComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative panel layout
    *                            popupId: the id of the wrapper for the popup component
+   *                            popupComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative popup layout
    */
-  constructor (state, options, resourceOptions, manifest = {},
-    template = {html: Template, panelId: 'alpheios-panel', popupId: 'alpheios-popup'}) {
+  constructor (state, options, resourceOptions, manifest = {}, template = {}) {
     this.state = state
     this.options = options
     this.resourceOptions = resourceOptions
@@ -42,7 +46,14 @@ export default class UIController {
     this.irregularBaseFontSizeClassName = 'alpheios-irregular-base-font-size'
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
-    this.template = template
+    const templateDefaults = {
+      html: Template,
+      panelId: 'alpheios-panel',
+      panelComponent: Panel,
+      popupId: 'alpheios-popup',
+      popupComponent: Popup
+    }
+    this.template = Object.assign(templateDefaults, template)
 
     this.zIndex = this.getZIndexMax()
 
@@ -55,11 +66,11 @@ export default class UIController {
     document.body.classList.add('alpheios')
     let container = document.createElement('div')
     document.body.insertBefore(container, null)
-    container.outerHTML = template.html
+    container.outerHTML = this.template.html
     // Initialize components
     this.panel = new Vue({
       el: `#${this.template.panelId}`,
-      components: { panel: Panel },
+      components: { panel: this.template.panelComponent },
       data: {
         panelData: {
           isOpen: false,
@@ -312,7 +323,7 @@ export default class UIController {
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.template.popupId}`,
-      components: { popup: Popup },
+      components: { popup: this.template.popupComponent },
       data: {
         messages: [],
         lexemes: [],
