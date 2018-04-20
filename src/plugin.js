@@ -15,7 +15,8 @@ import HTMLSelector from './lib/selection/media/html-selector'
 import LexicalQuery from './lib/queries/lexical-query'
 import ResourceQuery from './lib/queries/resource-query'
 import LocalStorageArea from './lib/options/local-storage-area'
-import ContentOptions from './lib/options/content-options'
-import ResourceOptions from './lib/options/resource-options'
+import ContentOptionDefaults from './lib/options/content-option-defaults'
+import LanguageOptionDefaults from './lib/options/language-option-defaults'
+import Options from './lib/options/options'
 export { Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
-  LocalStorageArea, ContentOptions, ResourceOptions, UIStateAPI, Style }
+  LocalStorageArea, ContentOptionDefaults, LanguageOptionDefaults, Options, UIStateAPI, Style }

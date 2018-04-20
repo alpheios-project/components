@@ -1,0 +1,11 @@
+[
+  {
+    "testsite": {
+      "uriMatch": "https?://example.org",
+      "resourceOptions": {
+        "lexiconsShort-lat": ["https://github.com/alpheios-project/xx"]
+      }
+    }
+  }
+
+]

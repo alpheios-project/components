@@ -13,6 +13,7 @@ export default class TextSelector {
     this.languageCode = ''
     this.languageID = undefined
     this.model = undefined
+    this.location = ''
     // this.language = undefined
 
     this.start = 0
