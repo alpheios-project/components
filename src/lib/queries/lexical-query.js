@@ -11,9 +11,9 @@ export default class LexicalQuery extends Query {
     this.maAdapter = options.maAdapter
     this.langData = options.langData
     this.lexicons = options.lexicons
-    this.langOpts = options.langOpts
-    this.resourceOptions = options.resourceOptions
-    this.siteOptions = options.siteOptions
+    this.langOpts = options.langOpts || []
+    this.resourceOptions = options.resourceOptions || []
+    this.siteOptions = options.siteOptions || []
     this.l10n = options.l10n
     let langID = LMF.getLanguageIdFromCode(this.selector.languageCode)
     if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {

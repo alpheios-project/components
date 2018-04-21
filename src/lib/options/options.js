@@ -5,7 +5,7 @@ export default class Options {
    * @param {Function} loader - An async function with no arguments. Returns a promise
    * that is resolved with an object. Each property in this object corresponds to a single option.
    * Property name is a key, and property value is an option value.
-   * @param {Function} saver - An async function that takes option is an argument
+   * @param {Function} saver - An async function that takes option as an argument
    * and returns a promise.
    */
   constructor (defaults, loader, saver) {
