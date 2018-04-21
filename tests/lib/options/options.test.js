@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import Options from '../../../src/lib/options/options'
-import LanguageOptionDefaults from '../../../src/lib/options/language-option-defaults'
-import ContentOptionDefaults from '../../../src/lib/options/content-option-defaults'
+import LanguageOptionDefaults from '../../../src/settings/language-options-defaults'
+import ContentOptionDefaults from '../../../src/settings/content-option-defaults'
 
 describe('options.test.js', () => {
   let grouped, single, mockLoader, mockSaver

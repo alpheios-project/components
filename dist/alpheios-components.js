@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat"));
+		module.exports = factory(require("intl-messageformat"), require("alpheios-res-client"), require("alpheios-inflection-tables"), require("alpheios-data-models"));
 	else if(typeof define === 'function' && define.amd)
-		define(["alpheios-data-models", "alpheios-inflection-tables", "alpheios-res-client", "intl-messageformat"], factory);
+		define(["intl-messageformat", "alpheios-res-client", "alpheios-inflection-tables", "alpheios-data-models"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat")) : factory(root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"], root["intl-messageformat"]);
+		var a = typeof exports === 'object' ? factory(require("intl-messageformat"), require("alpheios-res-client"), require("alpheios-inflection-tables"), require("alpheios-data-models")) : factory(root["intl-messageformat"], root["alpheios-res-client"], root["alpheios-inflection-tables"], root["alpheios-data-models"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_intl_messageformat__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -24434,205 +24434,23 @@ class Logger {
 
 /***/ }),
 
-/***/ "./lib/options/content-option-defaults.js":
-/*!************************************************!*\
-  !*** ./lib/options/content-option-defaults.js ***!
-  \************************************************/
+/***/ "./lib/options/defaults-loader.js":
+/*!****************************************!*\
+  !*** ./lib/options/defaults-loader.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ContentOptionDefaults; });
-/* harmony import */ var _option_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./option-defaults */ "./lib/options/option-defaults.js");
-
-
-class ContentOptionDefaults extends _option_defaults__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  /**
-   * Base Class for holding Option defaults
-   */
-  constructor (domain = 'alpheios-content-options') {
-    super(domain)
-  }
-
-  get items () {
-    return {
-      locale: {
-        defaultValue: 'en-US',
-        labelText: 'UI Locale:',
-        values: [
-          {value: 'en-US', text: 'English (US)'},
-          {value: 'en-GB', text: 'English (GB)'}
-        ]
-      },
-      panelPosition: {
-        defaultValue: 'left',
-        labelText: 'Panel position:',
-        values: [
-          {value: 'left', text: 'Left'},
-          {value: 'right', text: 'Right'}
-        ]
-      },
-      popupPosition: {
-        defaultValue: 'fixed',
-        labelText: 'Popup position:',
-        values: [
-          {value: 'flexible', text: 'Flexible'},
-          {value: 'fixed', text: 'Fixed'}
-        ]
-      },
-      uiType: {
-        defaultValue: 'popup',
-        labelText: 'UI type:',
-        values: [
-          {value: 'popup', text: 'Pop-up'},
-          {value: 'panel', text: 'Panel'}
-        ]
-      },
-      preferredLanguage: {
-        defaultValue: 'lat',
-        labelText: 'Page language:',
-        values: [
-          {value: 'lat', text: 'Latin'},
-          {value: 'grc', text: 'Greek'},
-          {value: 'ara', text: 'Arabic'},
-          {value: 'per', text: 'Persian'}
-        ]
-      },
-      verboseMode: {
-        defaultValue: 'normal',
-        labelText: 'Log Level',
-        values: [
-          { value: 'verbose', text: 'Verbose' },
-          { value: 'normal', text: 'Normal' }
-        ]
-      }
-    }
-  }
-}
-
-
-/***/ }),
-
-/***/ "./lib/options/language-option-defaults.js":
-/*!*************************************************!*\
-  !*** ./lib/options/language-option-defaults.js ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LanguageOptionDefaults; });
-/* harmony import */ var _option_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./option-defaults */ "./lib/options/option-defaults.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-let codes = {
-  greek: alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_GREEK),
-  latin: alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_LATIN),
-  persian: alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_PERSIAN),
-  arabic: alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_ARABIC)
-}
-
-class LanguageOptionDefaults extends _option_defaults__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  /**
-   * Base Class for holding Option defaults
-   */
-  constructor (domain = 'alpheios-resource-options') {
-    super(domain)
-  }
-
-  get items () {
-    return {
-      // TODO we should actually pull the defaults from the LexiconClient itself
-      // this is provisional for the alpha release
-      lexicons: {
-        labelText: 'Lexicons (Full Definitions)',
-        group: {
-          [codes.greek]: {
-            defaultValue: ['https://github.com/alpheios-project/lsj'],
-            labelText: 'Greek Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/ml', text: 'Middle Liddell'},
-              {value: 'https://github.com/alpheios-project/lsj', text: 'Liddell, Scott, Jones'},
-              {value: 'https://github.com/alpheios-project/aut', text: 'Autenrieth Homeric Lexicon'},
-              {value: 'https://github.com/alpheios-project/dod', text: 'Dodson'},
-              {value: 'https://github.com/alpheios-project/as', text: 'Abbott-Smith'}
-            ]
-          },
-          [codes.latin]: {
-            defaultValue: ['https://github.com/alpheios-project/ls'],
-            labelText: 'Latin Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/ls', text: 'Lewis & Short'}
-            ]
-          },
-          [codes.arabic]: {
-            defaultValue: ['https://github.com/alpheios-project/lan'],
-            labelText: 'Arabic Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/lan', text: 'Lane'},
-              {value: 'https://github.com/alpheios-project/sal', text: 'Salmone'}
-            ]
-          },
-          [codes.persian]: {
-            defaultValue: ['https://github.com/alpheios-project/stg'],
-            labelText: 'Persian Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/stg', text: 'Steingass'}
-            ]
-          }
-        }
-      },
-      lexiconsShort: {
-        labelText: 'Lexicons (Short Definitions)',
-        group: {
-          [codes.greek]: {
-            defaultValue: ['https://github.com/alpheios-project/lsj'],
-            labelText: 'Greek Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/ml', text: 'Middle Liddell'},
-              {value: 'https://github.com/alpheios-project/lsj', text: 'Liddell, Scott, Jones'},
-              {value: 'https://github.com/alpheios-project/aut', text: 'Autenrieth Homeric Lexicon'},
-              {value: 'https://github.com/alpheios-project/dod', text: 'Dodson'},
-              {value: 'https://github.com/alpheios-project/as', text: 'Abbott-Smith'}
-            ]
-          },
-          [codes.latin]: {
-            defaultValue: ['https://github.com/alpheios-project/ls'],
-            labelText: 'Latin Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/ls', text: 'Lewis & Short'}
-            ]
-          },
-          [codes.arabic]: {
-            defaultValue: ['https://github.com/alpheios-project/lan'],
-            labelText: 'Arabic Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/lan', text: 'Lane'},
-              {value: 'https://github.com/alpheios-project/sal', text: 'Salmone'}
-            ]
-          },
-          [codes.persian]: {
-            defaultValue: ['https://github.com/alpheios-project/stg'],
-            labelText: 'Persian Lexicons',
-            multiValue: true,
-            values: [
-              {value: 'https://github.com/alpheios-project/stg', text: 'Steingass'}
-            ]
-          }
-        }
-      }
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DefaultsLoader; });
+class DefaultsLoader {
+  static getJSON (jsonString) {
+    try {
+      return JSON.parse(jsonString)
+    } catch (err) {
+      console.error(`Unable to parse JSON options string:`, err)
+      return {}
     }
   }
 }
@@ -24650,37 +24468,25 @@ class LanguageOptionDefaults extends _option_defaults__WEBPACK_IMPORTED_MODULE_0
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LocalStorageArea; });
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./storage-adapter.js */ "./lib/options/storage-adapter.js");
+
+
 /**
- * A set of wrapper functions with signatures similar to the ones in `browser.storage`.
- * Useful in situations when local storage functionality is used
- * as a drop-in replacement for `browser.storage` functions.
- *
- * Local storage can contain multiple key-value pairs. get() with an empty parameter
- * should return all keys related to the particular object (e.g. set of options). A set of those keys
- * is defined by the `storage domain` concept. A key named `storage-domain-name-key` is saved to the
- * local storage along with its key-value pairs. This special key
- * will contain an array of keys that belong to the storage domain. Those key values
- * are used then to retrieve all relevant keys from the storage.
+ * An implementation of a StorageAdapter interface for a local storage.
  */
-class LocalStorageArea {
+class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   /**
    * A wrapper around a local storage `setItem()` function.
    * It allows to store one or several key-value pairs to local storage.
-   * A wrapper signature approximates `browser.storage.set()` behavior, except for the first `storageDomain`
-   * parameter. It's better to be set with `bind()`.
-   * @param {string} storageDomain - A name of a storage domain where key-value pairs should be stored.
    * @param {object} keysObject - An object containing one or more key/value pairs to be stored in storage.
    * If a particular item already exists, its value will be updated.
    * @return {Promise} - A promise that is resolved with with a void value if all key/value pairs are stored
    * successfully. If at least on save operation fails, returns a rejected promise with an error information.
    */
-  static set (storageDomain, keysObject) {
+  set (keysObject) {
     return new Promise((resolve, reject) => {
-      if (!storageDomain) {
-        reject(new Error(`Storage domain is not provided`))
-      }
       try {
-        let keys = window.localStorage.getItem(`${storageDomain}-keys`)
+        let keys = window.localStorage.getItem(`${this.domain}-keys`)
         if (keys) {
           keys = JSON.parse(keys)
         } else {
@@ -24693,7 +24499,7 @@ class LocalStorageArea {
           }
         }
         // Save a list of keys to the local storage
-        window.localStorage.setItem(`${storageDomain}-keys`, JSON.stringify(keys))
+        window.localStorage.setItem(`${this.domain}-keys`, JSON.stringify(keys))
       } catch (e) {
         reject(e)
       }
@@ -24704,10 +24510,6 @@ class LocalStorageArea {
   /**
    * A wrapper around a local storage `getItem()` function. It retrieves one or several values from
    * local storage.
-   * A wrapper signature approximates `browser.storage.get()` behavior, except for the first `storageDomain`
-   * parameter. It's better to be set with `bind()`.
-   * @param {string} storageDomain - A name of a storage domain from where the key-value pairs
-   * should be retrieved (required only if keys are not provided).
    * @param {string | Array | object | null | undefined } keys - A key (string)
    * or keys (an array of strings or an object) to identify the item(s) to be retrieved from storage.
    * If you pass an empty string, object or array here, an empty object will be retrieved. If you pass null,
@@ -24715,11 +24517,8 @@ class LocalStorageArea {
    * @return {Promise} A Promise that will be fulfilled with a results object containing key-value pairs
    * found in the storage area. If this operation failed, the promise will be rejected with an error message.
    */
-  static get (storageDomain, keys = undefined) {
+  get (keys = undefined) {
     return new Promise((resolve, reject) => {
-      if (!keys && !storageDomain) {
-        reject(new Error(`Storage domain is not provided`))
-      }
       try {
         if (!keys) {
           keys = []
@@ -24736,12 +24535,12 @@ class LocalStorageArea {
         let result = {}
         if (keys.length === 0) {
           // If no keys specified, will retrieve all values
-          keys = window.localStorage.getItem(`${storageDomain}-keys`)
+          keys = window.localStorage.getItem(`${this.domain}-keys`)
           if (keys) {
             keys = JSON.parse(keys)
           } else {
             // Nothing to retrieve
-            console.log(`Unable to retrieve data for "${storageDomain}" storage domain because no keys provided or no keys listed in local storage. ` +
+            console.log(`Unable to retrieve data for "${this.domain}" storage domain because no keys provided or no keys listed in local storage. ` +
               `This might be normal for devices where no data is saved to the local storage yet`)
             resolve(result)
           }
@@ -24762,36 +24561,6 @@ class LocalStorageArea {
 
 /***/ }),
 
-/***/ "./lib/options/option-defaults.js":
-/*!****************************************!*\
-  !*** ./lib/options/option-defaults.js ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OptionDefaults; });
-class OptionDefaults {
-  /**
-   * Base Class for holding Option defaults
-   */
-  constructor (domain) {
-    this.domain = domain
-  }
-
-  get storageDomain () {
-    return this.domain
-  }
-
-  static get defaults () {
-    return { }
-  }
-}
-
-
-/***/ }),
-
 /***/ "./lib/options/options.js":
 /*!********************************!*\
   !*** ./lib/options/options.js ***!
@@ -24805,17 +24574,21 @@ __webpack_require__.r(__webpack_exports__);
 class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
-   * @param {Object} defaults - defauts for the instance of the class
-   * @param {Function} loader - An async function with no arguments. Returns a promise
-   * that is resolved with an object. Each property in this object corresponds to a single option.
-   * Property name is a key, and property value is an option value.
-   * @param {Function} saver - An async function that takes option as an argument
-   * and returns a promise.
+   * @param {Object} defaults - defaults for the instance of the class
+   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
-  constructor (defaults, loader, saver) {
-    this.items = this.initItems(defaults.items)
-    this.loader = loader
-    this.saver = saver
+  constructor (defaults, StorageAdapter) {
+    if (!defaults || !defaults.domain || !defaults.items) {
+      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+    }
+    if (!StorageAdapter) {
+      throw new Error(`No storage adapter implementation provided`)
+    }
+    for (const key of Object.keys(defaults)) {
+      this[key] = defaults[key]
+    }
+    this.items = this.initItems(this.items)
+    this.storageAdapter = new StorageAdapter(defaults.domain)
   }
 
   initItem (item, key) {
@@ -24884,7 +24657,7 @@ class Options {
    * Will always return a resolved promise.
    */
   load (callbackFunc) {
-    this.loader().then(
+    this.storageAdapter.get().then(
       values => {
         for (let key in values) {
           if (this.items.hasOwnProperty(key)) {
@@ -24940,7 +24713,7 @@ class Options {
     let option = {}
     option[optionName] = JSON.stringify(optionValue)
 
-    this.saver(option).then(
+    this.storageAdapter.set(option).then(
       () => {
         // Options storage succeeded
         console.log(`Value "${optionValue}" of "${optionName}" option value was stored successfully`)
@@ -24949,6 +24722,61 @@ class Options {
         console.error(`Storage of an option value failed: ${errorMessage}`)
       }
     )
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/storage-adapter.js":
+/*!****************************************!*\
+  !*** ./lib/options/storage-adapter.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StorageAdapter; });
+/**
+ * An abstract storage adapter class for an Options object. Implements two methods: set() and get().
+ * A `domain` argument of a constructor designates a storage area where options key-value pairs
+ * are stored. This allows to avoid possible collisions with other options objects.
+ *
+ * Local storage can contain multiple key-value pairs. get() with an empty parameter
+ * should return all keys related to the particular object (e.g. set of options). A set of those keys
+ * is defined by the `domain` concept. A key named `domain-name-key` is saved to the
+ * local storage along with its key-value pairs. This special key
+ * will contain an array of keys that belong to the storage domain. If no key values are provided,
+ * get() function will use a list of those stored keys to retrieve all values that belong to a domain.
+ */
+class StorageAdapter {
+  constructor (domain = 'alpheios-storage-domain') {
+    this.domain = domain
+  }
+
+  /**
+   * Stores one or several key-value pairs to local storage.
+   * @param {object} keysObject - An object containing one or more key/value pairs to be stored in storage.
+   * If a particular item already exists, its value will be updated.
+   * @return {Promise} - A promise that is resolved with with a void value if all key/value pairs are stored
+   * successfully. If at least on save operation fails, returns a rejected promise with an error information.
+   */
+  set (keysObject) {
+    return new Promise((resolve, reject) => reject(new Error(`Set method should be implemented in a subclass`)))
+  }
+
+  /**
+   * Retrieves one or several values from local storage.
+   * @param {string | Array | object | null | undefined } keys - A key (string)
+   * or keys (an array of strings or an object) to identify the item(s) to be retrieved from storage.
+   * If you pass an empty string, object or array here, an empty object will be retrieved. If you pass null,
+   * or an undefined value, the entire storage contents will be retrieved.
+   * @return {Promise} A Promise that will be fulfilled with a results object containing key-value pairs
+   * found in the storage area. If this operation failed, the promise will be rejected with an error message.
+   */
+  get (keys) {
+    return new Promise((resolve, reject) => reject(new Error(`Set method should be implemented in a subclass`)))
   }
 }
 
@@ -25800,7 +25628,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************!*\
   !*** ./plugin.js ***!
   \*******************/
-/*! exports provided: Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery, LocalStorageArea, ContentOptionDefaults, LanguageOptionDefaults, Options, UIStateAPI, Style */
+/*! exports provided: Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery, LocalStorageArea, ContentOptionDefaults, LanguageOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25829,32 +25657,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "enGB", function() { return _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default.a; });
-/* harmony import */ var _lib_controllers_ui_controller__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lib/controllers/ui-controller */ "./lib/controllers/ui-controller.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIController", function() { return _lib_controllers_ui_controller__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony import */ var _lib_controllers_ui_controller_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lib/controllers/ui-controller.js */ "./lib/controllers/ui-controller.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIController", function() { return _lib_controllers_ui_controller_js__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _lib_controllers_ui_state__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./lib/controllers/ui-state */ "./lib/controllers/ui-state.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIStateAPI", function() { return _lib_controllers_ui_state__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+/* harmony import */ var _lib_controllers_ui_state_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./lib/controllers/ui-state.js */ "./lib/controllers/ui-state.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIStateAPI", function() { return _lib_controllers_ui_state_js__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lib/selection/media/html-selector */ "./lib/selection/media/html-selector.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HTMLSelector", function() { return _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HTMLSelector", function() { return _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony import */ var _lib_queries_lexical_query__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lib/queries/lexical-query */ "./lib/queries/lexical-query.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LexicalQuery", function() { return _lib_queries_lexical_query__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LexicalQuery", function() { return _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"]; });
 
-/* harmony import */ var _lib_queries_resource_query__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lib/queries/resource-query */ "./lib/queries/resource-query.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourceQuery", function() { return _lib_queries_resource_query__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourceQuery", function() { return _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__["default"]; });
 
-/* harmony import */ var _lib_options_local_storage_area__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./lib/options/local-storage-area */ "./lib/options/local-storage-area.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalStorageArea", function() { return _lib_options_local_storage_area__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalStorageArea", function() { return _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_13__["default"]; });
 
-/* harmony import */ var _lib_options_content_option_defaults__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./lib/options/content-option-defaults */ "./lib/options/content-option-defaults.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContentOptionDefaults", function() { return _lib_options_content_option_defaults__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "ContentOptionDefaults", function() { return _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_14___default.a; });
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "LanguageOptionDefaults", function() { return _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_15___default.a; });
+/* harmony import */ var _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./lib/options/defaults-loader.js */ "./lib/options/defaults-loader.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultsLoader", function() { return _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_16__["default"]; });
 
-/* harmony import */ var _lib_options_language_option_defaults__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lib/options/language-option-defaults */ "./lib/options/language-option-defaults.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LanguageOptionDefaults", function() { return _lib_options_language_option_defaults__WEBPACK_IMPORTED_MODULE_15__["default"]; });
-
-/* harmony import */ var _lib_options_options__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./lib/options/options */ "./lib/options/options.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options__WEBPACK_IMPORTED_MODULE_16__["default"]; });
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./lib/options/options.js */ "./lib/options/options.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options_js__WEBPACK_IMPORTED_MODULE_17__["default"]; });
 
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
@@ -25878,6 +25709,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+/***/ }),
+
+/***/ "./settings/content-options-defaults.json":
+/*!************************************************!*\
+  !*** ./settings/content-options-defaults.json ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{\r\n  \"domain\": \"alpheios-content-options\",\r\n  \"items\": {\r\n    \"locale\": {\r\n      \"defaultValue\": \"en-US\",\r\n      \"labelText\": \"UI Locale:\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"en-US\",\r\n          \"text\": \"English (US)\"\r\n        },\r\n        {\r\n          \"value\": \"en-GB\",\r\n          \"text\": \"English (GB)\"\r\n        }\r\n      ]\r\n    },\r\n    \"panelPosition\": {\r\n      \"defaultValue\": \"left\",\r\n      \"labelText\": \"Panel position:\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"left\",\r\n          \"text\": \"Left\"\r\n        },\r\n        {\r\n          \"value\": \"right\",\r\n          \"text\": \"Right\"\r\n        }\r\n      ]\r\n    },\r\n    \"popupPosition\": {\r\n      \"defaultValue\": \"fixed\",\r\n      \"labelText\": \"Popup position:\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"flexible\",\r\n          \"text\": \"Flexible\"\r\n        },\r\n        {\r\n          \"value\": \"fixed\",\r\n          \"text\": \"Fixed\"\r\n        }\r\n      ]\r\n    },\r\n    \"uiType\": {\r\n      \"defaultValue\": \"popup\",\r\n      \"labelText\": \"UI type:\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"popup\",\r\n          \"text\": \"Pop-up\"\r\n        },\r\n        {\r\n          \"value\": \"panel\",\r\n          \"text\": \"Panel\"\r\n        }\r\n      ]\r\n    },\r\n    \"preferredLanguage\": {\r\n      \"defaultValue\": \"lat\",\r\n      \"labelText\": \"Page language:\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"lat\",\r\n          \"text\": \"Latin\"\r\n        },\r\n        {\r\n          \"value\": \"grc\",\r\n          \"text\": \"Greek\"\r\n        },\r\n        {\r\n          \"value\": \"ara\",\r\n          \"text\": \"Arabic\"\r\n        },\r\n        {\r\n          \"value\": \"per\",\r\n          \"text\": \"Persian\"\r\n        }\r\n      ]\r\n    },\r\n    \"verboseMode\": {\r\n      \"defaultValue\": \"normal\",\r\n      \"labelText\": \"Log Level\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"verbose\",\r\n          \"text\": \"Verbose\"\r\n        },\r\n        {\r\n          \"value\": \"normal\",\r\n          \"text\": \"Normal\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n"
+
+/***/ }),
+
+/***/ "./settings/language-options-defaults.json":
+/*!*************************************************!*\
+  !*** ./settings/language-options-defaults.json ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{\r\n  \"domain\": \"alpheios-resource-options\",\r\n  \"items\": {\r\n    \"lexicons\": {\r\n      \"labelText\": \"Lexicons (Full Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"lexiconsShort\": {\r\n      \"labelText\": \"Lexicons (Short Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  }\r\n}"
 
 /***/ }),
 

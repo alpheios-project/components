@@ -1,17 +1,21 @@
 export default class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
-   * @param {Object} defaults - defauts for the instance of the class
-   * @param {Function} loader - An async function with no arguments. Returns a promise
-   * that is resolved with an object. Each property in this object corresponds to a single option.
-   * Property name is a key, and property value is an option value.
-   * @param {Function} saver - An async function that takes option as an argument
-   * and returns a promise.
+   * @param {Object} defaults - defaults for the instance of the class
+   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
-  constructor (defaults, loader, saver) {
-    this.items = this.initItems(defaults.items)
-    this.loader = loader
-    this.saver = saver
+  constructor (defaults, StorageAdapter) {
+    if (!defaults || !defaults.domain || !defaults.items) {
+      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+    }
+    if (!StorageAdapter) {
+      throw new Error(`No storage adapter implementation provided`)
+    }
+    for (const key of Object.keys(defaults)) {
+      this[key] = defaults[key]
+    }
+    this.items = this.initItems(this.items)
+    this.storageAdapter = new StorageAdapter(defaults.domain)
   }
 
   initItem (item, key) {
@@ -80,7 +84,7 @@ export default class Options {
    * Will always return a resolved promise.
    */
   load (callbackFunc) {
-    this.loader().then(
+    this.storageAdapter.get().then(
       values => {
         for (let key in values) {
           if (this.items.hasOwnProperty(key)) {
@@ -136,7 +140,7 @@ export default class Options {
     let option = {}
     option[optionName] = JSON.stringify(optionValue)
 
-    this.saver(option).then(
+    this.storageAdapter.set(option).then(
       () => {
         // Options storage succeeded
         console.log(`Value "${optionValue}" of "${optionName}" option value was stored successfully`)

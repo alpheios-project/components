@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import LexicalQuery from '../../../src/lib/queries/lexical-query'
 import Options from '../../../src/lib/options/options'
-import LanguageOptionDefaults from '../../../src/lib/options/language-option-defaults'
+import LanguageOptionDefaults from '../../../src/settings/language-options-defaults'
 
 describe('lexical-query.test.js', () => {
   let emptyPromise
