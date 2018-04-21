@@ -1,3 +1,5 @@
+import OptionItem from './options-item.js'
+
 export default class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
@@ -18,59 +20,18 @@ export default class Options {
     this.storageAdapter = new StorageAdapter(defaults.domain)
   }
 
-  initItem (item, key) {
-    let instance = this
-    item.currentValue = item.defaultValue
-    item.name = key
-    item.textValues = function () {
-      return this.values.map(value => value.text)
-    }
-    item.currentTextValue = function () {
-      let currentTextValue = []
-      for (let value of this.values) {
-        if (this.multiValue) {
-          if (this.currentValue.includes(value.value)) { currentTextValue.push(value.text) }
-        } else {
-          if (value.value === this.currentValue) {
-            currentTextValue = value.text
-          }
-        }
-      }
-      return currentTextValue
-    }
-    item.setValue = function (value) {
-      item.currentValue = value
-      instance.save(item.name, item.currentValue)
-      return this
-    }
-    item.setTextValue = function (textValue) {
-      item.currentValue = []
-      for (let value of item.values) {
-        if (this.multiValue) {
-          for (let tv of textValue) {
-            if (value.text === tv) { item.currentValue.push(value.value) }
-          }
-        } else {
-          if (value.text === textValue) { item.currentValue = value.value }
-        }
-      }
-      instance.save(item.name, item.currentValue)
-      return this
-    }
-  }
-
   initItems (defaults) {
     let items = {}
     for (let [option, value] of Object.entries(defaults)) {
       if (value.group) {
         items[option] = []
         for (let [key, item] of Object.entries(value.group)) {
-          this.initItem(item, `${option}-${key}`)
-          items[option].push(item)
+          let newItem = new OptionItem(item, `${option}-${key}`, this.save.bind(this))
+          items[option].push(newItem)
         }
       } else {
-        this.initItem(value, option)
-        items[option] = value
+        let newItem = new OptionItem(value, option, this.save.bind(this))
+        items[option] = newItem
       }
     }
     return items

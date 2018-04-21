@@ -24609,6 +24609,69 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__[
 
 /***/ }),
 
+/***/ "./lib/options/options-item.js":
+/*!*************************************!*\
+  !*** ./lib/options/options-item.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OptionItem; });
+class OptionItem {
+  constructor (item, key, saveFunc) {
+    for (const key of Object.keys(item)) {
+      this[key] = item[key]
+    }
+    this.currentValue = this.defaultValue
+    this.name = key
+    this.saveFunc = saveFunc
+  }
+
+  textValues () {
+    return this.values.map(value => value.text)
+  }
+
+  currentTextValue () {
+    let currentTextValue = []
+    for (let value of this.values) {
+      if (this.multiValue) {
+        if (this.currentValue.includes(value.value)) { currentTextValue.push(value.text) }
+      } else {
+        if (value.value === this.currentValue) {
+          currentTextValue = value.text
+        }
+      }
+    }
+    return currentTextValue
+  }
+
+  setValue (value) {
+    this.currentValue = value
+    this.saveFunc(this.name, this.currentValue)
+    return this
+  }
+
+  setTextValue (textValue) {
+    this.currentValue = []
+    for (let value of this.values) {
+      if (this.multiValue) {
+        for (let tv of textValue) {
+          if (value.text === tv) { this.currentValue.push(value.value) }
+        }
+      } else {
+        if (value.text === textValue) { this.currentValue = value.value }
+      }
+    }
+    this.saveFunc(this.name, this.currentValue)
+    return this
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/options/options.js":
 /*!********************************!*\
   !*** ./lib/options/options.js ***!
@@ -24619,6 +24682,9 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__[
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Options; });
+/* harmony import */ var _options_item_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options-item.js */ "./lib/options/options-item.js");
+
+
 class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
@@ -24639,59 +24705,18 @@ class Options {
     this.storageAdapter = new StorageAdapter(defaults.domain)
   }
 
-  initItem (item, key) {
-    let instance = this
-    item.currentValue = item.defaultValue
-    item.name = key
-    item.textValues = function () {
-      return this.values.map(value => value.text)
-    }
-    item.currentTextValue = function () {
-      let currentTextValue = []
-      for (let value of this.values) {
-        if (this.multiValue) {
-          if (this.currentValue.includes(value.value)) { currentTextValue.push(value.text) }
-        } else {
-          if (value.value === this.currentValue) {
-            currentTextValue = value.text
-          }
-        }
-      }
-      return currentTextValue
-    }
-    item.setValue = function (value) {
-      item.currentValue = value
-      instance.save(item.name, item.currentValue)
-      return this
-    }
-    item.setTextValue = function (textValue) {
-      item.currentValue = []
-      for (let value of item.values) {
-        if (this.multiValue) {
-          for (let tv of textValue) {
-            if (value.text === tv) { item.currentValue.push(value.value) }
-          }
-        } else {
-          if (value.text === textValue) { item.currentValue = value.value }
-        }
-      }
-      instance.save(item.name, item.currentValue)
-      return this
-    }
-  }
-
   initItems (defaults) {
     let items = {}
     for (let [option, value] of Object.entries(defaults)) {
       if (value.group) {
         items[option] = []
         for (let [key, item] of Object.entries(value.group)) {
-          this.initItem(item, `${option}-${key}`)
-          items[option].push(item)
+          let newItem = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](item, `${option}-${key}`, this.save.bind(this))
+          items[option].push(newItem)
         }
       } else {
-        this.initItem(value, option)
-        items[option] = value
+        let newItem = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](value, option, this.save.bind(this))
+        items[option] = newItem
       }
     }
     return items
