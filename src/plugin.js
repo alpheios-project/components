@@ -15,9 +15,10 @@ import HTMLSelector from './lib/selection/media/html-selector.js'
 import LexicalQuery from './lib/queries/lexical-query.js'
 import ResourceQuery from './lib/queries/resource-query.js'
 import LocalStorageArea from './lib/options/local-storage-area.js'
+import ExtensionSyncStorage from './lib/options/extension-sync-storage.js'
 import ContentOptionDefaults from './settings/content-options-defaults.json'
 import LanguageOptionDefaults from './settings/language-options-defaults.json'
 import DefaultsLoader from './lib/options/defaults-loader.js'
 import Options from './lib/options/options.js'
 export { Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
-  LocalStorageArea, ContentOptionDefaults, LanguageOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style }
+  LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style }

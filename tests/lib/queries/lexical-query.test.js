@@ -1,7 +1,8 @@
 /* eslint-env jest */
 import LexicalQuery from '../../../src/lib/queries/lexical-query'
 import Options from '../../../src/lib/options/options'
-import LanguageOptionDefaults from '../../../src/settings/language-options-defaults'
+import LanguageOptionDefaults from '../../../src/settings/language-options-defaults.json'
+import LocalStorageArea from '../../../src/lib/options/local-storage-area.js'
 
 describe('lexical-query.test.js', () => {
   let emptyPromise
@@ -10,8 +11,7 @@ describe('lexical-query.test.js', () => {
   })
 
   it('parses lexicon options', async () => {
-    let languageDefs = new LanguageOptionDefaults()
-    let languageOptions = new Options(languageDefs, emptyPromise, emptyPromise)
+    let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
 
     let siteFixture = JSON.parse(`
       [
@@ -26,13 +26,16 @@ describe('lexical-query.test.js', () => {
     `)
     let allSiteOptions = []
     for (let site of siteFixture) {
-      let siteDefs = new LanguageOptionDefaults(`alpheios-${site.name}-options`)
+      let siteDefs = LanguageOptionDefaults
+      siteDefs.domain = `alpheios-${site.name}-options`
       let loader = () => {
         return new Promise((resolve, reject) => {
           resolve(site.resourceOptions)
         })
       }
-      let resOpts = new Options(siteDefs, loader, emptyPromise)
+      let resOpts = new Options(siteDefs, LocalStorageArea)
+      resOpts.storageAdapter.get = loader
+      resOpts.storageAdapter.set = emptyPromise
       await resOpts.load(() => { })
       allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: resOpts })
     }
