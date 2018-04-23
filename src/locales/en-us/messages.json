@@ -155,6 +155,11 @@
     "description": "tooltip for closing the popup",
     "component": "Popup"
   },
+  "LABEL_POPUP_TREEBANK": {
+    "message": "Diagram",
+    "description": "label for treebank button on popup",
+    "component": "Popup"
+  },
   "LABEL_POPUP_INFLECT": {
     "message": "Inflect",
     "description": "label for inflect button on popup",
