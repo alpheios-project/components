@@ -83,6 +83,8 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.settings.verboseMode" @change="settingChanged"
                          :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged"
+                         :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"
@@ -233,11 +235,15 @@
       },
 
       settingChanged: function (name, value) {
-        this.$emit('settingchange', name, value) // Re-emit for a Vue instance
+        this.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
       },
 
       resourceSettingChanged: function (name, value) {
-        this.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance
+        this.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
+      },
+
+      uiOptionChanged: function (name, value) {
+        this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       },
 
       setContentWidth: function (width) {

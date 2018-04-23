@@ -1,9 +1,16 @@
 import OptionItem from './options-item.js'
 
+/**
+ * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
+ */
 export default class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
-   * @param {Object} defaults - defaults for the instance of the class
+   * @param {Object} defaults - defaults for the instance of the class.
+   * Use DefaultsLoader class to convert defaults data from different sources.
+   * Mandatory fields:
+   *    {string} domain - A domain name that defines options context
+   *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
   constructor (defaults, StorageAdapter) {
@@ -16,22 +23,21 @@ export default class Options {
     for (const key of Object.keys(defaults)) {
       this[key] = defaults[key]
     }
-    this.items = this.initItems(this.items)
     this.storageAdapter = new StorageAdapter(defaults.domain)
+
+    this.items = Options.initItems(this.items, this.storageAdapter)
   }
 
-  initItems (defaults) {
+  static initItems (defaults, storageAdapter) {
     let items = {}
     for (let [option, value] of Object.entries(defaults)) {
       if (value.group) {
         items[option] = []
         for (let [key, item] of Object.entries(value.group)) {
-          let newItem = new OptionItem(item, `${option}-${key}`, this.save.bind(this))
-          items[option].push(newItem)
+          items[option].push(new OptionItem(item, `${option}-${key}`, storageAdapter))
         }
       } else {
-        let newItem = new OptionItem(value, option, this.save.bind(this))
-        items[option] = newItem
+        items[option] = new OptionItem(value, option, storageAdapter)
       }
     }
     return items
@@ -94,21 +100,5 @@ export default class Options {
       setting: setting,
       group: group
     }
-  }
-
-  save (optionName, optionValue) {
-    // Update value in the local storage
-    let option = {}
-    option[optionName] = JSON.stringify(optionValue)
-
-    this.storageAdapter.set(option).then(
-      () => {
-        // Options storage succeeded
-        console.log(`Value "${optionValue}" of "${optionName}" option value was stored successfully`)
-      },
-      (errorMessage) => {
-        console.error(`Storage of an option value failed: ${errorMessage}`)
-      }
-    )
   }
 }

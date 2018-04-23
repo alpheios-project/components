@@ -1,11 +1,23 @@
+/**
+ * A single option item with access methods.
+ */
 export default class OptionItem {
-  constructor (item, key, saveFunc) {
+  constructor (item, key, storageAdapter) {
+    if (!item) {
+      throw new Error(`Item cannot be empty`)
+    }
+    if (!key) {
+      throw new Error(`Key cannot be empty`)
+    }
+    if (!storageAdapter) {
+      throw new Error(`Storage adapter object should be provided`)
+    }
     for (const key of Object.keys(item)) {
       this[key] = item[key]
     }
     this.currentValue = this.defaultValue
     this.name = key
-    this.saveFunc = saveFunc
+    this.storageAdapter = storageAdapter
   }
 
   textValues () {
@@ -26,9 +38,14 @@ export default class OptionItem {
     return currentTextValue
   }
 
+  addValue (value, text) {
+    this.values.push({value: value, text: text})
+    return this
+  }
+
   setValue (value) {
     this.currentValue = value
-    this.saveFunc(this.name, this.currentValue)
+    this.save()
     return this
   }
 
@@ -43,7 +60,25 @@ export default class OptionItem {
         if (value.text === textValue) { this.currentValue = value.value }
       }
     }
-    this.saveFunc(this.name, this.currentValue)
+    this.save()
     return this
+  }
+
+  /**
+   * Saves an option value to the local storage.
+   */
+  save () {
+    let option = {}
+    option[this.name] = JSON.stringify(this.currentValue)
+
+    this.storageAdapter.set(option).then(
+      () => {
+        // Options storage succeeded
+        console.log(`Value "${this.currentValue}" of "${this.name}" option value was stored successfully`)
+      },
+      (errorMessage) => {
+        console.error(`Storage of an option value failed: ${errorMessage}`)
+      }
+    )
   }
 }

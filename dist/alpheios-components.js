@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("intl-messageformat"), require("alpheios-res-client"), require("alpheios-inflection-tables"), require("alpheios-data-models"));
+		module.exports = factory(require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat"));
 	else if(typeof define === 'function' && define.amd)
-		define(["intl-messageformat", "alpheios-res-client", "alpheios-inflection-tables", "alpheios-data-models"], factory);
+		define(["alpheios-data-models", "alpheios-inflection-tables", "alpheios-res-client", "intl-messageformat"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("intl-messageformat"), require("alpheios-res-client"), require("alpheios-inflection-tables"), require("alpheios-data-models")) : factory(root["intl-messageformat"], root["alpheios-res-client"], root["alpheios-inflection-tables"], root["alpheios-data-models"]);
+		var a = typeof exports === 'object' ? factory(require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat")) : factory(root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"], root["intl-messageformat"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE_intl_messageformat__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -8924,6 +8924,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9053,11 +9055,15 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     settingChanged: function (name, value) {
-      this.$emit('settingchange', name, value) // Re-emit for a Vue instance
+      this.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
     },
 
     resourceSettingChanged: function (name, value) {
-      this.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance
+      this.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
+    },
+
+    uiOptionChanged: function (name, value) {
+      this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
     },
 
     setContentWidth: function (width) {
@@ -11194,6 +11200,14 @@ var render = function() {
                 classes: ["alpheios-panel__options-item"]
               },
               on: { change: _vm.settingChanged }
+            }),
+            _vm._v(" "),
+            _c("setting", {
+              attrs: {
+                data: _vm.data.uiOptions.items.skin,
+                classes: ["alpheios-panel__options-item"]
+              },
+              on: { change: _vm.uiOptionChanged }
             }),
             _vm._v(" "),
             _vm._l(_vm.data.resourceSettings.lexicons, function(
@@ -23311,7 +23325,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" >\r\n    <popup :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :linkedfeatures=\"linkedFeatures\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\">\r\n    </popup>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <panel :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @changetab=\"changeTab\"></panel>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" >\r\n    <popup :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :linkedfeatures=\"linkedFeatures\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\">\r\n    </popup>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <panel :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\"></panel>\r\n</div>\r\n";
 
 /***/ }),
 
@@ -23368,8 +23382,9 @@ class UIController {
   /**
    * @constructor
    * @param {UIStateAPI} state - State object for the parent application
-   * @param {ContentOptions} options - content options  (API definition pending)
-   * @param {ResourceOptions} resourceOptions - resource options  (API definition pending)
+   * @param {Options} options - content options (see `src/setting/content-options-defaults.js`)
+   * @param {Options} resourceOptions - resource options (see `src/setting/language-options-defaults.js`)
+   * @param {Options} uiOptions - UI options (see `src/setting/ui-options-defaults.js`)
    * @param {Object} manifest - parent application info details  (API definition pending)
    * In some environments manifest data may not be available. Then a `{}` default value
    * will be used.
@@ -23382,10 +23397,11 @@ class UIController {
    *                            popupComponent: Vue single file component of a panel element.
    *                              Allows to provide an alternative popup layout
    */
-  constructor (state, options, resourceOptions, manifest = {}, template = {}) {
+  constructor (state, options, resourceOptions, uiOptions, manifest = {}, template = {}) {
     this.state = state
     this.options = options
     this.resourceOptions = resourceOptions
+    this.uiOptions = uiOptions
     this.settings = UIController.settingValues
     this.irregularBaseFontSizeClassName = 'alpheios-irregular-base-font-size'
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
@@ -23462,9 +23478,8 @@ class UIController {
           },
           settings: this.options.items,
           resourceSettings: this.resourceOptions.items,
-          classes: {
-            [this.irregularBaseFontSizeClassName]: this.irregularBaseFontSize
-          },
+          uiOptions: this.uiOptions,
+          classes: [], // Will be set later by `setRootComponentClasses()`
           styles: {
             zIndex: this.zIndex
           },
@@ -23626,7 +23641,6 @@ class UIController {
         },
 
         settingChange: function (name, value) {
-          console.log('Change inside instance', name, value)
           this.options.items[name].setTextValue(value)
           switch (name) {
             case 'locale':
@@ -23644,8 +23658,15 @@ class UIController {
         },
         resourceSettingChange: function (name, value) {
           let keyinfo = this.resourceOptions.parseKey(name)
-          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+        },
+        uiOptionChange: function (name, value) {
+          this.uiController.uiOptions.items[name].setTextValue(value)
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+          }
         }
       },
       mounted: function () {
@@ -23711,9 +23732,7 @@ class UIController {
           morphDataReady: false,
           showProviders: false,
           updates: 0,
-          classes: {
-            [this.irregularBaseFontSizeClassName]: this.irregularBaseFontSize
-          },
+          classes: [], // Will be set later by `setRootComponentClasses()`
           l10n: this.l10n,
           notification: {
             visible: false,
@@ -23863,6 +23882,15 @@ class UIController {
         }
       }
     })
+
+    // Set initial values of components
+    this.setRootComponentClasses()
+  }
+
+  static get defaults () {
+    return {
+      irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size'
+    }
   }
 
   static get settingValues () {
@@ -24102,6 +24130,22 @@ class UIController {
       this.popup.open()
     }
     return this
+  }
+
+  setRootComponentClasses () {
+    let classes = []
+    if (!UIController.hasRegularBaseFontSize()) {
+      classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
+    }
+    classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
+    this.panel.panelData.classes = classes
+    this.popup.popupData.classes = classes
+  }
+
+  changeSkin (skinName) {
+    console.log(`Change skin:`, skinName)
+    // Update skin name in classes
+    this.setRootComponentClasses()
   }
 }
 
@@ -24445,7 +24489,7 @@ class Logger {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DefaultsLoader; });
 class DefaultsLoader {
-  static getJSON (jsonString) {
+  static fromJSON (jsonString) {
     try {
       return JSON.parse(jsonString)
     } catch (err) {
@@ -24619,14 +24663,26 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__[
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OptionItem; });
+/**
+ * A single option item with access methods.
+ */
 class OptionItem {
-  constructor (item, key, saveFunc) {
+  constructor (item, key, storageAdapter) {
+    if (!item) {
+      throw new Error(`Item cannot be empty`)
+    }
+    if (!key) {
+      throw new Error(`Key cannot be empty`)
+    }
+    if (!storageAdapter) {
+      throw new Error(`Storage adapter object should be provided`)
+    }
     for (const key of Object.keys(item)) {
       this[key] = item[key]
     }
     this.currentValue = this.defaultValue
     this.name = key
-    this.saveFunc = saveFunc
+    this.storageAdapter = storageAdapter
   }
 
   textValues () {
@@ -24647,9 +24703,14 @@ class OptionItem {
     return currentTextValue
   }
 
+  addValue (value, text) {
+    this.values.push({value: value, text: text})
+    return this
+  }
+
   setValue (value) {
     this.currentValue = value
-    this.saveFunc(this.name, this.currentValue)
+    this.save()
     return this
   }
 
@@ -24664,8 +24725,26 @@ class OptionItem {
         if (value.text === textValue) { this.currentValue = value.value }
       }
     }
-    this.saveFunc(this.name, this.currentValue)
+    this.save()
     return this
+  }
+
+  /**
+   * Saves an option value to the local storage.
+   */
+  save () {
+    let option = {}
+    option[this.name] = JSON.stringify(this.currentValue)
+
+    this.storageAdapter.set(option).then(
+      () => {
+        // Options storage succeeded
+        console.log(`Value "${this.currentValue}" of "${this.name}" option value was stored successfully`)
+      },
+      (errorMessage) => {
+        console.error(`Storage of an option value failed: ${errorMessage}`)
+      }
+    )
   }
 }
 
@@ -24685,10 +24764,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _options_item_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options-item.js */ "./lib/options/options-item.js");
 
 
+/**
+ * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
+ */
 class Options {
   /**
    * Options is a class which encapsulates defaults and user preferences
-   * @param {Object} defaults - defaults for the instance of the class
+   * @param {Object} defaults - defaults for the instance of the class.
+   * Use DefaultsLoader class to convert defaults data from different sources.
+   * Mandatory fields:
+   *    {string} domain - A domain name that defines options context
+   *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
   constructor (defaults, StorageAdapter) {
@@ -24701,22 +24787,21 @@ class Options {
     for (const key of Object.keys(defaults)) {
       this[key] = defaults[key]
     }
-    this.items = this.initItems(this.items)
     this.storageAdapter = new StorageAdapter(defaults.domain)
+
+    this.items = Options.initItems(this.items, this.storageAdapter)
   }
 
-  initItems (defaults) {
+  static initItems (defaults, storageAdapter) {
     let items = {}
     for (let [option, value] of Object.entries(defaults)) {
       if (value.group) {
         items[option] = []
         for (let [key, item] of Object.entries(value.group)) {
-          let newItem = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](item, `${option}-${key}`, this.save.bind(this))
-          items[option].push(newItem)
+          items[option].push(new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](item, `${option}-${key}`, storageAdapter))
         }
       } else {
-        let newItem = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](value, option, this.save.bind(this))
-        items[option] = newItem
+        items[option] = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](value, option, storageAdapter)
       }
     }
     return items
@@ -24779,22 +24864,6 @@ class Options {
       setting: setting,
       group: group
     }
-  }
-
-  save (optionName, optionValue) {
-    // Update value in the local storage
-    let option = {}
-    option[optionName] = JSON.stringify(optionValue)
-
-    this.storageAdapter.set(option).then(
-      () => {
-        // Options storage succeeded
-        console.log(`Value "${optionValue}" of "${optionName}" option value was stored successfully`)
-      },
-      (errorMessage) => {
-        console.error(`Storage of an option value failed: ${errorMessage}`)
-      }
-    )
   }
 }
 
@@ -25701,7 +25770,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************!*\
   !*** ./plugin.js ***!
   \*******************/
-/*! exports provided: Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style */
+/*! exports provided: Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25757,14 +25826,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
 /* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "LanguageOptionDefaults", function() { return _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___default.a; });
-/* harmony import */ var _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./lib/options/defaults-loader.js */ "./lib/options/defaults-loader.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultsLoader", function() { return _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_17__["default"]; });
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "UIOptionDefaults", function() { return _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default.a; });
+/* harmony import */ var _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./lib/options/defaults-loader.js */ "./lib/options/defaults-loader.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultsLoader", function() { return _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_18__["default"]; });
 
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./lib/options/options.js */ "./lib/options/options.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options_js__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./lib/options/options.js */ "./lib/options/options.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options_js__WEBPACK_IMPORTED_MODULE_19__["default"]; });
 
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
+
 
 
 
@@ -25809,6 +25882,17 @@ module.exports = "{\r\n  \"domain\": \"alpheios-content-options\",\r\n  \"items\
 /***/ (function(module, exports) {
 
 module.exports = "{\r\n  \"domain\": \"alpheios-resource-options\",\r\n  \"items\": {\r\n    \"lexicons\": {\r\n      \"labelText\": \"Lexicons (Full Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"lexiconsShort\": {\r\n      \"labelText\": \"Lexicons (Short Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  }\r\n}"
+
+/***/ }),
+
+/***/ "./settings/ui-options-defaults.json":
+/*!*******************************************!*\
+  !*** ./settings/ui-options-defaults.json ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "{\r\n  \"domain\": \"alpheios-ui-options\",\r\n  \"items\": {\r\n    \"skin\": {\r\n      \"defaultValue\": \"default\",\r\n      \"labelText\": \"Skin\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"default\",\r\n          \"text\": \"Alpheios Default Skin\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n"
 
 /***/ }),
 

@@ -18,7 +18,9 @@ import LocalStorageArea from './lib/options/local-storage-area.js'
 import ExtensionSyncStorage from './lib/options/extension-sync-storage.js'
 import ContentOptionDefaults from './settings/content-options-defaults.json'
 import LanguageOptionDefaults from './settings/language-options-defaults.json'
+import UIOptionDefaults from './settings/ui-options-defaults.json'
 import DefaultsLoader from './lib/options/defaults-loader.js'
 import Options from './lib/options/options.js'
 export { Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
-  LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style }
+  LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults,
+  DefaultsLoader, Options, UIStateAPI, Style }

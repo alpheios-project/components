@@ -7,5 +7,5 @@
 <div id="alpheios-panel">
     <panel :data="panelData" @close="close" @closenotifications="clearNotifications"
            @setposition="setPositionTo" @settingchange="settingChange" @resourcesettingchange="resourceSettingChange"
-           @changetab="changeTab"></panel>
+           @ui-option-change="uiOptionChange" @changetab="changeTab"></panel>
 </div>

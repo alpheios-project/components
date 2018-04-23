@@ -1,5 +1,5 @@
 export default class DefaultsLoader {
-  static getJSON (jsonString) {
+  static fromJSON (jsonString) {
     try {
       return JSON.parse(jsonString)
     } catch (err) {
