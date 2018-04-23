@@ -10,8 +10,8 @@ describe('treebank.test.js', () => {
     cmp = shallow(Treebank, {
       propsData: {
         res: {
-          tbsrc: 'http://example.org/tb/SENTENCE/WORD',
-          tbref: '1-2'
+          src: 'http://example.org/tb/SENTENCE/WORD',
+          ref: '1-2'
         },
         locale: 'en-US',
         messages: {},

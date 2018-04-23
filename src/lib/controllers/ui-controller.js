@@ -108,8 +108,7 @@ export default class UIController {
           },
           settings: this.options.items,
           treebankComponentData: {
-            tbsrc: null,
-            tbref: null,
+            data: {},
             visible: false
           },
           resourceSettings: this.resourceOptions.items,
@@ -174,8 +173,7 @@ export default class UIController {
           this.panelData.fullDefinitions = ''
           this.panelData.messages = ''
           this.panelData.treebankComponentData = {
-            tbsrc: null,
-            tbref: null,
+            data: {},
             visible: false
           }
           this.clearNotifications()
@@ -724,8 +722,8 @@ export default class UIController {
   }
 
   updateAnnotationData (data) {
-    this.panel.panelData.treebankComponentData = data
-    this.popup.popupData.hasTreebank = data.tbsrc && data.tbref
+    this.panel.panelData.treebankComponentData.data = data.treebank
+    this.popup.popupData.hasTreebank = data.treebank
   }
 
   updateLanguage (currentLanguage) {

@@ -47,15 +47,21 @@ export default class HTMLSelector extends MediaSelector {
    */
   setDataAttributes () {
     let tbSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_tb_src]')
+    let tbRef = this.target.dataset.alpheios_tb_ref
     let alignSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_align_src]')
+    let alignRef = this.target.dataset.alpheios_align_ref
     this.data = {}
-    if (tbSrcElem) {
-      this.data.tbsrc = tbSrcElem.dataset.alpheios_tb_src
-      this.data.tbref = this.target.dataset.alpheios_tb_ref
+    if (tbSrcElem && tbRef) {
+      this.data.treebank = {
+        src: tbSrcElem.dataset.alpheios_tb_src,
+        ref: tbRef
+      }
     }
-    if (alignSrcElem) {
-      this.data.alignsrc = alignSrcElem.dataset.alpheios_align_src
-      this.data.alignref = this.target.dataset.alpheios_align_ref
+    if (alignSrcElem && alignRef) {
+      this.data.translation = {
+        src: alignSrcElem.dataset.alpheios_align_src,
+        ref: alignRef
+      }
     }
   }
 
