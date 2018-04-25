@@ -8926,6 +8926,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9641,17 +9643,15 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   mounted () {
-    this.logger.log('mounted')
+    this.logger.log('Popup is mounted')
     this.interactInstance = interactjs__WEBPACK_IMPORTED_MODULE_2___default()(this.$el)
       .resizable(this.resizableSettings())
       .draggable(this.draggableSettings())
       .on('resizemove', this.resizeListener)
   },
 
-  /**
-   *
-   */
   updated () {
+    console.log(`Popup updated callback`)
     if (this.visible) {
       let time = new Date().getTime()
       this.logger.log(`${time}: component is updated`)
@@ -9661,6 +9661,7 @@ __webpack_require__.r(__webpack_exports__);
 
   watch: {
     visible: function(value) {
+      console.log(`Popup visibility changed, is visible: ${value}`)
       if (value) {
         // A popup became visible
         this.updatePopupDimensions()
@@ -11205,6 +11206,14 @@ var render = function() {
             _c("setting", {
               attrs: {
                 data: _vm.data.uiOptions.items.skin,
+                classes: ["alpheios-panel__options-item"]
+              },
+              on: { change: _vm.uiOptionChanged }
+            }),
+            _vm._v(" "),
+            _c("setting", {
+              attrs: {
+                data: _vm.data.uiOptions.items.popup,
                 classes: ["alpheios-panel__options-item"]
               },
               on: { change: _vm.uiOptionChanged }
@@ -23325,7 +23334,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" >\r\n    <popup :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :linkedfeatures=\"linkedFeatures\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\">\r\n    </popup>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <panel :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\"></panel>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" >\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\"\r\n           :lexemes=\"lexemes\" :linkedfeatures=\"linkedFeatures\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <panel :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\"></panel>\r\n</div>\r\n";
 
 /***/ }),
 
@@ -23345,24 +23354,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../vue-components/panel.vue */ "./vue-components/panel.vue");
 /* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../vue-components/popup.vue */ "./vue-components/popup.vue");
-/* harmony import */ var _l10n_l10n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../l10n/l10n */ "./lib/l10n/l10n.js");
-/* harmony import */ var _locales_locales__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../locales/locales */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./template.htmlf */ "./lib/controllers/template.htmlf");
-/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_template_htmlf__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
+/* harmony import */ var _vue_components_popup_mod_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../vue-components/popup-mod.vue */ "./vue-components/popup-mod.vue");
+/* harmony import */ var _l10n_l10n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../l10n/l10n */ "./lib/l10n/l10n.js");
+/* harmony import */ var _locales_locales__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../locales/locales */ "./locales/locales.js");
+/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./template.htmlf */ "./lib/controllers/template.htmlf");
+/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_template_htmlf__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
 /* global Node */
 
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
  // Vue in a runtime + compiler configuration
 
 
-// import PopupMod from '../../vue-components/popup-mod.vue'
+
 
 
 
@@ -23407,7 +23417,7 @@ class UIController {
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
     const templateDefaults = {
-      html: _template_htmlf__WEBPACK_IMPORTED_MODULE_8___default.a,
+      html: _template_htmlf__WEBPACK_IMPORTED_MODULE_9___default.a,
       panelId: 'alpheios-panel',
       panelComponent: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
       popupId: 'alpheios-popup',
@@ -23417,10 +23427,10 @@ class UIController {
 
     this.zIndex = this.getZIndexMax()
 
-    this.l10n = new _l10n_l10n__WEBPACK_IMPORTED_MODULE_4__["default"]()
-      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_GB)
-      .setLocale(_locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_US)
+    this.l10n = new _l10n_l10n__WEBPACK_IMPORTED_MODULE_5__["default"]()
+      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_GB)
+      .setLocale(_locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
@@ -23627,9 +23637,9 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _queries_resource_query__WEBPACK_IMPORTED_MODULE_10__["default"].create(feature, {
+          _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
             uiController: this.uiController,
-            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__["Grammars"]
+            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__["Grammars"]
           }).getData()
           //, {
           // experience: 'Get resource',
@@ -23666,6 +23676,12 @@ class UIController {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
               break
+            case 'popup':
+              console.log(`Switching a popup layout to ${this.uiController.uiOptions.items[name].currentValue}`)
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
           }
         }
       },
@@ -23688,7 +23704,10 @@ class UIController {
     // Create a Vue instance for a popup
     this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a({
       el: `#${this.template.popupId}`,
-      components: { popup: this.template.popupComponent },
+      components: {
+        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+        popupMod: _vue_components_popup_mod_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+      },
       data: {
         messages: [],
         lexemes: [],
@@ -23748,6 +23767,7 @@ class UIController {
         },
         panel: this.panel,
         options: this.options,
+        currentPopupComponent: 'popup',
         uiController: this
       },
       methods: {
@@ -25892,7 +25912,7 @@ module.exports = "{\r\n  \"domain\": \"alpheios-resource-options\",\r\n  \"items
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "{\r\n  \"domain\": \"alpheios-ui-options\",\r\n  \"items\": {\r\n    \"skin\": {\r\n      \"defaultValue\": \"default\",\r\n      \"labelText\": \"Skin\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"default\",\r\n          \"text\": \"Alpheios Default Skin\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n"
+module.exports = "{\r\n  \"domain\": \"alpheios-ui-options\",\r\n  \"items\": {\r\n    \"skin\": {\r\n      \"defaultValue\": \"default\",\r\n      \"labelText\": \"Skin\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"default\",\r\n          \"text\": \"Alpheios Default Skin\"\r\n        }\r\n      ]\r\n    },\r\n    \"popup\": {\r\n      \"defaultValue\": \"popup\",\r\n      \"labelText\": \"Popup layout\",\r\n      \"values\": [\r\n        {\r\n          \"value\": \"popup\",\r\n          \"text\": \"Default Popup Layout\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n"
 
 /***/ }),
 

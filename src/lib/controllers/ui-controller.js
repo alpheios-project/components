@@ -4,7 +4,7 @@ import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alph
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Panel from '../../vue-components/panel.vue'
 import Popup from '../../vue-components/popup.vue'
-// import PopupMod from '../../vue-components/popup-mod.vue'
+import PopupMod from '../../vue-components/popup-mod.vue'
 import L10n from '../l10n/l10n'
 import Locales from '../../locales/locales'
 import enUS from '../../locales/en-us/messages.json'
@@ -308,6 +308,12 @@ export default class UIController {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
               break
+            case 'popup':
+              console.log(`Switching a popup layout to ${this.uiController.uiOptions.items[name].currentValue}`)
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
           }
         }
       },
@@ -330,7 +336,10 @@ export default class UIController {
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.template.popupId}`,
-      components: { popup: this.template.popupComponent },
+      components: {
+        popup: Popup,
+        popupMod: PopupMod
+      },
       data: {
         messages: [],
         lexemes: [],
@@ -390,6 +399,7 @@ export default class UIController {
         },
         panel: this.panel,
         options: this.options,
+        currentPopupComponent: 'popup',
         uiController: this
       },
       methods: {

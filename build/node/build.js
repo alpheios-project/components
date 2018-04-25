@@ -10,7 +10,7 @@ const webpackTasks = {
 }
 
 let taskNamesAllowed = [
-  'all', // Default one
+  'all', // A default one
   'images',
   'skins',
   'webpack'
@@ -18,7 +18,8 @@ let taskNamesAllowed = [
 let taskName = taskNamesAllowed[0]
 
 let modesAllowed = [
-  'production', // Default one
+  'all', // A default one
+  'production',
   'development'
 ]
 let mode = modesAllowed[0]
@@ -46,13 +47,22 @@ for (let [index, value] of process.argv.entries()) {
   }
 }
 
-console.log(chalk.yellow(`Running ${taskName} task(s) in ${mode} mode`))
+console.log(chalk.yellow(`Running ${taskName} task(s) in ${mode} mode(s)`))
 if (taskName === 'all') {
   // Run all build tasks in a sequence
   let imageminResult = imagemin.run(config.image)
   let skinsResult = sass.run(config.skins())
   Promise.all([imageminResult, skinsResult]).then(() => {
-    webpack.run(webpackTasks[mode])
+    if (mode === modesAllowed[0]) {
+      Promise.all([
+        webpack.run(webpackTasks[modesAllowed[1]]),
+        webpack.run(webpackTasks[modesAllowed[2]])
+      ]).catch(err => {
+        console.log(err)
+      })
+    } else {
+      webpack.run(webpackTasks[mode])
+    }
   }).catch(err => {
     console.log(err)
   })
@@ -63,5 +73,14 @@ if (taskName === 'all') {
   // Creates output scss files
   sass.run(config.skins())
 } else if (taskName === 'webpack') {
-  webpack.run(webpackTasks[mode])
+  if (mode === modesAllowed[0]) {
+    Promise.all([
+      webpack.run(webpackTasks[modesAllowed[1]]),
+      webpack.run(webpackTasks[modesAllowed[2]])
+    ]).catch(err => {
+      console.log(err)
+    })
+  } else {
+    webpack.run(webpackTasks[mode])
+  }
 }

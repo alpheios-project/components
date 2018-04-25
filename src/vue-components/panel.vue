@@ -85,6 +85,8 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged"
                          :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged"
+                         :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"

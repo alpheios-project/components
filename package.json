@@ -5,12 +5,14 @@
   "main": "dist/alpheios-components.min.js",
   "scripts": {
     "test": "standard --fix && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "standard --fix && node ./build/node/build.js",
+    "build": "standard --fix && node ./build/node/build.js all all",
+    "build-prod": "standard --fix && node ./build/node/build.js all production",
     "build-dev": "standard --fix && node ./build/node/build.js all development",
     "lint": "standard --fix",
     "buildskins": "node ./build/node/build.js skins",
     "buildimages": "node ./build/node/build.js images",
-    "buildwebpack": "node ./build/node/build.js webpack",
+    "buildwebpack": "node ./build/node/build.js webpack all",
+    "buildwebpack-prod": "node ./build/node/build.js webpack production",
     "buildwebpack-dev": "node ./build/node/build.js webpack development"
   },
   "repository": {
