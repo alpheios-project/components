@@ -42,15 +42,17 @@
         if (val) {
           this.$emit('treebankcontentwidth', '43em')
           let newSrcUrl
-          if (this.res.src && this.res.ref) {
-            let [s,w] = this.res.ref.split(/-/)
-            newSrcUrl = this.res.src.replace('SENTENCE',s).replace('WORD',w)
+          if (this.res.word && this.res.word.src && this.res.word.ref) {
+            let [s,w] = this.res.word.ref.split(/-/)
+            newSrcUrl = this.res.word.src.replace('SENTENCE',s).replace('WORD',w)
             // only update the srcUrl property if we have a new URL - we don't
             // want to reload if it was hidden after being populated but hasn't
             // actually changed
             if (newSrcUrl != this.srcUrl) {
               this.updateSrcUrl(newSrcUrl)
             }
+          } else if (this.res.page) {
+            this.updateSrcUrl(this.res.page.src)
           }
         }
       }

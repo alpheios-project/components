@@ -103,6 +103,17 @@ export default class LanguageOptionDefaults extends OptionDefaults {
             ]
           }
         }
+      },
+      treebanks: {
+        labelText: 'Treebanks',
+        group: {
+          [codes.latin]: {
+            defaultValue: [],
+            labelText: 'Latin Treebanks',
+            multiValue: true,
+            values: [ ]
+          }
+        }
       }
     }
   }

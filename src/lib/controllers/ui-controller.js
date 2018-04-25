@@ -108,7 +108,11 @@ export default class UIController {
           },
           settings: this.options.items,
           treebankComponentData: {
-            data: {},
+            data: {
+              word: {},
+              page: {}
+
+            },
             visible: false
           },
           resourceSettings: this.resourceOptions.items,
@@ -172,10 +176,8 @@ export default class UIController {
           this.panelData.shortDefinitions = []
           this.panelData.fullDefinitions = ''
           this.panelData.messages = ''
-          this.panelData.treebankComponentData = {
-            data: {},
-            visible: false
-          }
+          this.panelData.treebankComponentData.data.word = {}
+          this.panelData.treebankComponentData.visible = false
           this.clearNotifications()
           this.clearStatus()
           return this
@@ -721,9 +723,18 @@ export default class UIController {
     this.popup.popupData.updates = this.popup.popupData.updates + 1
   }
 
-  updateAnnotationData (data) {
-    this.panel.panelData.treebankComponentData.data = data.treebank
-    this.popup.popupData.hasTreebank = data.treebank
+  updatePageAnnotationData (data) {
+    this.panel.panelData.treebankComponentData.data.page = data.treebank.page || {}
+  }
+
+  updateWordAnnotationData (data) {
+    if (data && data.treebank) {
+      this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
+      this.popup.popupData.hasTreebank = data.treebank.word
+    } else {
+      this.panel.panelData.treebankComponentData.data.word = {}
+      this.popup.popupData.hasTreebank = false
+    }
   }
 
   updateLanguage (currentLanguage) {

@@ -10,8 +10,10 @@ describe('treebank.test.js', () => {
     cmp = shallow(Treebank, {
       propsData: {
         res: {
-          src: 'http://example.org/tb/SENTENCE/WORD',
-          ref: '1-2'
+          word: {
+            src: 'http://example.org/tb/SENTENCE/WORD',
+            ref: '1-2'
+          }
         },
         locale: 'en-US',
         messages: {},
@@ -38,5 +40,10 @@ describe('treebank.test.js', () => {
     spy.mockRestore()
     cmp.setProps({visible: true})
     expect(spy).not.toHaveBeenCalled()
+  })
+
+  it('works with a page url', () => {
+    cmp.setProps({ res: { page: { src: 'https://remoteurl.com/1/2' } }, visible: true })
+    expect(cmp.vm.srcUrl).toEqual('https://remoteurl.com/1/2')
   })
 })
