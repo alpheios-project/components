@@ -11,6 +11,9 @@ export default class LexicalQuery extends Query {
     this.maAdapter = options.maAdapter
     this.langData = options.langData
     this.lexicons = options.lexicons
+
+    this.lemmaTranslations = options.lemmaTranslations
+
     this.langOpts = options.langOpts
     this.resourceOptions = options.resourceOptions
     this.l10n = options.l10n
@@ -88,6 +91,8 @@ export default class LexicalQuery extends Query {
       lexiconOpts = {}
     }
 
+    let lemmaList = []
+
     for (let lexeme of this.homonym.lexemes) {
       // Short definition requests
       let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconOpts)
@@ -111,8 +116,25 @@ export default class LexicalQuery extends Query {
           complete: false
         }
       }))
+
+      lemmaList.push(lexeme.lemma)
     }
 
+    let userLang = navigator.language || navigator.userLanguage
+
+    if (this.lemmaTranslations) {
+      this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang).then(
+        res => {
+          console.log('translations ready')
+          this.ui.updateTranslations(this.homonym)
+          this.finalize('Success')
+        },
+        error => {
+          console.error(`Translations request failed: ${error}`)
+          this.finalize(error)
+        }
+      )
+    }
     // Handle definition responses
     for (let definitionRequest of definitionRequests) {
       definitionRequest.request.then(

@@ -26,7 +26,7 @@
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
-            <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions"
+            <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
             </morph>
 
@@ -116,6 +116,10 @@
       visible: {
         type: Boolean,
         required: true
+      },
+      translations: {
+        type: Object,
+        required: true
       }
     },
 
@@ -133,6 +137,9 @@
       },
       defDataReady: function () {
         return this.data.defDataReady
+      },
+      translationsDataReady: function () {
+        return this.data.translationsDataReady
       },
       morphDataReady: function () {
         return this.data.morphDataReady
@@ -429,6 +436,10 @@
         .resizable(this.resizableSettings())
         .draggable(this.draggableSettings())
         .on('resizemove', this.resizeListener)
+
+      console.log('******************************IS POPUP mounted ', this)
+      console.log('******************************IS POPUP mounted translations', this.translations)
+      console.log('******************************IS POPUP mounted definitions', this.definitions)
     },
 
     /**
@@ -458,8 +469,12 @@
         this.logger.log(`Popup position is ${this.data.settings.popupPosition.currentValue}`)
         // There is a new request coming in, reset popup dimensions
         this.resetPopupDimensions()
-      }
+      },
 
+      translationsDataReady: function(value) {
+        let time = new Date().getTime()
+        this.logger.log(`${time}: translation data became available`, this.translations)
+      }
       /*inflDataReady: function() {
         let time = new Date().getTime()
         this.logger.log(`${time}: inflection data became available`)

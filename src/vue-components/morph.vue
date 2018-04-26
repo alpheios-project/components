@@ -29,6 +29,9 @@
           <shortdef :definition="definition"></shortdef>
         </div>
       </div>
+
+      <lemmatranslation :translations="translations" :lemmakey="lex.lemma.key"></lemmatranslation>
+
       <div class="alpheios-morph__inflections">
         <div class="alpheios-morph__inflset" v-for="inflset in lex.getGroupedInflections()">
           <div class="alpheios-morph__forms">
@@ -76,7 +79,7 @@
             </div><!-- end groupinflections -->
           </div>
         </div>
-      </div>
+      </div><!-- end alpheios-morph__inflections -->
     </div>
   </div>
 </template>
@@ -84,10 +87,12 @@
   import { LanguageModelFactory, GrmFeature } from 'alpheios-data-models'
   import ShortDef from './shortdef.vue'
   import InflectionAttribute from './infl-attribute.vue'
+  
+  import LemmaTranslation from './lemma-translation.vue'
 
   export default {
     name: 'Morph',
-    components: { shortdef: ShortDef, inflectionattribute: InflectionAttribute },
+    components: { shortdef: ShortDef, inflectionattribute: InflectionAttribute, lemmatranslation: LemmaTranslation },
     props: {
         lexemes: {
           type: Array,
@@ -102,6 +107,11 @@
           type: Array,
           required: false,
           default: () => []
+        },
+        translations: {
+          type: Object,
+          required: false,
+          default: () => {}
         }
     },
     data: function () {
