@@ -4,6 +4,7 @@ import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alph
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Panel from '../../vue-components/panel.vue'
 import Popup from '../../vue-components/popup.vue'
+import PopupMod from '../../vue-components/popup-mod.vue'
 import L10n from '../l10n/l10n'
 import Locales from '../../locales/locales'
 import enUS from '../../locales/en-us/messages.json'
@@ -23,26 +24,38 @@ export default class UIController {
   /**
    * @constructor
    * @param {UIStateAPI} state - State object for the parent application
-   * @param {ContentOptions} options - content options  (API definition pending)
-   * @param {ResourceOptions} resourceOptions - resource options  (API definition pending)
+   * @param {Options} options - content options (see `src/setting/content-options-defaults.js`)
+   * @param {Options} resourceOptions - resource options (see `src/setting/language-options-defaults.js`)
+   * @param {Options} uiOptions - UI options (see `src/setting/ui-options-defaults.js`)
    * @param {Object} manifest - parent application info details  (API definition pending)
    * In some environments manifest data may not be available. Then a `{}` default value
    * will be used.
    * @param {Object} template - object with the following properties:
    *                            html: HTML string for the container of the Alpheios components
-   *                            panelId: the id of the wrapper for the panel component
+   *                            panelId: the id of the wrapper for the panel component,
+   *                            panelComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative panel layout
    *                            popupId: the id of the wrapper for the popup component
+   *                            popupComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative popup layout
    */
-  constructor (state, options, resourceOptions, manifest = {},
-    template = {html: Template, panelId: 'alpheios-panel', popupId: 'alpheios-popup'}) {
+  constructor (state, options, resourceOptions, uiOptions, manifest = {}, template = {}) {
     this.state = state
     this.options = options
     this.resourceOptions = resourceOptions
+    this.uiOptions = uiOptions
     this.settings = UIController.settingValues
     this.irregularBaseFontSizeClassName = 'alpheios-irregular-base-font-size'
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
-    this.template = template
+    const templateDefaults = {
+      html: Template,
+      panelId: 'alpheios-panel',
+      panelComponent: Panel,
+      popupId: 'alpheios-popup',
+      popupComponent: Popup
+    }
+    this.template = Object.assign(templateDefaults, template)
 
     this.zIndex = this.getZIndexMax()
 
@@ -55,11 +68,11 @@ export default class UIController {
     document.body.classList.add('alpheios')
     let container = document.createElement('div')
     document.body.insertBefore(container, null)
-    container.outerHTML = template.html
+    container.outerHTML = this.template.html
     // Initialize components
     this.panel = new Vue({
       el: `#${this.template.panelId}`,
-      components: { panel: Panel },
+      components: { panel: this.template.panelComponent },
       data: {
         panelData: {
           isOpen: false,
@@ -116,9 +129,8 @@ export default class UIController {
             visible: false
           },
           resourceSettings: this.resourceOptions.items,
-          classes: {
-            [this.irregularBaseFontSizeClassName]: this.irregularBaseFontSize
-          },
+          uiOptions: this.uiOptions,
+          classes: [], // Will be set later by `setRootComponentClasses()`
           styles: {
             zIndex: this.zIndex
           },
@@ -282,7 +294,6 @@ export default class UIController {
         },
 
         settingChange: function (name, value) {
-          console.log('Change inside instance', name, value)
           this.options.items[name].setTextValue(value)
           switch (name) {
             case 'locale':
@@ -300,8 +311,21 @@ export default class UIController {
         },
         resourceSettingChange: function (name, value) {
           let keyinfo = this.resourceOptions.parseKey(name)
-          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+        },
+        uiOptionChange: function (name, value) {
+          this.uiController.uiOptions.items[name].setTextValue(value)
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+            case 'popup':
+              console.log(`Switching a popup layout to ${this.uiController.uiOptions.items[name].currentValue}`)
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+          }
         }
       },
       mounted: function () {
@@ -323,7 +347,10 @@ export default class UIController {
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.template.popupId}`,
-      components: { popup: Popup },
+      components: {
+        popup: Popup,
+        popupMod: PopupMod
+      },
       data: {
         messages: [],
         lexemes: [],
@@ -368,9 +395,7 @@ export default class UIController {
           morphDataReady: false,
           showProviders: false,
           updates: 0,
-          classes: {
-            [this.irregularBaseFontSizeClassName]: this.irregularBaseFontSize
-          },
+          classes: [], // Will be set later by `setRootComponentClasses()`
           l10n: this.l10n,
           notification: {
             visible: false,
@@ -386,6 +411,7 @@ export default class UIController {
         },
         panel: this.panel,
         options: this.options,
+        currentPopupComponent: 'popup',
         uiController: this
       },
       methods: {
@@ -521,6 +547,15 @@ export default class UIController {
         }
       }
     })
+
+    // Set initial values of components
+    this.setRootComponentClasses()
+  }
+
+  static get defaults () {
+    return {
+      irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size'
+    }
   }
 
   static get settingValues () {
@@ -774,5 +809,21 @@ export default class UIController {
       this.popup.open()
     }
     return this
+  }
+
+  setRootComponentClasses () {
+    let classes = []
+    if (!UIController.hasRegularBaseFontSize()) {
+      classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
+    }
+    classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
+    this.panel.panelData.classes = classes
+    this.popup.popupData.classes = classes
+  }
+
+  changeSkin (skinName) {
+    console.log(`Change skin:`, skinName)
+    // Update skin name in classes
+    this.setRootComponentClasses()
   }
 }

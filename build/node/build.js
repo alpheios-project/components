@@ -2,19 +2,24 @@ const webpack = require('./webpack')
 const sass = require('./sass')
 const imagemin = require('./imagemin')
 const config = require('./config')
+const chalk = require('chalk')
 
-const webpackTasks = config.webpack.tasks.map(task => Object.assign(task, config.webpack.common))
+const webpackTasks = {
+  production: config.webpack.tasks.map(task => Object.assign(task, config.webpack.common)),
+  development: config.webpack.devTasks.map(task => Object.assign(task, config.webpack.common))
+}
 
 let taskNamesAllowed = [
-  'all', // Default one
+  'all', // A default one
   'images',
-  'styles',
+  'skins',
   'webpack'
 ]
 let taskName = taskNamesAllowed[0]
 
 let modesAllowed = [
-  'production', // Default one
+  'all', // A default one
+  'production',
   'development'
 ]
 let mode = modesAllowed[0]
@@ -42,30 +47,40 @@ for (let [index, value] of process.argv.entries()) {
   }
 }
 
-// Set mode-specific options
-if (mode === 'production') {
-  for (let task of webpackTasks) {
-    task.mode = 'production'
-  }
-} else if (mode === 'development') {
-  for (let task of webpackTasks) {
-    task.mode = 'development'
-  }
-}
-
+console.log(chalk.yellow(`Running ${taskName} task(s) in ${mode} mode(s)`))
 if (taskName === 'all') {
   // Run all build tasks in a sequence
   let imageminResult = imagemin.run(config.image)
-  let sassResult = sass.run(config.style)
-  Promise.all([imageminResult, sassResult]).then(() => {
-    webpack.run(webpackTasks)
+  let skinsResult = sass.run(config.skins())
+  Promise.all([imageminResult, skinsResult]).then(() => {
+    if (mode === modesAllowed[0]) {
+      Promise.all([
+        webpack.run(webpackTasks[modesAllowed[1]]),
+        webpack.run(webpackTasks[modesAllowed[2]])
+      ]).catch(err => {
+        console.log(err)
+      })
+    } else {
+      webpack.run(webpackTasks[mode])
+    }
+  }).catch(err => {
+    console.log(err)
   })
 } else if (taskName === 'images') {
   // Optimizes images for web
   imagemin.run(config.image)
-} else if (taskName === 'styles') {
+} else if (taskName === 'skins') {
   // Creates output scss files
-  sass.run(config.style)
+  sass.run(config.skins())
 } else if (taskName === 'webpack') {
-  webpack.run(webpackTasks)
+  if (mode === modesAllowed[0]) {
+    Promise.all([
+      webpack.run(webpackTasks[modesAllowed[1]]),
+      webpack.run(webpackTasks[modesAllowed[2]])
+    ]).catch(err => {
+      console.log(err)
+    })
+  } else {
+    webpack.run(webpackTasks[mode])
+  }
 }

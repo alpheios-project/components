@@ -2,7 +2,7 @@
   {
     "testsite": {
       "uriMatch": "https?://example.org",
-      "resourceOptions": {
+      "langOptions": {
         "lexiconsShort-lat": ["https://github.com/alpheios-project/xx"]
       }
     }

@@ -64,12 +64,16 @@ let compileScss = async function (options) {
         })
 
         let mapResult = new Promise(resolve => {
-          fs.writeFile(options.cssMapFileName, result.map, (err) => {
-            if (err) resolve(err)
-            // log successful compilation to terminal
-            let size = fs.statSync(options.cssMapFileName).size
-            resolve(`${path.join(projectRoot, options.cssMapFileName)} ${chalk.yellow('[' + bytes.format(size) + ']')} ${chalk.green('[created]')}`)
-          })
+          if (options.sourceMap) {
+            fs.writeFile(options.cssMapFileName, result.map, (err) => {
+              if (err) resolve(err)
+              // log successful compilation to terminal
+              let size = fs.statSync(options.cssMapFileName).size
+              resolve(`${path.join(projectRoot, options.cssMapFileName)} ${chalk.yellow('[' + bytes.format(size) + ']')} ${chalk.green('[created]')}`)
+            })
+          } else {
+            resolve(chalk.cyan(`CSS map is disabled for ${path.join(projectRoot, options.cssFileName)}`))
+          }
         })
 
         Promise.all([fileResult, mapResult]).then(values => {
