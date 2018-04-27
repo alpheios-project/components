@@ -2,7 +2,7 @@
   <div class="alpheios-lemma__translations">
     <div v-if="translations && translations[lemmakey]" :data-lemmakey="lemmakey" class="hasValue">
       {{ translations[lemmakey].gloasses }}
-      <span v-for="gloss in translations[lemmakey].glosses">{{ gloss }}; </span>>
+      <span v-for="gloss in translations[lemmakey].glosses">{{ gloss }}; </span>
     </div>
   </div>
 </template>
