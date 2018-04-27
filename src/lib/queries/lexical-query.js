@@ -122,17 +122,19 @@ export default class LexicalQuery extends Query {
 
     let userLang = navigator.language || navigator.userLanguage
 
-    this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang).then(
-      res => {
-        console.log('translations ready')
-        this.ui.updateTranslations(this.homonym)
-        this.finalize('Success')
-      },
-      error => {
-        console.error(`Translations request failed: ${error}`)
-        this.finalize(error)
-      }
-    )
+    if (this.lemmaTranslations) {
+      this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang).then(
+        res => {
+          console.log('translations ready')
+          this.ui.updateTranslations(this.homonym)
+          this.finalize('Success')
+        },
+        error => {
+          console.error(`Translations request failed: ${error}`)
+          this.finalize(error)
+        }
+      )
+    }
     // Handle definition responses
     for (let definitionRequest of definitionRequests) {
       definitionRequest.request.then(
