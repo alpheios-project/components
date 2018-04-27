@@ -1,10 +1,8 @@
 <template>
   <div class="alpheios-lemma__translations">
     <div v-if="translations && translations[lemmakey]" :data-lemmakey="lemmakey" class="hasValue">
-      {{ translations[lemmakey].meanings }}
-    </div>
-    <div v-if="!translations || !translations[lemmakey]" class="noValue">
-      There is no translations for lemma
+      {{ translations[lemmakey].gloasses }}
+      <span v-for="gloss in translations[lemmakey].glosses">{{ gloss }}; </span>>
     </div>
   </div>
 </template>
