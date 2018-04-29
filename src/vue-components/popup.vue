@@ -1,7 +1,11 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-         <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+         <alph-tooltip 
+          v-show="data.inflDataReady" 
+          tooltipDirection = "left" 
+          additionalStyles = "{top: '0', right: '30px'}"
+          :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
           <span class="alpheios-popup__close-btn" @click="closePopup">
               <close-icon></close-icon>
           </span>

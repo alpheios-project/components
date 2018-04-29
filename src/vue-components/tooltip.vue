@@ -3,6 +3,7 @@
 		<slot></slot>
 		<span class="tooltiptext"
 			v-bind:class="directionClass"
+			v-bind:style="additionalStyles"
 		>
 			{{ tooltipText }}
 		</span>
@@ -18,8 +19,12 @@
         default: 'bottom'
       },
       tooltipText: {
-      	typr: String,
+      	type: String,
       	required: true
+      },
+      additionalStyles: {
+      	type: String,
+      	required: false
       }
     },
     computed: {
@@ -39,7 +44,7 @@
         if (this.tooltipDirection.toLowerCase() === 'bottom-right') {
           return { 'alph_tooltip-bottom-right': true }
         }
-        
+
         return {}
       }
     }
