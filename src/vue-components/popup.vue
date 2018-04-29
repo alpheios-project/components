@@ -4,7 +4,7 @@
          <alph-tooltip 
           v-show="data.inflDataReady" 
           tooltipDirection = "left" 
-          additionalStyles = "{top: '0', right: '30px'}"
+          :additionalStyles = "additionalStylesTootipCloseIcon"
           :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
           <span class="alpheios-popup__close-btn" @click="closePopup">
               <close-icon></close-icon>
@@ -109,6 +109,14 @@
         resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
+      }
+    },
+    computed: {
+      additionalStylesTootipCloseIcon: function () {
+        return {
+          top: 0,
+          right: '30px'
+        }
       }
     },
     props: {
