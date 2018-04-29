@@ -10,7 +10,7 @@
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
             <div class="uk-button-group alpheios-popup__button-area">
-                <alph-tooltip v-show="data.inflDataReady">
+                <alph-tooltip v-show="data.inflDataReady" :tooltipDirection="bottom" tooltipText="Show inflections">
                   <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
                   </button>
