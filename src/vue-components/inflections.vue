@@ -60,6 +60,8 @@
   import WideTable from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
 
+  import Tooltip from './Tooltip.vue'
+
   // Other dependencies
   import { ViewSet, L10n} from 'alpheios-inflection-tables'
 
@@ -67,7 +69,8 @@
     name: 'Inflections',
     components: {
       widetable: WideTable,
-      widesubtables: WideSubTables
+      widesubtables: WideSubTables,
+      alphTooltip: Tooltip
     },
 
     props: {
