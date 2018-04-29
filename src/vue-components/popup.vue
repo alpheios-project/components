@@ -24,7 +24,7 @@
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="left" tooltipText="Show options">
+                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom-right" tooltipText="Show options">
                   <button @click="showPanelTab('options')"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
                   </button>

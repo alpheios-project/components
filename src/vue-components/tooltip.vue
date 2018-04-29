@@ -36,6 +36,10 @@
         if (this.tooltipDirection.toLowerCase() === 'right') {
           return { 'alph_tooltip-right': true }
         }
+        if (this.tooltipDirection.toLowerCase() === 'bottom-right') {
+          return { 'alph_tooltip-bottom-right': true }
+        }
+        
         return {}
       }
     }
