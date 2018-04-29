@@ -22,13 +22,13 @@
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" tooltipText="Show definitions">
+                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" tooltipText="Show definitions">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom-right" tooltipText="Show options">
+                <alph-tooltip tooltipDirection="bottom-right" tooltipText="Show options">
                   <button @click="showPanelTab('options')"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
                   </button>

@@ -8,10 +8,13 @@
                 <img class="alpheios-panel__header-logo-img" src="../images/icon.png">
             </div>
             <span class="alpheios-panel__header-btn-group--center">
-              <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_HELP">
-                <info-icon class="icon"></info-icon>
-              </span>
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_HELP">
+                <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
+                  class="alpheios-panel__header-nav-btn">
+                  <info-icon class="icon"></info-icon>
+                </span>
+              </alph-tooltip>
+
               <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_DEFINITIONS">
                 <definitions-icon class="icon"></definitions-icon>
@@ -114,6 +117,8 @@
   import interact from 'interactjs'
   import Locales from '../locales/locales'
 
+  import Tooltip from './Tooltip.vue'
+
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
   import AttachRightIcon from '../images/inline-icons/attach-right.svg';
@@ -142,7 +147,8 @@
       statusIcon: StatusIcon,
       optionsIcon: OptionsIcon,
       infoIcon: InfoIcon,
-      grammarIcon: GrammarIcon
+      grammarIcon: GrammarIcon,
+      alphTooltip: Tooltip
     },
     data: function () {
       return {
