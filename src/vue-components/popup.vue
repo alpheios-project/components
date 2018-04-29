@@ -111,14 +111,6 @@
         resizeCountMax: 100, // Max number of resize iteration
       }
     },
-    computed: {
-      additionalStylesTootipCloseIcon: function () {
-        return {
-          top: 0,
-          right: '30px'
-        }
-      }
-    },
     props: {
       data: {
         type: Object,
@@ -298,6 +290,13 @@
           } else {
             this.heightValue = 'auto'
           }
+        }
+      },
+
+      additionalStylesTootipCloseIcon: function () {
+        return {
+          top: 0,
+          right: '30px'
         }
       }
     },
