@@ -20,16 +20,22 @@
                     </select>
                 </div>
                 <div class="alpheios-inflections__control-btn-cont uk-button-group">
-                  <button v-show="false"
-                        class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
-                        @click="hideEmptyColsClick">
-                    {{buttons.hideEmptyCols.text}}
-                  </button>
-                  <button v-if="canCollapse"
-                        class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
-                        @click="hideNoSuffixGroupsClick">
-                    {{buttons.hideNoSuffixGroups.text}}
-                  </button>
+
+                  <alph-tooltip tooltipDirection="bottom-right" tooltipText="Show empty">
+                    <button v-show="false"
+                          class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
+                          @click="hideEmptyColsClick">
+                      {{buttons.hideEmptyCols.text}}
+                    </button>
+                  </alph-tooltip>
+
+                  <alph-tooltip tooltipDirection="bottom-right" tooltipText="Hide suffix">
+                    <button v-if="canCollapse"
+                          class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
+                          @click="hideNoSuffixGroupsClick">
+                      {{buttons.hideNoSuffixGroups.text}}
+                    </button>
+                  </alph-tooltip>
                 </div>
             </div>
 
