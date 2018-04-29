@@ -1,9 +1,11 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-        <span class="alpheios-popup__close-btn" @click="closePopup" :title="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
-            <close-icon></close-icon>
-        </span>
+         <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+          <span class="alpheios-popup__close-btn" @click="closePopup">
+              <close-icon></close-icon>
+          </span>
+         </alph-tooltip>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
@@ -52,12 +54,10 @@
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
              v-show="data.notification.important">
 
-            <alph-tooltip v-show="data.inflDataReady" tooltipDirection="left" tooltipText="Close">
               <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
                   <close-icon></close-icon>
               </span>
-            </alph-tooltip>
-            
+
             <span v-html="data.notification.text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
