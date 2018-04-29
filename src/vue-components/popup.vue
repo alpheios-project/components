@@ -295,8 +295,8 @@
 
       additionalStylesTootipCloseIcon: function () {
         return {
-          top: 0,
-          right: '30px'
+          top: '2px',
+          right: '50px'
         }
       }
     },

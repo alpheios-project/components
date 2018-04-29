@@ -61,7 +61,7 @@
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT" v-show="attachToRightVisible">
-                <span @click="setPosition('right')" v-show="attachToRightVisible" :title="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT"
+                <span @click="setPosition('right')" v-show="attachToRightVisible" 
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-right-icon></attach-right-icon>
                 </span>
@@ -71,7 +71,7 @@
                 tooltipDirection = "left" 
                 :additionalStyles = "additionalStylesTootipCloseIcon"
                 :tooltipText = "data.l10n.messages.TOOLTIP_CLOSE_PANEL">
-                <span @click="close" class="alpheios-panel__header-action-btn" :title="data.l10n.messages.TOOLTIP_CLOSE_PANEL">
+                <span @click="close" class="alpheios-panel__header-action-btn" >
                     <close-icon></close-icon>
                 </span>
               </alph-tooltip>
@@ -220,8 +220,8 @@
 
       additionalStylesTootipCloseIcon: function () {
         return {
-          top: 0,
-          right: '30px'
+          top: '2px',
+          right: '50px'
         }
       }
     },
