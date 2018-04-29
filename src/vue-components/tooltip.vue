@@ -23,7 +23,7 @@
       	required: true
       },
       additionalStyles: {
-      	type: String,
+      	type: Object,
       	required: false
       }
     },
