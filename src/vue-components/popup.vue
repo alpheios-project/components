@@ -10,12 +10,13 @@
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
             <div class="uk-button-group alpheios-popup__button-area">
-                <div class="alph_tooltip">
+                <div class="alph_tooltip" v-show="data.inflDataReady">
                   <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
                   </button>
-                  <span class="tooltiptext  alph_tooltip-top">Show inflections</span>
+                  <span class="tooltiptext  alph_tooltip-bottom">Show inflections</span>
                 </div>
+
                 <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                         class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
                 </button>
@@ -503,7 +504,6 @@
 </script>
 <style lang="scss">
     @import "../styles/alpheios";
-    @import "../styles/tooltip";
 
     .alpheios-popup {
         display: flex;
