@@ -68,8 +68,7 @@
               </alph-tooltip>
 
               <alph-tooltip 
-                tooltipDirection = "left" 
-                :additionalStyles = "additionalStylesTootipCloseIcon"
+                tooltipDirection = "bottom-right" 
                 :tooltipText = "data.l10n.messages.TOOLTIP_CLOSE_PANEL">
                 <span @click="close" class="alpheios-panel__header-action-btn" >
                     <close-icon></close-icon>
