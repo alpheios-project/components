@@ -55,6 +55,23 @@
     "description": "tooltip for status tab",
     "component": "Panel"
   },
+
+  "TOOLTIP_SHOW_INFLECTIONS": {
+    "message": "Show inflections",
+    "description": "tooltip for button inflections",
+    "component": "Popup"
+  },
+  "TOOLTIP_SHOW_DEFINITIONS": {
+    "message": "Show definitions",
+    "description": "tooltip for button definitions",
+    "component": "Popup"
+  },
+  "TOOLTIP_SHOW_OPTIONS": {
+    "message": "Show options",
+    "description": "tooltip for button options",
+    "component": "Popup"
+  },
+
   "PLACEHOLDER_DEFINITIONS":  {
     "message": "Lookup a word to show definitions...",
     "description": "placeholder for definitions panel",
