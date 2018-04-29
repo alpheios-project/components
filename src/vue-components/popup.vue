@@ -16,12 +16,17 @@
                   </button>
                 </alph-tooltip>
 
-                <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
-                </button>
-                <button @click="showPanelTab('options')"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
-                </button>
+                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" tooltipText="Show definitions">
+                  <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                  </button>
+                </alph-tooltip>
+
+                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" tooltipText="Show options">
+                  <button @click="showPanelTab('options')"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
+                  </button>
+                </alph-tooltip>
             </div>
         </div>
         <div v-show="!morphDataReady"
@@ -46,9 +51,13 @@
         </div>
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
              v-show="data.notification.important">
-            <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
-                <close-icon></close-icon>
-            </span>
+
+            <alph-tooltip v-show="data.inflDataReady" tooltipDirection="left" tooltipText="Close">
+              <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
+                  <close-icon></close-icon>
+              </span>
+            </alph-tooltip>
+            
             <span v-html="data.notification.text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
