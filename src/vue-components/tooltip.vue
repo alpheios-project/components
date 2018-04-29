@@ -4,7 +4,7 @@
 		<span class="tooltiptext"
 			v-bind:class="directionClass"
 		>
-			{{ tootlipText }}
+			{{ tooltipText }}
 		</span>
 	</div>
 </template>
@@ -17,7 +17,7 @@
         required: false,
         default: 'bottom'
       },
-      tootlipText: {
+      tooltipText: {
       	typr: String,
       	required: true
       }
