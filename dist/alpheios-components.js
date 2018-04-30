@@ -24824,7 +24824,7 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
    * found in the storage area. If this operation failed, the promise will be rejected with an error message.
    */
   get (keys = undefined) {
-    return browser.storage.sync.set(keys)
+    return browser.storage.sync.get(keys)
   }
 }
 
@@ -25128,7 +25128,7 @@ class Options {
       },
       error => {
         console.error(`Cannot retrieve options for Alpheios extension from a local storage: ${error}. Default values
-          will be used instead`)
+          will be used instead`, error)
         callbackFunc(this)
       }
     )
@@ -25217,10 +25217,6 @@ class StorageAdapter {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AnnotationQuery; });
 /* harmony import */ var _query_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./query.js */ "./lib/queries/query.js");
-!(function webpackMissingModule() { var e = new Error("Cannot find module \"../options/language-option-defaults\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var _options_options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../options/options */ "./lib/options/options.js");
-
-
 
 
 class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
@@ -25228,6 +25224,7 @@ class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] 
     super(name)
     this.ui = options.uiController
     this.l10n = options.l10n
+    this.siteOptions = options.siteOptions
     this.document = options.document
   }
 
@@ -25236,40 +25233,7 @@ class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] 
   }
 
   getData () {
-    let saver = () => {
-      return new Promise((resolve, reject) => {
-        reject(new Error('save not implemented'))
-      })
-    }
-    let siteFixture = JSON.parse(`
-      [
-        {
-          "name": "testsite",
-          "uriMatch": "http://thelatinlibrary.com/caesar/gall1",
-          "resourceOptions": {
-            "treebanks-lat": ["http://127.0.0.1:4000/alpheios-treebanks/tbext.html?owner=perseids-project&repo=harrington_trees&collid=lattb&objid=7229&doc=lattb.7229.1&chunk=1&w=3&owner=perseids-project&repos=harrington_trees"]
-          }
-        }
-      ]
-    `)
-    let siteOptions = []
-    for (let site of siteFixture) {
-      let siteDefs = new !(function webpackMissingModule() { var e = new Error("Cannot find module \"../options/language-option-defaults\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())(`alpheios-${site.name}-options`)
-      let loader = () => {
-        return new Promise((resolve, reject) => {
-          resolve(site.resourceOptions)
-        })
-      }
-      let resOpts = new _options_options__WEBPACK_IMPORTED_MODULE_2__["default"](siteDefs, loader, saver)
-      let ui = this.ui
-      resOpts.load(() => {
-        siteOptions.push({ uriMatch: site.uriMatch, resourceOptions: resOpts })
-        let siteMatch = siteOptions.filter((s) => this.document.location.href.match(new RegExp(s.uriMatch)) && s.resourceOptions.items.treebanks)
-        if (siteMatch.length > 0) {
-          ui.updatePageAnnotationData({ treebank: { page: { src: siteMatch[0].resourceOptions.items.treebanks[0].currentValue[0] } } })
-        }
-      })
-    }
+    this.ui.updatePageAnnotationData(this.getTreebankOptions())
     this.finalize('complete')
   }
 
@@ -25277,6 +25241,15 @@ class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] 
     console.log('Finalizing AnnotationQuery')
     _query_js__WEBPACK_IMPORTED_MODULE_0__["default"].destroy(this)
     return result
+  }
+
+  getTreebankOptions () {
+    let siteMatch = this.siteOptions.filter((s) => this.document.location.href.match(new RegExp(s.uriMatch)) && s.resourceOptions.items.treebanks)
+    if (siteMatch.length > 0) {
+      return { treebank: { page: { src: siteMatch[0].resourceOptions.items.treebanks.currentValue } } }
+    } else {
+      return {}
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import LexicalQuery from '../../../src/lib/queries/lexical-query'
 import Options from '../../../src/lib/options/options'
 import LanguageOptionDefaults from '../../../src/settings/language-options-defaults.json'
 import LocalStorageArea from '../../../src/lib/options/local-storage-area.js'
+import SiteOptions from './fixtures/site-options-shortlex.json'
 
 describe('lexical-query.test.js', () => {
   let emptyPromise
@@ -13,31 +14,14 @@ describe('lexical-query.test.js', () => {
   it('parses lexicon options', async () => {
     let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
 
-    let siteFixture = JSON.parse(`
-      [
-        {
-          "name": "testsite",
-          "uriMatch": "https?://example.org",
-          "resourceOptions": {
-            "lexiconsShort-lat": ["https://github.com/alpheios-project/xx"]
-          }
-        }
-      ]
-    `)
     let allSiteOptions = []
-    for (let site of siteFixture) {
-      let siteDefs = LanguageOptionDefaults
-      siteDefs.domain = `alpheios-${site.name}-options`
-      let loader = () => {
-        return new Promise((resolve, reject) => {
-          resolve(site.resourceOptions)
-        })
+    for (let site of SiteOptions) {
+      for (let domain of site.options) {
+        let siteOpts = new Options(domain, LocalStorageArea)
+        siteOpts.storageAdapter.get = emptyPromise
+        siteOpts.storageAdapter.set = emptyPromise
+        allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
-      let resOpts = new Options(siteDefs, LocalStorageArea)
-      resOpts.storageAdapter.get = loader
-      resOpts.storageAdapter.set = emptyPromise
-      await resOpts.load(() => { })
-      allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: resOpts })
     }
     let mockSelector = {
       location: 'http://example.org',

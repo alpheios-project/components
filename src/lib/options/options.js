@@ -83,7 +83,7 @@ export default class Options {
       },
       error => {
         console.error(`Cannot retrieve options for Alpheios extension from a local storage: ${error}. Default values
-          will be used instead`)
+          will be used instead`, error)
         callbackFunc(this)
       }
     )

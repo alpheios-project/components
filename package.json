@@ -2,7 +2,7 @@
   "name": "alpheios-components",
   "version": "0.1.5",
   "description": "Alpheios UI Compononents",
-  "main": "dist/alpheios-components.min.js",
+  "main": "dist/alpheios-components.js",
   "scripts": {
     "test": "standard --fix && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "standard --fix && node ./build/node/build.js all all",
