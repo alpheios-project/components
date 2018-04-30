@@ -62,7 +62,9 @@ export default class UIController {
       popupComponents: {
         popup: Popup
       },
-      defaultPopupComponent: 'popup'
+      defaultPopupComponent: 'popup',
+      draggable: true,
+      resizable: true
     }
     this.template = Object.assign(templateDefaults, template)
 
@@ -358,6 +360,8 @@ export default class UIController {
           top: '10vh',
           left: '10vw',
 
+          draggable: this.template.draggable,
+          resizable: this.template.resizable,
           // Default popup dimensions, in pixels, without units. These values will override CSS rules.
           // Can be scaled down on small screens automatically.
           width: 210,

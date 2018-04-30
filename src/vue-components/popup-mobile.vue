@@ -60,7 +60,10 @@
   */
   import PopupBase from './popup.vue';
   export default {
-    extends: PopupBase
+    extends: PopupBase,
+    mounted () {
+      console.log('Mounted in a Popup Mobile')
+    }
   }
 </script>
 <style lang="scss">

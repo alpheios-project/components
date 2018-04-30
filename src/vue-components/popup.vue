@@ -424,10 +424,14 @@
     },
 
     mounted () {
-      this.interactInstance = interact(this.$el)
-        .resizable(this.resizableSettings())
-        .draggable(this.draggableSettings())
-        .on('resizemove', this.resizeListener)
+      console.log(`Mounted in a popup`)
+      console.log(this.data.draggable)
+      if (this.data.draggable && this.data.resizable) {
+        this.interactInstance = interact(this.$el)
+          .resizable(this.resizableSettings())
+          .draggable(this.draggableSettings())
+          .on('resizemove', this.resizeListener)
+      }
     },
 
     updated () {
