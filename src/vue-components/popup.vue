@@ -1,9 +1,9 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-         <alph-tooltip 
-          v-show="data.inflDataReady" 
-          tooltipDirection = "left" 
+         <alph-tooltip
+          v-show="data.inflDataReady"
+          tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
           :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
           <span class="alpheios-popup__close-btn" @click="closePopup">
@@ -75,7 +75,7 @@
   import interact from 'interactjs'
   import Logger from '../lib/log/logger'
 
-  import Tooltip from './Tooltip.vue'
+  import Tooltip from './tooltip.vue'
 
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'

@@ -52,7 +52,7 @@
               </alph-tooltip>
             </span>
             <span class="alpheios-panel__header-btn-group--end">
-              
+
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_LEFT" v-show="attachToLeftVisible">
                 <span @click="setPosition('left')" v-show="attachToLeftVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
@@ -61,14 +61,14 @@
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT" v-show="attachToRightVisible">
-                <span @click="setPosition('right')" v-show="attachToRightVisible" 
+                <span @click="setPosition('right')" v-show="attachToRightVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-right-icon></attach-right-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip 
-                tooltipDirection = "bottom-right" 
+              <alph-tooltip
+                tooltipDirection = "bottom-right"
                 :tooltipText = "data.l10n.messages.TOOLTIP_CLOSE_PANEL">
                 <span @click="close" class="alpheios-panel__header-action-btn" >
                     <close-icon></close-icon>
@@ -143,7 +143,7 @@
   import interact from 'interactjs'
   import Locales from '../locales/locales'
 
-  import Tooltip from './Tooltip.vue'
+  import Tooltip from './tooltip.vue'
 
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
