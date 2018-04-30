@@ -3,7 +3,7 @@
 import Style from './styles/style.scss'
 
 import Popup from './vue-components/popup.vue'
-import PopupMod from './vue-components/popup-mod.vue'
+import PopupMobile from './vue-components/popup-mobile.vue'
 import Panel from './vue-components/panel.vue'
 import L10n from './lib/l10n/l10n'
 import Locales from './locales/locales'
@@ -21,6 +21,6 @@ import LanguageOptionDefaults from './settings/language-options-defaults.json'
 import UIOptionDefaults from './settings/ui-options-defaults.json'
 import DefaultsLoader from './lib/options/defaults-loader.js'
 import Options from './lib/options/options.js'
-export { Popup, PopupMod, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
+export { Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
   LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults,
   DefaultsLoader, Options, UIStateAPI, Style }

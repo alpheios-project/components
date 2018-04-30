@@ -424,7 +424,6 @@
     },
 
     mounted () {
-      this.logger.log('Popup is mounted')
       this.interactInstance = interact(this.$el)
         .resizable(this.resizableSettings())
         .draggable(this.draggableSettings())
@@ -432,7 +431,6 @@
     },
 
     updated () {
-      console.log(`Popup updated callback`)
       if (this.visible) {
         let time = new Date().getTime()
         this.logger.log(`${time}: component is updated`)

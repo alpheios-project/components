@@ -150,7 +150,9 @@
     },
     data: function () {
       return {
-        inflectionsPanelID: 'alpheios-panel__inflections-panel'
+        inflectionsPanelID: 'alpheios-panel__inflections-panel',
+        positionLeftClassName: 'alpheios-panel-left',
+        positionRightClassName: 'alpheios-panel-right',
       }
     },
     props: {
@@ -162,10 +164,28 @@
 
     computed: {
       classes: function () {
-        return Object.assign(this.data.classes, {
-          'alpheios-panel-left': this.data.settings.panelPosition.currentValue === 'left',
-          'alpheios-panel-right': this.data.settings.panelPosition.currentValue === 'right'
-        })
+        // Find index of an existing position class and replace it with an updated value
+        const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
+        const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+        if (this.data.settings.panelPosition.currentValue === 'left') {
+          if (positionRightIndex >= 0) {
+            // Replace an existing value
+            this.data.classes[positionRightIndex] = this.positionLeftClassName
+          } else {
+            // Add an initial value
+            this.data.classes.push(this.positionLeftClassName)
+          }
+
+        } else if (this.data.settings.panelPosition.currentValue === 'right') {
+          if (positionLeftIndex >= 0) {
+            // Replace an existing value
+            this.data.classes[positionLeftIndex] = this.positionRightClassName
+          } else {
+            // Add an initial value
+            this.data.classes.push(this.positionRightClassName)
+          }
+        }
+        return this.data.classes
       },
 
       notificationClasses: function () {

@@ -2,9 +2,12 @@
 import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alpheios-data-models'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
+
+// A panel component
 import Panel from '../../vue-components/panel.vue'
+// A popup component
 import Popup from '../../vue-components/popup.vue'
-import PopupMod from '../../vue-components/popup-mod.vue'
+
 import L10n from '../l10n/l10n'
 import Locales from '../../locales/locales'
 import enUS from '../../locales/en-us/messages.json'
@@ -51,9 +54,15 @@ export default class UIController {
     const templateDefaults = {
       html: Template,
       panelId: 'alpheios-panel',
-      panelComponent: Panel,
+      panelComponents: {
+        panel: Panel
+      },
+      defaultPanelComponent: 'panel',
       popupId: 'alpheios-popup',
-      popupComponent: Popup
+      popupComponents: {
+        popup: Popup
+      },
+      defaultPopupComponent: 'popup'
     }
     this.template = Object.assign(templateDefaults, template)
 
@@ -72,7 +81,7 @@ export default class UIController {
     // Initialize components
     this.panel = new Vue({
       el: `#${this.template.panelId}`,
-      components: { panel: this.template.panelComponent },
+      components: this.template.panelComponents,
       data: {
         panelData: {
           isOpen: false,
@@ -131,6 +140,7 @@ export default class UIController {
         state: this.state,
         options: this.options,
         resourceOptions: this.resourceOptions,
+        currentPanelComponent: this.template.defaultPanelComponent,
         uiController: this
       },
       methods: {
@@ -309,7 +319,6 @@ export default class UIController {
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
               break
             case 'popup':
-              console.log(`Switching a popup layout to ${this.uiController.uiOptions.items[name].currentValue}`)
               this.uiController.popup.close() // Close an old popup
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
@@ -336,10 +345,7 @@ export default class UIController {
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.template.popupId}`,
-      components: {
-        popup: Popup,
-        popupMod: PopupMod
-      },
+      components: this.template.popupComponents,
       data: {
         messages: [],
         lexemes: [],
@@ -399,7 +405,7 @@ export default class UIController {
         },
         panel: this.panel,
         options: this.options,
-        currentPopupComponent: 'popup',
+        currentPopupComponent: this.template.defaultPopupComponent,
         uiController: this
       },
       methods: {
@@ -466,7 +472,6 @@ export default class UIController {
         },
 
         newLexicalRequest: function () {
-          console.log('Starting a new lexical request within a popup')
           this.popupData.requestStartTime = new Date().getTime()
         },
 
@@ -519,7 +524,6 @@ export default class UIController {
         },
 
         settingChange: function (name, value) {
-          console.log('Change inside instance', name, value)
           this.options.items[name].setTextValue(value)
           switch (name) {
             case 'locale':
@@ -751,7 +755,6 @@ export default class UIController {
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
-    console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
   updateVerboseMode () {
@@ -794,8 +797,7 @@ export default class UIController {
     this.popup.popupData.classes = classes
   }
 
-  changeSkin (skinName) {
-    console.log(`Change skin:`, skinName)
+  changeSkin () {
     // Update skin name in classes
     this.setRootComponentClasses()
   }

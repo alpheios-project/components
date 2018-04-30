@@ -1,9 +1,27 @@
 <template>
-    <div ref="popup" class="alpheios-popup alpheios-popup--mod auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="auk alpheios-popup alpheios-popup--mobile" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
         <span class="alpheios-popup__close-btn" @click="closePopup" :title="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
             <close-icon></close-icon>
         </span>
+        <div class="alpheios-popup__header">
+            <div class="alpheios-popup__header-text">
+                Mobile
+                <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
+                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
+            </div>
+            <div class="uk-button-group alpheios-popup__button-area">
+                <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
+                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
+                </button>
+                <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
+                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                </button>
+                <button @click="showPanelTab('options')"
+                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
+                </button>
+            </div>
+        </div>
         <div v-show="!morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
@@ -21,25 +39,8 @@
             </div>
         </div>
         <div class="alpheios-popup__providers">
-          <img class="alpheios-popup__logo" src="../images/icon.png">
-          <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
-        </div>
-        <div class="alpheios-popup__header">
-            <div class="alpheios-popup__header-text">
-                <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
-                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
-            </div>
-            <div class="uk-button-group alpheios-popup__button-area">
-                <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
-                </button>
-                <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
-                </button>
-                <button @click="showPanelTab('options')"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
-                </button>
-            </div>
+            <img class="alpheios-popup__logo" src="../images/icon.png">
+            <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
         </div>
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
              v-show="data.notification.important">
@@ -63,7 +64,7 @@
   }
 </script>
 <style lang="scss">
-    .alpheios-popup.alpheios-popup--mod {
+    .alpheios-popup.alpheios-popup--mobile {
         padding-top: 25px;
     }
 </style>
