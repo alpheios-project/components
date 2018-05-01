@@ -89,8 +89,8 @@ export default class LocalStorageArea {
             keys = JSON.parse(keys)
           } else {
             // Nothing to retrieve
-            console.log(`Unable to retrieve data for "${storageDomain}" storage domain because no keys provided or no keys listed in local storage`)
-            console.log(`This might be normal for devices where no data is saved to the local storage yet`)
+            console.log(`Unable to retrieve data for "${storageDomain}" storage domain because no keys provided or no keys listed in local storage. ` +
+              `This might be normal for devices where no data is saved to the local storage yet`)
             resolve(result)
           }
         }
