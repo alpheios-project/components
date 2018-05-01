@@ -4,6 +4,7 @@
 		<span class="tooltiptext"
 			v-bind:class="directionClass"
 			v-bind:style="additionalStyles"
+      v-if="tooltipText"
 		>
 			{{ tooltipText }}
 		</span>
@@ -45,7 +46,7 @@
           return { 'alph_tooltip-bottom-right': true }
         }
 
-        return {}
+        return { 'alph_tooltip-bottom': true }
       }
     }
   }
