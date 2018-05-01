@@ -53,8 +53,10 @@ export default class HTMLSelector extends MediaSelector {
     this.data = {}
     if (tbSrcElem && tbRef) {
       this.data.treebank = {
-        src: tbSrcElem.dataset.alpheios_tb_src,
-        ref: tbRef
+        word: {
+          src: tbSrcElem.dataset.alpheios_tb_src,
+          ref: tbRef
+        }
       }
     }
     if (alignSrcElem && alignRef) {

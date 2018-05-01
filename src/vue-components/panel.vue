@@ -24,7 +24,7 @@
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_GRAMMAR">
                 <grammar-icon class="icon"></grammar-icon>
               </span>
-              <span v-show="data.treebankComponentData.data" v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
+              <span v-show="treebankTabPossible" v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_TREEBANK">
                 <treebank-icon class="icon"></treebank-icon>
               </span>
@@ -73,7 +73,8 @@
               </div>
             <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
-                  <treebank :res="data.treebankComponentData.data" :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
+                  <treebank :res="data.treebankComponentData.data"
+                    :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
                     :messages="data.l10n.messages" @treebankcontentwidth="setTreebankContentWidth">
                   </treebank>
               </div>
@@ -201,6 +202,11 @@
         // Inform an inflection component about its visibility state change
         this.data.inflectionComponentData.visible = this.data.tabs.inflections
         return this.data.tabs.inflections
+      },
+
+      treebankTabPossible: function() {
+        // treebank data is possible if we have it for the word or the page
+        return this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src ? true : false
       },
 
       treebankTabVisible: function() {

@@ -15,8 +15,8 @@ describe('html-selector.test.js', () => {
       target: target
     }
     let selector = new HTMLSelector(mockEvent, 'lat')
-    expect(selector.data.treebank.src).toEqual('http://example.org/tb/mock')
-    expect(selector.data.treebank.ref).toEqual('1-1')
+    expect(selector.data.treebank.word.src).toEqual('http://example.org/tb/mock')
+    expect(selector.data.treebank.word.ref).toEqual('1-1')
     expect(selector.data.translation.src).toEqual('http://example.org/align/mock')
     expect(selector.data.translation.ref).toEqual('1-1')
   })

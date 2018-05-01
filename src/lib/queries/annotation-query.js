@@ -29,7 +29,7 @@ export default class AnnotationQuery extends Query {
     if (siteMatch.length > 0) {
       return { treebank: { page: { src: siteMatch[0].resourceOptions.items.treebanks.currentValue } } }
     } else {
-      return {}
+      return { treebank: { page: {} } }
     }
   }
 }
