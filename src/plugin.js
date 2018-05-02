@@ -12,6 +12,7 @@ import enGB from './locales/en-gb/messages.json'
 import UIController from './lib/controllers/ui-controller.js'
 import UIStateAPI from './lib/controllers/ui-state.js'
 import HTMLSelector from './lib/selection/media/html-selector.js'
+import AnnotationQuery from './lib/queries/annotation-query.js'
 import LexicalQuery from './lib/queries/lexical-query.js'
 import ResourceQuery from './lib/queries/resource-query.js'
 import LocalStorageArea from './lib/options/local-storage-area.js'
@@ -21,6 +22,6 @@ import LanguageOptionDefaults from './settings/language-options-defaults.json'
 import UIOptionDefaults from './settings/ui-options-defaults.json'
 import DefaultsLoader from './lib/options/defaults-loader.js'
 import Options from './lib/options/options.js'
-export { Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, LexicalQuery, ResourceQuery,
+export { Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery,
   LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults,
   DefaultsLoader, Options, UIStateAPI, Style }

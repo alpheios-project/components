@@ -24,6 +24,10 @@
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_GRAMMAR">
                 <grammar-icon class="icon"></grammar-icon>
               </span>
+              <span v-show="treebankTabPossible" v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
+                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_TREEBANK">
+                <treebank-icon class="icon"></treebank-icon>
+              </span>
               <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
                 class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_OPTIONS">
                 <options-icon class="icon"></options-icon>
@@ -66,6 +70,13 @@
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
                   <grammar :res="data.grammarRes"></grammar>
+              </div>
+            <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel
+            alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
+                  <treebank :res="data.treebankComponentData.data"
+                    :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
+                    :messages="data.l10n.messages" @treebankcontentwidth="setTreebankContentWidth">
+                  </treebank>
               </div>
             <div v-show="data.tabs.status" class="alpheios-panel__tab-panel">
                 <div v-for="message in data.messages">
@@ -114,6 +125,7 @@
   import ShortDef from './shortdef.vue'
   import Morph from './morph.vue'
   import Grammar from './grammar.vue'
+  import Treebank from './treebank.vue'
   import Info from './info.vue'
   import interact from 'interactjs'
   import Locales from '../locales/locales'
@@ -127,6 +139,7 @@
   import StatusIcon from '../images/inline-icons/status.svg';
   import OptionsIcon from '../images/inline-icons/options.svg';
   import GrammarIcon from '../images/inline-icons/resources.svg';
+  import TreebankIcon from '../images/inline-icons/tree.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
 
   export default {
@@ -138,6 +151,7 @@
       morph: Morph,
       info: Info,
       grammar: Grammar,
+      treebank: Treebank,
       attachLeftIcon: AttachLeftIcon,
       attachRightIcon: AttachRightIcon,
       closeIcon: CloseIcon,
@@ -146,7 +160,8 @@
       statusIcon: StatusIcon,
       optionsIcon: OptionsIcon,
       infoIcon: InfoIcon,
-      grammarIcon: GrammarIcon
+      grammarIcon: GrammarIcon,
+      treebankIcon: TreebankIcon
     },
     data: function () {
       return {
@@ -207,6 +222,17 @@
         // Inform an inflection component about its visibility state change
         this.data.inflectionComponentData.visible = this.data.tabs.inflections
         return this.data.tabs.inflections
+      },
+
+      treebankTabPossible: function() {
+        // treebank data is possible if we have it for the word or the page
+        return this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src ? true : false
+      },
+
+      treebankTabVisible: function() {
+        // Inform treebank component about visibility state change
+        this.data.treebankComponentData.visible = this.data.tabs.treebank
+        return this.data.tabs.treebank
       }
     },
     methods: {
@@ -279,6 +305,11 @@
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
+      },
+
+      setTreebankContentWidth: function(width) {
+          console.log(`Set width to ${width}`)
+          this.$el.style.width = width
       }
     },
 

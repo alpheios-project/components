@@ -110,36 +110,6 @@
             }
           ]
         },
-        "lat": {
-          "defaultValue": [
-            "https://github.com/alpheios-project/ls"
-          ],
-          "labelText": "Latin Lexicons",
-          "multiValue": true,
-          "values": [
-            {
-              "value": "https://github.com/alpheios-project/ls",
-              "text": "Lewis & Short"
-            }
-          ]
-        },
-        "ara": {
-          "defaultValue": [
-            "https://github.com/alpheios-project/lan"
-          ],
-          "labelText": "Arabic Lexicons",
-          "multiValue": true,
-          "values": [
-            {
-              "value": "https://github.com/alpheios-project/lan",
-              "text": "Lane"
-            },
-            {
-              "value": "https://github.com/alpheios-project/sal",
-              "text": "Salmone"
-            }
-          ]
-        },
         "per": {
           "defaultValue": [
             "https://github.com/alpheios-project/stg"
@@ -154,6 +124,13 @@
           ]
         }
       }
+    },
+    "treebanks": {
+      "labelText": "Treebanks",
+      "defaultValue": [],
+      "labelText": "Latin Treebanks",
+      "multiValue": true,
+      "values": [ ]
     }
   }
 }

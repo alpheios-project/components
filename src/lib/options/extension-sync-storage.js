@@ -28,6 +28,6 @@ export default class ExtensionSyncStorage extends StorageAdapter {
    * found in the storage area. If this operation failed, the promise will be rejected with an error message.
    */
   get (keys = undefined) {
-    return browser.storage.sync.set(keys)
+    return browser.storage.sync.get(keys)
   }
 }

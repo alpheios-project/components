@@ -92,7 +92,8 @@ export default class UIController {
             inflections: false,
             status: false,
             options: false,
-            info: true
+            info: true,
+            treebank: false
           },
           verboseMode: this.state.verboseMode,
           grammarRes: {},
@@ -130,6 +131,14 @@ export default class UIController {
             languageName: ''
           },
           settings: this.options.items,
+          treebankComponentData: {
+            data: {
+              word: {},
+              page: {}
+
+            },
+            visible: false
+          },
           resourceSettings: this.resourceOptions.items,
           uiOptions: this.uiOptions,
           classes: [], // Will be set later by `setRootComponentClasses()`
@@ -191,6 +200,8 @@ export default class UIController {
           this.panelData.shortDefinitions = []
           this.panelData.fullDefinitions = ''
           this.panelData.messages = ''
+          this.panelData.treebankComponentData.data.word = {}
+          this.panelData.treebankComponentData.visible = false
           this.clearNotifications()
           this.clearStatus()
           return this
@@ -389,6 +400,7 @@ export default class UIController {
           settings: this.options.items,
           verboseMode: this.state.verboseMode,
           defDataReady: false,
+          hasTreebank: false,
           inflDataReady: false,
           morphDataReady: false,
           showProviders: false,
@@ -487,6 +499,7 @@ export default class UIController {
           this.popupData.inflDataReady = false
           this.popupData.morphDataReady = false
           this.popupData.showProviders = false
+          this.popupData.hasTreebank = false
           this.clearNotifications()
           this.clearStatus()
           return this
@@ -751,6 +764,20 @@ export default class UIController {
     this.popup.definitions = definitions
     this.popup.popupData.defDataReady = hasFullDefs
     this.popup.popupData.updates = this.popup.popupData.updates + 1
+  }
+
+  updatePageAnnotationData (data) {
+    this.panel.panelData.treebankComponentData.data.page = data.treebank.page || {}
+  }
+
+  updateWordAnnotationData (data) {
+    if (data && data.treebank) {
+      this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
+      this.popup.popupData.hasTreebank = data.treebank.word
+    } else {
+      this.panel.panelData.treebankComponentData.data.word = {}
+      this.popup.popupData.hasTreebank = false
+    }
   }
 
   updateLanguage (currentLanguage) {
