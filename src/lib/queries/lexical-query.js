@@ -120,12 +120,6 @@ export default class LexicalQuery extends Query {
       lemmaList.push(lexeme.lemma)
     }
 
-    let userLang = navigator.language || navigator.userLanguage
-
-    if (this.lemmaTranslations) {
-      yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
-      this.ui.updateTranslations(this.homonym)
-    }
     // Handle definition responses
     for (let definitionRequest of definitionRequests) {
       definitionRequest.request.then(
@@ -154,6 +148,15 @@ export default class LexicalQuery extends Query {
       )
     }
     yield 'Retrieval of short and full definitions complete'
+
+    let userLang = navigator.language || navigator.userLanguage
+
+    if (this.lemmaTranslations) {
+      yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
+      this.ui.updateTranslations(this.homonym)
+    }
+
+    yield 'Retrieval of lemma translations completed'
   }
 
   finalize (result) {
