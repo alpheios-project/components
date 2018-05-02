@@ -25243,8 +25243,10 @@ class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] 
     return _query_js__WEBPACK_IMPORTED_MODULE_0__["default"].create(AnnotationQuery, options)
   }
 
-  getData () {
-    this.ui.updatePageAnnotationData(this.getTreebankOptions())
+  async getData () {
+    this.getTreebankOptions().then((data) => {
+      this.ui.updatePageAnnotationData(data)
+    })
     this.finalize('complete')
   }
 
@@ -25254,7 +25256,7 @@ class AnnotationQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] 
     return result
   }
 
-  getTreebankOptions () {
+  async getTreebankOptions () {
     let siteMatch = this.siteOptions.filter((s) => this.document.location.href.match(new RegExp(s.uriMatch)) && s.resourceOptions.items.treebanks)
     // TODO eventually this data should be probably be held in a formal data model object. Not sure what the best format
     // is right now so leaving that for later.

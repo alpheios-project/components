@@ -24,6 +24,7 @@ describe('annotation-query.test.js', () => {
       siteOptions: allSiteOptions,
       document: { location: { href: 'http://example.org/abc' } }
     })
-    expect(query.getTreebankOptions()).toEqual({ treebank: { page: { src: 'https://alpheios.net/treebanks/xx' } } })
+    let results = await query.getTreebankOptions()
+    expect(results).toEqual({ treebank: { page: { src: 'https://alpheios.net/treebanks/xx' } } })
   })
 })
