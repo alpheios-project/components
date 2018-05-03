@@ -40,7 +40,7 @@
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
                 <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
                       class="alpheios-panel__header-nav-btn">
-                  <options-icon class="icon"></options-icon>
+                  <treebank-icon class="icon"></treebank-icon>
                 </span>
               </alph-tooltip>
 
