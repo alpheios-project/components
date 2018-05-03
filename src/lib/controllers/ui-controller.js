@@ -306,6 +306,7 @@ export default class UIController {
         },
 
         settingChange: function (name, value) {
+          console.log('Change inside instance', name, value)
           this.options.items[name].setTextValue(value)
           switch (name) {
             case 'locale':
@@ -323,6 +324,7 @@ export default class UIController {
         },
         resourceSettingChange: function (name, value) {
           let keyinfo = this.resourceOptions.parseKey(name)
+          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         },
         uiOptionChange: function (name, value) {
@@ -363,6 +365,9 @@ export default class UIController {
         messages: [],
         lexemes: [],
         definitions: {},
+
+        translations: {},
+
         linkedFeatures: [],
         visible: false,
         popupData: {
@@ -403,6 +408,9 @@ export default class UIController {
           hasTreebank: false,
           inflDataReady: false,
           morphDataReady: false,
+
+          translationsDataReady: false,
+
           showProviders: false,
           updates: 0,
           classes: [], // Will be set later by `setRootComponentClasses()`
@@ -488,16 +496,22 @@ export default class UIController {
         },
 
         newLexicalRequest: function () {
+          console.log('Starting a new lexical request within a popup')
           this.popupData.requestStartTime = new Date().getTime()
         },
 
         clearContent: function () {
           this.definitions = {}
+          this.translations = {}
+
           this.lexemes = []
           this.popupData.providers = []
           this.popupData.defDataReady = false
           this.popupData.inflDataReady = false
           this.popupData.morphDataReady = false
+
+          this.popupData.translationsDataReady = false
+
           this.popupData.showProviders = false
           this.popupData.hasTreebank = false
           this.clearNotifications()
@@ -541,6 +555,7 @@ export default class UIController {
         },
 
         settingChange: function (name, value) {
+          console.log('Change inside instance', name, value)
           this.options.items[name].setTextValue(value)
           switch (name) {
             case 'locale':
@@ -766,6 +781,20 @@ export default class UIController {
     this.popup.popupData.updates = this.popup.popupData.updates + 1
   }
 
+  updateTranslations (homonym) {
+    let translations = {}
+    for (let lexeme of homonym.lexemes) {
+      if (lexeme.lemma.translation !== undefined) {
+        translations[lexeme.lemma.key] = lexeme.lemma.translation
+      }
+    }
+    this.popup.translations = translations
+    this.popup.popupData.translationsDataReady = true
+    this.popup.popupData.updates = this.popup.popupData.updates + 1
+
+    console.log('****************fire updateTranslations')
+  }
+
   updatePageAnnotationData (data) {
     this.panel.panelData.treebankComponentData.data.page = data.treebank.page || {}
   }
@@ -786,6 +815,7 @@ export default class UIController {
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
+    console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
   updateVerboseMode () {

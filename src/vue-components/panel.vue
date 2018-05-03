@@ -8,47 +8,79 @@
                 <img class="alpheios-panel__header-logo-img" src="../images/icon.png">
             </div>
             <span class="alpheios-panel__header-btn-group--center">
-              <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_HELP">
-                <info-icon class="icon"></info-icon>
-              </span>
-              <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_DEFINITIONS">
-                <definitions-icon class="icon"></definitions-icon>
-              </span>
-              <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_INFLECT">
-                <inflections-icon class="icon"></inflections-icon>
-              </span>
-              <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_GRAMMAR">
-                <grammar-icon class="icon"></grammar-icon>
-              </span>
-              <span v-show="treebankTabPossible" v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_TREEBANK">
-                <treebank-icon class="icon"></treebank-icon>
-              </span>
-              <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_OPTIONS">
-                <options-icon class="icon"></options-icon>
-              </span>
-              <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
-                class="alpheios-panel__header-nav-btn" :title="data.l10n.messages.TOOLTIP_STATUS">
-                <status-icon class="icon"></status-icon>
-              </span>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_HELP">
+                <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
+                  class="alpheios-panel__header-nav-btn">
+                  <info-icon class="icon"></info-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_DEFINITIONS">
+                <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
+                  class="alpheios-panel__header-nav-btn">
+                  <definitions-icon class="icon"></definitions-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_INFLECT">
+                <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
+                  class="alpheios-panel__header-nav-btn">
+                  <inflections-icon class="icon"></inflections-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_GRAMMAR">
+                <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
+                  class="alpheios-panel__header-nav-btn">
+                  <grammar-icon class="icon"></grammar-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
+                <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
+                      class="alpheios-panel__header-nav-btn">
+                  <options-icon class="icon"></options-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_OPTIONS">
+                <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
+                  class="alpheios-panel__header-nav-btn">
+                  <options-icon class="icon"></options-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_STATUS">
+                <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
+                  class="alpheios-panel__header-nav-btn">
+                  <status-icon class="icon"></status-icon>
+                </span>
+              </alph-tooltip>
             </span>
             <span class="alpheios-panel__header-btn-group--end">
-              <span @click="setPosition('left')" v-show="attachToLeftVisible" :title="data.l10n.messages.TOOLTIP_MOVE_PANEL_LEFT"
-                    class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
-                  <attach-left-icon></attach-left-icon>
-              </span>
-              <span @click="setPosition('right')" v-show="attachToRightVisible" :title="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT"
-                    class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
-                  <attach-right-icon></attach-right-icon>
-              </span>
-              <span @click="close" class="alpheios-panel__header-action-btn" :title="data.l10n.messages.TOOLTIP_CLOSE_PANEL">
-                  <close-icon></close-icon>
-              </span>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_LEFT" v-show="attachToLeftVisible">
+                <span @click="setPosition('left')" v-show="attachToLeftVisible"
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
+                    <attach-left-icon></attach-left-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT" v-show="attachToRightVisible">
+                <span @click="setPosition('right')" v-show="attachToRightVisible"
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
+                    <attach-right-icon></attach-right-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip
+                tooltipDirection = "bottom-right"
+                :tooltipText = "data.l10n.messages.TOOLTIP_CLOSE_PANEL">
+                <span @click="close" class="alpheios-panel__header-action-btn" >
+                    <close-icon></close-icon>
+                </span>
+              </alph-tooltip>
             </span>
         </div>
 
@@ -130,6 +162,8 @@
   import interact from 'interactjs'
   import Locales from '../locales/locales'
 
+  import Tooltip from './tooltip.vue'
+
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
   import AttachRightIcon from '../images/inline-icons/attach-right.svg';
@@ -161,7 +195,8 @@
       optionsIcon: OptionsIcon,
       infoIcon: InfoIcon,
       grammarIcon: GrammarIcon,
-      treebankIcon: TreebankIcon
+      treebankIcon: TreebankIcon,
+      alphTooltip: Tooltip
     },
     data: function () {
       return {
@@ -233,6 +268,13 @@
         // Inform treebank component about visibility state change
         this.data.treebankComponentData.visible = this.data.tabs.treebank
         return this.data.tabs.treebank
+      },
+
+      additionalStylesTootipCloseIcon: function () {
+        return {
+          top: '2px',
+          right: '50px'
+        }
       }
     },
     methods: {

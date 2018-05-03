@@ -1,6 +1,6 @@
 <div id="alpheios-popup" >
-    <component v-bind:is="currentPopupComponent" :messages="messages" :definitions="definitions" :visible="visible"
-           :lexemes="lexemes" :linkedfeatures="linkedFeatures"
+    <popup component v-bind:is="currentPopupComponent" :messages="messages" :definitions="definitions" :visible="visible" :lexemes="lexemes" :translations="translations"
+    	   :linkedfeatures="linkedFeatures"
            :data="popupData" @close="close" @closepopupnotifications="clearNotifications" @showpaneltab="showPanelTab"
            @sendfeature="sendFeature" @settingchange="settingChange">
     </component>

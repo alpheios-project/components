@@ -1,27 +1,43 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-        <span class="alpheios-popup__close-btn" @click="closePopup" :title="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
-            <close-icon></close-icon>
-        </span>
+         <alph-tooltip
+          tooltipDirection = "left"
+          :additionalStyles = "additionalStylesTootipCloseIcon"
+          :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+          <span class="alpheios-popup__close-btn" @click="closePopup">
+              <close-icon></close-icon>
+          </span>
+         </alph-tooltip>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
             <div class="uk-button-group alpheios-popup__button-area">
-                <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
-                </button>
-                <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
-                </button>
-                <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
-                </button>
-                <button @click="showPanelTab('options')"
-                        class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
-                </button>
+                <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="">
+                    <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
+                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
+                    </button>
+                </alph-tooltip>
+
+                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_INFLECTIONS">
+                  <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
+                  </button>
+                </alph-tooltip>
+
+                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
+                  <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                  </button>
+                </alph-tooltip>
+
+                <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_OPTIONS">
+                  <button @click="showPanelTab('options')"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
+                  </button>
+                </alph-tooltip>
             </div>
         </div>
         <div v-show="!morphDataReady"
@@ -29,7 +45,7 @@
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
-            <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions"
+            <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
             </morph>
 
@@ -46,9 +62,11 @@
         </div>
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
              v-show="data.notification.important">
-            <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
-                <close-icon></close-icon>
-            </span>
+
+              <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
+                  <close-icon></close-icon>
+              </span>
+
             <span v-html="data.notification.text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
@@ -62,6 +80,8 @@
   import interact from 'interactjs'
   import Logger from '../lib/log/logger'
 
+  import Tooltip from './tooltip.vue'
+
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
 
@@ -71,6 +91,7 @@
       morph: Morph,
       setting: Setting,
       closeIcon: CloseIcon,
+      alphTooltip: Tooltip
     },
     data: function () {
       return {
@@ -119,6 +140,10 @@
       visible: {
         type: Boolean,
         required: true
+      },
+      translations: {
+        type: Object,
+        required: true
       }
     },
 
@@ -136,6 +161,9 @@
       },
       defDataReady: function () {
         return this.data.defDataReady
+      },
+      translationsDataReady: function () {
+        return this.data.translationsDataReady
       },
       morphDataReady: function () {
         return this.data.morphDataReady
@@ -267,6 +295,13 @@
           } else {
             this.heightValue = 'auto'
           }
+        }
+      },
+
+      additionalStylesTootipCloseIcon: function () {
+        return {
+          top: '2px',
+          right: '50px'
         }
       }
     },
@@ -427,8 +462,6 @@
     },
 
     mounted () {
-      console.log(`Mounted in a popup`)
-      console.log(this.data.draggable)
       if (this.data.draggable && this.data.resizable) {
         this.interactInstance = interact(this.$el)
           .resizable(this.resizableSettings())
@@ -447,7 +480,6 @@
 
     watch: {
       visible: function(value) {
-        console.log(`Popup visibility changed, is visible: ${value}`)
         if (value) {
           // A popup became visible
           this.updatePopupDimensions()
@@ -462,8 +494,12 @@
         this.logger.log(`Popup position is ${this.data.settings.popupPosition.currentValue}`)
         // There is a new request coming in, reset popup dimensions
         this.resetPopupDimensions()
-      }
+      },
 
+      translationsDataReady: function(value) {
+        let time = new Date().getTime()
+        this.logger.log(`${time}: translation data became available`, this.translations)
+      }
       /*inflDataReady: function() {
         let time = new Date().getTime()
         this.logger.log(`${time}: inflection data became available`)

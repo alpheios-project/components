@@ -14,6 +14,7 @@ export default class LexicalQuery extends Query {
     this.langOpts = options.langOpts || []
     this.resourceOptions = options.resourceOptions || []
     this.siteOptions = options.siteOptions || []
+    this.lemmaTranslations = options.lemmaTranslations
     this.l10n = options.l10n
     let langID = LMF.getLanguageIdFromCode(this.selector.languageCode)
     if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {
@@ -89,6 +90,8 @@ export default class LexicalQuery extends Query {
 
     let definitionRequests = []
 
+    let lemmaList = []
+
     for (let lexeme of this.homonym.lexemes) {
       // Short definition requests
       let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconShortOpts)
@@ -112,6 +115,8 @@ export default class LexicalQuery extends Query {
           complete: false
         }
       }))
+
+      lemmaList.push(lexeme.lemma)
     }
 
     // Handle definition responses
@@ -142,6 +147,15 @@ export default class LexicalQuery extends Query {
       )
     }
     yield 'Retrieval of short and full definitions complete'
+
+    let userLang = navigator.language || navigator.userLanguage
+
+    if (this.lemmaTranslations) {
+      yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
+      this.ui.updateTranslations(this.homonym)
+    }
+
+    yield 'Retrieval of lemma translations completed'
   }
 
   finalize (result) {
