@@ -48,6 +48,9 @@
 
         this.lookuptext = ''
       }
+    },
+    mounted () {
+      console.log('*********** testing')
     }
   }
 </script>
