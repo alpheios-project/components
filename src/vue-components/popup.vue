@@ -72,7 +72,6 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-        <p>TESTING LOOKUP</p>
         <lookup :uiController="uiController"></lookup>
     </div>
 </template>
