@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -120,6 +120,13 @@
         resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
+
+        fontSizeClassVariants: {
+          medium: 'alpheios-font_medium_class',
+          small: 'alpheios-font_small_class',
+          large: 'alpheios-font_large_class'
+        },
+        currentFontSizeType: 'medium'
       }
     },
     props: {
@@ -154,6 +161,10 @@
     },
 
     computed: {
+      classes: function () {  
+        this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
+        return this.data.classes
+      },
       uiController: function () {
         return this.$parent.uiController
       },
@@ -321,6 +332,15 @@
       })
     },
     methods: {
+      updateClasses: function (classGroup, currentValue) {
+        let vm = this
+        Object.keys(this[classGroup]).forEach(function(type) {
+          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+          if (index >= 0) { delete vm.data.classes[index] }
+        })
+        this.data.classes.push(this[classGroup][currentValue])      
+      },
+
       clearMessages() {
         while (this.messages.length >0) {
           this.messages.pop()
