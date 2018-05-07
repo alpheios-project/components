@@ -211,7 +211,14 @@
         required: true
       }
     },
-
+    created () {
+      let vm = this
+      vm.$on('changeFont', type => {
+        console.log('panel emit event', type)
+        console.log('panel emit event 2', vm.$parent)
+        vm.$parent.$children[0].$emit('changeFont', type)
+      })
+    },
     computed: {
       classes: function () {
         // Find index of an existing position class and replace it with an updated value

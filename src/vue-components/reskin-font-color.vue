@@ -16,7 +16,7 @@
     },
     methods: {
       changeFont (type) {
-        this.$parent.$emit('changeFont', type);
+        this.$parent.$emit('changeFont', type)
       }
     }
   }
