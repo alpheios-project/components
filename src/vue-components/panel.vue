@@ -201,15 +201,20 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
-        positionLeftClassName: 'alpheios-panel-left',
-        positionRightClassName: 'alpheios-panel-right',
+        // positionLeftClassName: 'alpheios-panel-left',
+        // positionRightClassName: 'alpheios-panel-right',
 
         fontSizeClassVariants: {
           medium: 'alpheios-font_medium_class',
           small: 'alpheios-font_small_class',
           large: 'alpheios-font_large_class'
         },
-        currentFontSizeType: 'medium'
+        currentFontSizeType: 'medium',
+
+        positionClassVariants: {
+          left: 'alpheios-panel-left',
+          right: 'alpheios-panel-right'
+        }
       }
     },
     props: {
@@ -235,19 +240,29 @@
         })
         this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
 
+        Object.keys(this.positionClassVariants).forEach(function(type) {
+          let index = vm.data.classes.findIndex(v => v === vm.positionClassVariants[type])
+          if (index >= 0) { delete vm.data.classes[index] }
+        })
+        this.data.classes.push(this.positionClassVariants[this.data.settings.panelPosition.currentValue])
+
         // Find index of an existing position class and replace it with an updated value
-        const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
-        const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+        // const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
+        // const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
 
-        if (positionRightIndex >= 0) { delete vm.data.classes[positionRightIndex] }
-        if (positionLeftIndex >= 0) { delete vm.data.classes[positionLeftIndex] }
+        // if (positionRightIndex >= 0) { delete vm.data.classes[positionRightIndex] }
+        // if (positionLeftIndex >= 0) { delete vm.data.classes[positionLeftIndex] }
 
-        if (this.data.settings.panelPosition.currentValue === 'left') {
-          this.data.classes.push(this.positionLeftClassName)
-        }
-        if (this.data.settings.panelPosition.currentValue === 'right') {
-          this.data.classes.push(this.positionRightClassName)
-        }        
+        // if (this.data.settings.panelPosition.currentValue === 'left') {
+        //   this.data.classes.push(this.positionLeftClassName)
+        // }
+        // if (this.data.settings.panelPosition.currentValue === 'right') {
+        //   this.data.classes.push(this.positionRightClassName)
+        // }   
+
+
+
+
         // if (this.data.settings.panelPosition.currentValue === 'left') {
         //   if (positionRightIndex >= 0) {
         //     // Replace an existing value
