@@ -221,6 +221,7 @@
     created () {
       let vm = this
       vm.$on('changeFont', type => {
+        vm.currentFontSizeType = type
       })
     },
     computed: {
@@ -228,10 +229,11 @@
         // Find index of an existing position class and replace it with an updated value
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
         const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+        let vm = this
 
         Object.keys(this.fontSizeClassVariants).forEach(function(type) {
-          let index = this.data.classes.findIndex(v => v === this.fontSizeClassVariants[type])
-          if (index >= 0) { delete this.data.classes[largeSizeClassIndex] }
+          let index = vm.data.classes.findIndex(v => v === this.fontSizeClassVariants[type])
+          if (index >= 0) { delete vm.data.classes[largeSizeClassIndex] }
         })
         this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
 
