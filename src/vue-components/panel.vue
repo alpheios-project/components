@@ -229,9 +229,11 @@
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
         const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
 
-        const mediumSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.medium)
-        const smallSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.small)
-        const largeSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.large)
+        Object.keys(this.fontSizeClassVariants).forEach(function(type) {
+          let index = this.data.classes.findIndex(v => v === this.fontSizeClassVariants[type])
+          if (index >= 0) { delete this.data.classes[largeSizeClassIndex] }
+        })
+        this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
 
         if (this.data.settings.panelPosition.currentValue === 'left') {
           if (positionRightIndex >= 0) {
@@ -251,13 +253,7 @@
             this.data.classes.push(this.positionRightClassName)
           }
         }
-
-        if (smallSizeClassIndex >= 0) { delete this.data.classes[smallSizeClassIndex]}
-        if (mediumSizeClassIndex >= 0) { delete this.data.classes[mediumSizeClassIndex]}
-        if (largeSizeClassIndex >= 0) { delete this.data.classes[largeSizeClassIndex]}
-
-        this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
-        
+       
         return this.data.classes
       },
 
