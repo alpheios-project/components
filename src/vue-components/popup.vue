@@ -319,9 +319,9 @@
       vm.$on('changeFont', type => {
         console.log('popup emit event', type)
         console.log('popup emit event 2', vm.$parent)
-        // vm.$parent.panel.$children[0].$emit('changeFont', type)
-        console.log('************change font popup 1', vm.$parent.panel.$children[0])
-        console.log('************change font popup 2', vm.$parent.panel)
+        vm.$parent.panel.$children[0].$emit('changeFont', type)
+        // console.log('************change font popup 1', vm.$parent.panel.$children[0])
+        // console.log('************change font popup 2', vm.$parent.panel)
       })
     },
     methods: {

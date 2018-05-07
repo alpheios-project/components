@@ -216,7 +216,7 @@
       vm.$on('changeFont', type => {
         console.log('panel emit event', type)
         console.log('panel emit event 2', vm.$parent)
-        vm.$parent.$children[0].$emit('changeFont', type)
+        // vm.$parent.$children[0].$emit('changeFont', type)
       })
     },
     computed: {
