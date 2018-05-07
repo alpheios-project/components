@@ -203,6 +203,13 @@
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
         positionLeftClassName: 'alpheios-panel-left',
         positionRightClassName: 'alpheios-panel-right',
+
+        fontSizeClassVariants: {
+          medium: 'alpheios-font_medium_class',
+          small: 'alpheios-font_small_class',
+          large: 'alpheios-font_large_class'
+        },
+        currentFontSizeType: 'medium'
       }
     },
     props: {
@@ -214,9 +221,6 @@
     created () {
       let vm = this
       vm.$on('changeFont', type => {
-        console.log('panel emit event', type)
-        console.log('panel emit event 2', vm.$parent)
-        // vm.$parent.$children[0].$emit('changeFont', type)
       })
     },
     computed: {
@@ -224,6 +228,11 @@
         // Find index of an existing position class and replace it with an updated value
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
         const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+
+        const mediumSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.medium)
+        const smallSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.small)
+        const largeSizeClassIndex = this.data.classes.findIndex(v => v === this.fontSizeClassVariants.large)
+
         if (this.data.settings.panelPosition.currentValue === 'left') {
           if (positionRightIndex >= 0) {
             // Replace an existing value
@@ -242,6 +251,13 @@
             this.data.classes.push(this.positionRightClassName)
           }
         }
+
+        if (smallSizeClassIndex >= 0) { delete this.data.classes[smallSizeClassIndex]}
+        if (mediumSizeClassIndex >= 0) { delete this.data.classes[mediumSizeClassIndex]}
+        if (largeSizeClassIndex >= 0) { delete this.data.classes[largeSizeClassIndex]}
+
+        this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
+        
         return this.data.classes
       },
 
