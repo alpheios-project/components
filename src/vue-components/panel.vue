@@ -226,9 +226,7 @@
     },
     computed: {
       classes: function () {
-        // Find index of an existing position class and replace it with an updated value
-        const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
-        const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+        // Add font size class
         let vm = this
 
         Object.keys(this.fontSizeClassVariants).forEach(function(type) {
@@ -237,24 +235,37 @@
         })
         this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
 
-        if (this.data.settings.panelPosition.currentValue === 'left') {
-          if (positionRightIndex >= 0) {
-            // Replace an existing value
-            this.data.classes[positionRightIndex] = this.positionLeftClassName
-          } else {
-            // Add an initial value
-            this.data.classes.push(this.positionLeftClassName)
-          }
+        // Find index of an existing position class and replace it with an updated value
+        const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
+        const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
 
-        } else if (this.data.settings.panelPosition.currentValue === 'right') {
-          if (positionLeftIndex >= 0) {
-            // Replace an existing value
-            this.data.classes[positionLeftIndex] = this.positionRightClassName
-          } else {
-            // Add an initial value
-            this.data.classes.push(this.positionRightClassName)
-          }
+        if (positionRightIndex >= 0) { delete vm.data.classes[positionRightIndex] }
+        if (positionLeftIndex >= 0) { delete vm.data.classes[positionLeftIndex] }
+
+        if (this.data.settings.panelPosition.currentValue === 'left') {
+          this.data.classes.push(this.positionLeftClassName)
         }
+        if (this.data.settings.panelPosition.currentValue === 'right') {
+          this.data.classes.push(this.positionRightClassName)
+        }        
+        // if (this.data.settings.panelPosition.currentValue === 'left') {
+        //   if (positionRightIndex >= 0) {
+        //     // Replace an existing value
+        //     this.data.classes[positionRightIndex] = this.positionLeftClassName
+        //   } else {
+        //     // Add an initial value
+        //     this.data.classes.push(this.positionLeftClassName)
+        //   }
+
+        // } else if (this.data.settings.panelPosition.currentValue === 'right') {
+        //   if (positionLeftIndex >= 0) {
+        //     // Replace an existing value
+        //     this.data.classes[positionLeftIndex] = this.positionRightClassName
+        //   } else {
+        //     // Add an initial value
+        //     this.data.classes.push(this.positionRightClassName)
+        //   }
+        // }
        
         return this.data.classes
       },
