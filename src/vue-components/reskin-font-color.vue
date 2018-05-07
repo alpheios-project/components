@@ -14,6 +14,7 @@
       return {
       }
     }
+  }
 </script>
 <style lang="scss">
     @import "../styles/alpheios";
