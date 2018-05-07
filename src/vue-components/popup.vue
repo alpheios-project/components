@@ -328,6 +328,7 @@
     created () {
       let vm = this
       vm.$on('changeFont', type => {
+        vm.currentFontSizeType = type
         vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
