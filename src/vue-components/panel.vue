@@ -232,7 +232,7 @@
         let vm = this
 
         Object.keys(this.fontSizeClassVariants).forEach(function(type) {
-          let index = vm.data.classes.findIndex(v => v === this.fontSizeClassVariants[type])
+          let index = vm.data.classes.findIndex(v => v === vm.fontSizeClassVariants[type])
           if (index >= 0) { delete vm.data.classes[largeSizeClassIndex] }
         })
         this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
