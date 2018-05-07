@@ -23,7 +23,9 @@
     	display: inline-block;
     }
 
-    $baseSize: 22px;
+    $smallSize: 20px;
+    $baseSize: 24px;
+    $bigSize: 28px;
 
     .alpheios-skin_properties {
     	margin: 0;
@@ -32,6 +34,7 @@
 
     	li {
     		display: inline-block;
+            vertical-align: bottom;
     		font-size: 16px;
 
     		width: $baseSize;
@@ -45,17 +48,17 @@
 
     		&.alpheios-small_font {
     			font-size: 80%;
-                width: $baseSize * 0.8;
-                height: $baseSize * 0.8;
-                line-height: $baseSize * 0.8;
-                border-radius: $baseSize/2  * 0.8;
+                width: $smallSize;
+                height: $smallSize;
+                line-height: $smallSize;
+                border-radius: $smallSize;
     		}
     		&.alpheios-large_font {
     			font-size: 120%;
-                width: $baseSize * 1.2;
-                height: $baseSize * 1.2;
-                line-height: $baseSize * 1.2;
-                border-radius: $baseSize/2  * 1.2;
+                width: $bigSize;
+                height: $bigSize;
+                line-height: $bigSize;
+                border-radius: $bigSize;
     		}
     	}
     }
