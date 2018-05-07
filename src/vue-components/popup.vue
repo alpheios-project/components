@@ -319,7 +319,7 @@
       vm.$on('changeFont', type => {
         console.log('popup emit event', type)
         console.log('popup emit event 2', vm.$parent)
-        vm.$parent.$children[0].$emit('changeFont', type)
+        // vm.$parent.$children[0].$emit('changeFont', type)
       })
     },
     methods: {
