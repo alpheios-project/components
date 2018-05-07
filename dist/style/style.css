@@ -7753,19 +7753,27 @@ div.alpheios-morph__block {
 .alpheios-skin_properties li {
     display: inline-block;
     font-size: 16px;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     text-align: center;
-    line-height: 20px;
+    line-height: 22px;
     color: #fff;
     background: #27323b;
-    border-radius: 10px;
+    border-radius: 11px;
 }
 .alpheios-skin_properties li.alpheios-small_font {
       font-size: 80%;
+      width: 17.6px;
+      height: 17.6px;
+      line-height: 17.6px;
+      border-radius: 8.8px;
 }
 .alpheios-skin_properties li.alpheios-large_font {
       font-size: 120%;
+      width: 26.4px;
+      height: 26.4px;
+      line-height: 26.4px;
+      border-radius: 13.2px;
 }
 
 
