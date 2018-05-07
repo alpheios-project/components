@@ -14,6 +14,7 @@
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
+            <reskin-font-color></reskin-font-color>
             <div class="uk-button-group alpheios-popup__button-area">
                 <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
                     <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
@@ -83,6 +84,7 @@
 
   import Tooltip from './tooltip.vue'
   import Lookup from './lookup.vue'
+  import ReskinFontColor from './reskin-font-color.vue'
 
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
@@ -94,7 +96,8 @@
       setting: Setting,
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup
+      lookup: Lookup,
+      reskinFontColor: ReskinFontColor
     },
     data: function () {
       return {
