@@ -315,8 +315,10 @@
       }
     },
     created () {
-      this.$on('changeFont', type => {
+      let vm = this
+      vm.$on('changeFont', type => {
         console.log('popup emit event', type);
+        console.log('popup emit event 2', vm.$parent);
       });
     },
     methods: {

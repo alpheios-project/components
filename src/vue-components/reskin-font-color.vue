@@ -16,24 +16,7 @@
     },
     methods: {
       changeFont (type) {
-        console.log('***** make font ', type)
         this.$parent.$emit('changeFont', type);
-        // switch (type) {
-        //   case 'small' :
-        //     console.log('***** make font small')
-        //     this.$parent.$emit('changeFont', 'small');
-        //     break
-        //   case 'medium' :
-        //     console.log('***** make font medium')
-        //     break
-        //   case 'large' :
-        //     console.log('***** make font large')
-        //     break
-        //   default :
-        //     console.log('***** make font default')
-        //     break
-        // }
-
       }
     }
   }
