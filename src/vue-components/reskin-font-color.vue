@@ -26,7 +26,7 @@
           case 'large' :
             console.log('***** make font large')
             break
-          case default :
+          default :
             console.log('***** make font default')
             break
         }
