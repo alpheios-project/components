@@ -314,7 +314,11 @@
         }
       }
     },
-
+    created () {
+      this.$on('changeFont', type => {
+        console.log('popup emit event', type);
+      });
+    },
     methods: {
       clearMessages() {
         while (this.messages.length >0) {

@@ -16,20 +16,23 @@
     },
     methods: {
       changeFont (type) {
-        switch (type) {
-          case 'small' :
-            console.log('***** make font small')
-            break
-          case 'medium' :
-            console.log('***** make font medium')
-            break
-          case 'large' :
-            console.log('***** make font large')
-            break
-          default :
-            console.log('***** make font default')
-            break
-        }
+        console.log('***** make font ', type)
+        this.$parent.$emit('changeFont', type);
+        // switch (type) {
+        //   case 'small' :
+        //     console.log('***** make font small')
+        //     this.$parent.$emit('changeFont', 'small');
+        //     break
+        //   case 'medium' :
+        //     console.log('***** make font medium')
+        //     break
+        //   case 'large' :
+        //     console.log('***** make font large')
+        //     break
+        //   default :
+        //     console.log('***** make font default')
+        //     break
+        // }
 
       }
     }
@@ -65,7 +68,7 @@
     		background: #27323b;
     		border-radius: $baseSize/2;
 
-            cursor: ponter;
+            cursor: pointer;
 
     		&.alpheios-small_font {
     			font-size: 80%;
