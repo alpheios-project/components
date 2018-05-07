@@ -201,8 +201,6 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
-        // positionLeftClassName: 'alpheios-panel-left',
-        // positionRightClassName: 'alpheios-panel-right',
 
         fontSizeClassVariants: {
           medium: 'alpheios-font_medium_class',
@@ -230,23 +228,7 @@
       })
     },
     computed: {
-      classes: function () {
-        // Add font size class
-        // let vm = this
-
-        // Object.keys(this.fontSizeClassVariants).forEach(function(type) {
-        //   let index = vm.data.classes.findIndex(v => v === vm.fontSizeClassVariants[type])
-        //   if (index >= 0) { delete vm.data.classes[index] }
-        // })
-        // this.data.classes.push(this.fontSizeClassVariants[this.currentFontSizeType])
-
-        // Find index of an existing position class and replace it with an updated value
-
-        // Object.keys(this.positionClassVariants).forEach(function(type) {
-        //   let index = vm.data.classes.findIndex(v => v === vm.positionClassVariants[type])
-        //   if (index >= 0) { delete vm.data.classes[index] }
-        // })
-        // this.data.classes.push(this.positionClassVariants[this.data.settings.panelPosition.currentValue])      
+      classes: function () {  
         this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
         this.updateClasses('positionClassVariants', this.data.settings.panelPosition.currentValue)
         return this.data.classes
