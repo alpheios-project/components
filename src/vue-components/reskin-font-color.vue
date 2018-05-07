@@ -1,9 +1,9 @@
 <template>
 	<div class="alpheios-skin_panel">
 	  <ul class="alpheios-skin_properties">
-	  	<li class="alpheios-small_font">A</li>
-	  	<li class="alpheios-medium_font">A</li>
-	  	<li class="alpheios-large_font">A</li>
+	  	<li class="alpheios-small_font" @click="changeFont('small')">A</li>
+	  	<li class="alpheios-medium_font" @click="changeFont('medium')">A</li>
+	  	<li class="alpheios-large_font" @click="changeFont('large')">A</li>
 	  </ul>
 	</div>
 </template>
@@ -12,6 +12,25 @@
     name: 'ReskinFontColor',
     data () {
       return {
+      }
+    },
+    methods: {
+      changeFont (type) {
+        switch (type) {
+          case 'small' :
+            console.log('***** make font small')
+            break
+          case 'medium' :
+            console.log('***** make font medium')
+            break
+          case 'large' :
+            console.log('***** make font large')
+            break
+          case default :
+            console.log('***** make font default')
+            break
+        }
+
       }
     }
   }
@@ -25,7 +44,7 @@
 
     $smallSize: 20px;
     $baseSize: 24px;
-    $bigSize: 28px;
+    $largeSize: 28px;
 
     .alpheios-skin_properties {
     	margin: 0;
@@ -46,6 +65,8 @@
     		background: #27323b;
     		border-radius: $baseSize/2;
 
+            cursor: ponter;
+
     		&.alpheios-small_font {
     			font-size: 80%;
                 width: $smallSize;
@@ -55,10 +76,10 @@
     		}
     		&.alpheios-large_font {
     			font-size: 120%;
-                width: $bigSize;
-                height: $bigSize;
-                line-height: $bigSize;
-                border-radius: $bigSize;
+                width: $largeSize;
+                height: $largeSize;
+                line-height: $largeSize;
+                border-radius: $largeSize;
     		}
     	}
     }
