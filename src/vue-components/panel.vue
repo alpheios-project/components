@@ -298,7 +298,7 @@
           let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
           if (index >= 0) { delete vm.data.classes[index] }
         })
-        this.data.classes.push(this.classGroup[currentValue])      
+        this.data.classes.push(this[classGroup][currentValue])      
       },
       updateZIndex: function (zIndexMax) {
         if (zIndexMax >= this.zIndex) {
