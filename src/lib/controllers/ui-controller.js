@@ -582,6 +582,7 @@ export default class UIController {
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
               break
             case 'fontSize':
+              console.log('**************uiOptionChange in fontSize switch', name, value)
               this.uiController.updateFontSizeClass(this.uiController.uiOptions.items[name].currentValue)
               break
           }
@@ -878,6 +879,7 @@ export default class UIController {
   }
 
   updateFontSizeClass (type) {
+    console.log('********** in updateFontSizeClass', type)
     let popupClasses = this.popup.popupData.classes
     // this.uiOptions.items.fontSize.currentValue = type
     let uiC = this
