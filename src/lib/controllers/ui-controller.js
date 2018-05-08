@@ -880,10 +880,10 @@ export default class UIController {
   updateFontSizeClass (type) {
     let popupClasses = this.popup.popupData.classes
     // this.uiOptions.items.fontSize.currentValue = type
-
+    let uiC = this
     popupClasses.forEach(function (item, index) {
       if (item.indexOf('alpheios-font_') === 0) {
-        popupClasses[index] = `alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`
+        popupClasses[index] = `alpheios-font_${uiC.uiOptions.items.fontSize.currentValue}_class`
       }
     })
 
