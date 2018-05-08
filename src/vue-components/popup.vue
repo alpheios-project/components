@@ -2,6 +2,7 @@
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          {{ data.classes }}
+         {{ headerClass }}
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -339,14 +340,14 @@
         // vm.updateClasses('fontSizeClassVariants', type)
         // vm.$parent.panel.$children[0].$emit('changeFont', type)
 
-        console.log('*********changeFont 1', vm)
-        console.log('*********changeFont 2', vm, vm.uiController)
+        console.log('*********changeFont 1', type)
         // vm.uiController.updateFontSizeClass(type)
         vm.uiOptionChanged('fontSize', type)
       })
     },
     methods: {
       uiOptionChanged: function (name, value) {
+        console.log('*********changeFont 2', type)
         this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       },
       updateClasses: function (classGroup, currentValue) {

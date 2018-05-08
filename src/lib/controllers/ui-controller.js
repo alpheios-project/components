@@ -570,7 +570,7 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          console.log('********* uiOptionChange', name, value)
+          console.log('********* uiOptionChange 3', name, value)
           this.uiController.uiOptions.items[name].setTextValue(value)
           switch (name) {
             case 'skin':
@@ -581,10 +581,10 @@ export default class UIController {
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
               break
-            // case 'fontSize':
-            //   console.log('**************uiOptionChange in fontSize switch', name, value)
-            //   this.uiController.updateFontSizeClass(value)
-            //   break
+            case 'fontSize':
+              console.log('**************uiOptionChange in fontSize switch 4', name, value)
+              this.uiController.updateFontSizeClass(value)
+              break
           }
         }
       }
@@ -878,27 +878,27 @@ export default class UIController {
     this.popup.popupData.classes = classes
   }
 
-  updateFontSizeClassBackup (type) {
-    console.log('********** in updateFontSizeClass', type)
-    let popupClasses = this.popup.$children[0].headerClass || []
-    // this.uiOptions.items.fontSize.currentValue = type
-    // let uiC = this
-    console.log('******* starting classes', popupClasses)
-    popupClasses.forEach(function (item, index) {
-      if (item.indexOf('alpheios-font_') === 0) {
-        // popupClasses[index] = `alpheios-font_${type}_class`
-        this.popup.$children[0].$set(this.popup.$children[0].headerClass, index, `alpheios-font_${type}_class`)
-      }
-    })
-    console.log('******* finishing classes', popupClasses)
-    // this.popup.popupData.classes = popupClasses
+  updateFontSizeClass (type) {
+    console.log('********** in updateFontSizeClass 5', type)
+    // let popupClasses = this.popup.$children[0].headerClass || []
+    // // this.uiOptions.items.fontSize.currentValue = type
+    // // let uiC = this
+    // console.log('******* starting classes', popupClasses)
+    // popupClasses.forEach(function (item, index) {
+    //   if (item.indexOf('alpheios-font_') === 0) {
+    //     // popupClasses[index] = `alpheios-font_${type}_class`
+    //     this.popup.$children[0].$set(this.popup.$children[0].headerClass, index, `alpheios-font_${type}_class`)
+    //   }
+    // })
+    // console.log('******* finishing classes', popupClasses)
+    // // this.popup.popupData.classes = popupClasses
 
-    console.log('******* popup.popupData.classes', this.popup.popupData.classes)
+    // console.log('******* popup.popupData.classes', this.popup.popupData.classes)
 
-    console.log('******** checking this.popup', this.popup)
+    // console.log('******** checking this.popup', this.popup)
 
-    // this.popup.$children[0].headerClass = popupClasses
-    // this.popup.$children[0].$set(this.popup.$children[0].headerClass, )
+    // // this.popup.$children[0].headerClass = popupClasses
+    // // this.popup.$children[0].$set(this.popup.$children[0].headerClass, )
   }
 
   changeSkin () {
