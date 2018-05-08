@@ -892,6 +892,8 @@ export default class UIController {
     console.log('******* finishing classes', popupClasses)
     this.popup.popupData.classes = popupClasses
     console.log('******* popup.popupData.classes', this.popup.popupData.classes)
+
+    console.log('******** checking this.popup', this.popup)
   }
 
   changeSkin () {
