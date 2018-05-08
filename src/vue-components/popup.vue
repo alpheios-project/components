@@ -347,7 +347,7 @@
     },
     methods: {
       uiOptionChanged: function (name, value) {
-        console.log('*********changeFont 2', type)
+        console.log('*********changeFont 2', value)
         this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       },
       updateClasses: function (classGroup, currentValue) {
