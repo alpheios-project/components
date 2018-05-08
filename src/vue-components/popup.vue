@@ -1,8 +1,6 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="classesHeader" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-         {{ classesHeader }}
-         {{ data.classes }}
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -346,14 +344,14 @@
     },
     methods: {
       updateClasses: function (classGroup, currentValue) {
-        let vm = this
+        // let vm = this
 
-        Object.keys(this[classGroup]).forEach(function(type) {
-          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+        // Object.keys(this[classGroup]).forEach(function(type) {
+        //   let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
 
-          if (index >= 0) { vm.data.classes.splice(index, 1) }
-        })
-        this.data.classes.push(this[classGroup][currentValue])
+        //   if (index >= 0) { vm.data.classes.splice(index, 1) }
+        // })
+        // this.data.classes.push(this[classGroup][currentValue])
       },
 
       clearMessages() {
