@@ -3,7 +3,7 @@ import {LanguageModelFactory} from 'alpheios-data-models'
 /**
  * This is a general-purpose, media abstract selector that
  * @property {string} selectedText - Selected text (usually a single word)
- * @property {string] normalizedSelectedText - Selected text after normalization
+ * @property {string} normalizedSelectedText - Selected text after normalization
  * @property {string} languageID - A language ID of a selection
  * @property {LanguageModel} language - A language model object
  */
