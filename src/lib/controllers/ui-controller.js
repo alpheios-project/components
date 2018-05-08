@@ -883,13 +883,15 @@ export default class UIController {
     let popupClasses = this.popup.popupData.classes
     // this.uiOptions.items.fontSize.currentValue = type
     // let uiC = this
+    console.log('******* starting classes', popupClasses)
     popupClasses.forEach(function (item, index) {
       if (item.indexOf('alpheios-font_') === 0) {
         popupClasses[index] = `alpheios-font_${type}_class`
       }
     })
-
+    console.log('******* finishing classes', popupClasses)
     this.popup.popupData.classes = popupClasses
+    console.log('******* popup.popupData.classes', this.popup.popupData.classes)
   }
 
   changeSkin () {
