@@ -2,6 +2,7 @@
     <div ref="popup" class="alpheios-popup auk" v-bind:class="classesHeader" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          {{ classesHeader }}
+         {{ data.classes }}
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
