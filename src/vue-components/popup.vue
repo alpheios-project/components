@@ -328,6 +328,7 @@
     },
     created () {
       let vm = this
+      console.log('*********created', vm)
       vm.data.classes.push(vm.fontSizeClassVariants.medium)
 
       vm.$on('changeFont', type => {
