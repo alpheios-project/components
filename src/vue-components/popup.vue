@@ -527,6 +527,9 @@
     },
 
     watch: {
+      classesHeader: function (value) {
+        console.log('****************changed', value)
+      },
       visible: function(value) {
         if (value) {
           // A popup became visible
