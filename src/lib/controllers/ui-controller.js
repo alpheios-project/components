@@ -880,13 +880,14 @@ export default class UIController {
 
   updateFontSizeClass (type) {
     console.log('********** in updateFontSizeClass', type)
-    let popupClasses = this.popup.popupData.classes
+    let popupClasses = this.popup.$children[0].headerClass || []
     // this.uiOptions.items.fontSize.currentValue = type
     // let uiC = this
     console.log('******* starting classes', popupClasses)
     popupClasses.forEach(function (item, index) {
       if (item.indexOf('alpheios-font_') === 0) {
-        popupClasses[index] = `alpheios-font_${type}_class`
+        // popupClasses[index] = `alpheios-font_${type}_class`
+        this.popup.$children[0].$set(this.popup.$children[0].headerClass, index, `alpheios-font_${type}_class`)
       }
     })
     console.log('******* finishing classes', popupClasses)
@@ -896,7 +897,8 @@ export default class UIController {
 
     console.log('******** checking this.popup', this.popup)
 
-    this.popup.$children[0].headerClass = popupClasses
+    // this.popup.$children[0].headerClass = popupClasses
+    // this.popup.$children[0].$set(this.popup.$children[0].headerClass, )
   }
 
   changeSkin () {
