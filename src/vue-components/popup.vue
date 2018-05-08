@@ -515,7 +515,7 @@
           .draggable(this.draggableSettings())
           .on('resizemove', this.resizeListener)
       }
-      this.data.classes.push(vm.fontSizeClassVariants.medium)
+      this.data.classes.push(this.fontSizeClassVariants.medium)
     },
 
     updated () {
