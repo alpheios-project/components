@@ -97,7 +97,9 @@
     "webpack-dev-server": "^3.1.4",
     "webpack-merge": "^4.1.0",
     "wrap-range-text": "*",
-    "zip-folder": "^1.0.0"
+    "zip-folder": "^1.0.0",
+    "flush-promises": "^1.0.0",
+    "sinon": "^5.0.3"
   },
   "peerDependencies": {
     "alpheios-data-models": "github:alpheios-project/data-models",

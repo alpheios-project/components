@@ -72,7 +72,6 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-
         <lookup :uiController="uiController"></lookup>
     </div>
 </template>
@@ -96,7 +95,8 @@
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
       lookup: Lookup
-    },
+    }
+    ,
     data: function () {
       return {
         resizable: true,
