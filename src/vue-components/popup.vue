@@ -326,7 +326,7 @@
         return this.data.classes
       }
     },
-    created () {
+    mounted () {
       let vm = this
 
       vm.data.classes.push(vm.fontSizeClassVariants.medium)
