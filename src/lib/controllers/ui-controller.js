@@ -901,6 +901,7 @@ export default class UIController {
     // // this.popup.$children[0].headerClass = popupClasses
     // // this.popup.$children[0].$set(this.popup.$children[0].headerClass, )
     this.popup.$children[0].classesChanged += 1
+    this.popup.$children[0].headerClass = popupClasses
   }
 
   changeSkin () {
