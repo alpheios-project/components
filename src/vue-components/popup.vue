@@ -328,13 +328,19 @@
     },
     created () {
       let vm = this
-      console.log('*********created', vm)
+
       vm.data.classes.push(vm.fontSizeClassVariants.medium)
+
+      console.log('*********created 1', vm.data.classes)
+      console.log('*********created 2', vm.classesHeader)
 
       vm.$on('changeFont', type => {
        // vm.currentFontSizeType = type
         vm.updateClasses('fontSizeClassVariants', type)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
+
+        console.log('*********changeFont 1', vm.data.classes)
+        console.log('*********changeFont 2', vm.classesHeader)
       })
     },
     methods: {
