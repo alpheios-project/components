@@ -553,6 +553,10 @@
       translationsDataReady: function(value) {
         let time = new Date().getTime()
         this.logger.log(`${time}: translation data became available`, this.translations)
+      },
+
+      headerClass: function (value) {
+        console.log('*********changes headerClass', value)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()
