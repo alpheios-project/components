@@ -338,6 +338,9 @@
       })
     },
     methods: {
+      uiOptionChanged: function (name, value) {
+        this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
+      },
       updateClasses: function (classGroup, currentValue) {
         let vm = this
 

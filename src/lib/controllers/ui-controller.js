@@ -570,6 +570,7 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
+          console.log('********* uiOptionChange', name, value)
           this.uiController.uiOptions.items[name].setTextValue(value)
           switch (name) {
             case 'skin':
