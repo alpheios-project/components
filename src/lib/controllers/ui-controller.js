@@ -567,12 +567,28 @@ export default class UIController {
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
               break
           }
+        },
+
+        uiOptionChange: function (name, value) {
+          this.uiController.uiOptions.items[name].setTextValue(value)
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+            case 'popup':
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(this.uiController.uiOptions.items[name].currentValue)
+              break
+          }
         }
       }
     })
 
     // Set initial values of components
-    console.log('*************setting initial classes')
     this.setRootComponentClasses()
   }
 
@@ -862,7 +878,7 @@ export default class UIController {
 
   updateFontSizeClass (type) {
     let popupClasses = this.popup.popupData.classes
-    this.uiOptions.items.fontSize.currentValue = type
+    // this.uiOptions.items.fontSize.currentValue = type
 
     popupClasses.forEach(function (item, index) {
       if (item.indexOf('alpheios-font_') === 0) {

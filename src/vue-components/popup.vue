@@ -333,7 +333,8 @@
 
         console.log('*********changeFont 1', vm)
         console.log('*********changeFont 2', vm, vm.uiController)
-        vm.uiController.updateFontSizeClass(type)
+        // vm.uiController.updateFontSizeClass(type)
+        vm.uiOptionChange('fonySize', type)
       })
     },
     methods: {
