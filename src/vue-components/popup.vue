@@ -1,7 +1,7 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="headerClass" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-         {{ classes }}
+         {{ headerClass }}
          {{ data.classes }}
          <alph-tooltip
           tooltipDirection = "left"
@@ -121,13 +121,14 @@
         exactHeight: 0,
         resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
-        resizeCountMax: 100 // Max number of resize iteration
+        resizeCountMax: 100, // Max number of resize iteration
 
         // fontSizeClassVariants: {
         //   medium: 'alpheios-font_medium_class',
         //   small: 'alpheios-font_small_class',
         //   large: 'alpheios-font_large_class'
         // }
+        headerClass: null
       }
     },
     props: {
