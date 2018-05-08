@@ -849,6 +849,8 @@ export default class UIController {
 
   setRootComponentClasses () {
     let classes = []
+    console.log('************* set root', this.uiOptions)
+
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }

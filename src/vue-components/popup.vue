@@ -515,7 +515,7 @@
           .draggable(this.draggableSettings())
           .on('resizemove', this.resizeListener)
       }
-      console.log('******mounted popup', this.data.classes)
+      console.log('******mounted popup', this)
       this.data.classes.push(this.fontSizeClassVariants.medium)
     },
 
