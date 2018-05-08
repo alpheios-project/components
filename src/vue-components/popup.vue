@@ -335,11 +335,11 @@
 
       vm.$on('changeFont', type => {
        // vm.currentFontSizeType = type
-        vm.updateClasses('fontSizeClassVariants', type)
-        vm.$parent.panel.$children[0].$emit('changeFont', type)
+        // vm.updateClasses('fontSizeClassVariants', type)
+        // vm.$parent.panel.$children[0].$emit('changeFont', type)
 
-        console.log('*********changeFont 1', vm, vm.data.classes)
-        console.log('*********changeFont 2', vm, vm.classesHeader)
+        // console.log('*********changeFont 1', vm, vm.data.classes)
+        // console.log('*********changeFont 2', vm, vm.classesHeader)
       })
     },
     methods: {
