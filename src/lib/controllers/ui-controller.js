@@ -581,10 +581,10 @@ export default class UIController {
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
               break
-            case 'fontSize':
-              console.log('**************uiOptionChange in fontSize switch', name, value)
-              this.uiController.updateFontSizeClass(value)
-              break
+            // case 'fontSize':
+            //   console.log('**************uiOptionChange in fontSize switch', name, value)
+            //   this.uiController.updateFontSizeClass(value)
+            //   break
           }
         }
       }
@@ -878,7 +878,7 @@ export default class UIController {
     this.popup.popupData.classes = classes
   }
 
-  updateFontSizeClass (type) {
+  updateFontSizeClassBackup (type) {
     console.log('********** in updateFontSizeClass', type)
     let popupClasses = this.popup.$children[0].headerClass || []
     // this.uiOptions.items.fontSize.currentValue = type
