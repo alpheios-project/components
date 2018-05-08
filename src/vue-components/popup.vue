@@ -328,7 +328,7 @@
     },
     created () {
       let vm = this
-      vm.updateClasses('fontSizeClassVariants', 'medium')
+      vm.data.classes.push(vm.fontSizeClassVariants.medium)
 
       vm.$on('changeFont', type => {
        // vm.currentFontSizeType = type
@@ -339,18 +339,13 @@
     methods: {
       updateClasses: function (classGroup, currentValue) {
         let vm = this
-        console.log('***********update classes', classGroup, currentValue)
 
         Object.keys(this[classGroup]).forEach(function(type) {
           let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-          console.log('***********update classes index', vm[classGroup][type], index)
 
           if (index >= 0) { vm.data.classes.splice(index, 1) }
         })
-
-        console.log('***********data classes before', this.data.classes)
         this.data.classes.push(this[classGroup][currentValue])
-        console.log('***********data classes after', this.data.classes)
       },
 
       clearMessages() {
