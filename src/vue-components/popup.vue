@@ -509,8 +509,6 @@
           .draggable(this.draggableSettings())
           .on('resizemove', this.resizeListener)
       }
-      console.log('******mounted popup', this)
-      this.data.classes.push(this.fontSizeClassVariants.medium)
     },
 
     updated () {
@@ -522,9 +520,6 @@
     },
 
     watch: {
-      classesHeader: function (value) {
-        console.log('****************changed', this, this.classesHeader)
-      },
       visible: function(value) {
         if (value) {
           // A popup became visible
