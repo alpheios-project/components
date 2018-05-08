@@ -324,24 +324,28 @@
     created () {
       let vm = this
       vm.updateClasses('fontSizeClassVariants', 'medium')
-      console.log('**************popup created', vm.data.classes)
 
       vm.$on('changeFont', type => {
-        console.log('******popup change font', type)
-        // vm.currentFontSizeType = type
+       // vm.currentFontSizeType = type
         vm.updateClasses('fontSizeClassVariants', type)
-        console.log('**************popup change font', vm.data.classes)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
     methods: {
       updateClasses: function (classGroup, currentValue) {
         let vm = this
+        console.log('***********update classes', classGroup, currentValue)
+
         Object.keys(this[classGroup]).forEach(function(type) {
           let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+        console.log('***********update classes index', vm[classGroup][type], index)
+
           if (index >= 0) { delete vm.data.classes[index] }
         })
-        this.data.classes.push(this[classGroup][currentValue])      
+
+        console.log('***********data classes before', this.data.classes)
+        this.data.classes.push(this[classGroup][currentValue])
+        console.log('***********data classes after', this.data.classes)
       },
 
       clearMessages() {
