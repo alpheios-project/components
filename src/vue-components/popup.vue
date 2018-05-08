@@ -322,10 +322,12 @@
       },
 
       classes: function () {
+        console.log('***** calc classes in popup')
         let res = {}
         this.data.classes.forEach(function(item){
           res[item] = true
         })
+        console.log('***** calc classes in popup', res)
         return res
       }
     },
