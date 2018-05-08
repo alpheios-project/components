@@ -330,7 +330,7 @@
       vm.$on('changeFont', type => {
         console.log('******popup change font', type)
         vm.currentFontSizeType = type
-        vm.$parent.panel.$children[0].$emit('changeFont', type)
+        // vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
     methods: {
