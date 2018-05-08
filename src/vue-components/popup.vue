@@ -322,7 +322,11 @@
       },
 
       classes: function () {
-        return this.data.classes
+        let res = {}
+        this.data.classes.forEach(function(item){
+          res[item] = true
+        })
+        return res
       }
     },
     created () {
