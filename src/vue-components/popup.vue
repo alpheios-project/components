@@ -325,10 +325,10 @@
         return this.data.classes
       }
     },
-    created () {
+    mounted () {
       let vm = this
-
-      // vm.data.classes.push(vm.fontSizeClassVariants.medium)
+      console.log('*******************popup mounted')
+      vm.data.classes.push(vm.fontSizeClassVariants.medium)
 
       // console.log('*********created 1', vm, vm.data.classes)
       // console.log('*********created 2', vm, vm.classesHeader)
@@ -344,14 +344,14 @@
     },
     methods: {
       updateClasses: function (classGroup, currentValue) {
-        // let vm = this
+        let vm = this
 
-        // Object.keys(this[classGroup]).forEach(function(type) {
-        //   let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+        Object.keys(this[classGroup]).forEach(function(type) {
+          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
 
-        //   if (index >= 0) { vm.data.classes.splice(index, 1) }
-        // })
-        // this.data.classes.push(this[classGroup][currentValue])
+          if (index >= 0) { vm.data.classes.splice(index, 1) }
+        })
+        this.data.classes.push(this[classGroup][currentValue])
       },
 
       clearMessages() {

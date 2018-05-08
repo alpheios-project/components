@@ -572,6 +572,7 @@ export default class UIController {
     })
 
     // Set initial values of components
+    console.log('*************setting initial classes')
     this.setRootComponentClasses()
   }
 
