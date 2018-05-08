@@ -583,7 +583,7 @@ export default class UIController {
               break
             case 'fontSize':
               console.log('**************uiOptionChange in fontSize switch', name, value)
-              this.uiController.updateFontSizeClass(this.uiController.uiOptions.items[name].currentValue)
+              this.uiController.updateFontSizeClass(value)
               break
           }
         }
