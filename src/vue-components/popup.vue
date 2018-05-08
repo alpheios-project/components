@@ -331,8 +331,8 @@
         // vm.updateClasses('fontSizeClassVariants', type)
         // vm.$parent.panel.$children[0].$emit('changeFont', type)
 
-        // console.log('*********changeFont 1', vm, vm.data.classes)
-        // console.log('*********changeFont 2', vm, vm.classesHeader)
+        console.log('*********changeFont 1', vm)
+        console.log('*********changeFont 2', vm, vm.uiController)
         vm.uiController.updateFontSizeClass(type)
       })
     },
