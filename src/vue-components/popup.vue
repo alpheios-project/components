@@ -558,6 +558,7 @@
 
       classesChanged: function (value) {
         console.log('*********classesChanged', value, this.data.classes)
+        this.headerClass = this.data.classes
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()
