@@ -331,16 +331,16 @@
 
       vm.data.classes.push(vm.fontSizeClassVariants.medium)
 
-      console.log('*********created 1', vm.data.classes)
-      console.log('*********created 2', vm.classesHeader)
+      console.log('*********created 1', vm, vm.data.classes)
+      console.log('*********created 2', vm, vm.classesHeader)
 
       vm.$on('changeFont', type => {
        // vm.currentFontSizeType = type
         vm.updateClasses('fontSizeClassVariants', type)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
 
-        console.log('*********changeFont 1', vm.data.classes)
-        console.log('*********changeFont 2', vm.classesHeader)
+        console.log('*********changeFont 1', vm, vm.data.classes)
+        console.log('*********changeFont 2', vm, vm.classesHeader)
       })
     },
     methods: {
@@ -528,7 +528,7 @@
 
     watch: {
       classesHeader: function (value) {
-        console.log('****************changed', value)
+        console.log('****************changed', this, this.classesHeader)
       },
       visible: function(value) {
         if (value) {
