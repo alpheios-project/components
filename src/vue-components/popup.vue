@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -162,8 +162,8 @@
 
     computed: {
       classes: function () {  
-        this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
-        return this.data.classes
+        // this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
+        // return this.data.classes
       },
       uiController: function () {
         return this.$parent.uiController
@@ -329,18 +329,19 @@
       let vm = this
       vm.$on('changeFont', type => {
         console.log('******popup change font', type)
-        // vm.currentFontSizeType = type
-        // vm.$parent.panel.$children[0].$emit('changeFont', type)
+        vm.currentFontSizeType = type
+        vm.updateClasses('fontSizeClassVariants', vm.currentFontSizeType)
+        vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
     methods: {
       updateClasses: function (classGroup, currentValue) {
-        // let vm = this
-        // Object.keys(this[classGroup]).forEach(function(type) {
-        //   let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-        //   if (index >= 0) { delete vm.data.classes[index] }
-        // })
-        // this.data.classes.push(this[classGroup][currentValue])      
+        let vm = this
+        Object.keys(this[classGroup]).forEach(function(type) {
+          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+          if (index >= 0) { delete vm.data.classes[index] }
+        })
+        this.data.classes.push(this[classGroup][currentValue])      
       },
 
       clearMessages() {
