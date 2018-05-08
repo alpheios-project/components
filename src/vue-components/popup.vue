@@ -328,10 +328,10 @@
     created () {
       let vm = this
 
-      vm.data.classes.push(vm.fontSizeClassVariants.medium)
+      // vm.data.classes.push(vm.fontSizeClassVariants.medium)
 
-      console.log('*********created 1', vm, vm.data.classes)
-      console.log('*********created 2', vm, vm.classesHeader)
+      // console.log('*********created 1', vm, vm.data.classes)
+      // console.log('*********created 2', vm, vm.classesHeader)
 
       vm.$on('changeFont', type => {
        // vm.currentFontSizeType = type
