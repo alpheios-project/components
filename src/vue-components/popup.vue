@@ -125,8 +125,7 @@
           medium: 'alpheios-font_medium_class',
           small: 'alpheios-font_small_class',
           large: 'alpheios-font_large_class'
-        },
-        currentFontSizeType: 'medium'
+        }
       }
     },
     props: {
@@ -161,10 +160,6 @@
     },
 
     computed: {
-      classes: function () {  
-        // this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
-        // return this.data.classes
-      },
       uiController: function () {
         return this.$parent.uiController
       },
@@ -327,10 +322,12 @@
     },
     created () {
       let vm = this
+      vm.updateClasses('fontSizeClassVariants', 'medium')
+
       vm.$on('changeFont', type => {
         console.log('******popup change font', type)
-        vm.currentFontSizeType = type
-        vm.updateClasses('fontSizeClassVariants', vm.currentFontSizeType)
+        // vm.currentFontSizeType = type
+        vm.updateClasses('fontSizeClassVariants', type)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
