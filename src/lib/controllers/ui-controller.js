@@ -892,7 +892,7 @@ export default class UIController {
       }
     })
     // console.log('******* finishing classes', popupClasses)
-    this.popup.popupData.classes = popupClasses
+    Vue.set(this.popup.popupData, 'classes', popupClasses)
 
     // console.log('******* popup.popupData.classes', this.popup.popupData.classes)
 
