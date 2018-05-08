@@ -323,6 +323,7 @@
       },
 
       classesHeader: function () {
+        console.log('*********** classesHeader clac', this.data.classes)
         return this.data.classes
       }
     },
