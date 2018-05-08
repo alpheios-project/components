@@ -5,6 +5,7 @@
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
           :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+          {{ data.classes }}
           <span class="alpheios-popup__close-btn" @click="closePopup">
               <close-icon></close-icon>
           </span>
@@ -323,13 +324,13 @@
     created () {
       let vm = this
       vm.updateClasses('fontSizeClassVariants', 'medium')
-      console.log('**************popup created', this.data.classes)
+      console.log('**************popup created', vm.data.classes)
 
       vm.$on('changeFont', type => {
         console.log('******popup change font', type)
         // vm.currentFontSizeType = type
         vm.updateClasses('fontSizeClassVariants', type)
-        console.log('**************popup change font', this.data.classes)
+        console.log('**************popup change font', vm.data.classes)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
