@@ -855,6 +855,9 @@ export default class UIController {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
+
+    classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
+
     this.panel.panelData.classes = classes
     this.popup.popupData.classes = classes
   }
