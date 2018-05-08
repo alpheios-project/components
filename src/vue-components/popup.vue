@@ -323,11 +323,13 @@
     created () {
       let vm = this
       vm.updateClasses('fontSizeClassVariants', 'medium')
+      console.log('**************popup created', this.data.classes)
 
       vm.$on('changeFont', type => {
         console.log('******popup change font', type)
         // vm.currentFontSizeType = type
         vm.updateClasses('fontSizeClassVariants', type)
+        console.log('**************popup change font', this.data.classes)
         vm.$parent.panel.$children[0].$emit('changeFont', type)
       })
     },
