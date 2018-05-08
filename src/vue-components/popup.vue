@@ -338,9 +338,9 @@
 
         Object.keys(this[classGroup]).forEach(function(type) {
           let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-        console.log('***********update classes index', vm[classGroup][type], index)
+          console.log('***********update classes index', vm[classGroup][type], index)
 
-          if (index >= 0) { delete vm.data.classes[index] }
+          if (index >= 0) { vm.data.classes.splice(index, 1) }
         })
 
         console.log('***********data classes before', this.data.classes)
