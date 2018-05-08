@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -318,11 +318,11 @@
           top: '2px',
           right: '50px'
         }
-      }
+      },
 
-      // classes: function () {
-      //   return this.data.classes
-      // }
+      classes: function () {
+        return this.data.classes
+      }
     },
     created () {
       let vm = this
