@@ -128,7 +128,8 @@
         //   small: 'alpheios-font_small_class',
         //   large: 'alpheios-font_large_class'
         // }
-        headerClass: null
+        headerClass: null,
+        classesChanged: 0
       }
     },
     props: {
@@ -555,8 +556,8 @@
         this.logger.log(`${time}: translation data became available`, this.translations)
       },
 
-      headerClass: function (value) {
-        console.log('*********changes headerClass', value)
+      classesChanged: function (value) {
+        console.log('*********classesChanged', value, this.data.classes)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()

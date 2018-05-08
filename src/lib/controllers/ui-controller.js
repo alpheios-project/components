@@ -880,6 +880,9 @@ export default class UIController {
 
   updateFontSizeClass (type) {
     console.log('********** in updateFontSizeClass 5', type)
+    this.popup.$children[0].classesChanged += 1
+
+    console.log('********** in updateFontSizeClass 6', this.popup.$children[0].classesChanged)
     // let popupClasses = this.popup.$children[0].headerClass || []
     // // this.uiOptions.items.fontSize.currentValue = type
     // // let uiC = this
