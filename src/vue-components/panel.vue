@@ -224,6 +224,7 @@
     created () {
       let vm = this
       vm.$on('changeFont', type => {
+        console.log('******panel change font', type)
         vm.currentFontSizeType = type
       })
     },
