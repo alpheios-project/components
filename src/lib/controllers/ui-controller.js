@@ -849,8 +849,6 @@ export default class UIController {
 
   setRootComponentClasses () {
     let classes = []
-    console.log('************* set root', this.uiOptions)
-
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
@@ -860,6 +858,19 @@ export default class UIController {
 
     this.panel.panelData.classes = classes
     this.popup.popupData.classes = classes
+  }
+
+  updateFontSizeClass (type) {
+    let popupClasses = this.popup.popupData.classes
+    this.uiOptions.items.fontSize.currentValue = type
+
+    popupClasses.forEach(function (item, index) {
+      if (item.indexOf('alpheios-font_') === 0) {
+        popupClasses[index] = `alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`
+      }
+    })
+
+    this.popup.popupData.classes = popupClasses
   }
 
   changeSkin () {

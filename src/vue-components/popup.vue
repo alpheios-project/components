@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="classesHeader" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -119,13 +119,13 @@
         exactHeight: 0,
         resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
-        resizeCountMax: 100, // Max number of resize iteration
+        resizeCountMax: 100 // Max number of resize iteration
 
-        fontSizeClassVariants: {
-          medium: 'alpheios-font_medium_class',
-          small: 'alpheios-font_small_class',
-          large: 'alpheios-font_large_class'
-        }
+        // fontSizeClassVariants: {
+        //   medium: 'alpheios-font_medium_class',
+        //   small: 'alpheios-font_small_class',
+        //   large: 'alpheios-font_large_class'
+        // }
       }
     },
     props: {
@@ -320,28 +320,22 @@
         }
       },
 
-      classesHeader: function () {
-        console.log('*********** classesHeader clac', this.data.classes)
+      classes: function () {
         return this.data.classes
       }
     },
-    // mounted () {
-    //   let vm = this
-    //   console.log('*******************popup mounted')
-    //   vm.data.classes.push(vm.fontSizeClassVariants.medium)
+    created () {
+      let vm = this
+      vm.$on('changeFont', type => {
+       // vm.currentFontSizeType = type
+        // vm.updateClasses('fontSizeClassVariants', type)
+        // vm.$parent.panel.$children[0].$emit('changeFont', type)
 
-    //   // console.log('*********created 1', vm, vm.data.classes)
-    //   // console.log('*********created 2', vm, vm.classesHeader)
-
-    //   vm.$on('changeFont', type => {
-    //    // vm.currentFontSizeType = type
-    //     // vm.updateClasses('fontSizeClassVariants', type)
-    //     // vm.$parent.panel.$children[0].$emit('changeFont', type)
-
-    //     // console.log('*********changeFont 1', vm, vm.data.classes)
-    //     // console.log('*********changeFont 2', vm, vm.classesHeader)
-    //   })
-    // },
+        // console.log('*********changeFont 1', vm, vm.data.classes)
+        // console.log('*********changeFont 2', vm, vm.classesHeader)
+        vm.uiController.updateFontSizeClass(type)
+      })
+    },
     methods: {
       updateClasses: function (classGroup, currentValue) {
         let vm = this
