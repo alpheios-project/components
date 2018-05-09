@@ -7442,6 +7442,24 @@
     line-height: 21px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header-selection {
     font-size: 12px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px; }
+    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
+      font-size: 9.6px;
+      width: 19.2px;
+      height: 19.2px;
+      line-height: 19.2px;
+      border-radius: 9.6px; }
+    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
+      font-size: 14.4px;
+      width: 28.8px;
+      height: 28.8px;
+      line-height: 28.8px;
+      border-radius: 28.8px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px; }
@@ -7454,6 +7472,24 @@
     line-height: 28px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header-selection {
     font-size: 16px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 14px; }
+    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
+      font-size: 12.8px;
+      width: 22.4px;
+      height: 22.4px;
+      line-height: 22.4px;
+      border-radius: 11.2px; }
+    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
+      font-size: 19.2px;
+      width: 33.6px;
+      height: 33.6px;
+      line-height: 33.6px;
+      border-radius: 33.6px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px; }
@@ -7466,6 +7502,24 @@
     line-height: 35px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header-selection {
     font-size: 20px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px; }
+    .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
+      font-size: 16px;
+      width: 25.6px;
+      height: 25.6px;
+      line-height: 25.6px;
+      border-radius: 12.8px; }
+    .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
+      font-size: 24px;
+      width: 38.4px;
+      height: 38.4px;
+      line-height: 38.4px;
+      border-radius: 38.4px; }
 
 .alph_tooltip {
   position: relative;
@@ -7800,18 +7854,18 @@ div.alpheios-morph__block {
     cursor: pointer;
 }
 .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
-      font-size: 12px;
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      border-radius: 24px;
+      font-size: 12.8px;
+      width: 22.4px;
+      height: 22.4px;
+      line-height: 22.4px;
+      border-radius: 11.2px;
 }
 .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
-      font-size: 20px;
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
-      border-radius: 32px;
+      font-size: 19.2px;
+      width: 33.6px;
+      height: 33.6px;
+      line-height: 33.6px;
+      border-radius: 33.6px;
 }
 
 
