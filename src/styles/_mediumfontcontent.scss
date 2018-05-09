@@ -72,8 +72,11 @@
     	font-size: $alpheios-base-font-size * 0.675;
     }
 
-    .alpheios-lookup_form .uk-input {
-    	font-size: $alpheios-base-font-size * 0.875;
-    	height: $alpheios-base-font-size * 0.875 * 2 + 2;
-    }
+	.alpheios-lookup_form {
+	    margin-top: $alpheios-base-font-size;
+	    .uk-input {
+	    	font-size: $alpheios-base-font-size * 0.875;
+	    	height: $alpheios-base-font-size * 0.875 * 2 + 2;
+	    }
+	}
 }
