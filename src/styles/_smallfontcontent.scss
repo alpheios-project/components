@@ -71,4 +71,9 @@
     .alpheios-popup__providers-link {
     	font-size: $alpheios-small-font-size * 0.675;
     }
+
+    .alpheios-lookup_form .uk-input {
+    	font-size: $alpheios-small-font-size * 0.875;
+    	height: $alpheios-small-font-size * 0.875 * 2
+    }
 }
