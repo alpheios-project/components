@@ -877,8 +877,11 @@ export default class UIController {
 
     classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
 
-    this.panel.panelData.classes = classes
-    this.popup.popupData.classes = classes
+    // this.popup.popupData.classes = classes
+    Vue.set(this.popup.popupData, 'classes', classes)
+
+    // this.panel.panelData.classes = classes
+    Vue.set(this.panel.panelData, 'classes', classes)
 
     this.popup.classesChanged += 1
     this.panel.classesChanged += 1
