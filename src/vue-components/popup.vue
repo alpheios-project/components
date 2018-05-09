@@ -122,7 +122,7 @@
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
 
-        classesChanged: 0,
+        // classesChanged: 0,
         testClasses: ''
       }
     },
