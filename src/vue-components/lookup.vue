@@ -3,7 +3,7 @@
     <input class="uk-input lookup_input" type="text" placeholder="Type text" v-model="lookuptext"
       @keyup.enter="lookup"
     >
-    <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.LABEL_LOOKUP_BUTTON">
+    <alph-tooltip tooltipDirection="bottom-right" :tooltipText="tooltipLabel">
       <button class="uk-button uk-button-primary uk-button-small" type="button" tabindex="-1"
         @click="lookup"
       >
@@ -38,6 +38,12 @@
       buttonLabel: function () {
         if (this.uiController && this.uiController.l10n) {
           return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
+        }
+        return this.defaultButtonLabel
+      },
+      tooltipLabel: function () {
+        if (this.uiController && this.uiController.l10n) {
+          return this.uiController.l10n.messages.TOOLTIP_LOOKUP_BUTTON
         }
         return this.defaultButtonLabel
       }
