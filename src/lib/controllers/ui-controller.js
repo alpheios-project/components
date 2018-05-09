@@ -178,6 +178,7 @@ export default class UIController {
 
         setPositionTo: function (position) {
           this.options.items.panelPosition.setValue(position)
+          this.classesChanged += 1
         },
 
         attachToLeft: function () {
@@ -877,10 +878,7 @@ export default class UIController {
 
     classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
 
-    // this.popup.popupData.classes = classes
     Vue.set(this.popup.popupData, 'classes', classes)
-
-    // this.panel.panelData.classes = classes
     Vue.set(this.panel.panelData, 'classes', classes)
 
     this.popup.classesChanged += 1
