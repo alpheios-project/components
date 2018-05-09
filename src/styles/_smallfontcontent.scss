@@ -67,7 +67,11 @@
     .alpheios-morph__inflections .alpheios-morph__inflgroup {
     	font-size: $alpheios-small-font-size * 0.875;
     }
-
+    .alpheios-lemma__translations {
+    	font-size: $alpheios-small-font-size * 0.875;
+    }
+    
+    /******** footer **********/
     .alpheios-popup__providers-link {
     	font-size: $alpheios-small-font-size * 0.675;
     }
