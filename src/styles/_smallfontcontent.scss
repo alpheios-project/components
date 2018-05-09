@@ -83,4 +83,9 @@
 	    	height: $alpheios-small-font-size * 0.875 * 2 + 2;
 	    }
 	}
+
+	/******* tooltip ********/
+	.alph_tooltip .tooltiptext {
+		font-size: $alpheios-small-font-size * 0.75;
+	}
 }

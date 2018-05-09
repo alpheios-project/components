@@ -7439,7 +7439,8 @@
   /***** features for lemma **********/
   /***** definitions for lemma **********/
   /***** inflections panel *****/
-  /******** footer **********/ }
+  /******** footer **********/
+  /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
     flex: 0 0 42px; }
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn,
@@ -7486,6 +7487,8 @@
     .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-input {
       font-size: 10.5px;
       height: 23px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
+    font-size: 9px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px;
@@ -7495,7 +7498,8 @@
   /***** features for lemma **********/
   /***** definitions for lemma **********/
   /***** inflections panel *****/
-  /******** footer **********/ }
+  /******** footer **********/
+  /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header {
     flex: 0 0 48px; }
   .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-popup__more-btn,
@@ -7542,6 +7546,8 @@
     .auk.alpheios-popup.alpheios-font_medium_class .alpheios-lookup_form .uk-input {
       font-size: 14px;
       height: 30px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alph_tooltip .tooltiptext {
+    font-size: 12px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px;
@@ -7551,7 +7557,8 @@
   /***** features for lemma **********/
   /***** definitions for lemma **********/
   /***** inflections panel *****/
-  /******** footer **********/ }
+  /******** footer **********/
+  /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header {
     flex: 0 0 60px; }
   .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-popup__more-btn,
@@ -7598,6 +7605,8 @@
     .auk.alpheios-popup.alpheios-font_large_class .alpheios-lookup_form .uk-input {
       font-size: 17.5px;
       height: 37px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alph_tooltip .tooltiptext {
+    font-size: 15px; }
 
 .alph_tooltip {
   position: relative;
