@@ -49,12 +49,12 @@
 .alph_tooltip-top-right::after {
     content: "";
     position: absolute;
-    bottom: 100%;
+    top: 100%;
     right: 15%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #555 transparent;
+    border-color: #555 transparent transparent transparent;
 }
 
 .alph_tooltip-right {
