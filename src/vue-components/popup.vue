@@ -122,7 +122,8 @@
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
 
-        divClasses: ''
+        divClasses: '',
+        updateDimensionsTimeout: null
       }
     },
     props: {
@@ -509,7 +510,9 @@
       if (this.visible) {
         let time = new Date().getTime()
         this.logger.log(`${time}: component is updated`)
-        this.updatePopupDimensions()
+
+        clearTimeout(this.updateDimensionsTimeout)
+        this.updateDimensionsTimeout = setTimeout(this.updatePopupDimensions, 1000)
       }
     },
 
@@ -538,10 +541,10 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
-        let vm = this
-        setTimeout(function(){
-            vm.updatePopupDimensions()
-        }, 2000)
+        // let vm = this
+        // setTimeout(function(){
+        //     vm.updatePopupDimensions()
+        // }, 2000)
       }
     }
   }
