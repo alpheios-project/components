@@ -7435,7 +7435,8 @@
   font-size: 12px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/ }
+  /***** principal_parts panel *****/
+  /***** features for lemma **********/ }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
     flex: 0 0 42px; }
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn,
@@ -7465,12 +7466,15 @@
       border-radius: 28.8px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 14.4px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__morphdata span {
+    font-size: 12px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/ }
+  /***** principal_parts panel *****/
+  /***** features for lemma **********/ }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header {
     flex: 0 0 48px; }
   .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-popup__more-btn,
@@ -7500,12 +7504,15 @@
       border-radius: 33.6px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 19.2px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__morphdata span {
+    font-size: 16px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/ }
+  /***** principal_parts panel *****/
+  /***** features for lemma **********/ }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header {
     flex: 0 0 60px; }
   .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-popup__more-btn,
@@ -7535,6 +7542,8 @@
       border-radius: 38.4px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 24px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__morphdata span {
+    font-size: 20px; }
 
 .alph_tooltip {
   position: relative;

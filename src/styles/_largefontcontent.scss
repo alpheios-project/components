@@ -49,4 +49,9 @@
     .alpheios-morph__dictentry .alpheios-morph__formtext {
     	font-size: $alpheios-large-font-size * 1.2;
     }
+
+    /***** features for lemma **********/
+    .alpheios-morph__morphdata span {
+    	font-size: $alpheios-large-font-size;
+    }
 }
