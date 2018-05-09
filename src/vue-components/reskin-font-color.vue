@@ -28,9 +28,9 @@
     	display: inline-block;
     }
 
-    $smallSize: 20px;
-    $baseSize: 24px;
-    $largeSize: 28px;
+    $smallSize: $alpheios-small-font-size + 2*6px;
+    $baseSize: $alpheios-base-font-size + 2*6px;
+    $largeSize: $alpheios-large-font-size + 2*6px;
 
     .alpheios-skin_panel ul.alpheios-skin_properties {
     	margin: 0;
@@ -40,7 +40,7 @@
     	li {
     		display: inline-block;
             vertical-align: bottom;
-    		font-size: 16px;
+    		font-size: $alpheios-base-font-size;
 
     		width: $baseSize;
     		height: $baseSize;
@@ -54,14 +54,14 @@
             cursor: pointer;
 
     		&.alpheios-small_font {
-    			font-size: 80%;
+    			font-size: $alpheios-small-font-size;
                 width: $smallSize;
                 height: $smallSize;
                 line-height: $smallSize;
                 border-radius: $smallSize;
     		}
     		&.alpheios-large_font {
-    			font-size: 120%;
+    			font-size: $alpheios-large-font-size;
                 width: $largeSize;
                 height: $largeSize;
                 line-height: $largeSize;
