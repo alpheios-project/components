@@ -1,6 +1,10 @@
 .auk.alpheios-popup.alpheios-font_large_class {
 	font-size: $alpheios-large-font-size;
 
+	.alpheios-popup__header {
+		flex: 0 0 50px;
+	}
+
     .uk-button.alpheios-popup__more-btn,
     .alpheios-lookup_form .uk-button {
         font-size: 0.675 * $alpheios-large-font-size;
