@@ -7648,6 +7648,21 @@
   border-style: solid;
   border-color: #555 transparent transparent transparent; }
 
+.alph_tooltip-top-right {
+  bottom: 125%;
+  right: 0;
+  margin-left: -60px; }
+
+.alph_tooltip-top-right::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 15%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent; }
+
 .alph_tooltip-right {
   top: -5px;
   left: 125%; }

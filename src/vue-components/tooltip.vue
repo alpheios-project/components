@@ -43,6 +43,8 @@
             return { 'alph_tooltip-right': true }
           case 'bottom-right':
             return { 'alph_tooltip-bottom-right': true }
+          case 'top-right':
+            return { 'alph_tooltip-top-right': true }
           default:
             return { 'alph_tooltip-bottom': true }
         }

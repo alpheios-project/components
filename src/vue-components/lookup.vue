@@ -3,7 +3,7 @@
     <input class="uk-input lookup_input" type="text" placeholder="Type text" v-model="lookuptext"
       @keyup.enter="lookup"
     >
-    <alph-tooltip tooltipDirection="bottom-right" :tooltipText="tooltipLabel">
+    <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
       <button class="uk-button uk-button-primary uk-button-small" type="button" tabindex="-1"
         @click="lookup"
       >
