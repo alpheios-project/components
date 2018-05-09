@@ -152,7 +152,6 @@ export default class LexicalQuery extends Query {
 
     if (this.lemmaTranslations) {
       yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
-      console.log('***********fetching ..............fetchTranslations', this.homonym)
       this.ui.updateTranslations(this.homonym)
     }
 

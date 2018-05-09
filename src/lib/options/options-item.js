@@ -68,6 +68,7 @@ export default class OptionItem {
    * Saves an option value to the local storage.
    */
   save () {
+    console.log('********option save()', this)
     let option = {}
     option[this.name] = JSON.stringify(this.currentValue)
 
