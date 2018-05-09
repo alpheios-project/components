@@ -450,13 +450,14 @@
         // Update dimensions only if there was any significant change in a popup size
         if (this.$el.offsetWidth >= this.exactWidth + this.resizeDelta
           || this.$el.offsetWidth <= this.exactWidth - this.resizeDelta) {
-          console.log('***********updatePopupDimensions v1')
+          // console.log('***********updatePopupDimensions width')
           this.logger.log(`${time}: dimensions update, offsetWidth is ${this.$el.offsetWidth}, previous exactWidth is ${this.exactWidth}`)
           this.exactWidth = this.$el.offsetWidth
           this.widthDm = this.$el.offsetWidth
           this.resizeCount++
           this.logger.log(`Resize counter value is ${this.resizeCount}`)
         }
+        console.log('***********updatePopupDimensions height before', this.$el.offsetHeight, this.exactHeight, this.resizeDelta)
         if (this.$el.offsetHeight >= this.exactHeight + this.resizeDelta
           || this.$el.offsetHeight <= this.exactHeight - this.resizeDelta) {
           console.log('***********updatePopupDimensions v2')
