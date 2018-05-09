@@ -440,11 +440,11 @@
       updatePopupDimensions () {
         let time = new Date().getTime()
         console.log('***********updatePopupDimensions')
-        this.heightDm = 'auto'
-        
+        if (this.heightDm !== 'auto') { this.heightDm='auto' }
+
         if (this.resizeCount >= this.resizeCountMax) {
           // Skip resizing if maximum number reached to avoid infinite loops
-          console.log('***********resizeCount', resizeCount, resizeCountMax)
+          console.log('***********resizeCount', this.resizeCount, this.resizeCountMax)
           return
         }
 
