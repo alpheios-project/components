@@ -2,14 +2,14 @@
 	font-size: $alpheios-large-font-size;
 
 	.alpheios-popup__header {
-		flex: 0 0 50px;
+		flex: 0 0 $alpheios-large-font-size * 2.8;
 	}
 
     .uk-button.alpheios-popup__more-btn,
     .alpheios-lookup_form .uk-button {
         font-size: 0.675 * $alpheios-large-font-size;
-        padding: 0 18px;
-        line-height: 28px;
+        padding: 0 $alpheios-large-font-size * 0.85;
+        line-height: $alpheios-large-font-size * 0.85 * 2 + $alpheios-large-font-size;
     }
 
     .alpheios-popup__header-selection {
