@@ -1,7 +1,8 @@
 .auk.alpheios-popup.alpheios-font_medium_class {
 	font-size: $alpheios-base-font-size;
 
-    .uk-button.alpheios-popup__more-btn {
+    .uk-button.alpheios-popup__more-btn,
+    .alpheios-lookup_form .uk-button {
         font-size: 0.675 * $alpheios-base-font-size;
         padding: 0 15px;
     }
