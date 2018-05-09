@@ -430,7 +430,8 @@ export default class UIController {
         panel: this.panel,
         options: this.options,
         currentPopupComponent: this.template.defaultPopupComponent,
-        uiController: this
+        uiController: this,
+        classesChanged: 0
       },
       methods: {
         setTargetRect: function (targetRect) {
