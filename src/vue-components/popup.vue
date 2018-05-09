@@ -516,7 +516,7 @@
         if (this.resizeCount > 1) {
           timeoutDuration = 1000
         }
-        this.updateDimensionsTimeout = setTimeout(this.updatePopupDimensions, 1000)
+        this.updateDimensionsTimeout = setTimeout(this.updatePopupDimensions, timeoutDuration)
       }
     },
 
