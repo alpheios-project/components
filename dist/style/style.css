@@ -7431,66 +7431,6 @@
   font-style: italic;
   font-size: smaller; }
 
-.auk.alpheios-popup.alpheios-font_small_class {
-  font-size: 12px;
-  /**** header part ****/
-  /***** reskin panel *****/
-  /***** principal_parts panel *****/
-  /***** features for lemma **********/
-  /***** definitions for lemma **********/
-  /***** inflections panel *****/
-  /******** footer **********/
-  /******* tooltip ********/ }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
-    flex: 0 0 42px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-button {
-    font-size: 8.1px;
-    padding: 0 10.2px;
-    line-height: 21px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header-selection {
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li {
-    font-size: 12px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 12px; }
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
-      font-size: 9.6px;
-      width: 19.2px;
-      height: 19.2px;
-      line-height: 19.2px;
-      border-radius: 9.6px; }
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
-      font-size: 14.4px;
-      width: 28.8px;
-      height: 28.8px;
-      line-height: 28.8px;
-      border-radius: 28.8px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 14.4px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__morphdata span {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__definition span {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__formtext {
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__inflgroup {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lemma__translations {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link {
-    font-size: 8.1px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form {
-    margin-top: 10.5px; }
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-input {
-      font-size: 10.5px;
-      height: 23px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
-    font-size: 9px;
-    width: 90px; }
-
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px;
   /**** header part ****/
@@ -7550,6 +7490,66 @@
   .auk.alpheios-popup.alpheios-font_medium_class .alph_tooltip .tooltiptext {
     font-size: 12px;
     width: 120px; }
+
+.auk.alpheios-popup.alpheios-font_small_class {
+  font-size: 12px;
+  /**** header part ****/
+  /***** reskin panel *****/
+  /***** principal_parts panel *****/
+  /***** features for lemma **********/
+  /***** definitions for lemma **********/
+  /***** inflections panel *****/
+  /******** footer **********/
+  /******* tooltip ********/ }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
+    flex: 0 0 36px; }
+  .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn,
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-button {
+    font-size: 8.1px;
+    padding: 0 10.2px;
+    line-height: 21px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header-selection {
+    font-size: 12px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px; }
+    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
+      font-size: 9.6px;
+      width: 19.2px;
+      height: 19.2px;
+      line-height: 19.2px;
+      border-radius: 9.6px; }
+    .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
+      font-size: 14.4px;
+      width: 28.8px;
+      height: 28.8px;
+      line-height: 28.8px;
+      border-radius: 28.8px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 14.4px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__morphdata span {
+    font-size: 10.5px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__definition span {
+    font-size: 10.5px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__formtext {
+    font-size: 12px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__inflgroup {
+    font-size: 10.5px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lemma__translations {
+    font-size: 10.5px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link {
+    font-size: 8.1px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form {
+    margin-top: 10.5px; }
+    .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-input {
+      font-size: 10.5px;
+      height: 23px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
+    font-size: 9px;
+    width: 90px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px;
