@@ -3,19 +3,25 @@
     <input class="uk-input lookup_input" type="text" placeholder="Type text" v-model="lookuptext"
       @keyup.enter="lookup"
     >
-    <button class="uk-button uk-button-primary uk-button-small" type="button" tabindex="-1"
-      @click="lookup"
-    >
-      {{ buttonLabel }}
-    </button>
+    <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.LABEL_LOOKUP_BUTTON">
+      <button class="uk-button uk-button-primary uk-button-small" type="button" tabindex="-1"
+        @click="lookup"
+      >
+        {{ buttonLabel }}
+      </button>
+    </alph-tooltip>
   </div>
 </template>
 <script>
   import TextSelector from '../lib/selection/text-selector'
   import LexicalQueryLookup from '../lib/queries/lexical-query-lookup'
+  import Tooltip from './tooltip.vue'
 
   export default {
     name: 'Lookup',
+    components: {
+      alphTooltip: Tooltip
+    },
     data () {
       return {
         lookuptext: '',
@@ -38,7 +44,6 @@
     },
     methods: {
       'lookup': function () {
-        console.log('***********lookup method', this.lookuptext)
         if (this.lookuptext.length === 0) {
           return null
         }
