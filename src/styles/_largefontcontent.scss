@@ -1,6 +1,7 @@
 .auk.alpheios-popup.alpheios-font_large_class {
 	font-size: $alpheios-large-font-size;
 
+	/**** header part ****/
 	.alpheios-popup__header {
 		flex: 0 0 $alpheios-large-font-size * 3;
 	}
@@ -16,6 +17,7 @@
     	font-size: $alpheios-large-font-size;
     }
 
+    /***** reskin panel *****/
     $baseSize: $alpheios-large-font-size + 12px;
     .alpheios-skin_panel ul.alpheios-skin_properties {
     	li {
@@ -41,5 +43,10 @@
                 border-radius: $baseSize * 1.2;
     		}
     	}
+    }
+
+    /***** principal_parts panel *****/
+    .alpheios-morph__dictentry .alpheios-morph__formtext {
+    	font-size: $alpheios-large-font-size * 1.2;
     }
 }
