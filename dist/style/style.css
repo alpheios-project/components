@@ -7431,6 +7431,9 @@
   font-style: italic;
   font-size: smaller; }
 
+.alpheios-font_small_class {
+  font-size: 14px; }
+
 .alph_tooltip {
   position: relative;
   display: inline-block; }
@@ -7906,7 +7909,7 @@ img.alpheios-popup__logo {
 .alpheios-popup__more-btn {
   float: right;
   margin-bottom: 10px;
-  font-size: 10.8px !important;
+  font-size: 67.5%;
 }
 .alpheios-popup__morph-cont-providers-source {
   font-size: smaller;
