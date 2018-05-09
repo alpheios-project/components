@@ -7435,13 +7435,19 @@
   font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn {
     font-size: 9.45px;
-    padding: 0 10.08px; }
+    padding: 0 12px; }
+
+.auk.alpheios-popup.alpheios-font_medium_class {
+  font-size: 16px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-popup__more-btn {
+    font-size: 10.8px;
+    padding: 15px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 18px; }
   .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-popup__more-btn {
     font-size: 12.15px;
-    padding: 0 12.96px; }
+    padding: 0 18px; }
 
 .alph_tooltip {
   position: relative;
