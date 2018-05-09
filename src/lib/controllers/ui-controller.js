@@ -576,7 +576,8 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          this.uiController.uiOptions.items[name].setTextValue(value)
+          if (name === 'fontSize') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+
           switch (name) {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
