@@ -32,7 +32,7 @@
     $baseSize: 24px;
     $largeSize: 28px;
 
-    .alpheios-skin_properties {
+    .alpheios-skin_panel ul.alpheios-skin_properties {
     	margin: 0;
     	padding: 0;
     	list-style: none;
