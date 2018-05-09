@@ -440,7 +440,7 @@
        */
       updatePopupDimensions () {
         let time = new Date().getTime()
-        console.log('*******updatePopupDimensions', this.heightDm, this.$el, this.$el.offsetHeight)
+        console.log('*******updatePopupDimensions', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
         // if (this.heightDm !== 'auto' && this.$el.scrollHeight < this.$el.offsetHeight) { 
         //   this.heightDm ='auto' 
         // }
