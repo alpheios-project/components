@@ -59,4 +59,9 @@
     .alpheios-morph__definition span {
     	font-size: $alpheios-small-font-size *0.875;
     }
+
+    /***** inflections panel *****/
+    .alpheios-morph__inflections .alpheios-morph__formtext {
+    	font-size: $alpheios-small-font-size;
+    }
 }
