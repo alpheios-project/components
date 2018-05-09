@@ -201,14 +201,6 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
-
-        // fontSizeClassVariants: {
-        //   medium: 'alpheios-font_medium_class',
-        //   small: 'alpheios-font_small_class',
-        //   large: 'alpheios-font_large_class'
-        // },
-        // currentFontSizeType: 'medium',
-
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
@@ -273,18 +265,9 @@
     watch: {
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
-        // console.log('********** watch classesChanged', value, this.divClasses)
       }
     },
     methods: {
-      // updateClasses: function (classGroup, currentValue) {
-      //   let vm = this
-      //   Object.keys(this[classGroup]).forEach(function(type) {
-      //     let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-      //     if (index >= 0) { delete vm.data.classes[index] }
-      //   })
-      //   this.data.classes.push(this[classGroup][currentValue])      
-      // },
       updateZIndex: function (zIndexMax) {
         if (zIndexMax >= this.zIndex) {
           this.zIndex = zIndexMax
