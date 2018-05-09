@@ -7436,21 +7436,24 @@
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form .uk-button {
     font-size: 9.45px;
-    padding: 0 12px; }
+    padding: 0 12px;
+    line-height: 24px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px; }
   .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-lookup_form .uk-button {
     font-size: 10.8px;
-    padding: 0 15px; }
+    padding: 0 15px;
+    line-height: 28px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 18px; }
   .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-lookup_form .uk-button {
     font-size: 12.15px;
-    padding: 0 18px; }
+    padding: 0 18px;
+    line-height: 28px; }
 
 .alph_tooltip {
   position: relative;
