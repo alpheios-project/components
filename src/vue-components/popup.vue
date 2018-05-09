@@ -697,10 +697,10 @@
         width: auto;
     }
 
-    .alpheios-popup__more-btn {
+    .auk .uk-button.alpheios-popup__more-btn {
         float: right;
         margin-bottom: 10px;
-        font-size: 67.5%;
+        font-size: 0.675 * $alpheios-base-font-size;
     }
     .alpheios-popup__morph-cont-providers-source {
       font-size: smaller;

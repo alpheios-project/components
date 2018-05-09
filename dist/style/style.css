@@ -7433,6 +7433,8 @@
 
 .alpheios-font_small_class {
   font-size: 14px; }
+  .alpheios-font_small_class .auk .uk-button.alpheios-popup__more-btn {
+    font-size: 9.45px; }
 
 .alph_tooltip {
   position: relative;
@@ -7906,10 +7908,10 @@ img.alpheios-popup__logo {
   height: 16px;
   width: auto;
 }
-.alpheios-popup__more-btn {
+.auk .uk-button.alpheios-popup__more-btn {
   float: right;
   margin-bottom: 10px;
-  font-size: 67.5%;
+  font-size: 10.8px;
 }
 .alpheios-popup__morph-cont-providers-source {
   font-size: smaller;
