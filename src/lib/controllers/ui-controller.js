@@ -892,8 +892,16 @@ export default class UIController {
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
-    Vue.set(this.panel.popupData, 'classes', popupClasses)
     this.popup.classesChanged += 1
+
+    let panelClasses = this.panel.panelData.classes
+    panelClasses.forEach(function (item, index) {
+      if (item.indexOf('alpheios-font_') === 0) {
+        panelClasses[index] = `alpheios-font_${type}_class`
+      }
+    })
+
+    Vue.set(this.panel.panelData, 'classes', panelClasses)
     this.panel.classesChanged += 1
   }
 
