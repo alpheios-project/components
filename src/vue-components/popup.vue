@@ -512,6 +512,10 @@
         this.logger.log(`${time}: component is updated`)
 
         clearTimeout(this.updateDimensionsTimeout)
+        let timeoutDuration = 0
+        if (this.resizeCount > 1) {
+          timeoutDuration = 1000
+        }
         this.updateDimensionsTimeout = setTimeout(this.updatePopupDimensions, 1000)
       }
     },
