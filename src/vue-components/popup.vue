@@ -529,28 +529,7 @@
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
         this.updatePopupDimensions()
-        // console.log('********** watch classesChanged', value, this.divClasses)
       }
-      /*inflDataReady: function() {
-        let time = new Date().getTime()
-        this.logger.log(`${time}: inflection data became available`)
-      },
-
-      defDataReady: function() {
-        let time = new Date().getTime()
-        this.logger.log(`${time}: definition data became available`)
-      },*/
-
-      // It still does not catch all popup data changes. That makes a popup resizing jerky.
-      // Its safer to use an `updated()` callback instead.
-      /*updates: function() {
-        this.logger.log(`Content height updated, visibility is ${this.visible}`)
-        if (this.visible) {
-          let time = new Date().getTime()
-          this.logger.log(`${time}: content height updated, offsetHeight is ${this.$el.offsetHeight}`)
-          this.updatePopupDimensions()
-        }
-      },*/
     }
   }
 </script>
