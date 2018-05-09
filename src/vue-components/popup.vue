@@ -508,7 +508,7 @@
       if (this.visible) {
         let time = new Date().getTime()
         this.logger.log(`${time}: component is updated`)
-
+        let vm = this
         clearTimeout(this.updateDimensionsTimeout)
         let timeoutDuration = 0
         if (this.resizeCount > 1) {
@@ -516,7 +516,7 @@
         }
         this.updateDimensionsTimeout = setTimeout(function () {
           console.log('****update - updatePopupDimensions')
-          this.updatePopupDimensions()
+          vm.updatePopupDimensions()
         }, timeoutDuration)
       }
     },
