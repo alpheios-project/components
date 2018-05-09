@@ -122,12 +122,6 @@
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
 
-        // fontSizeClassVariants: {
-        //   medium: 'alpheios-font_medium_class',
-        //   small: 'alpheios-font_small_class',
-        //   large: 'alpheios-font_large_class'
-        // }
-        headerClass: null,
         classesChanged: 0,
         testClasses: ''
       }
@@ -322,46 +316,18 @@
           top: '2px',
           right: '50px'
         }
-      },
-
-      classes: function () {
-        console.log('***** calc classes in popup')
-        let res = {}
-        this.data.classes.forEach(function(item){
-          res[item] = true
-        })
-        console.log('***** calc classes in popup', res)
-        return res
       }
     },
     created () {
       let vm = this
       vm.$on('changeFont', type => {
-       // vm.currentFontSizeType = type
-        // vm.updateClasses('fontSizeClassVariants', type)
-        // vm.$parent.panel.$children[0].$emit('changeFont', type)
-
-        console.log('*********changeFont 1', type)
-        // vm.uiController.updateFontSizeClass(type)
         vm.uiOptionChanged('fontSize', type)
       })
     },
     methods: {
       uiOptionChanged: function (name, value) {
-        console.log('*********changeFont 2', value)
         this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       },
-      updateClasses: function (classGroup, currentValue) {
-        let vm = this
-
-        Object.keys(this[classGroup]).forEach(function(type) {
-          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-
-          if (index >= 0) { vm.data.classes.splice(index, 1) }
-        })
-        this.data.classes.push(this[classGroup][currentValue])
-      },
-
       clearMessages() {
         while (this.messages.length >0) {
           this.messages.pop()
@@ -557,9 +523,7 @@
       },
 
       classesChanged: function (value) {
-        console.log('*********classesChanged', value, this.data.classes, this.headerClass)
         this.testClasses = this.data.classes.join(' ')
-        console.log('*********classesChanged', value, this.testClasses)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()
