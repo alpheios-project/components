@@ -14,8 +14,9 @@
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
-            <reskin-font-color></reskin-font-color>
+            
             <div class="uk-button-group alpheios-popup__button-area">
+                <reskin-font-color></reskin-font-color>
                 <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
                     <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
                             class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
