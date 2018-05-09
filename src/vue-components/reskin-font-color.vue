@@ -46,7 +46,7 @@
     		line-height: $baseSize;
 
     		color: #fff;
-    		background: #27323b;
+    		background: $alpheios-toolbar-color;
     		border-radius: $baseSize/2;
 
             cursor: pointer;
@@ -66,5 +66,17 @@
                 border-radius: $baseSize * 1.2;
     		}
     	}
+    }
+
+    .alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font {
+        background: $alpheios-toolbar-active-color;
+    }
+
+    .alpheios-popup.alpheios-font_small_class li.alpheios-small_font {
+        background: $alpheios-toolbar-active-color;
+    }
+
+    .alpheios-popup.alpheios-font_large_class li.alpheios-large_font {
+        background: $alpheios-toolbar-active-color;
     }
 </style>

@@ -7804,7 +7804,7 @@ div.alpheios-morph__block {
     text-align: center;
     line-height: 28px;
     color: #fff;
-    background: #27323b;
+    background: #4E6476;
     border-radius: 14px;
     cursor: pointer;
 }
@@ -7821,6 +7821,15 @@ div.alpheios-morph__block {
       height: 33.6px;
       line-height: 33.6px;
       border-radius: 33.6px;
+}
+.alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font {
+  background: #7E8897;
+}
+.alpheios-popup.alpheios-font_small_class li.alpheios-small_font {
+  background: #7E8897;
+}
+.alpheios-popup.alpheios-font_large_class li.alpheios-large_font {
+  background: #7E8897;
 }
 
 
