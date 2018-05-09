@@ -2,7 +2,7 @@
     <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          {{ data.classes }}
-         {{ headerClass }}
+         {{ testClasses }}
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -129,7 +129,8 @@
         //   large: 'alpheios-font_large_class'
         // }
         headerClass: null,
-        classesChanged: 0
+        classesChanged: 0,
+        testClasses: ''
       }
     },
     props: {
@@ -558,7 +559,8 @@
 
       classesChanged: function (value) {
         console.log('*********classesChanged', value, this.data.classes, this.headerClass)
-        this.headerClass = this.data.classes
+        this.testClasses = this.data.classes.join(' ')
+        console.log('*********classesChanged', value, this.testClasses)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()
