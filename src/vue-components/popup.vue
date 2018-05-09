@@ -440,7 +440,7 @@
        */
       updatePopupDimensions () {
         let time = new Date().getTime()
-        if (this.heightDm !== 'auto' && this.$el.scrollHeight > this.$el.offsetHeight) { 
+        if (this.heightDm !== 'auto' && this.$el.scrollHeight < this.$el.offsetHeight) { 
           this.heightDm ='auto' 
         }
         if (this.resizeCount >= this.resizeCountMax) {
