@@ -7434,7 +7434,14 @@
 .auk.alpheios-popup.alpheios-font_small_class {
   font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-popup__more-btn {
-    font-size: 9.45px; }
+    font-size: 9.45px;
+    padding: 0 10.08px; }
+
+.auk.alpheios-popup.alpheios-font_large_class {
+  font-size: 18px; }
+  .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-popup__more-btn {
+    font-size: 12.15px;
+    padding: 0 12.96px; }
 
 .alph_tooltip {
   position: relative;
