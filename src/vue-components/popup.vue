@@ -528,6 +528,7 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
+        this.updatePopupDimensions()
         // console.log('********** watch classesChanged', value, this.divClasses)
       }
       /*inflDataReady: function() {
