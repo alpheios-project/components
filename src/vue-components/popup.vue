@@ -529,7 +529,10 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
-        this.updatePopupDimensions()
+        let vm = this
+        setTimeout(function(){
+            vm.updatePopupDimensions()
+        }, 2000)
       }
     }
   }
