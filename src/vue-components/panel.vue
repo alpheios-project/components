@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="classes" :style="this.data.styles"
+    <div class="alpheios-panel auk" :class="divClasses" :style="this.data.styles"
          data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen"
         :data-notification-visible="data.notification.important"> <!-- Show only important notifications for now -->
 
@@ -202,12 +202,12 @@
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
 
-        fontSizeClassVariants: {
-          medium: 'alpheios-font_medium_class',
-          small: 'alpheios-font_small_class',
-          large: 'alpheios-font_large_class'
-        },
-        currentFontSizeType: 'medium',
+        // fontSizeClassVariants: {
+        //   medium: 'alpheios-font_medium_class',
+        //   small: 'alpheios-font_small_class',
+        //   large: 'alpheios-font_large_class'
+        // },
+        // currentFontSizeType: 'medium',
 
         positionClassVariants: {
           left: 'alpheios-panel-left',
@@ -220,14 +220,12 @@
       data: {
         type: Object,
         required: true
+      },
+      classesChanged: {
+        type: Number,
+        required: false,
+        default: 0
       }
-    },
-    created () {
-      let vm = this
-      vm.$on('changeFont', type => {
-        console.log('******panel change font', type)
-        // vm.currentFontSizeType = type
-      })
     },
     computed: {
       notificationClasses: function () {
@@ -269,14 +267,20 @@
         }
       }
     },
+    watch: {
+      classesChanged: function (value) {
+        this.divClasses = this.data.classes.join(' ')
+        // console.log('********** watch classesChanged', value, this.divClasses)
+      }
+    },
     methods: {
       updateClasses: function (classGroup, currentValue) {
-        // let vm = this
-        // Object.keys(this[classGroup]).forEach(function(type) {
-        //   let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
-        //   if (index >= 0) { delete vm.data.classes[index] }
-        // })
-        // this.data.classes.push(this[classGroup][currentValue])      
+        let vm = this
+        Object.keys(this[classGroup]).forEach(function(type) {
+          let index = vm.data.classes.findIndex(v => v === vm[classGroup][type])
+          if (index >= 0) { delete vm.data.classes[index] }
+        })
+        this.data.classes.push(this[classGroup][currentValue])      
       },
       updateZIndex: function (zIndexMax) {
         if (zIndexMax >= this.zIndex) {
