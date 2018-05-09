@@ -529,6 +529,7 @@
 
       classesChanged: function (value) {
         this.testClasses = this.data.classes.join(' ')
+        console.log('********** watch classesChanged', value, this.testClasses)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()
