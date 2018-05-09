@@ -877,7 +877,7 @@ export default class UIController {
     this.panel.panelData.classes = classes
     this.popup.popupData.classes = classes
 
-    this.popup.$children[0].classesChanged += 1
+    this.popup.classesChanged += 1
   }
 
   updateFontSizeClass (type) {
@@ -888,7 +888,7 @@ export default class UIController {
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
-    this.popup.$children[0].classesChanged += 1
+    this.popup.classesChanged += 1
   }
 
   changeSkin () {

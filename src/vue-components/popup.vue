@@ -154,6 +154,11 @@
       translations: {
         type: Object,
         required: true
+      },
+      classesChanged: {
+        type: Number,
+        required: false,
+        default: 0
       }
     },
 
