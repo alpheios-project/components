@@ -7488,7 +7488,8 @@
       font-size: 10.5px;
       height: 23px; }
   .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
-    font-size: 9px; }
+    font-size: 9px;
+    width: 120px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px;
@@ -7547,7 +7548,8 @@
       font-size: 14px;
       height: 30px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alph_tooltip .tooltiptext {
-    font-size: 12px; }
+    font-size: 12px;
+    width: 160px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px;
@@ -7606,7 +7608,8 @@
       font-size: 17.5px;
       height: 37px; }
   .auk.alpheios-popup.alpheios-font_large_class .alph_tooltip .tooltiptext {
-    font-size: 15px; }
+    font-size: 15px;
+    width: 200px; }
 
 .alph_tooltip {
   position: relative;
