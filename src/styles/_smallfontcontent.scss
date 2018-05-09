@@ -2,7 +2,7 @@
 	font-size: $alpheios-small-font-size;
 
 	.alpheios-popup__header {
-		flex: 0 0 $alpheios-small-font-size * 3;
+		flex: 0 0 $alpheios-small-font-size * 3 + 12px;
 	}
 
     .uk-button.alpheios-popup__more-btn,
