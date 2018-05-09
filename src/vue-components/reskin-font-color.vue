@@ -34,7 +34,7 @@
 
     .alpheios-skin_panel ul.alpheios-skin_properties {
     	margin: 0;
-    	padding: 0;
+    	padding: 0 30px 0 0;
     	list-style: none;
 
     	li {
