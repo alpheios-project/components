@@ -152,7 +152,8 @@ export default class UIController {
         options: this.options,
         resourceOptions: this.resourceOptions,
         currentPanelComponent: this.template.defaultPanelComponent,
-        uiController: this
+        uiController: this,
+        classesChanged: 0
       },
       methods: {
         isOpen: function () {
@@ -337,6 +338,9 @@ export default class UIController {
               this.uiController.popup.close() // Close an old popup
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(value)
               break
           }
         }
@@ -571,7 +575,6 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          console.log('********* uiOptionChange 3', name, value)
           this.uiController.uiOptions.items[name].setTextValue(value)
           switch (name) {
             case 'skin':
@@ -583,7 +586,6 @@ export default class UIController {
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
               break
             case 'fontSize':
-              console.log('**************uiOptionChange in fontSize switch 4', name, value)
               this.uiController.updateFontSizeClass(value)
               break
           }
@@ -879,6 +881,7 @@ export default class UIController {
     this.popup.popupData.classes = classes
 
     this.popup.classesChanged += 1
+    this.panel.classesChanged += 1
   }
 
   updateFontSizeClass (type) {
@@ -889,7 +892,9 @@ export default class UIController {
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
+    Vue.set(this.panel.popupData, 'classes', popupClasses)
     this.popup.classesChanged += 1
+    this.panel.classesChanged += 1
   }
 
   changeSkin () {

@@ -122,8 +122,7 @@
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
 
-        // classesChanged: 0,
-        testClasses: ''
+        divClasses: ''
       }
     },
     props: {
@@ -528,8 +527,8 @@
       },
 
       classesChanged: function (value) {
-        this.testClasses = this.data.classes.join(' ')
-        console.log('********** watch classesChanged', value, this.testClasses)
+        this.divClasses = this.data.classes.join(' ')
+        // console.log('********** watch classesChanged', value, this.divClasses)
       }
       /*inflDataReady: function() {
         let time = new Date().getTime()

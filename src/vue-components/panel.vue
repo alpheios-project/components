@@ -212,7 +212,8 @@
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
-        }
+        },
+        divClasses: ''
       }
     },
     props: {
@@ -229,12 +230,6 @@
       })
     },
     computed: {
-      classes: function () {  
-        // this.updateClasses('fontSizeClassVariants', this.currentFontSizeType)
-        // this.updateClasses('positionClassVariants', this.data.settings.panelPosition.currentValue)
-        return this.data.classes
-      },
-
       notificationClasses: function () {
         return {
           'alpheios-panel__notifications--important': this.data.notification.important
