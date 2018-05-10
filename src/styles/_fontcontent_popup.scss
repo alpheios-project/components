@@ -59,19 +59,30 @@
                 font-size:$baseFontSize * 0.875;
             }
         }
-    }
-
-    .morph-inner-v1 .alpheios-morph__dictentry {
         .lemma_index {
             width: $baseFontSize * 1.4;
             height: $baseFontSize * 1.4;
             border-radius: $baseFontSize * 1.4;
         }
+    }
+
+    .morph-inner-v1 .alpheios-morph__dictentry {
         .principal_parts {
             font-size:$baseFontSize * 1.1;
         }
         .feature_extras,
         .feature_source {
+            font-size:$baseFontSize * 0.875;
+        }
+    }
+
+    .morph-inner-v2 .alpheios-morph__dictentry {
+        .alpheios-morph__inflections {
+            .alpheios-morph__inflset .alpheios-morph__formtext {
+                font-size:$baseFontSize * 1.1;
+            }
+        }
+        .alpheios-morph__listitem {
             font-size:$baseFontSize * 0.875;
         }
     }
