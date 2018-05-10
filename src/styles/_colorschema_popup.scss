@@ -15,6 +15,10 @@
 			background-color: #fff;
     		color: #4e6476;
 		}
+		.alpheios-skin_panel ul.alpheios-skin_properties li {
+			background-color: #fff;
+    		color: #4e6476;		
+    	}
 	}
 	&.alpheios-color_schema_light_class {
 		background: #fff;
@@ -32,5 +36,9 @@
 			background-color: #4e6476;
     		color: #fff;
 		}
+		.alpheios-skin_panel ul.alpheios-skin_properties li {
+			color: #fff;
+    		background: #4e6476;		
+    	}
 	}
 }
