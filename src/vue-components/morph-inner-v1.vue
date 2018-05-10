@@ -321,7 +321,7 @@
       height: $lemma_index_size;
       border-radius: $lemma_index_size;
       text-align: center;
-      line-height: $lemma_index_size;
+      line-height: 1.4;
       font-weight: bold;
       margin-right: 10px;     
     }
