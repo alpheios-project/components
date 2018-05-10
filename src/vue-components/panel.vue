@@ -83,9 +83,9 @@
               </alph-tooltip>
             </span>
         </div>
-
+        <div class="alpheios-panel__header"><reskin-font-color></reskin-font-color></div>
         <div class="alpheios-panel__content">
-            <div><reskin-font-color></reskin-font-color></div>
+            
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
