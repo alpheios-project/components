@@ -83,7 +83,7 @@
               </alph-tooltip>
             </span>
         </div>
-        <div class="alpheios-panel__header"><reskin-font-color></reskin-font-color></div>
+        <div class="alpheios-panel__header" style="grid-area: b;"><reskin-font-color></reskin-font-color></div>
         <div class="alpheios-panel__content">
             
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
