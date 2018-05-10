@@ -118,7 +118,7 @@
         heightValue: 0,
         exactWidth: 0,
         exactHeight: 0,
-        resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
+        resizeDelta: 20, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
 
