@@ -343,6 +343,9 @@ export default class UIController {
             case 'fontSize':
               this.uiController.updateFontSizeClass(value)
               break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
+              break
           }
         }
       },
@@ -576,7 +579,7 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          if (name === 'fontSize') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
 
           switch (name) {
             case 'skin':
@@ -589,6 +592,9 @@ export default class UIController {
               break
             case 'fontSize':
               this.uiController.updateFontSizeClass(value)
+              break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
               break
           }
         }
@@ -878,6 +884,7 @@ export default class UIController {
     classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
 
     classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
+    classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
 
     Vue.set(this.popup.popupData, 'classes', classes)
     Vue.set(this.panel.panelData, 'classes', classes)
@@ -886,11 +893,11 @@ export default class UIController {
     this.panel.classesChanged += 1
   }
 
-  updateFontSizeClass (type) {
+  updateStyleClass (prefix, type) {
     let popupClasses = this.popup.popupData.classes
     popupClasses.forEach(function (item, index) {
-      if (item.indexOf('alpheios-font_') === 0) {
-        popupClasses[index] = `alpheios-font_${type}_class`
+      if (item.indexOf(prefix) === 0) {
+        popupClasses[index] = `${prefix}${type}_class`
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
@@ -898,13 +905,21 @@ export default class UIController {
 
     let panelClasses = this.panel.panelData.classes
     panelClasses.forEach(function (item, index) {
-      if (item.indexOf('alpheios-font_') === 0) {
-        panelClasses[index] = `alpheios-font_${type}_class`
+      if (item.indexOf(prefix) === 0) {
+        panelClasses[index] = `${prefix}${type}_class`
       }
     })
 
     Vue.set(this.panel.panelData, 'classes', panelClasses)
     this.panel.classesChanged += 1
+  }
+
+  updateFontSizeClass (type) {
+    this.updateStyleClass('alpheios-font_', type)
+  }
+
+  updateColorSchemaClass (type) {
+    this.updateStyleClass('alpheios-color_schema_', type)
   }
 
   changeSkin () {

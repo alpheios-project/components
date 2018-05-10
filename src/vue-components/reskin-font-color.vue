@@ -1,11 +1,11 @@
 <template>
 	<div class="alpheios-skin_panel">
 	  <ul class="alpheios-skin_properties">
-	  	<li class="alpheios-small_font" @click="changeFont('small')">A</li>
-	  	<li class="alpheios-medium_font" @click="changeFont('medium')">A</li>
-	  	<li class="alpheios-large_font" @click="changeFont('large')">A</li>
-        <li class="alpheios-light_color_schema" @click="changeColorSchema('light')"><white-brush></white-brush></li>
-        <li class="alpheios-dark_color_schema" @click="changeColorSchema('dark')"><black-brush></black-brush></li>
+	  	<li class="alpheios-small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
+	  	<li class="alpheios-medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
+	  	<li class="alpheios-large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
+        <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><white-brush></white-brush></li>
+        <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><black-brush></black-brush></li>
 	  </ul>
 	</div>
 </template>
@@ -24,8 +24,8 @@
       }
     },
     methods: {
-      changeFont (type) {
-        this.$parent.$emit('changeFont', type)
+      changeStyleClass (name, type) {
+        this.$parent.$emit('changeStyleClass', name, type)
       }
     }
   }
@@ -76,8 +76,12 @@
     		}
 
             .alpheios-light_color_schema {
-                width: 100%;
-                height: 100%;
+                border-radius: 0;
+                background: transparent;
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
             }
     	}
     }

@@ -392,8 +392,8 @@
     },
     created () {
       let vm = this
-      vm.$on('changeFont', type => {
-        vm.uiOptionChanged('fontSize', type)
+      vm.$on('changeStyleClass', (name, type) => {
+        vm.uiOptionChanged(name, type)
       })
     }
   }
