@@ -45,7 +45,21 @@
         }
     }
 
-
+    .alpheios-morph__dictentry {
+        .alpheios-morph__listitem {
+            font-size:$baseFontSize * 1.1;
+        }
+        .alpheios-morph__morphdata span,
+        .alpheios-morph__definition span,
+        .alpheios-lemma__translations span {
+            font-size:$baseFontSize * 0.875;
+        }
+        .alpheios-morph__inflections {
+            .alpheios-morph__inflset span {
+                font-size:$baseFontSize * 0.875;
+            }
+        }
+    }
 
     /******** footer **********/
     .alpheios-popup__providers-link {
