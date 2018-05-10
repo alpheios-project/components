@@ -446,15 +446,12 @@
           return
         }
 
-        console.log('*******updatePopupDimensions before ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
         let innerDif = this.$el.querySelector("#alpheios-lexical-data-container").clientHeight - this.$el.querySelector("#alpheios-morph-component").clientHeight
 
         if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) { 
           this.heightDm ='auto' 
           return
         }
-
-        console.log('*******updatePopupDimensions after ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
 
         // Update dimensions only if there was any significant change in a popup size
         if (this.$el.offsetWidth >= this.exactWidth + this.resizeDelta
@@ -466,17 +463,15 @@
           this.resizeCount++
           this.logger.log(`Resize counter value is ${this.resizeCount}`)
         }
-        console.log('***********updatePopupDimensions height before', this.$el.offsetHeight, this.exactHeight, this.resizeDelta)
+
         if (this.$el.offsetHeight >= this.exactHeight + this.resizeDelta
           || this.$el.offsetHeight <= this.exactHeight - this.resizeDelta) {
-          console.log('***********updatePopupDimensions v2')
           this.logger.log(`${time}: dimensions update, offsetHeight is ${this.$el.offsetHeight}, previous exactHeight is ${this.exactHeight}`)
           this.exactHeight = this.$el.offsetHeight
           this.heightDm = this.$el.offsetHeight
           this.resizeCount++
           this.logger.log(`Resize counter value is ${this.resizeCount}`)
         }
-        console.log('***********updatePopupDimensions finish')
       },
 
       resetPopupDimensions () {
@@ -521,7 +516,6 @@
           timeoutDuration = 1000
         }
         this.updateDimensionsTimeout = setTimeout(function () {
-          console.log('****update - updatePopupDimensions')
           vm.updatePopupDimensions()
         }, timeoutDuration)
       }
@@ -552,10 +546,6 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
-        // let vm = this
-        // setTimeout(function(){
-        //     vm.updatePopupDimensions()
-        // }, 2000)
       }
     }
   }
