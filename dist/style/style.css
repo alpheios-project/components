@@ -7842,6 +7842,14 @@
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-grammar__provider {
     font-size: 15px; }
 
+.alpheios-color_schema_dark_class {
+  background: #666;
+  color: #fff; }
+
+.alpheios-color_schema_light_class {
+  background: #fff;
+  color: #666; }
+
 .alph_tooltip {
   position: relative;
   display: inline-block; }
@@ -8125,11 +8133,11 @@ div.alpheios-morph__block {
       line-height: 33.6px;
       border-radius: 33.6px;
 }
-.alpheios-skin_panel ul.alpheios-skin_properties li .alpheios-light_color_schema {
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-light_color_schema {
       border-radius: 0;
       background: transparent;
 }
-.alpheios-skin_panel ul.alpheios-skin_properties li .alpheios-light_color_schema svg {
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-light_color_schema svg {
         width: 100%;
         height: 100%;
 }

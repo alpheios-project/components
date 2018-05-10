@@ -4,8 +4,8 @@
 	  	<li class="alpheios-small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
 	  	<li class="alpheios-medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
 	  	<li class="alpheios-large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
-        <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><white-brush></white-brush></li>
-        <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><black-brush></black-brush></li>
+        <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
+        <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
 	  </ul>
 	</div>
 </template>
@@ -75,7 +75,7 @@
                 border-radius: $baseSize * 1.2;
     		}
 
-            .alpheios-light_color_schema {
+            &.alpheios-light_color_schema {
                 border-radius: 0;
                 background: transparent;
                 svg {
