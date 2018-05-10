@@ -440,16 +440,20 @@
        */
       updatePopupDimensions () {
         let time = new Date().getTime()
-        console.log('*******updatePopupDimensions', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
+
+        if (this.resizeCount >= this.resizeCountMax) {
+          // Skip resizing if maximum number reached to avoid infinite loops
+          return
+        }
+
+        console.log('*******updatePopupDimensions before ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
         if (this.heightDm !== 'auto') { 
           this.heightDm ='auto' 
           this.exactHeight = this.$el.offsetHeight
           return
         }
-        if (this.resizeCount >= this.resizeCountMax) {
-          // Skip resizing if maximum number reached to avoid infinite loops
-          return
-        }
+
+        console.log('*******updatePopupDimensions after ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
 
         // Update dimensions only if there was any significant change in a popup size
         if (this.$el.offsetWidth >= this.exactWidth + this.resizeDelta
