@@ -29,11 +29,27 @@
     	}
     }
 
-    .uk-button.alpheios-inflections__control-btn {
-        font-size: 0.675 * $baseFontSize;
-        padding: 0 $baseFontSize * 0.85;
-        line-height: $baseFontSize * 0.75 + $baseFontSize;
-    }
+    .alpheios-panel-inflections {
+	    .uk-button.alpheios-inflections__control-btn {
+	        font-size: 0.675 * $baseFontSize;
+	        padding: 0 $baseFontSize * 0.85;
+	        line-height: $baseFontSize * 0.75 + $baseFontSize;
+	    }
+
+	    h3.alpheios-inflections__title {
+	    	font-size: $baseFontSize * 1.18;
+	    }
+
+	    .alpheios-inflections__form {
+	        font-size: $baseFontSize * 1.25;
+	    }
+	}
+
+	.uk-select.alpheios-inflections__view-selector {
+		font-size: font-size: $baseFontSize * 0.75;
+		padding: 5px;
+		height: auto;
+	}
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {

@@ -375,9 +375,9 @@
     }
 
     .#{$alpheios-uikit-namespace} .uk-select.alpheios-inflections__view-selector {
-        height: auto !important;
+        height: auto;
         max-width: 220px;
-        font-size: .625rem !important;
+        font-size: .625rem;
     }
 
     .auk .uk-button-small.alpheios-inflections__control-btn {
