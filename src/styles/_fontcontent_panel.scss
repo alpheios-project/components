@@ -5,6 +5,17 @@
     	.alpheios-panel__header-logo-img {
     		height: $baseFontSize * 1.85;
     	}
+
+		.alpheios-panel__header-nav-btn {
+		    display: block;
+		    width: $baseFontSize * 1.25;
+		    height: $baseFontSize * 1.25;
+		    margin: 5px $baseFontSize * 0.94;
+		    text-align: center;
+		    cursor: pointer;
+		    background: transparent no-repeat 50%;
+		    background-size: contain;
+		}
     }
 }
 
