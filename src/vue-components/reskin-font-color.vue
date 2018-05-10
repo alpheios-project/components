@@ -68,15 +68,18 @@
     	}
     }
 
-    .alpheios-font_medium_class li.alpheios-medium_font {
+    .alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
+    .alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_small_class li.alpheios-small_font {
+    .alpheios-popup.alpheios-font_small_class li.alpheios-small_font,
+    .alpheios-panel.alpheios-font_small_class li.alpheios-small_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_large_class li.alpheios-large_font {
+    .alpheios-popup.alpheios-font_large_class li.alpheios-large_font,
+    .alpheios-panel.alpheios-font_large_class li.alpheios-large_font {
         background: $alpheios-toolbar-active-color;
     }
 </style>
