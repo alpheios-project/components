@@ -7880,15 +7880,18 @@
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
-  background: #7E8897; }
+  background: #7E8897;
+  color: #fff; }
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
-  background: #7E8897; }
+  background: #7E8897;
+  color: #fff; }
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
-  background: #7E8897; }
+  background: #7E8897;
+  color: #fff; }
 
 .alph_tooltip {
   position: relative;
