@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="divClasses" :style="this.data.styles"
+    <div class="alpheios-panel auk" :class="divClasses" :style="data.styles"
          data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen"
         :data-notification-visible="data.notification.important"> <!-- Show only important notifications for now -->
 
