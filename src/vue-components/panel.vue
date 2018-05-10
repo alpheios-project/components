@@ -664,4 +664,8 @@
         fill: $alpheios-link-hover-color;
         stroke: $alpheios-link-hover-color;
     }
+
+    .alpheios-panel .alpheios-skin_panel ul.alpheios-skin_properties {
+      padding: 3px 0 0;
+    }
 </style>

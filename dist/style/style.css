@@ -8688,6 +8688,9 @@ h3.alpheios-inflections__title {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
+.alpheios-panel .alpheios-skin_panel ul.alpheios-skin_properties {
+  padding: 3px 0 0;
+}
 
 
 /*# sourceMappingURL=style.css.map*/
