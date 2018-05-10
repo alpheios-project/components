@@ -7854,7 +7854,7 @@
   .alpheios-popup.alpheios-color_schema_dark_class .uk-button-primary {
     background-color: #fff;
     color: #4e6476; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
     background-color: #fff;
     color: #4e6476; }
 
@@ -7870,7 +7870,7 @@
   .alpheios-popup.alpheios-color_schema_light_class .uk-button-primary {
     background-color: #4e6476;
     color: #fff; }
-  .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li {
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
     color: #fff;
     background: #4e6476; }
 

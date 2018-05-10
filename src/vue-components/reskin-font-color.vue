@@ -1,9 +1,9 @@
 <template>
 	<div class="alpheios-skin_panel">
 	  <ul class="alpheios-skin_properties">
-	  	<li class="alpheios-small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
-	  	<li class="alpheios-medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
-	  	<li class="alpheios-large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
+	  	<li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
+	  	<li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
+	  	<li class="alpheios-large_font alpheios-font" @click="changeStyleClass('fontSize', 'large')">A</li>
         <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
         <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
 	  </ul>
