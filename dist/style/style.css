@@ -7614,32 +7614,44 @@
 .auk.alpheios-panel.alpheios-font_medium_class {
   font-size: 16px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 29.6px; }
+    height: 20px;
+    margin: 10px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 20px;
     height: 20px;
-    margin: 5px 10px; }
+    margin: 10px;
+    padding-top: 0; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel {
+    grid-template-rows: 40px 20px auto 60px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 22.2px; }
+    height: 15px;
+    margin: 10px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 15px;
     height: 15px;
-    margin: 5px 10px; }
+    margin: 10px;
+    padding-top: 0; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel {
+    grid-template-rows: 35px 20px auto 60px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 37px; }
+    height: 25px;
+    margin: 10px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 25px;
     height: 25px;
-    margin: 5px 10px; }
+    margin: 10px;
+    padding-top: 0; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel {
+    grid-template-rows: 45px 20px auto 60px; }
 
 .alph_tooltip {
   position: relative;
