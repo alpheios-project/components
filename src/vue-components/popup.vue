@@ -446,14 +446,15 @@
           return
         }
 
-        // console.log('*******updatePopupDimensions before ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
-        // if (this.heightDm !== 'auto') { 
-        //   this.heightDm ='auto' 
-        //   this.exactHeight = this.$el.offsetHeight
-        //   return
-        // }
+        console.log('*******updatePopupDimensions before ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
+        let innerDif = this.$el.querySelector("#alpheios-lexical-data-container").clientHeight - this.$el.querySelector("#alpheios-morph-component").clientHeight
 
-        // console.log('*******updatePopupDimensions after ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
+        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) { 
+          this.heightDm ='auto' 
+          return
+        }
+
+        console.log('*******updatePopupDimensions after ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
 
         // Update dimensions only if there was any significant change in a popup size
         if (this.$el.offsetWidth >= this.exactWidth + this.resizeDelta
