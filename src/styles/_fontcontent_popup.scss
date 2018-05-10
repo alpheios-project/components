@@ -46,8 +46,16 @@
     }
 
     /***** principal_parts panel *****/
-    .alpheios-morph__dictentry .alpheios-morph__formtext {
-        font-size: $baseFontSize * 1.2;
+    .alpheios-morph__dictentry {
+        .alpheios-morph__formtext {
+            font-size: $baseFontSize * 1.2;
+        }
+        .lemma_index {
+            width: $baseFontSize * 1.25;
+            height: $baseFontSize * 1.25;
+            border-radius: $baseFontSize * 1.25;
+            line-height: $baseFontSize * 1.25;
+        }
     }
 
     /***** features for lemma **********/
