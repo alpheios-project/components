@@ -15,6 +15,19 @@
 		    padding-top: 0;
 		}
     }
+
+    .alpheios-panel__tab-panel {
+    	padding: $baseFontSize * 1.25;
+    }
+
+    .alpheios-panel__options-item {
+    	.uk-form-label {
+    		font-size: $baseFontSize * 0.875;
+    	}
+    	.uk-select:not([multiple]):not([size]) {
+    		height: $baseFontSize * 2.5;
+    	}
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
