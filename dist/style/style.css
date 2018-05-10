@@ -7612,7 +7612,8 @@
     width: 150px; }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
-  font-size: 16px; }
+  font-size: 16px;
+  grid-template-rows: 40px 20px auto 60px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 20px;
     margin: 10px; }
@@ -7622,11 +7623,10 @@
     height: 20px;
     margin: 10px;
     padding-top: 0; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel {
-    grid-template-rows: 40px 20px auto 60px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
-  font-size: 12px; }
+  font-size: 12px;
+  grid-template-rows: 35px 20px auto 60px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 15px;
     margin: 10px; }
@@ -7636,11 +7636,10 @@
     height: 15px;
     margin: 10px;
     padding-top: 0; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel {
-    grid-template-rows: 35px 20px auto 60px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
-  font-size: 20px; }
+  font-size: 20px;
+  grid-template-rows: 45px 20px auto 60px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 25px;
     margin: 10px; }
@@ -7650,8 +7649,6 @@
     height: 25px;
     margin: 10px;
     padding-top: 0; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel {
-    grid-template-rows: 45px 20px auto 60px; }
 
 .alph_tooltip {
   position: relative;

@@ -20,19 +20,13 @@
 .auk.alpheios-panel.alpheios-font_medium_class {
     @include panel-font-class($alpheios-base-font-size);
 
-    .alpheios-panel {
-    	grid-template-rows: 40px 20px auto 60px;
-    }
+   	grid-template-rows: 40px 20px auto 60px;
 }
 .auk.alpheios-panel.alpheios-font_small_class {
     @include panel-font-class($alpheios-small-font-size);
-    .alpheios-panel {
-    	grid-template-rows: 35px 20px auto 60px;
-    }
+   	grid-template-rows: 35px 20px auto 60px;
 }
 .auk.alpheios-panel.alpheios-font_large_class {
     @include panel-font-class($alpheios-large-font-size);
-    .alpheios-panel {
-    	grid-template-rows: 45px 20px auto 60px;
-    }
+   	grid-template-rows: 45px 20px auto 60px;
 }
