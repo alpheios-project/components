@@ -20,6 +20,34 @@
     	padding: $baseFontSize * 1.25;
     }
 
+    /***** reskin panel *****/
+    $baseSize: $baseFontSize + 12px;
+    .alpheios-skin_panel ul.alpheios-skin_properties {
+        li {
+            font-size: $baseFontSize;
+
+            width: $baseSize;
+            height: $baseSize;
+            line-height: $baseSize;
+            border-radius: $baseSize/2;
+
+            &.alpheios-small_font {
+                font-size: $baseFontSize * 0.8;
+                width: $baseSize * 0.8;
+                height: $baseSize * 0.8;
+                line-height: $baseSize * 0.8;
+                border-radius: $baseSize * 0.8 * 0.5;
+            }
+            &.alpheios-large_font {
+                font-size:$baseFontSize * 1.2;
+                width: $baseSize * 1.2;
+                height: $baseSize * 1.2;
+                line-height: $baseSize * 1.2;
+                border-radius: $baseSize * 1.2;
+            }
+        }
+    }
+
     .alpheios-panel__options-item {
     	.uk-form-label {
     		font-size: $baseFontSize * 0.875;
@@ -67,9 +95,9 @@
 }
 .auk.alpheios-panel.alpheios-font_small_class {
     @include panel-font-class($alpheios-small-font-size);
-   	grid-template-rows: 35px 40px auto 60px;
+   	grid-template-rows: 35px 35px auto 60px;
 }
 .auk.alpheios-panel.alpheios-font_large_class {
     @include panel-font-class($alpheios-large-font-size);
-   	grid-template-rows: 45px 40px auto 60px;
+   	grid-template-rows: 45px 45px auto 60px;
 }
