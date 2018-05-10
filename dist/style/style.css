@@ -7472,6 +7472,15 @@
     font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__inflections .alpheios-morph__inflset span {
     font-size: 14px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .lemma_index {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    line-height: 20px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
+    font-size: 17.6px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
+    font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__providers-link {
     font-size: 10.8px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-lookup_form {
@@ -7524,6 +7533,15 @@
     font-size: 10.5px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__inflections .alpheios-morph__inflset span {
     font-size: 10.5px; }
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .lemma_index {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    line-height: 15px; }
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
+    font-size: 13.2px; }
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
+    font-size: 10.5px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link {
     font-size: 8.1px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form {
@@ -7575,6 +7593,15 @@
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-lemma__translations span {
     font-size: 17.5px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__inflections .alpheios-morph__inflset span {
+    font-size: 17.5px; }
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .lemma_index {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    line-height: 25px; }
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
+    font-size: 22px; }
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
     font-size: 17.5px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__providers-link {
     font-size: 13.5px; }
