@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-morph__lexemes morph-inner-1">
+  <div class="alpheios-morph__lexemes morph-inner-v1">
     <div class="alpheios-morph__dictentry" v-for="(lex, index) in lexemes" v-show="showLexeme(lex)">
       <div class="alpheios-morph__features">
 

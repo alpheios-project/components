@@ -71,7 +71,8 @@
         .principal_parts {
             font-size:$baseFontSize * 1.1;
         }
-        .feature_extras {
+        .feature_extras,
+        .feature_source {
             font-size:$baseFontSize * 0.875;
         }
     }

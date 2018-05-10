@@ -7479,7 +7479,8 @@
     line-height: 20px; }
   .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 17.6px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .feature_source {
     font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__providers-link {
     font-size: 10.8px; }
@@ -7540,7 +7541,8 @@
     line-height: 15px; }
   .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 13.2px; }
-  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .feature_source {
     font-size: 10.5px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link {
     font-size: 8.1px; }
@@ -7601,7 +7603,8 @@
     line-height: 25px; }
   .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 22px; }
-  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras {
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .feature_source {
     font-size: 17.5px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__providers-link {
     font-size: 13.5px; }
