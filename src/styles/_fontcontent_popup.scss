@@ -47,7 +47,7 @@
 
     .alpheios-morph__dictentry {
         .alpheios-morph__listitem {
-            font-size:$baseFontSize * 1.1;
+            font-size:$baseFontSize * 1.2;
         }
         .alpheios-morph__morphdata span,
         .alpheios-morph__definition span,
@@ -69,7 +69,7 @@
 
     .morph-inner-v1 .alpheios-morph__dictentry {
         .principal_parts {
-            font-size:$baseFontSize * 1.1;
+            font-size:$baseFontSize * 1.2;
         }
         .feature_extras,
         .feature_source {
@@ -80,7 +80,7 @@
     .morph-inner-v2 .alpheios-morph__dictentry {
         .alpheios-morph__inflections {
             .alpheios-morph__inflset .alpheios-morph__formtext {
-                font-size:$baseFontSize * 1.1;
+                font-size:$baseFontSize * 1.2;
             }
         }
         .alpheios-morph__listitem {
