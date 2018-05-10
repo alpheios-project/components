@@ -448,8 +448,8 @@
 
         console.log('*******updatePopupDimensions before ', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
         if (this.heightDm !== 'auto') { 
-          this.heightDm ='auto' 
-          this.exactHeight = this.$el.offsetHeight
+          // this.heightDm ='auto' 
+          // this.exactHeight = this.$el.offsetHeight
           return
         }
 
