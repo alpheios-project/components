@@ -7435,10 +7435,6 @@
   font-size: 16px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/
-  /***** features for lemma **********/
-  /***** definitions for lemma **********/
-  /***** inflections panel *****/
   /******** footer **********/
   /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header {
@@ -7468,28 +7464,6 @@
       height: 33.6px;
       line-height: 33.6px;
       border-radius: 33.6px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 19.2px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-1 .alpheios-morph__dictentry .lemma_index {
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    line-height: 20px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__morphdata span,
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__features span {
-    font-size: 14px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-1 .alpheios-morph__dictentry .alpheios-morph__features span.alpheios-morph__listitem {
-    font-size: 19.2px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__definition span {
-    font-size: 14px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__inflections .alpheios-morph__formtext {
-    font-size: 16px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__inflections .alpheios-morph__inflgroup {
-    font-size: 14px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-1 .alpheios-morph__inflections .alpheios-morph__inflfeatures {
-    font-size: 14px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-lemma__translations {
-    font-size: 14px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__providers-link {
     font-size: 10.8px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-lookup_form {
@@ -7505,10 +7479,6 @@
   font-size: 12px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/
-  /***** features for lemma **********/
-  /***** definitions for lemma **********/
-  /***** inflections panel *****/
   /******** footer **********/
   /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
@@ -7538,28 +7508,6 @@
       height: 28.8px;
       line-height: 28.8px;
       border-radius: 28.8px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 14.4px; }
-  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-1 .alpheios-morph__dictentry .lemma_index {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    line-height: 15px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__morphdata span,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__features span {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-1 .alpheios-morph__dictentry .alpheios-morph__features span.alpheios-morph__listitem {
-    font-size: 14.4px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__definition span {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__formtext {
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__inflections .alpheios-morph__inflgroup {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-1 .alpheios-morph__inflections .alpheios-morph__inflfeatures {
-    font-size: 10.5px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-lemma__translations {
-    font-size: 10.5px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link {
     font-size: 8.1px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-lookup_form {
@@ -7575,10 +7523,6 @@
   font-size: 20px;
   /**** header part ****/
   /***** reskin panel *****/
-  /***** principal_parts panel *****/
-  /***** features for lemma **********/
-  /***** definitions for lemma **********/
-  /***** inflections panel *****/
   /******** footer **********/
   /******* tooltip ********/ }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header {
@@ -7608,28 +7552,6 @@
       height: 38.4px;
       line-height: 38.4px;
       border-radius: 38.4px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 24px; }
-  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-1 .alpheios-morph__dictentry .lemma_index {
-    width: 25px;
-    height: 25px;
-    border-radius: 25px;
-    line-height: 25px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__morphdata span,
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__features span {
-    font-size: 17.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-1 .alpheios-morph__dictentry .alpheios-morph__features span.alpheios-morph__listitem {
-    font-size: 24px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__definition span {
-    font-size: 17.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__inflections .alpheios-morph__formtext {
-    font-size: 20px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__inflections .alpheios-morph__inflgroup {
-    font-size: 17.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-1 .alpheios-morph__inflections .alpheios-morph__inflfeatures {
-    font-size: 17.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-lemma__translations {
-    font-size: 17.5px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__providers-link {
     font-size: 13.5px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-lookup_form {
@@ -8074,84 +7996,6 @@ div.alpheios-morph__block {
 }
 .alpheios-morph__groupitem:last-child:after {
   content: ':';
-}
-.alpheios-morph__dictentry {
-  margin-bottom: 15px;
-}
-.alpheios-morph__dictentry .lemma_index {
-    display: inline-block;
-    color: #fff;
-    background: #4E6476;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    text-align: center;
-    line-height: 20px;
-    font-weight: bold;
-    margin-right: 10px;
-}
-.alpheios-morph__dictentry .alpheios-morph__features:before, .alpheios-morph__dictentry .alpheios-morph__features:after {
-    content: '';
-    display: table;
-    clear: both;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p {
-    margin-bottom: 0;
-    margin-top: 0;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source {
-      text-align: right;
-      float: right;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source .alpheios-morph__attr {
-        font-weight: bold;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_extras {
-      font-style: italic;
-}
-.alpheios-morph__dictentry .alpheios-morph__morphdata,
-  .alpheios-morph__dictentry p.feature_source,
-  .alpheios-morph__dictentry p.feature_extras,
-  .alpheios-morph__dictentry .alpheios-morph__definition_list,
-  .alpheios-morph__dictentry .alpheios-morph__translation_list,
-  .alpheios-morph__dictentry .alpheios-morph__inflections {
-    margin-left: 34px;
-}
-.alpheios-morph__dictentry .alpheios-morph__definition_list,
-  .alpheios-morph__dictentry .alpheios-morph__translation_list,
-  .alpheios-morph__dictentry .alpheios-morph__inflections {
-    /* border-top: 1px solid $alpheios-toolbar-color; */
-    margin-top: 5px;
-    padding-left: 5px;
-}
-.alpheios-morph__dictentry .alpheios-morph__definition_list .block_title,
-    .alpheios-morph__dictentry .alpheios-morph__translation_list .block_title,
-    .alpheios-morph__dictentry .alpheios-morph__inflections .block_title {
-      margin: 0;
-      color: #4E6476;
-      font-size: 10px;
-      text-align: right;
-}
-.alpheios-morph__dictentry .alpheios-morph__inflset {
-    margin-top: 0;
-    margin-left: 7px;
-}
-.alpheios-morph__dictentry .alpheios-morph__inflset .alpheios-morph__forms {
-      margin-left: 0;
-      display: inline-block;
-      vertical-align: top;
-}
-.alpheios-morph__dictentry .alpheios-morph__inflset .inflset_index {
-      display: inline-block;
-      font-weight: bold;
-      vertical-align: top;
-}
-.alpheios-morph__dictentry .alpheios-morph__definition_list .definition_index {
-    display: inline-block;
-    font-weight: bold;
-}
-.alpheios-morph__dictentry .alpheios-morph__definition_list .alpheios-definition__short {
-    display: inline-block;
 }
 
 

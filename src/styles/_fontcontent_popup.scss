@@ -45,56 +45,7 @@
         }
     }
 
-    /***** principal_parts panel *****/
-    .alpheios-morph__dictentry {
-        .alpheios-morph__formtext {
-            font-size: $baseFontSize * 1.2;
-        }
-    }
 
-    .morph-inner-1 .alpheios-morph__dictentry {
-        .lemma_index {
-            width: $baseFontSize * 1.25;
-            height: $baseFontSize * 1.25;
-            border-radius: $baseFontSize * 1.25;
-            line-height: $baseFontSize * 1.25;
-        }
-    }
-    /***** features for lemma **********/
-    .alpheios-morph__morphdata span,
-    .alpheios-morph__features span {
-        font-size: $baseFontSize *0.875;
-    }
-
-    .morph-inner-1 .alpheios-morph__dictentry {
-        .alpheios-morph__features span.alpheios-morph__listitem {
-            font-size: $baseFontSize * 1.2;
-        }
-    }
-
-    /***** definitions for lemma **********/
-    .alpheios-morph__definition span {
-        font-size: $baseFontSize *0.875;
-    }
-
-    /***** inflections panel *****/
-    .alpheios-morph__inflections {
-        .alpheios-morph__formtext {
-            font-size: $baseFontSize;
-        }
-        .alpheios-morph__inflgroup {
-            font-size: $baseFontSize * 0.875;
-        }
-    }
-
-    .morph-inner-1 .alpheios-morph__inflections {
-        .alpheios-morph__inflfeatures {
-            font-size: $baseFontSize * 0.875;
-        }
-    }
-    .alpheios-lemma__translations {
-        font-size: $baseFontSize * 0.875;
-    }
 
     /******** footer **********/
     .alpheios-popup__providers-link {
