@@ -7843,20 +7843,30 @@
     font-size: 15px; }
 
 .alpheios-popup.alpheios-color_schema_dark_class {
-  background: #666;
+  background: #282828;
   color: #fff; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__header-selection {
-    color: #fff; }
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-definition__text,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
-    color: #fff; }
+    color: #f2f2f2; }
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__linkedattr {
+    color: #b1d1d7; }
+  .alpheios-popup.alpheios-color_schema_dark_class .uk-button-primary {
+    background-color: #fff;
+    color: #4e6476; }
 
 .alpheios-popup.alpheios-color_schema_light_class {
   background: #fff;
   color: #666; }
-  .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__header-selection {
-    color: #666; }
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__header-selection,
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-definition__text,
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__lexemes {
-    color: #0e2233; }
+    color: #666; }
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__linkedattr {
+    color: #3e8d9c; }
+  .alpheios-popup.alpheios-color_schema_light_class .uk-button-primary {
+    background-color: #4e6476;
+    color: #fff; }
 
 .alph_tooltip {
   position: relative;
