@@ -8125,6 +8125,10 @@ div.alpheios-morph__block {
       line-height: 33.6px;
       border-radius: 33.6px;
 }
+.alpheios-skin_panel ul.alpheios-skin_properties li .alpheios-light_color_schema {
+      width: 100%;
+      height: 100%;
+}
 .alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
 .alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
   background: #7E8897;
