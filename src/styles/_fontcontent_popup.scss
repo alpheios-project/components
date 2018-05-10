@@ -51,7 +51,8 @@
     }
 
     /***** features for lemma **********/
-    .alpheios-morph__morphdata span {
+    .alpheios-morph__morphdata span,
+    .alpheios-morph__features span {
         font-size: $baseFontSize *0.875;
     }
 
