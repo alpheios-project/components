@@ -4,12 +4,21 @@
 	  	<li class="alpheios-small_font" @click="changeFont('small')">A</li>
 	  	<li class="alpheios-medium_font" @click="changeFont('medium')">A</li>
 	  	<li class="alpheios-large_font" @click="changeFont('large')">A</li>
+        <li class="alpheios-light_color_schema" @click="changeColorSchema('light')"><white-brush></white-brush></li>
+        <li class="alpheios-dark_color_schema" @click="changeColorSchema('dark')"><black-brush></black-brush></li>
 	  </ul>
 	</div>
 </template>
 <script>
+  import WhiteBrush from '../images/inline-icons/white-brush.svg';
+  import BlackBrush from '../images/inline-icons/black-brush.svg';
+
   export default {
     name: 'ReskinFontColor',
+    components: {
+      whiteBrush: WhiteBrush,
+      blackBrush: BlackBrush
+    },
     data () {
       return {
       }
@@ -65,6 +74,11 @@
                 line-height: $baseSize * 1.2;
                 border-radius: $baseSize * 1.2;
     		}
+
+            .alpheios-light_color_schema {
+                width: 100%;
+                height: 100%;
+            }
     	}
     }
 
