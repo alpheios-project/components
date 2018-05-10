@@ -1,25 +1,36 @@
 .alpheios-popup {
 	&.alpheios-color_schema_dark_class {
-		background: #666;
+		background: #282828;
 		color: #fff;
 
-		.alpheios-popup__header-selection {
-			color: #fff;
-		}
+		.alpheios-popup__header-selection,
+		.alpheios-definition__text,
 		.alpheios-morph__lexemes {
-			color: #fff;
+			color: ##f2f2f2;
+		}
+		.alpheios-morph__linkedattr {
+			color: #b1d1d7;
+		}
+		.uk-button-primary {
+			background-color: #fff;
+    		color: #4e6476;
 		}
 	}
 	&.alpheios-color_schema_light_class {
 		background: #fff;
 		color: #666;
 
-		.alpheios-popup__header-selection {
+		.alpheios-popup__header-selection,
+		.alpheios-definition__text,
+		.alpheios-morph__lexemes {
 			color: #666;
 		}
-
-		.alpheios-morph__lexemes {
-			color: #0e2233;
+		.alpheios-morph__linkedattr {
+			color: #3e8d9c;
+		}
+		.uk-button-primary {
+			background-color: #4e6476;
+    		color: #fff;
 		}
 	}
 }
