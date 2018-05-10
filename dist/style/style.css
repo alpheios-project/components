@@ -7860,6 +7860,9 @@
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
     background-color: #fff;
     color: #4e6476; }
+  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
+    background-color: #fff;
+    color: #27323b; }
 
 .alpheios-popup.alpheios-color_schema_light_class {
   background: #fff;
@@ -7877,6 +7880,9 @@
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
     color: #fff;
     background: #4e6476; }
+  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
+    background-color: #27323b;
+    color: #fff; }
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {

@@ -20,6 +20,10 @@
 			background-color: #fff;
     		color: #4e6476;		
     	}
+    	.alph_tooltip .tooltiptext {
+    		background-color: #fff;
+    		color: #27323b;
+    	}
 	}
 	&.alpheios-color_schema_light_class {
 		background: #fff;
@@ -41,6 +45,10 @@
 		.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
 			color: #fff;
     		background: #4e6476;		
+    	}
+    	.alph_tooltip .tooltiptext {
+    		background-color: #27323b;
+    		color: #fff;
     	}
 	}
 }
