@@ -7617,6 +7617,7 @@
   /***** options tab *****/
   /***** inflections tab *****/
   /***** info tab *****/
+  /******** content tab ********/
   grid-template-rows: 40px 40px auto 60px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 20px;
@@ -7674,6 +7675,10 @@
     font-size: 24px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-info .alpheios-info__helptext p {
     font-size: 16px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__contentitem .alpheios-definition__short {
+    font-size: 16px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__contentitem h3 {
+    font-size: 24px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px;
@@ -7681,6 +7686,7 @@
   /***** options tab *****/
   /***** inflections tab *****/
   /***** info tab *****/
+  /******** content tab ********/
   grid-template-rows: 35px 35px auto 60px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 15px;
@@ -7738,6 +7744,10 @@
     font-size: 18px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-info .alpheios-info__helptext p {
     font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__contentitem .alpheios-definition__short {
+    font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__contentitem h3 {
+    font-size: 18px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px;
@@ -7745,6 +7755,7 @@
   /***** options tab *****/
   /***** inflections tab *****/
   /***** info tab *****/
+  /******** content tab ********/
   grid-template-rows: 45px 45px auto 60px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 25px;
@@ -7802,6 +7813,10 @@
     font-size: 30px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-info .alpheios-info__helptext p {
     font-size: 20px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__contentitem .alpheios-definition__short {
+    font-size: 20px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__contentitem h3 {
+    font-size: 30px; }
 
 .alph_tooltip {
   position: relative;
@@ -8086,13 +8101,13 @@ div.alpheios-morph__block {
       line-height: 33.6px;
       border-radius: 33.6px;
 }
-.alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font {
+.alpheios-font_medium_class li.alpheios-medium_font {
   background: #7E8897;
 }
-.alpheios-popup.alpheios-font_small_class li.alpheios-small_font {
+.alpheios-font_small_class li.alpheios-small_font {
   background: #7E8897;
 }
-.alpheios-popup.alpheios-font_large_class li.alpheios-large_font {
+.alpheios-font_large_class li.alpheios-large_font {
   background: #7E8897;
 }
 

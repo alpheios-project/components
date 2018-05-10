@@ -104,6 +104,17 @@
 			font-size: $baseFontSize;
 		}
 	}
+
+	/******** content tab ********/
+	.alpheios-panel__contentitem {
+		.alpheios-definition__short {
+			font-size: $baseFontSize;
+		}
+
+		h3 {
+			font-size: $baseFontSize * 1.5;
+		}
+	}
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
