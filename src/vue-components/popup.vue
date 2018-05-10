@@ -443,6 +443,7 @@
         console.log('*******updatePopupDimensions', this.heightDm, this.$el.scrollHeight, this.$el.clientHeight)
         if (this.heightDm !== 'auto') { 
           this.heightDm ='auto' 
+          this.exactHeight = this.$el.offsetHeight
           return
         }
         if (this.resizeCount >= this.resizeCountMax) {
