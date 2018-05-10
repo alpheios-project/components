@@ -40,6 +40,9 @@
 	    	font-size: $baseFontSize * 1.18;
 	    }
 
+	    .uk-form-label {
+	    	font-size: $baseFontSize * 0.85;
+	    }
 	    .alpheios-inflections__form {
 	        font-size: $baseFontSize * 1.25;
 	    }
@@ -47,8 +50,12 @@
 
 		.uk-select.alpheios-inflections__view-selector {
 			font-size: $baseFontSize * 0.75;
-			padding: 5px;
+			padding: 5px 20px 5px 5px;
 			height: auto;
+		}
+
+		.infl-cell {
+			font-size: $baseFontSize * 0.75;
 		}
 	}
 }

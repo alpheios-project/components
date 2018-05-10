@@ -7635,12 +7635,16 @@
     line-height: 28px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel-inflections h3.alpheios-inflections__title {
     font-size: 18.88px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel-inflections .uk-form-label {
+    font-size: 13.6px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel-inflections .alpheios-inflections__form {
     font-size: 20px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel-inflections .uk-select.alpheios-inflections__view-selector {
     font-size: 12px;
-    padding: 5px;
+    padding: 5px 20px 5px 5px;
     height: auto; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel-inflections .infl-cell {
+    font-size: 12px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px;
@@ -7666,12 +7670,16 @@
     line-height: 21px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel-inflections h3.alpheios-inflections__title {
     font-size: 14.16px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel-inflections .uk-form-label {
+    font-size: 10.2px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel-inflections .alpheios-inflections__form {
     font-size: 15px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel-inflections .uk-select.alpheios-inflections__view-selector {
     font-size: 9px;
-    padding: 5px;
+    padding: 5px 20px 5px 5px;
     height: auto; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel-inflections .infl-cell {
+    font-size: 9px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px;
@@ -7697,12 +7705,16 @@
     line-height: 35px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel-inflections h3.alpheios-inflections__title {
     font-size: 23.6px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel-inflections .uk-form-label {
+    font-size: 17px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel-inflections .alpheios-inflections__form {
     font-size: 25px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel-inflections .uk-select.alpheios-inflections__view-selector {
     font-size: 15px;
-    padding: 5px;
+    padding: 5px 20px 5px 5px;
     height: auto; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel-inflections .infl-cell {
+    font-size: 15px; }
 
 .alph_tooltip {
   position: relative;
