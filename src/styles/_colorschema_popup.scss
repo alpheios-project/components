@@ -2,9 +2,24 @@
 	&.alpheios-color_schema_dark_class {
 		background: #666;
 		color: #fff;
+
+		.alpheios-popup__header-selection {
+			color: #fff;
+		}
+		.alpheios-morph__lexemes {
+			color: #fff;
+		}
 	}
 	&.alpheios-color_schema_light_class {
 		background: #fff;
 		color: #666;
+
+		.alpheios-popup__header-selection {
+			color: #666;
+		}
+
+		.alpheios-morph__lexemes {
+			color: #0e2233;
+		}
 	}
 }

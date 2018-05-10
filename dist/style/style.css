@@ -7845,10 +7845,18 @@
 .alpheios-popup.alpheios-color_schema_dark_class {
   background: #666;
   color: #fff; }
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__header-selection {
+    color: #fff; }
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
+    color: #fff; }
 
 .alpheios-popup.alpheios-color_schema_light_class {
   background: #fff;
   color: #666; }
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__header-selection {
+    color: #666; }
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__lexemes {
+    color: #0e2233; }
 
 .alph_tooltip {
   position: relative;
