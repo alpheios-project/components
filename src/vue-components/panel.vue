@@ -85,6 +85,7 @@
         </div>
 
         <div class="alpheios-panel__content">
+            <div><reskin-font-color></reskin-font-color></div>
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
@@ -164,6 +165,8 @@
 
   import Tooltip from './tooltip.vue'
 
+  import ReskinFontColor from './reskin-font-color.vue'
+
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
   import AttachRightIcon from '../images/inline-icons/attach-right.svg';
@@ -196,7 +199,8 @@
       infoIcon: InfoIcon,
       grammarIcon: GrammarIcon,
       treebankIcon: TreebankIcon,
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      reskinFontColor: ReskinFontColor
     },
     data: function () {
       return {
@@ -342,6 +346,10 @@
       setTreebankContentWidth: function(width) {
           console.log(`Set width to ${width}`)
           this.$el.style.width = width
+      },
+
+      uiOptionChanged: function (name, value) {
+        this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       }
     },
 
@@ -381,6 +389,12 @@
           // update the element's style
           target.style.width = `${event.rect.width}px`
         })
+    },
+    created () {
+      let vm = this
+      vm.$on('changeFont', type => {
+        vm.uiOptionChanged('fontSize', type)
+      })
     }
   }
 </script>
