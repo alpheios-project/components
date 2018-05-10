@@ -39,9 +39,9 @@
   }
 
   .alpheios-info .alpheios-info__helptext p {
-    font-size: 0.875*$alpheios-base-font-size;
+    /*font-size: 0.875*$alpheios-base-font-size;*/
     font-family: $alpheios-font-family !important;
-    font-size: $alpheios-base-font-size !important;
+    font-size: $alpheios-base-font-size;
     color: $alpheios-copy-color !important;
   }
 

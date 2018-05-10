@@ -48,6 +48,7 @@
         }
     }
 
+    /***** options tab *****/
     .alpheios-panel__options-item {
     	.uk-form-label {
     		font-size: $baseFontSize * 0.875;
@@ -57,6 +58,7 @@
     	}
     }
 
+    /***** inflections tab *****/
     .alpheios-panel-inflections {
 	    .uk-button.alpheios-inflections__control-btn {
 	        font-size: 0.675 * $baseFontSize;
@@ -84,6 +86,22 @@
 
 		.infl-cell {
 			font-size: $baseFontSize * 0.75;
+		}
+	}
+
+	/***** info tab *****/
+	.alpheios-info {
+		.alpheios-info__versiontext,
+		.alpheios-info__currentlanguage {
+			font-size: $baseFontSize * 0.7;
+		}
+
+		h3 {
+			font-size: $baseFontSize * 1.5;
+		}
+
+		.alpheios-info__helptext p {
+			font-size: $baseFontSize;
 		}
 	}
 }
