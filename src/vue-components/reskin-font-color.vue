@@ -75,7 +75,8 @@
                 border-radius: $baseSize * 1.2;
     		}
 
-            &.alpheios-light_color_schema {
+            &.alpheios-light_color_schema,
+            &.alpheios-dark_color_schema {
                 border-radius: 0;
                 background: transparent;
                 svg {
