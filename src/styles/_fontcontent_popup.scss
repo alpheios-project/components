@@ -113,6 +113,9 @@
 }
 .auk.alpheios-popup.alpheios-font_small_class {
     @include popup-font-class($alpheios-small-font-size);
+    .alpheios-popup__header {
+        flex: 0 0 40px;
+    }
 }
 .auk.alpheios-popup.alpheios-font_large_class {
     @include popup-font-class($alpheios-large-font-size);

@@ -7562,6 +7562,8 @@
   .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
     font-size: 9px;
     width: 90px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header {
+    flex: 0 0 40px; }
 
 .auk.alpheios-popup.alpheios-font_large_class {
   font-size: 20px;
@@ -7873,6 +7875,18 @@
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
     color: #fff;
     background: #4e6476; }
+
+.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
+.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
+  background: #7E8897; }
+
+.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_small_class li.alpheios-small_font,
+.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_small_class li.alpheios-small_font {
+  background: #7E8897; }
+
+.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_large_class li.alpheios-large_font,
+.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_large_class li.alpheios-large_font {
+  background: #7E8897; }
 
 .alph_tooltip {
   position: relative;
