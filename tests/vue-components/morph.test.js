@@ -222,13 +222,17 @@ describe('morph.test.js', () => {
   })
 
   it('expects types to be defined upon creation', () => {
-    expect(cmp.vm.types).toBeTruthy()
-    expect(cmp.vm.types.grmCase).toBeTruthy()
+    // console.log('*******************cmp.vm', cmp.vm.$children[0].types)
+    let morphInner = cmp.vm.$children[0]
+    expect(morphInner.types).toBeTruthy()
+    expect(morphInner.types.grmCase).toBeTruthy()
   })
 
   it('expects to showLexeme only if a lexeme is populated', () => {
-    expect(cmp.vm.showLexeme(cmp.vm.lexemes[0])).toBeTruthy()
-    expect(cmp.vm.showLexeme(cmp.vm.lexemes[1])).toBeFalsy()
+    let morphInner = cmp.vm.$children[0]
+
+    expect(morphInner.showLexeme(morphInner.lexemes[0])).toBeTruthy()
+    expect(morphInner.showLexeme(morphInner.lexemes[1])).toBeFalsy()
     let entries = cmp.find('div').findAll('div.alpheios-morph__dictentry')
     expect(entries.length).toEqual(3)
     expect(entries.at(0).isVisible()).toBeTruthy()
@@ -289,7 +293,8 @@ describe('morph.test.js', () => {
   })
 
   it('expected featureList to return a object with  a list of features for rendering', () => {
-    expect(cmp.vm.featureList(mockLexemeNoun.lemma, ['age', 'frequency'], 'extras')).toEqual({ extras: { value: '(ancient, frequent)' } })
+    let morphInner = cmp.vm.$children[0]
+    expect(morphInner.featureList(mockLexemeNoun.lemma, ['age', 'frequency'], 'extras')).toEqual({ extras: { value: '(ancient, frequent)' } })
   })
 
   it('expects extra lemma features to be rendered', () => {

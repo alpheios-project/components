@@ -331,7 +331,6 @@
       },
 
       setContentWidth: function (width) {
-        console.log('**********************setContentWidth')
         let widthDelta = parseInt(this.navbarWidth, 10)
           + parseInt(this.inflPanelLeftPadding, 10)
           + parseInt(this.inflPanelRightPadding, 10)
@@ -341,7 +340,6 @@
           let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
-        console.log('**********************setContentWidth adjustedWidth')
         }
       },
 
