@@ -1,4 +1,4 @@
-@mixin font-class($baseFontSize) {
+@mixin popup-font-class($baseFontSize) {
     font-size: $baseFontSize;
 
     /**** header part ****/
@@ -93,11 +93,11 @@
 }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
-    @include font-class($alpheios-base-font-size);
+    @include popup-font-class($alpheios-base-font-size);
 }
 .auk.alpheios-popup.alpheios-font_small_class {
-    @include font-class($alpheios-small-font-size);
+    @include popup-font-class($alpheios-small-font-size);
 }
 .auk.alpheios-popup.alpheios-font_large_class {
-    @include font-class($alpheios-large-font-size);
+    @include popup-font-class($alpheios-large-font-size);
 }
