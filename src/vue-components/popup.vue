@@ -1,7 +1,6 @@
 <template>
     <div ref="popup" class="irina-test alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-         {{ data.currentLanguage }}
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -44,6 +43,10 @@
         <div v-show="!morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
+        </div>
+        <div v-show="!data.currentLanguage"
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+            {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
