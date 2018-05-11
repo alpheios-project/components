@@ -42,10 +42,14 @@
                 </alph-tooltip>
             </div>
         </div>
-        <div v-show="!morphDataReady"
+        <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
+        <div v-show="noLanguage"
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+            {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
+        </div>v
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
@@ -185,6 +189,9 @@
       },
       morphDataReady: function () {
         return this.data.morphDataReady
+      },
+      noLanguage: function () {
+        return this.data.currentLanguage === "undefined"
       },
       notificationClasses: function () {
         return {
