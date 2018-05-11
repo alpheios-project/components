@@ -1,20 +1,19 @@
 import TextQuoteSelector from './w3c/text-quote-selector'
+
 import {LanguageModelFactory} from 'alpheios-data-models'
 /**
  * This is a general-purpose, media abstract selector that
  * @property {string} selectedText - Selected text (usually a single word)
- * @property {string} normalizedSelectedText - Selected text after normalization
- * @property {string} languageID - A language ID of a selection
+ * @property {string] normalizedSelectedText - Selected text after normalization
+ * @property {string} languageCode - A language code of a selection
  * @property {LanguageModel} language - A language model object
  */
 export default class TextSelector {
-  /**
-   * @param {symbol} languageID - A language ID of a selector
-   */
-  constructor (languageID = null) {
+  constructor () {
     this.text = '' // Calculated?
     this.options = {}
-    this.languageID = languageID
+    this.languageCode = ''
+    this.languageID = undefined
     this.model = undefined
     this.location = ''
     this.data = {}
@@ -52,8 +51,9 @@ export default class TextSelector {
   // languageCodes
 
   static readObject (jsonObject) {
-    let textSelector = new TextSelector(LanguageModelFactory.getLanguageIdFromCode(jsonObject.languageCode))
+    let textSelector = new TextSelector()
     textSelector.text = jsonObject.text
+    textSelector.languageCode = jsonObject.languageCode
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
     return textSelector
   }
@@ -68,11 +68,6 @@ export default class TextSelector {
       textSelector.model = LanguageModelFactory.getLanguageModel(textSelector.languageID)
     }
     return textSelector
-  }
-
-  get languageCode () {
-    console.warn(`Deprecated. Please use "languageID" instead of "languageCode"`)
-    return (this.languageID) ? LanguageModelFactory.getLanguageCodeFromId(this.languageID) : ''
   }
 
   isEmpty () {
