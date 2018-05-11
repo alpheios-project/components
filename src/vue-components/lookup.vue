@@ -53,6 +53,7 @@
         if (this.lookuptext.length === 0) {
           return null
         }
+        console.log('********************** lookup', this.uiController.options)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, this.uiController.options)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
