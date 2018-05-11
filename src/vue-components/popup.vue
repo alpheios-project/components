@@ -49,7 +49,7 @@
         <div v-show="noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
-        </div>v
+        </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
