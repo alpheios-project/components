@@ -7868,10 +7868,15 @@
   .alpheios-popup.alpheios-color_schema_dark_class .uk-form-label,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-info,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p,
+  .alpheios-popup.alpheios-color_schema_dark_class h3,
   .alpheios-panel.alpheios-color_schema_dark_class .uk-form-label,
   .alpheios-panel.alpheios-color_schema_dark_class .alpheios-info,
-  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p {
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p,
+  .alpheios-panel.alpheios-color_schema_dark_class h3 {
     color: #f2f2f2; }
+  .alpheios-popup.alpheios-color_schema_dark_class .infl-cell,
+  .alpheios-panel.alpheios-color_schema_dark_class .infl-cell {
+    border-color: #f2f2f2; }
 
 .alpheios-color_schema_dark_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
@@ -7938,6 +7943,9 @@
   .alpheios-panel.alpheios-color_schema_light_class .alpheios-info,
   .alpheios-panel.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p {
     color: #0e2233; }
+  .alpheios-popup.alpheios-color_schema_light_class .infl-cell,
+  .alpheios-panel.alpheios-color_schema_light_class .infl-cell {
+    border-color: #0e2233; }
 
 .alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
   background-color: #4E6476;
@@ -8495,6 +8503,7 @@ h3.alpheios-inflections__title {
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 0.6rem;
+  padding-top: 5px;
 }
 .alpheios-inflections__form {
   font-weight: bold;

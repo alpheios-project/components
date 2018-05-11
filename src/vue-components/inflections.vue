@@ -391,6 +391,7 @@
         align-items: flex-end;
         justify-content: space-between;
         margin-bottom: 0.6rem;
+        padding-top: 5px;
     }
 
     .alpheios-inflections__form {

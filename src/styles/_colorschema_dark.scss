@@ -19,8 +19,12 @@
 	}
 	.uk-form-label,
 	.alpheios-info, 
-	.alpheios-info .alpheios-info__helptext p {
+	.alpheios-info .alpheios-info__helptext p,
+	h3 {
 		color: $alpheios-color_schema_dark_color;
+	}
+	.infl-cell {
+		border-color: $alpheios-color_schema_dark_color;
 	}
 }
 
