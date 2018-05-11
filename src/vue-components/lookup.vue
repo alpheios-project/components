@@ -77,11 +77,23 @@
         font-size: 14px;
         margin-bottom: 10px;
         vertical-align: top;
-    }
+
+        &:focus {
+          border-color: $alpheios-highlight-color;
+        }
+      }
 
     .uk-button {
       font-size: 12px;
         vertical-align: top;
+      }
+    }
+
+    .alpheios-panel .alpheios-lookup_form {
+      width: 100%;
+
+      .uk-input {
+        width: 70%;
       }
     }
 </style>

@@ -84,6 +84,7 @@
             </span>
         </div>
         <div class="alpheios-panel__header" style="grid-area: b;"><reskin-font-color></reskin-font-color></div>
+        <div class="alpheios-panel__header" style="grid-area: b;"><lookup :uiController="uiController"></lookup></div>
         <div class="alpheios-panel__content">
             
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
@@ -166,6 +167,7 @@
   import Tooltip from './tooltip.vue'
 
   import ReskinFontColor from './reskin-font-color.vue'
+  import Lookup from './lookup.vue'
 
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
@@ -200,7 +202,8 @@
       grammarIcon: GrammarIcon,
       treebankIcon: TreebankIcon,
       alphTooltip: Tooltip,
-      reskinFontColor: ReskinFontColor
+      reskinFontColor: ReskinFontColor,
+      lookup: Lookup
     },
     data: function () {
       return {
@@ -224,6 +227,9 @@
       }
     },
     computed: {
+      uiController: function () {
+        return this.$parent.uiController
+      },
       notificationClasses: function () {
         return {
           'alpheios-panel__notifications--important': this.data.notification.important
@@ -401,7 +407,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
     $alpheios-panel-header-height: 40px;
-    $alpheios-panel-title-height: 20px;
+    $alpheios-panel-title-height: 100px;
 
     .alpheios-panel {
         width: 400px; // Initial width
