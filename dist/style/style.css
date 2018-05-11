@@ -7877,6 +7877,10 @@
   .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-left::after {
     border-color: transparent transparent transparent #f2f2f2; }
 
+.alpheios-panel.alpheios-color_schema_light_class {
+  background: #282828;
+  color: #f2f2f2; }
+
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
@@ -7924,6 +7928,10 @@
     border-color: transparent transparent #0e2233 transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-left::after {
     border-color: transparent transparent transparent #0e2233; }
+
+.alpheios-panel.alpheios-color_schema_light_class {
+  background: #fff;
+  color: #0e2233; }
 
 .alpheios-color_schema_light_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_light_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
