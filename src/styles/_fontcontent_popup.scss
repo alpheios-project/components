@@ -67,6 +67,17 @@
         }
     }
 
+    .morph-inner-v1,
+    .morph-inner-v2 {
+        .alpheios-morph__morphdata,
+        p.feature_source,
+        p.feature_extras,
+        .alpheios-morph__definition_list,
+        .alpheios-morph__translation_list,
+        .alpheios-morph__inflections {
+          margin-left: $baseFontSize * 1.4 + 14px;
+        }
+    }
     .morph-inner-v1 .alpheios-morph__dictentry {
         .principal_parts {
             font-size:$baseFontSize * 1.2;

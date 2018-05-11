@@ -7480,6 +7480,19 @@
     height: 22.4px;
     border-radius: 22.4px;
     font-size: 16px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__inflections,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v2 .alpheios-morph__inflections {
+    margin-left: 36.4px; }
   .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 19.2px; }
   .auk.alpheios-popup.alpheios-font_medium_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
@@ -7544,6 +7557,19 @@
     height: 16.8px;
     border-radius: 16.8px;
     font-size: 12px; }
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__inflections,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v2 .alpheios-morph__inflections {
+    margin-left: 30.8px; }
   .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 14.4px; }
   .auk.alpheios-popup.alpheios-font_small_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
@@ -7610,6 +7636,19 @@
     height: 28px;
     border-radius: 28px;
     font-size: 20px; }
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__inflections,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 .alpheios-morph__morphdata,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 p.feature_source,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 p.feature_extras,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 .alpheios-morph__definition_list,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 .alpheios-morph__translation_list,
+  .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v2 .alpheios-morph__inflections {
+    margin-left: 42px; }
   .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .principal_parts {
     font-size: 24px; }
   .auk.alpheios-popup.alpheios-font_large_class .morph-inner-v1 .alpheios-morph__dictentry .feature_extras,
