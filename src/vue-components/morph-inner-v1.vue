@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-morph__lexemes">
+  <div class="alpheios-morph__lexemes  morph-inner-v1">
     <div class="alpheios-morph__dictentry" v-for="(lex, index) in lexemes" v-show="showLexeme(lex)">
       <div class="alpheios-morph__features">
 
@@ -16,11 +16,11 @@
           </span>
           <inflectionattribute :data="lex.lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
 
-        <span 
-          class="feature_extras"
-          v-if="getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo')">
-          <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
-        </span>
+          <span 
+            class="feature_extras test"
+            v-if="getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo')">
+            <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
+          </span>
         </p><!-- principal_parts -->
 
 
