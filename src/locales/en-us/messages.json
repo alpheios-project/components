@@ -348,5 +348,10 @@
     "message": "Lookup",
     "description": "lookup button in lookup.vue",
     "component": "Popup"
-  }
+  },
+  "TOOLTIP_LOOKUP_BUTTON": {
+    "message": "Lookup word",
+    "description": "Tooltip for the lookup button in lookup.vue",
+    "component": "lookup"
+  }     
 }
