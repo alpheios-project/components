@@ -7844,109 +7844,125 @@
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-grammar__provider {
     font-size: 15px; }
 
-.alpheios-popup.alpheios-color_schema_dark_class {
+.alpheios-popup.alpheios-color_schema_dark_class,
+.alpheios-panel.alpheios-color_schema_dark_class {
   background: #282828;
   color: #f2f2f2; }
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-definition__text,
-  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__lexemes,
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-definition__text,
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
     color: #f2f2f2; }
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__linkedattr,
-  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__providers-link {
+  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__providers-link,
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-morph__linkedattr,
+  .alpheios-panel.alpheios-color_schema_dark_class .alpheios-popup__providers-link {
     color: #b1d1d7; }
-  .alpheios-popup.alpheios-color_schema_dark_class .uk-button-primary {
+  .alpheios-popup.alpheios-color_schema_dark_class .uk-button-primary,
+  .alpheios-panel.alpheios-color_schema_dark_class .uk-button-primary {
     background-color: #f2f2f2;
     color: #7E8897;
     font-weight: bold; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
-    background-color: #f2f2f2;
-    color: #282828; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
-    background-color: #f2f2f2;
-    color: #282828; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-top::after {
-    border-color: #f2f2f2 transparent transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-top-right::after {
-    border-color: #f2f2f2 transparent transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-right::after {
-    border-color: transparent #f2f2f2 transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-bottom::after {
-    border-color: transparent transparent #f2f2f2 transparent; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
-    border-color: transparent transparent #f2f2f2 transparent; }
-  .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip-left::after {
-    border-color: transparent transparent transparent #f2f2f2; }
 
-.alpheios-panel.alpheios-color_schema_dark_class {
-  background: #282828;
-  color: #f2f2f2; }
-
-.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
-.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
+.alpheios-color_schema_dark_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
   color: #f2f2f2; }
 
-.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font,
-.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
+.alpheios-color_schema_dark_class.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
   background: #7E8897;
   color: #f2f2f2; }
 
-.alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font,
-.alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
+.alpheios-color_schema_dark_class.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
   background: #7E8897;
   color: #f2f2f2; }
 
-.alpheios-popup.alpheios-color_schema_light_class {
+.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
+  background-color: #f2f2f2;
+  color: #282828; }
+
+.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
+  background-color: #f2f2f2;
+  color: #282828; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-top::after {
+  border-color: #f2f2f2 transparent transparent transparent; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-top-right::after {
+  border-color: #f2f2f2 transparent transparent transparent; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-right::after {
+  border-color: transparent #f2f2f2 transparent transparent; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-bottom::after {
+  border-color: transparent transparent #f2f2f2 transparent; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
+  border-color: transparent transparent #f2f2f2 transparent; }
+
+.alpheios-color_schema_dark_class .alph_tooltip-left::after {
+  border-color: transparent transparent transparent #f2f2f2; }
+
+.alpheios-popup.alpheios-color_schema_light_class,
+.alpheios-panel.alpheios-color_schema_light_class {
   background: #fff;
   color: #0e2233; }
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__header-selection,
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-definition__text,
-  .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__lexemes {
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__lexemes,
+  .alpheios-panel.alpheios-color_schema_light_class .alpheios-popup__header-selection,
+  .alpheios-panel.alpheios-color_schema_light_class .alpheios-definition__text,
+  .alpheios-panel.alpheios-color_schema_light_class .alpheios-morph__lexemes {
     color: #0e2233; }
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__linkedattr,
-  .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__providers-link {
+  .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__providers-link,
+  .alpheios-panel.alpheios-color_schema_light_class .alpheios-morph__linkedattr,
+  .alpheios-panel.alpheios-color_schema_light_class .alpheios-popup__providers-link {
     color: #3e8d9c; }
-  .alpheios-popup.alpheios-color_schema_light_class .uk-button-primary {
+  .alpheios-popup.alpheios-color_schema_light_class .uk-button-primary,
+  .alpheios-panel.alpheios-color_schema_light_class .uk-button-primary {
     background-color: #4E6476;
     color: #fff;
     font-weight: bold; }
-  .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
-    background-color: #4E6476;
-    color: #fff; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
-    background-color: #0e2233;
-    color: #fff; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-top::after {
-    border-color: #0e2233 transparent transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
-    border-color: #0e2233 transparent transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-right::after {
-    border-color: transparent #0e2233 transparent transparent; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-bottom::after {
-    border-color: transparent transparent #0e2233 transparent; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
-    border-color: transparent transparent #0e2233 transparent; }
-  .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-left::after {
-    border-color: transparent transparent transparent #0e2233; }
 
-.alpheios-panel.alpheios-color_schema_light_class {
-  background: #fff;
-  color: #0e2233; }
+.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
+  background-color: #4E6476;
+  color: #fff; }
 
-.alpheios-color_schema_light_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
-.alpheios-color_schema_light_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
+.alpheios-color_schema_light_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
   color: #fff; }
 
-.alpheios-color_schema_light_class.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font,
-.alpheios-color_schema_light_class.alpheios-panel.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
+.alpheios-color_schema_light_class.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
   background: #7E8897;
   color: #fff; }
 
-.alpheios-color_schema_light_class.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font,
-.alpheios-color_schema_light_class.alpheios-panel.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
+.alpheios-color_schema_light_class.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
   background: #7E8897;
   color: #fff; }
+
+.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
+  background-color: #0e2233;
+  color: #fff; }
+
+.alpheios-color_schema_light_class .alph_tooltip-top::after {
+  border-color: #0e2233 transparent transparent transparent; }
+
+.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
+  border-color: #0e2233 transparent transparent transparent; }
+
+.alpheios-color_schema_light_class .alph_tooltip-right::after {
+  border-color: transparent #0e2233 transparent transparent; }
+
+.alpheios-color_schema_light_class .alph_tooltip-bottom::after {
+  border-color: transparent transparent #0e2233 transparent; }
+
+.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
+  border-color: transparent transparent #0e2233 transparent; }
+
+.alpheios-color_schema_light_class .alph_tooltip-left::after {
+  border-color: transparent transparent transparent #0e2233; }
 
 .alph_tooltip {
   position: relative;
