@@ -44,7 +44,7 @@
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
-        {{ data.currentLanguage === undefined }}
+        {{ data.currentLanguage }}
         <div v-show="data.currentLanguage === undefined"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
