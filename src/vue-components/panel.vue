@@ -83,6 +83,8 @@
               </alph-tooltip>
             </span>
         </div>
+        <div class="alpheios-panel__header" style="grid-area: b; display:none;">for reskin panel</div>
+        <div class="alpheios-panel__header" style="grid-area: c;"><lookup :uiController="uiController"></lookup></div>
 
         <div class="alpheios-panel__content">
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
@@ -163,6 +165,7 @@
   import Locales from '../locales/locales'
 
   import Tooltip from './tooltip.vue'
+  import Lookup from './lookup.vue'
 
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
@@ -196,7 +199,8 @@
       infoIcon: InfoIcon,
       grammarIcon: GrammarIcon,
       treebankIcon: TreebankIcon,
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      lookup: Lookup
     },
     data: function () {
       return {
