@@ -13,6 +13,7 @@ export default class TextSelector {
    */
   constructor (languageID = null) {
     this.text = '' // Calculated?
+    this.options = {}
     this.languageID = languageID
     this.model = undefined
     this.location = ''
@@ -57,11 +58,15 @@ export default class TextSelector {
     return textSelector
   }
 
-  static createObjectFromText (text, languageID) {
-    let textSelector = new TextSelector(languageID)
+  static createObjectFromText (text, options) {
+    let textSelector = new TextSelector()
     textSelector.text = text
 
-    textSelector.model = LanguageModelFactory.getLanguageModel(textSelector.languageID)
+    if (options) {
+      textSelector.languageCode = options.items.preferredLanguage.currentValue
+      textSelector.languageID = LanguageModelFactory.getLanguageIdFromCode(textSelector.languageCode)
+      textSelector.model = LanguageModelFactory.getLanguageModel(textSelector.languageID)
+    }
     return textSelector
   }
 
