@@ -221,6 +221,11 @@
     "description": "placeholder text for popup data",
     "component": "Popup"
   },
+  "PLACEHOLDER_NO_LANGUAGE_POPUP_DATA": {
+    "message": "Lexical data couldn't be populated because page language is not defined",
+    "description": "placeholder text for popup data when language is not defined",
+    "component": "Popup"
+  },
   "LABEL_POPUP_CREDITS": {
     "message": "Credits:",
     "description": "label for credits on popup",
@@ -348,5 +353,10 @@
     "message": "Lookup",
     "description": "lookup button in lookup.vue",
     "component": "Popup"
-  }
+  },
+  "TOOLTIP_LOOKUP_BUTTON": {
+    "message": "Lookup word",
+    "description": "Tooltip for the lookup button in lookup.vue",
+    "component": "lookup"
+  }     
 }

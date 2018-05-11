@@ -26,12 +26,14 @@ export default class HTMLSelector extends MediaSelector {
   }
 
   createTextSelector () {
-    let textSelector = new TextSelector(LanguageModelFactory.getLanguageIdFromCode(this.getLanguageCode(this.defaultLanguageCode)))
+    let textSelector = new TextSelector()
+    textSelector.languageCode = this.getLanguageCode(this.defaultLanguageCode)
+    textSelector.languageID = LanguageModelFactory.getLanguageIdFromCode(textSelector.languageCode)
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
-
+    console.log('***** text seletor createTextSelector ', textSelector)
     if (this.wordSeparator.has(textSelector.model.baseUnit)) {
       textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
     } else {

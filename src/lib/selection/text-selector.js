@@ -1,19 +1,19 @@
 import TextQuoteSelector from './w3c/text-quote-selector'
+
 import {LanguageModelFactory} from 'alpheios-data-models'
 /**
  * This is a general-purpose, media abstract selector that
  * @property {string} selectedText - Selected text (usually a single word)
- * @property {string} normalizedSelectedText - Selected text after normalization
- * @property {string} languageID - A language ID of a selection
+ * @property {string] normalizedSelectedText - Selected text after normalization
+ * @property {string} languageCode - A language code of a selection
  * @property {LanguageModel} language - A language model object
  */
 export default class TextSelector {
-  /**
-   * @param {symbol} languageID - A language ID of a selector
-   */
-  constructor (languageID = null) {
+  constructor () {
     this.text = '' // Calculated?
-    this.languageID = languageID
+    this.options = {}
+    this.languageCode = ''
+    this.languageID = undefined
     this.model = undefined
     this.location = ''
     this.data = {}
@@ -51,23 +51,23 @@ export default class TextSelector {
   // languageCodes
 
   static readObject (jsonObject) {
-    let textSelector = new TextSelector(LanguageModelFactory.getLanguageIdFromCode(jsonObject.languageCode))
+    let textSelector = new TextSelector()
     textSelector.text = jsonObject.text
+    textSelector.languageCode = jsonObject.languageCode
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
     return textSelector
   }
 
-  static createObjectFromText (text, languageID) {
-    let textSelector = new TextSelector(languageID)
+  static createObjectFromText (text, options) {
+    let textSelector = new TextSelector()
     textSelector.text = text
 
-    textSelector.model = LanguageModelFactory.getLanguageModel(textSelector.languageID)
+    if (options) {
+      textSelector.languageCode = options.items.preferredLanguage.currentValue
+      textSelector.languageID = LanguageModelFactory.getLanguageIdFromCode(textSelector.languageCode)
+      textSelector.model = LanguageModelFactory.getLanguageModel(textSelector.languageID)
+    }
     return textSelector
-  }
-
-  get languageCode () {
-    console.warn(`Deprecated. Please use "languageID" instead of "languageCode"`)
-    return (this.languageID) ? LanguageModelFactory.getLanguageCodeFromId(this.languageID) : ''
   }
 
   isEmpty () {

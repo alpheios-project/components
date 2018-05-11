@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="irina-test alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -40,9 +40,14 @@
                 </alph-tooltip>
             </div>
         </div>
-        <div v-show="!morphDataReady"
+        <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
+        </div>
+       
+        <div v-show="noLanguage"
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+            {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
@@ -174,6 +179,9 @@
       },
       morphDataReady: function () {
         return this.data.morphDataReady
+      },
+      noLanguage: function () {
+        return this.data.currentLanguage === "undefined"
       },
       notificationClasses: function () {
         return {
