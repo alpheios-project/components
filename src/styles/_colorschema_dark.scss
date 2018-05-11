@@ -23,8 +23,12 @@
 	h3 {
 		color: $alpheios-color_schema_dark_color;
 	}
-	.infl-cell {
-		border-color: $alpheios-color_schema_dark_color;
+	.infl-cell,
+	.infl-table {
+		border-color: $alpheios-color_schema_dark_table_border;
+	}
+	.infl-suff--suffix-match {
+	    color: alpheios-toolbar-active-color;
 	}
 }
 

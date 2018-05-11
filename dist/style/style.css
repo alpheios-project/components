@@ -7875,8 +7875,13 @@
   .alpheios-panel.alpheios-color_schema_dark_class h3 {
     color: #f2f2f2; }
   .alpheios-popup.alpheios-color_schema_dark_class .infl-cell,
-  .alpheios-panel.alpheios-color_schema_dark_class .infl-cell {
+  .alpheios-popup.alpheios-color_schema_dark_class .infl-table,
+  .alpheios-panel.alpheios-color_schema_dark_class .infl-cell,
+  .alpheios-panel.alpheios-color_schema_dark_class .infl-table {
     border-color: #f2f2f2; }
+  .alpheios-popup.alpheios-color_schema_dark_class .infl-suff--suffix-match,
+  .alpheios-panel.alpheios-color_schema_dark_class .infl-suff--suffix-match {
+    color: alpheios-toolbar-active-color; }
 
 .alpheios-color_schema_dark_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
@@ -7944,7 +7949,9 @@
   .alpheios-panel.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p {
     color: #0e2233; }
   .alpheios-popup.alpheios-color_schema_light_class .infl-cell,
-  .alpheios-panel.alpheios-color_schema_light_class .infl-cell {
+  .alpheios-popup.alpheios-color_schema_light_class .infl-table,
+  .alpheios-panel.alpheios-color_schema_light_class .infl-cell,
+  .alpheios-panel.alpheios-color_schema_light_class .infl-table {
     border-color: #0e2233; }
 
 .alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
