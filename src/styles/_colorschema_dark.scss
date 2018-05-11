@@ -30,6 +30,9 @@
 	.infl-suff--suffix-match {
 	    color: alpheios-toolbar-active-color;
 	}
+    .infl-cell--hl {
+        background: $alpheios-color_schema_dark_background_hover;
+    }
 }
 
 .alpheios-color_schema_dark_class {

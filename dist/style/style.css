@@ -7882,6 +7882,9 @@
   .alpheios-popup.alpheios-color_schema_dark_class .infl-suff--suffix-match,
   .alpheios-panel.alpheios-color_schema_dark_class .infl-suff--suffix-match {
     color: alpheios-toolbar-active-color; }
+  .alpheios-popup.alpheios-color_schema_dark_class .infl-cell--hl,
+  .alpheios-panel.alpheios-color_schema_dark_class .infl-cell--hl {
+    background: #3d3d3d; }
 
 .alpheios-color_schema_dark_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
@@ -7953,6 +7956,12 @@
   .alpheios-panel.alpheios-color_schema_light_class .infl-cell,
   .alpheios-panel.alpheios-color_schema_light_class .infl-table {
     border-color: #0e2233; }
+  .alpheios-popup.alpheios-color_schema_light_class .infl-suff--suffix-match,
+  .alpheios-panel.alpheios-color_schema_light_class .infl-suff--suffix-match {
+    color: #0e2233; }
+  .alpheios-popup.alpheios-color_schema_light_class .infl-cell--hl,
+  .alpheios-panel.alpheios-color_schema_light_class .infl-cell--hl {
+    background: #d3d3d3; }
 
 .alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
   background-color: #4E6476;

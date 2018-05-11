@@ -25,6 +25,12 @@
 	.infl-table {
 		border-color: $alpheios-color_schema_light_color;
 	}
+	.infl-suff--suffix-match {
+	    color: $alpheios-color_schema_light_color;
+	}
+    .infl-cell--hl {
+        background: $alpheios-color_schema_light_background_hover;
+    }
 }
 
 
