@@ -83,8 +83,8 @@
               </alph-tooltip>
             </span>
         </div>
-        <div class="alpheios-panel__header" style="grid-area: b;"><reskin-font-color></reskin-font-color></div>
-        <div class="alpheios-panel__header" style="grid-area: b;"><lookup :uiController="uiController"></lookup></div>
+        <div class="alpheios-panel__header" style="grid-area: "title";"><reskin-font-color></reskin-font-color></div>
+        <div class="alpheios-panel__header" style="grid-area: "lookup";"><lookup :uiController="uiController"></lookup></div>
         <div class="alpheios-panel__content">
             
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
@@ -407,7 +407,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
     $alpheios-panel-header-height: 40px;
-    $alpheios-panel-title-height: 100px;
+    $alpheios-panel-title-height: 50px;
 
     .alpheios-panel {
         width: 400px; // Initial width
@@ -421,10 +421,11 @@
         direction: ltr;
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} auto 60px;
+        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} $alpheios-panel-title-height auto 60px;
         grid-template-areas:
             "header"
             "title"
+            "lookup"
             "content"
             "content"
     }
@@ -433,6 +434,7 @@
         grid-template-areas:
                 "header"
                 "title"
+                "lookup"
                 "content"
                 "notifications"
     }
@@ -449,6 +451,7 @@
         grid-template-areas:
                 "header"
                 "title"
+                "lookup"
                 "content"
                 "content"
 
@@ -458,6 +461,7 @@
         grid-template-areas:
                 "header"
                 "title"
+                "lookup"
                 "content"
                 "notifications"
 
