@@ -7656,10 +7656,12 @@ div.alpheios-morph__block {
 
 
 
+.alpheios-panel .alpheios-lookup_form {
+  width: 100%;
+}
 .alpheios-lookup_form {
   margin: 15px 10px 5px;
   text-align: center;
-  width: 100%;
 }
 .alpheios-lookup_form .uk-input {
     width: 70%;
