@@ -217,6 +217,9 @@
     },
 
     computed: {
+      uiController: function () {
+        return this.$parent.uiController
+      },
       classes: function () {
         // Find index of an existing position class and replace it with an updated value
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
