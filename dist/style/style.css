@@ -1,4 +1,7 @@
 @charset "UTF-8";
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .auk {
   /* ========================================================================
    Component: Base
@@ -8112,14 +8115,21 @@
   border-style: solid;
   border-color: transparent transparent transparent #555; }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-definition__text {
   color: #0E2233;
   font-weight: bold;
 }
 
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-lemma__translations {
   padding: 5px 0 0 22px;
   font-style: italic;
@@ -8127,7 +8137,9 @@
   font-weight: bold;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-morph__lexemes {
   color: #0E2233;
 }
@@ -8223,14 +8235,21 @@ div.alpheios-morph__block {
   content: ':';
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-morph__lexemes {
   color: #0E2233;
 }
 
 
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-lookup_form {
   margin: 15px 10px 5px;
   text-align: center;
@@ -8248,7 +8267,9 @@ div.alpheios-morph__block {
     vertical-align: top;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-skin_panel {
   display: inline-block;
 }
@@ -8305,7 +8326,9 @@ div.alpheios-morph__block {
   background: #7E8897;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-popup {
   display: flex;
   flex-direction: column;
@@ -8496,7 +8519,9 @@ img.alpheios-popup__logo {
   font-weight: 700;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 h3.alpheios-inflections__title {
   font-size: 1.2rem;
   line-height: 1;
@@ -8728,7 +8753,9 @@ h3.alpheios-inflections__title {
   stroke: #5BC8DC;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-grammar {
   display: flex;
   flex-direction: column;
@@ -8745,7 +8772,9 @@ h3.alpheios-inflections__title {
   flex: 1 1 100vh;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-treebank {
   display: flex;
   flex-direction: column;
@@ -8754,7 +8783,9 @@ h3.alpheios-inflections__title {
   flex: 1 1 100vh;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-info {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
   font-size: 16px !important;
@@ -8777,7 +8808,9 @@ h3.alpheios-inflections__title {
   margin-top: 1em;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-panel {
   width: 400px;
   height: 100vh;
