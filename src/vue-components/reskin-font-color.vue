@@ -46,7 +46,7 @@
 
     	li {
     		display: inline-block;
-            vertical-align: bottom;
+            vertical-align: middle;
     		font-size: $alpheios-base-font-size;
 
     		width: $baseSize;
@@ -80,8 +80,8 @@
                 border-radius: 0;
                 background: transparent;
                 svg {
-                    width: 100%;
-                    height: 100%;
+                    width: 90%;
+                    height: 90%;
                 }
             }
     	}

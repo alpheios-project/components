@@ -7846,7 +7846,7 @@
 
 .alpheios-popup.alpheios-color_schema_dark_class {
   background: #282828;
-  color: #fff; }
+  color: #f2f2f2; }
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-definition__text,
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
@@ -7855,14 +7855,14 @@
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-popup__providers-link {
     color: #b1d1d7; }
   .alpheios-popup.alpheios-color_schema_dark_class .uk-button-primary {
-    background-color: #fff;
-    color: #4e6476; }
+    background-color: #f2f2f2;
+    color: #282828; }
   .alpheios-popup.alpheios-color_schema_dark_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
-    background-color: #fff;
-    color: #4e6476; }
+    background-color: #f2f2f2;
+    color: #282828; }
   .alpheios-popup.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
-    background-color: #fff;
-    color: #27323b; }
+    background-color: #f2f2f2;
+    color: #282828; }
 
 .alpheios-popup.alpheios-color_schema_light_class {
   background: #fff;
@@ -7887,17 +7887,17 @@
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
-  color: #fff; }
+  color: #f2f2f2; }
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-small_font {
   background: #7E8897;
-  color: #fff; }
+  color: #f2f2f2; }
 
 .alpheios-color_schema_dark_class.alpheios-popup.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font,
 .alpheios-color_schema_dark_class.alpheios-panel.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-large_font {
   background: #7E8897;
-  color: #fff; }
+  color: #f2f2f2; }
 
 .alph_tooltip {
   position: relative;
@@ -8157,7 +8157,7 @@ div.alpheios-morph__block {
 }
 .alpheios-skin_panel ul.alpheios-skin_properties li {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: middle;
     font-size: 16px;
     width: 28px;
     height: 28px;
@@ -8187,8 +8187,8 @@ div.alpheios-morph__block {
       background: transparent;
 }
 .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-light_color_schema svg, .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-dark_color_schema svg {
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
 }
 .alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
 .alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
