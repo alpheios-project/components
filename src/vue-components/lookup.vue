@@ -91,7 +91,7 @@
 
     .alpheios-panel .alpheios-lookup_form {
       width: 100%;
-
+      margin-top: 5px;
       .uk-input {
         width: 70%;
       }

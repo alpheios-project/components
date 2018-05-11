@@ -7706,6 +7706,10 @@
     .auk.alpheios-panel.alpheios-font_medium_class .alpheios-lookup_form .uk-input {
       font-size: 14px;
       height: 30px; }
+    .auk.alpheios-panel.alpheios-font_medium_class .alpheios-lookup_form .uk-button {
+      font-size: 10.8px;
+      padding: 0 13.6px;
+      line-height: 28px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px;
@@ -7779,6 +7783,10 @@
     .auk.alpheios-panel.alpheios-font_small_class .alpheios-lookup_form .uk-input {
       font-size: 10.5px;
       height: 23px; }
+    .auk.alpheios-panel.alpheios-font_small_class .alpheios-lookup_form .uk-button {
+      font-size: 8.1px;
+      padding: 0 10.2px;
+      line-height: 21px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px;
@@ -7852,6 +7860,10 @@
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-lookup_form .uk-input {
       font-size: 17.5px;
       height: 37px; }
+    .auk.alpheios-panel.alpheios-font_large_class .alpheios-lookup_form .uk-button {
+      font-size: 13.5px;
+      padding: 0 17px;
+      line-height: 35px; }
 
 .alpheios-popup.alpheios-color_schema_dark_class,
 .alpheios-panel.alpheios-color_schema_dark_class {
@@ -8277,6 +8289,7 @@ div.alpheios-morph__block {
 }
 .alpheios-panel .alpheios-lookup_form {
   width: 100%;
+  margin-top: 5px;
 }
 .alpheios-panel .alpheios-lookup_form .uk-input {
     width: 70%;
