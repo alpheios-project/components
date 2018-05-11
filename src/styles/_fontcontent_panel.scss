@@ -4,15 +4,12 @@
     .alpheios-panel__header {
     	.alpheios-panel__header-logo-img {
     		height: $baseFontSize * 1.25;
-    		margin: 10px 0;
     	}
 
 		.alpheios-panel__header-nav-btn,
 		.alpheios-panel__header-action-btn {
 		    width: $baseFontSize * 1.25;
 		    height: $baseFontSize * 1.25;
-		    margin: 10px;
-		    padding-top: 0;
 		}
     }
 
@@ -124,13 +121,13 @@
 .auk.alpheios-panel.alpheios-font_medium_class {
     @include panel-font-class($alpheios-base-font-size);
 
-   	grid-template-rows: 40px 40px auto 60px;
+   	/* grid-template-rows: 40px 40px auto 60px;*/
 }
 .auk.alpheios-panel.alpheios-font_small_class {
     @include panel-font-class($alpheios-small-font-size);
-   	grid-template-rows: 35px 35px auto 60px;
+   	/* grid-template-rows: 35px 35px auto 60px;*/
 }
 .auk.alpheios-panel.alpheios-font_large_class {
     @include panel-font-class($alpheios-large-font-size);
-   	grid-template-rows: 45px 45px auto 60px;
+   	/* grid-template-rows: 45px 45px auto 60px;*/
 }

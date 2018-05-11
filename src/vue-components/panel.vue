@@ -503,18 +503,18 @@
 
     .#{$alpheios-uikit-namespace} .alpheios-panel__header-logo-img {
         width: auto;
-        height: 30px;
-        padding-top: 5px;
+        height: $alpheios-base-font-size * 1.25;
+        margin: 10px 0;
     }
 
     .alpheios-panel__header-action-btn,
     .alpheios-panel__header-action-btn.active:hover,
     .alpheios-panel__header-action-btn.active:focus {
         display: block;
-        width: 40px;
-        height: 40px;
-        margin: 0 5px;
-        padding-top: 5px;
+        width: $alpheios-base-font-size * 1.25;
+        height: $alpheios-base-font-size * 1.25;
+        margin: 10px;
+        padding-top: 0;
         text-align: center;
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;

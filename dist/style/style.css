@@ -7641,16 +7641,13 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 40px 40px auto 60px; }
+  /* grid-template-rows: 40px 40px auto 60px;*/ }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 20px;
-    margin: 10px 0; }
+    height: 20px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 20px;
-    height: 20px;
-    margin: 10px;
-    padding-top: 0; }
+    height: 20px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__tab-panel {
     padding: 20px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li {
@@ -7712,16 +7709,13 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 35px 35px auto 60px; }
+  /* grid-template-rows: 35px 35px auto 60px;*/ }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 15px;
-    margin: 10px 0; }
+    height: 15px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 15px;
-    height: 15px;
-    margin: 10px;
-    padding-top: 0; }
+    height: 15px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__tab-panel {
     padding: 15px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-skin_panel ul.alpheios-skin_properties li {
@@ -7783,16 +7777,13 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 45px 45px auto 60px; }
+  /* grid-template-rows: 45px 45px auto 60px;*/ }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-logo-img {
-    height: 25px;
-    margin: 10px 0; }
+    height: 25px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-action-btn {
     width: 25px;
-    height: 25px;
-    margin: 10px;
-    padding-top: 0; }
+    height: 25px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__tab-panel {
     padding: 25px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-skin_panel ul.alpheios-skin_properties li {
@@ -8885,17 +8876,17 @@ h3.alpheios-inflections__title {
 }
 .auk .alpheios-panel__header-logo-img {
   width: auto;
-  height: 30px;
-  padding-top: 5px;
+  height: 20px;
+  margin: 10px 0;
 }
 .alpheios-panel__header-action-btn,
 .alpheios-panel__header-action-btn.active:hover,
 .alpheios-panel__header-action-btn.active:focus {
   display: block;
-  width: 40px;
-  height: 40px;
-  margin: 0 5px;
-  padding-top: 5px;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  padding-top: 0;
   text-align: center;
   cursor: pointer;
   fill: #D1D1D0;
