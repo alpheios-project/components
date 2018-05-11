@@ -40,12 +40,12 @@
                 </alph-tooltip>
             </div>
         </div>
-        <div v-show="!morphDataReady && data.currentLanguage !== undefined"
+        <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
-        {{ data.currentLanguage }}
-        <div v-show="data.currentLanguage === undefined"
+       
+        <div v-show="noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
@@ -179,6 +179,9 @@
       },
       morphDataReady: function () {
         return this.data.morphDataReady
+      },
+      noLanguage: function () {
+        return this.data.currentLanguage === undefined
       },
       notificationClasses: function () {
         return {
