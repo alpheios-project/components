@@ -532,9 +532,9 @@
         stroke: $alpheios-link-hover-color;
     }
 
-    .alpheios-panel__header-action-btn.alpheios-panel__header-action-btn--narrow {
+/*    .alpheios-panel__header-action-btn.alpheios-panel__header-action-btn--narrow {
         margin: 0;
-    }
+    }*/
 
     .alpheios-panel__body {
         display: flex;
