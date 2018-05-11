@@ -7865,6 +7865,9 @@
     background-color: #f2f2f2;
     color: #7E8897;
     font-weight: bold; }
+  .alpheios-popup.alpheios-color_schema_dark_class .uk-form-label,
+  .alpheios-panel.alpheios-color_schema_dark_class .uk-form-label {
+    color: #f2f2f2; }
 
 .alpheios-color_schema_dark_class.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
   background: #7E8897;
@@ -7923,8 +7926,10 @@
   .alpheios-popup.alpheios-color_schema_light_class .uk-button-primary,
   .alpheios-panel.alpheios-color_schema_light_class .uk-button-primary {
     background-color: #4E6476;
-    color: #fff;
-    font-weight: bold; }
+    color: #fff; }
+  .alpheios-popup.alpheios-color_schema_light_class .uk-form-label,
+  .alpheios-panel.alpheios-color_schema_light_class .uk-form-label {
+    color: #0e2233; }
 
 .alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
   background-color: #4E6476;

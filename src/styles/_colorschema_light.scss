@@ -15,7 +15,9 @@
 	.uk-button-primary {
 		background-color: $alpheios-toolbar-color;
 		color: $alpheios-color_schema_light_background;
-		font-weight: bold;
+	}
+	.uk-form-label {
+		color: $alpheios-color_schema_light_color;
 	}
 }
 
