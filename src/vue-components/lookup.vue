@@ -69,9 +69,10 @@
     .alpheios-lookup_form {
       margin: 15px 10px 5px;
       text-align: center;
+      width: 100%;
 
       .uk-input {
-        width: 80%;
+        width: 70%;
         line-height: 28px;
         height: 30px;
         font-size: 14px;
