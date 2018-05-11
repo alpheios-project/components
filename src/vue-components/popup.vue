@@ -181,7 +181,7 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        return this.data.currentLanguage === undefined
+        return this.data.currentLanguage === "undefined"
       },
       notificationClasses: function () {
         return {
