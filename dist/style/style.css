@@ -7894,11 +7894,11 @@
 
 .alpheios-popup.alpheios-color_schema_light_class {
   background: #fff;
-  color: #666; }
+  color: #0e2233; }
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__header-selection,
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-definition__text,
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__lexemes {
-    color: #666; }
+    color: #0e2233; }
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-morph__linkedattr,
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-popup__providers-link {
     color: #3e8d9c; }
@@ -7907,23 +7907,23 @@
     color: #fff;
     font-weight: bold; }
   .alpheios-popup.alpheios-color_schema_light_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font {
-    background-color: #666;
+    background-color: #0e2233;
     color: #fff; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
-    background-color: #666;
+    background-color: #0e2233;
     color: #fff; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-top::after {
-    border-color: #666 transparent transparent transparent; }
+    border-color: #0e2233 transparent transparent transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
-    border-color: #666 transparent transparent transparent; }
+    border-color: #0e2233 transparent transparent transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-right::after {
-    border-color: transparent #666 transparent transparent; }
+    border-color: transparent #0e2233 transparent transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-bottom::after {
-    border-color: transparent transparent #666 transparent; }
+    border-color: transparent transparent #0e2233 transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
-    border-color: transparent transparent #666 transparent; }
+    border-color: transparent transparent #0e2233 transparent; }
   .alpheios-popup.alpheios-color_schema_light_class .alph_tooltip-left::after {
-    border-color: transparent transparent transparent #666; }
+    border-color: transparent transparent transparent #0e2233; }
 
 .alpheios-color_schema_light_class.alpheios-popup.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font,
 .alpheios-color_schema_light_class.alpheios-panel.alpheios-font_medium_class .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-font.alpheios-medium_font {
