@@ -1,24 +1,29 @@
 <template>
-  <div class="alpheios-morph__lexemes morph-inner-v1">
+  <div class="alpheios-morph__lexemes">
     <div class="alpheios-morph__dictentry" v-for="(lex, index) in lexemes" v-show="showLexeme(lex)">
       <div class="alpheios-morph__features">
 
         <p class="principal_parts">
           <span class="lemma_index" v-if="lexemes.length > 1">{{ index + 1 }}</span>
+
           <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
             v-if="! lex.lemma.principalParts.includes(lex.lemma.word)"
             :lang="languageCode(lex.lemma.languageID)">{{ lex.lemma.word }}</span>
+            
           <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem">
             <span class="alpheios-morph__listitem"
               v-for="part in lex.lemma.principalParts" :lang="languageCode(lex.lemma.languageID)">{{ part }}</span>
           </span>
           <inflectionattribute :data="lex.lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
-        </p>
-        <p 
+
+        <span 
           class="feature_extras"
           v-if="getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo')">
           <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
-        </p>
+        </span>
+        </p><!-- principal_parts -->
+
+
         <div class="alpheios-morph__morphdata">
           <span class="alpheios-morph__pofs">
             <inflectionattribute :data="lex.lemma.features" :type="types.grmCase" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
@@ -226,8 +231,8 @@
 
   .alpheios-morph__linkedattr {
     color: $alpheios-link-color;
-  	font-weight: bold;
-  	cursor: pointer;
+    font-weight: bold;
+    cursor: pointer;
     padding-right: .25em;
   }
 
@@ -321,7 +326,7 @@
       height: $lemma_index_size;
       border-radius: $lemma_index_size;
       text-align: center;
-      line-height: 1.4;
+      line-height: $lemma_index_size;
       font-weight: bold;
       margin-right: 10px;     
     }
