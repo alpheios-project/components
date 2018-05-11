@@ -844,7 +844,7 @@ export default class UIController {
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
 
-    this.popupData.currentLanguage = this.state.currentLanguage
+    this.popup.popupData.currentLanguage = this.state.currentLanguage
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
