@@ -78,7 +78,11 @@
         font-size: 14px;
         margin-bottom: 10px;
         vertical-align: top;
-    }
+
+        &:focus {
+          border-color: $alpheios-highlight-color;
+        }
+      }
 
     .uk-button {
       font-size: 12px;

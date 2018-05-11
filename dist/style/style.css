@@ -7668,6 +7668,9 @@ div.alpheios-morph__block {
     margin-bottom: 10px;
     vertical-align: top;
 }
+.alpheios-lookup_form .uk-input:focus {
+      border-color: #F6D918;
+}
 .alpheios-lookup_form .uk-button {
     font-size: 12px;
     vertical-align: top;
