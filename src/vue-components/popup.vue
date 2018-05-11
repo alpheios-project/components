@@ -40,7 +40,7 @@
                 </alph-tooltip>
             </div>
         </div>
-        <div v-show="!morphDataReady"
+        <div v-show="!morphDataReady && data.currentLanguage !== undefined"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
