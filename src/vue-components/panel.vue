@@ -404,7 +404,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
     $alpheios-panel-header-height: 40px;
-    $alpheios-panel-title-height: 100px;
+    $alpheios-panel-title-height: 60px;
 
     .alpheios-panel {
         width: 400px; // Initial width

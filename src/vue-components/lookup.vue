@@ -65,16 +65,12 @@
 </script>
 <style lang="scss">
     @import "../styles/alpheios";
-    .alpheios-panel .alpheios-lookup_form {
-      width: 100%;
-    }
-    
     .alpheios-lookup_form {
       margin: 15px 10px 5px;
       text-align: center;
 
       .uk-input {
-        width: 70%;
+        width: 80%;
         line-height: 28px;
         height: 30px;
         font-size: 14px;
@@ -89,6 +85,14 @@
     .uk-button {
       font-size: 12px;
         vertical-align: top;
+      }
+    }
+
+    .alpheios-panel .alpheios-lookup_form {
+      width: 100%;
+
+      .uk-input {
+        width: 70%;
       }
     }
 </style>

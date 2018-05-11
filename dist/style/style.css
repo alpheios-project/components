@@ -7656,15 +7656,12 @@ div.alpheios-morph__block {
 
 
 
-.alpheios-panel .alpheios-lookup_form {
-  width: 100%;
-}
 .alpheios-lookup_form {
   margin: 15px 10px 5px;
   text-align: center;
 }
 .alpheios-lookup_form .uk-input {
-    width: 70%;
+    width: 80%;
     line-height: 28px;
     height: 30px;
     font-size: 14px;
@@ -7677,6 +7674,12 @@ div.alpheios-morph__block {
 .alpheios-lookup_form .uk-button {
     font-size: 12px;
     vertical-align: top;
+}
+.alpheios-panel .alpheios-lookup_form {
+  width: 100%;
+}
+.alpheios-panel .alpheios-lookup_form .uk-input {
+    width: 70%;
 }
 
 
@@ -8163,7 +8166,7 @@ h3.alpheios-inflections__title {
   direction: ltr;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 40px 100px auto 60px;
+  grid-template-rows: 40px 60px auto 60px;
   grid-template-areas: "header" "title" "content" "content";
 }
 .alpheios-panel[data-notification-visible="true"] {
