@@ -16,7 +16,9 @@
 		background-color: $alpheios-toolbar-color;
 		color: $alpheios-color_schema_light_background;
 	}
-	.uk-form-label {
+	.uk-form-label,
+	.alpheios-info, 
+	.alpheios-info .alpheios-info__helptext p {
 		color: $alpheios-color_schema_light_color;
 	}
 }
