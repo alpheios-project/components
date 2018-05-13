@@ -25,7 +25,8 @@
     data () {
       return {
         lookuptext: '',
-        defaultButtonLabel: 'Search'
+        defaultButtonLabel: 'Search',
+        defaultInputPlaceholder: 'Type text'
       }
     },
     props: {
@@ -46,6 +47,12 @@
           return this.uiController.l10n.messages.TOOLTIP_LOOKUP_BUTTON
         }
         return this.defaultButtonLabel
+      },
+      inputPlaceholder: function () {
+        if (this.uiController && this.uiController.l10n) {
+          return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
+        }
+        return this.defaultInputPlaceholder
       }
     },
     methods: {

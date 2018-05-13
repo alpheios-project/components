@@ -358,5 +358,9 @@
     "message": "Lookup word",
     "description": "Tooltip for the lookup button in lookup.vue",
     "component": "lookup"
-  }
+  },
+  "PLACEHOLDER_LOOKUP_INPUT": {
+    "message": "Type the text",
+    "description": "Placeholder for the lookup input in lookup.vue",
+    "component": "lookup"
 }
