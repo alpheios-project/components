@@ -478,11 +478,11 @@
         border-bottom: 1px solid $alpheios-link-color-dark-bg;
     }
 
-    .alpheios-panel__header .reskin_panel {
-      grid-area: "title";
+    .alpheios-panel__header.reskin_panel {
+      grid-area: title;
     }
-    .alpheios-panel__header .lookup_panel {
-      grid-area: "lookup";
+    .alpheios-panel__header.lookup_panel {
+      grid-area: lookup;
     }
     .alpheios-panel-left .alpheios-panel__header {
         direction: ltr;
