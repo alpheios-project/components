@@ -8907,6 +8907,12 @@ h3.alpheios-inflections__title {
   justify-content: space-between;
   border-bottom: 1px solid #D1D1D0;
 }
+.alpheios-panel__header.reskin_panel {
+  grid-area: b;
+}
+.alpheios-panel__header.lookup_panel {
+  grid-area: c;
+}
 .alpheios-panel-left .alpheios-panel__header {
   direction: ltr;
   padding: 0 0 0 10px;
