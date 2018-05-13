@@ -363,4 +363,5 @@
     "message": "Type the text",
     "description": "Placeholder for the lookup input in lookup.vue",
     "component": "lookup"
+  }
 }
