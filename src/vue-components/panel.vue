@@ -479,10 +479,10 @@
     }
 
     .alpheios-panel__header.reskin_panel {
-      grid-area: b;
+      grid-area: "title";
     }
     .alpheios-panel__header.lookup_panel {
-      grid-area: c;
+      grid-area: "lookup";
     }
     .alpheios-panel-left .alpheios-panel__header {
         direction: ltr;
