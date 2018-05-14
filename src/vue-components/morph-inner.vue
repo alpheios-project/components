@@ -80,9 +80,10 @@
                         v-if="! group.groupingKey.isCaseInflectionSet"/>
                       <span v-for="item in infl.inflections">
                         <inflectionattribute :data="item" type="example" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
-                      </span>-->
+                      </span>
+                  </div>
                   <!--end infl --> 
-                </div><!-- end forms -->
+                </div><!-- v-for group.inflections-->
             </div><!-- end groupinflections -->
           </div>
         </div>
