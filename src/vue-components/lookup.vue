@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-lookup_form">
-    <input class="uk-input lookup_input" type="text" placeholder="Type text" v-model="lookuptext"
+    <input class="uk-input lookup_input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
       @keyup.enter="lookup"
     >
     <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
