@@ -62,8 +62,6 @@
         if (this.lookuptext.length === 0) {
           return null
         }
-        // console.log('************* lookup 1', this.uiController.options)
-        // console.log('************* lookup 1', this.uiController)
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.uiController.options.items.preferredLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
