@@ -54,7 +54,8 @@
               </span>
               <div v-for="nextGroup in group.inflections"
                 :class="groupClass(group)">
-                <span v-if="group.groupingKey.isCaseInflectionSet">
+                {{ nextGroup }}
+<!--                 <span v-if="group.groupingKey.isCaseInflectionSet">
                   <inflectionattribute :data="nextGroup.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                   <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                 </span>
@@ -79,7 +80,7 @@
                     <span v-for="item in infl.inflections">
                       <inflectionattribute :data="item" type="example" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
                     </span>
-                </div><!-- end infl -->
+                </div>end infl --> 
               </div><!-- end forms -->
             </div><!-- end groupinflections -->
           </div>
