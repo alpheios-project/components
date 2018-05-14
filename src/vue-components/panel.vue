@@ -83,7 +83,7 @@
               </alph-tooltip>
             </span>
         </div>
-        <!-- <div class="alpheios-panel__header">for reskin panel</div> -->
+        <div class="alpheios-panel__header">for reskin panel</div>
         <div class="alpheios-panel__header"><lookup :uiController="uiController"></lookup></div>
 
         <div class="alpheios-panel__content">
@@ -472,6 +472,7 @@
     }
     .alpheios-panel__header.reskin_panel {
       grid-area: title;
+      display: none;
     }
     .alpheios-panel__header.lookup_panel {
       grid-area: lookup;
