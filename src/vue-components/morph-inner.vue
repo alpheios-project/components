@@ -61,7 +61,9 @@
                     <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                   </span>
                   {{ group.groupingKey }}
-                  <!-- <span class="alpheios-morph__groupseparator" v-if="group.groupingKey && group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey && group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span> -->
+                  {{ types.number }}
+                  {{ group.groupingKey[types.number] }}
+                  <!-- <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span> -->
                   
                   <div v-for="infl in nextGroup.inflections"
                     :class="groupClass(nextGroup)">
