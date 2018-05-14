@@ -45,7 +45,7 @@
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
        
-        <div v-show="noLanguage"
+        <div v-show="noLanguage && !morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
@@ -123,6 +123,7 @@
         resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
+        updateDimensionsTimeout: null
       }
     },
     props: {
@@ -181,7 +182,7 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        return this.data.currentLanguage === "undefined"
+        return this.data.currentLanguage === undefined
       },
       notificationClasses: function () {
         return {
@@ -435,6 +436,13 @@
           return
         }
 
+        let innerDif = this.$el.querySelector("#alpheios-lexical-data-container").clientHeight - this.$el.querySelector("#alpheios-morph-component").clientHeight
+
+        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) { 
+          this.heightDm ='auto' 
+          return
+        }
+
         // Update dimensions only if there was any significant change in a popup size
         if (this.$el.offsetWidth >= this.exactWidth + this.resizeDelta
           || this.$el.offsetWidth <= this.exactWidth - this.resizeDelta) {
@@ -444,6 +452,7 @@
           this.resizeCount++
           this.logger.log(`Resize counter value is ${this.resizeCount}`)
         }
+
         if (this.$el.offsetHeight >= this.exactHeight + this.resizeDelta
           || this.$el.offsetHeight <= this.exactHeight - this.resizeDelta) {
           this.logger.log(`${time}: dimensions update, offsetHeight is ${this.$el.offsetHeight}, previous exactHeight is ${this.exactHeight}`)
@@ -489,7 +498,16 @@
       if (this.visible) {
         let time = new Date().getTime()
         this.logger.log(`${time}: component is updated`)
-        this.updatePopupDimensions()
+
+        let vm = this
+        clearTimeout(this.updateDimensionsTimeout)
+        let timeoutDuration = 0
+        if (this.resizeCount > 1) {
+          timeoutDuration = 1000
+        }
+        this.updateDimensionsTimeout = setTimeout(function () {
+          vm.updatePopupDimensions()
+        }, timeoutDuration)
       }
     },
 
