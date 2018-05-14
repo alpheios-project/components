@@ -61,14 +61,12 @@
                   <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                 </span>
 
-                <!-- <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span> -->
+                <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span>
                 
-                
-                <div>
-                <!-- <div v-for="infl in nextGroup.inflections"
-                  :class="groupClass(nextGroup)"> -->
-                    <!-- <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.grmCase" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/> -->
-                    <!--<inflectionattribute :linkedfeatures="linkedfeatures" :type="types.gender" :grouplevel="4" :data="infl.groupingKey" :decorators="['parenthesize','abbreviate']"
+                <div v-for="infl in nextGroup.inflections"
+                  :class="groupClass(nextGroup)">
+                    <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.grmCase" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
+                    <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.gender" :grouplevel="4" :data="infl.groupingKey" :decorators="['parenthesize','abbreviate']"
                       @sendfeature="sendFeature" v-if="! featureMatch(infl.groupingKey[types.gender],lex.lemma.features[types.gender])" />
                     <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.comparison" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
                     <inflectionattribute :data="infl.groupingKey" :type="types.person" :linkedfeatures="linkedfeatures" :grouplevel="4" :decorators="['appendtype']" @sendfeature="sendFeature"/>
@@ -82,7 +80,7 @@
                       v-if="! group.groupingKey.isCaseInflectionSet"/>
                     <span v-for="item in infl.inflections">
                       <inflectionattribute :data="item" type="example" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
-                    </span> --> 
+                    </span>  
                 </div><!--end infl --> 
               </div><!-- end forms -->
             </div><!-- end groupinflections -->
