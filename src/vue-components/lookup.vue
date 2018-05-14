@@ -15,7 +15,7 @@
 <script>
   import TextSelector from '../lib/selection/text-selector'
   import LexicalQueryLookup from '../lib/queries/lexical-query-lookup'
-  import LanguageModelFactory from 'alpheios-data-models'
+  import { LanguageModelFactory } from 'alpheios-data-models'
 
   import Tooltip from './tooltip.vue'
 
