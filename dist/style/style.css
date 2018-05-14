@@ -7677,6 +7677,7 @@ div.alpheios-morph__block {
 }
 .alpheios-panel .alpheios-lookup_form {
   width: 100%;
+  margin-top: 5px;
 }
 .alpheios-panel .alpheios-lookup_form .uk-input {
     width: 70%;

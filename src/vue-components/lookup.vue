@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-lookup_form">
-    <input class="uk-input lookup_input" type="text" placeholder="Type text" v-model="lookuptext"
+    <input class="uk-input lookup_input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
       @keyup.enter="lookup"
     >
     <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
@@ -15,6 +15,8 @@
 <script>
   import TextSelector from '../lib/selection/text-selector'
   import LexicalQueryLookup from '../lib/queries/lexical-query-lookup'
+  import { LanguageModelFactory } from 'alpheios-data-models'
+
   import Tooltip from './tooltip.vue'
 
   export default {
@@ -25,7 +27,8 @@
     data () {
       return {
         lookuptext: '',
-        defaultButtonLabel: 'Search'
+        defaultButtonLabel: 'Search',
+        defaultInputPlaceholder: 'Type text'
       }
     },
     props: {
@@ -46,6 +49,12 @@
           return this.uiController.l10n.messages.TOOLTIP_LOOKUP_BUTTON
         }
         return this.defaultButtonLabel
+      },
+      inputPlaceholder: function () {
+        if (this.uiController && this.uiController.l10n) {
+          return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
+        }
+        return this.defaultInputPlaceholder
       }
     },
     methods: {
@@ -53,7 +62,8 @@
         if (this.lookuptext.length === 0) {
           return null
         }
-        let textSelector = TextSelector.createObjectFromText(this.lookuptext, this.uiController.options)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.uiController.options.items.preferredLanguage.currentValue)
+        let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
           .getData()
@@ -65,6 +75,7 @@
 </script>
 <style lang="scss">
     @import "../styles/alpheios";
+
     .alpheios-lookup_form {
       margin: 15px 10px 5px;
       text-align: center;
@@ -90,7 +101,7 @@
 
     .alpheios-panel .alpheios-lookup_form {
       width: 100%;
-
+      margin-top: 5px;
       .uk-input {
         width: 70%;
       }
