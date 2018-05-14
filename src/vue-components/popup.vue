@@ -191,7 +191,6 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        console.log('**********noLanguage', this.data.currentLanguage, this.data.currentLanguage === undefined)
         return this.data.currentLanguage === undefined
       },
       notificationClasses: function () {
@@ -517,6 +516,7 @@
       if (this.visible) {
         let time = new Date().getTime()
         this.logger.log(`${time}: component is updated`)
+
         let vm = this
         clearTimeout(this.updateDimensionsTimeout)
         let timeoutDuration = 0
@@ -554,10 +554,6 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
-      },
-
-      'data.currentLanguage': function (value) {
-        console.log('**************data.currentLanguage changed', this.data.currentLanguage)
       }
     }
   }
