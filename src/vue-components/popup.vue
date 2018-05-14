@@ -193,7 +193,7 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        console.log('**********noLanguage', this.data.currentLanguage)
+        console.log('**********noLanguage', this.data.currentLanguage, this.data.currentLanguage === undefined)
         return this.data.currentLanguage === undefined
       },
       notificationClasses: function () {
