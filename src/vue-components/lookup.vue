@@ -89,7 +89,7 @@
         vertical-align: top;
 
         &:focus {
-          border-color: $alpheios-highlight-color;
+          border-color: $alpheios-link-hover-color;
         }
       }
 
