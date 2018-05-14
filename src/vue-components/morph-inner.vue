@@ -62,7 +62,7 @@
 
                 <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span>
                 
-                {{ nextGroup.inflections }}
+                
                 <div>
                 <!-- <div v-for="infl in nextGroup.inflections"
                   :class="groupClass(nextGroup)"> -->
