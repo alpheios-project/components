@@ -556,6 +556,10 @@
 
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ')
+      },
+
+      'data.currentLanguage': function (value) {
+        console.log('**************data.currentLanguage changed', this.data.currentLanguage)
       }
     }
   }
