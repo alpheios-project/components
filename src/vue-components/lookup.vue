@@ -15,6 +15,8 @@
 <script>
   import TextSelector from '../lib/selection/text-selector'
   import LexicalQueryLookup from '../lib/queries/lexical-query-lookup'
+  import LanguageModelFactory from 'alpheios-data-models'
+
   import Tooltip from './tooltip.vue'
 
   export default {
@@ -60,9 +62,10 @@
         if (this.lookuptext.length === 0) {
           return null
         }
-        console.log('************* lookup 1', this.uiController.options)
-        console.log('************* lookup 1', this.uiController)
-        let textSelector = TextSelector.createObjectFromText(this.lookuptext, this.uiController.options)
+        // console.log('************* lookup 1', this.uiController.options)
+        // console.log('************* lookup 1', this.uiController)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.uiController.options.items.preferedLanguage.currentValue)
+        let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
           .getData()
