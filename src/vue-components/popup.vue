@@ -42,8 +42,6 @@
                 </alph-tooltip>
             </div>
         </div>
-        <p>noLanguage = {{ noLanguage }}</p>
-        <p>this.data.currentLanguage = {{ this.data.currentLanguage }}</p>
         <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
