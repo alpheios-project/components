@@ -52,6 +52,7 @@
                 <inflectionattribute :data="group.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :grouplevel="2" @sendfeature="sendFeature"/>
                 <inflectionattribute :data="group.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="2" @sendfeature="sendFeature"/>
               </span>
+              {{ group.inflections }}
               <div v-for="nextGroup in group.inflections"
                 :class="groupClass(group)">
                 
