@@ -54,16 +54,17 @@
               </span>
               <div v-for="nextGroup in group.inflections"
                 :class="groupClass(group)">
-                {{ nextGroup }}
+                
                  <span v-if="group.groupingKey.isCaseInflectionSet">
                   <inflectionattribute :data="nextGroup.groupingKey" :type="types.tense" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                   <inflectionattribute :data="nextGroup.groupingKey" :type="types.voice" :linkedfeatures="linkedfeatures" :grouplevel="3" @sendfeature="sendFeature"/>
                 </span>
-                
+
                 <span class="alpheios-morph__groupseparator" v-if="group.groupingKey.isCaseInflectionSet && (group.groupingKey[types.number] || group.groupingKey[types.tense] || nextGroup.groupingKey[types.tense] || nextgroup.groupingKey[types.voice])">:</span>
                 
                 <div v-for="infl in nextGroup.inflections"
                   :class="groupClass(group)">
+                    {{ infl }}
                     <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.grmCase" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
                     <!--<inflectionattribute :linkedfeatures="linkedfeatures" :type="types.gender" :grouplevel="4" :data="infl.groupingKey" :decorators="['parenthesize','abbreviate']"
                       @sendfeature="sendFeature" v-if="! featureMatch(infl.groupingKey[types.gender],lex.lemma.features[types.gender])" />
