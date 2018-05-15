@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div :class="classes" v-if="data.length > 0">
         <label class="uk-form-label" v-show="showTitle">{{data.labelText}}</label>
         <select v-model="selected" class="uk-select" multiple v-if="data.multiValue">
             <option v-for="item in data.textValues()">{{item}}</option>
@@ -33,7 +33,10 @@
     computed: {
       selected: {
         get: function () {
-          return this.data.currentTextValue()
+          if (typeof this.data.currentTextValue === 'function') {
+            return this.data.currentTextValue()
+          }
+          return null
         },
         set: function (newValue) {
           this.$emit('change', this.data.name, newValue)

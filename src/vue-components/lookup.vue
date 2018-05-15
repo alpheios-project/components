@@ -4,14 +4,14 @@
       @keyup.enter="lookup"
     >
     <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
-      <button class="uk-button uk-button-primary uk-button-small" type="button" tabindex="-1"
+      <button class="uk-button uk-button-primary uk-button-small lookup_button" type="button" tabindex="-1"
         @click="lookup"
       >
         {{ buttonLabel }}
       </button>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">Language Settings</a>
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
 
