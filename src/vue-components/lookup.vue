@@ -168,7 +168,10 @@
       .alpheios-panel__options-item {
         max-width: none;
 
-        .uk-select:not([multiple]):not([size]) {
+        .uk-select:not([multiple]):not([size]),
+        .uk-select[multiple],
+        .uk-select[size],
+        .uk-textarea {
           max-width: 250px;
         }
       }

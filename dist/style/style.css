@@ -7691,7 +7691,10 @@ div.alpheios-morph__block {
 .alpheios-lookup__settings-items .alpheios-panel__options-item {
   max-width: none;
 }
-.alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
+.alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[multiple],
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[size],
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-textarea {
     max-width: 250px;
 }
 
