@@ -77,7 +77,7 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-        <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage :lexicons="data.resourceSettings.lexicons"></lookup>
+        <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage" :lexicons="data.resourceSettings.lexicons"></lookup>
     </div>
 </template>
 <script>
