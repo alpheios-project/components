@@ -18,7 +18,7 @@
         <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"
-                  v-for="languageSetting in lexicons"></alph-setting>
+                  v-for="languageSetting in lexiconsFiltered"></alph-setting>
       </div>
     </div>
   </div>
@@ -85,6 +85,10 @@
           return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
         }
         return this.deafultLabelSettings
+      },
+      lexiconsFiltered: function () {
+        console.log('************************lexiconsFiltered', this.lexicons)
+        return this.lexicons
       }
     },
     methods: {
