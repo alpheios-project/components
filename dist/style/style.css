@@ -7674,7 +7674,7 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 40px 45px 45px auto 60px; }
+  grid-template-rows: 40px 45px auto auto 60px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 20px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
@@ -7749,7 +7749,7 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 40px 40px 40px auto 60px; }
+  grid-template-rows: 40px 40px auto auto 60px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 15px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
@@ -7824,7 +7824,7 @@
   /***** inflections tab *****/
   /***** info tab *****/
   /******** content tab ********/
-  grid-template-rows: 40px 50px 50px auto 60px; }
+  grid-template-rows: 40px 50px auto auto 60px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-logo-img {
     height: 25px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header .alpheios-panel__header-nav-btn,
