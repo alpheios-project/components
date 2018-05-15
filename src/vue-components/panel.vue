@@ -84,7 +84,7 @@
             </span>
         </div>
         <div class="alpheios-panel__header reskin_panel" ><reskin-font-color></reskin-font-color></div>
-        <div class="alpheios-panel__header lookup_panel" >
+        <div class="alpheios-panel__header lookup_panel" v-show="showLookupPanel">
           <lookup :uiController="uiController" @change="settingChanged" :preferredLanguage="data.settings.preferredLanguage" :lexicons="data.resourceSettings.lexicons"></lookup>
         </div>
         <div class="alpheios-panel__content">
