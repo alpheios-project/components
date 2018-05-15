@@ -285,7 +285,7 @@
       },
 
       showLookupPanel: function () {
-        return data.tabs.definitions || data.tabs.info
+        return this.data.tabs.definitions || this.data.tabs.info
       }
     },
     methods: {
