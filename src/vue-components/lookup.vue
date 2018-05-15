@@ -95,6 +95,10 @@
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
         console.log('********************* switchLookupSettings')
+      },
+
+      settingChanged: function (name, value) {
+        this.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }
