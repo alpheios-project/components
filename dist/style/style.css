@@ -7688,6 +7688,12 @@ div.alpheios-morph__block {
 .alpheios-panel .alpheios-lookup_form .uk-input {
     width: 70%;
 }
+.alpheios-lookup__settings-items .alpheios-panel__options-item {
+  max-width: none;
+}
+.alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
+    max-width: 250px;
+}
 
 
 .alpheios-popup {

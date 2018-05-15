@@ -91,10 +91,6 @@
         return 'lexicons-'+currentLanguageCode
       },
       lexiconsFiltered: function () {
-        console.log('************************lexiconsFiltered 1', this.lexicons)
-        console.log('************************lexiconsFiltered 2', this.currentLangLexicons)
-        console.log('************************lexiconsFiltered 3', this.lexicons.filter(item => item.name === this.currentLangLexicons))
-
         return this.lexicons.filter(item => item.name === this.currentLangLexicons)
       }
     },
@@ -165,6 +161,16 @@
       margin-top: 5px;
       .uk-input {
         width: 70%;
+      }
+    }
+
+    .alpheios-lookup__settings-items {
+      .alpheios-panel__options-item {
+        max-width: none;
+
+        .uk-select:not([multiple]):not([size]) {
+          max-width: 250px;
+        }
       }
     }
 </style>
