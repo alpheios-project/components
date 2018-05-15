@@ -422,7 +422,7 @@
         direction: ltr;
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: #{$alpheios-panel-header-height} 0 auto auto  60px;
+        grid-template-rows: #{$alpheios-panel-header-height} 0 40px auto  60px;
         grid-template-areas:
             "header"
             "title"
