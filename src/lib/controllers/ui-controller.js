@@ -426,11 +426,12 @@ export default class UIController {
             selectedText: '',
             languageName: ''
           },
-          currentLanguage: null
+          currentLanguage: null,
+          resourceSettings: this.resourceOptions.items
         },
         panel: this.panel,
         options: this.options,
-        resourceSettings: this.resourceOptions.items,
+
         currentPopupComponent: this.template.defaultPopupComponent,
         uiController: this
       },
