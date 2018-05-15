@@ -48,7 +48,7 @@
         required: true
       },
       preferredLanguage: {
-        type: String,
+        type: Object,
         required: true
       }
     },
