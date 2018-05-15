@@ -11,7 +11,7 @@
       </button>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <a class="alpheios-lookup__settings-link" :click="switchLookupSettings">Language Settings</a>
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">Language Settings</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         We are setting items
       </div>
