@@ -1,6 +1,8 @@
 /* eslint-env jest */
 import { mount } from '@vue/test-utils'
 import Lookup from '../../src/vue-components/lookup.vue'
+import Setting from '../../src/vue-components/setting.vue'
+
 import L10n from '../../src/lib/l10n/l10n'
 import Locales from '../../src/locales/locales'
 import enUS from '../../src/locales/en-us/messages.json'
@@ -80,7 +82,7 @@ describe('lookup.test.js', () => {
   })
 
   it('If uiController has l10n property - than input placeholder = PLACEHOLDER_LOOKUP_INPUT', () => {
-    expect(cmpL10n.vm.tooltipLabel).toEqual(l10n.messages.PLACEHOLDER_LOOKUP_INPUT)
+    expect(cmpL10n.vm.inputPlaceholder).toEqual(l10n.messages.PLACEHOLDER_LOOKUP_INPUT)
   })
 
   it('If there is an empty uiController - than there is a default label on the settings link', () => {
@@ -89,5 +91,21 @@ describe('lookup.test.js', () => {
 
   it('If uiController has l10n property - than input placeholder = PLACEHOLDER_LOOKUP_INPUT', () => {
     expect(cmpL10n.vm.labelSettings).toEqual(l10n.messages.LABEL_LOOKUP_SETTINGS)
+  })
+
+  it('Language settings are invisible on component load', () => {
+    expect(cmp.vm.showLanguageSettings).toBeFalsy()
+  })
+
+  it('Language settings becomes visible on settings link click', () => {
+    cmp.find('.alpheios-lookup__settings-link').trigger('click')
+
+    expect(cmp.vm.showLanguageSettings).toBeTruthy()
+  })
+
+  it('Language settings contains settings components', () => {
+    cmp.setData({ showLanguageSettings: true })
+    console.log('*********', cmp.findAll(Setting).length)
+    expect(cmp.find(Setting).exists()).toBeTruthy()
   })
 }) // Create a copy of the original component with full values
