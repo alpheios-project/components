@@ -10,7 +10,7 @@
         {{ buttonLabel }}
       </button>
     </alph-tooltip>
-    <div class="lookup_settings">
+    <div class="alpheios-lookup__settings">
       <a class="alpheios-lookup__settings-link" v-on:click="switchLookupSettings">Language Settings</a>
     </div>
   </div>
@@ -107,9 +107,16 @@
         }
       }
 
-    .uk-button {
-      font-size: 12px;
+      .uk-button {
+        font-size: 12px;
         vertical-align: top;
+      }
+
+      .alpheios-lookup__settings {
+        text-align: left;
+        .alpheios-lookup__settings-link {
+          font-size: 0.675 * $alpheios-base-font-size;
+        }
       }
     }
 
