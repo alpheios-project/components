@@ -13,7 +13,7 @@
     <div class="alpheios-lookup__settings">
       <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">Language Settings</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
-        We are setting items
+        <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
       </div>
     </div>
   </div>
@@ -24,11 +24,13 @@
   import { LanguageModelFactory } from 'alpheios-data-models'
 
   import Tooltip from './tooltip.vue'
+  import Setting from './setting.vue'
 
   export default {
     name: 'Lookup',
     components: {
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      alphSetting: Setting
     },
     data () {
       return {
@@ -43,6 +45,10 @@
     props: {
       uiController: {
         type: Object,
+        required: true
+      },
+      preferredLanguage: {
+        type: String,
         required: true
       }
     },
