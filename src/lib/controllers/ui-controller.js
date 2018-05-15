@@ -431,7 +431,7 @@ export default class UIController {
         },
         panel: this.panel,
         options: this.options,
-
+        resourceOptions: this.resourceOptions,
         currentPopupComponent: this.template.defaultPopupComponent,
         uiController: this
       },
