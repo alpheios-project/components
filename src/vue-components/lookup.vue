@@ -87,8 +87,8 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        let currentLanguageCode = this.uiController.options.items.preferredLanguage.currentValue
-        return 'lexicons-'+currentLanguageCode
+        let currentLanguageCode = this.preferredLanguage.currentValue
+        return 'lexicons-' + currentLanguageCode
       },
       lexiconsFiltered: function () {
         if (Array.isArray(this.lexicons)) {
@@ -113,8 +113,6 @@
 
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
-        console.log('*********preferredLanguage', this.preferredLanguage)
-        console.log('*********lexicons', this.lexicons)
       },
 
       settingChanged: function (name, value) {

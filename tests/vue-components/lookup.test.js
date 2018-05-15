@@ -2,11 +2,17 @@
 import { mount } from '@vue/test-utils'
 import Lookup from '../../src/vue-components/lookup.vue'
 import Setting from '../../src/vue-components/setting.vue'
+import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
 import L10n from '../../src/lib/l10n/l10n'
 import Locales from '../../src/locales/locales'
 import enUS from '../../src/locales/en-us/messages.json'
 import enGB from '../../src/locales/en-gb/messages.json'
+
+import Options from '../../src/lib/options/options.js'
+import ContentOptionDefaults from '../../src/settings/content-options-defaults.json'
+import LocalStorageArea from '../../src/lib/options/local-storage-area.js'
+import LanguageOptionDefaults from '../../src/settings/language-options-defaults.json'
 
 describe('lookup.test.js', () => {
   let spy
@@ -28,6 +34,27 @@ describe('lookup.test.js', () => {
       uiController: { l10n: l10n },
       preferredLanguage: {},
       lexicons: []
+    }
+  })
+
+  let options = new Options(ContentOptionDefaults, LocalStorageArea)
+  let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+  // console.log('********************** options', options)
+  let cmpFull = mount(Lookup, {
+    propsData: {
+      uiController: { l10n: l10n },
+      preferredLanguage: options.items.preferredLanguage,
+      lexicons: resourceOptions.items.lexicons
+    }
+  })
+  let optionsGrc = new Options(ContentOptionDefaults, LocalStorageArea)
+  optionsGrc.items.preferredLanguage.currentValue = 'grc'
+  let cmpFullGrc = mount(Lookup, {
+    propsData: {
+      uiController: { l10n: l10n },
+      preferredLanguage: optionsGrc.items.preferredLanguage,
+      lexicons: resourceOptions.items.lexicons
     }
   })
 
@@ -105,12 +132,25 @@ describe('lookup.test.js', () => {
 
   it('Language settings contains settings components', () => {
     cmp.setData({ showLanguageSettings: true })
-    console.log('*********', cmp.findAll(Setting).length)
     expect(cmp.find(Setting).exists()).toBeTruthy()
   })
 
-  // it('If language === lat then there is one setting component', () => {
-  //   cmp.setData({ showLanguageSettings: true })
-
-  // })
+  it('If language === lat then there is one setting component', (done) => {
+    cmpFull.setData({ showLanguageSettings: true })
+    // options.items.preferredLanguage.currentValue = 'grc'
+    Vue.nextTick(() => {
+      // console.log('********* 4', cmpFull.findAll(Setting).length)
+      expect(cmpFull.findAll(Setting).length).toBe(1)
+      done()
+    })
+  })
+  it('If language === grc then there are two settings component', (done) => {
+    cmpFullGrc.setData({ showLanguageSettings: true })
+    // // options.items.preferredLanguage.currentValue = 'grc'
+    Vue.nextTick(() => {
+      // console.log('********* 4', cmpFull.findAll(Setting).length)
+      expect(cmpFullGrc.findAll(Setting).length).toBe(2)
+      done()
+    })
+  })
 }) // Create a copy of the original component with full values
