@@ -108,4 +108,9 @@ describe('lookup.test.js', () => {
     console.log('*********', cmp.findAll(Setting).length)
     expect(cmp.find(Setting).exists()).toBeTruthy()
   })
+
+  // it('If language === lat then there is one setting component', () => {
+  //   cmp.setData({ showLanguageSettings: true })
+
+  // })
 }) // Create a copy of the original component with full values
