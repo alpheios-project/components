@@ -11,8 +11,8 @@
       </button>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <a class="alpheios-lookup__settings-link" v-on:click="switchLookupSettings">Language Settings</a>
-      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettigs">
+      <a class="alpheios-lookup__settings-link" :click="switchLookupSettings">Language Settings</a>
+      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         We are setting items
       </div>
     </div>
@@ -37,7 +37,7 @@
         defaultInputPlaceholder: 'Type text',
         deafultLabelSettings: 'Settings',
 
-        showLanguageSettigs: false
+        showLanguageSettings: false
       }
     },
     props: {
@@ -87,7 +87,7 @@
       },
 
       'switchLookupSettings': function () {
-        showLanguageSettigs = !showLanguageSettigs
+        this.showLanguageSettings = !this.showLanguageSettings
         console.log('********************* switchLookupSettings')
       }
     }
