@@ -1,7 +1,7 @@
 <template>
     <!-- <div :class="classes" v-if="data.length > 0"> -->
       <div :class="classes">
-        {{ data }}
+        {{ data.length }}
         <label class="uk-form-label" v-show="showTitle">{{data.labelText}}</label>
         <select v-model="selected" class="uk-select" multiple v-if="data.multiValue">
             <option v-for="item in data.textValues()">{{item}}</option>
