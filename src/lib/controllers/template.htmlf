@@ -1,14 +1,34 @@
 <div id="alpheios-popup" >
-    <component v-bind:is="currentPopupComponent" :messages="messages" :definitions="definitions" :visible="visible" :lexemes="lexemes" :translations="translations"
-    	   :linkedfeatures="linkedFeatures" :classes-changed="classesChanged"
-           :data="popupData" @close="close" @closepopupnotifications="clearNotifications" @showpaneltab="showPanelTab"
-           @sendfeature="sendFeature" @settingchange="settingChange" @ui-option-change="uiOptionChange">
+    <component 
+      v-bind:is="currentPopupComponent" 
+      :messages="messages" 
+      :definitions="definitions" 
+      :visible="visible" 
+      :lexemes="lexemes" 
+      :translations="translations"
+    	:linkedfeatures="linkedFeatures" 
+      :classes-changed="classesChanged"
+      :data="popupData" 
+      @close="close" 
+      @closepopupnotifications="clearNotifications" 
+      @showpaneltab="showPanelTab" 
+      @resourcesettingchange="resourceSettingChange"
+      @sendfeature="sendFeature" 
+      @settingchange="settingChange" 
+      @ui-option-change="uiOptionChange">
     </component>
 </div>
 <div id="alpheios-panel">
-    <component v-bind:is="currentPanelComponent" :data="panelData" :classes-changed="classesChanged"
-    	   @close="close" @closenotifications="clearNotifications"
-           @setposition="setPositionTo" @settingchange="settingChange" @resourcesettingchange="resourceSettingChange"
-           @ui-option-change="uiOptionChange" @changetab="changeTab">
+    <component 
+      v-bind:is="currentPanelComponent" 
+      :data="panelData" 
+      :classes-changed="classesChanged"
+    	@close="close" 
+      @closenotifications="clearNotifications"
+      @setposition="setPositionTo" 
+      @settingchange="settingChange" 
+      @resourcesettingchange="resourceSettingChange"
+      @ui-option-change="uiOptionChange" 
+      @changetab="changeTab">
     </component>
 </div>

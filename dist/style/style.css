@@ -8297,7 +8297,7 @@ div.alpheios-morph__block {
 /*************** light schema colors **************/
 .alpheios-lookup_form {
   margin: 15px 10px 5px;
-  text-align: center;
+  text-align: left;
 }
 .alpheios-lookup_form .uk-input {
     width: 80%;
@@ -8314,12 +8314,27 @@ div.alpheios-morph__block {
     font-size: 12px;
     vertical-align: top;
 }
+.alpheios-lookup_form .alpheios-lookup__settings {
+    text-align: left;
+}
+.alpheios-lookup_form .alpheios-lookup__settings .alpheios-lookup__settings-link {
+      font-size: 10.8px;
+}
 .alpheios-panel .alpheios-lookup_form {
   width: 100%;
   margin-top: 5px;
 }
 .alpheios-panel .alpheios-lookup_form .uk-input {
     width: 70%;
+}
+.alpheios-lookup__settings-items .alpheios-panel__options-item {
+  max-width: none;
+}
+.alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[multiple],
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[size],
+  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-textarea {
+    max-width: 250px;
 }
 
 /*************** font sizes **************/
@@ -8878,7 +8893,7 @@ h3.alpheios-inflections__title {
   direction: ltr;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 40px 50px 50px auto 60px;
+  grid-template-rows: 40px 60px auto auto 60px;
   grid-template-areas: "header" "title" "lookup" "content" "content";
 }
 .alpheios-panel[data-notification-visible="true"] {

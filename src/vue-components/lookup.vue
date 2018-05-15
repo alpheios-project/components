@@ -10,6 +10,17 @@
         {{ buttonLabel }}
       </button>
     </alph-tooltip>
+    <div class="alpheios-lookup__settings">
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">Language Settings</a>
+      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
+        <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
+
+        <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
+                  :key="languageSetting.name"
+                  v-if="languageSetting.values.length > 1"
+                  v-for="languageSetting in lexiconsFiltered"></alph-setting>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -18,22 +29,35 @@
   import { LanguageModelFactory } from 'alpheios-data-models'
 
   import Tooltip from './tooltip.vue'
+  import Setting from './setting.vue'
 
   export default {
     name: 'Lookup',
     components: {
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      alphSetting: Setting
     },
     data () {
       return {
         lookuptext: '',
         defaultButtonLabel: 'Search',
-        defaultInputPlaceholder: 'Type text'
+        defaultInputPlaceholder: 'Type text',
+        deafultLabelSettings: 'Settings',
+
+        showLanguageSettings: false
       }
     },
     props: {
       uiController: {
         type: Object,
+        required: true
+      },
+      preferredLanguage: {
+        type: Object,
+        required: true
+      },
+      lexicons: {
+        type: Array,
         required: true
       }
     },
@@ -55,6 +79,22 @@
           return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
         }
         return this.defaultInputPlaceholder
+      },
+      labelSettings: function () {
+        if (this.uiController && this.uiController.l10n) {
+          return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
+        }
+        return this.deafultLabelSettings
+      },
+      currentLangLexicons: function () {
+        let currentLanguageCode = this.uiController.options.items.preferredLanguage.currentValue
+        return 'lexicons-'+currentLanguageCode
+      },
+      lexiconsFiltered: function () {
+        if (Array.isArray(this.lexicons)) {
+          return this.lexicons.filter(item => item.name === this.currentLangLexicons)
+        }
+        return []
       }
     },
     methods: {
@@ -69,6 +109,18 @@
           .getData()
 
         this.lookuptext = ''
+      },
+
+      'switchLookupSettings': function () {
+        this.showLanguageSettings = !this.showLanguageSettings
+      },
+
+      settingChanged: function (name, value) {
+        this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+      },
+
+      resourceSettingChanged: function (name, value) {
+        this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }
@@ -78,7 +130,7 @@
 
     .alpheios-lookup_form {
       margin: 15px 10px 5px;
-      text-align: center;
+      text-align: left;
 
       .uk-input {
         width: 80%;
@@ -93,9 +145,16 @@
         }
       }
 
-    .uk-button {
-      font-size: 12px;
+      .uk-button {
+        font-size: 12px;
         vertical-align: top;
+      }
+
+      .alpheios-lookup__settings {
+        text-align: left;
+        .alpheios-lookup__settings-link {
+          font-size: 0.675 * $alpheios-base-font-size;
+        }
       }
     }
 
@@ -104,6 +163,19 @@
       margin-top: 5px;
       .uk-input {
         width: 70%;
+      }
+    }
+
+    .alpheios-lookup__settings-items {
+      .alpheios-panel__options-item {
+        max-width: none;
+
+        .uk-select:not([multiple]):not([size]),
+        .uk-select[multiple],
+        .uk-select[size],
+        .uk-textarea {
+          max-width: 250px;
+        }
       }
     }
 </style>

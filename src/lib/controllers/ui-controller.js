@@ -433,10 +433,13 @@ export default class UIController {
           status: {
             selectedText: '',
             languageName: ''
-          }
+          },
+          currentLanguage: null,
+          resourceSettings: this.resourceOptions.items
         },
         panel: this.panel,
         options: this.options,
+        resourceOptions: this.resourceOptions,
         currentPopupComponent: this.template.defaultPopupComponent,
         uiController: this,
         classesChanged: 0
@@ -597,6 +600,12 @@ export default class UIController {
               this.uiController.updateColorSchemaClass(value)
               break
           }
+        },
+
+        resourceSettingChange: function (name, value) {
+          let keyinfo = this.resourceOptions.parseKey(name)
+          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
+          this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         }
       }
     })

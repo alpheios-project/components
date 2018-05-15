@@ -84,7 +84,9 @@
             </span>
         </div>
         <div class="alpheios-panel__header reskin_panel" ><reskin-font-color></reskin-font-color></div>
-        <div class="alpheios-panel__header lookup_panel" ><lookup :uiController="uiController"></lookup></div>
+        <div class="alpheios-panel__header lookup_panel" >
+          <lookup :uiController="uiController" @change="settingChanged" :preferredLanguage="data.settings.preferredLanguage" :lexicons="data.resourceSettings.lexicons"></lookup>
+        </div>
         <div class="alpheios-panel__content">
             
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
@@ -270,7 +272,10 @@
       },
       positionClasses: function () {
         return this.positionClassVariants[this.data.settings.panelPosition.currentValue]
-      }
+      },
+      showLookupPanel: function () {
+        return this.data.tabs.definitions || this.data.tabs.info
+      }         
     },
     watch: {
       classesChanged: function (value) {
@@ -407,7 +412,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
     $alpheios-panel-header-height: 40px;
-    $alpheios-panel-title-height: 50px;
+    $alpheios-panel-title-height: 60px;
 
     .alpheios-panel {
         width: 400px; // Initial width
@@ -421,7 +426,7 @@
         direction: ltr;
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} #{$alpheios-panel-title-height} auto 60px;
+        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} auto auto 60px;
         grid-template-areas:
             "header"
             "title"
@@ -484,6 +489,7 @@
     .alpheios-panel__header.lookup_panel {
       grid-area: lookup;
     }
+
     .alpheios-panel-left .alpheios-panel__header {
         direction: ltr;
         padding: 0 0 0 10px;
