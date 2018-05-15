@@ -91,7 +91,10 @@
         return 'lexicons-'+currentLanguageCode
       },
       lexiconsFiltered: function () {
-        return this.lexicons.filter(item => item.name === this.currentLangLexicons)
+        if (Array.isArray(this.lexicons)) {
+          return this.lexicons.filter(item => item.name === this.currentLangLexicons)
+        }
+        return []
       }
     },
     methods: {
