@@ -14,6 +14,11 @@
       <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">Language Settings</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
+
+        <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
+                  :key="languageSetting.name"
+                  v-if="languageSetting.values.length > 1"
+                  v-for="languageSetting in data.resourceSettings.lexicons"></alph-setting>
       </div>
     </div>
   </div>
@@ -49,6 +54,10 @@
       },
       preferredLanguage: {
         type: Object,
+        required: true
+      },
+      lexicons: {
+        type: Array,
         required: true
       }
     },
@@ -99,6 +108,10 @@
 
       settingChanged: function (name, value) {
         this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+      },
+
+      resourceSettingChanged: function (name, value) {
+        this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }

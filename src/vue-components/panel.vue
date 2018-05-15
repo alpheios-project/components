@@ -85,7 +85,7 @@
         </div>
         <div class="alpheios-panel__header reskin_panel">for reskin panel</div>
         <div class="alpheios-panel__header lookup_panel" v-show="showLookupPanel">
-          <lookup :uiController="uiController" @change="settingChanged" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+          <lookup :uiController="uiController" @change="settingChanged" :preferredLanguage="data.settings.preferredLanguage" :lexicons="data.resourceSettings.lexicons"></lookup>
         </div>
 
         <div class="alpheios-panel__content">
