@@ -14,7 +14,7 @@
       <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
-        {{ languageSetting}}
+        
         <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"
