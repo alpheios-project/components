@@ -18,7 +18,7 @@
         <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1"
-                  v-for="languageSetting in data.resourceSettings.lexicons"></alph-setting>
+                  v-for="languageSetting in lexicons"></alph-setting>
       </div>
     </div>
   </div>
