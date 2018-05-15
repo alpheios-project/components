@@ -358,5 +358,10 @@
     "message": "Lookup word",
     "description": "Tooltip for the lookup button in lookup.vue",
     "component": "lookup"
+  },
+  "LABEL_LOOKUP_SETTINGS": {
+    "message": "Language Settings",
+    "description": "Settings link-label in the lookup block in lookup.vue",
+    "component": "lookup"
   }     
 }

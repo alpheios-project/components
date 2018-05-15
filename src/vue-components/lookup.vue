@@ -10,6 +10,9 @@
         {{ buttonLabel }}
       </button>
     </alph-tooltip>
+    <div class="lookup_settings">
+      <a class="alpheios-lookup__settings-link" v-on:click="switchLookupSettings">Language Settings</a>
+    </div>
   </div>
 </template>
 <script>
@@ -28,7 +31,8 @@
       return {
         lookuptext: '',
         defaultButtonLabel: 'Search',
-        defaultInputPlaceholder: 'Type text'
+        defaultInputPlaceholder: 'Type text',
+        deafultLabelSettings: 'Settings'
       }
     },
     props: {
@@ -55,6 +59,12 @@
           return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
         }
         return this.defaultInputPlaceholder
+      },
+      labelSettings: function () {
+        if (this.uiController && this.uiController.l10n) {
+          return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
+        }
+        return this.deafultLabelSettings
       }
     },
     methods: {
@@ -69,6 +79,10 @@
           .getData()
 
         this.lookuptext = ''
+      },
+
+      'switchLookupSettings': function () {
+        console.log('********************* switchLookupSettings')
       }
     }
   }
