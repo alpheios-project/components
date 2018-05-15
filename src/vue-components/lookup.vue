@@ -98,7 +98,7 @@
       },
 
       settingChanged: function (name, value) {
-        this.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+        this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }
