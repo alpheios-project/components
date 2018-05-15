@@ -110,7 +110,6 @@
 
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
-        console.log('********************* switchLookupSettings')
       },
 
       settingChanged: function (name, value) {
