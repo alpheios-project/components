@@ -93,7 +93,9 @@
       lexiconsFiltered: function () {
         console.log('************************lexiconsFiltered 1', this.lexicons)
         console.log('************************lexiconsFiltered 2', this.currentLangLexicons)
-        return this.lexicons
+        console.log('************************lexiconsFiltered 3', this.lexicons.filter(item => item.name === this.currentLangLexicons))
+
+        return this.lexicons.filter(item => item.name === this.currentLangLexicons)
       }
     },
     methods: {
