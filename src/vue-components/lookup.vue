@@ -88,11 +88,11 @@
       },
       currentLangLexicons: function () {
         let currentLanguageCode = this.uiController.options.items.preferredLanguage.currentValue
-        return 'lexicons-currentLanguageCode'
+        return 'lexicons-'+currentLanguageCode
       }
       lexiconsFiltered: function () {
         console.log('************************lexiconsFiltered 1', this.lexicons)
-        console.log('************************lexiconsFiltered 2', this.currentLanguageCode)
+        console.log('************************lexiconsFiltered 2', this.currentLangLexicons)
         return this.lexicons
       }
     },
