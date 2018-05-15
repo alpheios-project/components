@@ -152,7 +152,8 @@ export default class UIController {
         options: this.options,
         resourceOptions: this.resourceOptions,
         currentPanelComponent: this.template.defaultPanelComponent,
-        uiController: this
+        uiController: this,
+        classesChanged: 0
       },
       methods: {
         isOpen: function () {
@@ -433,7 +434,8 @@ export default class UIController {
         options: this.options,
         resourceOptions: this.resourceOptions,
         currentPopupComponent: this.template.defaultPopupComponent,
-        uiController: this
+        uiController: this,
+        classesChanged: 0
       },
       methods: {
         setTargetRect: function (targetRect) {
