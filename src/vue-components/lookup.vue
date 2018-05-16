@@ -135,7 +135,11 @@
 
       resourceSettingChanged: function (name, value) {
         let changedLexiconIndex = this.resourceOptions.items.lexicons.findIndex(item => item.name = this.currentLangLexicons)
+        console.log('***************************** resourceSettingChanged 1', changedLexiconIndex)
         let valuesLexicons = this.resourceOptions.items.lexicons[changedLexiconIndex].values.filter(item => value.indexOf(item.text) > -1)
+        console.log('***************************** resourceSettingChanged 2', this.resourceOptions.items.lexicons[changedLexiconIndex].values)
+        console.log('***************************** resourceSettingChanged 3', valuesLexicons)
+        console.log('***************************** resourceSettingChanged 4', valuesLexicons.map(item => item.value))
 
         this.resourceOptions.items.lexicons[changedLexiconIndex].currentValue = valuesLexicons.map(item => item.value)
       }
