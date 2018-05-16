@@ -88,8 +88,11 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        let currentLanguageCode = this.preferredLanguage.currentValue
-        return 'lexicons-' + currentLanguageCode
+        if (this.currentLanguage === null) {
+          this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
+        }
+
+        return 'lexicons-' + this.currentLanguage
       },
       lexiconsFiltered: function () {
         if (Array.isArray(this.lexicons)) {
@@ -107,11 +110,8 @@
           this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
         }
 
-        console.log('********* currentLanguage', this.currentLanguage)
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
-        console.log('********* languageID', languageID)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
-        console.log('********* textSelector', textSelector)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
           .getData()
@@ -124,9 +124,7 @@
       },
 
       settingChanged: function (name, value) {
-        // this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
         let findLang = this.uiController.options.items.preferredLanguage.values.find(item => item.text === value)
-        console.log('************* languages', name, value, findLang)
         this.currentLanguage = findLang.value
       },
 
