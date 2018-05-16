@@ -140,7 +140,10 @@
 
       resourceSettingChanged: function (name, value) {
         console.log('*************resourceSettingChanged', name, value)
-        console.log('*************lookup', this.resourceOptions.items.lexicons)
+        console.log('*************resourceSettingChanged', this.resourceOptions.items.lexicons)
+        let changedLexiconIndex = this.resourceOptions.items.lexicons.findIndex(item => item.name = this.currentLangLexicons)
+        let valuesLexicons = this.resourceOptions.items.lexicons[changedLexiconIndex].values.filter(item => value.indexOf(item.text) > -1)
+        console.log('*************resourceSettingChanged',valuesLexicons)
         // this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
