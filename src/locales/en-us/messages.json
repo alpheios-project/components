@@ -360,7 +360,7 @@
     "component": "lookup"
   },
   "LABEL_LOOKUP_SETTINGS": {
-    "message": "Language Settings",
+    "message": "Using Language...",
     "description": "Settings link-label in the lookup block in lookup.vue",
     "component": "lookup"
   }     
