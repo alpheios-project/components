@@ -32,7 +32,7 @@
     },
     mounted: function () {
       console.log('*************data.textValues()', this.data.textValues)
-      console.log('*************data.currentTextValue()', data.currentTextValue)
+      console.log('*************data.currentTextValue()', this.data.currentTextValue)
     },
     computed: {
       selected: {
