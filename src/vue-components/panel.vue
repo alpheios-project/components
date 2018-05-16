@@ -87,7 +87,7 @@
         <div class="alpheios-panel__content">
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
-                <div class="alpheios-lookup__panel" v-show="showLookupPanel">
+                <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
                 </div>
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
@@ -140,6 +140,9 @@
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel">
+                <div class="alpheios-lookup__panel">
+                  <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+                </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages"></info>
             </div>
         </div>
@@ -617,9 +620,10 @@
     }
 
     .alpheios-panel__tab-panel {
-        display: flex;
+/*        display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding: 20px;*/
+        display: block;
     }
 
     .alpheios-panel__tab-panel--fw {

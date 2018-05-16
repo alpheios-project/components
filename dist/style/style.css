@@ -8326,9 +8326,10 @@ h3.alpheios-inflections__title {
   display: block;
 }
 .alpheios-panel__tab-panel {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+  /*        display: flex;
+        flex-direction: column;
+        padding: 20px;*/
+  display: block;
 }
 .alpheios-panel__tab-panel--fw {
   width: 100%;
