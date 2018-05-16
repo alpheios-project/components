@@ -91,7 +91,7 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        return 'lexicons-' + this.currentLanguage.currentValue
+        return 'lexicons-' + this.currentLanguage.currentValue()
       },
       lexiconsFiltered: function () {
         if (Array.isArray(this.lexicons)) {
@@ -120,8 +120,11 @@
       },
 
       settingChanged: function (name, value) {
-        let findLang = this.uiController.options.items.preferredLanguage.values.find(item => item.text === value)
-        this.currentLanguage = {currentValue => findLang.value}
+        let findLang = this.preferredLanguage.values.find(item => item.text === value)
+        this.currentLanguage = {
+          currentValue: () => findLang.value,
+          textValues: () => this.preferredLanguage.values
+        }
       },
 
       resourceSettingChanged: function (name, value) {
