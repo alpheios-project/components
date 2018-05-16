@@ -46,7 +46,8 @@
 
         showLanguageSettings: false,
         currentLanguage: null,
-        currentDictionary: null
+        currentDictionary: null,
+        lexicons: []
       }
     },
     props: {
@@ -58,17 +59,19 @@
         type: Object,
         required: true
       },
-      lexicons: {
-        type: Array,
+      resourceSettings: {
+        type: Object,
         required: true
       }
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
+      this.lexicons = this.resourceSettings.lexicons
       console.log('************mounted 1', this.lexicons)
-      console.log('************mounted 2', this.uiController.resourceOptions)
+      console.log('************mounted 2', this.resourceSettings)
     },
     computed: {
+
       buttonLabel: function () {
         if (this.uiController && this.uiController.l10n) {
           return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
