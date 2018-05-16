@@ -13,7 +13,7 @@
     <div class="alpheios-lookup__settings">
       <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
-        <alph-setting :data="preferredLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
+        <alph-setting :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
 
         <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
@@ -62,6 +62,9 @@
         required: true
       }
     },
+    mounted: function () {
+      this.currentLanguage = this.preferredLanguage.currentValue
+    },
     computed: {
       buttonLabel: function () {
         if (this.uiController && this.uiController.l10n) {
@@ -88,10 +91,6 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        if (this.currentLanguage === null) {
-          this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
-        }
-
         return 'lexicons-' + this.currentLanguage
       },
       lexiconsFiltered: function () {
@@ -105,9 +104,6 @@
       'lookup': function () {
         if (this.lookuptext.length === 0) {
           return null
-        }
-        if (this.currentLanguage === null) {
-          this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
         }
 
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
