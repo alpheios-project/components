@@ -65,7 +65,7 @@
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
-      console.log('************mounted', this.lexicons)
+      console.log('************mounted', this.lexicons[0].currentTextValue())
     },
     computed: {
       buttonLabel: function () {
