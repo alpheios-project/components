@@ -63,7 +63,7 @@
       }
     },
     mounted: function () {
-      this.currentLanguage = this.preferredLanguage
+      this.currentLanguage = Object.assign(this.preferredLanguage,{})
     },
     computed: {
       buttonLabel: function () {
@@ -92,7 +92,7 @@
       },
       currentLangLexicons: function () {
         if (  this.currentLanguage === null ) {
-          this.currentLanguage = this.preferredLanguage
+          this.currentLanguage = Object.assign(this.preferredLanguage,{})
         }
         return 'lexicons-' + this.currentLanguage.currentValue
       },
@@ -126,10 +126,7 @@
         console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
         console.log('***************** settingChanged 2 ', findLang)
-        this.currentLanguage = {
-          currentValue: findLang.value,
-          textValues: this.preferredLanguage.values
-        }
+        this.currentLanguage = = Object.assign(this.preferredLanguage, { currentValue: findLang.value })
       },
 
       resourceSettingChanged: function (name, value) {
