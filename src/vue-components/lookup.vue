@@ -63,9 +63,9 @@
       }
     },
     mounted: function () {
+      console.log('************mounted 2 ', this.preferredLanguage)
       this.currentLanguage = this.preferredLanguage.cloneObject()
       console.log('************mounted 1 ', this.currentLanguage)
-      console.log('************mounted 2 ', this.preferredLanguage)
     },
     computed: {
       buttonLabel: function () {
