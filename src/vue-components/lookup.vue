@@ -117,7 +117,7 @@
 
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
-      }
+      },
 
       settingChanged: function (name, value) {
         // this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
