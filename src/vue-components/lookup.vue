@@ -119,7 +119,7 @@
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         console.log('*************lookup', this.resourceOptions.items.lexicons)
-        console.log('*************lookup', this.resourceOptions.items.lexicons.currentTextValue())
+        // console.log('*************lookup', this.resourceOptions.items.lexicons.currentTextValue())
         
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
