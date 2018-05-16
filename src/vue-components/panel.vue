@@ -86,7 +86,7 @@
 
         <div class="alpheios-panel__content">
 
-            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-pane alpheios-panel__content_no_top_paddingl">
+            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
                 </div>
