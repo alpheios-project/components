@@ -123,10 +123,12 @@
       },
 
       settingChanged: function (name, value) {
+        console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
+        console.log('***************** settingChanged 2 ', findLang)
         this.currentLanguage = {
           currentValue: findLang.value,
-          textValues: () => this.preferredLanguage.values
+          textValues: this.preferredLanguage.values
         }
       },
 
