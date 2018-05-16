@@ -557,8 +557,14 @@
         direction: ltr;
         box-sizing: border-box;
         display: flex;
+        flex-flow: wrap;
     }
 
+    .alpheios-lookup__panel {
+      width: 100%;
+      padding: 0 20px;
+    }
+    
     .alpheios-panel__notifications {
         display: none;
         position: relative;

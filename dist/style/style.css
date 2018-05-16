@@ -7683,7 +7683,7 @@ div.alpheios-morph__block {
 }
 .alpheios-panel .alpheios-lookup_form {
   width: 100%;
-  margin-top: 5px;
+  margin: 5px 0;
 }
 .alpheios-panel .alpheios-lookup_form .uk-input {
     width: 70%;
@@ -8276,6 +8276,11 @@ h3.alpheios-inflections__title {
   direction: ltr;
   box-sizing: border-box;
   display: flex;
+  flex-flow: wrap;
+}
+.alpheios-lookup__panel {
+  width: 100%;
+  padding: 0 20px;
 }
 .alpheios-panel__notifications {
   display: none;
