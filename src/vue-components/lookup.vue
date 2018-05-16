@@ -64,6 +64,7 @@
     },
     mounted: function () {
       this.currentLanguage = Object.assign({}, this.preferredLanguage)
+      console.log('************mounted', this.currentLanguage)
     },
     computed: {
       buttonLabel: function () {
@@ -91,8 +92,9 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        if (  this.currentLanguage === null ) {
+        if ( this.currentLanguage === null ) {
           this.currentLanguage = Object.assign({}, this.preferredLanguage)
+          console.log('************currentLangLexicons', this.currentLanguage)
         }
         return 'lexicons-' + this.currentLanguage.currentValue
       },
