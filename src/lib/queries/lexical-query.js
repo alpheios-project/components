@@ -191,7 +191,7 @@ export default class LexicalQuery extends Query {
     if (siteMatch.length > 0 && siteMatch[0].resourceOptions.items[lexiconKey]) {
       allOptions = [...siteMatch[0].resourceOptions.items[lexiconKey], ...this.resourceOptions.items[lexiconKey]]
     } else {
-      console.log('************* getLexiconOptions', this.resourceOptions)
+      console.log('************* getLexiconOptions', this.resourceOptions.items)
       allOptions = this.resourceOptions.items[lexiconKey] || []
     }
     let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === this.selector.languageCode
