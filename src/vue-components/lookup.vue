@@ -61,8 +61,12 @@
       }
     },
     mounted: function () {
-      this.currentLanguage = this.preferredLanguage.cloneObject()
-      this.resourceOptions = this.uiController.resourceOptions.cloneObject()     
+      if (this.preferredLanguage && typeof this.preferredLanguage.cloneObject === 'function') {
+        this.currentLanguage = this.preferredLanguage.cloneObject()
+      }
+      if (this.uiController && this.uiController.resourceOptions) {
+        this.resourceOptions = this.uiController.resourceOptions.cloneObject()     
+      }
     },
     computed: {
 
@@ -97,7 +101,7 @@
         return 'lexicons-' + this.currentLanguage.currentValue
       },
       lexiconsFiltered: function () {
-        if (Array.isArray(this.resourceOptions.items.lexicons)) {
+        if (this.resourceOptions && Array.isArray(this.resourceOptions.items.lexicons)) {
           return this.resourceOptions.items.lexicons.filter(item => item.name === this.currentLangLexicons)
         }
         return []
