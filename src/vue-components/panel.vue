@@ -86,7 +86,7 @@
 
         <div class="alpheios-panel__content">
 
-            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
+            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-pane alpheios-panel__content_no_top_paddingl">
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
                 </div>
@@ -139,7 +139,7 @@
                   v-if="languageSetting.values.length > 1"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
-            <div v-show="data.tabs.info" class="alpheios-panel__tab-panel">
+            <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
                 </div>
@@ -564,12 +564,18 @@
         flex-flow: wrap;
     }
 
+    .alpheios-panel__content_no_top_padding {
+      padding-top: 0;
+    }
+
     .alpheios-lookup__panel {
 /*      width: 100%;
       padding: 0 20px;
       display: flex;
       flex-direction: column;*/
       display: block;
+      border-bottom: 1px solid;
+      margin-bottom: 20px;
     }
 
     .alpheios-panel__notifications {
