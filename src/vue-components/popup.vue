@@ -161,7 +161,12 @@
         default: 0
       }
     },
-
+    created () {
+      let vm = this
+      this.$on('updatePopupDimensions', function(){
+        vm.updatePopupDimensions()
+      })
+    },
     computed: {
       uiController: function () {
         return this.$parent.uiController

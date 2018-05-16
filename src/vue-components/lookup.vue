@@ -125,6 +125,7 @@
 
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
+        this.$parent.$emit('updatePopupDimensions')
       },
 
       settingChanged: function (name, value) {
