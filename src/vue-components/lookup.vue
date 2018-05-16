@@ -66,7 +66,7 @@
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
-      console.log('************mounted 2', this.uiController.resourceOptions.constructor.name, this.resourceOptions)
+      console.log('************mounted 2', this.uiController.resourceOptions.constructor.name, this.uiController.resourceOptions)
       this.lexicons = Object.assign({}, this.resourceSettings).lexicons
       console.log('************mounted 1', this.lexicons)
       
