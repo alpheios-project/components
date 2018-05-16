@@ -134,6 +134,7 @@
       },
 
       resourceSettingChanged: function (name, value) {
+        console.log('***************************** resourceSettingChanged', name, value)
         let changedLexiconIndex = this.resourceOptions.items.lexicons.findIndex(item => item.name = this.currentLangLexicons)
         console.log('***************************** resourceSettingChanged 1', changedLexiconIndex)
         let valuesLexicons = this.resourceOptions.items.lexicons[changedLexiconIndex].values.filter(item => value.indexOf(item.text) > -1)
