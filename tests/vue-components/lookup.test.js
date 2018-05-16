@@ -19,8 +19,7 @@ describe('lookup.test.js', () => {
   let cmp = mount(Lookup, {
     propsData: {
       uiController: {},
-      preferredLanguage: {},
-      lexicons: []
+      preferredLanguage: {}
     }
   })
 
@@ -44,8 +43,7 @@ describe('lookup.test.js', () => {
     mount(Lookup, {
       propsData: {
         uiController: null,
-        preferredLanguage: {},
-        lexicons: []
+        preferredLanguage: {}
       }
     })
     // console.log('**********testing testCmp', cmp.find('.alpheios-lookup_form').html())

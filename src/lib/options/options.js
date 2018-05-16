@@ -48,7 +48,12 @@ export default class Options {
 
   cloneDefaultResourceOptions () {
     let obj = new Options(null, null, true)
-    let defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
+    let defaults
+    try {
+      defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
+    } catch (e) {
+      defaults = LanguageOptionDefaults
+    }
     for (const key of Object.keys(defaults)) {
       obj[key] = defaults[key]
     }
