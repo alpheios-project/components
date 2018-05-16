@@ -66,7 +66,7 @@
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
-      this.lexicons = this.resourceSettings.lexicons
+      this.lexicons = this.resourceSettings.cloneObject().lexicons
       console.log('************mounted 1', this.lexicons)
       console.log('************mounted 2', this.resourceSettings)
     },
@@ -118,7 +118,7 @@
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
-          .create(textSelector, this.uiController)
+          .create(textSelector, this.uiController, this.resourceSettings)
           .getData()
 
         // this.lookuptext = ''

@@ -20,7 +20,9 @@ export default class LexicalQueryLookup extends LexicalQuery {
    */
 
   static create (textSelector, uiController, resourceOptions) {
-    // let resourceOptions = uiController.resourceOptions
+    if (resourceOptions === undefined) {
+      resourceOptions = uiController.resourceOptions
+    }
 
     uiController.updateLanguage(textSelector.languageCode)
     let options = {
