@@ -126,7 +126,7 @@
         console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
         console.log('***************** settingChanged 2 ', findLang)
-        this.currentLanguage = = Object.assign(this.preferredLanguage, { currentValue: findLang.value })
+        this.currentLanguage = Object.assign(this.preferredLanguage, { currentValue: findLang.value })
       },
 
       resourceSettingChanged: function (name, value) {
