@@ -104,8 +104,8 @@
         return 'lexicons-' + this.currentLanguage.currentValue
       },
       lexiconsFiltered: function () {
-        if (Array.isArray(this.resourceOptions.lexicons)) {
-          return this.resourceOptions.lexicons.filter(item => item.name === this.currentLangLexicons)
+        if (Array.isArray(this.resourceOptions.items['lexicons'])) {
+          return this.resourceOptions.items['lexicons'].filter(item => item.name === this.currentLangLexicons)
         }
         return []
       }
