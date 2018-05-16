@@ -83,12 +83,11 @@
               </alph-tooltip>
             </span>
         </div>
-        <div class="alpheios-panel__header reskin_panel">for reskin panel</div>
-        <div class="alpheios-panel__header lookup_panel" v-show="showLookupPanel">
-          <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
-        </div>
 
         <div class="alpheios-panel__content">
+          <div class="alpheios-lookup__panel" v-show="showLookupPanel">
+            <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+          </div>
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
@@ -429,11 +428,10 @@
         direction: ltr;
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: #{$alpheios-panel-header-height} 0 auto auto  60px;
+        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} auto 60px;
         grid-template-areas:
             "header"
             "title"
-            "lookup"
             "content"
             "content"
     }
@@ -442,7 +440,6 @@
         grid-template-areas:
                 "header"
                 "title"
-                "lookup"
                 "content"
                 "notifications"
     }
@@ -459,7 +456,6 @@
         grid-template-areas:
                 "header"
                 "title"
-                "lookup"
                 "content"
                 "content"
 
@@ -469,7 +465,6 @@
         grid-template-areas:
                 "header"
                 "title"
-                "lookup"
                 "content"
                 "notifications"
 
@@ -484,13 +479,6 @@
         flex-direction: row;
         justify-content: space-between;
         border-bottom: 1px solid $alpheios-link-color-dark-bg;
-    }
-    .alpheios-panel__header.reskin_panel {
-      grid-area: title;
-      display: none;
-    }
-    .alpheios-panel__header.lookup_panel {
-      grid-area: lookup;
     }
     .alpheios-panel-left .alpheios-panel__header {
         direction: ltr;
