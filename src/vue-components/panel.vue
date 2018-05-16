@@ -292,10 +292,6 @@
           top: '2px',
           right: '50px'
         }
-      },
-
-      showLookupPanel: function () {
-        return this.data.tabs.definitions || this.data.tabs.info
       }
     },
     methods: {
@@ -635,7 +631,7 @@
     .alpheios-panel__content_no_top_padding {
       padding-top: 0;
     }
-    
+
     .alpheios-panel__message {
         margin-bottom: 0.5rem;
     }

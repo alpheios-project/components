@@ -7674,13 +7674,18 @@ div.alpheios-morph__block {
 .alpheios-lookup_form .uk-button {
     font-size: 12px;
     vertical-align: top;
+    display: block;
 }
 .alpheios-lookup_form .alpheios-lookup__settings {
     text-align: left;
 }
 .alpheios-lookup_form .alpheios-lookup__settings-link {
     font-size: 10.8px;
-    margin-left: 71%;
+    /* margin-left: 71%;*/
+    display: block;
+}
+.alpheios-lookup_form .button_with_link {
+    width: 29%;
 }
 .alpheios-panel .alpheios-lookup_form {
   width: 100%;

@@ -4,14 +4,16 @@
       @keyup.enter="lookup"
     >
     <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
+      <span class="button_with_link">
       <button class="uk-button uk-button-primary uk-button-small lookup_button" type="button" tabindex="-1"
         @click="lookup"
       >
         {{ buttonLabel }}
       </button>
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
+      </span>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings" v-if="currentLanguage && lexiconsFiltered" >
         <alph-setting :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
 
@@ -167,6 +169,7 @@
       .uk-button {
         font-size: 12px;
         vertical-align: top;
+        display: block;
       }
 
       .alpheios-lookup__settings {
@@ -174,7 +177,12 @@
       }
       .alpheios-lookup__settings-link {
         font-size: 0.675 * $alpheios-base-font-size;
-        margin-left: 71%;
+        /* margin-left: 71%;*/
+        display: block;
+      }
+
+      .button_with_link {
+        width: 29%;
       }
     }
 
