@@ -65,7 +65,7 @@
         this.currentLanguage = this.preferredLanguage.cloneObject()
       }
       if (this.uiController && this.uiController.resourceOptions) {
-        this.resourceOptions = this.uiController.resourceOptions.cloneObject()     
+        this.resourceOptions = this.uiController.resourceOptions.cloneDefaultResourceOptions()     
       }
     },
     computed: {
