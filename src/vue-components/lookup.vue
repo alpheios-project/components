@@ -94,7 +94,7 @@
         if (  this.currentLanguage === null ) {
           this.currentLanguage = this.preferredLanguage
         }
-        return 'lexicons-' + this.currentLanguage.currentValue()
+        return 'lexicons-' + this.currentLanguage.currentValue
       },
       lexiconsFiltered: function () {
         if (Array.isArray(this.lexicons)) {
