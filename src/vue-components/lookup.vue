@@ -47,7 +47,7 @@
         showLanguageSettings: false,
         currentLanguage: null,
         currentDictionary: null,
-        lexicons: []
+        resourceOptions: null
       }
     },
     props: {
@@ -67,8 +67,8 @@
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
       console.log('************mounted 2', this.uiController.resourceOptions.constructor.name, this.uiController.resourceOptions)
-      this.lexicons = this.uiController.resourceOptions.cloneObject().lexicons
-      console.log('************mounted 1', this.lexicons)
+      this.resourceOptions = this.uiController.resourceOptions.cloneObject()
+      console.log('************mounted 1', this.resourceOptions)
       
     },
     computed: {
@@ -104,8 +104,8 @@
         return 'lexicons-' + this.currentLanguage.currentValue
       },
       lexiconsFiltered: function () {
-        if (Array.isArray(this.lexicons)) {
-          return this.lexicons.filter(item => item.name === this.currentLangLexicons)
+        if (Array.isArray(this.resourceOptions.lexicons)) {
+          return this.resourceOptions.lexicons.filter(item => item.name === this.currentLangLexicons)
         }
         return []
       }
