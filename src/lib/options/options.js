@@ -45,13 +45,13 @@ export default class Options {
     return items
   }
 
-  // cloneObject () {
-  //   let obj = new Options(null, null, true)
-  //   for (const key of Object.keys(this)) {
-  //     obj[key] = this[key]
-  //   }
-  //   return obj
-  // }
+  cloneObject () {
+    let obj = new Options(null, null, true)
+    for (const key of Object.keys(this)) {
+      obj[key] = this[key]
+    }
+    return obj
+  }
 
   get names () {
     return Object.keys(this.items)
