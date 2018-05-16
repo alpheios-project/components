@@ -50,7 +50,9 @@ export default class Options {
     for (const key of Object.keys(this)) {
       console.log('************ Options cloneObject', key, this[key].constructor.name, this[key])
       if (key === 'items') {
-        obj.items = Options.initItems(this.items, this.storageAdapter)
+        this.items.forEach(function (optItem) {
+          obj.items.push(optItem.cloneObject())
+        })
       } else if (key === 'storageAdapter') {
         obj.items = this.storageAdapter
       } else {
