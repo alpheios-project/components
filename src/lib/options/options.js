@@ -14,7 +14,7 @@ export default class Options {
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
   constructor (defaults, StorageAdapter, cloned) {
-    if (cloned === false) {
+    if (cloned !== true) {
       if (!defaults || !defaults.domain || !defaults.items) {
         throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
       }
