@@ -169,9 +169,9 @@
 
       .alpheios-lookup__settings {
         text-align: left;
-        .alpheios-lookup__settings-link {
-          font-size: 0.675 * $alpheios-base-font-size;
-        }
+      }
+      .alpheios-lookup__settings-link {
+        font-size: 0.675 * $alpheios-base-font-size;
       }
     }
 
