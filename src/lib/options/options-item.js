@@ -20,6 +20,10 @@ export default class OptionItem {
     this.storageAdapter = storageAdapter
   }
 
+  cloneObject () {
+    return new OptionItem(this, true, this.storageAdapter)
+  }
+
   textValues () {
     return this.values.map(value => value.text)
   }
