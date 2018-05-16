@@ -565,10 +565,11 @@
     }
 
     .alpheios-lookup__panel {
-      width: 100%;
+/*      width: 100%;
       padding: 0 20px;
       display: flex;
-      flex-direction: column;
+      flex-direction: column;*/
+      display: block;
     }
 
     .alpheios-panel__notifications {
@@ -620,10 +621,9 @@
     }
 
     .alpheios-panel__tab-panel {
-/*        display: flex;
+        display: flex;
         flex-direction: column;
-        padding: 20px;*/
-        display: block;
+        padding: 20px;
     }
 
     .alpheios-panel__tab-panel--fw {
