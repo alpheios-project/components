@@ -106,13 +106,17 @@
         if (this.currentLanguage === null) {
           this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
         }
+
+        console.log('********* currentLanguage', this.currentLanguage)
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
+        console.log('********* languageID', languageID)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
+        console.log('********* textSelector', textSelector)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
           .getData()
 
-        this.lookuptext = ''
+        // this.lookuptext = ''
       },
 
       'switchLookupSettings': function () {
