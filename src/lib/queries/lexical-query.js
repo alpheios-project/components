@@ -44,7 +44,7 @@ export default class LexicalQuery extends Query {
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
-          this.finalize(error)
+          // this.finalize(error)
           break
         }
       } else {
