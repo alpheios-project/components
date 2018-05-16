@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { mount } from '@vue/test-utils'
 import Lookup from '../../src/vue-components/lookup.vue'
-// import Setting from '../../src/vue-components/setting.vue'
+import Setting from '../../src/vue-components/setting.vue'
 // import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
 import L10n from '../../src/lib/l10n/l10n'
@@ -9,10 +9,10 @@ import Locales from '../../src/locales/locales'
 import enUS from '../../src/locales/en-us/messages.json'
 import enGB from '../../src/locales/en-gb/messages.json'
 
-// import Options from '../../src/lib/options/options.js'
-// import ContentOptionDefaults from '../../src/settings/content-options-defaults.json'
-// import LocalStorageArea from '../../src/lib/options/local-storage-area.js'
-// import LanguageOptionDefaults from '../../src/settings/language-options-defaults.json'
+import Options from '../../src/lib/options/options.js'
+import ContentOptionDefaults from '../../src/settings/content-options-defaults.json'
+import LocalStorageArea from '../../src/lib/options/local-storage-area.js'
+import LanguageOptionDefaults from '../../src/settings/language-options-defaults.json'
 
 describe('lookup.test.js', () => {
   let spy
@@ -29,34 +29,15 @@ describe('lookup.test.js', () => {
     .addMessages(enGB, Locales.en_GB)
     .setLocale(Locales.en_US)
 
+  let options = new Options(ContentOptionDefaults, LocalStorageArea)
+  let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
   let cmpL10n = mount(Lookup, {
     propsData: {
-      uiController: { l10n: l10n },
-      preferredLanguage: {},
-      lexicons: []
+      uiController: { l10n: l10n, resourceOptions: resourceOptions },
+      preferredLanguage: options.items.preferredLanguage
     }
   })
-
-  // let options = new Options(ContentOptionDefaults, LocalStorageArea)
-  // let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
-
-  // // console.log('********************** options', options)
-  // let cmpFull = mount(Lookup, {
-  //   propsData: {
-  //     uiController: { l10n: l10n },
-  //     preferredLanguage: options.items.preferredLanguage,
-  //     lexicons: resourceOptions.items.lexicons
-  //   }
-  // })
-  // let optionsGrc = new Options(ContentOptionDefaults, LocalStorageArea)
-  // optionsGrc.items.preferredLanguage.currentValue = 'grc'
-  // let cmpFullGrc = mount(Lookup, {
-  //   propsData: {
-  //     uiController: { l10n: l10n },
-  //     preferredLanguage: optionsGrc.items.preferredLanguage,
-  //     lexicons: resourceOptions.items.lexicons
-  //   }
-  // })
 
   it('If there is an empty uiController - error is thrown', () => {
     spy = jest.spyOn(console, 'error')
@@ -130,27 +111,19 @@ describe('lookup.test.js', () => {
     expect(cmp.vm.showLanguageSettings).toBeTruthy()
   })
 
-  // it('Language settings contains settings components', () => {
-  //   cmp.setData({ showLanguageSettings: true })
-  //   expect(cmp.find(Setting).exists()).toBeTruthy()
-  // })
+  it('Language settings contains settings components', () => {
+    cmpL10n.setData({ showLanguageSettings: true })
+    expect(cmpL10n.find(Setting).exists()).toBeTruthy()
+  })
 
-  // it('If language === lat then there is one setting component', (done) => {
-  //   cmpFull.setData({ showLanguageSettings: true })
-  //   // options.items.preferredLanguage.currentValue = 'grc'
-  //   Vue.nextTick(() => {
-  //     // console.log('********* 4', cmpFull.findAll(Setting).length)
-  //     expect(cmpFull.findAll(Setting).length).toBe(1)
-  //     done()
-  //   })
-  // })
-  // it('If language === grc then there are two settings component', (done) => {
-  //   cmpFullGrc.setData({ showLanguageSettings: true })
-  //   // // options.items.preferredLanguage.currentValue = 'grc'
-  //   Vue.nextTick(() => {
-  //     // console.log('********* 4', cmpFull.findAll(Setting).length)
-  //     expect(cmpFullGrc.findAll(Setting).length).toBe(2)
-  //     done()
-  //   })
-  // })
+  it('If language === lat then there is one setting component', () => {
+    cmpL10n.setData({ showLanguageSettings: true })
+    expect(cmpL10n.findAll(Setting).length).toBe(1)
+  })
+  it('If language === grc then there are two settings component', () => {
+    cmpL10n.setData({ showLanguageSettings: true })
+    cmpL10n.vm.settingChanged(null, 'Greek')
+
+    expect(cmpL10n.findAll(Setting).length).toBe(2)
+  })
 }) // Create a copy of the original component with full values
