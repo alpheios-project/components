@@ -125,8 +125,8 @@
       settingChanged: function (name, value) {
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
         this.currentLanguage = {
-          currentValue: () => findLang.value,
-          textValues: () => this.preferredLanguage.values
+          currentValue: findLang.value,
+          textValues: this.preferredLanguage.values
         }
       },
 
