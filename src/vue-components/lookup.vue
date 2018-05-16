@@ -91,6 +91,9 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
+        if (  this.currentLanguage === null ) {
+          this.currentLanguage = this.preferredLanguage
+        }
         return 'lexicons-' + this.currentLanguage.currentValue()
       },
       lexiconsFiltered: function () {
