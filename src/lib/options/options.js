@@ -50,6 +50,7 @@ export default class Options {
     for (const key of Object.keys(this)) {
       console.log('************ Options cloneObject', key, this[key].constructor.name, this[key])
       if (key === 'items') {
+        obj.items = {}
         for (const key of Object.keys(this.items)) {
           obj.items.push(this.items[key].cloneObject())
         }
