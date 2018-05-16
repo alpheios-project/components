@@ -58,18 +58,11 @@
       preferredLanguage: {
         type: Object,
         required: true
-      },
-      resourceSettings: {
-        type: Object,
-        required: true
       }
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
-      console.log('************mounted 2', this.uiController.resourceOptions.constructor.name, this.uiController.resourceOptions)
-      this.resourceOptions = this.uiController.resourceOptions.cloneObject()
-      console.log('************mounted 1', this.resourceOptions)
-      
+      this.resourceOptions = this.uiController.resourceOptions.cloneObject()     
     },
     computed: {
 
@@ -119,8 +112,6 @@
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         
-        // console.log('*************lookup', this.resourceOptions.items.lexicons.currentTextValue())
-        
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
@@ -139,15 +130,10 @@
       },
 
       resourceSettingChanged: function (name, value) {
-        console.log('*************resourceSettingChanged', name, value)
-        console.log('*************resourceSettingChanged', this.resourceOptions.items.lexicons)
         let changedLexiconIndex = this.resourceOptions.items.lexicons.findIndex(item => item.name = this.currentLangLexicons)
         let valuesLexicons = this.resourceOptions.items.lexicons[changedLexiconIndex].values.filter(item => value.indexOf(item.text) > -1)
 
         this.resourceOptions.items.lexicons[changedLexiconIndex].currentValue = valuesLexicons.map(item => item.value)
-
-        console.log('*************resourceSettingChanged',valuesLexicons)
-        // this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }
