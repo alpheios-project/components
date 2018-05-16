@@ -1,5 +1,5 @@
 import OptionItem from './options-item.js'
-import DefaultsLoader from './defaults-loader.js'
+// import DefaultsLoader from './defaults-loader.js'
 import LanguageOptionDefaults from '../../settings/language-options-defaults.json'
 /**
  * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
@@ -49,11 +49,22 @@ export default class Options {
   cloneDefaultResourceOptions () {
     let obj = new Options(null, null, true)
     let defaults
-    try {
-      defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
-    } catch (e) {
-      defaults = LanguageOptionDefaults
-    }
+    defaults = LanguageOptionDefaults
+    // try {
+    //   defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
+    // } catch (e) {
+    //   defaults = LanguageOptionDefaults
+    // } finally {
+    //   for (const key of Object.keys(defaults)) {
+    //     obj[key] = defaults[key]
+    //   }
+    //   obj.storageAdapter = this.storageAdapter
+    //   obj.items = Options.initItems(obj.items, this.storageAdapter)
+
+    //   this.items.lexicons.forEach(function (lexItem, index) {
+    //     obj.items.lexicons[index].currentValue = lexItem.currentValue
+    //   })
+    // }
     for (const key of Object.keys(defaults)) {
       obj[key] = defaults[key]
     }

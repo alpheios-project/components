@@ -2,7 +2,7 @@
 import { mount } from '@vue/test-utils'
 import Lookup from '../../src/vue-components/lookup.vue'
 import Setting from '../../src/vue-components/setting.vue'
-// import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
+import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
 import L10n from '../../src/lib/l10n/l10n'
 import Locales from '../../src/locales/locales'
@@ -118,10 +118,13 @@ describe('lookup.test.js', () => {
     cmpL10n.setData({ showLanguageSettings: true })
     expect(cmpL10n.findAll(Setting).length).toBe(1)
   })
-  it('If language === grc then there are two settings component', () => {
+  it('If language === grc then there are two settings component', (done) => {
     cmpL10n.setData({ showLanguageSettings: true })
     cmpL10n.vm.settingChanged(null, 'Greek')
 
-    expect(cmpL10n.findAll(Setting).length).toBe(2)
+    Vue.nextTick(function () {
+      expect(cmpL10n.findAll(Setting).length).toBe(2)
+      done()
+    })
   })
 }) // Create a copy of the original component with full values
