@@ -125,8 +125,9 @@
 
       settingChanged: function (name, value) {
         // this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
-        console.log('************* languages', name, value, this.uiController.options.items.preferredLanguage.values.find(item => item.text = value))
-        this.currentLanguage = value
+        let findLang = this.uiController.options.items.preferredLanguage.values.find(item => item.text === value)
+        console.log('************* languages', name, value, findLang)
+        this.currentLanguage = findLang[0].value
       },
 
       resourceSettingChanged: function (name, value) {
