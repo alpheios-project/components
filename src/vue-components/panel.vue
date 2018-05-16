@@ -564,15 +564,7 @@
         flex-flow: wrap;
     }
 
-    .alpheios-panel__content_no_top_padding {
-      padding-top: 0;
-    }
-
     .alpheios-lookup__panel {
-/*      width: 100%;
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;*/
       display: block;
       border-bottom: 1px solid;
       margin-bottom: 20px;
@@ -640,6 +632,10 @@
         padding: 0;
     }
 
+    .alpheios-panel__content_no_top_padding {
+      padding-top: 0;
+    }
+    
     .alpheios-panel__message {
         margin-bottom: 0.5rem;
     }
