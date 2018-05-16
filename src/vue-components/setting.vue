@@ -30,6 +30,10 @@
         }
       }
     },
+    mounted: function () {
+      console.log('*************data.textValues()', this.data.textValues)
+      console.log('*************data.currentTextValue()', data.currentTextValue)
+    },
     computed: {
       selected: {
         get: function () {
