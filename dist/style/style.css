@@ -7683,6 +7683,7 @@ div.alpheios-morph__block {
     font-size: 10.8px;
     /* margin-left: 71%;*/
     display: block;
+    padding-top: 5px;
 }
 .alpheios-lookup_form .button_with_link {
     width: 29%;

@@ -179,6 +179,7 @@
         font-size: 0.675 * $alpheios-base-font-size;
         /* margin-left: 71%;*/
         display: block;
+        padding-top: 5px;
       }
 
       .button_with_link {
