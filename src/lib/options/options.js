@@ -1,5 +1,6 @@
 import OptionItem from './options-item.js'
-
+import DefaultsLoader from './defaults-loader.js'
+import LanguageOptionDefaults from '.../../settings/language-options-defaults.json'
 /**
  * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
  */
@@ -45,21 +46,14 @@ export default class Options {
     return items
   }
 
-  cloneObject () {
+  cloneDefaultResourceOptions () {
     let obj = new Options(null, null, true)
-    for (const key of Object.keys(this)) {
-      console.log('************ Options cloneObject', key, this[key].constructor.name, this[key])
-      if (key === 'items') {
-        obj.items = {}
-        for (const key of Object.keys(this.items)) {
-          obj.items.push(this.items[key].cloneObject())
-        }
-      } else if (key === 'storageAdapter') {
-        obj.items = this.storageAdapter
-      } else {
-        obj[key] = this[key]
-      }
+    let defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
+    for (const key of Object.keys(defaults)) {
+      obj[key] = defaults[key]
     }
+    obj.storageAdapter = this.storageAdapter
+    obj.items = Options.initItems(obj.items, this.storageAdapter)
     return obj
   }
 
