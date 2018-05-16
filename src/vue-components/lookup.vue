@@ -9,10 +9,9 @@
       >
         {{ buttonLabel }}
       </button>
-      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings" v-if="currentLanguage && lexiconsFiltered" >
         <alph-setting :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
 
@@ -172,6 +171,7 @@
       }
       .alpheios-lookup__settings-link {
         font-size: 0.675 * $alpheios-base-font-size;
+        margin-left: 71%;
       }
     }
 
