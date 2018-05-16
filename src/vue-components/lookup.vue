@@ -63,7 +63,7 @@
       }
     },
     mounted: function () {
-      this.currentLanguage = this.preferredLanguage.currentValue
+      this.currentLanguage = this.preferredLanguage
     },
     computed: {
       buttonLabel: function () {
@@ -91,7 +91,7 @@
         return this.deafultLabelSettings
       },
       currentLangLexicons: function () {
-        return 'lexicons-' + this.currentLanguage
+        return 'lexicons-' + this.currentLanguage.currentValue
       },
       lexiconsFiltered: function () {
         if (Array.isArray(this.lexicons)) {
@@ -106,7 +106,7 @@
           return null
         }
 
-        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
@@ -121,7 +121,7 @@
 
       settingChanged: function (name, value) {
         let findLang = this.uiController.options.items.preferredLanguage.values.find(item => item.text === value)
-        this.currentLanguage = findLang.value
+        this.currentLanguage = {currentValue => findLang.value}
       },
 
       resourceSettingChanged: function (name, value) {
