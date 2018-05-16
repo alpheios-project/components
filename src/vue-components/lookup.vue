@@ -125,6 +125,7 @@
 
       settingChanged: function (name, value) {
         // this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+        console.log('************* languages', this.uiController.options.items)
         this.currentLanguage = value
       },
 
