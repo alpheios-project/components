@@ -125,7 +125,7 @@
       settingChanged: function (name, value) {
         console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
-        console.log('***************** settingChanged 2 ', findLang)
+        console.log('***************** settingChanged 2 ', this.preferredLanguage)
         this.currentLanguage = Object.assign(this.preferredLanguage, { currentValue: findLang.value })
       },
 
