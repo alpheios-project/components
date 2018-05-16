@@ -45,7 +45,8 @@
         deafultLabelSettings: 'Settings',
 
         showLanguageSettings: false,
-        currentLanguage: null
+        currentLanguage: null,
+        currentDictionary: null
       }
     },
     props: {
@@ -63,9 +64,8 @@
       }
     },
     mounted: function () {
-      console.log('************mounted 2 ', this.preferredLanguage)
       this.currentLanguage = this.preferredLanguage.cloneObject()
-      console.log('************mounted 1 ', this.currentLanguage)
+      console.log('************mounted', this.lexicons)
     },
     computed: {
       buttonLabel: function () {
@@ -95,7 +95,6 @@
       currentLangLexicons: function () {
         if ( this.currentLanguage === null ) {
           this.currentLanguage = this.preferredLanguage.cloneObject()
-          console.log('************currentLangLexicons', this.currentLanguage)
         }
         return 'lexicons-' + this.currentLanguage.currentValue
       },
@@ -126,12 +125,9 @@
       },
 
       settingChanged: function (name, value) {
-        console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
-        console.log('***************** settingChanged 2 ', this.preferredLanguage)
         this.currentLanguage = this.preferredLanguage.cloneObject()
         this.currentLanguage.currentValue= findLang.value
-        console.log('***************** settingChanged 3 ', this.currentLanguage)
       },
 
       resourceSettingChanged: function (name, value) {
@@ -148,7 +144,7 @@
       text-align: left;
 
       .uk-input {
-        width: 80%;
+        width: 70%;
         line-height: 28px;
         height: 30px;
         font-size: 14px;
