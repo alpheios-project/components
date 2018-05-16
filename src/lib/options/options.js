@@ -13,19 +13,32 @@ export default class Options {
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
-  constructor (defaults, StorageAdapter) {
-    if (!defaults || !defaults.domain || !defaults.items) {
-      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
-    }
-    if (!StorageAdapter) {
-      throw new Error(`No storage adapter implementation provided`)
-    }
-    for (const key of Object.keys(defaults)) {
-      this[key] = defaults[key]
-    }
-    this.storageAdapter = new StorageAdapter(defaults.domain)
+  constructor (defaults, StorageAdapter, cloned) {
+    if (cloned === false) {
+      if (!defaults || !defaults.domain || !defaults.items) {
+        throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+      }
+      if (!StorageAdapter) {
+        throw new Error(`No storage adapter implementation provided`)
+      }
+      for (const key of Object.keys(defaults)) {
+        this[key] = defaults[key]
+      }
+      this.storageAdapter = new StorageAdapter(defaults.domain)
 
-    this.items = Options.initItems(this.items, this.storageAdapter)
+      this.items = Options.initItems(this.items, this.storageAdapter)
+    }
+  }
+
+  cloneObject () {
+    let obj = new Options(null, null, true)
+    for (const key of Object.keys(this)) {
+      obj[key] = this[key]
+    }
+    obj.storageAdapter = this.storageAdapter
+    obj.items = this.items
+
+    return obj
   }
 
   static initItems (defaults, storageAdapter) {

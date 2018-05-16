@@ -63,7 +63,7 @@
       }
     },
     mounted: function () {
-      this.currentLanguage = Object.assign({}, this.preferredLanguage)
+      this.currentLanguage = this.preferredLanguage.cloneObject()
       console.log('************mounted 1 ', this.currentLanguage)
       console.log('************mounted 2 ', this.preferredLanguage)
     },
@@ -94,7 +94,7 @@
       },
       currentLangLexicons: function () {
         if ( this.currentLanguage === null ) {
-          this.currentLanguage = Object.assign({}, this.preferredLanguage)
+          this.currentLanguage = this.preferredLanguage.cloneObject()
           console.log('************currentLangLexicons', this.currentLanguage)
         }
         return 'lexicons-' + this.currentLanguage.currentValue
@@ -129,7 +129,8 @@
         console.log('***************** settingChanged 1 ', name, value)
         let findLang = this.preferredLanguage.values.find(item => item.text === value)
         console.log('***************** settingChanged 2 ', this.preferredLanguage)
-        this.currentLanguage = Object.assign({ currentValue: findLang.value }, this.preferredLanguage)
+        this.currentLanguage = this.preferredLanguage.cloneObject()
+        this.currentLanguage.currentValue= findLang.value
         console.log('***************** settingChanged 3 ', this.currentLanguage)
       },
 
