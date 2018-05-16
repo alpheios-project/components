@@ -66,9 +66,10 @@
     },
     mounted: function () {
       this.currentLanguage = this.preferredLanguage.cloneObject()
+      console.log('************mounted 2', this.resourceSettings.constructor.name, this.resourceSettings)
       this.lexicons = this.resourceSettings.cloneObject().lexicons
       console.log('************mounted 1', this.lexicons)
-      console.log('************mounted 2', this.resourceSettings)
+      
     },
     computed: {
 
