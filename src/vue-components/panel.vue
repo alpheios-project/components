@@ -563,8 +563,10 @@
     .alpheios-lookup__panel {
       width: 100%;
       padding: 0 20px;
+      display: flex;
+      flex-direction: column;
     }
-    
+
     .alpheios-panel__notifications {
         display: none;
         position: relative;
