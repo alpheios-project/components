@@ -64,7 +64,8 @@
     },
     mounted: function () {
       this.currentLanguage = Object.assign({}, this.preferredLanguage)
-      console.log('************mounted', this.currentLanguage)
+      console.log('************mounted 1 ', this.currentLanguage)
+      console.log('************mounted 2 ', this.preferredLanguage)
     },
     computed: {
       buttonLabel: function () {
