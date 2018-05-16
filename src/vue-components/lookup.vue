@@ -118,7 +118,7 @@
 
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
-        console.log('*************lookup', this.resourceOptions.items.lexicons)
+        
         // console.log('*************lookup', this.resourceOptions.items.lexicons.currentTextValue())
         
         LexicalQueryLookup
@@ -139,6 +139,8 @@
       },
 
       resourceSettingChanged: function (name, value) {
+        console.log('*************resourceSettingChanged', name, value)
+        console.log('*************lookup', this.resourceOptions.items.lexicons)
         // this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
