@@ -12,8 +12,8 @@
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
       <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
-      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
-        <alph-setting v-if="currentLanguage" :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
+      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings" v-if="currentLanguage && languageSetting" >
+        <alph-setting :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
 
         <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
