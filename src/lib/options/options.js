@@ -1,6 +1,6 @@
 import OptionItem from './options-item.js'
 import DefaultsLoader from './defaults-loader.js'
-import LanguageOptionDefaults from '.../../settings/language-options-defaults.json'
+import LanguageOptionDefaults from '../../settings/language-options-defaults.json'
 /**
  * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
  */
