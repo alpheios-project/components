@@ -106,7 +106,7 @@
         if (this.currentLanguage === null) {
           this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
         }
-        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.uiController.options.items.preferredLanguage.currentValue)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
           .create(textSelector, this.uiController)
