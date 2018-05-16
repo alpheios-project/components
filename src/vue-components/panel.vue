@@ -85,10 +85,11 @@
         </div>
 
         <div class="alpheios-panel__content">
-          <div class="alpheios-lookup__panel" v-show="showLookupPanel">
-            <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
-          </div>
+
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel">
+                <div class="alpheios-lookup__panel">
+                  <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+                </div>
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
                 <div class="alpheios-panel__contentitem" v-for="definition in data.shortDefinitions">
@@ -139,6 +140,9 @@
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel">
+                <div class="alpheios-lookup__panel">
+                  <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+                </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages"></info>
             </div>
         </div>
@@ -414,7 +418,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
     $alpheios-panel-header-height: 40px;
-    $alpheios-panel-title-height: 60px;
+    $alpheios-panel-title-height: 20px;
 
     .alpheios-panel {
         width: 400px; // Initial width
@@ -428,7 +432,7 @@
         direction: ltr;
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: #{$alpheios-panel-header-height} 0 auto 60px;
+        grid-template-rows: #{$alpheios-panel-header-height} #{$alpheios-panel-title-height} auto 60px;
         grid-template-areas:
             "header"
             "title"

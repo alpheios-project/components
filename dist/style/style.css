@@ -8182,7 +8182,7 @@ h3.alpheios-inflections__title {
   direction: ltr;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 40px 0 auto 60px;
+  grid-template-rows: 40px 20px auto 60px;
   grid-template-areas: "header" "title" "content" "content";
 }
 .alpheios-panel[data-notification-visible="true"] {
