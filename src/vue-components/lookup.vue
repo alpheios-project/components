@@ -44,7 +44,8 @@
         defaultInputPlaceholder: 'Type text',
         deafultLabelSettings: 'Settings',
 
-        showLanguageSettings: false
+        showLanguageSettings: false,
+        currentLanguage: null
       }
     },
     props: {
@@ -102,6 +103,9 @@
         if (this.lookuptext.length === 0) {
           return null
         }
+        if (this.currentLanguage === null) {
+          this.currentLanguage = this.uiController.options.items.preferredLanguage.currentValue
+        }
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.uiController.options.items.preferredLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
         LexicalQueryLookup
@@ -113,14 +117,15 @@
 
       'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
-      },
+      }
 
       settingChanged: function (name, value) {
-        this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+        // this.$parent.$emit('settingchange', name, value) // Re-emit for a Vue instance to catch
+        this.currentLanguage = value
       },
 
       resourceSettingChanged: function (name, value) {
-        this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
+        // this.$parent.$emit('resourcesettingchange', name, value) // Re-emit for a Vue instance to catch
       }
     }
   }
