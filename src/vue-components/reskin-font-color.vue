@@ -2,11 +2,21 @@
 	<div class="alpheios-skin_panel">
       <label class="uk-form-label" v-show="showTitle">{{ currentLabelText }}</label>
 	  <ul class="alpheios-skin_properties">
-	  	<li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
-	  	<li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
-	  	<li class="alpheios-large_font alpheios-font" @click="changeStyleClass('fontSize', 'large')">A</li>
-        <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
-        <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
+        <alph-tooltip tooltipDirection="top" :tooltipText="Small font">
+	  	    <li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
+        </alph-tooltip>
+        <alph-tooltip tooltipDirection="top" :tooltipText="Medium font">
+	  	    <li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
+        </alph-tooltip>
+        <alph-tooltip tooltipDirection="top" :tooltipText="Large font">
+	  	    <li class="alpheios-large_font alpheios-font" @click="changeStyleClass('fontSize', 'large')">A</li>
+        </alph-tooltip>
+        <alph-tooltip tooltipDirection="top" :tooltipText="Light background">
+            <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
+        </alph-tooltip>
+        <alph-tooltip tooltipDirection="top" :tooltipText="Dark background">
+            <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
+        </alph-tooltip>
 	  </ul>
 	</div>
 </template>
@@ -14,11 +24,14 @@
   import WhiteBrush from '../images/inline-icons/white-brush.svg';
   import BlackBrush from '../images/inline-icons/black-brush.svg';
 
+  import Tooltip from './tooltip.vue'
+
   export default {
     name: 'ReskinFontColor',
     components: {
       whiteBrush: WhiteBrush,
-      blackBrush: BlackBrush
+      blackBrush: BlackBrush,
+      alphTooltip: Tooltip
     },
     props: {
       labelText: {
