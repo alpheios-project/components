@@ -309,7 +309,6 @@
     watch: {
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
-        console.log('**************** panel classesChanged', this.divClasses)
       }
     },
 
