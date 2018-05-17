@@ -8111,7 +8111,7 @@ div.alpheios-morph__block {
 .uk-input.alpheios-lookup__input:focus {
     border-color: #5BC8DC;
 }
-.alpheios-lookup__button {
+.uk-button.alpheios-lookup__button {
   font-size: 12px;
   vertical-align: top;
   display: block;

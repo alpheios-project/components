@@ -168,7 +168,7 @@
       }
     }
 
-    .alpheios-lookup__button {
+    .uk-button.alpheios-lookup__button {
       font-size: 12px;
       vertical-align: top;
       display: block;
