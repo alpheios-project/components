@@ -7865,16 +7865,48 @@ div.alpheios-color_schema_dark_class {
   color: #f2f2f2; }
   div.alpheios-color_schema_dark_class .uk-form-label,
   div.alpheios-color_schema_dark_class h3,
-  div.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p {
+  div.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p,
+  div.alpheios-color_schema_dark_class .alpheios-info,
+  div.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
+  div.alpheios-color_schema_dark_class .alpheios-definition__text,
+  div.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
     color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .uk-link {
+    color: #b1d1d7; }
+  div.alpheios-color_schema_dark_class .uk-button-primary {
+    background-color: #f2f2f2;
+    color: #7E8897; }
+  div.alpheios-color_schema_dark_class .infl-cell,
+  div.alpheios-color_schema_dark_class .infl-table {
+    border-color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .infl-suff--suffix-match {
+    color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .infl-cell--hl {
+    background: #686868; }
 
 div.alpheios-color_schema_light_class {
   background: #fff;
   color: #0e2233; }
   div.alpheios-color_schema_light_class .uk-form-label,
   div.alpheios-color_schema_light_class h3,
-  div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p {
+  div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p,
+  div.alpheios-color_schema_light_class .alpheios-info,
+  div.alpheios-color_schema_light_class .alpheios-popup__header-selection,
+  div.alpheios-color_schema_light_class .alpheios-definition__text,
+  div.alpheios-color_schema_light_class .alpheios-morph__lexemes {
     color: #0e2233; }
+  div.alpheios-color_schema_light_class .uk-link {
+    color: #3E8D9C; }
+  div.alpheios-color_schema_light_class .uk-button-primary {
+    background-color: #4E6476;
+    color: #fff; }
+  div.alpheios-color_schema_light_class .infl-cell,
+  div.alpheios-color_schema_light_class .infl-table {
+    border-color: #0e2233; }
+  div.alpheios-color_schema_light_class .infl-suff--suffix-match {
+    color: #0e2233; }
+  div.alpheios-color_schema_light_class .infl-cell--hl {
+    background: #d3d3d3; }
 
 .alph_tooltip {
   position: relative;
@@ -8725,7 +8757,7 @@ h3.alpheios-inflections__title {
 .alpheios-info {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 16px;
-  color: #666666 !important;
+  color: #666666;
 }
 .alpheios-info .alpheios-info__helptext p {
   font-size: 14px;

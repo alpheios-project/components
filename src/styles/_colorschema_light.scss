@@ -4,7 +4,32 @@ div.alpheios-color_schema_light_class {
 
 	.uk-form-label,
 	h3,
-	.alpheios-info .alpheios-info__helptext p {
+	.alpheios-info .alpheios-info__helptext p,
+	.alpheios-info,
+	.alpheios-popup__header-selection,
+	.alpheios-definition__text,
+	.alpheios-morph__lexemes {
 		color: $alpheios-color_schema_light_color;
 	}
+
+	.uk-link {
+		color: $alpheios-link-color;
+	}
+
+	.uk-button-primary {
+		background-color: $alpheios-toolbar-color;
+		color: $alpheios-color_schema_light_background;
+	}
+
+	.infl-cell,
+	.infl-table {
+		border-color: $alpheios-color_schema_light_color;
+	}
+
+	.infl-suff--suffix-match {
+	    color: $alpheios-color_schema_light_color;
+	}
+    .infl-cell--hl {
+        background: $alpheios-color_schema_light_background_hover;
+    }
 }

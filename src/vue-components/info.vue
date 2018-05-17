@@ -35,7 +35,7 @@
   .alpheios-info {
     font-family: $alpheios-font-family;
     font-size: $alpheios-base-font-size;
-    color: $alpheios-copy-color !important;
+    color: $alpheios-copy-color;
   }
 
   .alpheios-info .alpheios-info__helptext p {
