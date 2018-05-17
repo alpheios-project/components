@@ -1,3 +1,4 @@
+/* global PointerEvent, MouseEvent, TouchEvent */
 import 'element-closest' // To polyfill Element.closest() if required
 import {Constants, LanguageModelFactory} from 'alpheios-data-models'
 import TextSelector from '../text-selector'
@@ -5,20 +6,52 @@ import MediaSelector from './media-selector'
 
 export default class HTMLSelector extends MediaSelector {
   /**
-   * @param {Event} event - Event object with information about text selection.
+   * @param {PointerEvent | MouseEvent | TouchEvent} event - Event object with information about text selection.
+   *        event might be different depending on a platform:
+   *          PointerEvent is a universal event that works for mouse, finger, and stylus events.
+   *                      This is a type of event we need to support for the future. However, it is not supported
+   *                      by Safari (both OSX and iOS) at the moment of writing (2018-05).
+   *          MouseEvent is received from mouse enabled devices (desktops, notebooks, etc.). In future we should
+   *                      probably use PointerEvent instead of it.
+   *          TouchEvent is received on finger controlled devices when a platform does not support pointer events.
+   *                      It is supported currently for compatibility with Safari only. Once Safari will start
+   *                      supporting pointer events, we should switch to those.
    * @param {string} defaultLanguageCode - A language code in ISO 639-3 format.
    */
   constructor (event, defaultLanguageCode) {
     super(event)
-    this.targetRect = {
-      top: event.clientY,
-      left: event.clientX
-    }
+
     this.defaultLanguageCode = defaultLanguageCode
-    this.setDataAttributes()
-    this.wordSeparator = new Map()
-    this.wordSeparator.set(Constants.LANG_UNIT_WORD, this.doSpaceSeparatedWordSelection.bind(this))
-    this.wordSeparator.set(Constants.LANG_UNIT_CHAR, this.doCharacterBasedWordSelection.bind(this))
+
+    if (event instanceof PointerEvent) {
+      console.log('This is a pointer event')
+    } else if (event instanceof MouseEvent) {
+      console.log('This is a mouse event')
+      this.targetRect = {
+        top: event.clientY,
+        left: event.clientX
+      }
+
+      this.setDataAttributes()
+      this.wordSeparator = new Map()
+      this.wordSeparator.set(Constants.LANG_UNIT_WORD, this.doSpaceSeparatedWordSelection.bind(this))
+      this.wordSeparator.set(Constants.LANG_UNIT_CHAR, this.doCharacterBasedWordSelection.bind(this))
+    } else if (event instanceof TouchEvent) {
+      console.log('This is a touch event')
+      this.targetRect = {
+        top: event.changedTouches[0].clientY,
+        left: event.changedTouches[0].clientX
+      }
+
+      this.selectTextRange(event.target, 77, 87)
+
+      this.setDataAttributes()
+      this.wordSeparator = new Map()
+      this.wordSeparator.set(Constants.LANG_UNIT_WORD, this.doSpaceSeparatedWordSelection.bind(this))
+      this.wordSeparator.set(Constants.LANG_UNIT_CHAR, this.doCharacterBasedWordSelection.bind(this))
+    } else {
+      throw new Error(`Unsupported event of "${event.constructor.name}" type`)
+    }
   }
 
   static getSelector (target, defaultLanguageCode) {
@@ -230,5 +263,20 @@ export default class HTMLSelector extends MediaSelector {
         left: 0
       }
     }
+  }
+
+  selectTextRange (obj, start, stop) {
+    let startNode = obj.firstChild
+    let endNode = obj.firstChild
+
+    startNode.nodeValue = startNode.nodeValue.trim()
+
+    let range = document.createRange()
+    range.setStart(startNode, start)
+    range.setEnd(endNode, stop + 1)
+
+    let sel = window.getSelection()
+    sel.removeAllRanges()
+    sel.addRange(range)
   }
 }
