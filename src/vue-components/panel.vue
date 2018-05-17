@@ -548,6 +548,12 @@
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
         stroke: $alpheios-link-color-dark-bg;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
     }
 
     .alpheios-panel__header-action-btn:hover,
@@ -691,6 +697,12 @@
         cursor: pointer;
         background: transparent no-repeat center center;
         background-size: contain;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+        }
     }
 
     .alpheios-panel__header-nav-btn.alpheios-panel__header-nav-btn--short {

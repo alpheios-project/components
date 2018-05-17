@@ -26,9 +26,6 @@ export default class HTMLSelector extends MediaSelector {
   }
 
   createTextSelector () {
-    console.log('*************************** createTextSelector 1 ', this.defaultLanguageCode)
-    console.log('*************************** createTextSelector 2 ', this.getLanguageCode(this.defaultLanguageCode))
-
     let textSelector = new TextSelector(LanguageModelFactory.getLanguageIdFromCode(this.getLanguageCode(this.defaultLanguageCode)))
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location

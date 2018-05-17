@@ -67,11 +67,6 @@ export default class TextSelector {
 
   get languageCode () {
     console.warn(`Deprecated. Please use "languageID" instead of "languageCode"`)
-    // console.log('***************textSelector 1', this.languageID)
-    // console.log('***************textSelector 2', LanguageModelFactory.getLanguageCodeFromId(this.languageID))
-    // console.log('***************textSelector 3', (this.languageID) ? LanguageModelFactory.getLanguageCodeFromId(this.languageID) : '')
-
-    // console.log('***************textSelector 3', this.languageID === Constants.LANG_UNDEFINED )
     return (this.languageID) ? LanguageModelFactory.getLanguageCodeFromId(this.languageID) : ''
   }
 
