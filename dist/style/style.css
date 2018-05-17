@@ -7446,6 +7446,10 @@
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-info .alpheios-info__helptext p {
     font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
     font-size: 16px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .infl-cell {
+    font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .uk-select.alpheios-inflections__view-selector {
+    font-size: 10.8px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
@@ -7459,6 +7463,10 @@
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-info .alpheios-info__helptext p {
     font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
     font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_small_class .infl-cell {
+    font-size: 9px; }
+  .auk.alpheios-panel.alpheios-font_small_class .uk-select.alpheios-inflections__view-selector {
+    font-size: 8.1px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
@@ -7472,6 +7480,10 @@
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-info .alpheios-info__helptext p {
     font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
     font-size: 20px; }
+  .auk.alpheios-panel.alpheios-font_large_class .infl-cell {
+    font-size: 15px; }
+  .auk.alpheios-panel.alpheios-font_large_class .uk-select.alpheios-inflections__view-selector {
+    font-size: 13.5px; }
 
 .alph_tooltip {
   position: relative;
@@ -8052,7 +8064,7 @@ h3.alpheios-inflections__title {
 .auk .uk-select.alpheios-inflections__view-selector {
   height: auto !important;
   max-width: 220px;
-  font-size: .625rem !important;
+  font-size: .625rem;
 }
 .auk .uk-button-small.alpheios-inflections__control-btn {
   line-height: 1.5;

@@ -18,6 +18,14 @@
     	font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
     	font-size: $baseFontSize;
     }
+
+    .infl-cell {
+    	font-size: $baseFontSize * 0.75;
+    }
+
+    .uk-select.alpheios-inflections__view-selector {
+    	font-size: $baseFontSize * 0.675;
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
