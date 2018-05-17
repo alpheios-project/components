@@ -178,6 +178,7 @@ export default class UIController {
 
         setPositionTo: function (position) {
           this.options.items.panelPosition.setValue(position)
+          this.classesChanged += 1
         },
 
         attachToLeft: function () {
@@ -338,6 +339,12 @@ export default class UIController {
               this.uiController.popup.close() // Close an old popup
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
               this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(value)
+              break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
               break
           }
         }
@@ -579,8 +586,26 @@ export default class UIController {
           console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         },
+
         uiOptionChange: function (name, value) {
-          return null
+          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+            case 'popup':
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(value)
+              break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
+              break
+          }
         }
       }
     })
@@ -868,8 +893,43 @@ export default class UIController {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
-    this.panel.panelData.classes = classes
-    this.popup.popupData.classes = classes
+    classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
+    classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+
+    Vue.set(this.popup.popupData, 'classes', classes)
+    Vue.set(this.panel.panelData, 'classes', classes)
+
+    this.popup.classesChanged += 1
+    this.panel.classesChanged += 1
+  }
+
+  updateStyleClass (prefix, type) {
+    let popupClasses = this.popup.popupData.classes
+    popupClasses.forEach(function (item, index) {
+      if (item.indexOf(prefix) === 0) {
+        popupClasses[index] = `${prefix}${type}_class`
+      }
+    })
+    Vue.set(this.popup.popupData, 'classes', popupClasses)
+    this.popup.classesChanged += 1
+
+    let panelClasses = this.panel.panelData.classes
+    panelClasses.forEach(function (item, index) {
+      if (item.indexOf(prefix) === 0) {
+        panelClasses[index] = `${prefix}${type}_class`
+      }
+    })
+
+    Vue.set(this.panel.panelData, 'classes', panelClasses)
+    this.panel.classesChanged += 1
+  }
+
+  updateFontSizeClass (type) {
+    this.updateStyleClass('alpheios-font_', type)
+  }
+
+  updateColorSchemaClass (type) {
+    this.updateStyleClass('alpheios-color_schema_', type)
   }
 
   changeSkin () {
