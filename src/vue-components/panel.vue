@@ -553,6 +553,7 @@
           width: 20px;
           height: 20px;
           display: inline-block;
+          vertical-align: top;
         }
     }
 
@@ -699,6 +700,7 @@
           width: 20px;
           height: 20px;
           display: inline-block;
+          vertical-align: top;
         }
     }
 
