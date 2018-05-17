@@ -335,6 +335,7 @@
       },
 
       changeTab (name) {
+        this.setContentWidth('auto')
         this.$emit('changetab', name)
       },
 
