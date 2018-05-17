@@ -7863,10 +7863,18 @@
 div.alpheios-color_schema_dark_class {
   background: #282828;
   color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .uk-form-label,
+  div.alpheios-color_schema_dark_class h3,
+  div.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p {
+    color: #f2f2f2; }
 
 div.alpheios-color_schema_light_class {
   background: #fff;
   color: #0e2233; }
+  div.alpheios-color_schema_light_class .uk-form-label,
+  div.alpheios-color_schema_light_class h3,
+  div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p {
+    color: #0e2233; }
 
 .alph_tooltip {
   position: relative;

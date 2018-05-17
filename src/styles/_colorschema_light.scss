@@ -1,4 +1,10 @@
 div.alpheios-color_schema_light_class {
 	background: $alpheios-color_schema_light_background;
 	color: $alpheios-color_schema_light_color;
+
+	.uk-form-label,
+	h3,
+	.alpheios-info .alpheios-info__helptext p {
+		color: $alpheios-color_schema_light_color;
+	}
 }
