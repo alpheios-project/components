@@ -374,7 +374,7 @@
 
       setContentWidth: function (width) {
         if (width === 'auto') {
-          this.$el.style.width = 'auto'
+          this.$el.style.removeProperty('width')
           return
         } 
         let widthDelta = parseInt(this.navbarWidth, 10)
