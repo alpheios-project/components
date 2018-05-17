@@ -548,8 +548,6 @@
         display: block;
         width: 20px;
         height: 20px;
-/*        margin: 0 5px;
-        padding: 10px;*/
         text-align: center;
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
@@ -694,8 +692,6 @@
         display: block;
         width: 20px;
         height: 20px;
-/*        margin: 0 5px;
-        padding: 10px;*/
         text-align: center;
         cursor: pointer;
         background: transparent no-repeat center center;

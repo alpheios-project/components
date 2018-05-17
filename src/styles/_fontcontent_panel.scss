@@ -29,6 +29,19 @@
     .uk-input, .uk-select:not([multiple]):not([size]) {
     	height: $baseFontSize * 2.5;
     }
+    .alpheios-panel__header-action-btn,
+    .alpheios-panel__header-action-btn.active:hover,
+    .alpheios-panel__header-action-btn.active:focus,
+    .alpheios-panel__header-nav-btn {
+        width: $baseFontSize * 1.25;
+        height: $baseFontSize * 1.25;
+        margin: $baseFontSize * 0.625 $baseFontSize * 0.9375;
+
+        svg {
+          width: $baseFontSize * 1.25;
+          height: $baseFontSize * 1.25;
+        }
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
