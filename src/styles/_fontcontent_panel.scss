@@ -35,7 +35,7 @@
     .alpheios-panel__header-nav-btn {
         width: $baseFontSize * 1.25;
         height: $baseFontSize * 1.25;
-        margin: $baseFontSize * 0.625 $baseFontSize * 0.9375;
+        margin: $baseFontSize * 0.625 30px - $baseFontSize;
 
         svg {
           width: $baseFontSize * 1.25;
