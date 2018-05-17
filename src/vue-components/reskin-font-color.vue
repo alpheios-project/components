@@ -1,6 +1,6 @@
 <template>
 	<div class="alpheios-skin_panel">
-      <label class="uk-form-label" v-show="showTitle">{{ labelText }}</label>
+      <label class="uk-form-label" v-show="showTitle">{{ currentLabelText }}</label>
 	  <ul class="alpheios-skin_properties">
 	  	<li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
 	  	<li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
@@ -34,6 +34,11 @@
     },
     data () {
       return {
+      }
+    },
+    computed: {
+      currentLabelText: function () {
+        return (labelText.length > 0) ? labelText + ':' : ''
       }
     },
     methods: {
