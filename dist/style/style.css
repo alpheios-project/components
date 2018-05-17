@@ -7499,6 +7499,9 @@
     font-size: 16px; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 17.6px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__providers-link,
+  .auk.alpheios-panel.alpheios-font_medium_class a.alpheios-lookup__settings-link {
+    font-size: 11.2px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px; }
@@ -7565,6 +7568,9 @@
     font-size: 16px; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 17.6px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__providers-link,
+  .auk.alpheios-popup.alpheios-font_medium_class a.alpheios-lookup__settings-link {
+    font-size: 11.2px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
@@ -7631,6 +7637,9 @@
     font-size: 12px; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 13.2px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__providers-link,
+  .auk.alpheios-panel.alpheios-font_small_class a.alpheios-lookup__settings-link {
+    font-size: 8.4px; }
 
 .auk.alpheios-popup.alpheios-font_small_class {
   font-size: 12px; }
@@ -7697,6 +7706,9 @@
     font-size: 12px; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 13.2px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link,
+  .auk.alpheios-popup.alpheios-font_small_class a.alpheios-lookup__settings-link {
+    font-size: 8.4px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
@@ -7763,6 +7775,9 @@
     font-size: 20px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 22px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__providers-link,
+  .auk.alpheios-panel.alpheios-font_large_class a.alpheios-lookup__settings-link {
+    font-size: 14px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
@@ -7835,6 +7850,9 @@
     font-size: 20px; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
     font-size: 22px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__providers-link,
+  .auk.alpheios-popup.alpheios-font_large_class a.alpheios-lookup__settings-link {
+    font-size: 14px; }
 
 .alph_tooltip {
   position: relative;
@@ -8166,6 +8184,10 @@ div.alpheios-morph__block {
   color: #0E2233;
 }
 
+
+.alpheios-setting__label {
+  display: block;
+}
 
 /*************** font sizes **************/
 /*************** dark schema colors **************/

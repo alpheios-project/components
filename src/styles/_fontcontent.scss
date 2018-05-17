@@ -98,6 +98,11 @@
 	.alpheios-morph__dictentry .alpheios-morph__formtext {
 		font-size: $baseFontSize * 1.1;
 	}
+
+	.alpheios-popup__providers-link,
+	a.alpheios-lookup__settings-link {
+		font-size: $baseFontSize * 0.7;
+	}
 }
 
 
