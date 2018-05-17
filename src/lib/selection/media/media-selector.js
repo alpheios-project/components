@@ -34,6 +34,7 @@ export default class MediaSelector {
   getLanguageCode (defaultLanguageCode) {
     let code = this.getLanguageCodeFromSource() || defaultLanguageCode
     let langId = LanguageModelFactory.getLanguageIdFromCode(code)
+    console.log('***************** getLanguageCode', langId)
     if (langId) {
       code = LanguageModelFactory.getLanguageCodeFromId(langId)
     } else {
