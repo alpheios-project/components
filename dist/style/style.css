@@ -8206,6 +8206,65 @@ h3.alpheios-inflections__title {
 /*************** font sizes **************/
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
+.alpheios-skin_panel {
+  display: inline-block;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties {
+  margin: 0;
+  padding: 0 30px 0 0;
+  list-style: none;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties li {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    color: #fff;
+    background: #4E6476;
+    border-radius: 14px;
+    cursor: pointer;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-small_font {
+      font-size: 12.8px;
+      width: 22.4px;
+      height: 22.4px;
+      line-height: 22.4px;
+      border-radius: 11.2px;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-large_font {
+      font-size: 19.2px;
+      width: 33.6px;
+      height: 33.6px;
+      line-height: 33.6px;
+      border-radius: 33.6px;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-light_color_schema, .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-dark_color_schema {
+      border-radius: 0;
+      background: transparent;
+}
+.alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-light_color_schema svg, .alpheios-skin_panel ul.alpheios-skin_properties li.alpheios-dark_color_schema svg {
+        width: 90%;
+        height: 90%;
+}
+.alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
+.alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
+  background: #7E8897;
+}
+.alpheios-popup.alpheios-font_small_class li.alpheios-small_font,
+.alpheios-panel.alpheios-font_small_class li.alpheios-small_font {
+  background: #7E8897;
+}
+.alpheios-popup.alpheios-font_large_class li.alpheios-large_font,
+.alpheios-panel.alpheios-font_large_class li.alpheios-large_font {
+  background: #7E8897;
+}
+
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
 .alpheios-panel {
   width: 400px;
   height: 100vh;

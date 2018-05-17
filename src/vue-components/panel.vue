@@ -120,6 +120,7 @@
                 </div>
             </div>
             <div v-show="data.tabs.options" class="alpheios-panel__tab-panel">
+                <reskin-font-color></reskin-font-color>
                 <setting :data="data.settings.preferredLanguage" @change="settingChanged"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.settings.panelPosition" @change="settingChanged"
@@ -171,6 +172,7 @@
 
   import Tooltip from './tooltip.vue'
   import Lookup from './lookup.vue'
+  import ReskinFontColor from './reskin-font-color.vue'
 
   // Embeddable SVG icons
   import AttachLeftIcon from '../images/inline-icons/attach-left.svg';
@@ -205,7 +207,8 @@
       grammarIcon: GrammarIcon,
       treebankIcon: TreebankIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup
+      lookup: Lookup,
+      reskinFontColor: ReskinFontColor
     },
     data: function () {
       return {
