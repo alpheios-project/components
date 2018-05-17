@@ -7860,11 +7860,11 @@
   .auk.alpheios-popup.alpheios-font_large_class a.alpheios-lookup__settings-link {
     font-size: 14px; }
 
-.alpheios-color_schema_dark_class {
+div.alpheios-color_schema_dark_class {
   background: #282828;
   color: #f2f2f2; }
 
-.alpheios-color_schema_light_class {
+div.alpheios-color_schema_light_class {
   background: #fff;
   color: #0e2233; }
 
