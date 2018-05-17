@@ -8524,7 +8524,7 @@ h3.alpheios-inflections__title {
 .alpheios-skin_panel {
   display: inline-block;
 }
-.alpheios-skin_properties {
+ul.alpheios-skin_properties {
   margin: 0;
   padding: 0 30px 10px 0;
   list-style: none;

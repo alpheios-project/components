@@ -34,10 +34,10 @@
       alphTooltip: Tooltip
     },
     props: {
-      labelText: {
-        type: String,
+      showTitle: {
+        type: Boolean,
         required: false,
-        default: ''
+        default: true
       },
       messages: {
         type: Object,
@@ -64,7 +64,7 @@
 
     $baseSize: $alpheios-base-font-size + 12px;
 
-    .alpheios-skin_properties {
+    ul.alpheios-skin_properties {
     	margin: 0;
     	padding: 0 30px 10px 0;
     	list-style: none;
