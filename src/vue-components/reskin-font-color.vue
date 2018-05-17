@@ -38,7 +38,7 @@
     },
     computed: {
       currentLabelText: function () {
-        return (labelText.length > 0) ? labelText + ':' : ''
+        return (this.labelText.length > 0) ? this.labelText + ':' : ''
       }
     },
     methods: {
