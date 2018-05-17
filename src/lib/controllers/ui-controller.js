@@ -892,9 +892,15 @@ export default class UIController {
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
-    classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
-    classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
-    classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    if (this.uiOptions.items.skin !== undefined) {
+      classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
+    }
+    if (this.uiOptions.items.fontSize !== undefined) {
+      classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
+    }
+    if (this.uiOptions.items.colorSchema !== undefined) {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    }
 
     Vue.set(this.popup.popupData, 'classes', classes)
     Vue.set(this.panel.panelData, 'classes', classes)
