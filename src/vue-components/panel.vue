@@ -511,12 +511,12 @@
     }
     .alpheios-panel-left .alpheios-panel__header {
         direction: ltr;
-        padding: 0 0 0 10px;
+        /*padding: 0 0 0 10px;*/
     }
 
     .alpheios-panel-right .alpheios-panel__header {
         direction: rtl;
-        padding: 0 10px 0 0;
+        /*padding: 0 10px 0 0;*/
     }
 
     .alpheios-panel__header-logo {
