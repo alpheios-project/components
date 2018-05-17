@@ -8098,7 +8098,6 @@ div.alpheios-morph__block {
 /*************** light schema colors **************/
 .alpheios-lookup__form {
   margin: 15px 10px 5px;
-  width: 100%;
   text-align: left;
 }
 .alpheios-lookup__input {
@@ -8129,6 +8128,7 @@ a.alpheios-lookup__settings-link {
   width: 29%;
 }
 .alpheios-panel .alpheios-lookup__form {
+  width: 100%;
   margin: 5px 0;
 }
 .alpheios-panel__options-item {

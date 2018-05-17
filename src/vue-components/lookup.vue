@@ -151,7 +151,7 @@
 
     .alpheios-lookup__form {
       margin: 15px 10px 5px;
-      width: 100%;
+      
       text-align: left;
     }
 
@@ -191,6 +191,7 @@
 
     .alpheios-panel {
       .alpheios-lookup__form {
+        width: 100%;
         margin: 5px 0;
       }
     }
