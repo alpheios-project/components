@@ -8100,7 +8100,7 @@ div.alpheios-morph__block {
   margin: 15px 10px 5px;
   text-align: left;
 }
-.alpheios-lookup__input {
+.uk-input.alpheios-lookup__input {
   width: 70%;
   line-height: 28px;
   height: 30px;
@@ -8108,7 +8108,7 @@ div.alpheios-morph__block {
   margin-bottom: 10px;
   vertical-align: top;
 }
-.alpheios-lookup__input:focus {
+.uk-input.alpheios-lookup__input:focus {
     border-color: #5BC8DC;
 }
 .alpheios-lookup__button {

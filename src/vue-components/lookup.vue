@@ -155,7 +155,7 @@
       text-align: left;
     }
 
-    .alpheios-lookup__input {
+    .uk-input.alpheios-lookup__input {
       width: 70%;
       line-height: 28px;
       height: 30px;
