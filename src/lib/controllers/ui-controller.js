@@ -903,11 +903,11 @@ export default class UIController {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
     }
 
+    console.log('************************* setRootComponentClasses classes', classes)
     Vue.set(this.popup.popupData, 'classes', classes)
     Vue.set(this.panel.panelData, 'classes', classes)
-
-    this.popup.classesChanged += 1
-    this.panel.classesChanged += 1
+    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
   updateStyleClass (prefix, type) {
@@ -918,7 +918,8 @@ export default class UIController {
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
-    this.popup.classesChanged += 1
+    // this.popup.classesChanged += 1
+    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
 
     let panelClasses = this.panel.panelData.classes
     panelClasses.forEach(function (item, index) {
@@ -928,7 +929,9 @@ export default class UIController {
     })
 
     Vue.set(this.panel.panelData, 'classes', panelClasses)
-    this.panel.classesChanged += 1
+    // this.panel.classesChanged += 1
+    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    console.log('************************* updateStyleClass panelClasses', panelClasses)
   }
 
   updateFontSizeClass (type) {
