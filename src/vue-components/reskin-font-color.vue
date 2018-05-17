@@ -1,5 +1,6 @@
 <template>
 	<div class="alpheios-skin_panel">
+      <label class="uk-form-label" v-show="showTitle">{{ labelText }}</label>
 	  <ul class="alpheios-skin_properties">
 	  	<li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
 	  	<li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
@@ -18,6 +19,18 @@
     components: {
       whiteBrush: WhiteBrush,
       blackBrush: BlackBrush
+    },
+    props: {
+      labelText: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      showTitle: {
+        type: Boolean,
+        required: false,
+        default: true
+      }
     },
     data () {
       return {
