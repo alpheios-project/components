@@ -8445,9 +8445,10 @@ h3.alpheios-inflections__title {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
-.alpheios-panel__header-action-btn.alpheios-panel__header-action-btn--narrow {
-  margin: 0;
-}
+
+/*    .alpheios-panel__header-action-btn.alpheios-panel__header-action-btn--narrow {
+        margin: 0;
+    }*/
 .alpheios-panel__body {
   display: flex;
   height: calc(100vh - 40px);
