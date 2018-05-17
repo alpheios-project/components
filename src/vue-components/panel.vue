@@ -517,10 +517,10 @@
     .alpheios-panel__header-action-btn.active:hover,
     .alpheios-panel__header-action-btn.active:focus {
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
         margin: 0 5px;
-        padding-top: 5px;
+        padding: 10px;
         text-align: center;
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
@@ -660,10 +660,10 @@
 
     .alpheios-panel__header-nav-btn {
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
         margin: 0 5px;
-        padding-top: 5px;
+        padding: 10px;
         text-align: center;
         cursor: pointer;
         background: transparent no-repeat center center;
