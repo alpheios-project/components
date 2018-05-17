@@ -73,6 +73,11 @@
         line-height: $baseSize * 1.2;
         border-radius: $baseSize * 1.2;
 	}
+
+	.alpheios-popup__more-btn,
+	.uk-button.alpheios-lookup__button {
+		font-size: $baseFontSize * 0.625;
+	}
 }
 
 

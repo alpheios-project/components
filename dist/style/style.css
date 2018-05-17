@@ -7486,6 +7486,9 @@
     height: 33.6px;
     line-height: 33.6px;
     border-radius: 33.6px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__more-btn,
+  .auk.alpheios-panel.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
+    font-size: 10px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px; }
@@ -7539,6 +7542,9 @@
     height: 33.6px;
     line-height: 33.6px;
     border-radius: 33.6px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__more-btn,
+  .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
+    font-size: 10px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
@@ -7592,6 +7598,9 @@
     height: 28.8px;
     line-height: 28.8px;
     border-radius: 28.8px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__more-btn,
+  .auk.alpheios-panel.alpheios-font_small_class .uk-button.alpheios-lookup__button {
+    font-size: 7.5px; }
 
 .auk.alpheios-popup.alpheios-font_small_class {
   font-size: 12px; }
@@ -7645,6 +7654,9 @@
     height: 28.8px;
     line-height: 28.8px;
     border-radius: 28.8px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__more-btn,
+  .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-lookup__button {
+    font-size: 7.5px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
@@ -7698,6 +7710,9 @@
     height: 38.4px;
     line-height: 38.4px;
     border-radius: 38.4px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__more-btn,
+  .auk.alpheios-panel.alpheios-font_large_class .uk-button.alpheios-lookup__button {
+    font-size: 12.5px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
@@ -7757,6 +7772,9 @@
     height: 38.4px;
     line-height: 38.4px;
     border-radius: 38.4px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__more-btn,
+  .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-lookup__button {
+    font-size: 12.5px; }
 
 .alph_tooltip {
   position: relative;
@@ -8271,7 +8289,7 @@ img.alpheios-popup__logo {
 .alpheios-popup__more-btn {
   float: right;
   margin-bottom: 10px;
-  font-size: 10.8px !important;
+  font-size: 10.8px;
 }
 .alpheios-popup__morph-cont-providers-source {
   font-size: smaller;
