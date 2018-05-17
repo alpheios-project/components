@@ -563,10 +563,6 @@
         stroke: $alpheios-link-hover-color;
     }
 
-/*    .alpheios-panel__header-action-btn.alpheios-panel__header-action-btn--narrow {
-        margin: 0;
-    }*/
-
     .alpheios-panel__body {
         display: flex;
         height: calc(100vh - #{$alpheios-panel-header-height});
@@ -698,7 +694,7 @@
         background: transparent no-repeat center center;
         background-size: contain;
         margin: 10px 15px;
-        
+
         svg {
           width: 20px;
           height: 20px;
