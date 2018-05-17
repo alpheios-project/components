@@ -4,6 +4,20 @@
     .uk-form-label {
     	font-size: $baseFontSize * 0.85;
     }
+
+    .uk-h3, h3 {
+    	font-size: $baseFontSize * 1.18;
+    }
+
+    .alpheios-info .alpheios-info__versiontext,
+    .alpheios-info__currentlanguage {
+    	font-size: $baseFontSize * 0.675;
+    }
+
+    .alpheios-info .alpheios-info__helptext p {
+    	font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+    	font-size: $baseFontSize;
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
