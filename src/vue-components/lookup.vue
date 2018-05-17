@@ -1,11 +1,11 @@
 <template>
-  <div class="alpheios-lookup_form">
-    <input class="uk-input lookup_input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
+  <div class="alpheios-lookup__form">
+    <input class="uk-input alpheios-lookup__input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
       @keyup.enter="lookup"
     >
     <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
-      <span class="button_with_link">
-      <button class="uk-button uk-button-primary uk-button-small lookup_button" type="button" tabindex="-1"
+      <span class="alpheios-lookup__button_with_link">
+      <button class="uk-button uk-button-primary uk-button-small alpheios-lookup__button" type="button" tabindex="-1"
         @click="lookup"
       >
         {{ buttonLabel }}
@@ -149,62 +149,64 @@
 <style lang="scss">
     @import "../styles/alpheios";
 
-    .alpheios-lookup_form {
+    .alpheios-lookup__form {
       margin: 15px 10px 5px;
-      text-align: left;
-
-      .uk-input {
-        width: 70%;
-        line-height: 28px;
-        height: 30px;
-        font-size: 14px;
-        margin-bottom: 10px;
-        vertical-align: top;
-
-        &:focus {
-          border-color: $alpheios-link-hover-color;
-        }
-      }
-
-      .uk-button {
-        font-size: 12px;
-        vertical-align: top;
-        display: block;
-      }
-
-      .alpheios-lookup__settings {
-        text-align: left;
-      }
-      .alpheios-lookup__settings-link {
-        font-size: 0.675 * $alpheios-base-font-size;
-        /* margin-left: 71%;*/
-        display: block;
-        padding-top: 5px;
-      }
-
-      .button_with_link {
-        width: 29%;
-      }
-    }
-
-    .alpheios-panel .alpheios-lookup_form {
       width: 100%;
-      margin: 5px 0;
-      .uk-input {
-        width: 70%;
+      text-align: left;
+    }
+
+    .alpheios-lookup__input {
+      width: 70%;
+      line-height: 28px;
+      height: 30px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      vertical-align: top;
+
+      &:focus {
+        border-color: $alpheios-link-hover-color;
       }
     }
 
-    .alpheios-lookup__settings-items {
-      .alpheios-panel__options-item {
-        max-width: none;
+    .alpheios-lookup__button {
+      font-size: 12px;
+      vertical-align: top;
+      display: block;
+    }
 
+    .alpheios-lookup__settings {
+      text-align: left;
+    }
+
+    a.alpheios-lookup__settings-link {
+      font-size: 0.675 * $alpheios-base-font-size;
+      display: block;
+      padding-top: 5px;
+    }
+
+    .alpheios-lookup__button_with_link {
+      width: 29%;
+    }
+    
+
+    .alpheios-panel {
+      .alpheios-lookup__form {
+        margin: 5px 0;
+      }
+    }
+
+
+    .alpheios-panel__options-item {
+      max-width: none;
+    }
+
+    .alpheios-panel__options-item {
         .uk-select:not([multiple]):not([size]),
         .uk-select[multiple],
         .uk-select[size],
         .uk-textarea {
           max-width: 250px;
         }
-      }
     }
+    
 </style>

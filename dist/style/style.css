@@ -8096,53 +8096,49 @@ div.alpheios-morph__block {
 /*************** font sizes **************/
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
-.alpheios-lookup_form {
+.alpheios-lookup__form {
   margin: 15px 10px 5px;
+  width: 100%;
   text-align: left;
 }
-.alpheios-lookup_form .uk-input {
-    width: 70%;
-    line-height: 28px;
-    height: 30px;
-    font-size: 14px;
-    margin-bottom: 10px;
-    vertical-align: top;
+.alpheios-lookup__input {
+  width: 70%;
+  line-height: 28px;
+  height: 30px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  vertical-align: top;
 }
-.alpheios-lookup_form .uk-input:focus {
-      border-color: #5BC8DC;
+.alpheios-lookup__input:focus {
+    border-color: #5BC8DC;
 }
-.alpheios-lookup_form .uk-button {
-    font-size: 12px;
-    vertical-align: top;
-    display: block;
+.alpheios-lookup__button {
+  font-size: 12px;
+  vertical-align: top;
+  display: block;
 }
-.alpheios-lookup_form .alpheios-lookup__settings {
-    text-align: left;
+.alpheios-lookup__settings {
+  text-align: left;
 }
-.alpheios-lookup_form .alpheios-lookup__settings-link {
-    font-size: 10.8px;
-    /* margin-left: 71%;*/
-    display: block;
-    padding-top: 5px;
+a.alpheios-lookup__settings-link {
+  font-size: 10.8px;
+  display: block;
+  padding-top: 5px;
 }
-.alpheios-lookup_form .button_with_link {
-    width: 29%;
+.alpheios-lookup__button_with_link {
+  width: 29%;
 }
-.alpheios-panel .alpheios-lookup_form {
-  width: 100%;
+.alpheios-panel .alpheios-lookup__form {
   margin: 5px 0;
 }
-.alpheios-panel .alpheios-lookup_form .uk-input {
-    width: 70%;
-}
-.alpheios-lookup__settings-items .alpheios-panel__options-item {
+.alpheios-panel__options-item {
   max-width: none;
 }
-.alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
-  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[multiple],
-  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-select[size],
-  .alpheios-lookup__settings-items .alpheios-panel__options-item .uk-textarea {
-    max-width: 250px;
+.alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+.alpheios-panel__options-item .uk-select[multiple],
+.alpheios-panel__options-item .uk-select[size],
+.alpheios-panel__options-item .uk-textarea {
+  max-width: 250px;
 }
 
 /*************** font sizes **************/
