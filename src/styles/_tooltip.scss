@@ -57,6 +57,22 @@
     border-color: #555 transparent transparent transparent;
 }
 
+.alph_tooltip-top-left {
+    bottom: 125%;
+    left: 0;
+}
+
+.alph_tooltip-top-left::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-left: 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
 .alph_tooltip-right {
     top: -5px;
     left: 125%;
