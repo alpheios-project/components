@@ -1,5 +1,9 @@
 @mixin panel-font-class($baseFontSize) {
     font-size: $baseFontSize;
+
+    .uk-form-label {
+    	font-size: $baseFontSize * 0.85;
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {

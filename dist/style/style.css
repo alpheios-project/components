@@ -7436,12 +7436,18 @@
 
 .auk.alpheios-panel.alpheios-font_medium_class {
   font-size: 16px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .uk-form-label {
+    font-size: 13.6px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_small_class .uk-form-label {
+    font-size: 10.2px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
+  .auk.alpheios-panel.alpheios-font_large_class .uk-form-label {
+    font-size: 17px; }
 
 .alph_tooltip {
   position: relative;
