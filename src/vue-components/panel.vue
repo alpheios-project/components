@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div v-show="data.tabs.options" class="alpheios-panel__tab-panel">
-                <reskin-font-color labelText="Skin options"></reskin-font-color>
+                <reskin-font-color :labelText="data.l10n.messages.LABEL_RESKIN_SETTINGS"></reskin-font-color>
                 <setting :data="data.settings.preferredLanguage" @change="settingChanged"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.settings.panelPosition" @change="settingChanged"

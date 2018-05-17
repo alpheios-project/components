@@ -357,11 +357,16 @@
   "TOOLTIP_LOOKUP_BUTTON": {
     "message": "Lookup word",
     "description": "Tooltip for the lookup button in lookup.vue",
-    "component": "lookup"
+    "component": "Lookup"
   },
   "LABEL_LOOKUP_SETTINGS": {
     "message": "Using Language...",
     "description": "Settings link-label in the lookup block in lookup.vue",
-    "component": "lookup"
+    "component": "Lookup"
+  },
+  "LABEL_RESKIN_SETTINGS": {
+    "message": "Reskin settings",
+    "description": "Label for Reskin component",
+    "component": "ReskinFontColor"
   }     
 }
