@@ -7490,7 +7490,7 @@
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-nav-btn {
     width: 15px;
     height: 15px;
-    margin: 13px 19px; }
+    margin: 13px 15px; }
     .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -7522,13 +7522,19 @@
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     width: 25px;
     height: 25px;
-    margin: 5px 11px; }
+    margin: 5px 15px; }
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
       width: 25px;
       height: 25px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn {
+    margin-right: 10px;
+    margin-left: 10px; }
 
 .alph_tooltip {
   position: relative;

@@ -35,7 +35,7 @@
     .alpheios-panel__header-nav-btn {
         width: $baseFontSize * 1.25;
         height: $baseFontSize * 1.25;
-        margin: 25px - $baseFontSize 31px - $baseFontSize;
+        margin: 25px - $baseFontSize 15px;
 
         svg {
           width: $baseFontSize * 1.25;
@@ -52,4 +52,12 @@
 }
 .auk.alpheios-panel.alpheios-font_large_class {
     @include panel-font-class($alpheios-large-font-size);
+
+    .alpheios-panel__header-action-btn,
+    .alpheios-panel__header-action-btn.active:hover,
+    .alpheios-panel__header-action-btn.active:focus,
+    .alpheios-panel__header-nav-btn {
+    	margin-right: 10px;
+    	margin-left: 10px;
+    }
 }
