@@ -86,7 +86,7 @@
 
         <div class="alpheios-panel__content">
 
-            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
+            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw">
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
                 </div>
@@ -309,6 +309,7 @@
     watch: {
       classesChanged: function (value) {
         this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
+        this.setContentWidth('auto')
       }
     },
 
@@ -372,6 +373,10 @@
       },
 
       setContentWidth: function (width) {
+        if (width === 'auto') {
+          this.$el.style.width = 'auto'
+          return
+        } 
         let widthDelta = parseInt(this.navbarWidth, 10)
           + parseInt(this.inflPanelLeftPadding, 10)
           + parseInt(this.inflPanelRightPadding, 10)
