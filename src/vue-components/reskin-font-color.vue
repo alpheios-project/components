@@ -2,19 +2,19 @@
 	<div class="alpheios-skin_panel">
       <label class="uk-form-label" v-show="showTitle">{{ currentLabelText }}</label>
 	  <ul class="alpheios-skin_properties">
-        <alph-tooltip tooltipDirection="top" :tooltipText="Small font">
+        <alph-tooltip tooltipDirection="top" tooltipText="Small font">
 	  	    <li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top" :tooltipText="Medium font">
+        <alph-tooltip tooltipDirection="top" tooltipText="Medium font">
 	  	    <li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top" :tooltipText="Large font">
+        <alph-tooltip tooltipDirection="top" tooltipText="Large font">
 	  	    <li class="alpheios-large_font alpheios-font" @click="changeStyleClass('fontSize', 'large')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top" :tooltipText="Light background">
+        <alph-tooltip tooltipDirection="top" tooltipText="Light background">
             <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top" :tooltipText="Dark background">
+        <alph-tooltip tooltipDirection="top" tooltipText="Dark background">
             <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
         </alph-tooltip>
 	  </ul>
