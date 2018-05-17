@@ -9,7 +9,7 @@
   </div><!--alpheios-morph__lexemes-->
 </template>
 <script>
-  import MorphInner from './morph-inner-v1.vue'
+  import MorphInner from './morph-inner-v2.vue'
 
   export default {
     name: 'Morph',
