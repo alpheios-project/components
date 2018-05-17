@@ -1,4 +1,4 @@
-@mixin panel-font-class($baseFontSize) {
+@mixin font-class($baseFontSize) {
     font-size: $baseFontSize;
 
     .uk-form-label {
@@ -42,16 +42,23 @@
           height: $baseFontSize * 1.25;
         }
     }
+
+    .alph_tooltip .tooltiptext {
+    	font-size: $baseFontSize * 0.75;
+    	width: $baseFontSize * 7.5;
+    }
 }
 
+
+
 .auk.alpheios-panel.alpheios-font_medium_class {
-    @include panel-font-class($alpheios-base-font-size);
+    @include font-class($alpheios-base-font-size);
 }
 .auk.alpheios-panel.alpheios-font_small_class {
-    @include panel-font-class($alpheios-small-font-size);
+    @include font-class($alpheios-small-font-size);
 }
 .auk.alpheios-panel.alpheios-font_large_class {
-    @include panel-font-class($alpheios-large-font-size);
+    @include font-class($alpheios-large-font-size);
 
     .alpheios-panel__header-action-btn,
     .alpheios-panel__header-action-btn.active:hover,

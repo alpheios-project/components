@@ -7465,6 +7465,9 @@
     .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
       width: 20px;
       height: 20px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alph_tooltip .tooltiptext {
+    font-size: 12px;
+    width: 120px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
@@ -7497,6 +7500,9 @@
     .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
       width: 15px;
       height: 15px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alph_tooltip .tooltiptext {
+    font-size: 9px;
+    width: 90px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
@@ -7529,6 +7535,9 @@
     .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
       width: 25px;
       height: 25px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alph_tooltip .tooltiptext {
+    font-size: 15px;
+    width: 150px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
@@ -7561,7 +7570,7 @@
 .alph_tooltip-top {
   bottom: 125%;
   left: 50%;
-  margin-left: -60px; }
+  margin-left: -50%; }
 
 .alph_tooltip-top::after {
   content: "";
@@ -7576,7 +7585,7 @@
 .alph_tooltip-top-right {
   bottom: 125%;
   right: 0;
-  margin-left: -60px; }
+  margin-left: -50%; }
 
 .alph_tooltip-top-right::after {
   content: "";
@@ -7605,7 +7614,7 @@
 .alph_tooltip-bottom {
   top: 135%;
   left: 50%;
-  margin-left: -60px; }
+  margin-left: -50%; }
 
 .alph_tooltip-bottom::after {
   content: "";
@@ -7620,7 +7629,7 @@
 .alph_tooltip-bottom-right {
   top: 135%;
   right: 0;
-  margin-left: -60px; }
+  margin-left: -50%; }
 
 .alph_tooltip-bottom-right::after {
   content: "";
