@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
@@ -120,10 +120,11 @@
         heightValue: 0,
         exactWidth: 0,
         exactHeight: 0,
-        resizeDelta: 10, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
+        resizeDelta: 20, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
         resizeCount: 0, // Should not exceed `resizeCountMax`
         resizeCountMax: 100, // Max number of resize iteration
-        updateDimensionsTimeout: null
+        updateDimensionsTimeout: null,
+        divClasses: ''
       }
     },
     props: {
@@ -163,8 +164,11 @@
     },
     created () {
       let vm = this
-      this.$on('updatePopupDimensions', function(){
+      this.$on('updatePopupDimensions', function() {
         vm.updatePopupDimensions()
+      })
+      this.$on('changeStyleClass', function(name, type) {
+        vm.uiOptionChanged(name, type)
       })
     },
     computed: {
@@ -333,6 +337,10 @@
     },
 
     methods: {
+      uiOptionChanged: function (name, value) {
+        this.$emit('ui-option-change', name, value)
+      },
+
       clearMessages() {
         while (this.messages.length >0) {
           this.messages.pop()
@@ -543,27 +551,12 @@
       translationsDataReady: function(value) {
         let time = new Date().getTime()
         this.logger.log(`${time}: translation data became available`, this.translations)
-      }
-      /*inflDataReady: function() {
-        let time = new Date().getTime()
-        this.logger.log(`${time}: inflection data became available`)
       },
 
-      defDataReady: function() {
-        let time = new Date().getTime()
-        this.logger.log(`${time}: definition data became available`)
-      },*/
+      classesChanged: function (value) {
+        this.divClasses = this.data.classes.join(' ')
+      }
 
-      // It still does not catch all popup data changes. That makes a popup resizing jerky.
-      // Its safer to use an `updated()` callback instead.
-      /*updates: function() {
-        this.logger.log(`Content height updated, visibility is ${this.visible}`)
-        if (this.visible) {
-          let time = new Date().getTime()
-          this.logger.log(`${time}: content height updated, offsetHeight is ${this.$el.offsetHeight}`)
-          this.updatePopupDimensions()
-        }
-      },*/
     }
   }
 </script>
