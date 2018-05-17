@@ -389,7 +389,7 @@
     "description": "Tooltip for light colors schema icon",
     "component": "ReskinFontColor"
   },
-  "TOOLTIP_RESKIN_LIGHTBG": {
+  "TOOLTIP_RESKIN_DARKBG": {
     "message": "Dark background",
     "description": "Tooltip for dark colors schema icon",
     "component": "ReskinFontColor"

@@ -7886,6 +7886,21 @@ div.alpheios-color_schema_dark_class {
     color: #f2f2f2; }
   div.alpheios-color_schema_dark_class .infl-cell--hl {
     background: #686868; }
+  div.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
+    background-color: #f2f2f2;
+    color: #282828; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-top::after {
+    border-color: #f2f2f2 transparent transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-top-right::after {
+    border-color: #f2f2f2 transparent transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-right::after {
+    border-color: transparent #f2f2f2 transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom::after {
+    border-color: transparent transparent #f2f2f2 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
+    border-color: transparent transparent #f2f2f2 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-left::after {
+    border-color: transparent transparent transparent #f2f2f2; }
 
 div.alpheios-color_schema_light_class {
   background: #fff;
@@ -7913,6 +7928,21 @@ div.alpheios-color_schema_light_class {
     color: #0e2233; }
   div.alpheios-color_schema_light_class .infl-cell--hl {
     background: #d3d3d3; }
+  div.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
+    background-color: #0e2233;
+    color: #fff; }
+  div.alpheios-color_schema_light_class .alph_tooltip-top::after {
+    border-color: #0e2233 transparent transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
+    border-color: #0e2233 transparent transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-right::after {
+    border-color: transparent #0e2233 transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom::after {
+    border-color: transparent transparent #0e2233 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
+    border-color: transparent transparent #0e2233 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-left::after {
+    border-color: transparent transparent transparent #0e2233; }
 
 .alph_tooltip {
   position: relative;
