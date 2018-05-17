@@ -1,4 +1,4 @@
-/* global PointerEvent, MouseEvent, TouchEvent */
+/* global MouseEvent, TouchEvent */
 import 'element-closest' // To polyfill Element.closest() if required
 import {Constants, LanguageModelFactory} from 'alpheios-data-models'
 import TextSelector from '../text-selector'
@@ -23,9 +23,11 @@ export default class HTMLSelector extends MediaSelector {
 
     this.defaultLanguageCode = defaultLanguageCode
 
-    if (event instanceof PointerEvent) {
-      console.log('This is a pointer event')
-    } else if (event instanceof MouseEvent) {
+    // TODO: Recognize if pointer events are supported
+    //    if (event instanceof PointerEvent) {
+    //      console.log('This is a pointer event')
+    //    } else
+    if (event instanceof MouseEvent) {
       console.log('This is a mouse event')
       this.targetRect = {
         top: event.clientY,
