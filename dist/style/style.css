@@ -8424,12 +8424,13 @@ h3.alpheios-inflections__title {
   display: block;
   width: 20px;
   height: 20px;
-  margin: 0 5px;
-  padding: 10px;
+  /*        margin: 0 5px;
+        padding: 10px;*/
   text-align: center;
   cursor: pointer;
   fill: #D1D1D0;
   stroke: #D1D1D0;
+  margin: 10px 15px;
 }
 .alpheios-panel__header-action-btn svg,
   .alpheios-panel__header-action-btn.active:hover svg,
@@ -8551,12 +8552,13 @@ h3.alpheios-inflections__title {
   display: block;
   width: 20px;
   height: 20px;
-  margin: 0 5px;
-  padding: 10px;
+  /*        margin: 0 5px;
+        padding: 10px;*/
   text-align: center;
   cursor: pointer;
   background: transparent no-repeat center center;
   background-size: contain;
+  margin: 10px 15px;
 }
 .alpheios-panel__header-nav-btn svg {
     width: 20px;

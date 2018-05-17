@@ -542,13 +542,13 @@
         display: block;
         width: 20px;
         height: 20px;
-        margin: 0 5px;
-        padding: 10px;
+/*        margin: 0 5px;
+        padding: 10px;*/
         text-align: center;
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
         stroke: $alpheios-link-color-dark-bg;
-
+        margin: 10px 15px;
         svg {
           width: 20px;
           height: 20px;
@@ -691,13 +691,14 @@
         display: block;
         width: 20px;
         height: 20px;
-        margin: 0 5px;
-        padding: 10px;
+/*        margin: 0 5px;
+        padding: 10px;*/
         text-align: center;
         cursor: pointer;
         background: transparent no-repeat center center;
         background-size: contain;
-
+        margin: 10px 15px;
+        
         svg {
           width: 20px;
           height: 20px;
