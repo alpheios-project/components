@@ -7486,9 +7486,17 @@
     height: 33.6px;
     line-height: 33.6px;
     border-radius: 33.6px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__more-btn,
   .auk.alpheios-panel.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
     font-size: 11.2px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .uk-input.alpheios-lookup__input {
+    height: 32px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__header-selection {
+    font-size: 16px; }
+  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 17.6px; }
 
 .auk.alpheios-popup.alpheios-font_medium_class {
   font-size: 16px; }
@@ -7542,9 +7550,17 @@
     height: 33.6px;
     line-height: 33.6px;
     border-radius: 33.6px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
     font-size: 11.2px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .uk-input.alpheios-lookup__input {
+    height: 32px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header-selection {
+    font-size: 16px; }
+  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 17.6px; }
 
 .auk.alpheios-panel.alpheios-font_small_class {
   font-size: 12px; }
@@ -7598,9 +7614,17 @@
     height: 28.8px;
     line-height: 28.8px;
     border-radius: 28.8px; }
+  .auk.alpheios-panel.alpheios-font_small_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__more-btn,
   .auk.alpheios-panel.alpheios-font_small_class .uk-button.alpheios-lookup__button {
     font-size: 8.4px; }
+  .auk.alpheios-panel.alpheios-font_small_class .uk-input.alpheios-lookup__input {
+    height: 24px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__header-selection {
+    font-size: 12px; }
+  .auk.alpheios-panel.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 13.2px; }
 
 .auk.alpheios-popup.alpheios-font_small_class {
   font-size: 12px; }
@@ -7654,9 +7678,17 @@
     height: 28.8px;
     line-height: 28.8px;
     border-radius: 28.8px; }
+  .auk.alpheios-popup.alpheios-font_small_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-lookup__button {
     font-size: 8.4px; }
+  .auk.alpheios-popup.alpheios-font_small_class .uk-input.alpheios-lookup__input {
+    height: 24px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header-selection {
+    font-size: 12px; }
+  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 13.2px; }
 
 .auk.alpheios-panel.alpheios-font_large_class {
   font-size: 20px; }
@@ -7710,9 +7742,17 @@
     height: 38.4px;
     line-height: 38.4px;
     border-radius: 38.4px; }
+  .auk.alpheios-panel.alpheios-font_large_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__more-btn,
   .auk.alpheios-panel.alpheios-font_large_class .uk-button.alpheios-lookup__button {
     font-size: 14px; }
+  .auk.alpheios-panel.alpheios-font_large_class .uk-input.alpheios-lookup__input {
+    height: 40px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__header-selection {
+    font-size: 20px; }
+  .auk.alpheios-panel.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 22px; }
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
   .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
@@ -7772,9 +7812,17 @@
     height: 38.4px;
     line-height: 38.4px;
     border-radius: 38.4px; }
+  .auk.alpheios-popup.alpheios-font_large_class .uk-button {
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
   .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__more-btn,
   .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-lookup__button {
     font-size: 14px; }
+  .auk.alpheios-popup.alpheios-font_large_class .uk-input.alpheios-lookup__input {
+    height: 40px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header-selection {
+    font-size: 20px; }
+  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+    font-size: 22px; }
 
 .alph_tooltip {
   position: relative;
