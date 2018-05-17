@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="classes" :style="this.data.styles"
+    <div class="alpheios-panel auk" :class="divClasses" :style="this.data.styles"
          data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen"
         :data-notification-visible="data.notification.important"> <!-- Show only important notifications for now -->
 
@@ -210,8 +210,13 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
-        positionLeftClassName: 'alpheios-panel-left',
-        positionRightClassName: 'alpheios-panel-right',
+        // positionLeftClassName: 'alpheios-panel-left',
+        // positionRightClassName: 'alpheios-panel-right',
+        positionClassVariants: {
+          left: 'alpheios-panel-left',
+          right: 'alpheios-panel-right'
+        },
+        divClasses: ''
       }
     },
     props: {
@@ -292,8 +297,18 @@
           top: '2px',
           right: '50px'
         }
+      },
+
+      positionClasses: function () {
+        return this.positionClassVariants[this.data.settings.panelPosition.currentValue]
       }
     },
+    watch: {
+      classesChanged: function (value) {
+        this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
+      }
+    },
+
     methods: {
       updateZIndex: function (zIndexMax) {
         if (zIndexMax >= this.zIndex) {
@@ -371,7 +386,12 @@
           this.$el.style.width = width
       }
     },
-
+    created: function () {
+      let vm = this
+      vm.$on('changeStyleClass', (name, type) => {
+        vm.uiOptionChanged(name, type)
+      })
+    },
     mounted: function () {
       // Determine paddings and sidebar width for calculation of a panel width to fit content
       let navbar = this.$el.querySelector(`#${this.navbarID}`)
