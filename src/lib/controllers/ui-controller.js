@@ -329,8 +329,9 @@ export default class UIController {
           console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         },
+
         uiOptionChange: function (name, value) {
-          this.uiController.uiOptions.items[name].setTextValue(value)
+          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
           switch (name) {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
