@@ -26,7 +26,7 @@
     .uk-select.alpheios-inflections__view-selector {
     	font-size: $baseFontSize * 0.675;
     }
-    .uk-input, .uk-select:not([multiple]):not([size]) {
+    .uk-select:not([multiple]):not([size]) {
     	height: $baseFontSize * 2.5;
     }
     .alpheios-panel__header-action-btn,
