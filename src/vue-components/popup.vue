@@ -196,6 +196,7 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
+        console.log('************** noLanguage', this.data.currentLanguage)
         return this.data.currentLanguage === undefined
       },
       notificationClasses: function () {
