@@ -1,21 +1,21 @@
 <template>
 	<div class="alpheios-skin_panel">
-      <label class="uk-form-label" v-show="showTitle">{{ currentLabelText }}</label>
+      <label class="uk-form-label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
 	  <ul class="alpheios-skin_properties">
-        <alph-tooltip tooltipDirection="top-left" tooltipText="Small font">
-	  	    <li class="alpheios-small_font alpheios-font" @click="changeStyleClass('fontSize', 'small')">A</li>
+        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
+	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" tooltipText="Medium font">
-	  	    <li class="alpheios-medium_font alpheios-font" @click="changeStyleClass('fontSize', 'medium')">A</li>
+        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_MEDIUMFONT">
+	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" tooltipText="Large font">
-	  	    <li class="alpheios-large_font alpheios-font" @click="changeStyleClass('fontSize', 'large')">A</li>
+        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LARGEFONT">
+	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" tooltipText="Light background">
-            <li class="alpheios-light_color_schema" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
+        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LIGHTBG">
+            <li class="alpheios-skin_properties_item alpheios-skin_properties_item__light_bg" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" tooltipText="Dark background">
-            <li class="alpheios-dark_color_schema" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
+        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_DARKBG">
+            <li class="alpheios-skin_properties_item alpheios-skin_properties_item__dark_bg" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
         </alph-tooltip>
 	  </ul>
 	</div>
@@ -39,19 +39,13 @@
         required: false,
         default: ''
       },
-      showTitle: {
-        type: Boolean,
-        required: false,
-        default: true
+      messages: {
+        type: Object,
+        required: true
       }
     },
     data () {
       return {
-      }
-    },
-    computed: {
-      currentLabelText: function () {
-        return (this.labelText.length > 0) ? this.labelText + ':' : ''
       }
     },
     methods: {
@@ -70,66 +64,64 @@
 
     $baseSize: $alpheios-base-font-size + 12px;
 
-    .alpheios-skin_panel ul.alpheios-skin_properties {
+    .alpheios-skin_properties {
     	margin: 0;
     	padding: 0 30px 10px 0;
     	list-style: none;
+    }
+    .alpheios-skin_properties_item {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: $alpheios-base-font-size;
 
-    	li {
-    		display: inline-block;
-            vertical-align: middle;
-    		font-size: $alpheios-base-font-size;
+        width: $baseSize;
+        height: $baseSize;
+        text-align: center;
+        line-height: $baseSize;
 
-    		width: $baseSize;
-    		height: $baseSize;
-    		text-align: center;
-    		line-height: $baseSize;
+        color: #fff;
+        background: $alpheios-toolbar-color;
+        border-radius: $baseSize/2;
 
-    		color: #fff;
-    		background: $alpheios-toolbar-color;
-    		border-radius: $baseSize/2;
-
-            cursor: pointer;
-
-    		&.alpheios-small_font {
-    			font-size: $alpheios-base-font-size * 0.8;
-                width: $baseSize * 0.8;
-                height: $baseSize * 0.8;
-                line-height: $baseSize * 0.8;
-                border-radius: $baseSize * 0.8 * 0.5;
-    		}
-    		&.alpheios-large_font {
-    			font-size:$alpheios-base-font-size * 1.2;
-                width: $baseSize * 1.2;
-                height: $baseSize * 1.2;
-                line-height: $baseSize * 1.2;
-                border-radius: $baseSize * 1.2;
-    		}
-
-            &.alpheios-light_color_schema,
-            &.alpheios-dark_color_schema {
-                border-radius: 0;
-                background: transparent;
-                svg {
-                    width: 90%;
-                    height: 90%;
-                }
-            }
-    	}
+        cursor: pointer;        
     }
 
-    .alpheios-popup.alpheios-font_medium_class li.alpheios-medium_font,
-    .alpheios-panel.alpheios-font_medium_class li.alpheios-medium_font {
+    .alpheios-skin_properties_item__small_font {
+		font-size: $alpheios-base-font-size * 0.8;
+        width: $baseSize * 0.8;
+        height: $baseSize * 0.8;
+        line-height: $baseSize * 0.8;
+        border-radius: $baseSize * 0.8 * 0.5;
+	}
+
+    .alpheios-skin_properties_item__large_font {
+		font-size:$alpheios-base-font-size * 1.2;
+        width: $baseSize * 1.2;
+        height: $baseSize * 1.2;
+        line-height: $baseSize * 1.2;
+        border-radius: $baseSize * 1.2;
+	}
+
+    .alpheios-skin_properties_item__light_bg,
+    .alpheios-skin_properties_item__dark_bg {
+        border-radius: 0;
+        background: transparent;
+        svg {
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+
+    .alpheios-font_small_class .alpheios-skin_properties_item__small_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-popup.alpheios-font_small_class li.alpheios-small_font,
-    .alpheios-panel.alpheios-font_small_class li.alpheios-small_font {
+    .alpheios-font_medium_class .alpheios-skin_properties_item__medium_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-popup.alpheios-font_large_class li.alpheios-large_font,
-    .alpheios-panel.alpheios-font_large_class li.alpheios-large_font {
+    .alpheios-font_large_class .alpheios-skin_properties_item__large_font {
         background: $alpheios-toolbar-active-color;
     }
 </style>

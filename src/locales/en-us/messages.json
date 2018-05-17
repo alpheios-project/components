@@ -368,5 +368,30 @@
     "message": "Reskin settings",
     "description": "Label for Reskin component",
     "component": "ReskinFontColor"
-  }     
+  },
+  "TOOLTIP_RESKIN_SMALLFONT": {
+    "message": "Small font",
+    "description": "Tooltip for small font icon",
+    "component": "ReskinFontColor"
+  },
+  "TOOLTIP_RESKIN_MEDIUMFONT": {
+    "message": "Medium font",
+    "description": "Tooltip for medium font icon",
+    "component": "ReskinFontColor"
+  },
+  "TOOLTIP_RESKIN_LARGEFONT": {
+    "message": "Large font",
+    "description": "Tooltip for large font icon",
+    "component": "ReskinFontColor"
+  },
+  "TOOLTIP_RESKIN_LIGHTBG": {
+    "message": "Light background",
+    "description": "Tooltip for light colors schema icon",
+    "component": "ReskinFontColor"
+  },
+  "TOOLTIP_RESKIN_LIGHTBG": {
+    "message": "Dark background",
+    "description": "Tooltip for dark colors schema icon",
+    "component": "ReskinFontColor"
+  }
 }

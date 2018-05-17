@@ -54,9 +54,17 @@
 .auk.alpheios-panel.alpheios-font_medium_class {
     @include font-class($alpheios-base-font-size);
 }
+.auk.alpheios-popup.alpheios-font_medium_class {
+    @include font-class($alpheios-base-font-size);
+}
+
 .auk.alpheios-panel.alpheios-font_small_class {
     @include font-class($alpheios-small-font-size);
 }
+.auk.alpheios-popup.alpheios-font_small_class {
+    @include font-class($alpheios-small-font-size);
+}
+
 .auk.alpheios-panel.alpheios-font_large_class {
     @include font-class($alpheios-large-font-size);
 
@@ -67,4 +75,8 @@
     	margin-right: 10px;
     	margin-left: 10px;
     }
+}
+
+.auk.alpheios-popup.alpheios-font_large_class {
+    @include font-class($alpheios-large-font-size);
 }
