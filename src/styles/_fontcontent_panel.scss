@@ -26,6 +26,9 @@
     .uk-select.alpheios-inflections__view-selector {
     	font-size: $baseFontSize * 0.675;
     }
+    .uk-input, .uk-select:not([multiple]):not([size]) {
+    	height: $baseFontSize * 2.5;
+    }
 }
 
 .auk.alpheios-panel.alpheios-font_medium_class {
