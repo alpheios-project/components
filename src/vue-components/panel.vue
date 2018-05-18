@@ -37,7 +37,7 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK" v-show="treebankTabVisible">
                 <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
                       class="alpheios-panel__header-nav-btn">
                   <treebank-icon class="icon"></treebank-icon>
@@ -183,7 +183,7 @@
   import StatusIcon from '../images/inline-icons/status.svg';
   import OptionsIcon from '../images/inline-icons/options.svg';
   import GrammarIcon from '../images/inline-icons/resources.svg';
-  import TreebankIcon from '../images/inline-icons/tree.svg';
+  import TreebankIcon from '../images/inline-icons/sitemap.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
 
   export default {
