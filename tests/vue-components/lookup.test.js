@@ -51,18 +51,18 @@ describe('lookup.test.js', () => {
   })
 
   it('There are three items - input, button, settings', () => {
-    let input = cmp.find('.alpheios-lookup_form').find('.lookup_input')
+    let input = cmp.find('.alpheios-lookup__form').find('.alpheios-lookup__input')
     expect(input.is('input')).toBeTruthy()
 
-    let button = cmp.find('.alpheios-lookup_form').find('.lookup_button')
+    let button = cmp.find('.alpheios-lookup__form').find('.alpheios-lookup__button')
     expect(button.is('button')).toBeTruthy()
 
-    let settings = cmp.find('.alpheios-lookup_form').find('.alpheios-lookup__settings')
+    let settings = cmp.find('.alpheios-lookup__form').find('.alpheios-lookup__settings')
     expect(settings.is('div')).toBeTruthy()
   })
 
   it('There is a tooltip on the button with text', () => {
-    let tooltiptext = cmp.find('.alpheios-lookup_form').find('.tooltiptext')
+    let tooltiptext = cmp.find('.alpheios-lookup__form').find('.tooltiptext')
     expect(tooltiptext.is('span')).toBeTruthy()
     expect(tooltiptext.text().length).not.toEqual(0)
   })
