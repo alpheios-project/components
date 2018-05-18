@@ -589,7 +589,14 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+          // TODO this should really be handled within OptionsItem
+          // the difference between value and textValues is a little confusing
+          // see issue #73
+          if (name === 'fontSize' || name === 'colorSchema') {
+            this.uiController.uiOptions.items[name].setValue(value)
+          } else {
+            this.uiController.uiOptions.items[name].setTextValue(value)
+          }
 
           switch (name) {
             case 'skin':
