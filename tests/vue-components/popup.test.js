@@ -221,16 +221,6 @@ describe('popup.test.js', () => {
     expect(cmpEmpty.vm.widthDm).toEqual('auto')
   })
 
-  it('if set widthDm a value less han maxWidth then it woul be equal a newValue', () => {
-    cmpEmpty.vm.widthDm = 300
-    expect(cmpEmpty.vm.widthDm).toEqual('300px')
-  })
-
-  it('if set widthDm a value more han maxWidth then it woul be equal auto', () => {
-    cmpEmpty.vm.widthDm = 3000000
-    expect(cmpEmpty.vm.widthDm).toEqual('auto')
-  })
-
   it('if heightValue is a Number then heightDm = widthValue + px', () => {
     cmpEmpty.vm.heightValue = 500
     expect(cmpEmpty.vm.heightDm).toEqual(cmpEmpty.vm.heightValue + 'px')
@@ -238,16 +228,6 @@ describe('popup.test.js', () => {
 
   it('if heightValue === auto then widthDm = auto', () => {
     cmpEmpty.vm.heightValue = 'auto'
-    expect(cmpEmpty.vm.heightDm).toEqual('auto')
-  })
-
-  it('if set heightDm a value less han maxWidth then it woul be equal a newValue', () => {
-    cmpEmpty.vm.heightDm = 300
-    expect(cmpEmpty.vm.heightDm).toEqual('300px')
-  })
-
-  it('if set heightDm a value more han maxWidth then it woul be equal auto', () => {
-    cmpEmpty.vm.heightDm = 3000000
     expect(cmpEmpty.vm.heightDm).toEqual('auto')
   })
 })
