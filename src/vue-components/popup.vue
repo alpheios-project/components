@@ -49,7 +49,7 @@
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
-        <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
+        <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont alpheios-popup__morph-cont-ready uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
             </morph>
@@ -73,7 +73,8 @@
               </span>
 
             <span v-html="data.notification.text"></span>
-            <setting :data="data.settings.preferredLanguage" :show-title="false"
+            <setting v-if="data.notification && data.notification.showLanguageSwitcher"
+                     :data="data.settings.preferredLanguage" :show-title="false"
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
@@ -173,7 +174,10 @@
     },
     computed: {
       uiController: function () {
-        return this.$parent.uiController
+        if (this.$parent) {
+          return this.$parent.uiController
+        }
+        return null
       },
       logger: function() {
         console.log(`Verbose = ${this.data.verboseMode}`)
@@ -219,7 +223,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.left
         }
 
@@ -253,7 +257,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.top
         }
 
