@@ -1,6 +1,4 @@
 import OptionItem from './options-item.js'
-import DefaultsLoader from './defaults-loader.js'
-import LanguageOptionDefaults from '../../settings/language-options-defaults.json'
 /**
  * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
  */
@@ -14,19 +12,17 @@ export default class Options {
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
-  constructor (defaults, StorageAdapter, cloned) {
-    if (cloned !== true) {
-      if (!defaults || !defaults.domain || !defaults.items) {
-        throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
-      }
-      if (!StorageAdapter) {
-        throw new Error(`No storage adapter implementation provided`)
-      }
+  constructor (defaults = null, StorageAdapter = null) {
+    if (defaults !== null && (!defaults.domain || !defaults.items)) {
+      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+    }
+    // if defaults aren't provided, properties need to be initialized separately
+    if (defaults !== null && StorageAdapter !== null) {
+      this.storageAdapter = new StorageAdapter(defaults.domain)
+      this.domain = defaults.domain
       for (const key of Object.keys(defaults)) {
         this[key] = defaults[key]
       }
-      this.storageAdapter = new StorageAdapter(defaults.domain)
-
       this.items = Options.initItems(this.items, this.storageAdapter)
     }
   }
@@ -46,24 +42,16 @@ export default class Options {
     return items
   }
 
-  cloneDefaultResourceOptions () {
-    let obj = new Options(null, null, true)
-    let defaults
-
-    if (typeof LanguageOptionDefaults === 'string') {
-      defaults = DefaultsLoader.fromJSON(LanguageOptionDefaults)
-    } else {
-      defaults = LanguageOptionDefaults
-    }
-    for (const key of Object.keys(defaults)) {
-      obj[key] = defaults[key]
-    }
-    obj.storageAdapter = this.storageAdapter
-    obj.items = Options.initItems(obj.items, this.storageAdapter)
-
-    this.items.lexicons.forEach(function (lexItem, index) {
-      obj.items.lexicons[index].currentValue = lexItem.currentValue
-    })
+  /**
+   * Clone an existing Options object applying a new StorageAdapter
+   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
+   * @return {Options} the cloned Options object
+   */
+  clone (StorageAdapter) {
+    let obj = new Options(null, null)
+    obj.StorageAdapter = new StorageAdapter(this.domain)
+    obj.domain = this.domain
+    obj.items = this.items
     return obj
   }
 
