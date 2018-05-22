@@ -14,11 +14,11 @@
       </span>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings" v-if="currentLanguage" >
+      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="options.items.preferredLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
 
         <alph-setting :data="lexicon" @change="resourceSettingChange" :classes="['alpheios-panel__options-item']"
-         v-for="lexicon in lexiconsFiltered"/></alph-setting>
+         v-for="lexicon in lexiconsFiltered" v-if="currentLanguage"/></alph-setting>
       </div>
     </div>
   </div>
@@ -44,7 +44,6 @@
         defaultButtonLabel: 'Search',
         defaultInputPlaceholder: 'Type text',
         defaultLabelSettings: 'Settings',
-
         showLanguageSettings: false,
         currentLanguage: null
       }
@@ -59,18 +58,14 @@
         required: false
       }
     },
-    mounted: function () {
+    created: function () {
       this.options = this.uiController.options.clone(TempStorageArea)
       this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
       if (this.initLanguage) {
-        this.currentLanguage = this.initLanguage
-        this.options.items.preferredLanguage.setValue(initLanguage)
-      } else {
-        this.currentLanguage = this.options.items.preferredLanguage.currentValue
+        settingChange('preferredLanguage',this.initLanguage)
       }
     },
     computed: {
-
       buttonLabel: function () {
         if (this.uiController && this.uiController.l10n) {
           return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
@@ -96,6 +91,7 @@
         return this.defaultLabelSettings
       },
       lexiconsFiltered: function () {
+        console.log(`in lexiconsFiltered ${this.currentLanguage}`)
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === `lexiconsShort-${this.currentLanguage}`)
       }
     },
@@ -105,7 +101,7 @@
           return null
         }
 
-        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
         LexicalQueryLookup

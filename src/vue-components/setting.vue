@@ -30,16 +30,27 @@
         }
       }
     },
+    data () {
+      return {
+        updated: 1
+      }
+    },
     computed: {
       selected: {
         get: function () {
-          if (typeof this.data.currentTextValue === 'function') {
-            return this.data.currentTextValue()
+          let rv
+          if (this.updated > 0 ) {
+            if (typeof this.data.currentTextValue === 'function') {
+              rv = this.data.currentTextValue()
+            }
           }
-          return null
+          return rv
         },
         set: function (newValue) {
           this.$emit('change', this.data.name, newValue)
+          // this is a hack to force the getter to be recalled if the component
+          // is updated after a selection has been made
+          this.updated++
         }
       }
     }
