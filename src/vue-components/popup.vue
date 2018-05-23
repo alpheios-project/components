@@ -77,7 +77,7 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-        <lookup :uiController="uiController" :parentLanguage="currentLanguage"></lookup>
+        <lookup :uiController="uiController" :parentLanguage="currentLanguageName"></lookup>
     </div>
 </template>
 <script>
@@ -196,11 +196,10 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        return this.data.currentLanguage === undefined
+        return this.data.currentLanguageName === undefined
       },
-      currentLanguage: function() {
-        console.log('in popup current language is ',this.data.currentLanguage)
-        return this.data.currentLanguage
+      currentLanguageName: function() {
+        return this.data.currentLanguageName
       },
       notificationClasses: function () {
         return {

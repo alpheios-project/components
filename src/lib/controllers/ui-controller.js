@@ -861,7 +861,7 @@ export default class UIController {
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
 
-    Vue.set(this.popup.popupData, 'currentLanguage', UIController.getLanguageName(languageID))
+    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
