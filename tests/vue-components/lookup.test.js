@@ -15,8 +15,6 @@ import TempStorageArea from '../../src/lib/options/temp-storage-area.js'
 import LanguageOptionDefaults from '../../src/settings/language-options-defaults.json'
 
 describe('lookup.test.js', () => {
-  // let spy
-
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
@@ -27,35 +25,16 @@ describe('lookup.test.js', () => {
 
   let cmpL10n = mount(Lookup, {
     propsData: {
-      uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions },
-      //      options: options,
-      //     resourceOptions: resourceOptions,
-      parentLanguage: 'Latin'
+      uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions }
     }
   })
 
   let cmpGrc = mount(Lookup, {
     propsData: {
       uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions },
-      //      options: options,
-      //     resourceOptions: resourceOptions,
       parentLanguage: 'Greek'
     }
   })
-
-  // it('If there is an empty uiController - error is thrown', () => {
-
-  // it('If there is an empty uiController - error is thrown', () => {
-  // spy = jest.spyOn(console, 'error')
-  //  mount(Lookup, {
-  // propsData: {
-  //   uiController: null,
-  //  initLanguage: null
-  // }
-  // })
-  // console.log('**********testing testCmp', cmp.find('.alpheios-lookup_form').html())
-  // expect(spy).toHaveBeenCalled()
-  // })
 
   it('There are three items - input, button, settings', () => {
     let input = cmpL10n.find('.alpheios-lookup__form').find('.alpheios-lookup__input')

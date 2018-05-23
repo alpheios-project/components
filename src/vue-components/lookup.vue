@@ -70,6 +70,7 @@
       } else {
         this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
       }
+      console.log(`at creation current language is ${this.currentLanguage}`)
     },
     computed: {
       buttonLabel: function () {
@@ -96,17 +97,20 @@
         }
         return this.defaultLabelSettings
       },
-      lexiconLang: function() {
+      lexiconSettingName: function() {
         let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
-        return `lexiconsShort-${lang[0].value}`
+        let settingName
+        if (lang.length>0) {
+          settingName = `lexiconsShort-${lang[0].value}`
+        }
+        return settingName
       },
       lexiconsFiltered: function () {
-        return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconLang)
+        return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       preferredLanguage: function () {
         let currentLanguage
-        if ((this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
-          console.log(`parent language changed to ${this.parentLanguage} from ${this.initLanguage}`)
+        if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
           this.options.items.preferredLanguage.setTextValue(this.parentLanguage)
@@ -139,7 +143,6 @@
       },
 
       settingChange: function (name, value) {
-        console.log(`set currentLanguage to ${value}`)
         this.options.items.preferredLanguage.setTextValue(value)
         this.currentLanguage = value
       },

@@ -142,7 +142,7 @@
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
                 <div class="alpheios-lookup__panel">
-                  <lookup :uiController="uiController"></lookup>
+                  <lookup :uiController="uiController" :parentLanguage="data.infoComponentData.languageName"></lookup>
                 </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages"></info>
             </div>
