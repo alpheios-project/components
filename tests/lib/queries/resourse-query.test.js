@@ -7,7 +7,7 @@ import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
-describe('lexical-query.test.js', () => {
+describe('resource-query.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
