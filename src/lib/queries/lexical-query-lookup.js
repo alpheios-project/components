@@ -24,7 +24,6 @@ export default class LexicalQueryLookup extends LexicalQuery {
       resourceOptions = uiController.resourceOptions
     }
 
-    uiController.updateLanguage(textSelector.languageCode)
     let options = {
       htmlSelector: HTMLSelector.getDumpHTMLSelector(),
       uiController: uiController,

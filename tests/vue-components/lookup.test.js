@@ -30,9 +30,20 @@ describe('lookup.test.js', () => {
       uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions },
       //      options: options,
       //     resourceOptions: resourceOptions,
-      initLanguage: null
+      parentLanguage: 'Latin'
     }
   })
+
+  let cmpGrc = mount(Lookup, {
+    propsData: {
+      uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions },
+      //      options: options,
+      //     resourceOptions: resourceOptions,
+      parentLanguage: 'Greek'
+    }
+  })
+
+  // it('If there is an empty uiController - error is thrown', () => {
 
   // it('If there is an empty uiController - error is thrown', () => {
   // spy = jest.spyOn(console, 'error')
@@ -98,7 +109,7 @@ describe('lookup.test.js', () => {
     cmpL10n.setData({ showLanguageSettings: true })
     expect(cmpL10n.findAll(Setting).length).toBe(1)
   })
-  it('If language === grc then there are two settings component', (done) => {
+  it('If language === Greek then there are two settings component', (done) => {
     cmpL10n.setData({ showLanguageSettings: true })
     cmpL10n.vm.settingChange('preferredLanguage', 'Greek')
 
@@ -106,5 +117,9 @@ describe('lookup.test.js', () => {
       expect(cmpL10n.findAll(Setting).length).toBe(2)
       done()
     })
+  })
+  it('If obeys currentLanguage on parent', () => {
+    cmpGrc.setData({ showLanguageSettings: true })
+    expect(cmpGrc.findAll(Setting).length).toBe(2)
   })
 }) // Create a copy of the original component with full values

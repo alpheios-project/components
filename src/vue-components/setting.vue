@@ -39,11 +39,12 @@
       selected: {
         get: function () {
           let rv
-          if (this.updated > 0 ) {
+          //if (this.updated > 0 ) {
             if (typeof this.data.currentTextValue === 'function') {
               rv = this.data.currentTextValue()
             }
-          }
+          //}
+          //console.log(`current language here is ${rv} and updated is ${this.updated}`)
           return rv
         },
         set: function (newValue) {
