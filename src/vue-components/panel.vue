@@ -88,7 +88,7 @@
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw">
                 <div class="alpheios-lookup__panel">
-                  <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+                  <lookup :uiController="uiController"></lookup>
                 </div>
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
@@ -142,7 +142,7 @@
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
                 <div class="alpheios-lookup__panel">
-                  <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+                  <lookup :uiController="uiController" :parentLanguage="data.infoComponentData.languageName"></lookup>
                 </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages"></info>
             </div>
@@ -377,7 +377,7 @@
         if (width === 'auto') {
           this.$el.style.removeProperty('width')
           return
-        } 
+        }
         let widthDelta = parseInt(this.navbarWidth, 10)
           + parseInt(this.inflPanelLeftPadding, 10)
           + parseInt(this.inflPanelRightPadding, 10)

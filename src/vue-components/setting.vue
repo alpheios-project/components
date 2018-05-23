@@ -33,10 +33,11 @@
     computed: {
       selected: {
         get: function () {
+          let rv
           if (typeof this.data.currentTextValue === 'function') {
-            return this.data.currentTextValue()
+              rv = this.data.currentTextValue()
           }
-          return null
+          return rv
         },
         set: function (newValue) {
           this.$emit('change', this.data.name, newValue)

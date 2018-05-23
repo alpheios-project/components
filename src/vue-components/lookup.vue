@@ -14,13 +14,11 @@
       </span>
     </alph-tooltip>
     <div class="alpheios-lookup__settings">
-      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings" v-if="currentLanguage && lexiconsFiltered" >
-        <alph-setting :data="currentLanguage" @change="settingChanged" :classes="['alpheios-panel__options-item']"></alph-setting>
+      <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
+        <alph-setting :data="preferredLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
 
-        <alph-setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name"
-                  v-if="languageSetting.values.length > 1"
-                  v-for="languageSetting in lexiconsFiltered"></alph-setting>
+        <alph-setting :data="lexicon" @change="resourceSettingChange" :classes="['alpheios-panel__options-item']"
+         v-for="lexicon in lexiconsFiltered"/></alph-setting>
       </div>
     </div>
   </div>
@@ -29,6 +27,7 @@
   import TextSelector from '../lib/selection/text-selector'
   import LexicalQueryLookup from '../lib/queries/lexical-query-lookup'
   import { LanguageModelFactory } from 'alpheios-data-models'
+  import TempStorageArea from '../lib/options/temp-storage-area'
 
   import Tooltip from './tooltip.vue'
   import Setting from './setting.vue'
@@ -44,12 +43,12 @@
         lookuptext: '',
         defaultButtonLabel: 'Search',
         defaultInputPlaceholder: 'Type text',
-        deafultLabelSettings: 'Settings',
-
+        defaultLabelSettings: 'Settings',
         showLanguageSettings: false,
+        initLanguage: null,
         currentLanguage: null,
-        currentDictionary: null,
-        resourceOptions: null
+        options: {},
+        resourceOptions: {}
       }
     },
     props: {
@@ -57,21 +56,23 @@
         type: Object,
         required: true
       },
-      preferredLanguage: {
-        type: Object,
-        required: true
+      parentLanguage: {
+        type: String,
+        required: false
       }
     },
-    mounted: function () {
-      if (this.preferredLanguage && typeof this.preferredLanguage.cloneObject === 'function') {
-        this.currentLanguage = this.preferredLanguage.cloneObject()
+    created: function () {
+      this.options = this.uiController.options.clone(TempStorageArea)
+      this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+      if (this.parentLanguage) {
+        this.initLanguage = this.parentLanguage
+        this.currentLanguage = this.parentLanguage
+      } else {
+        this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
       }
-      if (this.uiController && this.uiController.resourceOptions) {
-        this.resourceOptions = this.uiController.resourceOptions.cloneDefaultResourceOptions()     
-      }
+      console.log(`at creation current language is ${this.currentLanguage}`)
     },
     computed: {
-
       buttonLabel: function () {
         if (this.uiController && this.uiController.l10n) {
           return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
@@ -94,20 +95,29 @@
         if (this.uiController && this.uiController.l10n) {
           return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
         }
-        return this.deafultLabelSettings
+        return this.defaultLabelSettings
       },
-      currentLangLexicons: function () {
-        if ( this.currentLanguage === null ) {
-          this.currentLanguage = this.preferredLanguage.cloneObject()
+      lexiconSettingName: function() {
+        let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
+        let settingName
+        if (lang.length>0) {
+          settingName = `lexiconsShort-${lang[0].value}`
         }
-        return 'lexicons-' + this.currentLanguage.currentValue
+        return settingName
       },
       lexiconsFiltered: function () {
-        if (this.resourceOptions && Array.isArray(this.resourceOptions.items.lexicons)) {
-          return this.resourceOptions.items.lexicons.filter(item => item.name === this.currentLangLexicons)
+        return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
+      },
+      preferredLanguage: function () {
+        let currentLanguage
+        if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
+          this.initLanguage = this.parentLanguage
+          this.currentLanguage = this.parentLanguage
+          this.options.items.preferredLanguage.setTextValue(this.parentLanguage)
         }
-        return []
+        return this.options.items.preferredLanguage
       }
+
     },
     methods: {
       'lookup': function () {
@@ -115,9 +125,9 @@
           return null
         }
 
-        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.currentLanguage.currentValue)
+        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
-        
+
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
@@ -132,16 +142,14 @@
         }
       },
 
-      settingChanged: function (name, value) {
-        let findLang = this.preferredLanguage.values.find(item => item.text === value)
-        this.currentLanguage = this.preferredLanguage.cloneObject()
-        this.currentLanguage.currentValue= findLang.value
+      settingChange: function (name, value) {
+        this.options.items.preferredLanguage.setTextValue(value)
+        this.currentLanguage = value
       },
 
-      resourceSettingChanged: function (name, value) {
-        let changedLexiconIndex = this.resourceOptions.items.lexicons.findIndex(item => item.name === name)
-        let valuesLexicons = this.resourceOptions.items.lexicons[changedLexiconIndex].values.filter(item => value.indexOf(item.text) > -1)
-        this.resourceOptions.items.lexicons[changedLexiconIndex].currentValue = valuesLexicons.map(item => item.value)
+      resourceSettingChange: function (name, value) {
+        let keyinfo = this.resourceOptions.parseKey(name)
+        this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
       }
     }
   }
@@ -151,7 +159,7 @@
 
     .alpheios-lookup__form {
       margin: 15px 10px 5px;
-      
+
       text-align: left;
     }
 
@@ -187,7 +195,7 @@
     .alpheios-lookup__button_with_link {
       width: 29%;
     }
-    
+
 
     .alpheios-panel {
       .alpheios-lookup__form {
@@ -209,5 +217,5 @@
           max-width: 250px;
         }
     }
-    
+
 </style>

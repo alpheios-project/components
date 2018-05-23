@@ -39,14 +39,14 @@ export default class LexicalQuery extends Query {
     while (true) {
       if (!this.active) { this.finalize() }
       if (Query.isPromise(result.value)) {
-        // try {
-        let resolvedValue = await result.value
-        result = iterator.next(resolvedValue)
-        // } catch (error) {
-        //   iterator.return()
-        //   this.finalize(error)
-        //   break
-        // }
+        try {
+          let resolvedValue = await result.value
+          result = iterator.next(resolvedValue)
+        } catch (error) {
+          iterator.return()
+          this.finalize(error)
+          break
+        }
       } else {
         result = iterator.next(result.value)
       }

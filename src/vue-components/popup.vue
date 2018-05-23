@@ -44,7 +44,7 @@
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
         </div>
-       
+
         <div v-show="noLanguage && !morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
@@ -77,7 +77,7 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-        <lookup :uiController="uiController" :preferredLanguage="data.settings.preferredLanguage"></lookup>
+        <lookup :uiController="uiController" :parentLanguage="currentLanguageName"></lookup>
     </div>
 </template>
 <script>
@@ -196,7 +196,10 @@
         return this.data.morphDataReady
       },
       noLanguage: function () {
-        return this.data.currentLanguage === undefined
+        return this.data.currentLanguageName === undefined
+      },
+      currentLanguageName: function() {
+        return this.data.currentLanguageName
       },
       notificationClasses: function () {
         return {
@@ -457,8 +460,8 @@
 
         let innerDif = this.$el.querySelector("#alpheios-lexical-data-container").clientHeight - this.$el.querySelector("#alpheios-morph-component").clientHeight
 
-        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) { 
-          this.heightDm ='auto' 
+        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) {
+          this.heightDm ='auto'
           return
         }
 
