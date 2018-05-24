@@ -115,7 +115,7 @@ describe('lexical-query.test.js', () => {
     fetchTranslations: function () { }
   }
 
-  it('Create function returns a new LexicalQuery with params', () => {
+  it('1 LexicalQuery - create function returns a new LexicalQuery with params', () => {
     let query = LexicalQuery.create('foo selector', {})
 
     expect(typeof query).toEqual('object')
@@ -124,7 +124,7 @@ describe('lexical-query.test.js', () => {
     expect(query.canReset).toBeFalsy()
   })
 
-  it('GetData executes before iterations init languageId, ui.setTargetRect, ui.showStatusInfo, ui.updateWordAnnotationData', async () => {
+  it('2 LexicalQuery - getData executes before iterations init languageId, ui.setTargetRect, ui.showStatusInfo, ui.updateWordAnnotationData', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -150,7 +150,7 @@ describe('lexical-query.test.js', () => {
     spy3.mockReset()
   })
 
-  it('getData could make another iterations circle if canReset = true', async () => {
+  it('3 LexicalQuery - getData could make another iterations circle if canReset = true', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -174,7 +174,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
   })
 
-  it('GetData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
+  it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -206,7 +206,7 @@ describe('lexical-query.test.js', () => {
     spy4.mockReset()
   })
 
-  it('GetData executes iterations: LDFAdapter.getInflectionData and after it getInflectionData, addMessage, updateInflections', async () => {
+  it('5 LexicalQuery - getData executes iterations: LDFAdapter.getInflectionData and after it getInflectionData, addMessage, updateInflections', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -234,7 +234,7 @@ describe('lexical-query.test.js', () => {
     spy2.mockReset()
   })
 
-  it('If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
+  it('6 LexicalQuery - If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -256,7 +256,7 @@ describe('lexical-query.test.js', () => {
     spy.mockReset()
   })
 
-  it('GetData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
+  it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -282,7 +282,7 @@ describe('lexical-query.test.js', () => {
     spy2.mockReset()
   })
 
-  it('GetData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
+  it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -311,7 +311,7 @@ describe('lexical-query.test.js', () => {
     spy3.mockReset()
   })
 
-  it('GetData executes fetchTranslations and it executes updateTranslations', async () => {
+  it('9 LexicalQuery - getData executes fetchTranslations and it executes updateTranslations', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -340,7 +340,7 @@ describe('lexical-query.test.js', () => {
     spy2.mockReset()
   })
 
-  it('getLexiconOptions parses lexicons', () => {
+  it('10 LexicalQuery - getLexiconOptions parses lexicons', () => {
     let mockSelector = {
       location: 'http://example.org',
       languageCode: 'lat'
@@ -368,7 +368,7 @@ describe('lexical-query.test.js', () => {
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({allow: ['https://github.com/alpheios-project/xx']})
   })
 
-  it('getLexiconOptions parses empty lexicons and returns {}', () => {
+  it('11 LexicalQuery - getLexiconOptions parses empty lexicons and returns {}', () => {
     let mockSelector = {
       location: 'http://example.org',
       languageCode: 'lat'

@@ -20,7 +20,7 @@ describe('resource-query.test.js', () => {
     l10n: l10n
   }
 
-  it('Create function returns a new ResourceQuery with params', () => {
+  it('1 ResourceQuery - create method returns a new ResourceQuery with params', () => {
     let query = ResourceQuery.create('foo feature', { uiController: 'foo uiController', grammars: 'foo grammars' })
 
     expect(typeof query).toEqual('object')
@@ -32,7 +32,7 @@ describe('resource-query.test.js', () => {
     expect(query.grammars).toEqual('foo grammars')
   })
 
-  it('GetData executes steps: message, updateGrammar, addMessage, finalize (when fetchResources returns [])', async () => {
+  it('2 ResourceQuery - getData method executes steps: message, updateGrammar, addMessage, finalize (when fetchResources returns [])', async () => {
     let testGrammars = {
       fetchResources: function () {
         return []
@@ -60,7 +60,7 @@ describe('resource-query.test.js', () => {
     spy4.mockReset()
   })
 
-  it('GetData executes updateGrammar with url as an argument (when fetchResources returns request url)', async () => {
+  it('3 ResourceQuery - getData method executes updateGrammar with url as an argument (when fetchResources returns request url)', async () => {
     let testGrammars = {
       fetchResources: function () {
         return [
@@ -81,7 +81,7 @@ describe('resource-query.test.js', () => {
     spy2.mockReset()
   })
 
-  it('GetData throw error to console when fetchResources returns error', async () => {
+  it('4 ResourceQuery - getData method throws error to console when fetchResources returns error', async () => {
     let testError = new Error('test error')
     let testGrammars = {
       fetchResources: function () {
@@ -101,7 +101,7 @@ describe('resource-query.test.js', () => {
     spy.mockReset()
   })
 
-  it('On finalize Query.destroy executes', async () => {
+  it('5 ResourceQuery - On finalize Query.destroy executes', async () => {
     let testGrammars = {
       fetchResources: function () {
         return []

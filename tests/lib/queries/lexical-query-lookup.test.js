@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import LexicalQueryLookup from '../../../src/lib/queries/lexical-query-lookup'
+import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 
 describe('lexical-query-lookup.test.js', () => {
   let mockSelector = {
@@ -11,7 +11,7 @@ describe('lexical-query-lookup.test.js', () => {
     updateLanguage: function () { }
   }
 
-  it('Create function returns a new LexicalQuery with params', () => {
+  it('1 LexicalQueryLookup - create function returns a new LexicalQuery with params', () => {
     let query = LexicalQueryLookup.create(mockSelector, uiController, { test: 'foo' })
     expect(typeof query).toEqual('object')
     expect(query.constructor.name).toEqual('LexicalQuery')
@@ -21,7 +21,7 @@ describe('lexical-query-lookup.test.js', () => {
     expect(query.resourceOptions.test).toEqual('foo')
   })
 
-  it('Create function with undefined resourceOptions then it would be uploaded from uiController', () => {
+  it('2 LexicalQueryLookup - create function with undefined resourceOptions then it would be uploaded from uiController', () => {
     uiController.resourceOptions = { test: 'bar' }
     let query = LexicalQueryLookup.create(mockSelector, uiController)
     expect(query.resourceOptions.test).toEqual('bar')

@@ -30,7 +30,7 @@ describe('annotation-query.test.js', () => {
     }
   }
 
-  it('AnnotationQuery on getTreebankOptionsreturns empty treebank if href is empty', async () => {
+  it('1 AnnotationQuery - getTreebankOptions returns empty treebank if href is empty', async () => {
     let query = AnnotationQuery.create({
       siteOptions: allSiteOptions,
       document: { location: { href: '' } }
@@ -39,7 +39,7 @@ describe('annotation-query.test.js', () => {
     expect(results).toEqual({ treebank: { page: {} } })
   })
 
-  it('AnnotationQuery on getTreebankOptions parses treebank options', async () => {
+  it('2 AnnotationQuery - getTreebankOptions parses treebank options', async () => {
     let query = AnnotationQuery.create({
       siteOptions: allSiteOptions,
       document: { location: { href: 'http://example.org/abc' } }
@@ -48,7 +48,7 @@ describe('annotation-query.test.js', () => {
     expect(results).toEqual({ treebank: { page: { src: 'https://alpheios.net/treebanks/xx' } } })
   })
 
-  it('AnnotationQuery on GetData execute - getTreebankOptions, updatePageAnnotationData, finalize', async () => {
+  it('3 AnnotationQuery - getData execute - getTreebankOptions, updatePageAnnotationData, finalize', async () => {
     let options = {
       l10n: l10n,
       siteOptions: allSiteOptions,
