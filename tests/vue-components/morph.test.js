@@ -190,7 +190,7 @@ describe('morph.test.js', () => {
           mockLexemeNoun,
           {
             isPopulated: () => { return false },
-            lemma: { principalParts: [], features: {}, word: null, languageID: null },
+            lemma: { principalParts: [], features: {}, word: null, languageID: null, key: null },
             getGroupedInflections: () => { return [] }
           },
           {
@@ -213,7 +213,8 @@ describe('morph.test.js', () => {
           'foo-noun-lat-key': [{text: 'foo noun def 1'}, {text: 'foo noun def 2'}],
           'foo-verb-lat-key': [{text: 'foo verb def 1'}]
         },
-        linkedfeatures: ['declension']
+        linkedfeatures: ['declension'],
+        inflDataReady: true
       },
       data: {
         showSource: false
@@ -228,10 +229,8 @@ describe('morph.test.js', () => {
   })
 
   it('expects to showLexeme only if a lexeme is populated', () => {
-    let morphInner = cmp.vm.$children[0]
-
-    expect(morphInner.showLexeme(cmp.vm.lexemes[0])).toBeTruthy()
-    expect(morphInner.showLexeme(cmp.vm.lexemes[1])).toBeFalsy()
+    expect(cmp.vm.showLexeme(cmp.vm.lexemes[0])).toBeTruthy()
+    expect(cmp.vm.showLexeme(cmp.vm.lexemes[1])).toBeFalsy()
     let entries = cmp.find('div').findAll('div.alpheios-morph__dictentry')
     expect(entries.length).toEqual(3)
     expect(entries.at(0).isVisible()).toBeTruthy()

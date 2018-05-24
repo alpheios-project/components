@@ -51,7 +51,7 @@
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
-                   :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
+                   :linkedfeatures="linkedfeatures" @sendfeature="sendFeature" :inflDataReady="inflDataReady">
             </morph>
 
             <div class="alpheios-popup__morph-cont-providers" v-if="showProviders">
