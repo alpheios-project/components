@@ -1,8 +1,8 @@
 /* eslint-env jest */
-import LocalStorageArea from '../../../src/lib/options/local-storage-area'
+import LocalStorageArea from '@/lib/options/local-storage-area'
+// import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
-describe('options-item.test.js', () => {
-  let stAdapter = new LocalStorageArea('alpheios-content-options')
+describe('local-storage-area.test.js', () => {
   window.localStorage = {
     values: {},
     getItem: function (key) {
@@ -13,121 +13,107 @@ describe('options-item.test.js', () => {
     }
   }
 
-  it('LocalStorageArea has a get method that executes getItem of window.localStorage', async (done) => {
-    let spySt = jest.spyOn(window.localStorage, 'getItem')
+  jest.spyOn(window.localStorage, 'getItem')
+  jest.spyOn(window.localStorage, 'setItem')
+  jest.spyOn(console, 'log')
+
+  it('1 LocalStorageArea has a get method that executes getItem of window.localStorage', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options')
+
     await stAdapter.get()
-    expect(spySt).toBeCalled()
-    done()
+    expect(window.localStorage.getItem).toHaveBeenCalled()
   })
 
-  it('LocalStorageArea get method executes console.log if window.localStorage doesn\'t have keys', async (done) => {
-    let spy = jest.spyOn(console, 'log')
+  it('2 LocalStorageArea - get method executes console.log if window.localStorage doesn\'t have keys', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options')
     await stAdapter.get()
-    expect(spy).toBeCalled()
-    done()
+    expect(console.log).toHaveBeenCalledWith(`Unable to retrieve data for "alpheios-content-options" storage domain because no keys provided or no keys listed in local storage. ` +
+              `This might be normal for devices where no data is saved to the local storage yet`)
   })
 
-  it('LocalStorageArea get method retrieves values for all keys from the window.localStorage if keys = undefined', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
+  it('3 LocalStorageArea - get method retrieves values for all keys from the window.localStorage if keys = undefined', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options3')
+    window.localStorage.values['alpheios-content-options3-keys'] = '["panelPosition3","preferredLanguage3"]'
+    window.localStorage.values.panelPosition3 = 'left'
+    window.localStorage.values.preferredLanguage3 = 'lat'
+
     let res = await stAdapter.get()
-    expect(res.panelPosition).toEqual('left')
-    expect(res.preferredLanguage).toEqual('lat')
-    done()
+    expect(res.panelPosition3).toEqual('left')
+    expect(res.preferredLanguage3).toEqual('lat')
   })
 
-  it('LocalStorageArea get method retrieves a value by a given key from the window.localStorage if a key(string)', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
-    let res = await stAdapter.get('panelPosition')
-    // console.log('**************res', window.localStorage.getItem('alpheios-content-options-keys'), res)
-    expect(res).toEqual({ panelPosition: 'left' })
-    done()
+  it('4 LocalStorageArea - get method retrieves a value by a given key from the window.localStorage if a key(string)', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options4')
+    window.localStorage.values['alpheios-content-options4-keys'] = '["panelPosition4"]'
+    window.localStorage.values.panelPosition4 = 'left'
+
+    let res = await stAdapter.get('panelPosition4')
+    expect(res).toEqual({ panelPosition4: 'left' })
   })
 
-  it('LocalStorageArea get method retrieves a values by given keys form passed object from the window.localStorage if a key(object)', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
-    let res = await stAdapter.get({ panelPosition: true })
-    // console.log('**************res', window.localStorage.getItem('alpheios-content-options-keys'), res)
-    expect(res).toEqual({ panelPosition: 'left' })
-    done()
+  it('5 LocalStorageArea - get method retrieves values by given keys from passed object from the window.localStorage if a key(object)', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options5')
+    window.localStorage.values['alpheios-content-options5-keys'] = '["panelPosition5"]'
+    window.localStorage.values.panelPosition5 = 'left'
+
+    let res = await stAdapter.get({ panelPosition5: true })
+    expect(res).toEqual({ panelPosition5: 'left' })
   })
 
-  it('LocalStorageArea get method retrieves values for all keys from the window.localStorage if keys = []', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
+  it('6 LocalStorageArea - get method retrieves values for all keys from the window.localStorage if keys = []', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options6')
+    window.localStorage.values['alpheios-content-options6-keys'] = '["panelPosition6","preferredLanguage6"]'
+    window.localStorage.values.panelPosition6 = 'left'
+    window.localStorage.values.preferredLanguage6 = 'lat'
+
     let res = await stAdapter.get([])
-    // console.log('**************res', window.localStorage.getItem('alpheios-content-options-keys'), res)
-    expect(res.panelPosition).toEqual('left')
-    expect(res.preferredLanguage).toEqual('lat')
-    done()
+    expect(res.panelPosition6).toEqual('left')
+    expect(res.preferredLanguage6).toEqual('lat')
   })
 
-  it('LocalStorageArea get method retrieves values for all keys from the window.localStorage if keys is something unexpected (Number)', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
+  it('7 LocalStorageArea - get method retrieves values for all keys from the window.localStorage if keys is something unexpected (Number)', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options7')
+    window.localStorage.values['alpheios-content-options7-keys'] = '["panelPosition7","preferredLanguage7"]'
+    window.localStorage.values.panelPosition7 = 'left'
+    window.localStorage.values.preferredLanguage7 = 'lat'
+
     let res = await stAdapter.get(5)
-    // console.log('**************res', window.localStorage.getItem('alpheios-content-options-keys'), res)
-    expect(res.panelPosition).toEqual('left')
-    expect(res.preferredLanguage).toEqual('lat')
-    done()
+    expect(res.panelPosition7).toEqual('left')
+    expect(res.preferredLanguage7).toEqual('lat')
   })
 
-  it('LocalStorageArea has set method that executes setItem of window.localStorage', async (done) => {
-    let spySt = jest.spyOn(window.localStorage, 'setItem')
-    await stAdapter.set({ foo: 'bar' })
-    expect(spySt).toBeCalled()
-    done()
+  it('8 LocalStorageArea has set method that executes setItem of window.localStorage', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options8')
+    await stAdapter.set({ foo8: 'bar' })
+    expect(window.localStorage.setItem).toHaveBeenCalledWith('foo8', 'bar')
   })
 
-  it('LocalStorageArea set method add a new value to the window.localStorage if there is no such key in it', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-key': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
-    await stAdapter.set({ foo: 'bar' })
-    expect(window.localStorage.values.foo).toEqual('bar')
-    done()
+  it('9 LocalStorageArea - set method add a new value to the window.localStorage if there is no such key in it', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options9')
+    window.localStorage.values['alpheios-content-options9-keys'] = '[]'
+
+    await stAdapter.set({ foo9: 'bar' })
+    expect(window.localStorage.values.foo9).toEqual('bar')
   })
 
-  it('LocalStorageArea set method update existed value at the window.localStorage if there is such key in it', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
-    await stAdapter.set({ panelPosition: 'top' })
-    expect(window.localStorage.values.panelPosition).toEqual('top')
-    done()
+  it('10 LocalStorageArea - set method update existed value at the window.localStorage if there is a such key in it', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options10')
+    window.localStorage.values['alpheios-content-options10-keys'] = '["panelPosition10"]'
+    window.localStorage.values.panelPosition10 = 'left'
+
+    await stAdapter.set({ panelPosition10: 'top' })
+    expect(window.localStorage.values.panelPosition10).toEqual('top')
   })
 
-  it('LocalStorageArea set method could save values from a given array', async (done) => {
-    window.localStorage.values = {
-      'alpheios-content-options-keys': '["panelPosition","preferredLanguage"]',
-      panelPosition: 'left',
-      preferredLanguage: 'lat'
-    }
-    await stAdapter.set({ panelPosition: 'top', preferredLanguage: 'grc', foo: 'bar' })
-    expect(window.localStorage.values.panelPosition).toEqual('top')
-    expect(window.localStorage.values.preferredLanguage).toEqual('grc')
-    expect(window.localStorage.values.foo).toEqual('bar')
-    done()
+  it('11 LocalStorageArea - set method could save values from a given array', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options11')
+    window.localStorage.values['alpheios-content-options11-keys'] = '["panelPosition11","preferredLanguage11"]'
+    window.localStorage.values.panelPosition11 = 'left'
+    window.localStorage.values.preferredLanguage11 = 'lat'
+
+    await stAdapter.set({ panelPosition11: 'top', preferredLanguage11: 'grc', foo11: 'bar' })
+    expect(window.localStorage.values.panelPosition11).toEqual('top')
+    expect(window.localStorage.values.preferredLanguage11).toEqual('grc')
+    expect(window.localStorage.values.foo11).toEqual('bar')
   })
 })
