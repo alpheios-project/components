@@ -8,7 +8,7 @@
         :lex = "lex"
         :index = "index"
         :count = "lexemes.length"
-        :inflDataReady = "inflDataReady"
+        :morphDataReady = "morphDataReady"
         :definitions = "definitions[lex.lemma.key] ? definitions[lex.lemma.key] : []"
         :linkedfeatures = "linkedfeatures"
         :translations = "translations"
@@ -43,7 +43,7 @@
           required: false,
           default: () => {}
         },
-        inflDataReady: {
+        morphDataReady: {
           type: Boolean,
           required: true
         }

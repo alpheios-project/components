@@ -214,7 +214,7 @@ describe('morph.test.js', () => {
           'foo-verb-lat-key': [{text: 'foo verb def 1'}]
         },
         linkedfeatures: ['declension'],
-        inflDataReady: true
+        morphDataReady: true
       },
       data: {
         showSource: false

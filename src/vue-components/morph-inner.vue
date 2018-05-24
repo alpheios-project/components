@@ -121,7 +121,7 @@
           required: false,
           default: () => {}
         },
-        inflDataReady: {
+        morphDataReady: {
           type: Boolean,
           required: true
         }
@@ -137,7 +137,7 @@
     computed: {
       inflections: {
         get: function() {
-          return this.inflDataReady ? this.lex.getGroupedInflections() : []
+          return this.morphDataReady ? this.lex.getGroupedInflections() : []
         }
       }
     },
