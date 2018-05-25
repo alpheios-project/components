@@ -36,8 +36,8 @@ describe('l10n.test.js', () => {
 
     jest.spyOn(messageBundle, 'appendFromJSON')
 
-    res.addMessages(JSON.stringify(enUS), Locales.en_US)
-    expect(messageBundle.appendFromJSON).toHaveBeenCalledWith(JSON.stringify(enUS))
+    res.addMessages(JSON.stringify(enGB), Locales.en_US)
+    expect(messageBundle.appendFromJSON).toHaveBeenCalledWith(JSON.stringify(enGB))
   })
 
   it('4 l10n - addMessageBundle method adds MessageBundle to bundle property and set selectedLocale if it is empty ', () => {

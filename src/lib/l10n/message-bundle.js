@@ -68,7 +68,11 @@ export default class MessageBundle {
    */
   get (messageID, options = undefined) {
     if (this[messageID]) {
-      return this[messageID].format(options)
+      if (typeof this[messageID].format === 'function') {
+        return this[messageID].format(options)
+      } else {
+        return this[messageID]
+      }
     } else {
       // If message with the ID provided is not in translation data, generate a warning.
       return `Not in translation data: "${messageID}"`
