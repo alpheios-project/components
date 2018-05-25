@@ -415,15 +415,15 @@ describe('popup.test.js', () => {
 
     let resSet = cmpEmpty.vm.resizableSettings()
 
-    expect(resSet.preserveAspectRatio).toBeDefined()
-    expect(resSet.edges.top).toBeDefined()
-    expect(resSet.edges.left).toBeDefined()
-    expect(resSet.edges.bottom).toBeDefined()
-    expect(resSet.edges.right).toBeDefined()
-    expect(resSet.restrictSize.min.width).toBeDefined()
-    expect(resSet.restrictSize.min.height).toBeDefined()
-    expect(resSet.restrictEdges.outer).toBeDefined()
-    expect(resSet.restrictEdges.endOnly).toBeDefined()
+    expect(resSet.preserveAspectRatio).toBeFalsy()
+    expect(resSet.edges.top).toBeTruthy()
+    expect(resSet.edges.left).toBeTruthy()
+    expect(resSet.edges.bottom).toBeTruthy()
+    expect(resSet.edges.right).toBeTruthy()
+    expect(resSet.restrictSize.min.width).toEqual(cmpEmpty.vm.minResizableWidth)
+    expect(resSet.restrictSize.min.height).toEqual(cmpEmpty.vm.minResizableHeight)
+    expect(resSet.restrictEdges.outer).toEqual(document.body)
+    expect(resSet.restrictEdges.endOnly).toBeTruthy()
   })
 
   it('26 Popup - Popup has draggableSettings method and returns an object with attributes', () => {
