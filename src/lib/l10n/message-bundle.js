@@ -51,7 +51,7 @@ export default class MessageBundle {
         this[key] = message
         message.defineProperties(this.messages, key)
       } else {
-        console.warn(`A key name "{$key}" is reserved or already used. A message will be ignored"`)
+        console.warn(`A key name "${key}" is reserved or already used. A message will be ignored"`)
       }
     }
   }
