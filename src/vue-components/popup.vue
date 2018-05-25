@@ -17,25 +17,25 @@
             <div class="uk-button-group alpheios-popup__button-area">
                 <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
                     <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
-                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
+                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
                     </button>
                 </alph-tooltip>
 
                 <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_INFLECTIONS">
                   <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
                   </button>
                 </alph-tooltip>
 
                 <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
                   </button>
                 </alph-tooltip>
 
                 <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_OPTIONS">
                   <button @click="showPanelTab('options')"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-options">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
                   </button>
                 </alph-tooltip>
             </div>
@@ -49,7 +49,7 @@
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
         </div>
-        <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small">
+        <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature">
             </morph>
@@ -173,7 +173,10 @@
     },
     computed: {
       uiController: function () {
-        return this.$parent.uiController
+        if (this.$parent) {
+          return this.$parent.uiController
+        }
+        return null
       },
       logger: function() {
         console.log(`Verbose = ${this.data.verboseMode}`)
@@ -222,7 +225,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.left
         }
 
@@ -256,7 +259,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.top
         }
 
@@ -423,7 +426,7 @@
           x += event.deltaRect.left
           y += event.deltaRect.top
 
-          target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px,' + y + 'px)'
+          target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
 
           target.setAttribute('data-x', x)
           target.setAttribute('data-y', y)

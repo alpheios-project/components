@@ -86,4 +86,10 @@ export default class Query {
     console.warn(`finalize() method of a Query object should not be called directly. It must be implemented in a subclass of a Query`)
     throw new Error(`finalize() method should be implemented in a subclass of a Query`)
   }
+
+  /* It is only for unit testing */
+  getQueries () {
+    console.warn(`getQueries() method of a Query object should be used onlt in tests`)
+    return queries
+  }
 }
