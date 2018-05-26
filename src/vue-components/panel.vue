@@ -11,7 +11,7 @@
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_HELP">
                 <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-info">
                   <info-icon class="icon"></info-icon>
                 </span>
               </alph-tooltip>
