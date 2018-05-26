@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="divClasses" :style="this.data.styles"
+    <div class="alpheios-panel auk" :class="divClasses" :style="data.styles"
          data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen"
         :data-notification-visible="data.notification.important"> <!-- Show only important notifications for now -->
 
@@ -18,42 +18,42 @@
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_DEFINITIONS">
                 <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-definitions">
                   <definitions-icon class="icon"></definitions-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_INFLECT">
                 <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-inflections">
                   <inflections-icon class="icon"></inflections-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_GRAMMAR">
                 <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-grammar">
                   <grammar-icon class="icon"></grammar-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK" v-show="treebankTabVisible">
                 <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
-                      class="alpheios-panel__header-nav-btn">
+                      class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-treebank">
                   <treebank-icon class="icon"></treebank-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_OPTIONS">
                 <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-options">
                   <options-icon class="icon"></options-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_STATUS">
                 <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
-                  class="alpheios-panel__header-nav-btn">
+                  class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-status">
                   <status-icon class="icon"></status-icon>
                 </span>
               </alph-tooltip>
@@ -90,7 +90,7 @@
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController"></lookup>
                 </div>
-                <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
+                <div v-show="data.shortDefinitions && data.fullDefinitions && data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
                   {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
                 <div class="alpheios-panel__contentitem" v-for="definition in data.shortDefinitions">
                     <shortdef :definition="definition"></shortdef>
@@ -98,7 +98,7 @@
                 <div class="alpheios-panel__contentitem" v-html="data.fullDefinitions"></div>
             </div>
             <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel">
-                <inflections class="alpheios-panel-inflections"
+                <inflections class="alpheios-panel-inflections" v-if="data.settings.locale"
                              :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
                              :messages="data.l10n.messages" @contentwidth="setContentWidth">
                 </inflections>
@@ -109,7 +109,7 @@
               </div>
             <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
-                  <treebank :res="data.treebankComponentData.data"
+                  <treebank :res="data.treebankComponentData.data" v-if="data.settings.locale"
                     :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
                     :messages="data.l10n.messages" @treebankcontentwidth="setTreebankContentWidth">
                   </treebank>
@@ -137,7 +137,7 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
-                  v-if="languageSetting.values.length > 1"
+                  v-if="languageSetting.values && languageSetting.values.length > 1"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
@@ -242,7 +242,7 @@
         // Find index of an existing position class and replace it with an updated value
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
         const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
-        if (this.data.settings.panelPosition.currentValue === 'left') {
+        if (this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'left') {
           if (positionRightIndex >= 0) {
             // Replace an existing value
             this.data.classes[positionRightIndex] = this.positionLeftClassName
@@ -251,7 +251,7 @@
             this.data.classes.push(this.positionLeftClassName)
           }
 
-        } else if (this.data.settings.panelPosition.currentValue === 'right') {
+        } else if (this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'right') {
           if (positionLeftIndex >= 0) {
             // Replace an existing value
             this.data.classes[positionLeftIndex] = this.positionRightClassName
@@ -270,11 +270,11 @@
       },
 
       attachToLeftVisible: function () {
-        return this.data.settings.panelPosition.currentValue === 'right'
+        return this.data.settings.panelPosition ? this.data.settings.panelPosition.currentValue === 'right' : true
       },
 
       attachToRightVisible: function () {
-        return this.data.settings.panelPosition.currentValue === 'left'
+        return this.data.settings.panelPosition ? this.data.settings.panelPosition.currentValue === 'left' : false
       },
 
       // Need this to watch when inflections tab becomes active and adjust panel width to fully fit an inflection table in
@@ -410,8 +410,21 @@
         let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
         if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
       }
-      this.inflPanelLeftPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)[0] : 0
-      this.inflPanelRightPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)[0] : 0
+/*      this.inflPanelLeftPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)[0] : 0
+      this.inflPanelRightPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)[0] : 0*/
+
+      let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+      if ( Array.isArray(resPl1) ) {
+        this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
+      } else {
+        this.inflPanelLeftPadding = 0
+      }
+      let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+      if ( Array.isArray(resPl2) ) {
+        this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
+      } else {
+        this.inflPanelRightPadding = 0
+      }
 
       // Initialize Interact.js: make panel resizable
       interact(this.$el)

@@ -120,15 +120,15 @@
     "transform": {
       "^.+\\.htmlf$": "html-loader-jest",
       "^.+\\.jsx?$": "babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/fileTransformer.js"
     },
     "transformIgnorePatterns": [
       "!node_modules/alpheios-data-models/"
     ],
     "moduleNameMapper": {
       "^vue$": "vue/dist/vue.common.js",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-      "<rootDir>/_mocks_/fileMock.js",
       "^@[/](.+)": "<rootDir>/src/$1"
     },
     "moduleFileExtensions": [

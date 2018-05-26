@@ -1,23 +1,29 @@
 /* eslint-env jest */
-import { shallowMount } from '@vue/test-utils'
+/* eslint-disable no-unused-vars */
+import { shallowMount, mount } from '@vue/test-utils'
 import Grammar from '../../src/vue-components/grammar.vue'
 
 describe('grammar.test.js', () => {
-  let cmp
+  let cmp1
 
-  beforeEach(() => {
-    cmp = shallowMount(Grammar, {
-      propsData: {
-        res: {
-          url: 'foo',
-          provider: 'foo description'
-        }
-      }
-    }) // Create a copy of the original component
+  it('1 Grammar - if res is not defined then a error will be thrown', () => {
+    expect(function () {
+      let cmp = mount(Grammar)
+      console.log(cmp.vm.res)
+    }).toThrow(new TypeError(`Cannot read property 'url' of undefined`))
   })
 
-  it('expects resource to be defined', () => {
-    expect(cmp.vm.res.url).toEqual('foo')
-    expect(cmp.vm.res.provider).toEqual('foo description')
+  it('2 Grammar - contains iframe tag with url from res prop', () => {
+    let cmp = mount(Grammar, {
+      propsData: {
+        res: {
+          url: 'testurl.com',
+          provider: 'test provider'
+        }
+      }
+    })
+    expect(cmp.find('iframe')).toBeTruthy()
+    expect(cmp.find('iframe').vnode.elm.getAttribute('src')).toEqual('testurl.com')
+    expect(cmp.find('.alpheios-grammar__provider').text()).toEqual('test provider')
   })
 })
