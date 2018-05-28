@@ -5,6 +5,11 @@ import Options from '@/lib/options/options'
 import StorageAdapter from '@/lib/options/storage-adapter'
 import LocalStorageArea from '@/lib/options/local-storage-area'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('options.test.js', () => {
   jest.spyOn(Options, 'initItems')
   window.localStorage = {

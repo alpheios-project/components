@@ -14,6 +14,11 @@ import SiteOptions from './fixtures/site-options-shortlex.json'
 
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('lexical-query.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)

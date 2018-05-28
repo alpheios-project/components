@@ -9,6 +9,11 @@ import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('annotation-query.test.js', () => {
   let emptyPromise
   beforeEach(() => {

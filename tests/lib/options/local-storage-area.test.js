@@ -2,6 +2,11 @@
 import LocalStorageArea from '@/lib/options/local-storage-area'
 // import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('local-storage-area.test.js', () => {
   window.localStorage = {
     values: {},

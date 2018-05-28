@@ -1,6 +1,11 @@
 /* eslint-env jest */
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('lexical-query-lookup.test.js', () => {
   let mockSelector = {
     location: 'http://example.org',
