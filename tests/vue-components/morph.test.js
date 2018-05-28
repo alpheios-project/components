@@ -2,6 +2,11 @@
 import { mount } from '@vue/test-utils'
 import Morph from '../../src/vue-components/morph.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('morph.test.js', () => {
   let cmp, mockLexemeNoun
   let latin = Symbol('latin')

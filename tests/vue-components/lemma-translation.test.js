@@ -2,6 +2,11 @@
 import { mount } from '@vue/test-utils'
 import LemmaTranslation from '../../src/vue-components/lemma-translation.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('lemma-translation.test.js', () => {
   let lemmaKey = 'capio-lat-verb-3rd-very frequent-Ox.Lat.Dict.-transitive'
   let translations = {}

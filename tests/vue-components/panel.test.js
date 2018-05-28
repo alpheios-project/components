@@ -15,6 +15,11 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('panel.test.js', () => {
   let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
   let options = new Options(ContentOptionDefaults, LocalStorageArea)

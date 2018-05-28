@@ -3,6 +3,11 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import Grammar from '../../src/vue-components/grammar.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('grammar.test.js', () => {
   let cmp1
 

@@ -14,6 +14,11 @@ import ContentOptionDefaults from '../../src/settings/content-options-defaults.j
 import TempStorageArea from '../../src/lib/options/temp-storage-area.js'
 import LanguageOptionDefaults from '../../src/settings/language-options-defaults.json'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('lookup.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)

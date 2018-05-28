@@ -2,6 +2,11 @@
 import { shallowMount } from '@vue/test-utils'
 import InflectionAttribute from '../../src/vue-components/infl-attribute.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('infl-attribute.test.js', () => {
   let cmp
   beforeEach(() => {
