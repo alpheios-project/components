@@ -42,12 +42,12 @@
         </div>
         <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            {{ ln10Messages(PLACEHOLDER_POPUP_DATA) }}
+            {{ ln10Messages('PLACEHOLDER_POPUP_DATA') }}
         </div>
 
         <div v-show="noLanguage && !morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            {{ ln10Messages(PLACEHOLDER_NO_LANGUAGE_POPUP_DATA) }}
+            {{ ln10Messages('PLACEHOLDER_NO_LANGUAGE_POPUP_DATA') }}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
@@ -55,7 +55,7 @@
             </morph>
 
             <div class="alpheios-popup__morph-cont-providers" v-if="showProviders">
-                <div class="alpheios-popup__morph-cont-providers-header">{{ ln10Messages(LABEL_POPUP_CREDITS) }}</div>
+                <div class="alpheios-popup__morph-cont-providers-header">{{ ln10Messages('LABEL_POPUP_CREDITS') }}</div>
                 <div class="alpheios-popup__morph-cont-providers-source" v-for="p in data.providers">
                     {{ p.toString() }}
                 </div>
@@ -374,7 +374,7 @@
       switchProviders: function () {
         this.data.showProviders = this.data.showProviders ? !this.data.showProviders : true
         console.warn('switchProviders showProviders', this.data.showProviders)
-        
+
         if (this.data.showProviders) {
           // Show credits info
           this.$nextTick(() => {
