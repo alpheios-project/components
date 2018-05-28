@@ -7,7 +7,7 @@ module.exports = {
 
     // return 'module.exports = \'<img src="' + JSON.stringify(path.basename(filename)) + '">\''
     return {
-      template: `<img class='test' src="${jsonName}">`
+      code: `'<img src="${jsonName}">'`
     }
   }
 }

@@ -1,53 +1,53 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
-         v-show="visible" :data-notification-visible="data.notification.visible">
+         v-show="visible" :data-notification-visible="data.notification !== undefined && data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
-          :tooltipText = "data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+          :tooltipText = "ln10Messages('TOOLTIP_POPUP_CLOSE')">
           <span class="alpheios-popup__close-btn" @click="closePopup">
               <close-icon></close-icon>
           </span>
          </alph-tooltip>
         <div class="alpheios-popup__header">
-            <div class="alpheios-popup__header-text">
+            <div class="alpheios-popup__header-text" v-if="data.status">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
             <div class="uk-button-group alpheios-popup__button-area">
-                <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
+                <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_TREEBANK')">
                     <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
-                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
+                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank">{{ ln10Messages('LABEL_POPUP_TREEBANK') }}
                     </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_INFLECTIONS">
+                <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_SHOW_INFLECTIONS')">
                   <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections">{{ ln10Messages('LABEL_POPUP_INFLECT') }}
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
+                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_SHOW_DEFINITIONS')">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{ ln10Messages('LABEL_POPUP_DEFINE') }}
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_OPTIONS">
+                <alph-tooltip tooltipDirection="bottom-right" :tooltipText="ln10Messages('TOOLTIP_SHOW_OPTIONS')">
                   <button @click="showPanelTab('options')"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-options">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-options">{{ ln10Messages('LABEL_POPUP_OPTIONS') }}
                   </button>
                 </alph-tooltip>
             </div>
         </div>
         <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            {{data.l10n.messages.PLACEHOLDER_POPUP_DATA}}
+            {{ ln10Messages(PLACEHOLDER_POPUP_DATA) }}
         </div>
 
         <div v-show="noLanguage && !morphDataReady"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            {{data.l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA}}
+            {{ ln10Messages(PLACEHOLDER_NO_LANGUAGE_POPUP_DATA) }}
         </div>
         <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
@@ -55,7 +55,7 @@
             </morph>
 
             <div class="alpheios-popup__morph-cont-providers" v-if="showProviders">
-                <div class="alpheios-popup__morph-cont-providers-header">{{data.l10n.messages.LABEL_POPUP_CREDITS}}</div>
+                <div class="alpheios-popup__morph-cont-providers-header">{{ ln10Messages(LABEL_POPUP_CREDITS) }}</div>
                 <div class="alpheios-popup__morph-cont-providers-source" v-for="p in data.providers">
                     {{ p.toString() }}
                 </div>
@@ -65,7 +65,7 @@
           <img class="alpheios-popup__logo" src="../images/icon.png">
           <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
         </div>
-        <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
+        <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses" v-if="data.notification"
              v-show="data.notification.important">
 
               <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
@@ -176,7 +176,7 @@
         if (this.$parent) {
           return this.$parent.uiController
         }
-        return null
+        return {}
       },
       logger: function() {
         console.log(`Verbose = ${this.data.verboseMode}`)
@@ -210,9 +210,10 @@
         }
       },
       providersLinkText: function() {
-        return this.data.showProviders ? this.data.l10n.messages.LABEL_POPUP_HIDECREDITS : this.data.l10n.messages.LABEL_POPUP_SHOWCREDITS
+        return this.data.showProviders ? this.ln10Messages('LABEL_POPUP_HIDECREDITS') : this.ln10Messages('LABEL_POPUP_SHOWCREDITS')
       },
       showProviders: function() {
+        console.warn('computed showProviders', this.data.showProviders)
         return this.data.showProviders
       },
       updates: function() {
@@ -225,7 +226,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings && this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.left
         }
 
@@ -259,7 +260,7 @@
           return '0px'
         }
 
-        if (this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
+        if (this.data.settings && this.data.settings.popupPosition && this.data.settings.popupPosition.currentValue === 'fixed') {
           return this.data.top
         }
 
@@ -371,7 +372,9 @@
       },
 
       switchProviders: function () {
-        this.data.showProviders = ! this.data.showProviders
+        this.data.showProviders = this.data.showProviders ? !this.data.showProviders : true
+        console.warn('switchProviders showProviders', this.data.showProviders)
+        
         if (this.data.showProviders) {
           // Show credits info
           this.$nextTick(() => {
@@ -506,6 +509,13 @@
 
       sendFeature (data) {
         this.$emit('sendfeature',data)
+      },
+
+      ln10Messages: function (value, defaultValue = 'uknown') {
+        if (this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
+          return this.data.l10n.messages[value]
+        }
+        return defaultValue
       }
 
     },

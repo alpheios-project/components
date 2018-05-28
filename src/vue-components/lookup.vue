@@ -62,54 +62,59 @@
       }
     },
     created: function () {
-      this.options = this.uiController.options.clone(TempStorageArea)
-      this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
-      if (this.parentLanguage) {
-        this.initLanguage = this.parentLanguage
-        this.currentLanguage = this.parentLanguage
-      } else {
-        this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+      if (this.uiController.options) {
+        this.options = this.uiController.options.clone(TempStorageArea)
+        this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+        if (this.parentLanguage) {
+          this.initLanguage = this.parentLanguage
+          this.currentLanguage = this.parentLanguage
+        } else {
+          this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+        }
+        console.log(`at creation current language is ${this.currentLanguage}`)
       }
-      console.log(`at creation current language is ${this.currentLanguage}`)
     },
     computed: {
       buttonLabel: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
-        }
-        return this.defaultButtonLabel
+        return this.ln10Messages('LABEL_LOOKUP_BUTTON', this.defaultButtonLabel)
       },
+
       tooltipLabel: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.TOOLTIP_LOOKUP_BUTTON
-        }
-        return this.defaultButtonLabel
+        return this.ln10Messages('TOOLTIP_LOOKUP_BUTTON', this.defaultButtonLabel)
       },
+
       inputPlaceholder: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
-        }
-        return this.defaultInputPlaceholder
+        return this.ln10Messages('PLACEHOLDER_LOOKUP_INPUT', this.defaultInputPlaceholder)
       },
+
       labelSettings: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
-        }
-        return this.defaultLabelSettings
+        return this.ln10Messages('LABEL_LOOKUP_SETTINGS', this.defaultLabelSettings)
       },
+
       lexiconSettingName: function() {
-        let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
-        let settingName
-        if (lang.length>0) {
-          settingName = `lexiconsShort-${lang[0].value}`
+        if (this.options.items) {
+          let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
+          let settingName
+          if (lang.length>0) {
+            settingName = `lexiconsShort-${lang[0].value}`
+          }
+          return settingName
         }
-        return settingName
+        return ''
       },
+
       lexiconsFiltered: function () {
-        return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
+        if (this.resourceOptions.items) {
+          return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
+        }
+        return []
       },
+
       preferredLanguage: function () {
         let currentLanguage
+        if (!this.options.items) {
+          return ''
+        }
         if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
@@ -150,6 +155,13 @@
       resourceSettingChange: function (name, value) {
         let keyinfo = this.resourceOptions.parseKey(name)
         this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+      },
+
+      ln10Messages: function (value, defaultValue = 'uknown') {
+        if (this.uiController.l10n && this.uiController.l10n.messages && this.uiController.l10n.messages[value]) {
+          return this.uiController.l10n.messages[value]
+        }
+        return defaultValue
       }
     }
   }
