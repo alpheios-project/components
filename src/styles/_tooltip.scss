@@ -95,6 +95,16 @@
     margin-left: -50%;
 }
 
+.alph_tooltip-bottom-wide {
+    top: 135%;
+    left: -30%;
+}
+
+.alph_tooltip-bottom-narrow {
+    top: 135%;
+    left: -75%;
+}
+
 .alph_tooltip-bottom::after {
     content: "";
     position: absolute;
