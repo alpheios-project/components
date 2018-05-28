@@ -14,7 +14,7 @@
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
-            <div class="uk-button-group alpheios-popup__button-area">
+            <div class="alpheios-popup__button-area">
                 <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
