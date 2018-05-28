@@ -105,7 +105,9 @@
     left: -75%;
 }
 
-.alph_tooltip-bottom::after {
+.alph_tooltip-bottom::after,
+.alph_tooltip-bottom-wide::after,
+.alph_tooltip-bottom-narrow::after  {
     content: "";
     position: absolute;
     bottom: 100%;
