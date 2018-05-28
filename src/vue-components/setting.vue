@@ -1,5 +1,5 @@
 <template>
-      <div :class="classes" v-if="Object.keys(data).length > 0">
+      <div :class="classes" v-if="data !== undefined && data !== null && Object.keys(data).length > 0">
         <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{data.labelText}}</label>
         <select v-model="selected" class="uk-select" multiple v-if="data.multiValue">
             <option v-for="item in data.textValues()">{{item}}</option>

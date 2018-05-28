@@ -213,7 +213,6 @@
         return this.data.showProviders ? this.ln10Messages('LABEL_POPUP_HIDECREDITS') : this.ln10Messages('LABEL_POPUP_SHOWCREDITS')
       },
       showProviders: function() {
-        console.warn('computed showProviders', this.data.showProviders)
         return this.data.showProviders
       },
       updates: function() {
@@ -373,7 +372,6 @@
 
       switchProviders: function () {
         this.data.showProviders = this.data.showProviders ? !this.data.showProviders : true
-        console.warn('switchProviders showProviders', this.data.showProviders)
 
         if (this.data.showProviders) {
           // Show credits info
