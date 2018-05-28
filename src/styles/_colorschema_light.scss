@@ -54,6 +54,12 @@ div.alpheios-color_schema_light_class {
 	.alph_tooltip-bottom::after {
 		border-color: transparent transparent $alpheios-tooltip-color transparent;
 	}
+	.alph_tooltip-bottom-wide::after {
+		border-color: transparent transparent $alpheios-tooltip-color transparent;
+	}
+	.alph_tooltip-bottom-narrow::after {
+		border-color: transparent transparent $alpheios-tooltip-color transparent;
+	}
 	.alph_tooltip-bottom-right::after {
 		border-color: transparent transparent $alpheios-tooltip-color transparent;
 	}

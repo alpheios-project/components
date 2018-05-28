@@ -7899,6 +7899,10 @@ div.alpheios-color_schema_dark_class {
     border-color: transparent #4E6476 transparent transparent; }
   div.alpheios-color_schema_dark_class .alph_tooltip-bottom::after {
     border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-wide::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-narrow::after {
+    border-color: transparent transparent #4E6476 transparent; }
   div.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
     border-color: transparent transparent #4E6476 transparent; }
   div.alpheios-color_schema_dark_class .alph_tooltip-left::after {
@@ -7941,6 +7945,10 @@ div.alpheios-color_schema_light_class {
   div.alpheios-color_schema_light_class .alph_tooltip-right::after {
     border-color: transparent #4E6476 transparent transparent; }
   div.alpheios-color_schema_light_class .alph_tooltip-bottom::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-wide::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-narrow::after {
     border-color: transparent transparent #4E6476 transparent; }
   div.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
     border-color: transparent transparent #4E6476 transparent; }
