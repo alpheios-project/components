@@ -191,6 +191,5 @@ describe('options.test.js', () => {
 
     expect(Array.isArray(res.items.locale)).toBeTruthy()
     expect(res.items.locale[0].name).toEqual('locale-foo')
-    console.log('************* res1', res.items.locale[0])
   })
 })

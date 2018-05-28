@@ -118,7 +118,6 @@ describe('html-selector.test.js', () => {
 
     let res = testHTMLEvent.doSpaceSeparatedWordSelection(testTextElement)
     expect(res.text).toEqual('data')
-    console.log('**************** 8 HTMLSelector res', res)
   })
 
   it('9 HTMLSelector - doSpaceSeparatedWordSelection method - if ancorNode.data is not similiar to focusNode data, then word would be taken from textContent', () => {
@@ -139,7 +138,6 @@ describe('html-selector.test.js', () => {
 
     let res = testHTMLEvent.doSpaceSeparatedWordSelection(testTextElement)
     expect(res.text).toEqual('mare')
-    console.log('**************** 9 HTMLSelector res', res)
   })
 
   it('10 HTMLSelector - getDumpHTMLSelector returns emptyObject', () => {
