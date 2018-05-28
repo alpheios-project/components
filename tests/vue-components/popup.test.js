@@ -25,6 +25,11 @@ let l10n = new L10n()
 let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
 let options = new Options(ContentOptionDefaults, LocalStorageArea)
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('popup.test.js', () => {
   let propsEmpty = {
     classesChanged: 1,

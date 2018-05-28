@@ -2,6 +2,11 @@
 import { shallow } from '@vue/test-utils'
 import Setting from '../../src/vue-components/setting.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('setting.test.js', () => {
   let cmp
 

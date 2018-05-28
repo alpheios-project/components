@@ -2,6 +2,11 @@
 import { mount } from '@vue/test-utils'
 import LemmaTranslation from '../../src/vue-components/tooltip.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('tooltip.test.js', () => {
   let spy
   let testTooltipText = 'test tooltip text'

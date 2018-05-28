@@ -2,6 +2,11 @@
 import { shallow } from '@vue/test-utils'
 import Treebank from '../../src/vue-components/treebank.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('treebank.test.js', () => {
   let cmp, spy
 

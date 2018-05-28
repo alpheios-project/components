@@ -2,6 +2,11 @@
 import { shallow } from '@vue/test-utils'
 import ShortDef from '../../src/vue-components/shortdef.vue'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('shortdef.test.js', () => {
   let cmp
 
