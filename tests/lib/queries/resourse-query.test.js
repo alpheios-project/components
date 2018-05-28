@@ -7,6 +7,11 @@ import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('resource-query.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)

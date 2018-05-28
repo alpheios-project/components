@@ -4,6 +4,11 @@ import HTMLSelector from '@/lib/selection/media/html-selector'
 import TextSelector from '@/lib/selection/text-selector'
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('html-selector.test.js', () => {
   let testEventE = {
     target: {

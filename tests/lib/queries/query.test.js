@@ -3,6 +3,11 @@ import Query from '@/lib/queries/query'
 import LexicalQuery from '@/lib/queries/lexical-query'
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('query.test.js', () => {
   let mockSelector = {
     location: 'http://example.org',

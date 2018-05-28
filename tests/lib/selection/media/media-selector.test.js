@@ -1,6 +1,11 @@
 /* eslint-env jest */
 import MediaSelector from '@/lib/selection/media/media-selector'
 
+console.error = function () {
+  let arg = arguments[0].toString()
+  console.warn('error - ', arg)
+}
+
 describe('media-selector.test.js', () => {
   let testEvent = {
     target: {
