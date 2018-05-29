@@ -1,7 +1,7 @@
 <template>
     <div class="alpheios-panel auk" :class="divClasses" :style="data.styles"
          data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen"
-        :data-notification-visible="data.notification.important"> <!-- Show only important notifications for now -->
+        :data-notification-visible="data.notification !== undefined && data.notification.important"> <!-- Show only important notifications for now -->
 
         <div class="alpheios-panel__header">
             <div class="alpheios-panel__header-logo">
@@ -9,49 +9,49 @@
             </div>
             <span class="alpheios-panel__header-btn-group--center">
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_HELP">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_HELP')">
                 <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-info">
                   <info-icon class="icon"></info-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_DEFINITIONS">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_DEFINITIONS')">
                 <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-definitions">
                   <definitions-icon class="icon"></definitions-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_INFLECT">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
                 <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-inflections">
                   <inflections-icon class="icon"></inflections-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_GRAMMAR">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
                 <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-grammar">
                   <grammar-icon class="icon"></grammar-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK" v-show="treebankTabVisible">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_TREEBANK')" v-show="treebankTabVisible">
                 <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
                       class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-treebank">
                   <treebank-icon class="icon"></treebank-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_OPTIONS">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_OPTIONS')">
                 <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-options">
                   <options-icon class="icon"></options-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_STATUS">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_STATUS')">
                 <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
                   class="alpheios-panel__header-nav-btn alpheios-panel__header-nav-btn-status">
                   <status-icon class="icon"></status-icon>
@@ -60,14 +60,14 @@
             </span>
             <span class="alpheios-panel__header-btn-group--end">
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_LEFT" v-show="attachToLeftVisible">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_LEFT')" v-show="attachToLeftVisible">
                 <span @click="setPosition('left')" v-show="attachToLeftVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-left-icon></attach-left-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom" :tooltipText="data.l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT" v-show="attachToRightVisible">
+              <alph-tooltip tooltipDirection="bottom" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_RIGHT')" v-show="attachToRightVisible">
                 <span @click="setPosition('right')" v-show="attachToRightVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-right-icon></attach-right-icon>
@@ -76,7 +76,7 @@
 
               <alph-tooltip
                 tooltipDirection = "bottom-right"
-                :tooltipText = "data.l10n.messages.TOOLTIP_CLOSE_PANEL">
+                :tooltipText = "ln10Messages('TOOLTIP_CLOSE_PANEL')">
                 <span @click="close" class="alpheios-panel__header-action-btn" >
                     <close-icon></close-icon>
                 </span>
@@ -86,68 +86,73 @@
 
         <div class="alpheios-panel__content">
 
-            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw">
+            <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController"></lookup>
                 </div>
                 <div v-show="data.shortDefinitions && data.fullDefinitions && data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1">
-                  {{data.l10n.messages.PLACEHOLDER_DEFINITIONS}}</div>
+                  {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}</div>
                 <div class="alpheios-panel__contentitem" v-for="definition in data.shortDefinitions">
                     <shortdef :definition="definition"></shortdef>
                 </div>
                 <div class="alpheios-panel__contentitem" v-html="data.fullDefinitions"></div>
             </div>
-            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel">
-                <inflections class="alpheios-panel-inflections" v-if="data.settings.locale"
+
+            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections">
+                <inflections class="alpheios-panel-inflections" v-if="data.settings && data.settings.locale"
                              :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
                              :messages="data.l10n.messages" @contentwidth="setContentWidth">
                 </inflections>
             </div>
-            <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel
-            alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
+
+            <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw alpheios-panel__tab__grammar">
                   <grammar :res="data.grammarRes"></grammar>
               </div>
-            <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel
-            alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
-                  <treebank :res="data.treebankComponentData.data" v-if="data.settings.locale"
+
+            <div v-show="treebankTabVisible" class="alpheios-panel__tab-panel alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw alpheios-panel__tab__treebank">
+                  <treebank :res="data.treebankComponentData.data" v-if="data.settings && data.l10n && data.treebankComponentData && data.settings.locale"
                     :locale="data.settings.locale.currentValue" :visible="data.treebankComponentData.visible"
                     :messages="data.l10n.messages" @treebankcontentwidth="setTreebankContentWidth">
                   </treebank>
               </div>
-            <div v-show="data.tabs.status" class="alpheios-panel__tab-panel">
+
+            <div v-show="data.tabs.status" class="alpheios-panel__tab-panel alpheios-panel__tab__status">
                 <div v-for="message in data.messages">
                     <div class="alpheios-panel__message">{{message}}</div>
                 </div>
             </div>
-            <div v-show="data.tabs.options" class="alpheios-panel__tab-panel">
-                <reskin-font-color :messages="data.l10n.messages"></reskin-font-color>
-                <setting :data="data.settings.preferredLanguage" @change="settingChanged"
+
+            <div v-show="data.tabs.options" class="alpheios-panel__tab-panel alpheios-panel__tab__options">
+                <reskin-font-color :messages="data.l10n.messages" v-if="data.l10n"></reskin-font-color>
+                <setting :data="data.settings.preferredLanguage" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.settings.panelPosition" @change="settingChanged"
+                <setting :data="data.settings.panelPosition" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.settings.popupPosition" @change="settingChanged"
+                <setting :data="data.settings.popupPosition" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.settings.uiType" @change="settingChanged"
+                <setting :data="data.settings.uiType" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.settings.verboseMode" @change="settingChanged"
+                <setting :data="data.settings.verboseMode" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged"
+                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged"
+                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name"
-                  v-if="languageSetting.values && languageSetting.values.length > 1"
+                  v-if="data.resourceSettings && data.resourceSettings.lexicons && data.resourceSettings.lexicons > 1"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
-            <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding">
-                <div class="alpheios-lookup__panel">
+
+            <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
+                <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
                   <lookup :uiController="uiController" :parentLanguage="data.infoComponentData.languageName"></lookup>
                 </div>
-                <info :data="data.infoComponentData" :messages="data.l10n.messages"></info>
+                <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.l10n"></info>
             </div>
+
         </div>
-        <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
+        <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses" v-if="data.notification"
           v-show="data.notification.important">
             <span @click="closeNotifications" class="alpheios-panel__notifications-close-btn">
                 <close-icon></close-icon>
@@ -236,13 +241,13 @@
 
     computed: {
       uiController: function () {
-        return this.$parent.uiController
+        return this.$parent? this.$parent.uiController : {}
       },
       classes: function () {
         // Find index of an existing position class and replace it with an updated value
         const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
         const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
-        if (this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'left') {
+        if (this.data.settings && this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'left') {
           if (positionRightIndex >= 0) {
             // Replace an existing value
             this.data.classes[positionRightIndex] = this.positionLeftClassName
@@ -251,7 +256,7 @@
             this.data.classes.push(this.positionLeftClassName)
           }
 
-        } else if (this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'right') {
+        } else if (this.data.settings && this.data.settings.panelPosition && this.data.settings.panelPosition.currentValue === 'right') {
           if (positionLeftIndex >= 0) {
             // Replace an existing value
             this.data.classes[positionLeftIndex] = this.positionRightClassName
@@ -270,17 +275,21 @@
       },
 
       attachToLeftVisible: function () {
+        if (!this.data.settings) { return true }
         return this.data.settings.panelPosition ? this.data.settings.panelPosition.currentValue === 'right' : true
       },
 
       attachToRightVisible: function () {
+        if (!this.data.settings) { return false }
         return this.data.settings.panelPosition ? this.data.settings.panelPosition.currentValue === 'left' : false
       },
 
       // Need this to watch when inflections tab becomes active and adjust panel width to fully fit an inflection table in
       inflectionsTabVisible: function () {
         // Inform an inflection component about its visibility state change
-        this.data.inflectionComponentData.visible = this.data.tabs.inflections
+        if (this.data.inflectionComponentData) {
+          this.data.inflectionComponentData.visible = this.data.tabs.inflections
+        }
         return this.data.tabs.inflections
       },
 
@@ -291,7 +300,9 @@
 
       treebankTabVisible: function() {
         // Inform treebank component about visibility state change
-        this.data.treebankComponentData.visible = this.data.tabs.treebank
+        if (this.data.treebankComponentData) {
+          this.data.treebankComponentData.visible = this.data.tabs.treebank
+        }
         return this.data.tabs.treebank
       },
 
@@ -393,6 +404,13 @@
       setTreebankContentWidth: function(width) {
           console.log(`Set width to ${width}`)
           this.$el.style.width = width
+      },
+
+      ln10Messages: function (value, defaultValue = 'uknown') {
+        if (this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
+          return this.data.l10n.messages[value]
+        }
+        return defaultValue
       }
     },
     created: function () {
@@ -403,53 +421,53 @@
     },
     mounted: function () {
       // Determine paddings and sidebar width for calculation of a panel width to fit content
-      let navbar = this.$el.querySelector(`#${this.navbarID}`)
-      let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-      this.navbarWidth = 0
-      if (navbar) {
-        let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-        if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+      if (this.$el.querySelector) {
+        let navbar = this.$el.querySelector(`#${this.navbarID}`)
+        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+        this.navbarWidth = 0
+        if (navbar) {
+          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+        }
+
+        let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+        if ( Array.isArray(resPl1) ) {
+          this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
+        } else {
+          this.inflPanelLeftPadding = 0
+        }
+        let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+        if ( Array.isArray(resPl2) ) {
+          this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
+        } else {
+          this.inflPanelRightPadding = 0
+        }
+
+        // Initialize Interact.js: make panel resizable
+        interact(this.$el)
+          .resizable({
+            // resize from all edges and corners
+            edges: { left: true, right: true, bottom: false, top: false },
+
+            // keep the edges inside the parent
+            restrictEdges: {
+              outer: document.body,
+              endOnly: true
+            },
+
+            // minimum size
+            restrictSize: {
+              min: { width: this.data.minWidth }
+            },
+
+            inertia: true
+          })
+          .on('resizemove', event => {
+            let target = event.target
+            // update the element's style
+            target.style.width = `${event.rect.width}px`
+          })
       }
-/*      this.inflPanelLeftPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)[0] : 0
-      this.inflPanelRightPadding = inflectionsPanel ? window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)[0] : 0*/
-
-      let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-      if ( Array.isArray(resPl1) ) {
-        this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
-      } else {
-        this.inflPanelLeftPadding = 0
-      }
-      let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-      if ( Array.isArray(resPl2) ) {
-        this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
-      } else {
-        this.inflPanelRightPadding = 0
-      }
-
-      // Initialize Interact.js: make panel resizable
-      interact(this.$el)
-        .resizable({
-          // resize from all edges and corners
-          edges: { left: true, right: true, bottom: false, top: false },
-
-          // keep the edges inside the parent
-          restrictEdges: {
-            outer: document.body,
-            endOnly: true
-          },
-
-          // minimum size
-          restrictSize: {
-            min: { width: this.data.minWidth }
-          },
-
-          inertia: true
-        })
-        .on('resizemove', event => {
-          let target = event.target
-          // update the element's style
-          target.style.width = `${event.rect.width}px`
-        })
     }
   }
 </script>

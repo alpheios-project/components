@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-info uk-margin">
-    <div class="alpheios-info__versiontext">{{ data.manifest.name }} {{ data.manifest.version }}</div>
+    <div class="alpheios-info__versiontext" v-if="data.manifest">{{ data.manifest.name }} {{ data.manifest.version }}</div>
     <div class="alpheios-info__currentlanguage">{{ messages.LABEL_INFO_CURRENTLANGUAGE }} {{ data.languageName }}</div>
     <div class="alpheios-info__helptext">
       <h3>{{ messages.TEXT_INFO_GETTINGSTARTED }}</h3>

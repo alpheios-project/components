@@ -6,8 +6,9 @@ module.exports = {
     let jsonName = JSON.stringify(path.basename(filename))
 
     // return 'module.exports = \'<img src="' + JSON.stringify(path.basename(filename)) + '">\''
-    return {
-      code: `'<img src="${jsonName}">'`
-    }
+
+    console.warn('***************** arguments 1', src, filename, config, options)
+
+    return `'<img src="${jsonName}">'`
   }
 }
