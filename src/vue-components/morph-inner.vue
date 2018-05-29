@@ -24,12 +24,12 @@
       <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
     </div>
 
-    <div v-for="definition in definitions" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.key">
+    <div v-for="definition in definitions" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.ID">
       <shortdef :definition="definition"></shortdef>
     </div>
     <!-- definitions-->
 
-    <lemmatranslation :translations="translations" :lemmakey="lex.lemma.key"></lemmatranslation>
+    <lemmatranslation :translations="translations" :lemmakey="lex.lemma.ID"></lemmatranslation>
 
     <div class="alpheios-morph__inflections">
       <div class="alpheios-morph__inflset" v-for="inflset in inflections">
