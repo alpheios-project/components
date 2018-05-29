@@ -95,7 +95,7 @@
                 <div class="alpheios-panel__contentitem" v-for="definition in data.shortDefinitions">
                     <shortdef :definition="definition"></shortdef>
                 </div>
-                <div class="alpheios-panel__contentitem" v-html="data.fullDefinitions"></div>
+                <div class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions" v-html="data.fullDefinitions"></div>
             </div>
 
             <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections">
@@ -105,7 +105,7 @@
                 </inflections>
             </div>
 
-            <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw alpheios-panel__tab__grammar">
+            <div :attr-show="data.tabs.grammar" v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw alpheios-panel__tab__grammar">
                   <grammar :res="data.grammarRes"></grammar>
               </div>
 
@@ -124,23 +124,23 @@
 
             <div v-show="data.tabs.options" class="alpheios-panel__tab-panel alpheios-panel__tab__options">
                 <reskin-font-color :messages="data.l10n.messages" v-if="data.l10n"></reskin-font-color>
-                <setting :data="data.settings.preferredLanguage" @change="settingChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.settings.preferredLanguage" @change="settingChanged" v-if="data.settings" 
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-preferredLanguage']"></setting>
                 <setting :data="data.settings.panelPosition" @change="settingChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-panelPosition']"></setting>
                 <setting :data="data.settings.popupPosition" @change="settingChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-popupPosition']"></setting>
                 <setting :data="data.settings.uiType" @change="settingChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-uiType']"></setting>
                 <setting :data="data.settings.verboseMode" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-verboseMode']"></setting>
+                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.settings"
-                         :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
+                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-uiOptions-popup']"></setting>
+                <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item', 'alpheios-panel__options-resourceSettings-lexicons']"
                   :key="languageSetting.name"
-                  v-if="data.resourceSettings && data.resourceSettings.lexicons && data.resourceSettings.lexicons > 1"
+                  v-if="data.resourceSettings && data.resourceSettings.lexicons && data.resourceSettings.lexicons.length > 1"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
 
@@ -148,7 +148,7 @@
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
                   <lookup :uiController="uiController" :parentLanguage="data.infoComponentData.languageName"></lookup>
                 </div>
-                <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.l10n"></info>
+                <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.l10n && data.infoComponentData"></info>
             </div>
 
         </div>

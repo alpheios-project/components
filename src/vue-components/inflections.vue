@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div v-show="! isEnabled">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
-        <div v-show="isEnabled && ! isContentAvailable">{{messages.PLACEHOLDER_INFLECT}}</div>
-        <div v-show="isContentAvailable">
+        <div v-show="! isEnabled" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
+        <div v-show="isEnabled && ! isContentAvailable" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT}}</div>
+        <div v-show="isContentAvailable" class="alpheios-inflections__content">
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
               <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS}}</label>
@@ -131,17 +131,17 @@
 
     computed: {
       isEnabled: function () {
-        return this.data.enabled
+        return this.data && this.data.enabled
       },
       isContentAvailable: function () {
-        return this.data.enabled && Boolean(this.data.inflectionData)
+        return this.data && this.data.enabled && Boolean(this.data.inflectionData)
       },
       inflectionData: function () {
-        return this.data.inflectionData
+        return this.data && this.data.inflectionData
       },
       // Need this for a watcher that will monitor a parent container visibility state
       isVisible: function () {
-        return this.data.visible
+        return this.data && this.data.visible
       },
       partOfSpeechSelector: {
         get: function () {
@@ -186,7 +186,7 @@
         return forms
       },
       canCollapse: function () {
-        if (this.data.inflectionData && this.selectedView && this.selectedView.table) {
+        if (this.data && this.data.inflectionData && this.selectedView && this.selectedView.table) {
           return this.selectedView.table.canCollapse
         } else {
           return true
@@ -359,7 +359,9 @@
     },
 
     mounted: function () {
-      this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      if (this.$el.querySelector) {
+        this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      }
     }
   }
 </script>

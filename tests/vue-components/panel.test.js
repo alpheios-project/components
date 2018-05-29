@@ -3,6 +3,12 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import Panel from '@/vue-components/panel.vue'
 import Tooltip from '@/vue-components/tooltip.vue'
+import Lookup from '@/vue-components/lookup.vue'
+import Info from '@/vue-components/info.vue'
+import ShortDef from '@/vue-components/shortdef.vue'
+import Inflections from '@/vue-components/inflections.vue'
+import ReskinFontColor from '@/vue-components/reskin-font-color.vue'
+import Setting from '@/vue-components/setting.vue'
 
 import Vue from 'vue/dist/vue'
 
@@ -10,6 +16,12 @@ import L10n from '@/lib/l10n/l10n'
 import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
+
+import Options from '@/lib/options/options.js'
+import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
+import ContentOptionDefaults from '@/settings/content-options-defaults.json'
+import UIOptionDefaults from '@/settings/ui-options-defaults.json'
+import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
 console.error = function () {}
 
@@ -68,7 +80,7 @@ describe('panel.test.js', () => {
     expect(cmp.find('.alpheios-panel__notifications').exists()).toBeFalsy()
   })
 
-  it('3 Panel - header buttons', async () => {
+  it('3 Panel - header tabs buttons', async () => {
     let cmp = mount(Panel, {
       propsData: {
         data: {
@@ -79,7 +91,8 @@ describe('panel.test.js', () => {
             info: true,
             options: false,
             status: false,
-            treebank: false
+            treebank: false,
+            grammar: false
           },
           l10n: l10n,
           grammarRes: {},
@@ -90,7 +103,6 @@ describe('panel.test.js', () => {
 
     cmp.setMethods({
       'changeTabL': function (name) {
-        console.log('I am in ChangeTab', name)
         for (let key of Object.keys(this.data.tabs)) {
           if (this.data.tabs[key]) { this.data.tabs[key] = false }
         }
@@ -153,6 +165,369 @@ describe('panel.test.js', () => {
       }
 
       expect(Object.keys(cmp.vm.data.tabs).filter(key => cmp.vm.data.tabs[key] === true).length).toEqual(1)
+    }
+  })
+
+  it('4 Panel - header action buttons', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: true,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          infoComponentData: {},
+          settings: {
+            panelPosition: options.items.panelPosition
+          }
+        }
+      }
+    })
+
+    let tabsButtonsTooltips = cmp.find('.alpheios-panel__header-btn-group--end').findAll(Tooltip)
+    expect(cmp.vm.attachToLeftVisible).toBeFalsy()
+    expect(cmp.vm.attachToRightVisible).toBeTruthy()
+
+    for (let i = 0; i < tabsButtonsTooltips.length; i++) {
+      switch (tabsButtonsTooltips.at(i).vm.tooltipText) {
+        case l10n.messages.TOOLTIP_MOVE_PANEL_LEFT:
+          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).toEqual('none')
+          break
+        case l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT:
+          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).not.toEqual('none')
+          break
+        case l10n.messages.TOOLTIP_CLOSE_PANEL:
+          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).not.toEqual('none')
+      }
+    }
+
+    for (let i = 0; i < tabsButtonsTooltips.length; i++) {
+      switch (tabsButtonsTooltips.at(i).vm.tooltipText) {
+        case l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT:
+          tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
+
+          await Vue.nextTick()
+
+          expect(cmp.emitted()['setposition']).toBeTruthy()
+          expect(cmp.emitted()['setposition'][0]).toEqual(['right'])
+
+          cmp.vm.data.settings.panelPosition.currentValue = 'right'
+
+          await Vue.nextTick()
+
+          expect(cmp.vm.attachToLeftVisible).toBeTruthy()
+          expect(cmp.vm.attachToRightVisible).toBeFalsy()
+
+          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).toEqual('none')
+          break
+      }
+    }
+
+    for (let i = 0; i < tabsButtonsTooltips.length; i++) {
+      switch (tabsButtonsTooltips.at(i).vm.tooltipText) {
+        case l10n.messages.TOOLTIP_MOVE_PANEL_LEFT:
+          tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
+
+          await Vue.nextTick()
+
+          expect(cmp.emitted()['setposition']).toBeTruthy()
+          expect(cmp.emitted()['setposition'][1]).toEqual(['left'])
+
+          cmp.vm.data.settings.panelPosition.currentValue = 'left'
+
+          await Vue.nextTick()
+
+          expect(cmp.vm.attachToLeftVisible).toBeFalsy()
+          expect(cmp.vm.attachToRightVisible).toBeTruthy()
+
+          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).toEqual('none')
+          break
+      }
+    }
+
+    for (let i = 0; i < tabsButtonsTooltips.length; i++) {
+      switch (tabsButtonsTooltips.at(i).vm.tooltipText) {
+        case l10n.messages.TOOLTIP_CLOSE_PANEL:
+          tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
+
+          await Vue.nextTick()
+
+          expect(cmp.emitted()['close']).toBeTruthy()
+      }
+    }
+  })
+
+  it('5 Panel - active info tab', () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: true,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          infoComponentData: {
+            languageName: 'Latin',
+            manifest: {
+              name: 'Foo name',
+              version: 'Foo version'
+            }
+          }
+        }
+      },
+      computed: {
+        'uiController': function () {
+          return {
+            options: options,
+            resourceOptions: resourceOptions
+          }
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__info').find(Lookup).exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__info').find(Info).exists()).toBeTruthy()
+
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__input').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__input').element.style.display).not.toEqual('none')
+
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__button').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__button').element.style.display).not.toEqual('none')
+
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__settings-items').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__settings-items').element.style.display).toEqual('none')
+
+    expect(cmp.find('.alpheios-panel__tab__info').find(Lookup).vm.parentLanguage).toEqual('Latin')
+
+    expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__versiontext').text().indexOf('Foo name')).toBeGreaterThan(-1)
+    expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__versiontext').text().indexOf('Foo version')).toBeGreaterThan(-1)
+    expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__currentlanguage').text().indexOf('Latin')).toBeGreaterThan(-1)
+
+    expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__helptext').findAll('p').length).not.toBeLessThan(1)
+  })
+
+  it('6 Panel - active definitions tab', () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: true,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          shortDefinitions: [
+            { lemmaText: 'Foo lemma text', text: 'Foo lemma definition' }
+          ],
+          fullDefinitions: '<div>Some foo full definitions text</div>'
+        }
+      },
+      computed: {
+        'uiController': function () {
+          return {
+            options: options,
+            resourceOptions: resourceOptions
+          }
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__definitions').find(Lookup).exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__definitions').find(ShortDef).exists()).toBeTruthy()
+
+    expect(cmp.find('.alpheios-panel__tab__definitions').find('.alpheios-panel__contentitem-full-definitions').exists()).toBeTruthy()
+
+    expect(cmp.find('.alpheios-panel__tab__definitions').find(ShortDef).findAll('.alpheios-definition__short').length).toEqual(1)
+    expect(cmp.find('.alpheios-panel__tab__definitions').find(ShortDef).find('.alpheios-definition__lemma').text()).toEqual('Foo lemma text:')
+    expect(cmp.find('.alpheios-panel__tab__definitions').find(ShortDef).find('.alpheios-definition__text').text()).toEqual('Foo lemma definition')
+  })
+
+  it('7 Panel - active inflections tab - no data', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: true,
+            info: false,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          inflectionComponentData: {
+            languageName: 'Latin',
+            enabled: true
+          },
+          settings: options.items
+        }
+      }
+    })
+
+    let inflectionsBlock = cmp.find('.alpheios-panel__tab__inflections').find(Inflections)
+
+    expect(inflectionsBlock.exists()).toBeTruthy()
+
+    expect(inflectionsBlock.vm.isEnabled).toBeTruthy()
+    expect(inflectionsBlock.vm.isContentAvailable).toBeFalsy()
+
+    let inflectionPlaceholders = inflectionsBlock.findAll('.alpheios-inflections__placeholder')
+
+    for (let i = 0; i < inflectionPlaceholders.length; i++) {
+      if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) {
+        expect(inflectionPlaceholders.at(i).element.style.display).toEqual('none')
+      } else if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT) {
+        expect(inflectionPlaceholders.at(i).element.style.display).not.toEqual('none')
+      }
+    }
+
+    expect(inflectionsBlock.find('.alpheios-inflections__content').element.style.display).toEqual('none')
+
+    cmp.vm.data.inflectionComponentData.enabled = false
+
+    await Vue.nextTick()
+
+    expect(inflectionsBlock.vm.isEnabled).toBeFalsy()
+    expect(inflectionsBlock.vm.isContentAvailable).toBeFalsy()
+
+    for (let i = 0; i < inflectionPlaceholders.length; i++) {
+      if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) {
+        expect(inflectionPlaceholders.at(i).element.style.display).not.toEqual('none')
+      } else if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT) {
+        expect(inflectionPlaceholders.at(i).element.style.display).toEqual('none')
+      }
+    }
+
+    expect(inflectionsBlock.find('.alpheios-inflections__content').element.style.display).toEqual('none')
+  })
+
+  it('8 Panel - active inflections tab - has data', () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    // let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: true,
+            info: false,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          inflectionComponentData: {
+            languageName: 'Latin',
+            inflectionData: {},
+            enabled: true
+          },
+          settings: options.items
+        }
+      }
+    })
+
+    let inflectionsBlock = cmp.find('.alpheios-panel__tab__inflections').find(Inflections)
+
+    let inflectionPlaceholders = inflectionsBlock.findAll('.alpheios-inflections__placeholder')
+
+    for (let i = 0; i < inflectionPlaceholders.length; i++) {
+      expect(inflectionPlaceholders.at(i).element.style.display).toEqual('none')
+    }
+    expect(inflectionsBlock.find('.alpheios-inflections__content').element.style.display).not.toEqual('none')
+  })
+
+  it('9 Panel - active options tab', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    let uiOptions = new Options(UIOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: resourceOptions.items,
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: true,
+            status: false,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          inflectionComponentData: {
+            languageName: 'Latin',
+            inflectionData: {},
+            enabled: true
+          },
+          settings: options.items,
+          uiOptions: uiOptions
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__options').find(ReskinFontColor).exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__options').find(Setting).exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__tab__options').findAll(Setting).length).not.toBeLessThan(8)
+
+    let testSettings = cmp.find('.alpheios-panel__tab__options').findAll(Setting)
+
+    for (let i = 0; i < testSettings.length; i++) {
+      let testSetting = testSettings.at(i)
+
+      if (testSetting.hasClass('alpheios-panel__options-settings-preferredLanguage') ||
+          testSetting.hasClass('alpheios-panel__options-settings-panelPosition') ||
+          testSetting.hasClass('alpheios-panel__options-settings-popupPosition') ||
+          testSetting.hasClass('alpheios-panel__options-settings-uiType') ||
+          testSetting.hasClass('alpheios-panel__options-settings-verboseMode')
+      ) {
+        testSetting.vm.$emit('change', 'fooname', 'foovalue')
+
+        await Vue.nextTick()
+
+        expect(cmp.emitted()['settingchange']).toBeTruthy()
+        expect(cmp.emitted()['settingchange'][0]).toEqual(['fooname', 'foovalue'])
+      }
     }
   })
 })
