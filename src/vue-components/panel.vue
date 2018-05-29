@@ -135,7 +135,7 @@
                 <setting :data="data.settings.verboseMode" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item', 'alpheios-panel__options-settings-verboseMode']"></setting>
                 <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.uiOptions"
-                         :classes="['alpheios-panel__options-item']"></setting>
+                         :classes="['alpheios-panel__options-item', 'alpheios-panel__options-uiOptions-skin']"></setting>
                 <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item', 'alpheios-panel__options-uiOptions-popup']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item', 'alpheios-panel__options-resourceSettings-lexicons']"

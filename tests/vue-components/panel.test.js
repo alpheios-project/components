@@ -511,7 +511,8 @@ describe('panel.test.js', () => {
     expect(cmp.find('.alpheios-panel__tab__options').findAll(Setting).length).not.toBeLessThan(8)
 
     let testSettings = cmp.find('.alpheios-panel__tab__options').findAll(Setting)
-
+    let i1 = 0
+    let i2 = 0
     for (let i = 0; i < testSettings.length; i++) {
       let testSetting = testSettings.at(i)
 
@@ -521,12 +522,29 @@ describe('panel.test.js', () => {
           testSetting.hasClass('alpheios-panel__options-settings-uiType') ||
           testSetting.hasClass('alpheios-panel__options-settings-verboseMode')
       ) {
-        testSetting.vm.$emit('change', 'fooname', 'foovalue')
+        testSetting.vm.$emit('change', `fooname${i1}`, `foovalue${i1}`)
 
         await Vue.nextTick()
 
         expect(cmp.emitted()['settingchange']).toBeTruthy()
-        expect(cmp.emitted()['settingchange'][0]).toEqual(['fooname', 'foovalue'])
+        expect(cmp.emitted()['settingchange'][i1]).toEqual([`fooname${i1}`, `foovalue${i1}`])
+        i1++
+      } else if (testSetting.hasClass('alpheios-panel__options-uiOptions-skin') ||
+          testSetting.hasClass('alpheios-panel__options-uiOptions-popup')) {
+        testSetting.vm.$emit('change', `fooname${i2}`, `foovalue${i2}`)
+
+        await Vue.nextTick()
+
+        expect(cmp.emitted()['ui-option-change']).toBeTruthy()
+        expect(cmp.emitted()['ui-option-change'][i2]).toEqual([`fooname${i2}`, `foovalue${i2}`])
+        i2++
+      } else if (testSetting.hasClass('alpheios-panel__options-resourceSettings-lexicons')) {
+        testSetting.vm.$emit('change', `fooname`, `foovalue`)
+
+        await Vue.nextTick()
+
+        expect(cmp.emitted()['resourcesettingchange']).toBeTruthy()
+        expect(cmp.emitted()['resourcesettingchange'][0]).toEqual([`fooname`, `foovalue`])
       }
     }
   })
