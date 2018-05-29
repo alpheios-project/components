@@ -16,11 +16,10 @@
             </div>
 
             <div class="alpheios-popup__button-area">
-                <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom-wide" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
-                    <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
-                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
-                    </button>
-
+                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom-wide" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
+                  <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
+                  </button>
                 </alph-tooltip>
 
                 <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom-wide" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_INFLECTIONS">
@@ -29,10 +28,11 @@
                   </button>
                 </alph-tooltip>
 
-                <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom-wide" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_DEFINITIONS">
-                  <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
-                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
-                  </button>
+                <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom-wide" :tooltipText="data.l10n.messages.TOOLTIP_TREEBANK">
+                    <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
+                            class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_TREEBANK}}
+                    </button>
+
                 </alph-tooltip>
 
                 <alph-tooltip tooltipDirection="bottom-right" :tooltipText="data.l10n.messages.TOOLTIP_SHOW_OPTIONS">
