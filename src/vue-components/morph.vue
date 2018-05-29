@@ -1,13 +1,21 @@
 <template>
   <div>
-    <morph-inner
-      :lexemes = "lexemes"
-      :definitions = "definitions"
-      :linkedfeatures = "linkedfeatures"
-      :translations = "translations"
-      @sendfeature = "sendFeature"
-    ></morph-inner>
-  </div><!--alpheios-morph__lexemes-->
+    <div class="alpheios-morph__lexemes morph-inner-v1">
+      <morph-inner
+        v-for = "(lex,index) in lexemes"
+        v-show = "showLexeme(lex)"
+        :key = "lex.lemma.key"
+        :lex = "lex"
+        :index = "index"
+        :count = "lexemes.length"
+        :morphDataReady = "morphDataReady"
+        :definitions = "definitions[lex.lemma.key] ? definitions[lex.lemma.key] : []"
+        :linkedfeatures = "linkedfeatures"
+        :translations = "translations"
+        @sendfeature = "sendFeature"
+        ></morph-inner>
+    </div><!--alpheios-morph__lexemes-->
+  </div>
 </template>
 <script>
   import MorphInner from './morph-inner-v1.vue'
@@ -34,9 +42,16 @@
           type: Object,
           required: false,
           default: () => {}
+        },
+        morphDataReady: {
+          type: Boolean,
+          required: true
         }
     },
     methods: {
+      showLexeme(lex) {
+        return lex.isPopulated()
+      },
       sendFeature (data) {
         this.$emit('sendfeature',data)
       },
