@@ -95,6 +95,7 @@ describe('popup.test.js', () => {
     expect(cmp.find('.alpheios-popup__more-btn-treebank').text()).toEqual(l10n.messages.LABEL_POPUP_TREEBANK)
 
     let tooltipsHeader = cmp.find('.alpheios-popup__header').findAll(Tooltip)
+    let k = 0
 
     for (let i = 0; i < tooltipsHeader.length; i++) {
       let checkText = tooltipsHeader.at(i).find('button').text()
@@ -105,7 +106,8 @@ describe('popup.test.js', () => {
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
-        expect(cmp.emitted()['showpaneltab'][0]).toEqual(['treebank'])
+        expect(cmp.emitted()['showpaneltab'][k]).toEqual(['treebank'])
+        k++
       }
 
       if (checkText === l10n.messages.LABEL_POPUP_INFLECT) {
@@ -114,7 +116,8 @@ describe('popup.test.js', () => {
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
-        expect(cmp.emitted()['showpaneltab'][1]).toEqual(['inflections'])
+        expect(cmp.emitted()['showpaneltab'][k]).toEqual(['inflections'])
+        k++
       }
 
       if (checkText === l10n.messages.LABEL_POPUP_DEFINE) {
@@ -123,7 +126,8 @@ describe('popup.test.js', () => {
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
-        expect(cmp.emitted()['showpaneltab'][2]).toEqual(['definitions'])
+        expect(cmp.emitted()['showpaneltab'][k]).toEqual(['definitions'])
+        k++
       }
 
       if (checkText === l10n.messages.LABEL_POPUP_OPTIONS) {
@@ -132,7 +136,8 @@ describe('popup.test.js', () => {
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
-        expect(cmp.emitted()['showpaneltab'][3]).toEqual(['options'])
+        expect(cmp.emitted()['showpaneltab'][k]).toEqual(['options'])
+        k++
       }
     }
   })
