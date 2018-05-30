@@ -7,11 +7,11 @@
           <span class="lemma_index" v-if="lexemes.length > 1">{{ index + 1 }}</span>
 
           <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
-            v-if="! lex.lemma.principalParts.includes(lex.lemma.word)"
+            v-if="lex.lemma.principalParts && ! lex.lemma.principalParts.includes(lex.lemma.word)"
             :lang="languageCode(lex.lemma.languageID)">{{ lex.lemma.word }}</span>
             
           <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem">
-            <span class="alpheios-morph__listitem"
+            <span class="alpheios-morph__listitem" v-if="lex.lemma.principalParts"
               v-for="part in lex.lemma.principalParts" :lang="languageCode(lex.lemma.languageID)">{{ part }}</span>
           </span>
           <inflectionattribute :data="lex.lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
@@ -164,7 +164,7 @@
         this.$emit('sendfeature',data)
       },
       getFeature (lemma, type) {
-        if (lemma.features[type] !== undefined) {
+        if (lemma.features && lemma.features[type] !== undefined) {
           return lemma.features[type].value
         }
         return undefined

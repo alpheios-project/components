@@ -9,6 +9,8 @@ import ShortDef from '@/vue-components/shortdef.vue'
 import Inflections from '@/vue-components/inflections.vue'
 import ReskinFontColor from '@/vue-components/reskin-font-color.vue'
 import Setting from '@/vue-components/setting.vue'
+import Treebank from '@/vue-components/treebank.vue'
+import Grammar from '@/vue-components/grammar.vue'
 
 import Vue from 'vue/dist/vue'
 
@@ -24,6 +26,7 @@ import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
 console.error = function () {}
+console.log = function () {}
 
 describe('panel.test.js', () => {
   let l10n = new L10n()
@@ -305,6 +308,8 @@ describe('panel.test.js', () => {
       }
     })
 
+    expect(cmp.find('.alpheios-panel__tab__info').element.style.display).not.toEqual('none')
+
     expect(cmp.find('.alpheios-panel__tab__info').find(Lookup).exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__tab__info').find(Info).exists()).toBeTruthy()
 
@@ -361,6 +366,7 @@ describe('panel.test.js', () => {
       }
     })
 
+    expect(cmp.find('.alpheios-panel__tab__definitions').element.style.display).not.toEqual('none')
     expect(cmp.find('.alpheios-panel__tab__definitions').find(Lookup).exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__tab__definitions').find(ShortDef).exists()).toBeTruthy()
 
@@ -399,6 +405,7 @@ describe('panel.test.js', () => {
       }
     })
 
+    expect(cmp.find('.alpheios-panel__tab__inflections').element.style.display).not.toEqual('none')
     let inflectionsBlock = cmp.find('.alpheios-panel__tab__inflections').find(Inflections)
 
     expect(inflectionsBlock.exists()).toBeTruthy()
@@ -465,6 +472,7 @@ describe('panel.test.js', () => {
       }
     })
 
+    expect(cmp.find('.alpheios-panel__tab__inflections').element.style.display).not.toEqual('none')
     let inflectionsBlock = cmp.find('.alpheios-panel__tab__inflections').find(Inflections)
 
     let inflectionPlaceholders = inflectionsBlock.findAll('.alpheios-inflections__placeholder')
@@ -506,6 +514,7 @@ describe('panel.test.js', () => {
       }
     })
 
+    expect(cmp.find('.alpheios-panel__tab__options').element.style.display).not.toEqual('none')
     expect(cmp.find('.alpheios-panel__tab__options').find(ReskinFontColor).exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__tab__options').find(Setting).exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__tab__options').findAll(Setting).length).not.toBeLessThan(8)
@@ -547,5 +556,232 @@ describe('panel.test.js', () => {
         expect(cmp.emitted()['resourcesettingchange'][0]).toEqual([`fooname`, `foovalue`])
       }
     }
+  })
+
+  it('10 Panel - active status tab', async () => {
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: true,
+            treebank: false,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          messages: ['Foo message 1', 'Foo message 2']
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__status').element.style.display).not.toEqual('none')
+    expect(cmp.find('.alpheios-panel__tab__status').findAll('.alpheios-panel__message').length).toEqual(2)
+    expect(cmp.find('.alpheios-panel__tab__status').findAll('.alpheios-panel__message').at(0).text()).toEqual('Foo message 1')
+    expect(cmp.find('.alpheios-panel__tab__status').findAll('.alpheios-panel__message').at(1).text()).toEqual('Foo message 2')
+  })
+
+  it('11 Panel - active treebank tab (no data)', async () => {
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {}
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__treebank').element.style.display).not.toEqual('none')
+    expect(cmp.vm.treebankTabVisible).toBeTruthy()
+    expect(cmp.find(Treebank).exists()).toBeFalsy()
+  })
+
+  it('12 Panel - active treebank tab (has data)', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          treebankComponentData: {
+            visible: false,
+            data: {
+              word: {
+                src: 'http://example.org/tb/SENTENCE/WORD',
+                ref: '1-2'
+              }
+            }
+          },
+          settings: options.items
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__treebank').element.style.display).not.toEqual('none')
+    expect(cmp.vm.treebankTabVisible).toBeTruthy()
+
+    let treebankC = cmp.find(Treebank)
+    expect(treebankC.exists()).toBeTruthy()
+    expect(treebankC.find('iframe').exists()).toBeTruthy()
+
+    expect(treebankC.vm.visible).toBeTruthy()
+    expect(treebankC.vm.srcUrl).toEqual('')
+
+    treebankC.vm.visible = false
+    treebankC.vm.visible = true
+
+    expect(treebankC.vm.srcUrl).toEqual('http://example.org/tb/1/2')
+
+    cmp.vm.data.treebankComponentData.data.word.ref = '10-20'
+    treebankC.vm.visible = false
+    treebankC.vm.visible = true
+
+    expect(treebankC.vm.srcUrl).toEqual('http://example.org/tb/10/20')
+
+    cmp.vm.data.treebankComponentData.data.word.ref = undefined
+    cmp.vm.data.treebankComponentData.data.page = { src: 'http://example.org/tb/100/200' }
+
+    treebankC.vm.visible = false
+    treebankC.vm.visible = true
+
+    expect(treebankC.vm.srcUrl).toEqual('http://example.org/tb/100/200')
+  })
+
+  it('13 Panel - active grammar tab (has data)', async () => {
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: false,
+            grammar: true
+          },
+          l10n: l10n,
+          grammarRes: {
+            url: 'http://example.org/',
+            provider: []
+          }
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__tab__grammar').element.style.display).not.toEqual('none')
+
+    let grammarC = cmp.find(Grammar)
+    expect(grammarC.exists()).toBeTruthy()
+    expect(grammarC.find('iframe')).toBeTruthy()
+    expect(grammarC.vm.res.url).toEqual('http://example.org/')
+
+    expect(grammarC.find('.alpheios-grammar__provider').exists()).toBeTruthy()
+    expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('')
+
+    cmp.vm.data.grammarRes.provider = ['someFooProvider']
+
+    expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('someFooProvider')
+  })
+
+  it('13 Panel - notifications part (no data)', () => {
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {}
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-panel__notifications').exists()).toBeFalsy()
+  })
+
+  it('13 Panel - notifications part (has data)', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          resourceSettings: {},
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          notification: {
+            important: false,
+            text: 'Some foo text',
+            showLanguageSwitcher: false
+          },
+          settings: options.items
+        }
+      }
+    })
+    expect(cmp.find('.alpheios-panel__notifications').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__notifications').element.style.display).toEqual('none')
+
+    expect(cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-close-btn').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting)).toBeTruthy()
+
+    cmp.vm.data.notification.important = true
+
+    expect(cmp.find('.alpheios-panel__notifications').element.style.display).not.toEqual('none')
+
+    cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-close-btn').trigger('click')
+
+    await Vue.nextTick()
+    expect(cmp.emitted()['closenotifications']).toBeTruthy()
+
+    expect(cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-text').text()).toEqual('Some foo text')
+
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).element.style.display).toEqual('none')
+
+    cmp.vm.data.notification.showLanguageSwitcher = true
+
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).element.style.display).not.toEqual('none')
+
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).vm.showTitle).toBeFalsy()
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).find('label').element.style.display).toEqual('none')
   })
 })

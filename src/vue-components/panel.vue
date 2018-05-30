@@ -152,12 +152,12 @@
             </div>
 
         </div>
-        <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses" v-if="data.notification"
+        <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses" v-if="data.notification && data.settings"
           v-show="data.notification.important">
             <span @click="closeNotifications" class="alpheios-panel__notifications-close-btn">
                 <close-icon></close-icon>
             </span>
-            <span v-html="data.notification.text"></span>
+            <span v-html="data.notification.text" class="alpheios-panel__notifications-text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
                      :classes="['alpheios-panel__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
