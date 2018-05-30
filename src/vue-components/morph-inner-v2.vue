@@ -83,15 +83,15 @@
     </div><!--alpheios-morph__features-->
 
     <div v-if="definitions.length > 0" class="alpheios-morph__definition_list">
-      <div v-for="(definition, dindex) in definitions" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.key">
+      <div v-for="(definition, dindex) in definitions" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.ID">
         <span class="definition_index" v-if="definitions.length > 1">{{ definitionIndex(dindex) }}</span>
         <shortdef :definition="definition"></shortdef>
       </div>
     </div><!--alpheios-morph__definition_list-->
 
-    <div v-if="translations && translations[lex.lemma.key] && translations[lex.lemma.key].glosses && translations[lex.lemma.key].glosses.length > 0" class="alpheios-morph__translation_list">
-      <!-- <p class="block_title">translations ({{ translations[lex.lemma.key].languageCode}})</p> -->
-      <lemmatranslation :translations="translations" :lemmakey="lex.lemma.key"></lemmatranslation>
+    <div v-if="translations && translations[lex.lemma.ID] && translations[lex.lemma.ID].glosses && translations[lex.lemma.ID].glosses.length > 0" class="alpheios-morph__translation_list">
+      <!-- <p class="block_title">translations ({{ translations[lex.lemma.ID].languageCode}})</p> -->
+      <lemmatranslation :translations="translations" :lemmakey="lex.lemma.ID"></lemmatranslation>
     </div><!--alpheios-morph__translation_list-->
 
   </div><!--alpheios-morph__dictentry-->

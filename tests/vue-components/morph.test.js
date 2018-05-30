@@ -179,7 +179,7 @@ describe('morph.test.js', () => {
           'note': mockFeature('note', 'foo note', latin)
         },
         word: 'foo',
-        key: 'foo-noun-lat-key',
+        ID: 'foo-noun-lat-key',
         languageID: latin
       },
       getGroupedInflections: () => { return mockNounInflectionGroup }
@@ -203,7 +203,7 @@ describe('morph.test.js', () => {
                 'kind': mockFeature('kind', 'taking xyz', latin)
               },
               word: 'foo',
-              key: 'foo-verb-lat-key',
+              ID: 'foo-verb-lat-key',
               languageID: latin
             },
             getGroupedInflections: () => { return mockVerbInflectionGroup }
