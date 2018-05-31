@@ -7,7 +7,7 @@ import ShortDef from '@/vue-components/shortdef.vue'
 
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
-describe('morph.test.js', () => {
+describe('morph-inner-v1.test.js', () => {
   it('1 Morph - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(MorphInner, {
       propsData: {
@@ -351,31 +351,40 @@ describe('morph.test.js', () => {
 
   it('6 Morph - render translations', () => {
     let tense = { type: 'tense',
-      _data: [{ value: 'perfect', sortOrder: 1 }]
+      _data: [{ value: 'perfect', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let partOfSpeach = { type: 'part of speach',
-      _data: [{ value: 'verb', sortOrder: 1 }]
+      _data: [{ value: 'verb', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let voice = { type: 'voice',
-      _data: [{ value: 'active', sortOrder: 1 }]
+      _data: [{ value: 'active', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let mood = { type: 'mood',
-      _data: [{ value: 'indicative', sortOrder: 1 }]
+      _data: [{ value: 'indicative', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let number = { type: 'number',
-      _data: [{ value: 'singular', sortOrder: 1 }]
+      _data: [{ value: 'singular', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let person = { type: 'person',
-      _data: [{ value: '3rd', sortOrder: 1 }]
+      _data: [{ value: '3rd', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let conjugation = { type: 'conjugation',
-      _data: [{ value: '3rd', sortOrder: 1 }]
+      _data: [{ value: '3rd', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let fullform = { type: 'full form',
-      _data: [{ value: 'foo-word', sortOrder: 1 }]
+      _data: [{ value: 'foo-word', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let word = { type: 'word',
-      _data: [{ value: 'capio', sortOrder: 1 }]
+      _data: [{ value: 'capio', sortOrder: 1 }],
+      get value () { return this._data[0].value }
     }
     let cmp = mount(MorphInner, {
       propsData: {
@@ -465,9 +474,28 @@ describe('morph.test.js', () => {
 
     expect(cmp.find('.alpheios-morph__inflections').findAll('.inflset_index').exists()).toBeFalsy()
 
-    expect(cmp.find('.alpheios-morph__inflections .alpheios-morph__forms').find('[data-feature="stem"]').text()).toEqual('foostem')
-    expect(cmp.find('.alpheios-morph__inflections .alpheios-morph__forms').find('[data-feature="suffix"]').text()).toEqual('-foosuffix')
+    let morphForms = cmp.find('.alpheios-morph__inflections .alpheios-morph__forms')
 
-    console.log('*********************', cmp.find('.alpheios-morph__inflections').html())
+    expect(morphForms.find('[data-feature="stem"]').text()).toEqual('foostem')
+    expect(morphForms.find('[data-feature="stem"]').element.getAttribute('data-grouplevel')).toEqual('1')
+    expect(morphForms.find('[data-feature="suffix"]').text()).toEqual('-foosuffix')
+    expect(morphForms.find('[data-feature="suffix"]').element.getAttribute('data-grouplevel')).toEqual('1')
+
+    expect(morphForms.findAll(InflectionAttribute).length).not.toBeLessThan(5)
+
+    expect(morphForms.find('[data-feature="person"]').element.getAttribute('data-grouplevel')).toEqual('4')
+    expect(morphForms.find('[data-feature="person"]').text()).toEqual('3rd person')
+
+    expect(morphForms.find('[data-feature="number"]').element.getAttribute('data-grouplevel')).toEqual('4')
+    expect(morphForms.find('[data-feature="number"]').text()).toEqual('singular')
+
+    expect(morphForms.find('[data-feature="tense"]').element.getAttribute('data-grouplevel')).toEqual('4')
+    expect(morphForms.find('[data-feature="tense"]').text()).toEqual('perfect')
+
+    expect(morphForms.find('[data-feature="mood"]').element.getAttribute('data-grouplevel')).toEqual('4')
+    expect(morphForms.find('[data-feature="mood"]').text()).toEqual('indicative')
+
+    expect(morphForms.find('[data-feature="voice"]').element.getAttribute('data-grouplevel')).toEqual('4')
+    expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active')
   })
 })
