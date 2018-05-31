@@ -1,4 +1,4 @@
-npm run/* eslint-env jest */
+/* eslint-env jest */
 /* eslint-disable no-unused-vars */
 import { shallowMount, mount } from '@vue/test-utils'
 import Popup from '@/vue-components/popup.vue'

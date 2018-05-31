@@ -3,6 +3,8 @@
 import { shallowMount, mount } from '@vue/test-utils'
 import MorphInner from '@/vue-components/morph-inner-v1.vue'
 import InflectionAttribute from '@/vue-components/infl-attribute.vue'
+import ShortDef from '@/vue-components/shortdef.vue'
+
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
 describe('morph.test.js', () => {
@@ -268,7 +270,7 @@ describe('morph.test.js', () => {
           {
             inflections: [],
             lemma: {
-              ID: '1',
+              ID: 'l1',
               features: {},
               languageCode: 'lat',
               languageID: LMF.getLanguageIdFromCode('lat'),
@@ -280,10 +282,62 @@ describe('morph.test.js', () => {
             getGroupedInflections: () => { return [] }
           }
         ],
-        definitions: {}
+        definitions: {
+          l1: [
+            {
+              lemmaText: 'foo-word1',
+              text: 'foo word definition 1'
+            },
+            {
+              lemmaText: 'foo-word2',
+              text: 'foo word definition 2'
+            }
+          ]
+        }
       }
     })
 
     expect(cmp.find('.alpheios-morph__definition_list').exists()).toBeTruthy()
+    expect(cmp.findAll('.alpheios-morph__definition').length).toEqual(2)
+
+    expect(cmp.findAll('.alpheios-morph__definition .definition_index').length).toEqual(2)
+
+    let shortDefs = cmp.find('.alpheios-morph__definition_list').findAll(ShortDef)
+    let checks = 0
+
+    for (let i = 0; i < shortDefs.length; i++) {
+      if (shortDefs.at(i).vm.definition === cmp.vm.definitions.l1[0]) {
+        expect(shortDefs.at(i).find('.alpheios-definition__lemma').text()).toEqual('foo-word1:')
+        expect(shortDefs.at(i).find('.alpheios-definition__text').text()).toEqual('foo word definition 1')
+      } else if (shortDefs.at(i).vm.definition === cmp.vm.definitions.l1[1]) {
+        expect(shortDefs.at(i).find('.alpheios-definition__lemma').text()).toEqual('foo-word2:')
+        expect(shortDefs.at(i).find('.alpheios-definition__text').text()).toEqual('foo word definition 2')
+      }
+    }
+  })
+
+  it('6 Morph - render translations', () => {
+    let cmp = mount(MorphInner, {
+      propsData: {
+        lexemes: [
+          {
+            inflections: [],
+            lemma: {
+              ID: 'l1',
+              features: {},
+              languageCode: 'lat',
+              languageID: LMF.getLanguageIdFromCode('lat'),
+              word: 'foo-word',
+              principalParts: [ 'part1', 'part2' ]
+            },
+            meaning: {},
+            isPopulated: () => { return true },
+            getGroupedInflections: () => { return [] }
+          }
+        ],
+        translations: []
+      }
+    })
+    expect(cmp.find('.aalpheios-morph__translation_list').exists()).toBeTruthy()
   })
 })
