@@ -35,7 +35,8 @@
           <inflectionattribute :data="lex.lemma.features" :type="types.conjugation" :linkedfeatures="linkedfeatures" :decorators="['appendtype']" @sendfeature="sendFeature"/>
           <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
         </div>
-        <p class="feature_source" v-if="getFeature(lex.lemma,'source')">
+
+        <p class="feature_source">
           <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
         </p>
       </div><!--alpheios-morph__features-->
@@ -181,14 +182,8 @@
         return lex.isPopulated()
       },
       featureList(lemma, features, name) {
-
-
-        let list = features.map((i) => {
-          console.log('******featureList 1', i, lemma.features, lemma.features[i])
-          console.log('******featureList 2', GrmFeature.toFeature(lemma.features[i]))
-          lemma.features[i] ? GrmFeature.toFeature(lemma.features[i]): null
-        }).filter(i => i)
-        
+        let list = features.map((i) => lemma.features[i] !== undefined ? GrmFeature.toFeature(lemma.features[i]): null)
+        list = list.filter(i => i)
         list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
         let returnObj = {}
         returnObj[name] = { value: list }
