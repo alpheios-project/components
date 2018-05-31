@@ -876,6 +876,10 @@ export default class UIController {
     let enabled = LanguageModelFactory.getLanguageModel(homonym.languageID).canInflect()
     this.panel.enableInflections(enabled)
     this.panel.updateInflections(inflectionData, homonym)
+
+    // console.log('getGroupedInflections*****', this.lexemes[0].getGroupedInflections())
+    console.log('************************updateInflections1', inflectionData)
+    console.log('************************updateInflections2', homonym)
     this.popup.popupData.inflDataReady = enabled && inflectionData.hasInflectionSets
   }
 

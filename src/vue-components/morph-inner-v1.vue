@@ -149,8 +149,6 @@
     },
     created: function () {
       this.types = GrmFeature.types
-
-      console.log('getGroupedInflections*****', this.lexemes[0].getGroupedInflections())
     },
     methods: {
       showInflAttr1: function (lex) {
