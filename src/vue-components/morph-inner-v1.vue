@@ -18,7 +18,7 @@
 
         <span 
           class="feature_extras"
-          v-if="getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo')">
+          v-if="showInflAttr1(lex)">
           <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
         </span>
         </p><!-- principal_parts -->
@@ -150,6 +150,10 @@
       this.types = GrmFeature.types
     },
     methods: {
+      showInflAttr1: function (lex) {
+        let res = this.getFeature(lex.lemma,'frequency') !== undefined || this.getFeature(lex.lemma,'age') !== undefined || this.getFeature(lex.lemma,'area') !== undefined || this.getFeature(lex.lemma,'geo') !== undefined
+        return res
+      },
       groupClass(group) {
         return group.groupingKey.isCaseInflectionSet ? 'alpheios-morph__inline' : 'alpheios-morph__block'
       },
@@ -176,8 +180,15 @@
       showLexeme(lex) {
         return lex.isPopulated()
       },
-      featureList(lemma,features,name) {
-        let list = features.map(i => lemma.features[i] ? GrmFeature.toFeature(lemma.features[i]): null).filter(i => i)
+      featureList(lemma, features, name) {
+
+
+        let list = features.map((i) => {
+          console.log('******featureList 1', i, lemma.features, lemma.features[i])
+          console.log('******featureList 2', GrmFeature.toFeature(lemma.features[i]))
+          lemma.features[i] ? GrmFeature.toFeature(lemma.features[i]): null
+        }).filter(i => i)
+        
         list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
         let returnObj = {}
         returnObj[name] = { value: list }
