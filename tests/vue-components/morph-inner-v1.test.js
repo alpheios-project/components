@@ -335,9 +335,17 @@ describe('morph.test.js', () => {
             getGroupedInflections: () => { return [] }
           }
         ],
-        translations: []
+        translations: {
+          l1: {
+            glosses: [ 'some foo translation' ],
+            lemmaWord: 'foo-word',
+            languageCode: 'eng'
+          }
+        }
       }
     })
-    expect(cmp.find('.aalpheios-morph__translation_list').exists()).toBeTruthy()
+
+    expect(cmp.find('.alpheios-morph__translation_list').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-morph__translation_list').find('.alpheios-lemma__translations-gloss').text()).toEqual('some foo translation')
   })
 })
