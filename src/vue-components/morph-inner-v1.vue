@@ -43,15 +43,15 @@
 
       <div v-if="definitions" class="alpheios-morph__definition_list">
         <!-- <p class="block_title">definitions</p> -->
-        <div v-for="(definition, dindex) in definitions[lex.lemma.key]" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.key">
-          <span class="definition_index" v-if="definitions[lex.lemma.key].length > 1">{{ definitionIndex(dindex) }}</span>
+        <div v-for="(definition, dindex) in definitions[lex.lemma.ID]" class="alpheios-morph__definition" :data-lemmakey="lex.lemma.ID">
+          <span class="definition_index" v-if="definitions[lex.lemma.ID].length > 1">{{ definitionIndex(dindex) }}</span>
           <shortdef :definition="definition"></shortdef>
         </div>
       </div>
 
-      <div v-if="translations && translations[lex.lemma.key] && translations[lex.lemma.key].glosses && translations[lex.lemma.key].glosses.length > 0" class="alpheios-morph__translation_list">
+      <div v-if="translations && translations[lex.lemma.ID] && translations[lex.lemma.ID].glosses && translations[lex.lemma.ID].glosses.length > 0" class="alpheios-morph__translation_list">
         <!-- <p class="block_title">translations ({{ translations[lex.lemma.key].languageCode}})</p> -->
-        <lemmatranslation :translations="translations" :lemmakey="lex.lemma.key"></lemmatranslation>
+        <lemmatranslation :translations="translations" :lemmakey="lex.lemma.ID"></lemmatranslation>
       </div>
 
       <div class="alpheios-morph__inflections" v-if="lex.getGroupedInflections() && lex.getGroupedInflections().length >0">
