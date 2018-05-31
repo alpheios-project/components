@@ -55,6 +55,7 @@
       </div>
 
       <div class="alpheios-morph__inflections" v-if="lex.getGroupedInflections() && lex.getGroupedInflections().length >0">
+        <test-component :testdata="lex.getGroupedInflections()"></test-component>
         <!-- <p class="block_title">inflections</p> -->
         <div class="alpheios-morph__inflset" v-for="(inflset, ifindex) in lex.getGroupedInflections()">
           <span class="inflset_index" v-if="lex.getGroupedInflections().length > 1">{{ ifindex + 1 }}.</span>
@@ -113,13 +114,15 @@
   import InflectionAttribute from './infl-attribute.vue'
   
   import LemmaTranslation from './lemma-translation.vue'
+  import TestComponent from './test-component.vue'
 
   export default {
     name: 'MorphInner',
     components: {
       shortdef: ShortDef,
       inflectionattribute: InflectionAttribute,
-      lemmatranslation: LemmaTranslation
+      lemmatranslation: LemmaTranslation,
+      testComponent: TestComponent
     },
     props: {
         lexemes: {
