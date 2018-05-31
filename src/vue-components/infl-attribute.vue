@@ -42,6 +42,9 @@
       },
       decorate(data,type) {
         let decorated = typeof(data[type]) === 'string' ? data[type] : data[type].value
+        if (type==='person') {
+          console.log('***********decorate', type, data[type], decorated)
+        }
         if (this.decorators.includes('abbreviate')) {
           decorated = data[type].toLocaleStringAbbr()
         }

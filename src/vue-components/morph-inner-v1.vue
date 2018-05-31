@@ -55,11 +55,12 @@
       </div>
 
       <div class="alpheios-morph__inflections" v-if="lex.getGroupedInflections() && lex.getGroupedInflections().length >0">
-        <test-component :testdata="lex.getGroupedInflections()"></test-component>
         <!-- <p class="block_title">inflections</p> -->
         <div class="alpheios-morph__inflset" v-for="(inflset, ifindex) in lex.getGroupedInflections()">
           <span class="inflset_index" v-if="lex.getGroupedInflections().length > 1">{{ ifindex + 1 }}.</span>
+
           <div class="alpheios-morph__forms">
+
             <span class="alpheios-morph__formtext" data-grouplevel="1" data-feature="prefix" v-if="inflset.groupingKey.prefix">{{inflset.groupingKey.prefix}} </span>
             <span class="alpheios-morph__formtext" data-grouplevel="1" data-feature="stem">{{inflset.groupingKey.stem}}</span>
             <span class="alpheios-morph__formtext" data-grouplevel="1" data-feature="suffix" v-if="inflset.groupingKey.suffix"> -{{inflset.groupingKey.suffix}}</span>
@@ -86,6 +87,9 @@
                     <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.gender" :grouplevel="4" :data="infl.groupingKey" :decorators="['parenthesize','abbreviate']"
                       @sendfeature="sendFeature" v-if="! featureMatch(infl.groupingKey[types.gender],lex.lemma.features[types.gender])" />
                     <inflectionattribute :linkedfeatures="linkedfeatures" :type="types.comparison" :grouplevel="4" :data="infl.groupingKey" @sendfeature="sendFeature"/>
+                    <pre>
+                    {{ infl.groupingKey['person'] }}
+                    </pre>
                     <inflectionattribute :data="infl.groupingKey" :type="types.person" :linkedfeatures="linkedfeatures" :grouplevel="4" :decorators="['appendtype']" @sendfeature="sendFeature"/>
                     <inflectionattribute :data="infl.groupingKey" :type="types.number" :linkedfeatures="linkedfeatures" :grouplevel="4" @sendfeature="sendFeature"
                       v-if="! group.groupingKey.isCaseInflectionSet"/>

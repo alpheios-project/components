@@ -348,4 +348,126 @@ describe('morph.test.js', () => {
     expect(cmp.find('.alpheios-morph__translation_list').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-morph__translation_list').find('.alpheios-lemma__translations-gloss').text()).toEqual('some foo translation')
   })
+
+  it('6 Morph - render translations', () => {
+    let tense = { type: 'tense',
+      _data: [{ value: 'perfect', sortOrder: 1 }]
+    }
+    let partOfSpeach = { type: 'part of speach',
+      _data: [{ value: 'verb', sortOrder: 1 }]
+    }
+    let voice = { type: 'voice',
+      _data: [{ value: 'active', sortOrder: 1 }]
+    }
+    let mood = { type: 'mood',
+      _data: [{ value: 'indicative', sortOrder: 1 }]
+    }
+    let number = { type: 'number',
+      _data: [{ value: 'singular', sortOrder: 1 }]
+    }
+    let person = { type: 'person',
+      _data: [{ value: '3rd', sortOrder: 1 }]
+    }
+    let conjugation = { type: 'conjugation',
+      _data: [{ value: '3rd', sortOrder: 1 }]
+    }
+    let fullform = { type: 'full form',
+      _data: [{ value: 'foo-word', sortOrder: 1 }]
+    }
+    let word = { type: 'word',
+      _data: [{ value: 'capio', sortOrder: 1 }]
+    }
+    let cmp = mount(MorphInner, {
+      propsData: {
+        lexemes: [
+          {
+            inflections: [],
+            lemma: {
+              ID: 'l1',
+              features: {},
+              languageCode: 'lat',
+              languageID: LMF.getLanguageIdFromCode('lat'),
+              word: 'foo-word',
+              principalParts: [ 'part1', 'part2' ]
+            },
+            meaning: {},
+            isPopulated: () => { return true },
+            getGroupedInflections: () => {
+              return [
+                {
+                  groupingKey: {
+                    stem: 'foostem',
+                    suffix: 'foosuffix',
+                    'part of speach': partOfSpeach
+                  },
+                  inflections: [
+                    {
+                      groupingKey: {
+                        isCaseInflectionSet: false,
+                        tense: tense
+                      },
+
+                      inflections: [
+                        {
+                          groupingKey: {
+                            tense: tense,
+                            voice: voice
+                          },
+
+                          inflections: [
+                            {
+                              groupingKey: {
+                                mood: mood,
+                                number: number,
+                                person: person,
+                                tense: tense,
+                                voice: voice
+                              },
+                              inflections: [
+                                {
+                                  conjugation: conjugation,
+                                  constraints: {},
+                                  'full form': fullform,
+                                  mood: mood,
+                                  number: number,
+                                  'part of speach': partOfSpeach,
+                                  person: person,
+                                  stem: 'foostem',
+                                  suffix: 'foosuffix',
+                                  tense: tense,
+                                  voice: voice,
+                                  word: word
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        translations: {
+          l1: {
+            glosses: [ 'some foo translation' ],
+            lemmaWord: 'foo-word',
+            languageCode: 'eng'
+          }
+        }
+      }
+    })
+
+    expect(cmp.find('.alpheios-morph__inflections').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-morph__inflections').findAll('.alpheios-morph__inflset').length).toEqual(1)
+
+    expect(cmp.find('.alpheios-morph__inflections').findAll('.inflset_index').exists()).toBeFalsy()
+
+    expect(cmp.find('.alpheios-morph__inflections .alpheios-morph__forms').find('[data-feature="stem"]').text()).toEqual('foostem')
+    expect(cmp.find('.alpheios-morph__inflections .alpheios-morph__forms').find('[data-feature="suffix"]').text()).toEqual('-foosuffix')
+
+    console.log('*********************', cmp.find('.alpheios-morph__inflections').html())
+  })
 })
