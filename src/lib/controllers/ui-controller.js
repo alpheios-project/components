@@ -880,6 +880,7 @@ export default class UIController {
     // console.log('getGroupedInflections*****', this.lexemes[0].getGroupedInflections())
     console.log('************************updateInflections1', inflectionData)
     console.log('************************updateInflections2', homonym)
+    console.log('************************updateInflections3', homonym.lexemes[0].getGroupedInflections())
     this.popup.popupData.inflDataReady = enabled && inflectionData.hasInflectionSets
   }
 
