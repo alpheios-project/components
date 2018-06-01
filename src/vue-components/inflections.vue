@@ -40,8 +40,10 @@
                 </div>
             </div>
 
+            <pre v-if="selectedView">
+              {{ selectedView }}
+            </pre>
             <template v-if="selectedView.hasComponentData">
-                {{ selectedView }}
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
