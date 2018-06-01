@@ -41,7 +41,7 @@
             </div>
 
             <template v-if="selectedView.hasComponentData">
-
+                {{ selectedView }}
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
@@ -227,7 +227,7 @@
             this.selectedView = ''
           }
 
-          console.log('******************** watch inflectionData selectedView', selectedView)
+          console.log('******************** watch inflectionData selectedView', this.selectedView)
         }
       },
       /*
