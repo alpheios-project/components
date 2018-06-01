@@ -40,14 +40,14 @@
                 </div>
             </div>
 
-            <template v-if="selectedView.hasComponentData">
+            <div v-if="selectedView.hasComponentData">
                 <div class="test-wideTable">
                   <widetable :data="selectedView.wideTable"></widetable>
                 </div>
                 <div class="test-wideSubTables">
                   <widesubtables :data="selectedView.wideSubTables"></widesubtables>
                 </div>
-            </template>
+            </div>
             <div v-show="!selectedView.hasComponentData">
                 <div :id="elementIDs.wideView" class=""></div>
                 <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
