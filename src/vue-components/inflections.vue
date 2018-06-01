@@ -41,7 +41,7 @@
             </div>
 
             <div v-show="!selectedView.hasComponentData">
-                <div :id="elementIDs.wideView" class=""></div>
+                
                 <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
                     <template v-for="footnote in footnotes">
                         <dt>{{footnote.index}}</dt>
