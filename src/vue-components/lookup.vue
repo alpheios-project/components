@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-lookup__form">
+  <div class="alpheios-lookup__form" v-if="uiController">
     <input class="uk-input alpheios-lookup__input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
       @keyup.enter="lookup"
     >
@@ -62,15 +62,17 @@
       }
     },
     created: function () {
-      this.options = this.uiController.options.clone(TempStorageArea)
-      this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
-      if (this.parentLanguage) {
-        this.initLanguage = this.parentLanguage
-        this.currentLanguage = this.parentLanguage
-      } else {
-        this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+      if (this.uiController) {
+        this.options = this.uiController.options.clone(TempStorageArea)
+        this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+        if (this.parentLanguage) {
+          this.initLanguage = this.parentLanguage
+          this.currentLanguage = this.parentLanguage
+        } else {
+          this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+        }
+        console.log(`at creation current language is ${this.currentLanguage}`)
       }
-      console.log(`at creation current language is ${this.currentLanguage}`)
     },
     computed: {
       buttonLabel: function () {
