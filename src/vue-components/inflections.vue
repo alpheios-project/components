@@ -263,7 +263,7 @@
       },
 
       renderInflections: function () {
-        console.log('***************************renderInflections', renderInflections)
+        console.log('***************************renderInflections')
 
         this.clearInflections().setDefaults()
         // Hide empty columns by default
@@ -273,8 +273,8 @@
       },
 
       displayInflections: function () {
-        console.log('***************************displayInflections', displayInflections)
-        
+        console.log('***************************displayInflections')
+
         let popupClassName = 'alpheios-inflections__footnote-popup'
         let closeBtnClassName = 'alpheios-inflections__footnote-popup-close-btn'
         let hiddenClassName = 'hidden'
