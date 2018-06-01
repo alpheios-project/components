@@ -40,12 +40,13 @@
                 </div>
             </div>
 
-            <pre v-if="selectedView">
-              {{ selectedView }}
-            </pre>
             <template v-if="selectedView.hasComponentData">
-                <widetable :data="selectedView.wideTable"></widetable>
-                <widesubtables :data="selectedView.wideSubTables"></widesubtables>
+                <div class="test-wideTable">
+                  <widetable :data="selectedView.wideTable"></widetable>
+                </div>
+                <div class="test-wideSubTables">
+                  <widesubtables :data="selectedView.wideSubTables"></widesubtables>
+                </div>
             </template>
             <div v-show="!selectedView.hasComponentData">
                 <div :id="elementIDs.wideView" class=""></div>
