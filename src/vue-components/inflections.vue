@@ -41,6 +41,7 @@
             </div>
 
             <template v-if="selectedView.hasComponentData">
+                {{ selectedView }}
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
@@ -213,6 +214,9 @@
             this.views = []
           }
 
+          console.log('******************** watch inflectionData this.partsOfSpeech', this.partsOfSpeech)
+          console.log('******************** watch inflectionData this.views', this.views)
+
           if (this.views.length > 0) {
             this.selectedView = this.views[0]
             if (!this.selectedView.hasComponentData) {
@@ -222,6 +226,8 @@
           } else {
             this.selectedView = ''
           }
+
+          console.log('******************** watch inflectionData selectedView', selectedView)
         }
       },
       /*
@@ -348,6 +354,7 @@
       },
 
       hideNoSuffixGroupsClick () {
+
         this.buttons.hideNoSuffixGroups.contentHidden = !this.buttons.hideNoSuffixGroups.contentHidden
         if (this.buttons.hideNoSuffixGroups.contentHidden) {
           this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.hiddenText
