@@ -58,6 +58,7 @@
       },
       sendFeature(features) {
         let tosend = features
+        
         if (Array.isArray(features)) {
           // TODO eventually we should support multiple features but
           // for the moment just send the first

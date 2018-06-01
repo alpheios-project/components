@@ -285,18 +285,15 @@ describe('morph-inner-v1.test.js', () => {
             getGroupedInflections: () => { return [] }
           },
 
-        definitions: [{
-          l1: [
-            {
-              lemmaText: 'foo-word1',
-              text: 'foo word definition 1'
-            },
-            {
-              lemmaText: 'foo-word2',
-              text: 'foo word definition 2'
-            }
-          ]
-        }
+        definitions: [
+          {
+            lemmaText: 'foo-word1',
+            text: 'foo word definition 1'
+          },
+          {
+            lemmaText: 'foo-word2',
+            text: 'foo word definition 2'
+          }
         ]
       }
     })
@@ -310,16 +307,16 @@ describe('morph-inner-v1.test.js', () => {
     let checks = 0
 
     for (let i = 0; i < shortDefs.length; i++) {
-      if (shortDefs.at(i).vm.definition === cmp.vm.definitions.l1[0]) {
+      if (shortDefs.at(i).vm.definition === cmp.vm.definitions[0]) {
         expect(shortDefs.at(i).find('.alpheios-definition__lemma').text()).toEqual('foo-word1:')
         expect(shortDefs.at(i).find('.alpheios-definition__text').text()).toEqual('foo word definition 1')
-      } else if (shortDefs.at(i).vm.definition === cmp.vm.definitions.l1[1]) {
+      } else if (shortDefs.at(i).vm.definition === cmp.vm.definitions[1]) {
         expect(shortDefs.at(i).find('.alpheios-definition__lemma').text()).toEqual('foo-word2:')
         expect(shortDefs.at(i).find('.alpheios-definition__text').text()).toEqual('foo word definition 2')
       }
     }
   })
-/*
+  /*
   it('7 Morph - render translations', () => {
     let cmp = mount(MorphInner, {
       propsData: {
@@ -352,8 +349,8 @@ describe('morph-inner-v1.test.js', () => {
     expect(cmp.find('.alpheios-morph__translation_list').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-morph__translation_list').find('.alpheios-lemma__translations-gloss').text()).toEqual('some foo translation')
   })
-
-  it('6 Morph - render translations', () => {
+*/
+  it('8 Morph - render inflection group', () => {
     let tense = { type: 'tense',
       _data: [{ value: 'perfect', sortOrder: 1 }],
       get value () { return this._data[0].value }
@@ -392,7 +389,8 @@ describe('morph-inner-v1.test.js', () => {
     }
     let cmp = mount(MorphInner, {
       propsData: {
-        lexemes: [
+        morphDataReady: true,
+        lex:
           {
             inflections: [],
             lemma: {
@@ -462,14 +460,6 @@ describe('morph-inner-v1.test.js', () => {
               ]
             }
           }
-        ],
-        translations: {
-          l1: {
-            glosses: [ 'some foo translation' ],
-            lemmaWord: 'foo-word',
-            languageCode: 'eng'
-          }
-        }
       }
     })
 
@@ -502,5 +492,4 @@ describe('morph-inner-v1.test.js', () => {
     expect(morphForms.find('[data-feature="voice"]').element.getAttribute('data-grouplevel')).toEqual('4')
     expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active')
   })
-*/
 })

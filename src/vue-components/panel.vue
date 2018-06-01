@@ -136,8 +136,8 @@
                 <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name" v-if="data.resourceSettings"
-                  v-if="languageSetting.values.length > 1"
+                  :key="languageSetting.name" 
+                  v-if="languageSetting.values.length > 1 && data.resourceSettings"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
