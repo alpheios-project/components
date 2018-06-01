@@ -2,7 +2,7 @@
     <div>
         <div v-show="! isEnabled" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
         <div v-show="isEnabled && ! isContentAvailable" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT}}</div>
-        
+
         <div v-show="isContentAvailable" class="alpheios-inflections__content">
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
@@ -198,8 +198,11 @@
     watch: {
 
       inflectionData: function (inflectionData) {
+        console.log('******************** watch inflectionData', inflectionData)
         if (inflectionData) {
+
           this.viewSet = new ViewSet(inflectionData, this.locale)
+          console.log('******************** watch inflectionData creating viewSet', this.viewSet)
 
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
