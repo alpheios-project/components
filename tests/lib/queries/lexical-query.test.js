@@ -180,7 +180,6 @@ describe('lexical-query.test.js', () => {
   })
 */
 
-/*
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -212,7 +211,7 @@ describe('lexical-query.test.js', () => {
     spy3.mockReset()
     spy4.mockReset()
   })
-
+/*
   it('5 LexicalQuery - getData executes iterations: LDFAdapter.getInflectionData and after it getInflectionData, addMessage, updateInflections', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
