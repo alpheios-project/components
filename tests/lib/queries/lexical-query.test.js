@@ -346,7 +346,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-/*
+
   it('10 LexicalQuery - getLexiconOptions parses lexicons', () => {
     let mockSelector = {
       location: 'http://example.org',
@@ -374,7 +374,7 @@ describe('lexical-query.test.js', () => {
     })
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({allow: ['https://github.com/alpheios-project/xx']})
   })
-
+/*
   it('11 LexicalQuery - getLexiconOptions parses empty lexicons and returns {}', () => {
     let mockSelector = {
       location: 'http://example.org',
