@@ -133,7 +133,7 @@ describe('lookup.test.js', () => {
     expect(cmp.vm.currentLanguage).toEqual('Greek')
 
     cmp.vm.resourceSettingChange('lexiconsShort-grc', ['Middle Liddell'])
-    /// let keyinfo = resourceOptions.parseKey('lexiconsShort-grc')
-    // expect(cmp.vm.resourceOptions.items[keyinfo.setting]).toEqual(resourceOptions.items[keyinfo.setting].filter((f) => f.name === 'lexiconsShort-grc').forEach((f) => { f.setTextValue(['Middle Liddell']) }))
+
+    // expect(cmp.vm.resourceOptions.items[keyinfo.setting][0].curr).toEqual(resourceOptions.items[keyinfo.setting].filter((f) => f.name === 'lexiconsShort-grc').forEach((f) => { f.setTextValue(['Middle Liddell']) }))
   })
 })
