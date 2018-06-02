@@ -1,19 +1,19 @@
 <template>
   <div class="alpheios-lookup__form" v-if="uiController">
-    <input class="uk-input alpheios-lookup__input" type="text" :placeholder="inputPlaceholder" v-model="lookuptext"
+    <input class="uk-input alpheios-lookup__input" type="text" :placeholder="ln10Messages('LABEL_LOOKUP_BUTTON')" v-model="lookuptext"
       @keyup.enter="lookup"
     >
-    <alph-tooltip tooltipDirection="top-right" :tooltipText="tooltipLabel">
+    <alph-tooltip tooltipDirection="top-right" :tooltipText="ln10Messages('LABEL_LOOKUP_BUTTON')">
       <span class="alpheios-lookup__button_with_link">
       <button class="uk-button uk-button-primary uk-button-small alpheios-lookup__button" type="button" tabindex="-1"
         @click="lookup"
       >
-        {{ buttonLabel }}
+        {{ ln10Messages('LABEL_LOOKUP_BUTTON') }}
       </button>
-      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ labelSettings }}</a>
+      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
       </span>
     </alph-tooltip>
-    <div class="alpheios-lookup__settings">
+    <div class="alpheios-lookup__settings" v-if="uiController">
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="preferredLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
 
@@ -41,9 +41,6 @@
     data () {
       return {
         lookuptext: '',
-        defaultButtonLabel: 'Search',
-        defaultInputPlaceholder: 'Type text',
-        defaultLabelSettings: 'Settings',
         showLanguageSettings: false,
         initLanguage: null,
         currentLanguage: null,
@@ -75,30 +72,6 @@
       }
     },
     computed: {
-      buttonLabel: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.LABEL_LOOKUP_BUTTON
-        }
-        return this.defaultButtonLabel
-      },
-      tooltipLabel: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.TOOLTIP_LOOKUP_BUTTON
-        }
-        return this.defaultButtonLabel
-      },
-      inputPlaceholder: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.PLACEHOLDER_LOOKUP_INPUT
-        }
-        return this.defaultInputPlaceholder
-      },
-      labelSettings: function () {
-        if (this.uiController && this.uiController.l10n) {
-          return this.uiController.l10n.messages.LABEL_LOOKUP_SETTINGS
-        }
-        return this.defaultLabelSettings
-      },
       lexiconSettingName: function() {
         let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
         let settingName
@@ -152,6 +125,13 @@
       resourceSettingChange: function (name, value) {
         let keyinfo = this.resourceOptions.parseKey(name)
         this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+      },
+
+      ln10Messages: function (value, defaultValue = 'uknown') {
+        if (this.uiController && this.uiController.l10n && this.uiController.l10n.messages && this.uiController.l10n.messages[value]) {
+          return this.uiController.l10n.messages[value]
+        }
+        return defaultValue
       }
     }
   }
