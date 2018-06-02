@@ -199,12 +199,9 @@
     watch: {
 
       inflectionData: function (inflectionData) {
-        console.log('******************** watch inflectionData', inflectionData)
         if (inflectionData) {
 
           this.viewSet = new ViewSet(inflectionData, this.locale)
-          console.log('******************** watch inflectionData creating viewSet', this.viewSet)
-
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
@@ -213,9 +210,6 @@
             this.selectedPartOfSpeech = []
             this.views = []
           }
-
-          console.log('******************** watch inflectionData this.partsOfSpeech', this.partsOfSpeech)
-          console.log('******************** watch inflectionData this.views', this.views)
 
           if (this.views.length > 0) {
             this.selectedView = this.views[0]
@@ -226,8 +220,6 @@
           } else {
             this.selectedView = ''
           }
-
-          console.log('******************** watch inflectionData selectedView', this.selectedView)
         }
       },
       /*
@@ -263,8 +255,6 @@
       },
 
       renderInflections: function () {
-        console.log('***************************renderInflections')
-
         this.clearInflections().setDefaults()
         // Hide empty columns by default
         // TODO: change inflection library to take that as an option
@@ -273,8 +263,6 @@
       },
 
       displayInflections: function () {
-        console.log('***************************displayInflections')
-
         let popupClassName = 'alpheios-inflections__footnote-popup'
         let closeBtnClassName = 'alpheios-inflections__footnote-popup-close-btn'
         let hiddenClassName = 'hidden'

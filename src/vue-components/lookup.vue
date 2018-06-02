@@ -123,10 +123,8 @@
       },
 
       resourceSettingChange: function (name, value) {
-        console.log('**********************resourceSettingChange', name, value)
         let keyinfo = this.resourceOptions.parseKey(name)
-        console.log('**********************resourceSettingChange', keyinfo)
-        this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+        this.resourceOptions.items[keyinfo.setting] = this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
       },
 
       ln10Messages: function (value, defaultValue = 'uknown') {
