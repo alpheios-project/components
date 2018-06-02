@@ -127,7 +127,6 @@
 
         this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
 
-        console.log('***************** resourceSettingChange 1 value', this.resourceOptions.items[keyinfo.setting][0].currentValue())
         console.log('***************** resourceSettingChange 2 textValue', this.resourceOptions.items[keyinfo.setting][0].currentTextValue())
       },
 
