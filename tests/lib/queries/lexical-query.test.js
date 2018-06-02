@@ -179,6 +179,8 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
   })
 */
+
+/*
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -387,4 +389,5 @@ describe('lexical-query.test.js', () => {
 
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({})
   })
+  */
 })
