@@ -374,7 +374,7 @@ describe('lexical-query.test.js', () => {
     })
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({allow: ['https://github.com/alpheios-project/xx']})
   })
-/*
+
   it('11 LexicalQuery - getLexiconOptions parses empty lexicons and returns {}', () => {
     let mockSelector = {
       location: 'http://example.org',
@@ -389,5 +389,4 @@ describe('lexical-query.test.js', () => {
 
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({})
   })
-  */
 })
