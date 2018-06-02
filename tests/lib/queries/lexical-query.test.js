@@ -211,7 +211,7 @@ describe('lexical-query.test.js', () => {
     spy3.mockReset()
     spy4.mockReset()
   })
-/*
+
   it('5 LexicalQuery - getData executes iterations: LDFAdapter.getInflectionData and after it getInflectionData, addMessage, updateInflections', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -239,7 +239,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-
+/*
   it('6 LexicalQuery - If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
