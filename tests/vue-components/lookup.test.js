@@ -18,12 +18,6 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup.js'
 
-LexicalQueryLookup.create = function () {
-  return {
-    getData: function () { }
-  }
-}
-
 describe('lookup.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
@@ -40,6 +34,13 @@ describe('lookup.test.js', () => {
   })
 
   it('2 Lookup - full renders and click lookup button execute', () => {
+    let fn = LexicalQueryLookup.create
+    LexicalQueryLookup.create = function () {
+      return {
+        getData: function () { }
+      }
+    }
+
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
 
@@ -70,6 +71,8 @@ describe('lookup.test.js', () => {
 
     cmp.find('button').trigger('click')
     expect(LexicalQueryLookup.create).toHaveBeenCalled()
+
+    LexicalQueryLookup.create = fn
   })
 
   it('3 Lookup - created with parent language', () => {
