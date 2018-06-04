@@ -7,6 +7,9 @@ import ShortDef from '@/vue-components/shortdef.vue'
 
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
+console.error = function () {}
+console.log = function () {}
+
 describe('morph-inner-v1.test.js', () => {
   it('1 Morph - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(MorphInner, {
