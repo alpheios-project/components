@@ -13,7 +13,7 @@ describe('inflections-subtables-wide.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 WideInflectionsTable - renders with data)', () => {
+  it('2 WideInflectionsSubTables - renders with data)', () => {
     let cmp = mount(WideInflectionsSubTables, {
       propsData: {
         data: [{
