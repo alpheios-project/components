@@ -18,8 +18,8 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
-console.error = function () {}
-console.log = function () {}
+/* console.error = function () {}
+console.log = function () {} */
 
 describe('popup.test.js', () => {
   let l10n = new L10n()
@@ -408,7 +408,7 @@ describe('popup.test.js', () => {
     expect(cmp.vm.updatePopupDimensions).toHaveBeenCalled()
   })
 
-  it('9 Popup - check computed properties', async () => {
+  it('9 Popup - check computed properties', () => {
     let curProps = {
       data: {
         requestStartTime: 'foo-time',
@@ -448,7 +448,7 @@ describe('popup.test.js', () => {
     expect(cmp.vm.updates).toEqual('foo-updates')
   })
 
-  it('10 Popup - check methods', async () => {
+  it('10 Popup - check methods', () => {
     let curProps = {
       data: {},
       messages: ['foomessage1', 'foomessage2'],
@@ -474,5 +474,153 @@ describe('popup.test.js', () => {
     cmp.vm.uiOptionChanged('fooname', 'foovalue')
     expect(cmp.emitted()['ui-option-change']).toBeTruthy()
     expect(cmp.emitted()['ui-option-change'][0]).toEqual(['fooname', 'foovalue'])
+
+    cmp.vm.closePopup()
+    expect(cmp.emitted()['close']).toBeTruthy()
+
+    cmp.vm.closeNotifications()
+    expect(cmp.emitted()['closepopupnotifications']).toBeTruthy()
+
+    cmp.vm.showPanelTab('footab')
+    expect(cmp.emitted()['showpaneltab']).toBeTruthy()
+    expect(cmp.emitted()['showpaneltab'][0]).toEqual(['footab'])
+
+    cmp.vm.settingChanged('fooname', 'foovalue')
+    expect(cmp.emitted()['settingchange']).toBeTruthy()
+    expect(cmp.emitted()['settingchange'][0]).toEqual(['fooname', 'foovalue'])
+
+    cmp.vm.sendFeature('foofeature')
+    expect(cmp.emitted()['sendfeature']).toBeTruthy()
+    expect(cmp.emitted()['sendfeature'][0]).toEqual(['foofeature'])
+
+    let res = cmp.vm.ln10Messages()
+    expect(res).toEqual('unknown')
+
+    res = cmp.vm.ln10Messages('fooname')
+    expect(res).toEqual('unknown')
+
+    res = cmp.vm.ln10Messages('fooname', 'foounknown')
+    expect(res).toEqual('foounknown')
+
+    res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
+    expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
+  })
+
+  it('11 Popup - check required props 1', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {}
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 2', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {}
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 3', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {},
+        messages: []
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 4', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {},
+        messages: [],
+        lexemes: {}
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 5', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {},
+        messages: [],
+        lexemes: {},
+        definitions: {}
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 6', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {},
+        messages: [],
+        lexemes: {},
+        definitions: {},
+        linkedfeatures: []
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
+  })
+
+  it('11 Popup - check required props 7', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Popup, {
+      propsData: {
+        data: {},
+        messages: [],
+        lexemes: {},
+        definitions: {},
+        linkedfeatures: [],
+        visible: false
+      }
+    })
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
+    spy.mockReset()
   })
 })

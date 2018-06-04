@@ -1,6 +1,6 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
-         v-show="visible" :data-notification-visible="data.notification && data.notification.visible">
+         v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible">
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -10,12 +10,12 @@
           </span>
          </alph-tooltip>
         <div class="alpheios-popup__header">
-            <div class="alpheios-popup__header-text" v-if="data.status">
+            <div class="alpheios-popup__header-text" v-if="data && data.status">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
 
-            <div class="alpheios-popup__button-area">
+            <div class="alpheios-popup__button-area" v-if="data">
                 <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom-wide" :tooltipText="ln10Messages('TOOLTIP_SHOW_DEFINITIONS')">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{ ln10Messages('LABEL_POPUP_DEFINE') }}
@@ -56,7 +56,7 @@
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature" :morphDataReady="morphDataReady">
             </morph>
 
-            <div class="alpheios-popup__morph-cont-providers" v-if="showProviders">
+            <div class="alpheios-popup__morph-cont-providers" v-if="data && showProviders">
                 <div class="alpheios-popup__morph-cont-providers-header">{{ ln10Messages('LABEL_POPUP_CREDITS') }}</div>
                 <div class="alpheios-popup__morph-cont-providers-source" v-for="p in data.providers">
                     {{ p.toString() }}
@@ -68,7 +68,7 @@
           <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
         </div>
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
-             v-show="data.notification.important" v-if="data.notification">
+             v-show="data.notification.important" v-if="data && data.notification">
 
               <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
                   <close-icon></close-icon>
@@ -178,30 +178,34 @@
         return this.$parent ? this.$parent.uiController : null
       },
       logger: function() {
-        console.log(`Verbose = ${this.data.verboseMode}`)
-        return Logger.getLogger(this.data.verboseMode)
+        let verbMode = false
+        if (this.data) {
+          console.log(`Verbose = ${this.data.verboseMode}`)
+          verbMode = this.data.verboseMode
+        }
+        return Logger.getLogger(verbMode)
       },
       requestStartTime: function () {
-        return this.data.requestStartTime
+        return (this.data) ? this.data.requestStartTime : null
       },
 
       inflDataReady: function () {
-        return this.data.inflDataReady
+        return (this.data && this.data.inflDataReady) ? this.data.inflDataReady : false
       },
       defDataReady: function () {
-        return this.data.defDataReady
+        return (this.data && this.data.defDataReady) ? this.data.defDataReady : false
       },
       translationsDataReady: function () {
-        return this.data.translationsDataReady
+        return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
       },
       morphDataReady: function () {
-        return this.data.morphDataReady
+        return (this.data && this.data.morphDataReady) ? this.data.morphDataReady : false
       },
       noLanguage: function () {
-        return this.data.currentLanguageName === undefined
+        return (this.data) ? this.data.currentLanguageName === undefined : false
       },
       currentLanguageName: function() {
-        return this.data.currentLanguageName
+        return (this.data) ? this.data.currentLanguageName : null
       },
       notificationClasses: function () {
         return {
@@ -209,13 +213,14 @@
         }
       },
       providersLinkText: function() {
-        return this.data.showProviders ? this.ln10Messages('LABEL_POPUP_HIDECREDITS') : this.ln10Messages('LABEL_POPUP_SHOWCREDITS')
+
+        return (this.data) ? this.data.showProviders ? this.ln10Messages('LABEL_POPUP_HIDECREDITS') : this.ln10Messages('LABEL_POPUP_SHOWCREDITS') : ''
       },
       showProviders: function() {
-        return this.data.showProviders
+        return (this.data) ? this.data.showProviders : null
       },
       updates: function() {
-        return this.data.updates
+        return (this.data) ? this.data.updates : null
       },
 
       positionLeftDm: function () {
@@ -507,8 +512,8 @@
         this.$emit('sendfeature',data)
       },
 
-      ln10Messages: function (value, defaultValue = 'uknown') {
-        if (this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
+      ln10Messages: function (value, defaultValue = 'unknown') {
+        if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
           return this.data.l10n.messages[value]
         }
         return defaultValue
@@ -517,7 +522,7 @@
     },
 
     mounted () {
-      if (this.data.draggable && this.data.resizable) {
+      if (this.data && this.data.draggable && this.data.resizable) {
         this.interactInstance = interact(this.$el)
           .resizable(this.resizableSettings())
           .draggable(this.draggableSettings())
