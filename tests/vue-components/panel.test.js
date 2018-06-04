@@ -26,6 +26,22 @@ import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
 describe('panel.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
@@ -874,10 +890,8 @@ describe('panel.test.js', () => {
   })
 
   it('15 Panel - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = shallowMount(Panel)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
   })
 })

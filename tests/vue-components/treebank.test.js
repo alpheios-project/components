@@ -4,6 +4,22 @@ import { mount } from '@vue/test-utils'
 import Treebank from '@/vue-components/treebank.vue'
 
 describe('treebank.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Treebank - renders a vue instance (min requirements)', () => {
     let cmp = mount(Treebank, {
       propsData: {
@@ -55,13 +71,11 @@ describe('treebank.test.js', () => {
   })
 
   it('3 Treebank - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(Treebank)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "locale"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "locale"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
   })
 })

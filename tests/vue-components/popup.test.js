@@ -24,6 +24,22 @@ describe('popup.test.js', () => {
     .addMessages(enGB, Locales.en_GB)
     .setLocale(Locales.en_US)
 
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Popup - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Popup, {
       propsData: {
@@ -504,18 +520,16 @@ describe('popup.test.js', () => {
   })
 
   it('11 Popup - check required props 1', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = shallowMount(Popup, {
       propsData: {}
     })
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "definitions"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "linkedfeatures"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
   })
 })

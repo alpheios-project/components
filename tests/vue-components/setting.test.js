@@ -4,6 +4,22 @@ import { mount } from '@vue/test-utils'
 import Setting from '../../src/vue-components/setting.vue'
 
 describe('setting.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Setting - renders a vue instance (min requirements)', () => {
     let cmp = mount(Setting, {
       propsData: {
@@ -46,10 +62,8 @@ describe('setting.test.js', () => {
   })
 
   it('4 Setting - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(Setting)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
   })
 })
