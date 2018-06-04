@@ -505,7 +505,7 @@ describe('popup.test.js', () => {
     res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
     expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
   })
-
+/*
   it('11 Popup - check required props 1', () => {
     let spy = jest.spyOn(console, 'error')
     let cmp = shallowMount(Popup, {
@@ -521,4 +521,5 @@ describe('popup.test.js', () => {
     expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
     spy.mockReset()
   })
+*/
 })
