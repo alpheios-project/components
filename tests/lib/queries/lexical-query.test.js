@@ -155,7 +155,6 @@ describe('lexical-query.test.js', () => {
     spy3.mockReset()
   })
 
-
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -216,8 +215,6 @@ describe('lexical-query.test.js', () => {
     spy2.mockReset()
   })
 
-
-/*
   it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -243,7 +240,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-
+/*
   it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
