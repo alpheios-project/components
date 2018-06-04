@@ -316,11 +316,11 @@ describe('morph-inner-v1.test.js', () => {
       }
     }
   })
-  /*
+
   it('7 Morph - render translations', () => {
     let cmp = mount(MorphInner, {
       propsData: {
-        lexemes: [
+        lex:
           {
             inflections: [],
             lemma: {
@@ -334,8 +334,7 @@ describe('morph-inner-v1.test.js', () => {
             meaning: {},
             isPopulated: () => { return true },
             getGroupedInflections: () => { return [] }
-          }
-        ],
+          },
         translations: {
           l1: {
             glosses: [ 'some foo translation' ],
@@ -349,7 +348,7 @@ describe('morph-inner-v1.test.js', () => {
     expect(cmp.find('.alpheios-morph__translation_list').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-morph__translation_list').find('.alpheios-lemma__translations-gloss').text()).toEqual('some foo translation')
   })
-*/
+
   it('8 Morph - render inflection group', () => {
     let tense = { type: 'tense',
       _data: [{ value: 'perfect', sortOrder: 1 }],

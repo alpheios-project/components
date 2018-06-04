@@ -214,7 +214,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-
+/*
   it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -240,7 +240,7 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-/*
+
   it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
