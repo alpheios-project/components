@@ -8,4 +8,4 @@ jobs:
   include: 
     - stage: test
       script: npm run test-lib
-      script: npm run test-production
+      script: npm run test-components
