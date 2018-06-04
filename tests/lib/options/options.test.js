@@ -6,7 +6,23 @@ import StorageAdapter from '@/lib/options/storage-adapter'
 import LocalStorageArea from '@/lib/options/local-storage-area'
 
 describe('options.test.js', () => {
-  jest.spyOn(Options, 'initItems')
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+    jest.spyOn(Options, 'initItems')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   window.localStorage = {
     values: {},
     getItem: function (key) {
@@ -132,7 +148,6 @@ describe('options.test.js', () => {
     let opt = new Options(testDefaults, LocalStorageArea)
 
     let callBackFn = jest.fn(() => { console.log('I am callBackFn') })
-    jest.spyOn(console, 'error')
 
     let testError = new Error('storageAdapter reject error')
 

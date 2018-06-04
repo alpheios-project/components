@@ -15,6 +15,23 @@ import SiteOptions from './fixtures/site-options-shortlex.json'
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
 describe('lexical-query.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+  console.info = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
@@ -134,9 +151,9 @@ describe('lexical-query.test.js', () => {
     let languageID = LMF.getLanguageIdFromCode(testTextSelector.languageCode)
     query.active = false
 
-    let spy1 = jest.spyOn(curUI, 'setTargetRect')
-    let spy2 = jest.spyOn(curUI, 'showStatusInfo')
-    let spy3 = jest.spyOn(curUI, 'updateWordAnnotationData')
+    jest.spyOn(curUI, 'setTargetRect')
+    jest.spyOn(curUI, 'showStatusInfo')
+    jest.spyOn(curUI, 'updateWordAnnotationData')
 
     await query.getData()
 
@@ -144,10 +161,6 @@ describe('lexical-query.test.js', () => {
     expect(curUI.showStatusInfo).toHaveBeenCalledWith(testTextSelector.normalizedText, languageID)
     expect(curUI.updateWordAnnotationData).toHaveBeenCalledWith(testTextSelector.data)
     expect(query.languageID).toEqual(languageID)
-
-    spy1.mockReset()
-    spy2.mockReset()
-    spy3.mockReset()
   })
 
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
@@ -161,11 +174,11 @@ describe('lexical-query.test.js', () => {
     query.getLexiconOptions = function () { return { allow: false } }
 
     query.LDFAdapter = testLDFAdapterFailed
-    let spy = jest.spyOn(query.maAdapter, 'getHomonym')
-    let spy1 = jest.spyOn(curUI, 'addMessage')
-    let spy2 = jest.spyOn(curUI, 'updateMorphology')
-    let spy3 = jest.spyOn(curUI, 'updateDefinitions')
-    let spy4 = jest.spyOn(curUI, 'showStatusInfo')
+    jest.spyOn(query.maAdapter, 'getHomonym')
+    jest.spyOn(curUI, 'addMessage')
+    jest.spyOn(curUI, 'updateMorphology')
+    jest.spyOn(curUI, 'updateDefinitions')
+    jest.spyOn(curUI, 'showStatusInfo')
 
     await query.getData()
 
@@ -174,14 +187,8 @@ describe('lexical-query.test.js', () => {
     expect(curUI.updateMorphology).toHaveBeenCalledWith(testHomonym)
     expect(curUI.updateDefinitions).toHaveBeenCalledWith(testHomonym)
     expect(curUI.showStatusInfo).toHaveBeenCalledWith(testHomonym.targetWord, testHomonym.languageID)
-
-    spy.mockReset()
-    spy1.mockReset()
-    spy2.mockReset()
-    spy3.mockReset()
-    spy4.mockReset()
   })
-/*
+
   it('5 LexicalQuery - getData executes iterations: LDFAdapter.getInflectionData and after it getInflectionData, addMessage, updateInflections', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -195,19 +202,15 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    let spy = jest.spyOn(query.LDFAdapter, 'getInflectionData')
-    let spy1 = jest.spyOn(curUI, 'addMessage')
-    let spy2 = jest.spyOn(curUI, 'updateInflections')
+    jest.spyOn(query.LDFAdapter, 'getInflectionData')
+    jest.spyOn(curUI, 'addMessage')
+    jest.spyOn(curUI, 'updateInflections')
 
     await query.getData()
 
     expect(query.LDFAdapter.getInflectionData).toHaveBeenCalledWith(testHomonym)
     expect(curUI.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     expect(curUI.updateInflections).toHaveBeenCalledWith(testLexicalData, testHomonym)
-
-    spy.mockReset()
-    spy1.mockReset()
-    spy2.mockReset()
   })
 
   it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
@@ -224,16 +227,13 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    let spy1 = jest.spyOn(console, 'error')
-    let spy2 = jest.spyOn(curUI, 'addMessage')
+    jest.spyOn(console, 'error')
+    jest.spyOn(curUI, 'addMessage')
 
     await query.getData()
 
     expect(console.error).toHaveBeenCalled()
     expect(curUI.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get('Full definition', testHomonym.lexemes[0].lemma.word))
-
-    spy1.mockReset()
-    spy2.mockReset()
   })
 
   it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
@@ -250,19 +250,15 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    let spy1 = jest.spyOn(query.lexicons, 'fetchShortDefs')
-    let spy2 = jest.spyOn(query.lexicons, 'fetchFullDefs')
-    let spy3 = jest.spyOn(curUI, 'updateDefinitions')
+    jest.spyOn(query.lexicons, 'fetchShortDefs')
+    jest.spyOn(query.lexicons, 'fetchFullDefs')
+    jest.spyOn(curUI, 'updateDefinitions')
 
     await query.getData()
 
     expect(query.lexicons.fetchShortDefs).toHaveBeenCalledWith({ word: 'foo lemma' }, { allow: false })
     expect(query.lexicons.fetchFullDefs).toHaveBeenCalledWith({ word: 'foo lemma' }, { allow: false })
     expect(curUI.updateDefinitions).toHaveBeenCalledWith(testHomonym)
-
-    spy1.mockReset()
-    spy2.mockReset()
-    spy3.mockReset()
   })
 
   it('9 LexicalQuery - getData executes fetchTranslations and it executes updateTranslations', async () => {
@@ -280,8 +276,8 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    let spy1 = jest.spyOn(query.lemmaTranslations, 'fetchTranslations')
-    let spy2 = jest.spyOn(curUI, 'updateTranslations')
+    jest.spyOn(query.lemmaTranslations, 'fetchTranslations')
+    jest.spyOn(curUI, 'updateTranslations')
 
     await query.getData()
 
@@ -289,9 +285,6 @@ describe('lexical-query.test.js', () => {
 
     expect(query.lemmaTranslations.fetchTranslations).toHaveBeenCalledWith([{ word: 'foo lemma' }], testTextSelector.languageCode, userLang)
     expect(curUI.updateTranslations).toHaveBeenCalledWith(testHomonym)
-
-    spy1.mockReset()
-    spy2.mockReset()
   })
 
   it('10 LexicalQuery - getLexiconOptions parses lexicons', () => {
@@ -336,5 +329,4 @@ describe('lexical-query.test.js', () => {
 
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({})
   })
-  */
 })

@@ -8,6 +8,23 @@ import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
 describe('l10n.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+  console.info = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 l10n - constructor creates an object with two attributes', () => {
     let testLn10 = new L10n()
 
@@ -79,8 +96,6 @@ describe('l10n.test.js', () => {
 
     testLn10.setLocale(Locales.en_US)
     expect(testLn10.selectedLocale).toEqual(Locales.en_US)
-
-    jest.spyOn(console, 'error')
 
     testLn10.setLocale(Locales.en_GB)
     expect(console.error).toHaveBeenCalledWith(`Cannot set locale to "${Locales.en_GB}" because there is no message bundle for it`)

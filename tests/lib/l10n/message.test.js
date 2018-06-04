@@ -6,6 +6,23 @@ import enUS from '@/locales/en-us/messages.json'
 import Locales from '@/locales/locales'
 
 describe('message.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+  console.info = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Message - constructor has required properties Locale and messagesJSON', () => {
     expect(function () {
       let l = new Message(enUS['COOKIE_TEST_MESSAGE'], null)
