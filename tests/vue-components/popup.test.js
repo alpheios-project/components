@@ -351,7 +351,7 @@ describe('popup.test.js', () => {
 
     expect(cmp.emitted()['closepopupnotifications']).toBeTruthy()
   })
-
+/*
   it('8 Popup - check events on created, change visible and updated', async () => {
     let curProps = {
       data: {},
@@ -521,4 +521,5 @@ describe('popup.test.js', () => {
     expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "translations"'))
     spy.mockReset()
   })
+  */
 })
