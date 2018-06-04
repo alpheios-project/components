@@ -18,9 +18,6 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
-console.error = function () {}
-console.log = function () {}
-
 describe('popup.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)

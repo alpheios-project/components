@@ -3,11 +3,6 @@ import TextSelector from '@/lib/selection/text-selector'
 
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('text-selector.test.js', () => {
   let testLangId = LMF.getLanguageIdFromCode('lat')
   jest.spyOn(console, 'warn')

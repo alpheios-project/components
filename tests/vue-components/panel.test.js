@@ -25,9 +25,6 @@ import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 
-console.error = function () {}
-console.log = function () {}
-
 describe('panel.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)

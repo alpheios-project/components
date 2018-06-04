@@ -7,11 +7,6 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('l10n.test.js', () => {
   it('1 l10n - constructor creates an object with two attributes', () => {
     let testLn10 = new L10n()

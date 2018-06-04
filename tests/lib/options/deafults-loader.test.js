@@ -1,11 +1,6 @@
 /* eslint-env jest */
 import DefaultsLoader from '@/lib/options/defaults-loader'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('deafults-loader.test.js', () => {
   it('1 DefaultsLoader has fromJSON static method', () => {
     expect(typeof DefaultsLoader.fromJSON).toEqual('function')

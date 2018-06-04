@@ -1,11 +1,6 @@
 /* eslint-env jest */
 import StorageAdapter from '@/lib/options/storage-adapter'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('storage-adapter.test.js', () => {
   it('1 StorageAdapter constructor saves domain to params when created', () => {
     let stAdapter = new StorageAdapter('foo-domain-name')

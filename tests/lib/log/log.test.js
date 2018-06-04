@@ -1,11 +1,6 @@
 /* eslint-env jest */
 import Logger from '../../../src/lib/log/logger'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('logger.test.js', () => {
   let spy
 

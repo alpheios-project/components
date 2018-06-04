@@ -4,11 +4,6 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 import enUS from '@/locales/en-us/messages.json'
 import Locales from '@/locales/locales'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('message-bundle.test.js', () => {
   it('1 MessageBundle - constructor has required properties Locale and messagesJSON', () => {
     expect(function () {
