@@ -407,4 +407,72 @@ describe('popup.test.js', () => {
 
     expect(cmp.vm.updatePopupDimensions).toHaveBeenCalled()
   })
+
+  it('9 Popup - check computed properties', async () => {
+    let curProps = {
+      data: {
+        requestStartTime: 'foo-time',
+        inflDataReady: 'foo-inflDataReady',
+        defDataReady: 'foo-defDataReady',
+        translationsDataReady: 'foo-translationsDataReady',
+        morphDataReady: 'foo-morphDataReady',
+        currentLanguageName: 'foo-language',
+        showProviders: 'foo-showProviders',
+        updates: 'foo-updates'
+      },
+      messages: [],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+
+    curProps.data.l10n = l10n
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+    curProps.data.settings = { popupPosition: { currentValue: 'fixed' } }
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
+
+    expect(cmp.vm.uiController).toBeNull()
+    expect(cmp.vm.requestStartTime).toEqual('foo-time')
+    expect(cmp.vm.inflDataReady).toEqual('foo-inflDataReady')
+    expect(cmp.vm.defDataReady).toEqual('foo-defDataReady')
+    expect(cmp.vm.translationsDataReady).toEqual('foo-translationsDataReady')
+    expect(cmp.vm.morphDataReady).toEqual('foo-morphDataReady')
+    expect(cmp.vm.currentLanguageName).toEqual('foo-language')
+    expect(cmp.vm.showProviders).toEqual('foo-showProviders')
+    expect(cmp.vm.updates).toEqual('foo-updates')
+  })
+
+  it('10 Popup - check methods', async () => {
+    let curProps = {
+      data: {},
+      messages: ['foomessage1', 'foomessage2'],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+
+    curProps.data.l10n = l10n
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+    curProps.data.settings = { popupPosition: { currentValue: 'fixed' } }
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
+
+    cmp.vm.clearMessages()
+    expect(cmp.vm.messages.length).toEqual(0)
+
+    cmp.vm.uiOptionChanged('fooname', 'foovalue')
+    expect(cmp.emitted()['ui-option-change']).toBeTruthy()
+    expect(cmp.emitted()['ui-option-change'][0]).toEqual(['fooname', 'foovalue'])
+  })
 })
