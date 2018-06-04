@@ -8,6 +8,8 @@ describe('query.test.js', () => {
     location: 'http://example.org',
     languageCode: 'lat'
   }
+  console.warn = function () {}
+  console.log = function () {}
 
   it('1 Query - A new Query return object with name, ID and active properties', () => {
     let query = new Query('foo')
@@ -34,15 +36,15 @@ describe('query.test.js', () => {
 
   it('5 Query - Trying to execute direct getData throws a warn in console', () => {
     let query = new Query('foo')
-    let spy = jest.spyOn(console, 'warn')
+    jest.spyOn(console, 'warn')
     query.getData()
-    expect(spy).toBeCalled()
+    expect(console.warn).toBeCalled()
   })
 
   it('6 Query - Trying to execute finalize throws an Error and a warn in console', () => {
     let query = new Query('foo')
-    let spy = jest.spyOn(console, 'warn')
-    expect(spy).toBeCalled()
+    jest.spyOn(console, 'warn')
+    expect(console.warn).toBeCalled()
     expect(query.finalize).toThrowError(Error)
   })
 })
