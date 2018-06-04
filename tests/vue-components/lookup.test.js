@@ -19,6 +19,22 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup.js'
 
 describe('lookup.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
@@ -142,10 +158,8 @@ describe('lookup.test.js', () => {
   })
 
   it('6 Lookup - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(Lookup)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "uiController"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "uiController"'))
   })
 })

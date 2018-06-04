@@ -5,6 +5,20 @@ import InflectionAttribute from '@/vue-components/infl-attribute.vue'
 import Vue from 'vue/dist/vue'
 
 describe('tooltip.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 InflectionAttribute - renders a vue instance (min requirements)', () => {
     let cmp = mount(InflectionAttribute, {
       propsData: {
@@ -59,11 +73,9 @@ describe('tooltip.test.js', () => {
   })
 
   it('3 InflectionAttribute - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(InflectionAttribute)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "type"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "type"'))
   })
 })

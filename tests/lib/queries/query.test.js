@@ -11,6 +11,15 @@ describe('query.test.js', () => {
   console.warn = function () {}
   console.log = function () {}
 
+  beforeEach(() => {
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
   it('1 Query - A new Query return object with name, ID and active properties', () => {
     let query = new Query('foo')
 

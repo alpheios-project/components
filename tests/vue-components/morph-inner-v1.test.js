@@ -8,6 +8,22 @@ import ShortDef from '@/vue-components/shortdef.vue'
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
 describe('morph-inner-v1.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Morph - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(MorphInner, {
       propsData: {
@@ -493,13 +509,11 @@ describe('morph-inner-v1.test.js', () => {
   })
 
   it('9 MorphInner - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(MorphInner)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lex"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "index"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "count"'))
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "morphDataReady"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lex"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "index"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "count"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "morphDataReady"'))
   })
 })

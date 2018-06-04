@@ -4,6 +4,20 @@ import { mount } from '@vue/test-utils'
 import Grammar from '@/vue-components/grammar.vue'
 
 describe('grammar.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 Grammar - renders a vue instance (min requirements)', () => {
     let cmp = mount(Grammar, {
       propsData: {
@@ -31,10 +45,8 @@ describe('grammar.test.js', () => {
   })
 
   it('3 Grammar - check required props', () => {
-    let spy = jest.spyOn(console, 'error')
     let cmp = mount(Grammar)
 
-    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
-    spy.mockReset()
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
   })
 })
