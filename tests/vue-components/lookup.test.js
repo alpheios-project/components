@@ -32,7 +32,7 @@ describe('lookup.test.js', () => {
     })
     expect(cmp.isVueInstance()).toBeTruthy()
   })
-  /*
+
   it('2 Lookup - full renders and click lookup button execute', () => {
     let fn = LexicalQueryLookup.create
     LexicalQueryLookup.create = function () {
@@ -74,7 +74,7 @@ describe('lookup.test.js', () => {
 
     LexicalQueryLookup.create = fn
   })
-*/
+
   it('3 Lookup - created with parent language', () => {
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
