@@ -3,20 +3,12 @@ import Query from '@/lib/queries/query'
 
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
-
 describe('query.test.js', () => {
   let mockSelector = {
     location: 'http://example.org',
     languageCode: 'lat'
   }
 
-  // let uiController = {
-  //   updateLanguage: function () { }
-  // }
   it('1 Query - A new Query return object with name, ID and active properties', () => {
     let query = new Query('foo')
 

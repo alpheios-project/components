@@ -1,10 +1,5 @@
 /* eslint-env jest */
-import OptionItem from '../../../src/lib/options/options-item'
-
-console.error = function () {
-  let arg = arguments[0].toString()
-  console.warn('error - ', arg)
-}
+import OptionItem from '@/lib/options/options-item'
 
 describe('options-item.test.js', () => {
   let values = [
