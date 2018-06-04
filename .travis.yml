@@ -4,3 +4,8 @@ node_js:
  - "9.10.1"
 notifications:
   slack: alpheiosproject:9WEA6UNyLr3U0bWIJctp1rqS
+jobs:
+  include: 
+    -stage: test
+    -script: npm run test-lib
+    -script: npm run test-production
