@@ -10,6 +10,22 @@ describe('media-selector.test.js', () => {
     }
   }
 
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 MediaSelector - constructor should have event argument with target', () => {
     let testError = new TypeError('Cannot read property \'ownerDocument\' of undefined')
     expect(function () {

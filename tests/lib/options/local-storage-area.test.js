@@ -13,9 +13,24 @@ describe('local-storage-area.test.js', () => {
     }
   }
 
-  jest.spyOn(window.localStorage, 'getItem')
-  jest.spyOn(window.localStorage, 'setItem')
-  jest.spyOn(console, 'log')
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+
+    jest.spyOn(window.localStorage, 'getItem')
+    jest.spyOn(window.localStorage, 'setItem')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
   it('1 LocalStorageArea has a get method that executes getItem of window.localStorage', async () => {
     let stAdapter = new LocalStorageArea('alpheios-content-options')

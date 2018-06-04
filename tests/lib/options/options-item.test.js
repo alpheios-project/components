@@ -2,6 +2,22 @@
 import OptionItem from '@/lib/options/options-item'
 
 describe('options-item.test.js', () => {
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   let values = [
     { text: 'Latin', value: 'lat' },
     { text: 'Greek', value: 'grc' },
@@ -72,23 +88,21 @@ describe('options-item.test.js', () => {
   it('8 OptionItem has a setValue method and it changes currentValue and executes save method', () => {
     let newOptionItem = new OptionItem(item, 'preferredLanguage', stAdapter)
 
-    let spy = jest.spyOn(newOptionItem, 'save')
+    jest.spyOn(newOptionItem, 'save')
     newOptionItem.setValue('ara')
 
     expect(newOptionItem.currentValue).toEqual('ara')
     expect(newOptionItem.save).toHaveBeenCalled()
-    spy.mockReset()
   })
 
   it('9 OptionItem has a setTextValue method and it changes currentValue and executes save method', () => {
     let newOptionItem = new OptionItem(item, 'preferredLanguage', stAdapter)
 
-    let spy = jest.spyOn(newOptionItem, 'save')
+    jest.spyOn(newOptionItem, 'save')
     newOptionItem.setTextValue('Persian')
 
     expect(newOptionItem.currentValue).toEqual('per')
     expect(newOptionItem.save).toHaveBeenCalled()
-    spy.mockReset()
   })
 
   it('10 OptionItem - If OptionItem is multiValue then a setTextValue method saves an array', () => {
@@ -105,8 +119,7 @@ describe('options-item.test.js', () => {
       set: () => { return new Promise((resolve, reject) => { resolve(true) }) }
     }
     let newOptionItem = new OptionItem(item, 'preferredLanguage', curStAdapter)
-    let spy = jest.spyOn(curStAdapter, 'set')
-    let spyC = jest.spyOn(console, 'log')
+    jest.spyOn(curStAdapter, 'set')
 
     await newOptionItem.save()
 
@@ -114,9 +127,6 @@ describe('options-item.test.js', () => {
 
     expect(curStAdapter.set).toHaveBeenCalledWith(testOption)
     expect(console.log).toHaveBeenCalledWith('Value "lat" of "preferredLanguage" option value was stored successfully')
-
-    spy.mockReset()
-    spyC.mockReset()
   })
 
   it('12 OptionItem has a save method and it executes a set method of StorageAdapter, if set Promise is rejected it prints an error to console', async () => {
@@ -126,12 +136,8 @@ describe('options-item.test.js', () => {
       set: () => { return new Promise((resolve, reject) => { reject(testError) }) }
     }
     let newOptionItem = new OptionItem(item, 'preferredLanguage', curStAdapter)
-    let spyC = jest.spyOn(console, 'error')
-
     await newOptionItem.save()
 
     expect(console.error).toHaveBeenCalledWith(`Storage of an option value failed: ${testError}`)
-
-    spyC.mockReset()
   })
 })

@@ -9,11 +9,26 @@ import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 
-
 describe('annotation-query.test.js', () => {
   let emptyPromise
   beforeEach(() => {
     emptyPromise = () => { return new Promise((resolve, reject) => {}) }
+  })
+
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
   })
 
   let l10n = new L10n()

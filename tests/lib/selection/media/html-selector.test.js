@@ -12,6 +12,22 @@ describe('html-selector.test.js', () => {
       }
     }
   }
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   document.createRange = function () { return { selectNode: function () {} } }
 
   let testEventF = {
@@ -37,7 +53,6 @@ describe('html-selector.test.js', () => {
   it('2 HTMLSelector - constructor fills targetRect properties, ', () => {
     let testHTMLEvent = new HTMLSelector(testEventF)
 
-    // console.log('*********************testHTMLEvent', testHTMLEvent)
     expect(testHTMLEvent.targetRect.top).toEqual(testEventF.clientY)
     expect(testHTMLEvent.targetRect.left).toEqual(testEventF.clientX)
     expect(testHTMLEvent.wordSeparator).toBeDefined()
@@ -86,7 +101,6 @@ describe('html-selector.test.js', () => {
   })
 
   it('7 HTMLSelector - getSelection method executes target.ownerDocument.getSelection and if getSelection returns null then console warns', () => {
-    jest.spyOn(console, 'warn')
     let res = HTMLSelector.getSelection({ ownerDocument: { getSelection: function () { return null } } })
 
     expect(console.warn).toHaveBeenCalledWith(`Cannot get selection from a document`)

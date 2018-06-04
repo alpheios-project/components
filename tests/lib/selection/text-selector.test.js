@@ -5,7 +5,22 @@ import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
 describe('text-selector.test.js', () => {
   let testLangId = LMF.getLanguageIdFromCode('lat')
-  jest.spyOn(console, 'warn')
+
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
   it('1 TextSelector - constructor doesn\'t have required properties', () => {
     expect(function () {

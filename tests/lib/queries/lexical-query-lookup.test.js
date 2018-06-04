@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 
-
 describe('lexical-query-lookup.test.js', () => {
   let mockSelector = {
     location: 'http://example.org',

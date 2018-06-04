@@ -20,6 +20,22 @@ describe('resource-query.test.js', () => {
     l10n: l10n
   }
 
+  console.error = function () {}
+  console.log = function () {}
+  console.warn = function () {}
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('1 ResourceQuery - create method returns a new ResourceQuery with params', () => {
     let query = ResourceQuery.create('foo feature', { uiController: 'foo uiController', grammars: 'foo grammars' })
 
@@ -39,12 +55,12 @@ describe('resource-query.test.js', () => {
       }
     }
 
-    let spy1 = jest.spyOn(testUi, 'message')
-    let spy2 = jest.spyOn(testUi, 'updateGrammar')
-    let spy3 = jest.spyOn(testUi, 'addMessage')
+    jest.spyOn(testUi, 'message')
+    jest.spyOn(testUi, 'updateGrammar')
+    jest.spyOn(testUi, 'addMessage')
 
     let query = ResourceQuery.create('foo feature', { uiController: testUi, grammars: testGrammars })
-    let spy4 = jest.spyOn(query, 'finalize')
+    jest.spyOn(query, 'finalize')
 
     await query.getData()
 
@@ -53,11 +69,6 @@ describe('resource-query.test.js', () => {
 
     expect(testUi.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
     expect(query.finalize).toHaveBeenCalled()
-
-    spy1.mockReset()
-    spy2.mockReset()
-    spy3.mockReset()
-    spy4.mockReset()
   })
 
   it('3 ResourceQuery - getData method executes updateGrammar with url as an argument (when fetchResources returns request url)', async () => {
@@ -70,15 +81,13 @@ describe('resource-query.test.js', () => {
     }
 
     let query = ResourceQuery.create('foo feature', { uiController: testUi, grammars: testGrammars })
-    let spy1 = jest.spyOn(testUi, 'updateGrammar')
-    let spy2 = jest.spyOn(testUi, 'addMessage')
+    jest.spyOn(testUi, 'updateGrammar')
+    jest.spyOn(testUi, 'addMessage')
 
     await query.getData()
     expect(testUi.updateGrammar).toHaveBeenCalledWith('http:/testurl.com')
     expect(testUi.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
     expect(testUi.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE)
-    spy1.mockReset()
-    spy2.mockReset()
   })
 
   it('4 ResourceQuery - getData method throws error to console when fetchResources returns error', async () => {
@@ -92,13 +101,10 @@ describe('resource-query.test.js', () => {
     }
 
     let query = ResourceQuery.create('foo feature', { uiController: testUi, grammars: testGrammars })
-    let spy = jest.spyOn(console, 'log')
 
     await query.getData()
 
     expect(console.log).toHaveBeenCalledWith('Error retrieving Grammar resource', testError)
-
-    spy.mockReset()
   })
 
   it('5 ResourceQuery - On finalize Query.destroy executes', async () => {
@@ -108,11 +114,9 @@ describe('resource-query.test.js', () => {
       }
     }
 
-    let spy = jest.spyOn(Query, 'destroy')
+    jest.spyOn(Query, 'destroy')
     let query = ResourceQuery.create('foo feature', { uiController: testUi, grammars: testGrammars })
     query.finalize()
     expect(Query.destroy).toHaveBeenCalled()
-
-    spy.mockReset()
   })
 })
