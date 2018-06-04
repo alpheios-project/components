@@ -4,6 +4,8 @@ import { shallowMount, mount } from '@vue/test-utils'
 import Morph from '@/vue-components/morph.vue'
 import MorphInner from '@/vue-components/morph-inner-v1.vue'
 
+console.error = function () {}
+
 describe('morph.test.js', () => {
   it('1 Morph - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Morph, {
