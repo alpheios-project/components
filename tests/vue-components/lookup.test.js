@@ -140,4 +140,12 @@ describe('lookup.test.js', () => {
 
     expect(cmp.vm.resourceOptions.items[keyinfo.setting][0].currentTextValue()).toEqual(['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
   })
+
+  it('6 Lookup - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Lookup)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "uiController"'))
+    spy.mockReset()
+  })
 })

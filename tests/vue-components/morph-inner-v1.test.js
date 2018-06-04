@@ -491,4 +491,15 @@ describe('morph-inner-v1.test.js', () => {
     expect(morphForms.find('[data-feature="voice"]').element.getAttribute('data-grouplevel')).toEqual('4')
     expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active')
   })
+
+  it('9 MorphInner - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(MorphInner)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lex"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "index"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "count"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "morphDataReady"'))
+    spy.mockReset()
+  })
 })

@@ -44,4 +44,12 @@ describe('setting.test.js', () => {
     expect(cmp.vm.selected).toEqual([{ text: 'footext1', value: 'foovalue1' }, { text: 'footext2', value: 'foovalue2' }])
     expect(cmp.find('select').attributes().multiple).toBeTruthy()
   })
+
+  it('4 Setting - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Setting)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    spy.mockReset()
+  })
 })

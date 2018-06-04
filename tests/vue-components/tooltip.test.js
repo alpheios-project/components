@@ -48,4 +48,12 @@ describe('tooltip.test.js', () => {
 
     expect(cmp.find('.tooltiptext').element.style.color).toEqual('red')
   })
+
+  it('3 Tooltip - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Tooltip)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "tooltipText"'))
+    spy.mockReset()
+  })
 })

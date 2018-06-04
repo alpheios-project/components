@@ -24,4 +24,13 @@ describe('morph.test.js', () => {
 
     expect(cmp.find(MorphInner).exists()).toBeFalsy()
   })
+
+  it('3 Morph - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Morph)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "morphDataReady"'))
+    spy.mockReset()
+  })
 })

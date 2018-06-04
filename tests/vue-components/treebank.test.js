@@ -53,4 +53,15 @@ describe('treebank.test.js', () => {
 
     expect(cmp.find('iframe').attributes().src).toEqual('http/example.com/foo3/foo4')
   })
+
+  it('3 Treebank - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Treebank)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "messages"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "locale"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "visible"'))
+    spy.mockReset()
+  })
 })

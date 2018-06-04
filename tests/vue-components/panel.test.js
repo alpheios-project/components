@@ -875,4 +875,12 @@ describe('panel.test.js', () => {
     expect(cmp.find('.alpheios-panel__notifications').find(Setting).vm.showTitle).toBeFalsy()
     expect(cmp.find('.alpheios-panel__notifications').find(Setting).find('label').element.style.display).toEqual('none')
   })
+
+  it('15 Panel - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = shallowMount(Panel)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    spy.mockReset()
+  })
 })

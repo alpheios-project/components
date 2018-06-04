@@ -29,4 +29,12 @@ describe('grammar.test.js', () => {
     expect(cmp.find('.alpheios-grammar__provider').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-grammar__provider').text()).toEqual('fooprovider')
   })
+
+  it('3 Grammar - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(Grammar)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "res"'))
+    spy.mockReset()
+  })
 })

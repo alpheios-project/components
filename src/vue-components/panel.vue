@@ -1,13 +1,13 @@
 <template>
-    <div class="alpheios-panel auk" :class="divClasses" :style="this.data.styles"
-         data-component="alpheios-panel" data-resizable="true" v-show="data.isOpen" 
-        :data-notification-visible="data.notification !== undefined && data.notification.important"> <!-- Show only important notifications for now -->
+    <div class="alpheios-panel auk" :class="divClasses" :style="mainstyles"
+         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
+        :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 
         <div class="alpheios-panel__header">
             <div class="alpheios-panel__header-logo">
                 <img class="alpheios-panel__header-logo-img" src="../images/icon.png">
             </div>
-            <span class="alpheios-panel__header-btn-group--center">
+            <span class="alpheios-panel__header-btn-group--center" v-if="data && data.tabs">
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_HELP')">
                 <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
@@ -84,7 +84,7 @@
             </span>
         </div>
 
-        <div class="alpheios-panel__content">
+        <div class="alpheios-panel__content" v-if="data && data.tabs">
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
                 <div class="alpheios-lookup__panel">
@@ -148,7 +148,7 @@
             </div>
         </div>
         <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
-          v-show="data.notification.important" v-if="data.notification">
+          v-show="data.notification.important" v-if="data && data.notification">
             <span @click="closeNotifications" class="alpheios-panel__notifications-close-btn">
                 <close-icon></close-icon>
             </span>
@@ -238,30 +238,36 @@
       uiController: function () {
         return (this.$parent) ? this.$parent.uiController : null
       },
+      mainstyles: function () {
+        return (this.data) ? this.data.styles : ''
+      },
       classes: function () {
         // Find index of an existing position class and replace it with an updated value
-        const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
-        const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
+        if (this.data) {
+          const positionLeftIndex = this.data.classes.findIndex(v => v === this.positionLeftClassName)
+          const positionRightIndex = this.data.classes.findIndex(v => v === this.positionRightClassName)
 
-        if (this.data.settings.panelPosition.currentValue === 'left') {
-          if (positionRightIndex >= 0) {
-            // Replace an existing value
-            this.data.classes[positionRightIndex] = this.positionLeftClassName
-          } else {
-            // Add an initial value
-            this.data.classes.push(this.positionLeftClassName)
-          }
+          if (this.data.settings.panelPosition.currentValue === 'left') {
+            if (positionRightIndex >= 0) {
+              // Replace an existing value
+              this.data.classes[positionRightIndex] = this.positionLeftClassName
+            } else {
+              // Add an initial value
+              this.data.classes.push(this.positionLeftClassName)
+            }
 
-        } else if (this.data.settings.panelPosition.currentValue === 'right') {
-          if (positionLeftIndex >= 0) {
-            // Replace an existing value
-            this.data.classes[positionLeftIndex] = this.positionRightClassName
-          } else {
-            // Add an initial value
-            this.data.classes.push(this.positionRightClassName)
+          } else if (this.data.settings.panelPosition.currentValue === 'right') {
+            if (positionLeftIndex >= 0) {
+              // Replace an existing value
+              this.data.classes[positionLeftIndex] = this.positionRightClassName
+            } else {
+              // Add an initial value
+              this.data.classes.push(this.positionRightClassName)
+            }
           }
+          return this.data.classes
         }
-        return this.data.classes
+        return null
       },
 
       notificationClasses: function () {
@@ -271,17 +277,17 @@
       },
 
       attachToLeftVisible: function () {
-        return (this.data.settings) ? this.data.settings.panelPosition.currentValue === 'right' : false
+        return (this.data && this.data.settings) ? this.data.settings.panelPosition.currentValue === 'right' : false
       },
 
       attachToRightVisible: function () {
-        return (this.data.settings) ? this.data.settings.panelPosition.currentValue === 'left' : true
+        return (this.data && this.data.settings) ? this.data.settings.panelPosition.currentValue === 'left' : true
       },
 
       // Need this to watch when inflections tab becomes active and adjust panel width to fully fit an inflection table in
       inflectionsTabVisible: function () {
         // Inform an inflection component about its visibility state change
-        if (this.data.inflectionComponentData) {
+        if (this.data && this.data.inflectionComponentData) {
           this.data.inflectionComponentData.visible = this.data.tabs.inflections
         }
         return this.data.tabs.inflections
@@ -289,12 +295,12 @@
 
       treebankTabPossible: function() {
         // treebank data is possible if we have it for the word or the page
-        return this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src ? true : false
+        return this.data && (this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src) ? true : false
       },
 
       treebankTabVisible: function() {
         // Inform treebank component about visibility state change
-        if (this.data.treebankComponentData) {
+        if (this.data && this.data.treebankComponentData) {
           this.data.treebankComponentData.visible = this.data.tabs.treebank
         }
         return this.data.tabs.treebank
@@ -308,7 +314,10 @@
       },
 
       positionClasses: function () {
-        return this.positionClassVariants[this.data.settings.panelPosition.currentValue]
+        if (this.data) {
+          return this.positionClassVariants[this.data.settings.panelPosition.currentValue]
+        }
+        return null
       }
     },
     watch: {
@@ -379,6 +388,9 @@
       },
 
       setContentWidth: function (width) {
+        if (this.data === undefined) {
+          return
+        }
         if (width === 'auto') {
           this.$el.style.removeProperty('width')
           return
@@ -401,7 +413,7 @@
       },
 
       ln10Messages: function (value, defaultValue = 'uknown') {
-        if (this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
+        if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
           return this.data.l10n.messages[value]
         }
         return defaultValue
@@ -415,6 +427,9 @@
     },
     mounted: function () {
       // Determine paddings and sidebar width for calculation of a panel width to fit content
+      if (this.data === undefined) {
+        return
+      }
       if (this.$el.querySelector) {
         let navbar = this.$el.querySelector(`#${this.navbarID}`)
         let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)

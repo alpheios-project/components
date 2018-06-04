@@ -57,4 +57,13 @@ describe('tooltip.test.js', () => {
     expect(cmp.emitted()['sendfeature']).toBeTruthy()
     expect(cmp.emitted()['sendfeature'][0]).toEqual([{ value: 'fooValue', type: 'fooType2' }])
   })
+
+  it('3 InflectionAttribute - check required props', () => {
+    let spy = jest.spyOn(console, 'error')
+    let cmp = mount(InflectionAttribute)
+
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    expect(spy).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "type"'))
+    spy.mockReset()
+  })
 })
