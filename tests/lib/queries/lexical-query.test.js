@@ -154,31 +154,7 @@ describe('lexical-query.test.js', () => {
     spy2.mockReset()
     spy3.mockReset()
   })
-  /*
-  it('3 LexicalQuery - getData could make another iterations circle if canReset = true', async () => {
-    let curUI = Object.assign({}, testUI)
-    let query = LexicalQuery.create(testTextSelector, {
-      uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: testMaAdapter
-    })
-    let languageID = LMF.getLanguageIdFromCode(testTextSelector.languageCode)
-    query.active = true
-    query.canReset = true
 
-    query.getLexiconOptions = function () { return { allow: false } }
-    query.LDFAdapter = testLDFAdapterFailed
-
-    let spy1 = jest.spyOn(query, 'getData')
-
-    await query.getData()
-
-    expect(query.canReset).toBeFalsy()
-    expect(query.getData).toHaveBeenCalled()
-
-    spy1.mockReset()
-  })
-*/
 
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
@@ -239,30 +215,9 @@ describe('lexical-query.test.js', () => {
     spy1.mockReset()
     spy2.mockReset()
   })
-  /*
-  it('6 LexicalQuery - If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
-    let curUI = Object.assign({}, testUI)
-    let query = LexicalQuery.create(testTextSelector, {
-      uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapterFailed)
-    })
-    query.canReset = false
-    query.getLexiconOptions = function () { return { allow: false } }
 
-    query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    let spy = jest.spyOn(console, 'error')
-
-    await query.getData()
-
-    expect(console.error).toHaveBeenCalledWith('LexicalQuery failed: testLexiconAdapterFailed error')
-
-    spy.mockReset()
-  })
-  */
-
+/*
   it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -389,4 +344,5 @@ describe('lexical-query.test.js', () => {
 
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({})
   })
+  */
 })
