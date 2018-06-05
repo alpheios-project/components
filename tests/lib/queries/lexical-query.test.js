@@ -163,6 +163,28 @@ describe('lexical-query.test.js', () => {
     expect(query.languageID).toEqual(languageID)
   })
 
+  it('3 LexicalQuery - getData could make another iterations circle if canReset = true', async () => {
+    let curUI = Object.assign({}, testUI)
+    let query = LexicalQuery.create(testTextSelector, {
+      uiController: curUI,
+      htmlSelector: testHtmlSelector,
+      maAdapter: testMaAdapter
+    })
+    let languageID = LMF.getLanguageIdFromCode(testTextSelector.languageCode)
+    query.active = true
+    query.canReset = true
+
+    query.getLexiconOptions = function () { return { allow: false } }
+    query.LDFAdapter = testLDFAdapterFailed
+
+    jest.spyOn(query, 'getData')
+
+    await query.getData()
+
+    expect(query.canReset).toBeFalsy()
+    expect(query.getData).toHaveBeenCalled()
+  })
+
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -211,6 +233,24 @@ describe('lexical-query.test.js', () => {
     expect(query.LDFAdapter.getInflectionData).toHaveBeenCalledWith(testHomonym)
     expect(curUI.addMessage).toHaveBeenCalledWith(l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     expect(curUI.updateInflections).toHaveBeenCalledWith(testLexicalData, testHomonym)
+  })
+
+  it('6 LexicalQuery - If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
+    let curUI = Object.assign({}, testUI)
+    let query = LexicalQuery.create(testTextSelector, {
+      uiController: curUI,
+      htmlSelector: testHtmlSelector,
+      maAdapter: Object.assign({}, testMaAdapter),
+      lexicons: Object.assign({}, testLexiconAdapterFailed)
+    })
+    query.canReset = false
+    query.getLexiconOptions = function () { return { allow: false } }
+
+    query.LDFAdapter = Object.assign({}, testLDFAdapter)
+
+    await query.getData()
+
+    expect(console.error).toHaveBeenCalledWith('LexicalQuery failed: testLexiconAdapterFailed error')
   })
 
   it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
