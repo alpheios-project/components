@@ -20,6 +20,7 @@ describe('html-selector.test.js', () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
+    HTMLSelector.isMouseEvent = jest.fn(() => true)
   })
   afterEach(() => {
     jest.resetModules()

@@ -31,7 +31,7 @@ export default class HTMLSelector extends MediaSelector {
     //      console.log('This is a pointer event')
     //    } else
 
-    if ((MouseEvent && event instanceof MouseEvent) || event.type === 'mouse-testing') {
+    if (this.constructor.isMouseEvent(event)) {
       /*
       * We do not handle mouse events other than `doubleclick` now.
       * For double clicks, selection is made by the browser automatically.
@@ -304,5 +304,14 @@ export default class HTMLSelector extends MediaSelector {
     let sel = window.getSelection()
     sel.removeAllRanges()
     sel.addRange(range)
+  }
+
+  /**
+   * Test if the event is a mouse event
+   * @param {Event} event the event to test
+   * @return true if MouseEvents are possible and it is one; otherwise false
+   */
+  static isMouseEvent (event) {
+    return MouseEvent && event instanceof MouseEvent
   }
 }
