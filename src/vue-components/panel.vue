@@ -213,8 +213,6 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
-        // positionLeftClassName: 'alpheios-panel-left',
-        // positionRightClassName: 'alpheios-panel-right',
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
@@ -412,7 +410,7 @@
           this.$el.style.width = width
       },
 
-      ln10Messages: function (value, defaultValue = 'uknown') {
+      ln10Messages: function (value, defaultValue = 'unknown') {
         if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
           return this.data.l10n.messages[value]
         }

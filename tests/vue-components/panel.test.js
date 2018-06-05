@@ -49,21 +49,15 @@ describe('panel.test.js', () => {
 
   it('1 Panel - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Panel, {
-      propsData: {
-        data: {
-          resourceSettings: {},
-          tabs: {
-            definitions: false,
-            inflections: false,
-            info: true,
-            options: false,
-            status: false,
-            treebank: false
-          }
-        }
-      }
+      propsData: {}
     })
     expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.vm.uiController).toBeNull()
+    expect(cmp.vm.mainstyles).toEqual('')
+    expect(cmp.vm.classes).toBeNull()
+    expect(cmp.vm.attachToLeftVisible).toBeFalsy()
+    expect(cmp.vm.attachToRightVisible).toBeTruthy()
+    expect(cmp.vm.positionClasses).toBeNull()
   })
 
   it('2 Panel - render with children components (min requirements)', () => {
@@ -897,5 +891,46 @@ describe('panel.test.js', () => {
     let cmp = shallowMount(Panel)
 
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+  })
+
+  it('16 Panel - check ln10Messages', () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          inflectionComponentData: {},
+          infoComponentData: {},
+          treebankComponentData: {},
+          classes: [],
+
+          settings: options.items,
+          resourceSettings: resourceOptions.items
+        }
+      }
+    })
+    let res = cmp.vm.ln10Messages()
+    expect(res).toEqual('unknown')
+
+    res = cmp.vm.ln10Messages('fooname')
+    expect(res).toEqual('unknown')
+
+    res = cmp.vm.ln10Messages('fooname', 'foounknown')
+    expect(res).toEqual('foounknown')
+
+    res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
+    expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
   })
 })
