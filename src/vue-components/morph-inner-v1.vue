@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-morph__dictentry">
+  <div class="alpheios-morph__dictentry" v-if="lex">
     <div class="alpheios-morph__features">
 
       <p class="principal_parts">
@@ -134,7 +134,7 @@
         definitions: {
           type: Array,
           required: false,
-          default: () => {[]}
+          default: () => []
         },
         linkedfeatures: {
           type: Array,

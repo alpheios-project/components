@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-grammar">
+  <div class="alpheios-grammar" v-if="res">
     <iframe class="alpheios-grammar__frame" :src="res.url"></iframe>
     <div class="alpheios-grammar__provider" v-if="res.provider">{{ res.provider.toString() }}</div>
   </div>

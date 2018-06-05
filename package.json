@@ -5,6 +5,8 @@
   "main": "dist/alpheios-components.min.js",
   "scripts": {
     "test": "standard --fix && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test-lib": "standard --fix && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test-components": "standard --fix && jest tests/vue-components --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all all vue",
     "build-prod": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all production vue",
     "build-dev": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all development vue",
@@ -120,13 +122,15 @@
     "transform": {
       "^.+\\.htmlf$": "html-loader-jest",
       "^.+\\.jsx?$": "babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor",
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "!node_modules/alpheios-data-models/"
     ],
     "moduleNameMapper": {
-      "^vue$": "vue/dist/vue.common.js"
+      "^vue$": "vue/dist/vue.common.js",
+      "^@[/](.+)": "<rootDir>/src/$1"
     },
     "moduleFileExtensions": [
       "js",

@@ -30,13 +30,15 @@ export default class HTMLSelector extends MediaSelector {
     //    if (event instanceof PointerEvent) {
     //      console.log('This is a pointer event')
     //    } else
-    if (MouseEvent && event instanceof MouseEvent) {
+
+    if (this.constructor.isMouseEvent(event)) {
       /*
       * We do not handle mouse events other than `doubleclick` now.
       * For double clicks, selection is made by the browser automatically.
       * If we want to support other mouse events, we have to create a selection manually.
       */
       console.log('This is a mouse event')
+
       this.targetRect = {
         top: event.clientY,
         left: event.clientX
@@ -127,8 +129,8 @@ export default class HTMLSelector extends MediaSelector {
    * @return {string | undefined} Language code of a text piece or undefined if language cannot be determined.
    */
   getLanguageCodeFromSource () {
-    let languageCode = this.target.getAttribute('lang') || this.target.getAttribute('xml:lang')
-    if (!languageCode) {
+    let languageCode = typeof this.target.getAttribute === 'function' ? this.target.getAttribute('lang') || this.target.getAttribute('xml:lang') : null
+    if (!languageCode && (typeof this.target.getAttribute === 'function')) {
       // If no attribute of target element found, check its ancestors
       let closestLangElement = this.target.closest('[lang]') || this.target.closest('[xml\\:lang]')
       if (closestLangElement) {
@@ -302,5 +304,14 @@ export default class HTMLSelector extends MediaSelector {
     let sel = window.getSelection()
     sel.removeAllRanges()
     sel.addRange(range)
+  }
+
+  /**
+   * Test if the event is a mouse event
+   * @param {Event} event the event to test
+   * @return true if MouseEvents are possible and it is one; otherwise false
+   */
+  static isMouseEvent (event) {
+    return MouseEvent && event instanceof MouseEvent
   }
 }

@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div v-show="! isEnabled">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
-        <div v-show="isEnabled && ! isContentAvailable">{{messages.PLACEHOLDER_INFLECT}}</div>
-        <div v-show="isContentAvailable">
+        <div v-show="! isEnabled" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
+        <div v-show="isEnabled && ! isContentAvailable" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT}}</div>
+
+        <div v-show="isContentAvailable" class="alpheios-inflections__content">
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
               <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS}}</label>
@@ -43,6 +44,7 @@
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
+
             <div v-show="!selectedView.hasComponentData">
                 <div :id="elementIDs.wideView" class=""></div>
                 <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
@@ -198,8 +200,8 @@
 
       inflectionData: function (inflectionData) {
         if (inflectionData) {
-          this.viewSet = new ViewSet(inflectionData, this.locale)
 
+          this.viewSet = new ViewSet(inflectionData, this.locale)
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
@@ -344,6 +346,7 @@
       },
 
       hideNoSuffixGroupsClick () {
+
         this.buttons.hideNoSuffixGroups.contentHidden = !this.buttons.hideNoSuffixGroups.contentHidden
         if (this.buttons.hideNoSuffixGroups.contentHidden) {
           this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.hiddenText
