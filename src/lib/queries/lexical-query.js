@@ -127,8 +127,10 @@ export default class LexicalQuery extends Query {
           console.log(`${definitionRequest.type}(s) received:`, definition)
           definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
           definitionRequest.complete = true
+          console.info('************************add message 1', this.active)
           if (this.active) {
             this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
+            console.info('************************add message 2', this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
             this.ui.updateDefinitions(this.homonym)
           }
           if (definitionRequests.every(request => request.complete)) {

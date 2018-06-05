@@ -49,7 +49,7 @@ export default class MessageBundle {
       if (!this.hasOwnProperty(key)) {
         let message = new Message(messageObj, this._locale)
         this[key] = message
-        message.defineProperties(this.messages, key)
+        this[key].defineProperties(this, key)
       } else {
         console.warn(`A key name "${key}" is reserved or already used. A message will be ignored"`)
       }
