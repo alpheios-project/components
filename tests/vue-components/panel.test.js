@@ -610,6 +610,10 @@ describe('panel.test.js', () => {
         expect(cmp.emitted()['resourcesettingchange'][0]).toEqual([`fooname`, `foovalue`])
       }
     }
+
+    cmp.find('.alpheios-panel__tab__options').find(ReskinFontColor).find('li.alpheios-skin_properties_item__small_font').trigger('click')
+    expect(cmp.emitted()['changeStyleClass']).toBeTruthy()
+    expect(cmp.emitted()['changeStyleClass'][0]).toEqual(['fontSize', 'small'])
   })
 
   it('10 Panel - active status tab', async () => {

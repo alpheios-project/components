@@ -57,11 +57,11 @@ describe('html-selector.test.js', () => {
     expect(testHTMLEvent.targetRect.left).toEqual(testEventF.clientX)
     expect(testHTMLEvent.wordSeparator).toBeDefined()
   })
-  /*
+
   it('3 HTMLSelector - createTextSelector method creates TextSelector object, executes getSelection ', () => {
     let testHTMLEvent = new HTMLSelector(testEventF)
 
-    let spy1 = jest.spyOn(HTMLSelector, 'getSelection')
+    jest.spyOn(HTMLSelector, 'getSelection')
     jest.spyOn(testHTMLEvent, 'getLanguageCodeFromSource')
 
     let res = testHTMLEvent.createTextSelector()
@@ -69,12 +69,11 @@ describe('html-selector.test.js', () => {
 
     expect(res.text).toEqual('mare') // testEventF.target.ownerDocument.getSelection().anchorNode.data
     expect(res.location).toEqual('http://localhost:8888/demo/') // testEventF.target.ownerDocument.location
-    expect(spy1).toHaveBeenCalled()
-    expect(testHTMLEvent.getLanguageCodeFromSource).toHaveBeenCalled()
+    expect(HTMLSelector.getSelection).toHaveBeenCalled()
 
     expect(res.languageID).toEqual(LMF.getLanguageIdFromCode('lat')) // testEventF.getAttribute()
   })
-*/
+
   it('4 HTMLSelector - getLanguageCodeFromSource method returns languageCode from testEventF.getAttribute() ', () => {
     let testHTMLEvent = new HTMLSelector(testEventF)
     expect(testHTMLEvent.getLanguageCodeFromSource()).toEqual('lat')
@@ -149,6 +148,11 @@ describe('html-selector.test.js', () => {
   })
 
   it('10 HTMLSelector - getDumpHTMLSelector returns emptyObject', () => {
+    let res = HTMLSelector.getDumpHTMLSelector()
+    expect(res.targetRect).toEqual({top: 0, left: 0})
+  })
+
+  it('11 HTMLSelector - selectTextRange', () => {
     let res = HTMLSelector.getDumpHTMLSelector()
     expect(res.targetRect).toEqual({top: 0, left: 0})
   })

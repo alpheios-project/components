@@ -47,11 +47,17 @@ describe('message.test.js', () => {
   })
 
   it('3 Message - defineProperties adds get to Message if message has no params', () => {
-    let m = new Message(enUS['TOOLTIP_MOVE_PANEL_RIGHT'], Locales.en_US)
+    let m1 = new Message(enUS['TOOLTIP_MOVE_PANEL_RIGHT'], Locales.en_US)
 
     let mb = new MessageBundle(enUS, Locales.en_US)
 
-    m.defineProperties(mb.messages, 'TOOLTIP_MOVE_PANEL_RIGHT')
+    m1.defineProperties(mb.messages, 'TOOLTIP_MOVE_PANEL_RIGHT')
     expect(typeof mb.messages['TOOLTIP_MOVE_PANEL_RIGHT']).toEqual('string')
+
+    let m2 = new Message(enUS['TEXT_NOTICE_DEFSDATA_READY'], Locales.en_US)
+    m2.defineProperties(mb.messages, 'TEXT_NOTICE_DEFSDATA_READY')
+
+    expect(typeof mb.messages['TEXT_NOTICE_DEFSDATA_READY'].format).toEqual('function')
+    expect(mb.messages['TEXT_NOTICE_DEFSDATA_READY'].format({requestType: 'foo type', lemma: 'foo lemma'})).toEqual(m2.formatFunc.format({requestType: 'foo type', lemma: 'foo lemma'}))
   })
 })
