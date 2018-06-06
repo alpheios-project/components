@@ -882,7 +882,7 @@ export default class UIController {
   }
 
   updateLookupOptions (currentLanguage) {
-    console.log('************UIController', updateLookupOptions)
+    console.log('************UIController')
 
     this.state.setItem('lookupLanguage', currentLanguage)
 
