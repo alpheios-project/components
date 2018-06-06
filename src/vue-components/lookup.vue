@@ -115,7 +115,7 @@
       },
 
       settingChange: function (name, value) {
-        this.options.items.lookupLanguage.setTextValue(value)
+        // this.options.items.lookupLanguage.setTextValue(value)
         this.currentLanguage = value
 
         this.$parent.$emit('settingchange', 'lookupLanguage', value)
