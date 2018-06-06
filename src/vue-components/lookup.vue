@@ -66,16 +66,8 @@
         console.log(`at creation lookup language is ${this.options.items.lookupLanguage.currentTextValue()}`)
 
         let vm = this
-        window.onbeforeunload = async function (){
-          //console.log('*********I am here onbeforeunload')
-          await vm.options.items.lookupLanguage.removeItem()
-          /*let i=0
-          let int = setInterval(function(){
-            i++
-            if (i > 10000) {
-              clearTimeout(int)
-            }
-          }, 100)*/
+        window.onbeforeunload = function (){
+          vm.options.items.lookupLanguage.removeItem()
         }
       }
     },
