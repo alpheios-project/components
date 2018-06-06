@@ -327,9 +327,7 @@ export default class UIController {
           }
         },
         resourceSettingChange: function (name, value) {
-          console.log('*********************resourceSettingChange 1', name, value)
           let keyinfo = this.resourceOptions.parseKey(name)
-          console.log('*********************resourceSettingChange 2', keyinfo)
           console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         },
@@ -367,7 +365,6 @@ export default class UIController {
         console.log('UI options are loaded')
         this.updateLanguage(this.options.items.preferredLanguage.currentValue)
         this.updateVerboseMode()
-        console.log('************optionsLoad')
         this.updateLookupOptions()
       })
     })

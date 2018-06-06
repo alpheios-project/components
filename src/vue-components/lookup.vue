@@ -62,8 +62,6 @@
       if (this.uiController) {
         this.options = this.uiController.options
         this.resourceOptions = this.uiController.resourceOptions
-
-        // this.currentLanguage = this.options.items.lookupLanguage.currentTextValue()
         console.log(`at creation lookup language is ${this.currentLanguage}`)
       }
     },
@@ -109,8 +107,6 @@
       },
 
       settingChange: function (name, value) {
-        // this.currentLanguage = value
-
         this.$parent.$emit('settingchange', 'lookupLanguage', value)
       },
 
