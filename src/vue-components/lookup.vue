@@ -107,7 +107,10 @@
       },
 
       settingChange: function (name, value) {
-        this.$parent.$emit('settingchange', 'lookupLanguage', value)
+        this.options.items.lookupLanguage.setTextValue(value)
+        if (this.$parent !== undefined) {
+          this.$parent.$emit('settingchange', 'lookupLanguage', value)
+        }
       },
 
       resourceSettingChange: function (name, value) {
