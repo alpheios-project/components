@@ -86,7 +86,7 @@
         console.log('**********calc lookupLanguage 1', this.options.items.lookupLanguage)
         console.log('**********calc lookupLanguage currentValue', this.options.items.lookupLanguage.currentValue)
         console.log('**********calc lookupLanguage defaultValue', this.options.items.lookupLanguage.defaultValue)
-        if (this.options.items.lookupLanguage.currentValue === []) {
+        if (this.options.items.lookupLanguage.currentValue === '') {
           console.log('**********calc lookupLanguage emit')
           this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
         }

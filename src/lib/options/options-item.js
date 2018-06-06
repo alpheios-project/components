@@ -50,7 +50,11 @@ export default class OptionItem {
   }
 
   setTextValue (textValue) {
-    this.currentValue = []
+    if (this.multiValue) {
+      this.currentValue = []
+    } else {
+      this.currentValue = ''
+    }
     for (let value of this.values) {
       if (this.multiValue) {
         for (let tv of textValue) {
