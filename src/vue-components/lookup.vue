@@ -66,7 +66,7 @@
 
         let vm = this
         window.onbeforeunload = function(){
-          vm.$parent.$emit('settingchange', 'lookupLanguage', '')
+          vm.$parent.$emit('settingchange', 'lookupLanguage', null)
         }
       }
     },
@@ -83,6 +83,10 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
+        console.log('**********calc lookupLanguage', this.options.items.lookupLanguage)
+        if (this.options.items.lookupLanguage === null) {
+          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.values[0].currentTextValue())
+        }
         return this.options.items.lookupLanguage
       }
 
