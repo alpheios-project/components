@@ -56,12 +56,7 @@
       parentLanguage: {
         type: String,
         required: false
-      }*/,
-      visible: {
-        type: Boolean,
-        required: false,
-        default: true
-      }
+      }*/
     },
     created: function () {
       if (this.uiController) {
@@ -104,9 +99,12 @@
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
-        LexicalQueryLookup
+        let result = LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
+
+        if (typeof result === 'object' && result instanceof Error) { return }
+        this.clearTooltipText()
       },
 
       switchLookupSettings: function () {
@@ -138,13 +136,6 @@
 
       clearTooltipText: function () {
         this.tooltipText = ''
-      }
-    },
-    watch: {
-      visible: function (value) {
-        if (!value) {
-          this.clearTooltipText()
-        }
       }
     }
   }
