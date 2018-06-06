@@ -68,6 +68,11 @@
         window.onbeforeunload = function(){
           vm.$parent.$emit('settingchange', 'lookupLanguage', null)
         }
+
+        if (this.options.items.lookupLanguage.currentValue === '') {
+          this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
+          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
+        }
       }
     },
     computed: {
@@ -83,10 +88,6 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
-        if (this.options.items.lookupLanguage.currentValue === '') {
-          this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
-          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
-        }
         return this.options.items.lookupLanguage
       }
 
