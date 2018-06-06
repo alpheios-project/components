@@ -15,7 +15,7 @@
     </alph-tooltip>
     <div class="alpheios-lookup__settings" v-if="uiController">
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
-        <alph-setting :data="currentLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
+        <alph-setting :data="lookupLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
 
         <alph-setting :data="lexicon" @change="resourceSettingChange" :classes="['alpheios-panel__options-item']"
          v-for="lexicon in lexiconsFiltered"/></alph-setting>
@@ -84,16 +84,17 @@
       },
       lexiconsFiltered: function () {
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
-      }/*,
+      },
       lookupLanguage: function () {
+        /*
          let currentLanguage
          if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
           this.options.items.lookupLanguage.setTextValue(this.parentLanguage)
-        } 
+        } */
         return this.options.items.lookupLanguage
-      }*/
+      }
 
     },
     methods: {
