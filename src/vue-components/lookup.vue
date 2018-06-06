@@ -52,10 +52,15 @@
       uiController: {
         type: Object,
         required: true
-      },
+      }/*,
       parentLanguage: {
         type: String,
         required: false
+      }*/,
+      visible: {
+        type: Boolean,
+        required: false,
+        default: true
       }
     },
     created: function () {
@@ -86,13 +91,6 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
-        /*
-         let currentLanguage
-         if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
-          this.initLanguage = this.parentLanguage
-          this.currentLanguage = this.parentLanguage
-          this.options.items.lookupLanguage.setTextValue(this.parentLanguage)
-        } */
         return this.options.items.lookupLanguage
       }
 
@@ -109,8 +107,6 @@
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
-
-        // this.lookuptext = ''
       },
 
       switchLookupSettings: function () {
@@ -138,6 +134,17 @@
           return this.uiController.l10n.messages[value]
         }
         return defaultValue
+      },
+
+      clearTooltipText: function () {
+        this.tooltipText = ''
+      }
+    },
+    watch: {
+      visible: function (value) {
+        if (!value) {
+          this.clearTooltipText()
+        }
       }
     }
   }

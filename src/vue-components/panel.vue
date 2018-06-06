@@ -88,7 +88,7 @@
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
                 <div class="alpheios-lookup__panel">
-                  <lookup :uiController="uiController"></lookup>
+                  <lookup :uiController="uiController" :visible="data.isOpen" @change="settingChanged"></lookup>
                 </div>
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1" v-if="data.shortDefinitions && data.fullDefinitions">
                   {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}</div>
@@ -142,7 +142,7 @@
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
-                  <lookup :uiController="uiController" :parentLanguage="data.infoComponentData.languageName"></lookup>
+                  <lookup :uiController="uiController" :visible="data.isOpen" @change="settingChanged"></lookup>
                 </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.infoComponentData && data.l10n"></info>
             </div>
