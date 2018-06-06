@@ -62,20 +62,16 @@
       if (this.uiController) {
         this.options = this.uiController.options
         this.resourceOptions = this.uiController.resourceOptions
-        console.log(`at creation lookup language is ${this.currentLanguage}`)
+
+        this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
+        this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
+
+        console.log(`at creation lookup language is ${this.options.items.lookupLanguage.currentTextValue()}`)
 
         let vm = this
         window.onbeforeunload = function(){
           vm.$parent.$emit('settingchange', 'lookupLanguage', null)
         }
-      }
-    },
-    mounted () {
-      console.log('******************in mounted', this.options.items.lookupLanguage.currentValue)
-      if (this.options.items.lookupLanguage.currentValue === '') {
-        console.log('******************in mounted emit')
-        this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
-        this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
       }
     },
     computed: {
