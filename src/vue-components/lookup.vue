@@ -129,6 +129,9 @@
       clearTooltipText: function () {
         this.lookuptext = ''
       }
+    },
+    beforeDestroy () {
+      this.settingChange('lookupLanguage', null)
     }
   }
 </script>
