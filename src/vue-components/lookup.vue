@@ -63,6 +63,11 @@
         this.options = this.uiController.options
         this.resourceOptions = this.uiController.resourceOptions
         console.log(`at creation lookup language is ${this.currentLanguage}`)
+
+        let vm = this
+        window.onbeforeunload = function(){
+          vm.$parent.$emit('settingchange', 'lookupLanguage', '')
+        }
       }
     },
     computed: {
@@ -129,10 +134,6 @@
       clearTooltipText: function () {
         this.lookuptext = ''
       }
-    },
-    beforeDestroy () {
-      // this.$parent.$emit('settingchange', 'lookupLanguage', '')
-      
     }
   }
 </script>

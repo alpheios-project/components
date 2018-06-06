@@ -574,10 +574,6 @@
         this.divClasses = this.data.classes.join(' ')
       }
 
-    },
-    beforeDestroy () {
-      console.log('destroying .......')
-      this.$emit('settingchange', 'lookupLanguage', 'foo')
     }
   }
 </script>
