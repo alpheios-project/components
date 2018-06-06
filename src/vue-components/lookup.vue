@@ -83,11 +83,8 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
-        console.log('**********calc lookupLanguage 1', this.options.items.lookupLanguage)
-        console.log('**********calc lookupLanguage currentValue', this.options.items.lookupLanguage.currentValue)
-        console.log('**********calc lookupLanguage defaultValue', this.options.items.lookupLanguage.defaultValue)
         if (this.options.items.lookupLanguage.currentValue === '') {
-          console.log('**********calc lookupLanguage emit')
+          this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
           this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
         }
         return this.options.items.lookupLanguage
