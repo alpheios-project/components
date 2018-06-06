@@ -38,10 +38,6 @@ export default class UIStateAPI {
     return this
   }
 
-  removeItem (key) {
-    delete this.watchers[key]
-    delete this.key
-  }
   /**
    * Sets a watcher function that is called every time a property is changed using a setItem() method.
    * @param {String} property - A name of a property that should be monitored

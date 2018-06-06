@@ -68,6 +68,7 @@
         let vm = this
         window.onbeforeunload = function(){
           vm.$parent.$emit('settingchange', 'lookupLanguage', null)
+          this.options.items.lookupLanguage.removeItem()
         }
       }
     },

@@ -68,6 +68,19 @@ export default class OptionItem {
     return this
   }
 
+  removeItem () {
+    this.currentValue = null
+    this.storageAdapter.remove(this.name).then(
+      () => {
+        // Options storage succeeded
+        console.log(`Item "${this.name}" was removed from storage successfully`)
+      },
+      (errorMessage) => {
+        console.error(`Removeing an option failed: ${errorMessage}`)
+      }
+    )
+  }
+
   /**
    * Saves an option value to the local storage.
    */
