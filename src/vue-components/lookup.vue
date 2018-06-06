@@ -120,6 +120,8 @@
       settingChange: function (name, value) {
         this.options.items.preferredLanguage.setTextValue(value)
         this.currentLanguage = value
+
+        this.$parent.$emit('settingchange', name, value)
       },
 
       resourceSettingChange: function (name, value) {
