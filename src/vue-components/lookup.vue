@@ -69,7 +69,7 @@
     },
     computed: {
       lexiconSettingName: function() {
-        let lang = this.options.items.lookupLanguage.values.filter(v => v.text === this.currentLanguage)
+        let lang = this.options.items.lookupLanguage.values.filter(v => v.text === this.options.items.lookupLanguage.currentTextValue())
         let settingName
         if (lang.length>0) {
           settingName = `lexiconsShort-${lang[0].value}`
