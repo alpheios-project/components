@@ -69,6 +69,7 @@ export default class OptionItem {
   }
 
   removeItem () {
+    console.log('*******in removeItem', this.name)
     this.currentValue = null
     this.storageAdapter.remove(this.name).then(
       () => {
