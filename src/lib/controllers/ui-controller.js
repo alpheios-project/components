@@ -323,12 +323,13 @@ export default class UIController {
               this.uiController.updateVerboseMode()
               break
             case 'lookupLanguage':
-              console.log('************settingChange1')
               this.uiController.updateLookupOptions()
           }
         },
         resourceSettingChange: function (name, value) {
+          console.log('*********************resourceSettingChange 1', name, value)
           let keyinfo = this.resourceOptions.parseKey(name)
+          console.log('*********************resourceSettingChange 2', keyinfo)
           console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
           this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
         },
@@ -585,7 +586,6 @@ export default class UIController {
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
               break
             case 'lookupLanguage':
-              console.log('************settingChange2')
               this.uiController.updateLookupOptions(this.options.items.lookupLanguage.currentValue)
               break
           }
@@ -882,8 +882,6 @@ export default class UIController {
   }
 
   updateLookupOptions (currentLanguage) {
-    console.log('************UIController')
-
     this.state.setItem('lookupLanguage', currentLanguage)
 
     this.panel.panelData.lookupLanguage = currentLanguage
