@@ -132,7 +132,7 @@
     },
     beforeDestroy () {
       // this.$parent.$emit('settingchange', 'lookupLanguage', '')
-      window.localStorage.removeItem('lookupLanguage')
+      
     }
   }
 </script>

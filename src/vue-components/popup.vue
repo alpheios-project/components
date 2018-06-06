@@ -555,6 +555,8 @@
         } else {
           // A popup became invisible
           this.resetPopupDimensions()
+          console.log('*******************removing lookup language from storage')
+          this.$emit('settingchange', 'lookupLanguage', '')
         }
       },
 
