@@ -63,12 +63,6 @@
         this.options = this.uiController.options
         this.resourceOptions = this.uiController.resourceOptions
 
-        console.log('on creation this.options.items.lookupLanguage.currentValue', this.options.items.lookupLanguage)
-        if (this.options.items.lookupLanguage.currentValue === '') {
-          this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
-          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
-        }
-
         console.log(`at creation lookup language is ${this.options.items.lookupLanguage.currentTextValue()}`)
 
         let vm = this

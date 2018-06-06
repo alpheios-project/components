@@ -879,12 +879,16 @@ export default class UIController {
   }
 
   updateLookupOptions (currentLanguage) {
-    this.state.setItem('lookupLanguage', currentLanguage)
-    if (this.panel && this.panel.panelData) {
-      this.panel.panelData.lookupLanguage = currentLanguage
-    }
-    if (this.popup && this.panel.popupData) {
-      this.popup.popupData.lookupLanguage = currentLanguage
+    if (currentLanguage !== null) {
+      this.state.setItem('lookupLanguage', currentLanguage)
+      if (this.panel && this.panel.panelData) {
+        this.panel.panelData.lookupLanguage = currentLanguage
+      }
+      if (this.popup && this.panel.popupData) {
+        this.popup.popupData.lookupLanguage = currentLanguage
+      }
+    } else {
+      this.state.removeItem('lookupLanguage')
     }
   }
 
