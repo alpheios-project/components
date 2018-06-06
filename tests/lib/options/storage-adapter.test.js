@@ -24,4 +24,10 @@ describe('storage-adapter.test.js', () => {
       expect(error.message).toEqual(`Set method should be implemented in a subclass`)
     })
   })
+  it('4 StorageAdapter remove method will throw an error if will be invoked directly', () => {
+    let stAdapter = new StorageAdapter()
+    stAdapter.remove().catch(function (error) {
+      expect(error.message).toEqual(`Remove method should be implemented in a subclass`)
+    })
+  })
 })

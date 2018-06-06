@@ -48,6 +48,6 @@ export default class StorageAdapter {
    * successfully. If at least on save operation fails, returns a rejected promise with an error information.
    */
   remove (key) {
-    return new Promise((resolve, reject) => reject(new Error(`Set method should be implemented in a subclass`)))
+    return new Promise((resolve, reject) => reject(new Error(`Remove method should be implemented in a subclass`)))
   }
 }
