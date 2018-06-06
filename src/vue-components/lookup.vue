@@ -67,8 +67,7 @@
 
         let vm = this
         window.onbeforeunload = function(){
-          // vm.$parent.$emit('settingchange', 'lookupLanguage', null)
-          
+          this.options.items.lookupLanguage.removeItem()
         }
       }
     },
@@ -92,7 +91,6 @@
     methods: {
       'lookup': async function () {
         if (this.lookuptext.length === 0) {
-          this.options.items.lookupLanguage.removeItem()
           return null
         }
 
