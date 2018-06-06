@@ -63,9 +63,7 @@
         this.options = this.uiController.options
         this.resourceOptions = this.uiController.resourceOptions
 
-        console.log('on creation this.options.items.lookupLanguage.currentValue', this.options.items.lookupLanguage.currentValue)
-        console.log('on creation this.options.items.lookupLanguage.currentValue.length', this.options.items.lookupLanguage.currentValue.length)
-        console.log('on creation this.options.items.lookupLanguage.currentValue === \'\' ', this.options.items.lookupLanguage.currentValue === '')
+        console.log('on creation this.options.items.lookupLanguage.currentValue', this.options.items.lookupLanguage)
         if (this.options.items.lookupLanguage.currentValue === '') {
           this.options.items.lookupLanguage.setValue(this.options.items.lookupLanguage.defaultValue)
           this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
