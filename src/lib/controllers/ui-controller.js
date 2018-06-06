@@ -880,9 +880,12 @@ export default class UIController {
 
   updateLookupOptions (currentLanguage) {
     this.state.setItem('lookupLanguage', currentLanguage)
-
-    this.panel.panelData.lookupLanguage = currentLanguage
-    this.popup.popupData.lookupLanguage = currentLanguage
+    if (this.panel && this.panel.panelData) {
+      this.panel.panelData.lookupLanguage = currentLanguage
+    }
+    if (this.popup && this.panel.popupData) {
+      this.popup.popupData.lookupLanguage = currentLanguage
+    }
   }
 
   updateInflections (inflectionData, homonym) {
