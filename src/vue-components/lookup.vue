@@ -42,10 +42,10 @@
       return {
         lookuptext: '',
         showLanguageSettings: false,
-        initLanguage: null,
-        currentLanguage: null,
         options: {},
-        resourceOptions: {}
+        resourceOptions: {},
+
+        currentLanguage: null
       }
     },
     props: {
@@ -60,16 +60,10 @@
     },
     created: function () {
       if (this.uiController) {
-        // this.options = this.uiController.options.clone(TempStorageArea)
         this.options = this.uiController.options
-        this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
-        /* if (this.parentLanguage) {
-          this.initLanguage = this.parentLanguage
-          this.currentLanguage = this.parentLanguage
-        } else {
-          this.currentLanguage = this.options.items.lookupLanguage.currentTextValue()
-        }*/ 
-        this.currentLanguage = this.options.items.lookupLanguage.currentTextValue()
+        this.resourceOptions = this.uiController.resourceOptions
+
+        // this.currentLanguage = this.options.items.lookupLanguage.currentTextValue()
         console.log(`at creation lookup language is ${this.currentLanguage}`)
       }
     },
@@ -115,8 +109,7 @@
       },
 
       settingChange: function (name, value) {
-        // this.options.items.lookupLanguage.setTextValue(value)
-        this.currentLanguage = value
+        // this.currentLanguage = value
 
         this.$parent.$emit('settingchange', 'lookupLanguage', value)
       },
