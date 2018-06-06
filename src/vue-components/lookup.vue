@@ -131,7 +131,7 @@
       }
     },
     beforeDestroy () {
-      this.settingChange('lookupLanguage', null)
+      this.$parent.$emit('settingchange', 'lookupLanguage', '')
     }
   }
 </script>
