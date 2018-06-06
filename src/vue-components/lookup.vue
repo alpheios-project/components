@@ -121,7 +121,7 @@
         this.options.items.preferredLanguage.setTextValue(value)
         this.currentLanguage = value
 
-        this.$parent.$emit('settingchange', name, value)
+        this.$parent.$emit('settingchange', 'lookupLanguage', value)
       },
 
       resourceSettingChange: function (name, value) {
