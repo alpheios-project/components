@@ -323,6 +323,7 @@ export default class UIController {
               this.uiController.updateVerboseMode()
               break
             case 'lookupLanguage':
+              console.log('************settingChange1')
               this.uiController.updateLookupOptions()
           }
         },
@@ -365,6 +366,7 @@ export default class UIController {
         console.log('UI options are loaded')
         this.updateLanguage(this.options.items.preferredLanguage.currentValue)
         this.updateVerboseMode()
+        console.log('************optionsLoad')
         this.updateLookupOptions()
       })
     })
@@ -583,6 +585,7 @@ export default class UIController {
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
               break
             case 'lookupLanguage':
+              console.log('************settingChange2')
               this.uiController.updateLookupOptions(this.options.items.lookupLanguage.currentValue)
               break
           }
@@ -879,6 +882,8 @@ export default class UIController {
   }
 
   updateLookupOptions (currentLanguage) {
+    console.log('************UIController', updateLookupOptions)
+
     this.state.setItem('lookupLanguage', currentLanguage)
 
     this.panel.panelData.lookupLanguage = currentLanguage

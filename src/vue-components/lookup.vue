@@ -103,7 +103,6 @@
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
 
-        console.log('********result lookup', result)
         if (typeof result === 'object' && result instanceof Error) { return }
         this.clearTooltipText()
       },
@@ -136,8 +135,7 @@
       },
 
       clearTooltipText: function () {
-        console.log('******** I am in clearTooltipText')
-        this.tooltipText = ''
+        this.lookuptext = ''
       }
     }
   }
