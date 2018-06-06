@@ -83,9 +83,9 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
-        console.log('**********calc lookupLanguage', this.options.items.lookupLanguage)
-        if (this.options.items.lookupLanguage === null) {
-          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.values[0].currentTextValue())
+        // console.log('**********calc lookupLanguage', this.options.items.lookupLanguage)
+        if (this.options.items.lookupLanguage.currentValue === []) {
+          this.$parent.$emit('settingchange', 'lookupLanguage', this.options.items.lookupLanguage.defaultValue)
         }
         return this.options.items.lookupLanguage
       }
