@@ -322,6 +322,8 @@ export default class UIController {
             case 'verboseMode':
               this.uiController.updateVerboseMode()
               break
+            case 'lookupLanguage':
+              this.uiController.updateLookupOptions()
           }
         },
         resourceSettingChange: function (name, value) {
@@ -363,6 +365,7 @@ export default class UIController {
         console.log('UI options are loaded')
         this.updateLanguage(this.options.items.preferredLanguage.currentValue)
         this.updateVerboseMode()
+        this.updateLookupOptions()
       })
     })
 
@@ -870,6 +873,13 @@ export default class UIController {
     this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.panel.panelData.verboseMode = this.state.verboseMode
     this.popup.popupData.verboseMode = this.state.verboseMode
+  }
+
+  updateLookupOptions (currentLanguage) {
+    this.state.setItem('lookupLanguage', currentLanguage)
+
+    this.panel.panelData.lookupLanguage = currentLanguage
+    this.popup.popupData.lookupLanguage = currentLanguage
   }
 
   updateInflections (inflectionData, homonym) {

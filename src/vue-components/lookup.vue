@@ -110,7 +110,7 @@
         // this.lookuptext = ''
       },
 
-      'switchLookupSettings': function () {
+      switchLookupSettings: function () {
         this.showLanguageSettings = !this.showLanguageSettings
         if (this.$parent !== undefined) {
           this.$parent.$emit('updatePopupDimensions')
