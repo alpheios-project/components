@@ -91,7 +91,7 @@
 
     },
     methods: {
-      'lookup': function () {
+      'lookup': async function () {
         if (this.lookuptext.length === 0) {
           return null
         }
@@ -99,7 +99,7 @@
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
-        let result = LexicalQueryLookup
+        let result = await LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
 
