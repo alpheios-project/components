@@ -582,6 +582,9 @@ export default class UIController {
             case 'preferredLanguage':
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
               break
+            case 'lookupLanguage':
+              this.uiController.updateLookupOptions(this.options.items.lookupLanguage.currentValue)
+              break
           }
         },
 
@@ -870,7 +873,7 @@ export default class UIController {
 
   updateVerboseMode () {
     this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
-    this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
+    // this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.panel.panelData.verboseMode = this.state.verboseMode
     this.popup.popupData.verboseMode = this.state.verboseMode
   }
