@@ -136,6 +136,7 @@
       },
 
       clearTooltipText: function () {
+        console.log('******** I am in clearTooltipText')
         this.tooltipText = ''
       }
     }
