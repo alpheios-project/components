@@ -576,7 +576,8 @@
 
     },
     beforeDestroy () {
-      this.$emit('settingchange', 'lookupLanguage', null)
+      console.log('destroying .......')
+      this.$emit('settingchange', 'lookupLanguage', 'foo')
     }
   }
 </script>
