@@ -52,11 +52,7 @@
       uiController: {
         type: Object,
         required: true
-      }/*,
-      parentLanguage: {
-        type: String,
-        required: false
-      }*/
+      }
     },
     created: function () {
       if (this.uiController) {
