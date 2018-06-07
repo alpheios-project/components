@@ -8558,6 +8558,17 @@ img.alpheios-popup__logo {
   font-weight: 700;
 }
 
+
+.alpheios-inflections__forms-targetword {
+  font-weight: bold;
+}
+.alpheios-inflections__forms-cont {
+  padding-right: 30px;
+}
+.alpheios-inflections__control-btn-cont {
+  padding-left: 30px;
+}
+
 /*************** font sizes **************/
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
@@ -8790,15 +8801,6 @@ h3.alpheios-inflections__title {
 .alpheios-inflections__footnote-popup-close-btn:active {
   fill: #5BC8DC;
   stroke: #5BC8DC;
-}
-.alpheios-inflections__forms-targetword {
-  font-weight: bold;
-}
-.alpheios-inflections__forms-cont {
-  padding-right: 30px;
-}
-.alpheios-inflections__control-btn-cont {
-  padding-left: 30px;
 }
 
 /*************** font sizes **************/

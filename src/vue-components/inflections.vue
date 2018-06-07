@@ -12,18 +12,12 @@
               </select>
             </div>
               <div class="alpheios-inflections__actions">
-
-                <div class="alpheios-inflections__forms-cont" v-if="selectedView && selectedView.inflectionData">
-                    <span class="alpheios-inflections__forms-targetword">{{ selectedView.inflectionData.targetWord }}</span>
-                    <span v-if="forms && forms.length >0">
-                      <span>(</span>
-                      <span class="alpheios-inflections__form-parts" v-for="(form, index) in forms">
-                        {{ form }}<span v-if="index < forms.length-1">, </span>
-                      </span>
-                      <span>)</span>
-                    </span>
-                </div>
-
+                <word-forms 
+                    :partOfSpeech = "selectedView.constructor.partOfSpeech"
+                    :targetWord = "data.inflectionData.homonym.targetWord"
+                    :lexemes = "data.inflectionData.homonym.lexemes" 
+                    v-if="selectedView && data.inflectionData">
+                </word-forms>
                 <div v-show="views.length > 1">
                     <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
@@ -51,7 +45,6 @@
 
 
             <template v-if="selectedView.hasComponentData">
-
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
@@ -72,6 +65,7 @@
   // Subcomponents
   import WideTable from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
+  import WordForms from './wordforms.vue'
 
   import Tooltip from './tooltip.vue'
 
@@ -83,7 +77,8 @@
     components: {
       widetable: WideTable,
       widesubtables: WideSubTables,
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      wordForms: WordForms
     },
 
     props: {
@@ -194,9 +189,10 @@
       },
       forms: function () {
         let forms = []
-        console.log('************************ forms', this.selectedView)
-        if (this.selectedView && this.selectedView.forms) {
+        if (this.selectedView && this.selectedView.forms && this.selectedView.forms.values.length > 0) {
           forms = Array.from(this.selectedView.forms.values())
+        } else {
+          forms = this.defineFormsBySelectedView()
         }
         return forms
       },
@@ -227,10 +223,6 @@
 
           if (this.views.length > 0) {
             this.selectedView = this.views[0]
-
-            console.log('********************* selectedView', this.selectedView)
-            console.log('********************* selectedView partOfSpeech', this.selectedView.constructor.partOfSpeech)
-
             if (!this.selectedView.hasComponentData) {
               // Rendering is not required for component-enabled views
               this.renderInflections().displayInflections()
@@ -584,15 +576,4 @@
     }
 
     // endregion Footnotes
-
-    .alpheios-inflections__forms-targetword {
-      font-weight: bold;
-    }
-    .alpheios-inflections__forms-cont {
-      padding-right: 30px;
-    }
-    .alpheios-inflections__control-btn-cont {
-      padding-left: 30px;
-    }
-
 </style>
