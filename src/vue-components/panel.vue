@@ -428,7 +428,7 @@
       if (this.data === undefined) {
         return
       }
-      if (this.$el.querySelector) {
+      if (typeof this.$el.querySelector === 'function') {
         let navbar = this.$el.querySelector(`#${this.navbarID}`)
         let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
         this.navbarWidth = 0

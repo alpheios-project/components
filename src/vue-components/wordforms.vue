@@ -11,6 +11,8 @@
     </div>
 </template>
 <script>
+  import {Constants} from 'alpheios-data-models'
+
   export default {
     name: 'WordForms',
 
@@ -39,12 +41,22 @@
         let forms = new Set()
         for (let lexeme of this.lexemes) {
           for (let inflection of lexeme.inflections) {
+          	if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
+          	  let direction = inflection.model.direction
+          	  let form, prefix, suffix
+          	
+          	  if (direction === Constants.LANG_DIR_RTL) {
+          	  	prefix = inflection.prefix ? ` - ${inflection.prefix}` : ''
+          	  	suffix = inflection.suffix ? `${inflection.suffix} - ` : ''
 
-            if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
-              let form = inflection.prefix ? `${inflection.prefix} - ` : ''
-              form = form + inflection.stem
-              form = inflection.suffix ? `${form} - ${inflection.suffix}` : form
-              forms.add(form)
+          	    form = suffix + inflection.stem + prefix
+          	  } else {
+          	  	prefix = inflection.prefix ? `${inflection.prefix} - ` : ''
+          	  	suffix = inflection.suffix ? ` - ${inflection.suffix}` : ''
+
+          	    form = prefix + inflection.stem + suffix
+          	  }
+          	  forms.add(form)
             }
           }
         }

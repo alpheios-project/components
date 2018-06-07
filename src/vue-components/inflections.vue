@@ -16,7 +16,7 @@
                     :partOfSpeech = "selectedView.constructor.partOfSpeech"
                     :targetWord = "data.inflectionData.homonym.targetWord"
                     :lexemes = "data.inflectionData.homonym.lexemes" 
-                    v-if="selectedView && data.inflectionData">
+                    v-if="selectedView && data.inflectionData && data.inflectionData.homonym">
                 </word-forms>
                 <div v-show="views.length > 1">
                     <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
@@ -372,7 +372,9 @@
     },
 
     mounted: function () {
-      this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      if (typeof this.$el.querySelector === 'function') {
+        this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      }
     }
   }
 </script>
