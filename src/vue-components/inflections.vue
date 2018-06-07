@@ -12,9 +12,9 @@
               </select>
             </div>
               <div class="alpheios-inflections__actions">
-                <div class="alpheios-inflections__forms-cont">
+<!--                 <div class="alpheios-inflections__forms-cont">
                     <div class="alpheios-inflections__form" v-for="form in forms">{{form}}</div>
-                </div>
+                </div> -->
                 <div v-show="views.length > 1">
                     <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
@@ -41,6 +41,11 @@
             </div>
 
             <template v-if="selectedView.hasComponentData">
+
+                <div class="alpheios-inflections__forms-cont">
+                    <div class="alpheios-inflections__form" v-for="form in forms">{{form}}</div>
+                </div>
+
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
@@ -182,6 +187,7 @@
       },
       forms: function () {
         let forms = []
+        console.log('************************ forms', this.selectedView.forms)
         if (this.selectedView && this.selectedView.forms) {
           forms = Array.from(this.selectedView.forms.values())
         }
