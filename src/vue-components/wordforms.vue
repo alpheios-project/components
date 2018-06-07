@@ -44,6 +44,9 @@
 
           for (let inflection of this.inflections) {
           	if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
+          	  console.log('************defineFormsBySelectedView', inflection.form)
+          	  forms.add(inflection)
+/*
           	  let direction = inflection.model.direction
           	  let form, prefix, suffix
           	
@@ -58,7 +61,7 @@
 
           	    form = prefix + inflection.stem + suffix
           	  }
-          	  forms.add(form)
+          	  forms.add(form)*/
             }
           }
 

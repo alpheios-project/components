@@ -5,10 +5,11 @@ import WordForms from '@/vue-components/wordforms.vue'
 import {LanguageModelFactory as LMF} from 'alpheios-data-models'
 
 describe('wordforms.test.js', () => {
+  /*
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-
+*/
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
