@@ -26,21 +26,23 @@
         type: String,
         required: true
       },
-      lexemes: {
+      inflections: {
         type: Array,
         required: true
       }
     },
     computed: {
       forms: function () {
-        return this.defineFormsBySelectedView()
+      	if (this.inflections) {
+          return this.defineFormsBySelectedView()
+        }
       }
     },
     methods: {
       defineFormsBySelectedView: function () {
         let forms = new Set()
-        for (let lexeme of this.lexemes) {
-          for (let inflection of lexeme.inflections) {
+
+          for (let inflection of this.inflections) {
           	if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
           	  let direction = inflection.model.direction
           	  let form, prefix, suffix
@@ -59,7 +61,7 @@
           	  forms.add(form)
             }
           }
-        }
+
         return Array.from(forms.values())
       }
     }
