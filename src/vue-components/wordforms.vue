@@ -26,14 +26,14 @@
         type: String,
         required: true
       },
-      inflections: {
+      lexemes: {
         type: Array,
         required: true
       }
     },
     computed: {
       forms: function () {
-      	if (this.inflections) {
+      	if (this.lexemes) {
           return this.defineFormsBySelectedView()
         }
       }
@@ -41,30 +41,13 @@
     methods: {
       defineFormsBySelectedView: function () {
         let forms = new Set()
-
-          for (let inflection of this.inflections) {
+        for (let lexeme of this.lexemes) {
+          for (let inflection of lexeme.inflections) {
           	if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
-          	  console.log('************defineFormsBySelectedView', inflection.form)
-          	  forms.add(inflection)
-/*
-          	  let direction = inflection.model.direction
-          	  let form, prefix, suffix
-          	
-          	  if (direction === Constants.LANG_DIR_RTL) {
-          	  	prefix = inflection.prefix ? ` - ${inflection.prefix}` : ''
-          	  	suffix = inflection.suffix ? `${inflection.suffix} - ` : ''
-
-          	    form = suffix + inflection.stem + prefix
-          	  } else {
-          	  	prefix = inflection.prefix ? `${inflection.prefix} - ` : ''
-          	  	suffix = inflection.suffix ? ` - ${inflection.suffix}` : ''
-
-          	    form = prefix + inflection.stem + suffix
-          	  }
-          	  forms.add(form)*/
+          	  forms.add(inflection.form)
             }
           }
-
+        }
         return Array.from(forms.values())
       }
     }

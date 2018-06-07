@@ -15,7 +15,7 @@
                 <word-forms 
                     :partOfSpeech = "selectedView.constructor.partOfSpeech"
                     :targetWord = "data.inflectionData.homonym.targetWord"
-                    :inflections = "data.inflectionData.homonym.lexemes.inflections" 
+                    :lexemes = "data.inflectionData.homonym.lexemes" 
                     v-if="selectedView && data.inflectionData && data.inflectionData.homonym">
                 </word-forms>
                 <div v-show="views.length > 1">

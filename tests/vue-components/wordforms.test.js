@@ -5,11 +5,10 @@ import WordForms from '@/vue-components/wordforms.vue'
 import {LanguageModelFactory as LMF} from 'alpheios-data-models'
 
 describe('wordforms.test.js', () => {
-  /*
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-*/
+
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
@@ -35,10 +34,10 @@ describe('wordforms.test.js', () => {
 
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "partOfSpeech"'))
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "targetWord"'))
-    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "inflections"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "lexemes"'))
   })
 
-  it('3 WordForms - render (LTR)', () => {
+  it('3 WordForms - render', () => {
     let langID = LMF.getLanguageIdFromCode('grc')
     let langModel = LMF.getLanguageModel(langID)
 
@@ -46,94 +45,22 @@ describe('wordforms.test.js', () => {
       propsData: {
         partOfSpeech: 'noun',
         targetWord: 'fooWord',
-        inflections: [
-          {
-            'part of speech': { values: ['noun'] },
-            model: langModel,
-            prefix: 'fooPrefix',
-            stem: 'fooStem',
-            suffix: 'fooSuffix'
-          }
-        ]
+        lexemes: [{
+          inflections: [
+            {
+              'part of speech': { values: ['noun'] },
+              model: langModel,
+              prefix: 'fooPrefix',
+              stem: 'fooStem',
+              suffix: 'fooSuffix',
+              form: 'fooform'
+            }
+          ]
+        }]
       }
     })
 
-    expect(cmp.vm.forms).toEqual(['fooPrefix - fooStem - fooSuffix'])
-
-    cmp.setProps({
-      inflections: [
-        {
-          'part of speech': { values: ['noun'] },
-          model: langModel,
-          stem: 'fooStem',
-          suffix: 'fooSuffix'
-        }
-      ]
-    })
-
-    expect(cmp.vm.forms).toEqual(['fooStem - fooSuffix'])
-
-    cmp.setProps({
-      inflections: [
-        {
-          'part of speech': { values: ['noun'] },
-          model: langModel,
-          prefix: 'fooPrefix',
-          stem: 'fooStem'
-        }
-      ]
-    })
-
-    expect(cmp.vm.forms).toEqual(['fooPrefix - fooStem'])
-  })
-
-  it('4 WordForms - render (RTL)', () => {
-    let langID = LMF.getLanguageIdFromCode('ara')
-    let langModel = LMF.getLanguageModel(langID)
-
-    let cmp = mount(WordForms, {
-      propsData: {
-        partOfSpeech: 'noun',
-        targetWord: 'fooWord',
-        inflections: [
-          {
-            'part of speech': { values: ['noun'] },
-            model: langModel,
-            prefix: 'fooPrefix',
-            stem: 'fooStem',
-            suffix: 'fooSuffix'
-          }
-        ]
-      }
-    })
-
-    expect(cmp.vm.forms).toEqual(['fooSuffix - fooStem - fooPrefix'])
-
-    cmp.setProps({
-      inflections: [
-        {
-          'part of speech': { values: ['noun'] },
-          model: langModel,
-          stem: 'fooStem',
-          suffix: 'fooSuffix'
-        }
-      ]
-    })
-
-    expect(cmp.vm.forms).toEqual(['fooSuffix - fooStem'])
-
-    cmp.setProps({
-      inflections: [
-        {
-          'part of speech': { values: ['noun'] },
-          model: langModel,
-          prefix: 'fooPrefix',
-          stem: 'fooStem'
-        }
-      ]
-    })
-
-    expect(cmp.vm.forms).toEqual(['fooStem - fooPrefix'])
+    expect(cmp.vm.forms).toEqual(['fooform'])
   })
 
   it('5 WordForms - render (no part of speach)', () => {
@@ -144,15 +71,17 @@ describe('wordforms.test.js', () => {
       propsData: {
         partOfSpeech: 'noun',
         targetWord: 'fooWord',
-        inflections: [
-          {
-            'part of speech': { values: ['verb'] },
-            model: langModel,
-            prefix: 'fooPrefix',
-            stem: 'fooStem',
-            suffix: 'fooSuffix'
-          }
-        ]
+        lexemes: [{
+          inflections: [
+            {
+              'part of speech': { values: ['verb'] },
+              model: langModel,
+              prefix: 'fooPrefix',
+              stem: 'fooStem',
+              suffix: 'fooSuffix'
+            }
+          ]
+        }]
       }
     })
 
