@@ -163,6 +163,7 @@
         set: function (newValue) {
           this.selectedPartOfSpeech = newValue
           this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+
           this.selectedView = this.views[0]
           if (!this.selectedView.hasComponentData) {
             // Rendering is not required for component-enabled views
@@ -214,6 +215,7 @@
         if (inflectionData) {
 
           this.viewSet = new ViewSet(inflectionData, this.locale)
+          console.log('********************* viewSet', this.viewSet)
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
