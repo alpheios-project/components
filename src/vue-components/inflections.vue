@@ -186,7 +186,7 @@
       },
       forms: function () {
         let forms = []
-        console.log('************************ forms', this.selectedView.forms)
+        console.log('************************ forms', this.selectedView)
         if (this.selectedView && this.selectedView.forms) {
           forms = Array.from(this.selectedView.forms.values())
         }
