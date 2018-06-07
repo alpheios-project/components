@@ -41,11 +41,11 @@
             </div>
 
             <div class="alpheios-inflections__forms-cont">
-                <span class="alpheios-inflections__forms-targetword">selectedView.inflectionData.targetWord</span>
-                <span v-if="forms and forms.length >0">
+                <span class="alpheios-inflections__forms-targetword">{{ selectedView.inflectionData.targetWord }}</span>
+                <span v-if="forms && forms.length >0">
                   <span>(</span>
-                  <span class="alpheios-inflections__form-parts" :key="index" v-for="(form, index) in forms">
-                    {{form}}<span v-if="index < forms.length">, </span>
+                  <span class="alpheios-inflections__form-parts" v-for="(form, index) in forms">
+                    {{ form }}<span v-if="index < forms.length">, </span>
                   </span>
                   <span>)</span>
                 </span>
