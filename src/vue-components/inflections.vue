@@ -40,11 +40,10 @@
                 </div>
             </div>
 
+            <div class="alpheios-inflections__forms-cont">
+                <div class="alpheios-inflections__form" v-for="form in forms">{{form}}</div>
+            </div>
             <template v-if="selectedView.hasComponentData">
-
-                <div class="alpheios-inflections__forms-cont">
-                    <div class="alpheios-inflections__form" v-for="form in forms">{{form}}</div>
-                </div>
 
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
