@@ -1,9 +1,9 @@
 <template>
     <div class="alpheios-inflections__forms-cont">
         <span class="alpheios-inflections__forms-targetword">"{{ targetWord }}"</span>
-        <span v-if="forms && forms.length >0">
+        <span v-if="forms && forms.length >0" class="alpheios-inflections__form-parts">
           <span>(</span>
-          <span class="alpheios-inflections__form-parts" v-for="(form, index) in forms">
+          <span class="alpheios-inflections__form-part" v-for="(form, index) in forms">
             {{ form }}<span v-if="index < forms.length-1">, </span>
           </span>
           <span>)</span>
@@ -55,6 +55,9 @@
   }
 </script>
 <style>
+	.alpheios-inflections__form-parts {
+	  display: inline-block;
+	}
     .alpheios-inflections__forms-targetword {
       font-weight: bold;
     }
