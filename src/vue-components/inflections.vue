@@ -13,6 +13,17 @@
             </div>
               <div class="alpheios-inflections__actions">
 
+                <div class="alpheios-inflections__forms-cont" v-if="selectedView && selectedView.inflectionData">
+                    <span class="alpheios-inflections__forms-targetword">{{ selectedView.inflectionData.targetWord }}</span>
+                    <span v-if="forms && forms.length >0">
+                      <span>(</span>
+                      <span class="alpheios-inflections__form-parts" v-for="(form, index) in forms">
+                        {{ form }}<span v-if="index < forms.length-1">, </span>
+                      </span>
+                      <span>)</span>
+                    </span>
+                </div>
+
                 <div v-show="views.length > 1">
                     <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
@@ -38,16 +49,7 @@
                 </div>
             </div>
 
-            <div class="alpheios-inflections__forms-cont" v-if="selectedView && selectedView.inflectionData">
-                <span class="alpheios-inflections__forms-targetword">{{ selectedView.inflectionData.targetWord }}</span>
-                <span v-if="forms && forms.length >0">
-                  <span>(</span>
-                  <span class="alpheios-inflections__form-parts" v-for="(form, index) in forms">
-                    {{ form }}<span v-if="index < forms.length">, </span>
-                  </span>
-                  <span>)</span>
-                </span>
-            </div>
+
             <template v-if="selectedView.hasComponentData">
 
                 <widetable :data="selectedView.wideTable"></widetable>
@@ -576,4 +578,9 @@
     }
 
     // endregion Footnotes
+
+    .alpheios-inflections__forms-targetword {
+      font-weight: bold;
+    }
+
 </style>

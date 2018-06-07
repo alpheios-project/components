@@ -8759,6 +8759,9 @@ h3.alpheios-inflections__title {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
+.alpheios-inflections__forms-targetword {
+  font-weight: bold;
+}
 
 /*************** font sizes **************/
 /*************** dark schema colors **************/
