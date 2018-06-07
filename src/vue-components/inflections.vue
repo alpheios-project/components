@@ -215,7 +215,7 @@
         if (inflectionData) {
 
           this.viewSet = new ViewSet(inflectionData, this.locale)
-          console.log('********************* viewSet', this.viewSet)
+
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
@@ -227,6 +227,10 @@
 
           if (this.views.length > 0) {
             this.selectedView = this.views[0]
+
+            console.log('********************* selectedView', this.selectedView)
+            console.log('********************* selectedView partOfSpeech', this.selectedView.constructor.partOfSpeech)
+
             if (!this.selectedView.hasComponentData) {
               // Rendering is not required for component-enabled views
               this.renderInflections().displayInflections()
