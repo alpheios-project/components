@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="alpheios-inflections__forms-cont" v-if="selectedView.hasComponentData">
+            <div class="alpheios-inflections__forms-cont" v-if="selectedView && selectedView.inflectionData">
                 <span class="alpheios-inflections__forms-targetword">{{ selectedView.inflectionData.targetWord }}</span>
                 <span v-if="forms && forms.length >0">
                   <span>(</span>
