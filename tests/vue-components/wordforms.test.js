@@ -63,7 +63,7 @@ describe('wordforms.test.js', () => {
     expect(cmp.vm.forms).toEqual(['fooform'])
   })
 
-  it('5 WordForms - render (no part of speach)', () => {
+  it('5 WordForms - render only forms with matching part of speech', () => {
     let langID = LMF.getLanguageIdFromCode('ara')
     let langModel = LMF.getLanguageModel(langID)
 

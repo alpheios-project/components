@@ -187,15 +187,6 @@
         }
         return footnotes
       },
-      forms: function () {
-        let forms = []
-        if (this.selectedView && this.selectedView.forms && this.selectedView.forms.values.length > 0) {
-          forms = Array.from(this.selectedView.forms.values())
-        } else {
-          forms = this.defineFormsBySelectedView()
-        }
-        return forms
-      },
       canCollapse: function () {
         if (this.data.inflectionData && this.selectedView && this.selectedView.table) {
           return this.selectedView.table.canCollapse

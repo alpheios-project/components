@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-  import {Constants} from 'alpheios-data-models'
+  import {Constants, Feature} from 'alpheios-data-models'
 
   export default {
     name: 'WordForms',
@@ -43,7 +43,7 @@
         let forms = new Set()
         for (let lexeme of this.lexemes) {
           for (let inflection of lexeme.inflections) {
-          	if (inflection['part of speech'].values.includes(this.partOfSpeech)) {
+          	if (inflection[Feature.types.part].values.includes(this.partOfSpeech)) {
           	  forms.add(inflection.form)
             }
           }
