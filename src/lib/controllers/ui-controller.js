@@ -873,7 +873,6 @@ export default class UIController {
 
   updateVerboseMode () {
     this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
-    // this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.panel.panelData.verboseMode = this.state.verboseMode
     this.popup.popupData.verboseMode = this.state.verboseMode
   }
@@ -955,7 +954,6 @@ export default class UIController {
     })
 
     Vue.set(this.panel.panelData, 'classes', panelClasses)
-    // this.panel.classesChanged += 1
     Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
