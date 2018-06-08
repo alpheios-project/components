@@ -203,13 +203,11 @@
         return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
       },
       hasMorphData: function () {
-        if (Array.isArray(this.lexemes && this.lexemes.length > 0) ) {
-          console.info('******** test hasMorphData 1', Array.isArray(this.lexemes))
-          console.info('******** test hasMorphData 2', this.lexemes.length > 0)
-          console.info('******** test hasMorphData 3', this.lexemes[0].lemma.principalParts.length > 0)
-        }
-
-        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && this.lexemes[0].lemma.principalParts.length > 0) {
+        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && 
+             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0 
+              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0) 
+           ) 
+        {
           return true
         }
         return false
