@@ -12,9 +12,12 @@
               </select>
             </div>
               <div class="alpheios-inflections__actions">
-                <div class="alpheios-inflections__forms-cont">
-                    <div class="alpheios-inflections__form" v-for="form in forms">{{form}}</div>
-                </div>
+                <word-forms 
+                    :partOfSpeech = "selectedView.constructor.partOfSpeech"
+                    :targetWord = "data.inflectionData.homonym.targetWord"
+                    :lexemes = "data.inflectionData.homonym.lexemes" 
+                    v-if="selectedView && data.inflectionData && data.inflectionData.homonym">
+                </word-forms>
                 <div v-show="views.length > 1">
                     <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
@@ -40,6 +43,7 @@
                 </div>
             </div>
 
+
             <template v-if="selectedView.hasComponentData">
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
@@ -61,6 +65,7 @@
   // Subcomponents
   import WideTable from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
+  import WordForms from './wordforms.vue'
 
   import Tooltip from './tooltip.vue'
 
@@ -72,7 +77,8 @@
     components: {
       widetable: WideTable,
       widesubtables: WideSubTables,
-      alphTooltip: Tooltip
+      alphTooltip: Tooltip,
+      wordForms: WordForms
     },
 
     props: {
@@ -152,6 +158,7 @@
         set: function (newValue) {
           this.selectedPartOfSpeech = newValue
           this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+
           this.selectedView = this.views[0]
           if (!this.selectedView.hasComponentData) {
             // Rendering is not required for component-enabled views
@@ -180,13 +187,6 @@
         }
         return footnotes
       },
-      forms: function () {
-        let forms = []
-        if (this.selectedView && this.selectedView.forms) {
-          forms = Array.from(this.selectedView.forms.values())
-        }
-        return forms
-      },
       canCollapse: function () {
         if (this.data.inflectionData && this.selectedView && this.selectedView.table) {
           return this.selectedView.table.canCollapse
@@ -202,6 +202,7 @@
         if (inflectionData) {
 
           this.viewSet = new ViewSet(inflectionData, this.locale)
+
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
@@ -362,7 +363,9 @@
     },
 
     mounted: function () {
-      this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      if (typeof this.$el.querySelector === 'function') {
+        this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      }
     }
   }
 </script>
