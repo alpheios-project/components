@@ -7,7 +7,6 @@
     "test": "standard --fix && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test-lib": "standard --fix && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test-components": "standard --fix && jest tests/vue-components --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test-components1": "standard --fix && jest tests/vue-components/popup.test.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all all vue",
     "build-prod": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all production vue",
     "build-dev": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all development vue",
@@ -25,7 +24,7 @@
   "homepage": "https://github.com/alpheios-project/components#readme",
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.15",
-    "alpheios-data-models": "github:alpheios-project/data-models",
+    "alpheios-data-models": "github:alpheios-project/data-models#issue#22",
     "alpheios-experience": "github:alpheios-project/experience",
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-lemma-client": "github:alpheios-project/lemma-client",
