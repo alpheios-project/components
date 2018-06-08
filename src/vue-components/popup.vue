@@ -51,9 +51,13 @@
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
             {{ ln10Messages('PLACEHOLDER_NO_LANGUAGE_POPUP_DATA') }}
         </div>
-        <div v-show="morphDataReady" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
+        <div v-show="!hasMorphData && morphDataReady && !noLanguage"
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+            {{ ln10Messages('PLACEHOLDER_NO_DATA_POPUP_DATA') }}
+        </div>
+        <div v-show="morphDataReady && hasMorphData" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
-                   :linkedfeatures="linkedfeatures" @sendfeature="sendFeature" :morphDataReady="morphDataReady">
+                   :linkedfeatures="linkedfeatures" @sendfeature="sendFeature" :morphDataReady="morphDataReady && hasMorphData">
             </morph>
 
             <div class="alpheios-popup__morph-cont-providers" v-if="data && showProviders">
@@ -79,7 +83,7 @@
                      :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
-        <lookup :uiController="uiController" :parentLanguage="currentLanguageName"></lookup>
+        <lookup :uiController="uiController" :parentLanguage="currentLanguageName" :clearLookupText="hasMorphData && morphDataReady"></lookup>
     </div>
 </template>
 <script>
@@ -197,6 +201,16 @@
       },
       translationsDataReady: function () {
         return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
+      },
+      hasMorphData: function () {
+        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && 
+             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0 
+              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0) 
+           ) 
+        {
+          return true
+        }
+        return false
       },
       morphDataReady: function () {
         return (this.data && this.data.morphDataReady) ? this.data.morphDataReady : false

@@ -10,6 +10,9 @@ describe('local-storage-area.test.js', () => {
     },
     setItem: function (key, value) {
       this.values[key] = value
+    },
+    removeItem: function (key, value) {
+      delete this.values[key]
     }
   }
 
@@ -130,5 +133,16 @@ describe('local-storage-area.test.js', () => {
     expect(window.localStorage.values.panelPosition11).toEqual('top')
     expect(window.localStorage.values.preferredLanguage11).toEqual('grc')
     expect(window.localStorage.values.foo11).toEqual('bar')
+  })
+
+  it('12 LocalStorageArea - remove method removes value from local storage (direct and from domain-keys)', async () => {
+    let stAdapter = new LocalStorageArea('alpheios-content-options12')
+    window.localStorage.values['alpheios-content-options12-keys'] = '["panelPosition12","preferredLanguage12"]'
+    window.localStorage.values.panelPosition12 = 'left'
+    window.localStorage.values.preferredLanguage12 = 'lat'
+
+    await stAdapter.remove('preferredLanguage12')
+    expect(window.localStorage.values['alpheios-content-options12-keys']).toEqual('["panelPosition12"]')
+    expect(window.localStorage.preferredLanguage12).toBeUndefined()
   })
 })

@@ -62,17 +62,21 @@ describe('lookup.test.js', () => {
 
     let cmp = mount(Lookup, {
       propsData: {
-        uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions }
+        uiController: { l10n: l10n,
+          options: options,
+          resourceOptions: resourceOptions,
+          updateLanguage: function () {}
+        }
       }
     })
 
     expect(cmp.vm.options).toBeDefined()
     expect(cmp.vm.resourceOptions).toBeDefined()
 
-    expect(cmp.vm.currentLanguage).toEqual(options.items.preferredLanguage.currentTextValue())
+    expect(cmp.vm.currentLanguage).toEqual(options.items.lookupLanguage.currentTextValue())
     expect(cmp.vm.initLanguage).toBeNull()
 
-    expect(cmp.vm.preferredLanguage.currentTextValue()).toEqual(cmp.vm.options.items.preferredLanguage.currentTextValue())
+    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.options.items.lookupLanguage.currentTextValue())
 
     expect(cmp.find('input').exists()).toBeTruthy()
     jest.spyOn(LexicalQueryLookup, 'create')
@@ -104,11 +108,11 @@ describe('lookup.test.js', () => {
 
     expect(cmp.vm.initLanguage).toEqual('Latin')
     expect(cmp.vm.currentLanguage).toEqual('Latin')
-    expect(cmp.vm.options.items.preferredLanguage.currentTextValue()).toEqual('Latin')
+    expect(cmp.vm.options.items.lookupLanguage.currentTextValue()).toEqual('Latin')
 
     expect(cmp.vm.lexiconSettingName).toEqual(`lexiconsShort-lat`)
     expect(cmp.vm.lexiconsFiltered).toEqual(resourceOptions.items.lexiconsShort.filter((item) => item.name === `lexiconsShort-lat`))
-    expect(cmp.vm.preferredLanguage.currentTextValue()).toEqual(cmp.vm.options.items.preferredLanguage.currentTextValue())
+    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.options.items.lookupLanguage.currentTextValue())
   })
 
   it('4 Lookup - settings block', () => {
@@ -148,7 +152,7 @@ describe('lookup.test.js', () => {
     })
 
     cmp.vm.settingChange('', 'Greek')
-    expect(cmp.vm.options.items.preferredLanguage.currentTextValue()).toEqual('Greek')
+    expect(cmp.vm.options.items.lookupLanguage.currentTextValue()).toEqual('Greek')
     expect(cmp.vm.currentLanguage).toEqual('Greek')
 
     cmp.vm.resourceSettingChange('lexiconsShort-grc', ['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
