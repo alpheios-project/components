@@ -226,6 +226,11 @@
     "description": "placeholder text for popup data when language is not defined",
     "component": "Popup"
   },
+  "PLACEHOLDER_NO_DATA_POPUP_DATA": {
+    "message": "Lexical data couldn't be populated  for unknown reason",
+    "description": "placeholder text for popup data",
+    "component": "Popup"
+  },
   "LABEL_POPUP_CREDITS": {
     "message": "Credits:",
     "description": "label for credits on popup",

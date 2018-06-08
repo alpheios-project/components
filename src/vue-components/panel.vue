@@ -88,7 +88,7 @@
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
                 <div class="alpheios-lookup__panel">
-                  <lookup :uiController="uiController" @change="settingChanged"></lookup>
+                  <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
                 <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1" v-if="data.shortDefinitions && data.fullDefinitions">
                   {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}</div>
@@ -142,7 +142,7 @@
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
-                  <lookup :uiController="uiController" @change="settingChanged"></lookup>
+                  <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.infoComponentData && data.l10n"></info>
             </div>
@@ -233,6 +233,17 @@
     },
 
     computed: {
+      clearLookupText: function () {
+        // always true to clear panels lookup
+        return true
+      },
+      lookupParentLanguage: function () {
+        if (this.data.infoComponentData) {
+          return this.data.infoComponentData.languageName
+        } else {
+          return this.options.items.preferredLanguage.currentTextValue()
+        }
+      },
       uiController: function () {
         return (this.$parent) ? this.$parent.uiController : null
       },

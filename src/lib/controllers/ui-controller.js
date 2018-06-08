@@ -322,8 +322,6 @@ export default class UIController {
             case 'verboseMode':
               this.uiController.updateVerboseMode()
               break
-            case 'lookupLanguage':
-              this.uiController.updateLookupOptions()
           }
         },
         resourceSettingChange: function (name, value) {
@@ -365,7 +363,6 @@ export default class UIController {
         console.log('UI options are loaded')
         this.updateLanguage(this.options.items.preferredLanguage.currentValue)
         this.updateVerboseMode()
-        this.updateLookupOptions()
       })
     })
 
@@ -581,9 +578,6 @@ export default class UIController {
               break
             case 'preferredLanguage':
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
-              break
-            case 'lookupLanguage':
-              this.uiController.updateLookupOptions(this.options.items.lookupLanguage.currentValue)
               break
           }
         },
@@ -865,6 +859,7 @@ export default class UIController {
     let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
+
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
 
     Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
@@ -875,20 +870,6 @@ export default class UIController {
     this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.panel.panelData.verboseMode = this.state.verboseMode
     this.popup.popupData.verboseMode = this.state.verboseMode
-  }
-
-  updateLookupOptions (currentLanguage) {
-    if (currentLanguage !== null) {
-      this.state.setItem('lookupLanguage', currentLanguage)
-      if (this.panel && this.panel.panelData) {
-        this.panel.panelData.lookupLanguage = currentLanguage
-      }
-      if (this.popup && this.panel.popupData) {
-        this.popup.popupData.lookupLanguage = currentLanguage
-      }
-    } else {
-      this.state.removeItem('lookupLanguage')
-    }
   }
 
   updateInflections (inflectionData, homonym) {

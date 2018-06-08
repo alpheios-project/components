@@ -42,34 +42,44 @@
       return {
         lookuptext: '',
         showLanguageSettings: false,
+        initLanguage: null,
+        currentLanguage: null,
         options: {},
-        resourceOptions: {},
-
-        currentLanguage: null
+        resourceOptions: {}
       }
     },
     props: {
       uiController: {
         type: Object,
         required: true
+      },
+      parentLanguage: {
+        type: String,
+        required: false
+      },
+      clearLookupText: {
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     created: function () {
       if (this.uiController) {
-        this.options = this.uiController.options
-        this.resourceOptions = this.uiController.resourceOptions
-
-        console.log(`at creation lookup language is ${this.options.items.lookupLanguage.currentTextValue()}`)
-
-        let vm = this
-        window.onbeforeunload = function (){
-          vm.options.items.lookupLanguage.removeItem()
+        this.options = this.uiController.options.clone(TempStorageArea)
+        this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+        if (this.parentLanguage) {
+          this.initLanguage = this.parentLanguage
+          this.currentLanguage = this.parentLanguage
+        } else {
+          this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
         }
+        this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
+        console.log(`at creation current language is ${this.currentLanguage}`)
       }
     },
     computed: {
       lexiconSettingName: function() {
-        let lang = this.options.items.lookupLanguage.values.filter(v => v.text === this.options.items.lookupLanguage.currentTextValue())
+        let lang = this.options.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
         let settingName
         if (lang.length>0) {
           settingName = `lexiconsShort-${lang[0].value}`
@@ -80,28 +90,41 @@
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
+        // let currentLanguage
+        if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
+          this.initLanguage = this.parentLanguage
+          this.currentLanguage = this.parentLanguage
+          this.options.items.lookupLanguage.setTextValue(this.parentLanguage)
+        }
         return this.options.items.lookupLanguage
       }
 
     },
+    watch: {
+      clearLookupText: function(value) {
+        if (value) {
+          this.lookuptext = ''
+        }
+      }
+    },
     methods: {
-      'lookup': async function () {
+      'lookup': function () {
         if (this.lookuptext.length === 0) {
           return null
         }
-
         let languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
+
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
-        let result = await LexicalQueryLookup
+        this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
+        LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
 
-        if (typeof result === 'object' && result instanceof Error) { return }
-        this.clearTooltipText()
+        // this.lookuptext = ''     
       },
 
-      switchLookupSettings: function () {
+      'switchLookupSettings': function () {
         this.showLanguageSettings = !this.showLanguageSettings
         if (this.$parent !== undefined) {
           this.$parent.$emit('updatePopupDimensions')
@@ -110,9 +133,7 @@
 
       settingChange: function (name, value) {
         this.options.items.lookupLanguage.setTextValue(value)
-        if (this.$parent !== undefined) {
-          this.$parent.$emit('settingchange', 'lookupLanguage', value)
-        }
+        this.currentLanguage = value
       },
 
       resourceSettingChange: function (name, value) {
@@ -126,10 +147,6 @@
           return this.uiController.l10n.messages[value]
         }
         return defaultValue
-      },
-
-      clearTooltipText: function () {
-        this.lookuptext = ''
       }
     }
   }

@@ -49,37 +49,37 @@ describe('lookup.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 Lookup - full renders and click lookup button execute', async () => {
-    LexicalQueryLookup.create = jest.fn(function () {
+  it('2 Lookup - full renders and click lookup button execute', () => {
+    let fn = LexicalQueryLookup.create
+    LexicalQueryLookup.create = function () {
       return {
-        getData: function () { return new Promise((resolve, reject) => { resolve(true) }) }
+        getData: function () { }
       }
-    })
+    }
 
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
 
     let cmp = mount(Lookup, {
       propsData: {
-        uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions }
+        uiController: { l10n: l10n,
+          options: options,
+          resourceOptions: resourceOptions,
+          updateLanguage: function () {}
+        }
       }
     })
 
     expect(cmp.vm.options).toBeDefined()
     expect(cmp.vm.resourceOptions).toBeDefined()
 
-    jest.spyOn(cmp.vm, 'clearTooltipText')
+    expect(cmp.vm.currentLanguage).toEqual(options.items.lookupLanguage.currentTextValue())
+    expect(cmp.vm.initLanguage).toBeNull()
 
-    expect(cmp.vm.options.items.lookupLanguage.currentValue).toEqual(cmp.vm.options.items.lookupLanguage.defaultValue)
-
-    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(options.items.lookupLanguage.currentTextValue())
-
-    let lang = options.items.lookupLanguage.values.filter(v => v.text === options.items.lookupLanguage.currentTextValue())
-
-    expect(cmp.vm.lexiconSettingName).toEqual(`lexiconsShort-${lang[0].value}`)
-    expect(cmp.vm.lexiconsFiltered).toEqual(resourceOptions.items.lexiconsShort.filter((item) => item.name === `lexiconsShort-${lang[0].value}`))
+    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.options.items.lookupLanguage.currentTextValue())
 
     expect(cmp.find('input').exists()).toBeTruthy()
+    jest.spyOn(LexicalQueryLookup, 'create')
 
     cmp.find('button').trigger('click')
     expect(LexicalQueryLookup.create).not.toHaveBeenCalled()
@@ -90,44 +90,12 @@ describe('lookup.test.js', () => {
     expect(cmp.find('input').element.value).toEqual('footext')
 
     cmp.find('button').trigger('click')
-
-    await Vue.nextTick()
     expect(LexicalQueryLookup.create).toHaveBeenCalled()
 
-    expect(cmp.vm.clearTooltipText).toHaveBeenCalled()
-    expect(cmp.vm.lookuptext).toEqual('')
+    LexicalQueryLookup.create = fn
   })
 
-  it('3 Lookup - if LexicalQuery failed - lookupText won\'t be cleared', async () => {
-    LexicalQueryLookup.create = jest.fn(function () {
-      return {
-        getData: function () { return new Promise((resolve, reject) => { reject(new Error('Test Lexical Query error')) }) }
-      }
-    })
-    let options = new Options(ContentOptionDefaults, TempStorageArea)
-    let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
-
-    let cmp = mount(Lookup, {
-      propsData: {
-        uiController: { l10n: l10n, options: options, resourceOptions: resourceOptions }
-      }
-    })
-
-    cmp.setData({
-      lookuptext: 'footext'
-    })
-
-    jest.spyOn(cmp.vm, 'clearTooltipText')
-
-    cmp.find('button').trigger('click')
-    await Vue.nextTick()
-    expect(LexicalQueryLookup.create).toHaveBeenCalled()
-
-    expect(cmp.vm.clearTooltipText).not.toHaveBeenCalled()
-    expect(cmp.vm.lookuptext).toEqual('footext')
-  })
-  /*
-  it('4 Lookup - created with parent language', () => {
+  it('3 Lookup - created with parent language', () => {
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
 
@@ -138,16 +106,16 @@ describe('lookup.test.js', () => {
       }
     })
 
-    // expect(cmp.vm.initLanguage).toEqual('Latin')
-    // expect(cmp.vm.currentLanguage).toEqual('Latin')
+    expect(cmp.vm.initLanguage).toEqual('Latin')
+    expect(cmp.vm.currentLanguage).toEqual('Latin')
     expect(cmp.vm.options.items.lookupLanguage.currentTextValue()).toEqual('Latin')
 
     expect(cmp.vm.lexiconSettingName).toEqual(`lexiconsShort-lat`)
     expect(cmp.vm.lexiconsFiltered).toEqual(resourceOptions.items.lexiconsShort.filter((item) => item.name === `lexiconsShort-lat`))
-    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual('Latin')
+    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.options.items.lookupLanguage.currentTextValue())
   })
-*/
-  it('5 Lookup - settings block', () => {
+
+  it('4 Lookup - settings block', () => {
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
 
@@ -173,7 +141,7 @@ describe('lookup.test.js', () => {
     expect(cmp.vm.showLanguageSettings).toBeTruthy()
   })
 
-  it('6 Lookup - settings block events', () => {
+  it('5 Lookup - settings block events', () => {
     let options = new Options(ContentOptionDefaults, TempStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
 
@@ -183,9 +151,9 @@ describe('lookup.test.js', () => {
       }
     })
 
-    cmp.vm.settingChange('lookupLanguage', 'Greek')
+    cmp.vm.settingChange('', 'Greek')
     expect(cmp.vm.options.items.lookupLanguage.currentTextValue()).toEqual('Greek')
-    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual('Greek')
+    expect(cmp.vm.currentLanguage).toEqual('Greek')
 
     cmp.vm.resourceSettingChange('lexiconsShort-grc', ['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
     let keyinfo = resourceOptions.parseKey('lexiconsShort-grc')
@@ -193,7 +161,7 @@ describe('lookup.test.js', () => {
     expect(cmp.vm.resourceOptions.items[keyinfo.setting][0].currentTextValue()).toEqual(['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
   })
 
-  it('7 Lookup - check required props', () => {
+  it('6 Lookup - check required props', () => {
     let cmp = mount(Lookup)
 
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "uiController"'))

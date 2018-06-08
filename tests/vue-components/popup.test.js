@@ -311,7 +311,27 @@ describe('popup.test.js', () => {
     expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
 
     curProps.data.morphDataReady = true
+    curProps.data.currentLanguageName = 'lat'
 
+    let placeholder3 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_DATA_POPUP_DATA)
+    expect(placeholder3.exists()).toBeTruthy()
+    expect(placeholder3.at(0).element.style.display).not.toEqual('none')
+    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
+
+    curProps.data.morphDataReady = true
+    curProps.data.currentLanguageName = 'lat'
+
+    cmp.setProps({
+      lexemes: [
+        {
+          lemma: {
+            principalParts: [ {} ]
+          }
+        }
+      ]
+    })
+
+    console.info('**************cmp', cmp.html())
     let allplaceholders = cmp.findAll('.alpheios-popup__definitions--placeholder')
     for (let i = 0; i < allplaceholders.length; i++) {
       expect(allplaceholders.at(i).element.style.display).toEqual('none')
