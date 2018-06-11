@@ -12,7 +12,7 @@ const mockFeature = function (value, type, languageCode) {
     value: value,
     type: type,
     languageID: LMF.getLanguageIdFromCode(languageCode),
-    toLocaleStringAbbr: () => { return value }
+    toLocaleStringAbbr: () => { return `${value}-mockabbrev` }
   }
 }
 
@@ -431,19 +431,19 @@ describe('morph-inner-v1.test.js', () => {
     expect(morphForms.findAll(InflectionAttribute).length).not.toBeLessThan(5)
 
     expect(morphForms.find('[data-feature="person"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="person"]').text()).toEqual('3rd person')
+    expect(morphForms.find('[data-feature="person"]').text()).toEqual('3rd-mockabbrev person')
 
     expect(morphForms.find('[data-feature="number"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="number"]').text()).toEqual('singular')
+    expect(morphForms.find('[data-feature="number"]').text()).toEqual('singular-mockabbrev')
 
     expect(morphForms.find('[data-feature="tense"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="tense"]').text()).toEqual('perfect')
+    expect(morphForms.find('[data-feature="tense"]').text()).toEqual('perfect-mockabbrev')
 
     expect(morphForms.find('[data-feature="mood"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="mood"]').text()).toEqual('indicative')
+    expect(morphForms.find('[data-feature="mood"]').text()).toEqual('indicative-mockabbrev')
 
     expect(morphForms.find('[data-feature="voice"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active')
+    expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active-mockabbrev')
   })
 
   it('9 MorphInner - check required props', () => {
