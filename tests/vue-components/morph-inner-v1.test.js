@@ -7,6 +7,15 @@ import ShortDef from '@/vue-components/shortdef.vue'
 
 import { LanguageModelFactory as LMF } from 'alpheios-data-models'
 
+const mockFeature = function (value, type, languageCode) {
+  return {
+    value: value,
+    type: type,
+    languageID: LMF.getLanguageIdFromCode(languageCode),
+    toLocaleStringAbbr: () => { return `${value}-mockabbrev` }
+  }
+}
+
 describe('morph-inner-v1.test.js', () => {
   console.error = function () {}
   console.log = function () {}
@@ -118,21 +127,9 @@ describe('morph-inner-v1.test.js', () => {
             lemma: {
               ID: '1',
               features: {
-                frequency: {
-                  value: 'fooFrequency',
-                  type: 'frequency',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                age: {
-                  value: 'fooAge',
-                  type: 'age',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                pronunciation: {
-                  value: 'fooPronunciation',
-                  type: 'pronunciation',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                }
+                frequency: mockFeature('fooFrequency', 'frequency', 'lat'),
+                age: mockFeature('fooAge', 'age', 'lat'),
+                pronunciation: mockFeature('fooPronunciation', 'pronunciation', 'lat')
               },
               languageCode: 'lat',
               languageID: LMF.getLanguageIdFromCode('lat'),
@@ -184,46 +181,14 @@ describe('morph-inner-v1.test.js', () => {
             lemma: {
               ID: '1',
               features: {
-                case: {
-                  value: 'fooGrmCase',
-                  type: 'case',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                gender: {
-                  value: 'fooGender',
-                  type: 'gender',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                'part of speach': {
-                  value: 'fooPart',
-                  type: 'part of speach',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                kind: {
-                  value: 'fooKind',
-                  type: 'kind',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                declension: {
-                  value: 'fooDeclension',
-                  type: 'declension',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                conjugation: {
-                  value: 'fooConjugation',
-                  type: 'conjugation',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                note: {
-                  value: 'fooNote',
-                  type: 'note',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                },
-                source: {
-                  value: 'fooSource',
-                  type: 'source',
-                  languageID: LMF.getLanguageIdFromCode('lat')
-                }
+                case: mockFeature('fooGrmCase', 'case', 'lat'),
+                gender: mockFeature('fooGender', 'gender', 'lat'),
+                'part of speach': mockFeature('fooPart', 'part of speech', 'lat'),
+                kind: mockFeature('fooKind', 'kind', 'lat'),
+                declension: mockFeature('fooDeclension', 'declension', 'lat'),
+                conjugation: mockFeature('fooConjugation', 'conjugation', 'lat'),
+                note: mockFeature('fooNote', 'note', 'lat'),
+                source: mockFeature('fooSource', 'source', 'lat')
               },
               languageCode: 'lat',
               languageID: LMF.getLanguageIdFromCode('lat'),
@@ -366,42 +331,15 @@ describe('morph-inner-v1.test.js', () => {
   })
 
   it('8 Morph - render inflection group', () => {
-    let tense = { type: 'tense',
-      _data: [{ value: 'perfect', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let partOfSpeach = { type: 'part of speach',
-      _data: [{ value: 'verb', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let voice = { type: 'voice',
-      _data: [{ value: 'active', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let mood = { type: 'mood',
-      _data: [{ value: 'indicative', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let number = { type: 'number',
-      _data: [{ value: 'singular', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let person = { type: 'person',
-      _data: [{ value: '3rd', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let conjugation = { type: 'conjugation',
-      _data: [{ value: '3rd', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let fullform = { type: 'full form',
-      _data: [{ value: 'foo-word', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
-    let word = { type: 'word',
-      _data: [{ value: 'capio', sortOrder: 1 }],
-      get value () { return this._data[0].value }
-    }
+    let tense = mockFeature('perfect', 'tense', 'lat')
+    let partOfSpeach = mockFeature('verb', 'part of speech', 'lat')
+    let voice = mockFeature('active', 'voice', 'lat')
+    let mood = mockFeature('indicative', 'mood', 'lat')
+    let number = mockFeature('singular', 'number', 'lat')
+    let person = mockFeature('3rd', 'person', 'lat')
+    let conjugation = mockFeature('3rd', 'conjugation', 'lat')
+    let fullform = mockFeature('foo-word', 'full form', 'lat')
+    let word = mockFeature('capio', 'word', 'lat')
     let cmp = mount(MorphInner, {
       propsData: {
         morphDataReady: true,
@@ -493,19 +431,19 @@ describe('morph-inner-v1.test.js', () => {
     expect(morphForms.findAll(InflectionAttribute).length).not.toBeLessThan(5)
 
     expect(morphForms.find('[data-feature="person"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="person"]').text()).toEqual('3rd person')
+    expect(morphForms.find('[data-feature="person"]').text()).toEqual('3rd-mockabbrev person')
 
     expect(morphForms.find('[data-feature="number"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="number"]').text()).toEqual('singular')
+    expect(morphForms.find('[data-feature="number"]').text()).toEqual('singular-mockabbrev')
 
     expect(morphForms.find('[data-feature="tense"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="tense"]').text()).toEqual('perfect')
+    expect(morphForms.find('[data-feature="tense"]').text()).toEqual('perfect-mockabbrev')
 
     expect(morphForms.find('[data-feature="mood"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="mood"]').text()).toEqual('indicative')
+    expect(morphForms.find('[data-feature="mood"]').text()).toEqual('indicative-mockabbrev')
 
     expect(morphForms.find('[data-feature="voice"]').element.getAttribute('data-grouplevel')).toEqual('4')
-    expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active')
+    expect(morphForms.find('[data-feature="voice"]').text()).toEqual('active-mockabbrev')
   })
 
   it('9 MorphInner - check required props', () => {

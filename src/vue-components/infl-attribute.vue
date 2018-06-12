@@ -42,7 +42,7 @@
       },
       decorate(data,type) {
         let decorated = typeof(data[type]) === 'string' ? data[type] : data[type].value
-        if (this.decorators.includes('abbreviate')) {
+        if (this.decorators.includes('abbreviate') && data[type].value) {
           decorated = data[type].toLocaleStringAbbr()
         }
         if (this.decorators.includes('appendtype')) {
@@ -58,7 +58,7 @@
       },
       sendFeature(features) {
         let tosend = features
-        
+
         if (Array.isArray(features)) {
           // TODO eventually we should support multiple features but
           // for the moment just send the first
