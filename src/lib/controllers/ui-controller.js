@@ -812,7 +812,7 @@ export default class UIController {
         }
         this.panel.panelData.shortDefinitions.push(...lexeme.meaning.shortDefs)
         this.updateProviders(homonym)
-      } else if (Object.entries(lexeme.lemma.features).size > 0) {
+      } else if (Object.entries(lexeme.lemma.features).length > 0) {
         definitions[lexeme.lemma.ID] = [new Definition('No definition found.', 'en-US', 'text/plain', lexeme.lemma.word)]
       }
 
@@ -918,13 +918,14 @@ export default class UIController {
 
   updateStyleClass (prefix, type) {
     let popupClasses = this.popup.popupData.classes
+
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
-    // this.popup.classesChanged += 1
+
     Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
 
     let panelClasses = this.panel.panelData.classes
