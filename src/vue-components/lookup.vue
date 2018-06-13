@@ -104,6 +104,7 @@
       clearLookupText: function(value) {
         if (value) {
           this.lookuptext = ''
+          this.showLanguageSettings = false
         }
       }
     },
