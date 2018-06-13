@@ -774,4 +774,22 @@
         fill: $alpheios-link-hover-color;
         stroke: $alpheios-link-hover-color;
     }
+
+    .alpheios-panel__tab__options {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .alpheios-panel__options-item {
+      max-width: none;
+      width: 100%;
+    }
+
+    .alpheios-panel__options-item label {
+      width: 100px;
+      display: inline-block;
+    }
+    .alpheios-panel__options-item select {
+      display: inline-block;
+    }
 </style>

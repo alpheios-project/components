@@ -33,6 +33,10 @@
     .uk-select:not([multiple]):not([size]) {
     	height: $baseFontSize * 2.5;
     }
+
+    .uk-select {
+        font-size: $baseFontSize * 0.93;
+    }
     .alpheios-panel__header-action-btn,
     .alpheios-panel__header-action-btn.active:hover,
     .alpheios-panel__header-action-btn.active:focus,

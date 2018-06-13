@@ -66,8 +66,11 @@
 
     ul.alpheios-skin_properties {
     	margin: 0;
-    	padding: 0 30px 10px 0;
+    	padding: 0 30px 10px 10px;
     	list-style: none;
+
+        max-width: 250px;
+        display: inline-block;
     }
     .alpheios-skin_properties_item {
         display: inline-block;
