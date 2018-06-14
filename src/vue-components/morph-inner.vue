@@ -227,18 +227,6 @@
       margin-top: .5em;
   }
 
-  .alpheios-morph__inflset h5 {
-      display: none;
-      font-size: $alpheios-base-font-size;
-      line-height: 1;
-      margin-bottom: .5em;
-  }
-
-  .alpheios-morph__inflset:first-child h5 {
-      color: $alpheios-toolbar-color;
-      display: block;
-  }
-
   .alpheios-morph__morphdata {
     display: inline;
   }

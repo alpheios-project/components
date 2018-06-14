@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-panel auk" :class="divClasses" :style="mainstyles"
-         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
+         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen"
         :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 
         <div class="alpheios-panel__header">
@@ -136,7 +136,7 @@
                 <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name" 
+                  :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1 && data.resourceSettings"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
@@ -147,14 +147,14 @@
                 <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.infoComponentData && data.l10n"></info>
             </div>
         </div>
-        <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
+        <div class="alpheios-panel__notifications alpheios-text-small" :class="notificationClasses"
           v-show="data.notification.important" v-if="data && data.notification">
             <span @click="closeNotifications" class="alpheios-panel__notifications-close-btn">
                 <close-icon></close-icon>
             </span>
             <span v-html="data.notification.text" class="alpheios-panel__notifications-text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
-                     :classes="['alpheios-panel__notifications--lang-switcher']" @change="settingChanged"
+                     :classes="['alpheios-panel__notifications--lang-switcher alpheios-text-smaller']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
     </div>
@@ -575,18 +575,6 @@
         justify-content: flex-start;
     }
 
-    .alpheios-panel__header-selection {
-        font-size: 16px;
-        font-weight: 700;
-        color: $alpheios-toolbar-color;
-    }
-
-    .alpheios-panel__header-word {
-        font-size: 14px;
-        position: relative;
-        top: -1px;
-    }
-
     .#{$alpheios-uikit-namespace} .alpheios-panel__header-logo-img {
         width: auto;
         height: 30px;
@@ -676,7 +664,6 @@
     }
 
     .alpheios-panel__notifications--lang-switcher {
-        font-size: 12px;
         float: right;
         margin: -20px 10px 0 0;
         display: inline-block;

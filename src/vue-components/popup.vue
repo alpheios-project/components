@@ -11,8 +11,8 @@
          </alph-tooltip>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status">
-                <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
-                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
+                <span v-show="data.status.selectedText" class="alpheios-popup__header-selection alpheios-text__medium">{{data.status.selectedText}}</span>
+                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word alpheios-text__smaller">({{data.status.languageName}})</span>
             </div>
 
             <div class="alpheios-popup__button-area" v-if="data">
@@ -43,35 +43,35 @@
             </div>
         </div>
         <div v-show="!morphDataReady && !noLanguage"
-             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder alpheios-text-small">
             {{ ln10Messages('PLACEHOLDER_POPUP_DATA') }}
         </div>
 
         <div v-show="noLanguage && !morphDataReady"
-             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder alpheios-text-small">
             {{ ln10Messages('PLACEHOLDER_NO_LANGUAGE_POPUP_DATA') }}
         </div>
         <div v-show="!hasMorphData && morphDataReady && !noLanguage"
-             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
+             class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder alpheios-text-small">
             {{ ln10Messages('PLACEHOLDER_NO_DATA_POPUP_DATA') }}
         </div>
-        <div v-show="morphDataReady && hasMorphData" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont uk-text-small alpheios-popup__morph-cont-ready">
+        <div v-show="morphDataReady && hasMorphData" :id="lexicalDataContainerID" class="alpheios-popup__morph-cont alpheios-text-small alpheios-popup__morph-cont-ready">
             <morph :id="morphComponentID" :lexemes="lexemes" :definitions="definitions" :translations="translations"
                    :linkedfeatures="linkedfeatures" @sendfeature="sendFeature" :morphDataReady="morphDataReady && hasMorphData">
             </morph>
 
             <div class="alpheios-popup__morph-cont-providers" v-if="data && showProviders">
-                <div class="alpheios-popup__morph-cont-providers-header">{{ ln10Messages('LABEL_POPUP_CREDITS') }}</div>
-                <div class="alpheios-popup__morph-cont-providers-source" v-for="p in data.providers">
+                <div class="alpheios-popup__morph-cont-providers-header alpheios-text__smaller">{{ ln10Messages('LABEL_POPUP_CREDITS') }}</div>
+                <div class="alpheios-popup__morph-cont-providers-source alpheios-text__smallest" v-for="p in data.providers">
                     {{ p.toString() }}
                 </div>
             </div>
         </div>
         <div class="alpheios-popup__providers">
           <img class="alpheios-popup__logo" src="../images/icon.png">
-          <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
+          <a class="alpheios-popup__providers-link alpheios-text__smaller" v-on:click="switchProviders">{{providersLinkText}}</a>
         </div>
-        <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
+        <div class="alpheios-popup__notifications alpheios-text-small" :class="notificationClasses"
              v-show="data.notification.important" v-if="data && data.notification">
 
               <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
@@ -80,7 +80,7 @@
 
             <span v-html="data.notification.text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
-                     :classes="['alpheios-popup__notifications--lang-switcher']" @change="settingChanged"
+                     :classes="['alpheios-popup__notifications--lang-switcher','alpheios-text__smaller']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
         <lookup :uiController="uiController" :parentLanguage="currentLanguageName" :clearLookupText="hasMorphData && morphDataReady"></lookup>
@@ -203,10 +203,10 @@
         return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
       },
       hasMorphData: function () {
-        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && 
-             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0 
-              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0) 
-           ) 
+        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 &&
+             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0
+              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0)
+           )
         {
           return true
         }
@@ -607,9 +607,6 @@
         top: 100px;
         box-sizing: border-box;  /* Required for Interact.js to take element size with paddings and work correctly */
         overflow: auto;
-        font-family: $alpheios-font-family;
-        font-size: $alpheios-base-font-size;
-        color: $alpheios-copy-color;
     }
 
     .alpheios-popup__header {
@@ -630,14 +627,12 @@
         padding: 7px 20px 0 0;
     }
 
-    .alpheios-popup__header-selection {
-        font-size: $alpheios-base-font-size;
+    span.alpheios-popup__header-selection {
         font-weight: 700;
         color: $alpheios-toolbar-color;
     }
 
     .alpheios-popup__header-word {
-        font-size: 0.75*$alpheios-base-font-size;
         position: relative;
         top: -1px;
     }
@@ -693,7 +688,6 @@
     }
 
     .alpheios-popup__notifications--lang-switcher {
-        font-size: 0.75*$alpheios-base-font-size;
         float: right;
         margin: -20px 10px 0 0;
         display: inline-block;
@@ -720,7 +714,6 @@
     .alpheios-popup__morph-cont-providers-header {
         display: inline-block;
         color: $alpheios-link-color;
-        font-size: 0.75*$alpheios-base-font-size;
         font-weight: 700;
         margin-top: 2px;
     }
@@ -738,10 +731,8 @@
     .alpheios-popup__more-btn {
         float: right;
         margin-bottom: 10px;
-        font-size: 0.675 * $alpheios-base-font-size;
     }
     .alpheios-popup__morph-cont-providers-source {
-      font-size: smaller;
       font-weight: normal;
       color: $alpheios-toolbar-color;
       font-style: italic;
@@ -751,8 +742,5 @@
 
     .alpheios-popup__providers {
       margin: 0 0 5px 10px;
-    }
-    .alpheios-popup__providers-link {
-      font-size: 0.675*$alpheios-base-font-size;
     }
 </style>
