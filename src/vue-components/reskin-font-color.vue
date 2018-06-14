@@ -2,19 +2,19 @@
 	<div class="alpheios-skin_panel">
       <label class="uk-form-label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
 	  <ul class="alpheios-skin_properties">
-        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
+        <alph-tooltip tooltipDirection="bottom-narrow2" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
 	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_MEDIUMFONT">
+        <alph-tooltip tooltipDirection="bottom-narrow2" :tooltipText="messages.TOOLTIP_RESKIN_MEDIUMFONT">
 	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LARGEFONT">
+        <alph-tooltip tooltipDirection="bottom-narrow2" :tooltipText="messages.TOOLTIP_RESKIN_LARGEFONT">
 	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LIGHTBG">
+        <alph-tooltip tooltipDirection="bottom-narrow2" :tooltipText="messages.TOOLTIP_RESKIN_LIGHTBG">
             <li class="alpheios-skin_properties_item alpheios-skin_properties_item__light_bg" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
         </alph-tooltip>
-        <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_DARKBG">
+        <alph-tooltip tooltipDirection="bottom-narrow2" :tooltipText="messages.TOOLTIP_RESKIN_DARKBG">
             <li class="alpheios-skin_properties_item alpheios-skin_properties_item__dark_bg" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
         </alph-tooltip>
 	  </ul>
@@ -72,6 +72,12 @@
         max-width: 250px;
         display: inline-block;
     }
+
+    ul.alpheios-skin_properties > div {
+      width: 30px;
+      text-align: center;
+    }
+
     .alpheios-skin_properties_item {
         display: inline-block;
         vertical-align: middle;

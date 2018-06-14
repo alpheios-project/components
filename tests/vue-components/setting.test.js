@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { mount } from '@vue/test-utils'
 import Setting from '../../src/vue-components/setting.vue'
+import Multiselect from 'vue-multiselect'
 
 describe('setting.test.js', () => {
   console.error = function () {}
@@ -65,7 +66,8 @@ describe('setting.test.js', () => {
     })
 
     expect(cmp.vm.selected).toEqual([{ text: 'footext1', value: 'foovalue1' }, { text: 'footext2', value: 'foovalue2' }])
-    expect(cmp.find('select').attributes().multiple).toBeTruthy()
+    // expect(cmp.find('select').attributes().multiple).toBeTruthy()
+    expect(cmp.find(Multiselect)).toBeTruthy()
   })
 
   it('4 Setting - check required props', () => {

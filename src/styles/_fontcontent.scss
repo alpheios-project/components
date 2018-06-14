@@ -34,9 +34,15 @@
     	height: $baseFontSize * 2.5;
     }
 
-    .uk-select {
+    .uk-select,
+    .multiselect, .multiselect__input, .multiselect__single {
         font-size: $baseFontSize * 0.93;
     }
+
+    .multiselect__tag-icon:after {
+        font-size: $baseFontSize * 0.75;
+    }
+
     .alpheios-panel__header-action-btn,
     .alpheios-panel__header-action-btn.active:hover,
     .alpheios-panel__header-action-btn.active:focus,
