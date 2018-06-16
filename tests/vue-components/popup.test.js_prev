@@ -331,6 +331,7 @@ describe('popup.test.js', () => {
       ]
     })
 
+    console.info('**************cmp', cmp.html())
     let allplaceholders = cmp.findAll('.alpheios-popup__definitions--placeholder')
     for (let i = 0; i < allplaceholders.length; i++) {
       expect(allplaceholders.at(i).element.style.display).toEqual('none')
