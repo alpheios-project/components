@@ -46,7 +46,7 @@ describe('panel.test.js', () => {
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
     .setLocale(Locales.en_US)
-  /*
+
   it('1 Panel - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Panel, {
       propsData: {}
@@ -126,14 +126,6 @@ describe('panel.test.js', () => {
       }
     })
 
-    cmp.setMethods({
-      'changeTabL': function (name) {
-        for (let key of Object.keys(this.data.tabs)) {
-          if (this.data.tabs[key]) { this.data.tabs[key] = false }
-        }
-        this.data.tabs[name] = true
-      }
-    })
     let tabsButtonsTooltips = cmp.find('.alpheios-panel__header-btn-group--center').findAll(Tooltip)
 
     for (let i = 0; i < tabsButtonsTooltips.length; i++) {
@@ -183,10 +175,6 @@ describe('panel.test.js', () => {
       }
       if (tabName.length > 0) {
         expect(cmp.emitted()['changetab'][i]).toEqual([tabName])
-        cmp.vm.changeTabL(tabName)
-        await Vue.nextTick()
-        expect(cmp.vm.data.tabs[tabName]).toBeTruthy()
-        expect(cmp.find('.alpheios-panel__content').find(`.alpheios-panel__tab__${tabName}`).element.style.display).not.toEqual('none')
       }
 
       expect(Object.keys(cmp.vm.data.tabs).filter(key => cmp.vm.data.tabs[key] === true).length).toEqual(1)
@@ -196,29 +184,29 @@ describe('panel.test.js', () => {
   it('4 Panel - header action buttons', () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    let data = {
+      tabs: {
+        definitions: false,
+        inflections: false,
+        info: true,
+        options: false,
+        status: false,
+        treebank: false,
+        grammar: false
+      },
+      l10n: l10n,
+      grammarRes: {},
+      infoComponentData: {},
+      inflectionComponentData: {},
+      treebankComponentData: {},
+      classes: [],
 
+      settings: options.items,
+      resourceSettings: resourceOptions.items
+    }
     let cmp = mount(Panel, {
       propsData: {
-        data: {
-          tabs: {
-            definitions: false,
-            inflections: false,
-            info: true,
-            options: false,
-            status: false,
-            treebank: false,
-            grammar: false
-          },
-          l10n: l10n,
-          grammarRes: {},
-          infoComponentData: {},
-          inflectionComponentData: {},
-          treebankComponentData: {},
-          classes: [],
-
-          settings: options.items,
-          resourceSettings: resourceOptions.items
-        }
+        data: data
       }
     })
 
@@ -247,12 +235,7 @@ describe('panel.test.js', () => {
           expect(cmp.emitted()['setposition']).toBeTruthy()
           expect(cmp.emitted()['setposition'][0]).toEqual(['right'])
 
-          cmp.vm.data.settings.panelPosition.currentValue = 'right'
-
-          expect(cmp.vm.attachToLeftVisible).toBeTruthy()
-          expect(cmp.vm.attachToRightVisible).toBeFalsy()
-
-          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).toEqual('none')
+          data.settings.panelPosition.currentValue = 'right'
           break
       }
     }
@@ -264,13 +247,6 @@ describe('panel.test.js', () => {
 
           expect(cmp.emitted()['setposition']).toBeTruthy()
           expect(cmp.emitted()['setposition'][1]).toEqual(['left'])
-
-          cmp.vm.data.settings.panelPosition.currentValue = 'left'
-
-          expect(cmp.vm.attachToLeftVisible).toBeFalsy()
-          expect(cmp.vm.attachToRightVisible).toBeTruthy()
-
-          expect(tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').element.style.display).toEqual('none')
           break
       }
     }
@@ -450,23 +426,6 @@ describe('panel.test.js', () => {
         expect(inflectionPlaceholders.at(i).element.style.display).toEqual('none')
       } else if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT) {
         expect(inflectionPlaceholders.at(i).element.style.display).not.toEqual('none')
-      }
-    }
-
-    expect(inflectionsBlock.find('.alpheios-inflections__content').element.style.display).toEqual('none')
-
-    cmp.vm.data.inflectionComponentData.enabled = false
-
-    await Vue.nextTick()
-
-    expect(inflectionsBlock.vm.isEnabled).toBeFalsy()
-    expect(inflectionsBlock.vm.isContentAvailable).toBeFalsy()
-
-    for (let i = 0; i < inflectionPlaceholders.length; i++) {
-      if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) {
-        expect(inflectionPlaceholders.at(i).element.style.display).not.toEqual('none')
-      } else if (inflectionPlaceholders.at(i).text() === l10n.messages.PLACEHOLDER_INFLECT) {
-        expect(inflectionPlaceholders.at(i).element.style.display).toEqual('none')
       }
     }
 
@@ -737,36 +696,37 @@ describe('panel.test.js', () => {
 
     expect(treebankC.vm.srcUrl).toEqual('http://example.org/tb/100/200')
   })
-*/
+
   it('13 Panel - active grammar tab (has data)', async () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    let data = {
+      tabs: {
+        definitions: false,
+        inflections: false,
+        info: false,
+        options: false,
+        status: false,
+        treebank: false,
+        grammar: true
+      },
+      l10n: l10n,
+      grammarRes: {
+        url: 'http://example.org/',
+        provider: ['someFooProvider']
+      },
+      inflectionComponentData: {},
+      infoComponentData: {},
+      treebankComponentData: {},
+      classes: [],
+
+      settings: options.items,
+      resourceSettings: resourceOptions.items
+    }
 
     let cmp = mount(Panel, {
       propsData: {
-        data: {
-          tabs: {
-            definitions: false,
-            inflections: false,
-            info: false,
-            options: false,
-            status: false,
-            treebank: false,
-            grammar: true
-          },
-          l10n: l10n,
-          grammarRes: {
-            url: 'http://example.org/',
-            provider: []
-          },
-          inflectionComponentData: {},
-          infoComponentData: {},
-          treebankComponentData: {},
-          classes: [],
-
-          settings: options.items,
-          resourceSettings: resourceOptions.items
-        }
+        data: data
       }
     })
 
@@ -778,15 +738,9 @@ describe('panel.test.js', () => {
     expect(grammarC.vm.res.url).toEqual('http://example.org/')
 
     expect(grammarC.find('.alpheios-grammar__provider').exists()).toBeTruthy()
-    expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('')
-
-    cmp.vm.data.grammarRes.provider = ['someFooProvider']
-    console.info('*************** 1', grammarC.find('.alpheios-grammar__provider').html())
-    await Vue.nextTick()
-    console.info('*************** 2', grammarC.find('.alpheios-grammar__provider').html())
     expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('someFooProvider')
   })
-/*
+
   it('14 Panel - notifications part (no data)', () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
@@ -857,21 +811,54 @@ describe('panel.test.js', () => {
 
     expect(cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-close-btn').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__notifications').find(Setting)).toBeTruthy()
+  })
 
-    cmp.vm.data.notification.important = true
+  it('16 Panel - notifications part (has data)', async () => {
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+
+    let cmp = mount(Panel, {
+      propsData: {
+        data: {
+          tabs: {
+            definitions: false,
+            inflections: false,
+            info: false,
+            options: false,
+            status: false,
+            treebank: true,
+            grammar: false
+          },
+          l10n: l10n,
+          grammarRes: {},
+          notification: {
+            important: true,
+            text: 'Some foo text',
+            showLanguageSwitcher: true
+          },
+          inflectionComponentData: {},
+          infoComponentData: {},
+          treebankComponentData: {},
+          classes: [],
+
+          settings: options.items,
+          resourceSettings: resourceOptions.items
+        }
+      }
+    })
 
     expect(cmp.find('.alpheios-panel__notifications').element.style.display).not.toEqual('none')
 
     cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-close-btn').trigger('click')
 
-    await Vue.nextTick()
     expect(cmp.emitted()['closenotifications']).toBeTruthy()
 
     expect(cmp.find('.alpheios-panel__notifications').find('.alpheios-panel__notifications-text').text()).toEqual('Some foo text')
 
-    expect(cmp.find('.alpheios-panel__notifications').find(Setting).element.style.display).toEqual('none')
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).element.style.display).not.toEqual('none')
 
-    cmp.vm.data.notification.showLanguageSwitcher = true
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).vm.showTitle).toBeFalsy()
+    expect(cmp.find('.alpheios-panel__notifications').find(Setting).find('label').element.style.display).toEqual('none')
 
     expect(cmp.find('.alpheios-panel__notifications').find(Setting).element.style.display).not.toEqual('none')
 
@@ -879,13 +866,13 @@ describe('panel.test.js', () => {
     expect(cmp.find('.alpheios-panel__notifications').find(Setting).find('label').element.style.display).toEqual('none')
   })
 
-  it('15 Panel - check required props', () => {
+  it('17 Panel - check required props', () => {
     let cmp = shallowMount(Panel)
 
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
   })
 
-  it('16 Panel - check ln10Messages', () => {
+  it('18 Panel - check ln10Messages', () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
 
@@ -925,5 +912,4 @@ describe('panel.test.js', () => {
     res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
     expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
   })
-  */
 })
