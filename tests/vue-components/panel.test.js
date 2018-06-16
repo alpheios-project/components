@@ -46,7 +46,7 @@ describe('panel.test.js', () => {
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
     .setLocale(Locales.en_US)
-
+  /*
   it('1 Panel - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Panel, {
       propsData: {}
@@ -193,7 +193,7 @@ describe('panel.test.js', () => {
     }
   })
 
-  it('4 Panel - header action buttons', async () => {
+  it('4 Panel - header action buttons', () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
 
@@ -244,14 +244,10 @@ describe('panel.test.js', () => {
         case l10n.messages.TOOLTIP_MOVE_PANEL_RIGHT:
           tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
 
-          await Vue.nextTick()
-
           expect(cmp.emitted()['setposition']).toBeTruthy()
           expect(cmp.emitted()['setposition'][0]).toEqual(['right'])
 
           cmp.vm.data.settings.panelPosition.currentValue = 'right'
-
-          await Vue.nextTick()
 
           expect(cmp.vm.attachToLeftVisible).toBeTruthy()
           expect(cmp.vm.attachToRightVisible).toBeFalsy()
@@ -266,14 +262,10 @@ describe('panel.test.js', () => {
         case l10n.messages.TOOLTIP_MOVE_PANEL_LEFT:
           tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
 
-          await Vue.nextTick()
-
           expect(cmp.emitted()['setposition']).toBeTruthy()
           expect(cmp.emitted()['setposition'][1]).toEqual(['left'])
 
           cmp.vm.data.settings.panelPosition.currentValue = 'left'
-
-          await Vue.nextTick()
 
           expect(cmp.vm.attachToLeftVisible).toBeFalsy()
           expect(cmp.vm.attachToRightVisible).toBeTruthy()
@@ -287,8 +279,6 @@ describe('panel.test.js', () => {
       switch (tabsButtonsTooltips.at(i).vm.tooltipText) {
         case l10n.messages.TOOLTIP_CLOSE_PANEL:
           tabsButtonsTooltips.at(i).find('.alpheios-panel__header-action-btn').trigger('click')
-
-          await Vue.nextTick()
 
           expect(cmp.emitted()['close']).toBeTruthy()
       }
@@ -747,7 +737,7 @@ describe('panel.test.js', () => {
 
     expect(treebankC.vm.srcUrl).toEqual('http://example.org/tb/100/200')
   })
-
+*/
   it('13 Panel - active grammar tab (has data)', async () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
@@ -791,10 +781,12 @@ describe('panel.test.js', () => {
     expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('')
 
     cmp.vm.data.grammarRes.provider = ['someFooProvider']
-
+    console.info('*************** 1', grammarC.find('.alpheios-grammar__provider').html())
+    await Vue.nextTick()
+    console.info('*************** 2', grammarC.find('.alpheios-grammar__provider').html())
     expect(grammarC.find('.alpheios-grammar__provider').text()).toEqual('someFooProvider')
   })
-
+/*
   it('14 Panel - notifications part (no data)', () => {
     let options = new Options(ContentOptionDefaults, LocalStorageArea)
     let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
@@ -933,4 +925,5 @@ describe('panel.test.js', () => {
     res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
     expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
   })
+  */
 })

@@ -279,8 +279,6 @@
  ========================================================================== */
   /* Caption
  ========================================================================== */
-  /* Row
- ========================================================================== */
   /* Alignment modifier
  ========================================================================== */
   /* Style modifiers
@@ -294,6 +292,8 @@
   /*
  * Hover
  */
+  /* Active state
+ ========================================================================== */
   /* Size modifier
  ========================================================================== */
   /* Justify modifier
@@ -3007,9 +3007,6 @@
     font-size: 0.875rem;
     text-align: left;
     color: #999; }
-  .auk .uk-table > tr.uk-active,
-  .auk .uk-table tbody tr.uk-active {
-    background: #ffd; }
   .auk .uk-table-middle,
   .auk .uk-table-middle td {
     vertical-align: middle !important; }
@@ -3024,6 +3021,9 @@
     border-bottom: 1px solid #e5e5e5; }
   .auk .uk-table-hover > tr:hover,
   .auk .uk-table-hover tbody tr:hover {
+    background: #ffd; }
+  .auk .uk-table > tr.uk-active,
+  .auk .uk-table tbody tr.uk-active {
     background: #ffd; }
   .auk .uk-table-small th,
   .auk .uk-table-small td {

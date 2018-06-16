@@ -245,7 +245,7 @@
         }
       },
       uiController: function () {
-        return (this.$parent) ? this.$parent.uiController : null
+        return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
       },
       mainstyles: function () {
         return (this.data) ? this.data.styles : ''
