@@ -17,13 +17,13 @@
 
       <span
         class="feature_extras"
-        v-if="getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo')">
+        v-if="lex.lemma.features && (getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo'))">
         <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
       </span>
       </p><!-- principal_parts -->
 
 
-      <div class="alpheios-morph__morphdata">
+      <div class="alpheios-morph__morphdata" v-if="lex.lemma.features">
         <span class="alpheios-morph__pofs">
           <inflectionattribute :data="lex.lemma.features" :type="types.grmCase" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
           <inflectionattribute :data="lex.lemma.features" :type="types.gender" :linkedfeatures="linkedfeatures" @sendfeature="sendFeature"/>
@@ -34,7 +34,7 @@
         <inflectionattribute :data="lex.lemma.features" :type="types.conjugation" :linkedfeatures="linkedfeatures" :decorators="['appendtype']" @sendfeature="sendFeature"/>
         <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
       </div>
-      <p class="feature_source" v-if="getFeature(lex.lemma,'source')">
+      <p class="feature_source" v-if="lex.lemma.features && getFeature(lex.lemma,'source')">
         <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
       </p>
     </div><!--alpheios-morph__features-->
@@ -162,7 +162,7 @@
     computed: {
       inflections: {
         get: function() {
-          return this.morphDataReady ? this.lex.getGroupedInflections() : []
+          return (this.morphDataReady && this.lex.getGroupedInflections) ? this.lex.getGroupedInflections() : []
         }
       }
     },
