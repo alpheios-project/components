@@ -7,19 +7,19 @@
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
               <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS}}</label>
-              <select v-model="partOfSpeechSelector" class="uk-select alpheios-inflections__view-selector">
+              <select v-model="partOfSpeechSelector" class="uk-select alpheios-inflections__view-selector alpheios-text__smallest">
                 <option v-for="partOfSpeech in partsOfSpeech">{{partOfSpeech}}</option>
               </select>
             </div>
               <div class="alpheios-inflections__actions">
-                <word-forms 
+                <word-forms
                     :partOfSpeech = "selectedView.constructor.partOfSpeech"
                     :targetWord = "data.inflectionData.homonym.targetWord"
-                    :lexemes = "data.inflectionData.homonym.lexemes" 
+                    :lexemes = "data.inflectionData.homonym.lexemes"
                     v-if="selectedView && data.inflectionData && data.inflectionData.homonym">
                 </word-forms>
                 <div v-show="views.length > 1">
-                    <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector">
+                    <select v-model="viewSelector" class="uk-select alpheios-inflections__view-selector alpheios-text__smallest">
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
                     </select>
                 </div>
@@ -373,8 +373,6 @@
     @import "../styles/alpheios";
 
     h3.alpheios-inflections__title {
-        font-size: 1.2rem;
-        line-height: 1;
         margin: 0 0 0.6rem 0;
         font-weight: 700;
         text-align: center;
@@ -383,12 +381,6 @@
     .#{$alpheios-uikit-namespace} .uk-select.alpheios-inflections__view-selector {
         height: auto !important;
         max-width: 220px;
-        font-size: .625rem;
-    }
-
-    .auk .uk-button-small.alpheios-inflections__control-btn {
-        line-height: 1.5;
-        font-size: .625rem;
     }
 
     .alpheios-inflections__actions {
@@ -435,7 +427,6 @@
     }
 
     .infl-cell {
-        font-size: 12px;
         padding: 0 2px 0 5px;
         border-right: 1px solid #111;
         border-top: 1px solid #111;

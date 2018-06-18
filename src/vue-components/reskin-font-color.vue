@@ -62,8 +62,6 @@
     	display: inline-block;
     }
 
-    $baseSize: $alpheios-base-font-size + 12px;
-
     ul.alpheios-skin_properties {
     	margin: 0;
     	padding: 0 30px 10px 0;
@@ -72,35 +70,11 @@
     .alpheios-skin_properties_item {
         display: inline-block;
         vertical-align: middle;
-        font-size: $alpheios-base-font-size;
-
-        width: $baseSize;
-        height: $baseSize;
         text-align: center;
-        line-height: $baseSize;
-
         color: #fff;
         background: $alpheios-toolbar-color;
-        border-radius: $baseSize/2;
-
-        cursor: pointer;        
+        cursor: pointer;
     }
-
-    .alpheios-skin_properties_item__small_font {
-		font-size: $alpheios-base-font-size * 0.8;
-        width: $baseSize * 0.8;
-        height: $baseSize * 0.8;
-        line-height: $baseSize * 0.8;
-        border-radius: $baseSize * 0.8 * 0.5;
-	}
-
-    .alpheios-skin_properties_item__large_font {
-		font-size:$alpheios-base-font-size * 1.2;
-        width: $baseSize * 1.2;
-        height: $baseSize * 1.2;
-        line-height: $baseSize * 1.2;
-        border-radius: $baseSize * 1.2;
-	}
 
     .alpheios-skin_properties_item__light_bg,
     .alpheios-skin_properties_item__dark_bg {
