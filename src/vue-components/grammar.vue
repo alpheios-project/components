@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-grammar" v-if="res">
-    <iframe class="alpheios-grammar__frame" :src="res.url"></iframe>
-    <div class="alpheios-grammar__provider alpheios-text__smaller" v-if="res.provider">{{ res.provider.toString() }}</div>
+    <iframe class="alpheios-grammar__frame  alpheios-text__smaller" :src="res.url" v-if="res.url"></iframe>
+    <div class="alpheios-grammar__provider" v-if="res.provider">{{ res.provider.toString() }}</div>
   </div>
 </template>
 <script>
@@ -25,6 +25,7 @@
 
     .alpheios-grammar__provider {
         flex: 1 1 auto;
+        font-size: 0.75*$alpheios-base-font-size;
         font-weight: normal;
         color: $alpheios-toolbar-color;
         font-style: italic;
