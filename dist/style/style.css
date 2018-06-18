@@ -279,6 +279,8 @@
  ========================================================================== */
   /* Caption
  ========================================================================== */
+  /* Row
+ ========================================================================== */
   /* Alignment modifier
  ========================================================================== */
   /* Style modifiers
@@ -292,8 +294,6 @@
   /*
  * Hover
  */
-  /* Active state
- ========================================================================== */
   /* Size modifier
  ========================================================================== */
   /* Justify modifier
@@ -3007,6 +3007,9 @@
     font-size: 0.875rem;
     text-align: left;
     color: #999; }
+  .auk .uk-table > tr.uk-active,
+  .auk .uk-table tbody tr.uk-active {
+    background: #ffd; }
   .auk .uk-table-middle,
   .auk .uk-table-middle td {
     vertical-align: middle !important; }
@@ -3021,9 +3024,6 @@
     border-bottom: 1px solid #e5e5e5; }
   .auk .uk-table-hover > tr:hover,
   .auk .uk-table-hover tbody tr:hover {
-    background: #ffd; }
-  .auk .uk-table > tr.uk-active,
-  .auk .uk-table tbody tr.uk-active {
     background: #ffd; }
   .auk .uk-table-small th,
   .auk .uk-table-small td {
@@ -7412,431 +7412,227 @@
 .sense-spacer2 {
   padding-left: 3em; }
 
-.auk.alpheios-panel.alpheios-font_medium_class {
-  font-size: 16px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-form-label {
-    font-size: 13.6px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-h3, .auk.alpheios-panel.alpheios-font_medium_class h3 {
-    font-size: 18.88px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-text-small {
-    font-size: 14.4px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-info__currentlanguage {
-    font-size: 10.8px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 16px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .infl-cell {
-    font-size: 12px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 10.8px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
-    height: 40px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
-    width: 20px;
-    height: 20px;
-    margin: 9px 15px; }
-    .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-panel.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
-      width: 20px;
-      height: 20px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alph_tooltip .tooltiptext {
-    font-size: 12px;
-    width: 120px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-skin_properties_item {
+.auk.alpheios-font_medium_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  color: #333333;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_medium_class h3 {
+    font-size: 16px .auk.alpheios-font_medium_class h3 1.25; }
+  .auk.alpheios-font_medium_class p, .auk.alpheios-font_medium_class span, .auk.alpheios-font_medium_class div, .auk.alpheios-font_medium_class a {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 16px;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 14px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-skin_properties_item__small_font {
-    font-size: 12.8px;
-    width: 22.4px;
-    height: 22.4px;
-    line-height: 22.4px;
-    border-radius: 11.2px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-skin_properties_item__large_font {
-    font-size: 19.2px;
-    width: 33.6px;
-    height: 33.6px;
-    line-height: 33.6px;
-    border-radius: 33.6px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__more-btn,
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
+    line-height: normal;
+    color: #333333; }
+  .auk.alpheios-font_medium_class .uk-form-label {
+    font-size: 13.6px; }
+  .auk.alpheios-font_medium_class .uk-button {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
+  .auk.alpheios-font_medium_class .uk-button-small {
     font-size: 11.2px;
     line-height: 28px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .uk-input.alpheios-lookup__input {
-    height: 32px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__header-selection {
-    font-size: 16px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 17.6px; }
-  .auk.alpheios-panel.alpheios-font_medium_class .alpheios-popup__providers-link,
-  .auk.alpheios-panel.alpheios-font_medium_class a.alpheios-lookup__settings-link {
-    font-size: 11.2px; }
-
-.auk.alpheios-popup.alpheios-font_medium_class {
-  font-size: 16px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-form-label {
-    font-size: 13.6px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-h3, .auk.alpheios-popup.alpheios-font_medium_class h3 {
-    font-size: 18.88px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-text-small {
-    font-size: 14.4px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-info__currentlanguage {
-    font-size: 10.8px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 16px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .infl-cell {
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 10.8px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
+  .auk.alpheios-font_medium_class .uk-input {
+    height: 28px; }
+  .auk.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
     height: 40px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
-    width: 20px;
-    height: 20px;
-    margin: 9px 15px; }
-    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-popup.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
-      width: 20px;
-      height: 20px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alph_tooltip .tooltiptext {
-    font-size: 12px;
-    width: 120px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_properties_item {
-    font-size: 16px;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 14px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_properties_item__small_font {
-    font-size: 12.8px;
-    width: 22.4px;
-    height: 22.4px;
-    line-height: 22.4px;
-    border-radius: 11.2px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-skin_properties_item__large_font {
-    font-size: 19.2px;
-    width: 33.6px;
-    height: 33.6px;
-    line-height: 33.6px;
-    border-radius: 33.6px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__more-btn,
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-button.alpheios-lookup__button {
-    font-size: 11.2px;
-    line-height: 28px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .uk-input.alpheios-lookup__input {
-    height: 32px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__header-selection {
+  .auk.alpheios-font_medium_class .alpheios-text__smallest {
+    font-size: 10.8px; }
+  .auk.alpheios-font_medium_class .alpheios-text__smaller {
+    font-size: 12px; }
+  .auk.alpheios-font_medium_class .alpheios-text__small {
+    font-size: 14px; }
+  .auk.alpheios-font_medium_class .alpheios-text__medium {
     font-size: 16px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-morph__dictentry .alpheios-morph__formtext {
+  .auk.alpheios-font_medium_class .alpheios-text__large {
     font-size: 17.6px; }
-  .auk.alpheios-popup.alpheios-font_medium_class .alpheios-popup__providers-link,
-  .auk.alpheios-popup.alpheios-font_medium_class a.alpheios-lookup__settings-link {
-    font-size: 11.2px; }
-
-.auk.alpheios-panel.alpheios-font_small_class {
-  font-size: 12px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-form-label {
-    font-size: 10.2px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-h3, .auk.alpheios-panel.alpheios-font_small_class h3 {
-    font-size: 14.16px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-text-small {
-    font-size: 10.8px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-info__currentlanguage {
-    font-size: 8.1px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 12px; }
-  .auk.alpheios-panel.alpheios-font_small_class .infl-cell {
-    font-size: 9px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 8.1px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
-    height: 30px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-nav-btn {
-    width: 15px;
-    height: 15px;
-    margin: 13px 15px; }
-    .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-panel.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
-      width: 15px;
-      height: 15px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alph_tooltip .tooltiptext {
-    font-size: 9px;
-    width: 90px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-skin_properties_item {
-    font-size: 12px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 12px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
-    font-size: 9.6px;
-    width: 19.2px;
-    height: 19.2px;
-    line-height: 19.2px;
-    border-radius: 9.6px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-skin_properties_item__large_font {
-    font-size: 14.4px;
-    width: 28.8px;
-    height: 28.8px;
-    line-height: 28.8px;
-    border-radius: 28.8px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__more-btn,
-  .auk.alpheios-panel.alpheios-font_small_class .uk-button.alpheios-lookup__button {
-    font-size: 8.4px;
-    line-height: 21px; }
-  .auk.alpheios-panel.alpheios-font_small_class .uk-input.alpheios-lookup__input {
-    height: 24px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__header-selection {
-    font-size: 12px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 13.2px; }
-  .auk.alpheios-panel.alpheios-font_small_class .alpheios-popup__providers-link,
-  .auk.alpheios-panel.alpheios-font_small_class a.alpheios-lookup__settings-link {
-    font-size: 8.4px; }
-
-.auk.alpheios-popup.alpheios-font_small_class {
-  font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-form-label {
-    font-size: 10.2px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-h3, .auk.alpheios-popup.alpheios-font_small_class h3 {
-    font-size: 14.16px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-text-small {
-    font-size: 10.8px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-info__currentlanguage {
-    font-size: 8.1px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .infl-cell {
-    font-size: 9px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 8.1px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
-    height: 30px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-nav-btn {
-    width: 15px;
-    height: 15px;
-    margin: 13px 15px; }
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-popup.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
-      width: 15px;
-      height: 15px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alph_tooltip .tooltiptext {
-    font-size: 9px;
-    width: 90px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_properties_item {
-    font-size: 12px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
-    font-size: 9.6px;
-    width: 19.2px;
-    height: 19.2px;
-    line-height: 19.2px;
-    border-radius: 9.6px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-skin_properties_item__large_font {
-    font-size: 14.4px;
-    width: 28.8px;
-    height: 28.8px;
-    line-height: 28.8px;
-    border-radius: 28.8px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__more-btn,
-  .auk.alpheios-popup.alpheios-font_small_class .uk-button.alpheios-lookup__button {
-    font-size: 8.4px;
-    line-height: 21px; }
-  .auk.alpheios-popup.alpheios-font_small_class .uk-input.alpheios-lookup__input {
-    height: 24px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__header-selection {
-    font-size: 12px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 13.2px; }
-  .auk.alpheios-popup.alpheios-font_small_class .alpheios-popup__providers-link,
-  .auk.alpheios-popup.alpheios-font_small_class a.alpheios-lookup__settings-link {
-    font-size: 8.4px; }
-
-.auk.alpheios-panel.alpheios-font_large_class {
-  font-size: 20px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-form-label {
-    font-size: 17px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-h3, .auk.alpheios-panel.alpheios-font_large_class h3 {
-    font-size: 23.6px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-text-small {
-    font-size: 18px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-info__currentlanguage {
-    font-size: 13.5px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+  .auk.alpheios-font_medium_class .alpheios-text__larger {
     font-size: 20px; }
-  .auk.alpheios-panel.alpheios-font_large_class .infl-cell {
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
+    width: 20px;
+    height: 20px;
+    margin: 9px 15px; }
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
+      width: 20px;
+      height: 20px; }
+  .auk.alpheios-font_medium_class .infl-cell, .auk.alpheios-font_medium_class .infl-cell span {
+    font-size: 12px; }
+  .auk.alpheios-font_medium_class .infl-cell sup {
+    font-size: 10.8px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 14px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__small_font {
+    font-size: 12.8px;
+    width: 22.4px;
+    height: 22.4px;
+    line-height: 22.4px;
+    border-radius: 11.2px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__large_font {
+    font-size: 19.2px;
+    width: 33.6px;
+    height: 33.6px;
+    line-height: 33.6px;
+    border-radius: 33.6px; }
+
+.auk.alpheios-font_small_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: normal;
+  color: #333333;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_small_class h3 {
+    font-size: 12px .auk.alpheios-font_small_class h3 1.25; }
+  .auk.alpheios-font_small_class p, .auk.alpheios-font_small_class span, .auk.alpheios-font_small_class div, .auk.alpheios-font_small_class a {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: normal;
+    color: #333333; }
+  .auk.alpheios-font_small_class .uk-form-label {
+    font-size: 10.2px; }
+  .auk.alpheios-font_small_class .uk-button {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
+  .auk.alpheios-font_small_class .uk-button-small {
+    font-size: 8.4px;
+    line-height: 21px; }
+  .auk.alpheios-font_small_class .uk-input {
+    height: 21px; }
+  .auk.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
+    height: 30px; }
+  .auk.alpheios-font_small_class .alpheios-text__smallest {
+    font-size: 8.1px; }
+  .auk.alpheios-font_small_class .alpheios-text__smaller {
+    font-size: 9px; }
+  .auk.alpheios-font_small_class .alpheios-text__small {
+    font-size: 10.5px; }
+  .auk.alpheios-font_small_class .alpheios-text__medium {
+    font-size: 12px; }
+  .auk.alpheios-font_small_class .alpheios-text__large {
+    font-size: 13.2px; }
+  .auk.alpheios-font_small_class .alpheios-text__larger {
     font-size: 15px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 13.5px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
+    width: 15px;
+    height: 15px;
+    margin: 13px 15px; }
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
+      width: 15px;
+      height: 15px; }
+  .auk.alpheios-font_small_class .infl-cell, .auk.alpheios-font_small_class .infl-cell span {
+    font-size: 9px; }
+  .auk.alpheios-font_small_class .infl-cell sup {
+    font-size: 8.1px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item {
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
+    font-size: 9.6px;
+    width: 19.2px;
+    height: 19.2px;
+    line-height: 19.2px;
+    border-radius: 9.6px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item__large_font {
+    font-size: 14.4px;
+    width: 28.8px;
+    height: 28.8px;
+    line-height: 28.8px;
+    border-radius: 28.8px; }
+
+.auk.alpheios-font_large_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: normal;
+  color: #333333;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_large_class h3 {
+    font-size: 20px .auk.alpheios-font_large_class h3 1.25; }
+  .auk.alpheios-font_large_class p, .auk.alpheios-font_large_class span, .auk.alpheios-font_large_class div, .auk.alpheios-font_large_class a {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: normal;
+    color: #333333; }
+  .auk.alpheios-font_large_class .uk-form-label {
+    font-size: 17px; }
+  .auk.alpheios-font_large_class .uk-button {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
+  .auk.alpheios-font_large_class .uk-button-small {
+    font-size: 14px;
+    line-height: 35px; }
+  .auk.alpheios-font_large_class .uk-input {
+    height: 35px; }
+  .auk.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
     height: 50px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn {
+  .auk.alpheios-font_large_class .alpheios-text__smallest {
+    font-size: 13.5px; }
+  .auk.alpheios-font_large_class .alpheios-text__smaller {
+    font-size: 15px; }
+  .auk.alpheios-font_large_class .alpheios-text__small {
+    font-size: 17.5px; }
+  .auk.alpheios-font_large_class .alpheios-text__medium {
+    font-size: 20px; }
+  .auk.alpheios-font_large_class .alpheios-text__large {
+    font-size: 22px; }
+  .auk.alpheios-font_large_class .alpheios-text__larger {
+    font-size: 25px; }
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     width: 25px;
     height: 25px;
     margin: 5px 15px; }
-    .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
       width: 25px;
       height: 25px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alph_tooltip .tooltiptext {
-    font-size: 15px;
-    width: 150px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-skin_properties_item {
+  .auk.alpheios-font_large_class .infl-cell, .auk.alpheios-font_large_class .infl-cell span {
+    font-size: 15px; }
+  .auk.alpheios-font_large_class .infl-cell sup {
+    font-size: 13.5px; }
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item {
     font-size: 20px;
     width: 32px;
     height: 32px;
     line-height: 32px;
     border-radius: 16px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-skin_properties_item__small_font {
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item__small_font {
     font-size: 16px;
     width: 25.6px;
     height: 25.6px;
     line-height: 25.6px;
     border-radius: 12.8px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
     font-size: 24px;
     width: 38.4px;
     height: 38.4px;
     line-height: 38.4px;
     border-radius: 38.4px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__more-btn,
-  .auk.alpheios-panel.alpheios-font_large_class .uk-button.alpheios-lookup__button {
-    font-size: 14px;
-    line-height: 35px; }
-  .auk.alpheios-panel.alpheios-font_large_class .uk-input.alpheios-lookup__input {
-    height: 40px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__header-selection {
-    font-size: 20px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 22px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-popup__providers-link,
-  .auk.alpheios-panel.alpheios-font_large_class a.alpheios-lookup__settings-link {
-    font-size: 14px; }
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-panel.alpheios-font_large_class .alpheios-panel__header-nav-btn {
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     margin-right: 10px;
     margin-left: 10px; }
-
-.auk.alpheios-popup.alpheios-font_large_class {
-  font-size: 20px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-form-label {
-    font-size: 17px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-h3, .auk.alpheios-popup.alpheios-font_large_class h3 {
-    font-size: 23.6px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-text-small {
-    font-size: 18px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-info .alpheios-info__versiontext,
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-info__currentlanguage {
-    font-size: 13.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-info .alpheios-info__helptext p {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 20px; }
-  .auk.alpheios-popup.alpheios-font_large_class .infl-cell {
-    font-size: 15px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-select.alpheios-inflections__view-selector {
-    font-size: 13.5px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
-    height: 50px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-nav-btn {
-    width: 25px;
-    height: 25px;
-    margin: 5px 15px; }
-    .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-popup.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
-      width: 25px;
-      height: 25px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alph_tooltip .tooltiptext {
-    font-size: 15px;
-    width: 150px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_properties_item {
-    font-size: 20px;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 16px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_properties_item__small_font {
-    font-size: 16px;
-    width: 25.6px;
-    height: 25.6px;
-    line-height: 25.6px;
-    border-radius: 12.8px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
-    font-size: 24px;
-    width: 38.4px;
-    height: 38.4px;
-    line-height: 38.4px;
-    border-radius: 38.4px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-button {
-    font-family: Arial,Helvetica Neue,Helvetica,sans-serif !important; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__more-btn,
-  .auk.alpheios-popup.alpheios-font_large_class .uk-button.alpheios-lookup__button {
-    font-size: 14px;
-    line-height: 35px; }
-  .auk.alpheios-popup.alpheios-font_large_class .uk-input.alpheios-lookup__input {
-    height: 40px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__header-selection {
-    font-size: 20px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-morph__dictentry .alpheios-morph__formtext {
-    font-size: 22px; }
-  .auk.alpheios-popup.alpheios-font_large_class .alpheios-popup__providers-link,
-  .auk.alpheios-popup.alpheios-font_large_class a.alpheios-lookup__settings-link {
-    font-size: 14px; }
 
 div.alpheios-color_schema_dark_class {
   background: #282828;
@@ -8293,9 +8089,6 @@ div.alpheios-morph__block {
 }
 .uk-input.alpheios-lookup__input {
   width: 70%;
-  line-height: 28px;
-  height: 30px;
-  font-size: 14px;
   margin-bottom: 10px;
   vertical-align: top;
 }
@@ -8303,7 +8096,6 @@ div.alpheios-morph__block {
     border-color: #5BC8DC;
 }
 .uk-button.alpheios-lookup__button {
-  font-size: 12px;
   vertical-align: top;
   display: block;
 }
@@ -8311,7 +8103,6 @@ div.alpheios-morph__block {
   text-align: left;
 }
 a.alpheios-lookup__settings-link {
-  font-size: 10.8px;
   display: block;
   padding-top: 5px;
 }
@@ -8545,8 +8336,6 @@ img.alpheios-popup__logo {
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
 h3.alpheios-inflections__title {
-  font-size: 1.2rem;
-  line-height: 1;
   margin: 0 0 0.6rem 0;
   font-weight: 700;
   text-align: center;
@@ -8554,11 +8343,6 @@ h3.alpheios-inflections__title {
 .auk .uk-select.alpheios-inflections__view-selector {
   height: auto !important;
   max-width: 220px;
-  font-size: .625rem;
-}
-.auk .uk-button-small.alpheios-inflections__control-btn {
-  line-height: 1.5;
-  font-size: .625rem;
 }
 .alpheios-inflections__actions {
   display: flex;
@@ -8598,7 +8382,6 @@ h3.alpheios-inflections__title {
   flex-wrap: wrap;
 }
 .infl-cell {
-  font-size: 12px;
   padding: 0 2px 0 5px;
   border-right: 1px solid #111;
   border-top: 1px solid #111;
@@ -8810,22 +8593,7 @@ h3.alpheios-inflections__title {
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
-.alpheios-info {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 16px;
-  color: #666666;
-}
-.alpheios-info .alpheios-info__helptext p {
-  font-size: 14px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 16px;
-  color: #666666;
-}
-.alpheios-info .alpheios-info__versiontext {
-  font-size: 10.8px;
-}
 .alpheios-info__currentlanguage {
-  font-size: 10.8px;
   font-weight: bold;
 }
 .alpheios-info__helptext {
@@ -8847,29 +8615,10 @@ ul.alpheios-skin_properties {
 .alpheios-skin_properties_item {
   display: inline-block;
   vertical-align: middle;
-  font-size: 16px;
-  width: 28px;
-  height: 28px;
   text-align: center;
-  line-height: 28px;
   color: #fff;
   background: #4E6476;
-  border-radius: 14px;
   cursor: pointer;
-}
-.alpheios-skin_properties_item__small_font {
-  font-size: 12.8px;
-  width: 22.4px;
-  height: 22.4px;
-  line-height: 22.4px;
-  border-radius: 11.2px;
-}
-.alpheios-skin_properties_item__large_font {
-  font-size: 19.2px;
-  width: 33.6px;
-  height: 33.6px;
-  line-height: 33.6px;
-  border-radius: 33.6px;
 }
 .alpheios-skin_properties_item__light_bg,
 .alpheios-skin_properties_item__dark_bg {
@@ -9039,6 +8788,225 @@ ul.alpheios-skin_properties {
 }
 .alpheios-panel__notifications--lang-switcher {
   font-size: 12px;
+  float: right;
+  margin: -20px 10px 0 0;
+  display: inline-block;
+}
+.alpheios-panel__notifications--lang-switcher .uk-select {
+  width: 120px;
+  height: 25px;
+}
+.alpheios-panel__notifications--important {
+  background: #73CDDE;
+}
+[data-notification-visible="true"] .alpheios-panel__notifications {
+  display: block;
+}
+.alpheios-panel__tab-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.alpheios-panel__tab-panel--fw {
+  width: 100%;
+}
+.alpheios-panel__tab-panel--no-padding {
+  padding: 0;
+}
+.alpheios-panel__content_no_top_padding {
+  padding-top: 0;
+}
+.alpheios-panel__message {
+  margin-bottom: 0.5rem;
+}
+.alpheios-panel__options-item {
+  margin-bottom: 0.5rem;
+  max-width: 300px;
+}
+.alpheios-panel__contentitem {
+  margin-bottom: 1em;
+}
+.alpheios-panel__header-btn-group--center {
+  direction: ltr;
+  display: flex;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+.alpheios-panel__header-btn-group--end {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+.alpheios-panel__header-nav-btn {
+  display: block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: transparent no-repeat center center;
+  background-size: contain;
+  margin: 10px 15px;
+}
+.alpheios-panel__header-nav-btn svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.alpheios-panel__header-nav-btn.alpheios-panel__header-nav-btn--short {
+  margin: -10px 5px 20px;
+}
+.alpheios-panel__header-nav-btn,
+.alpheios-panel__header-nav-btn.active:hover,
+.alpheios-panel__header-nav-btn.active:focus {
+  fill: #D1D1D0;
+  stroke: #D1D1D0;
+}
+.alpheios-panel__header-nav-btn:hover,
+.alpheios-panel__header-nav-btn:focus,
+.alpheios-panel__header-nav-btn.active {
+  fill: #5BC8DC;
+  stroke: #5BC8DC;
+}
+
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
+/*************** light schema colors tooltip **************/
+.alpheios-panel {
+  width: 400px;
+  height: 100vh;
+  top: 0;
+  z-index: 2000;
+  position: fixed;
+  background: #FFF;
+  resize: both;
+  opacity: 0.95;
+  direction: ltr;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 40px 20px auto 60px;
+  grid-template-areas: "header" "title" "content" "content";
+}
+.alpheios-panel[data-notification-visible="true"] {
+  grid-template-areas: "header" "title" "content" "notifications";
+}
+.alpheios-panel.alpheios-panel-left {
+  left: 0;
+  border-right: 1px solid #D1D1D0;
+}
+.alpheios-panel.alpheios-panel-right {
+  right: 0;
+  border-left: 1px solid #D1D1D0;
+  grid-template-columns: auto;
+  grid-template-areas: "header" "title" "content" "content";
+}
+.alpheios-panel.alpheios-panel-right[data-notification-visible="true"] {
+  grid-template-areas: "header" "title" "content" "notifications";
+}
+.alpheios-panel__header {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  grid-area: header;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #D1D1D0;
+}
+.alpheios-panel-left .alpheios-panel__header {
+  direction: ltr;
+  /*padding: 0 0 0 10px;*/
+}
+.alpheios-panel-right .alpheios-panel__header {
+  direction: rtl;
+  /*padding: 0 10px 0 0;*/
+}
+.alpheios-panel__header-logo {
+  flex-grow: 0;
+  justify-content: flex-start;
+}
+.auk .alpheios-panel__header-logo-img {
+  width: auto;
+  height: 30px;
+  padding-top: 5px;
+}
+.alpheios-panel__header-action-btn,
+.alpheios-panel__header-action-btn.active:hover,
+.alpheios-panel__header-action-btn.active:focus {
+  display: block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+  fill: #D1D1D0;
+  stroke: #D1D1D0;
+  margin: 10px 15px;
+}
+.alpheios-panel__header-action-btn svg,
+  .alpheios-panel__header-action-btn.active:hover svg,
+  .alpheios-panel__header-action-btn.active:focus svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.alpheios-panel__header-action-btn:hover,
+.alpheios-panel__header-action-btn:focus,
+.alpheios-panel__header-action-btn.active {
+  fill: #5BC8DC;
+  stroke: #5BC8DC;
+}
+.alpheios-panel__body {
+  display: flex;
+  height: calc(100vh - 40px);
+}
+.alpheios-panel-left .alpheios-panel__body {
+  flex-direction: row;
+}
+.alpheios-panel-right .alpheios-panel__body {
+  flex-direction: row-reverse;
+}
+.alpheios-panel__content {
+  overflow: auto;
+  grid-area: content;
+  direction: ltr;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+}
+.alpheios-lookup__panel {
+  display: block;
+  border-bottom: 1px solid;
+  margin-bottom: 20px;
+}
+.alpheios-panel__notifications {
+  display: none;
+  position: relative;
+  padding: 10px 20px;
+  background: #BCE5F0;
+  grid-area: notifications;
+  overflow: hidden;
+}
+.alpheios-panel__notifications-close-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  fill: #D1D1D0;
+  stroke: #D1D1D0;
+}
+.alpheios-panel__notifications-close-btn:hover,
+.alpheios-panel__notifications-close-btn:focus {
+  fill: #5BC8DC;
+  stroke: #5BC8DC;
+}
+.alpheios-panel__notifications--lang-switcher {
   float: right;
   margin: -20px 10px 0 0;
   display: inline-block;

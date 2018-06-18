@@ -50,7 +50,7 @@
     },
     methods: {
       showLexeme(lex) {
-        return lex.isPopulated ? lex.isPopulated() : false
+        return (lex.isPopulated) ? lex.isPopulated() : false
       },
       sendFeature (data) {
         this.$emit('sendfeature',data)

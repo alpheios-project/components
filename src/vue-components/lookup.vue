@@ -10,7 +10,7 @@
       >
         {{ ln10Messages('LABEL_LOOKUP_BUTTON') }}
       </button>
-      <a class="alpheios-lookup__settings-link" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
+      <a class="alpheios-lookup__settings-link alpheios-text__smaller" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
       </span>
     </alph-tooltip>
     <div class="alpheios-lookup__settings" v-if="uiController">
@@ -122,7 +122,7 @@
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
 
-        // this.lookuptext = ''     
+        // this.lookuptext = ''
       },
 
       'switchLookupSettings': function () {
@@ -163,9 +163,6 @@
 
     .uk-input.alpheios-lookup__input {
       width: 70%;
-      line-height: 28px;
-      height: 30px;
-      font-size: 14px;
       margin-bottom: 10px;
       vertical-align: top;
 
@@ -175,7 +172,6 @@
     }
 
     .uk-button.alpheios-lookup__button {
-      font-size: 12px;
       vertical-align: top;
       display: block;
     }
@@ -185,7 +181,6 @@
     }
 
     a.alpheios-lookup__settings-link {
-      font-size: 0.675 * $alpheios-base-font-size;
       display: block;
       padding-top: 5px;
     }
