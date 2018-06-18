@@ -39,10 +39,16 @@
                 </div>
             </div>
 
+            <div v-show="this.selectedView.constructor.name === 'GreekParadigmView'"
+                 class="alpheios-inflections__paradigms-expl"
+                 v-html="messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(data.inflectionData.targetWord)">
+            </div>
+
             <template v-if="selectedView.hasComponentData">
                 <widetable :data="selectedView.wideTable"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
+
             <div v-show="!selectedView.hasComponentData">
                 <div :id="elementIDs.wideView" class=""></div>
                 <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
@@ -51,6 +57,11 @@
                         <dd>{{footnote.text}}</dd>
                     </template>
                 </div>
+            </div>
+
+            <div v-show="selectedView.hasCredits" class="alpheios-inflections__credits-cont">
+                <h3 class="alpheios-inflections__credits-title">{{messages.INFLECTIONS_CREDITS_TITLE}}</h3>
+                <div v-html="selectedView.creditsText" class="alpheios-inflections__credits-text"></div>
             </div>
         </div>
     </div>
@@ -570,6 +581,38 @@
     .alpheios-inflections__footnote-popup-close-btn:active {
         fill: $alpheios-link-hover-color;
         stroke: $alpheios-link-hover-color;
+    }
+
+    .alpheios-inflections__credits-cont {
+        margin-bottom: 10px;
+    }
+
+    h3.alpheios-inflections__credits-title {
+        font-size: $alpheios-base-font-size;
+        font-weight: 700;
+        color: $alpheios-toolbar-color;
+        margin-bottom: 0;
+    }
+
+    .alpheios-inflections__credits-text {
+        font-size: 0.75*$alpheios-base-font-size;
+        font-weight: normal;
+        color: $alpheios-toolbar-active-color;
+        font-style: italic;
+        padding: 5px;
+    }
+
+    .alpheios-inflections__paradigms-expl {
+        font-size: 0.75*$alpheios-base-font-size;
+        font-weight: normal;
+        color: $alpheios-toolbar-active-color;
+        font-style: italic;
+        margin: 20px 0 10px;
+    }
+
+    .alpheios-inflections__paradigms-expl span {
+        color: $alpheios-toolbar-color;
+        font-weight: 700;
     }
 
     // endregion Footnotes
