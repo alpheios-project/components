@@ -1,6 +1,6 @@
 <template>
-  <div class="alpheios-skin_panel">
-      <label class="uk-form-label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
+  <div class="alpheios-skin_panel alpheios-panel__options-item">
+      <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
     <ul class="alpheios-skin_properties">
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
           <li class="alpheios-skin_properties_item alpheios-skin_properties_item__small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
@@ -64,8 +64,10 @@
 
     ul.alpheios-skin_properties {
       margin: 0;
-      padding: 0 30px 10px 0;
+      padding: 0 30px 10px 10px;
       list-style: none;
+      max-width: 250px;
+      display: inline-block;
     }
     .alpheios-skin_properties_item {
         display: inline-block;
