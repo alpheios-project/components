@@ -1,5 +1,5 @@
 <template>
-  <span @click="sendFeature(data[type])" :class="attributeClass(type,['alpheios-text__medium'])" :data-feature="type" :data-grouplevel="grouplevel" v-if="data && data[type]">{{ decorate(data,type) }}</span>
+  <span @click.stop="sendFeature(data[type])" :class="attributeClass(type,['alpheios-text__medium'])" :data-feature="type" :data-grouplevel="grouplevel" v-if="data && data[type]">{{ decorate(data,type) }}</span>
 </template>
 <script>
   export default {

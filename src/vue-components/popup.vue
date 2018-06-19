@@ -1,11 +1,11 @@
 <template>
     <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
-         v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible">
+         v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible" v-on-clickaway="attachTrackingClick">
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
           :tooltipText = "ln10Messages('TOOLTIP_POPUP_CLOSE')">
-          <span class="alpheios-popup__close-btn" @click="closePopup">
+          <span class="alpheios-popup__close-btn" @click.stop="closePopup">
               <close-icon></close-icon>
           </span>
          </alph-tooltip>
@@ -17,26 +17,26 @@
 
             <div class="alpheios-popup__button-area" v-if="data">
                 <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom-wide" :tooltipText="ln10Messages('TOOLTIP_SHOW_DEFINITIONS')">
-                  <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
+                  <button @click.stop="showPanelTab('definitions')" v-show="data.defDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{ ln10Messages('LABEL_POPUP_DEFINE') }}
                   </button>
                 </alph-tooltip>
 
                 <alph-tooltip v-show="data.inflDataReady" tooltipDirection="bottom-wide" :tooltipText="ln10Messages('TOOLTIP_SHOW_INFLECTIONS')">
-                  <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
+                  <button @click.stop="showPanelTab('inflections')" v-show="data.inflDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections">{{ ln10Messages('LABEL_POPUP_INFLECT') }}
                   </button>
                 </alph-tooltip>
 
                 <alph-tooltip v-show="data.hasTreebank" tooltipDirection="bottom-wide" :tooltipText="ln10Messages('TOOLTIP_TREEBANK')">
-                    <button @click="showPanelTab('treebank')" v-show="data.hasTreebank"
+                    <button @click.stop="showPanelTab('treebank')" v-show="data.hasTreebank"
                             class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank">{{ ln10Messages('LABEL_POPUP_TREEBANK') }}
                     </button>
 
                 </alph-tooltip>
 
                 <alph-tooltip tooltipDirection="bottom-right" :tooltipText="ln10Messages('TOOLTIP_SHOW_OPTIONS')">
-                  <button @click="showPanelTab('options')"
+                  <button @click.stop="showPanelTab('options')"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-options">{{ ln10Messages('LABEL_POPUP_OPTIONS') }}
                   </button>
                 </alph-tooltip>
@@ -69,12 +69,12 @@
         </div>
         <div class="alpheios-popup__providers">
           <img class="alpheios-popup__logo" src="../images/icon.png">
-          <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
+          <a class="alpheios-popup__providers-link" v-on:click.stop="switchProviders">{{providersLinkText}}</a>
         </div>
         <div class="alpheios-popup__notifications uk-text-small" :class="notificationClasses"
              v-show="data.notification.important" v-if="data && data.notification">
 
-              <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
+              <span @click.stop="closeNotifications" class="alpheios-popup__notifications-close-btn">
                   <close-icon></close-icon>
               </span>
 
@@ -98,6 +98,8 @@
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
 
+  import { directive as onClickaway } from '@/directives/clickaway.js';
+
   export default {
     name: 'Popup',
     components: {
@@ -106,8 +108,10 @@
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
       lookup: Lookup
-    }
-    ,
+    },
+    directives: {
+      onClickaway: onClickaway,
+    },
     data: function () {
       return {
         resizable: true,
@@ -531,6 +535,10 @@
           return this.data.l10n.messages[value]
         }
         return defaultValue
+      },
+
+      attachTrackingClick: function () {
+        this.closePopup()
       }
 
     },
