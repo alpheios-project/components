@@ -4,7 +4,7 @@
         <multiselect v-model="selected" :options="multiValues" :multiple="true" :searchable ="false" :close-on-select="true" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" v-if="data.multiValue">
         </multiselect>
         <select v-model="selected" class="uk-select" v-if="! data.multiValue">
-            <option v-for="item in data.textValues()">{{item}}</option>
+            <option v-for="item in values">{{item}}</option>
         </select>
     </div>
 </template>
@@ -48,6 +48,9 @@
       },
       multiValues: function () {
         return this.data ? this.data.textValues() : []
+      },
+      values: function () {
+        return this.data.textValues()
       }
     }
   }

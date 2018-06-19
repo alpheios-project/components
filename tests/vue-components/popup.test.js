@@ -187,7 +187,7 @@ describe('popup.test.js', () => {
     }
   })
 
-  it('4 Popup - check showProviders functions', async () => {
+  it('4.1 Popup - check showProviders functions', async () => {
     let curProps = {
       data: {},
       messages: [],
@@ -211,10 +211,27 @@ describe('popup.test.js', () => {
     expect(cmp.find('.alpheios-popup__morph-cont-providers').exists()).toBeFalsy()
 
     expect(cmp.vm.providersLinkText).toEqual(l10n.messages.LABEL_POPUP_SHOWCREDITS)
+  })
 
-    cmp.find('.alpheios-popup__providers').find('a').trigger('click')
+  it('4.2 Popup - check showProviders functions', async () => {
+    let curProps = {
+      data: {},
+      messages: [],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: false,
+      translations: {}
+    }
 
-    await Vue.nextTick()
+    curProps.data.l10n = l10n
+    curProps.data.showProviders = true
+    curProps.data.morphDataReady = true
+    curProps.data.providers = [ 'Provider1', 'Provider2' ]
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
 
     expect(cmp.vm.data.showProviders).toBeTruthy()
     expect(cmp.find('.alpheios-popup__morph-cont-providers').exists()).toBeTruthy()
@@ -275,7 +292,7 @@ describe('popup.test.js', () => {
     }
   })
 
-  it('6 Popup - check morph placeholders', () => {
+  it('6.1 Popup - check morph placeholders', () => {
     let curProps = {
       data: {},
       messages: [],
@@ -302,21 +319,11 @@ describe('popup.test.js', () => {
     expect(placeholder1.at(0).element.style.display).not.toEqual('none')
     expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
 
-    curProps.data.morphDataReady = false
+    /* curProps.data.morphDataReady = false
     curProps.data.currentLanguageName = undefined
-
-    let placeholder2 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA)
-    expect(placeholder2.exists()).toBeTruthy()
-    expect(placeholder2.at(0).element.style.display).not.toEqual('none')
-    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
 
     curProps.data.morphDataReady = true
     curProps.data.currentLanguageName = 'lat'
-
-    let placeholder3 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_DATA_POPUP_DATA)
-    expect(placeholder3.exists()).toBeTruthy()
-    expect(placeholder3.at(0).element.style.display).not.toEqual('none')
-    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
 
     curProps.data.morphDataReady = true
     curProps.data.currentLanguageName = 'lat'
@@ -331,7 +338,92 @@ describe('popup.test.js', () => {
       ]
     })
 
-    console.info('**************cmp', cmp.html())
+    let allplaceholders = cmp.findAll('.alpheios-popup__definitions--placeholder')
+    for (let i = 0; i < allplaceholders.length; i++) {
+      expect(allplaceholders.at(i).element.style.display).toEqual('none')
+    }
+
+    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).not.toEqual('none') */
+  })
+
+  it('6.2 Popup - check morph placeholders', () => {
+    let curProps = {
+      data: {},
+      messages: [],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+    curProps.data.l10n = l10n
+    curProps.data.morphDataReady = false
+    curProps.data.currentLanguageName = undefined
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+    curProps.data.settings = { popupPosition: { currentValue: 'fixed' } }
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
+    let placeholder2 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA)
+    expect(placeholder2.exists()).toBeTruthy()
+    expect(placeholder2.at(0).element.style.display).not.toEqual('none')
+    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
+  })
+
+  it('6.3 Popup - check morph placeholders', () => {
+    let curProps = {
+      data: {},
+      messages: [],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+    curProps.data.l10n = l10n
+    curProps.data.morphDataReady = true
+    curProps.data.currentLanguageName = 'lat'
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+    curProps.data.settings = { popupPosition: { currentValue: 'fixed' } }
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
+    let placeholder3 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_DATA_POPUP_DATA)
+    expect(placeholder3.exists()).toBeTruthy()
+    expect(placeholder3.at(0).element.style.display).not.toEqual('none')
+    expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
+  })
+
+  it('6.4 Popup - check morph placeholders', () => {
+    let curProps = {
+      data: {},
+      messages: [],
+      lexemes: [
+        {
+          lemma: {
+            principalParts: [ {} ]
+          }
+        }
+      ],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+    curProps.data.l10n = l10n
+    curProps.data.morphDataReady = true
+    curProps.data.currentLanguageName = 'lat'
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+    curProps.data.settings = { popupPosition: { currentValue: 'fixed' } }
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
     let allplaceholders = cmp.findAll('.alpheios-popup__definitions--placeholder')
     for (let i = 0; i < allplaceholders.length; i++) {
       expect(allplaceholders.at(i).element.style.display).toEqual('none')
@@ -340,7 +432,7 @@ describe('popup.test.js', () => {
     expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).not.toEqual('none')
   })
 
-  it('7 Popup - check notifications', async () => {
+  it('7.1 Popup - check notifications', async () => {
     let curProps = {
       data: {},
       messages: [],
@@ -374,20 +466,44 @@ describe('popup.test.js', () => {
 
     expect(cmp.find('.alpheios-popup__notifications').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-popup__notifications').element.style.display).toEqual('none')
+  })
 
-    cmp.vm.data.notification.important = true
-    await Vue.nextTick()
+  it('7.2 Popup - check notifications', async () => {
+    let curProps = {
+      data: {},
+      messages: [],
+      lexemes: [],
+      definitions: {},
+      linkedfeatures: [],
+      visible: true,
+      translations: {}
+    }
+    curProps.data.l10n = l10n
+    curProps.data.notification = {
+      important: true,
+      showLanguageSwitcher: true,
+      text: '',
+      visible: true
+    }
+
+    curProps.data.left = '10vw'
+    curProps.data.top = '10vh'
+
+    let options = new Options(ContentOptionDefaults, LocalStorageArea)
+
+    curProps.data.settings = {}
+    curProps.data.settings.popupPosition = options.items.popupPosition
+    curProps.data.settings.popupPosition.currentValue = 'fixed'
+    curProps.data.settings.preferredLanguage = options.items.preferredLanguage
+
+    let cmp = mount(Popup, {
+      propsData: curProps
+    })
     expect(cmp.find('.alpheios-popup__notifications').element.style.display).not.toEqual('none')
 
     expect(cmp.find('.alpheios-popup__notifications-close-btn').exists()).toBeTruthy()
 
     expect(cmp.find('.alpheios-popup__notifications').find(Setting).exists()).toBeTruthy()
-
-    expect(cmp.find('.alpheios-popup__notifications').find(Setting).element.style.display).toEqual('none')
-
-    cmp.vm.data.notification.showLanguageSwitcher = true
-
-    await Vue.nextTick()
 
     expect(cmp.find('.alpheios-popup__notifications').find(Setting).element.style.display).not.toEqual('none')
 
@@ -398,7 +514,7 @@ describe('popup.test.js', () => {
     expect(cmp.emitted()['closepopupnotifications']).toBeTruthy()
   })
 
-  it('8 Popup - check events on created, change visible and updated', async () => {
+  it('8 Popup - check events on created, change visible and updated', () => {
     let curProps = {
       data: {},
       messages: [],
@@ -424,34 +540,18 @@ describe('popup.test.js', () => {
 
     cmp.vm.$emit('updatePopupDimensions')
 
-    await Vue.nextTick()
-
     expect(cmp.vm.updatePopupDimensions).toHaveBeenCalled()
 
     cmp.vm.$emit('changeStyleClass', 'fontSize', 'medium')
-
-    await Vue.nextTick()
 
     expect(cmp.emitted()['ui-option-change']).toBeTruthy()
     expect(cmp.emitted()['ui-option-change'][0]).toEqual(['fontSize', 'medium'])
 
     cmp.vm.data.left = '9vw'
-
-    await Vue.nextTick()
-
     expect(cmp.vm.updatePopupDimensions).toHaveBeenCalled()
-
     cmp.setProps({ visible: false })
 
-    await Vue.nextTick()
-
     expect(cmp.vm.resetPopupDimensions).toHaveBeenCalled()
-
-    cmp.setProps({ visible: true })
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.updatePopupDimensions).toHaveBeenCalled()
   })
 
   it('9 Popup - check computed properties', () => {

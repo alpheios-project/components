@@ -179,7 +179,7 @@
     },
     computed: {
       uiController: function () {
-        return this.$parent ? this.$parent.uiController : null
+        return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
       },
       logger: function() {
         let verbMode = false

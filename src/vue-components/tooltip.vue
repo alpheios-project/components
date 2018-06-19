@@ -1,7 +1,7 @@
 <template>
   <div class="alph_tooltip">
     <slot></slot>
-    <span class="tooltiptext"
+    <span class="tooltiptext alpheios-text__smaller"
       v-bind:class="directionClass"
       v-bind:style="additionalStyles"
       v-if="tooltipText"
