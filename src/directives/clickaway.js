@@ -5,7 +5,6 @@ import Vue from 'vue/dist/vue'
 let HANDLER = '_vue_clickaway_handler'
 
 function bind (el, binding, vnode) {
-  console.log('*******directive I am bind')
   unbind(el)
 
   var vm = vnode.context
@@ -49,7 +48,6 @@ function bind (el, binding, vnode) {
 }
 
 function unbind (el) {
-  console.log('*******directive I am unbind')
   document.documentElement.removeEventListener('click', el[HANDLER], false)
   delete el[HANDLER]
 }
