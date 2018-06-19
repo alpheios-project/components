@@ -7682,6 +7682,8 @@ div.alpheios-color_schema_dark_class {
 div.alpheios-color_schema_light_class {
   background: #fff;
   color: #0e2233; }
+  div.alpheios-color_schema_light_class a, div.alpheios-color_schema_light_class div, div.alpheios-color_schema_light_class p, div.alpheios-color_schema_light_class span {
+    color: #333333; }
   div.alpheios-color_schema_light_class .uk-form-label,
   div.alpheios-color_schema_light_class h3,
   div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p,
@@ -7863,6 +7865,118 @@ div.alpheios-color_schema_light_class {
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent transparent #555; }
+
+.auk.alpheios-font_large_class .multiselect,
+.auk.alpheios-font_medium_class .multiselect,
+.auk.alpheios-font_small_class .multiselect,
+.auk.alpheios-color_schema_light_class .multiselect,
+.auk.alpheios-color_schema_dark_class .multiselect {
+  max-width: 250px;
+  display: inline-block;
+  vertical-align: middle; }
+
+.auk.alpheios-font_large_class .multiselect__content-wrapper,
+.auk.alpheios-font_medium_class .multiselect__content-wrapper,
+.auk.alpheios-font_small_class .multiselect__content-wrapper,
+.auk.alpheios-color_schema_light_class .multiselect__content-wrapper,
+.auk.alpheios-color_schema_dark_class .multiselect__content-wrapper {
+  border: 1px solid #666666;
+  border-top: 0; }
+
+.auk.alpheios-font_large_class ul.multiselect__content,
+.auk.alpheios-font_medium_class ul.multiselect__content,
+.auk.alpheios-font_small_class ul.multiselect__content,
+.auk.alpheios-color_schema_light_class ul.multiselect__content,
+.auk.alpheios-color_schema_dark_class ul.multiselect__content {
+  padding: 0;
+  margin: 0; }
+
+.auk.alpheios-font_large_class .multiselect__tags,
+.auk.alpheios-font_medium_class .multiselect__tags,
+.auk.alpheios-font_small_class .multiselect__tags,
+.auk.alpheios-color_schema_light_class .multiselect__tags,
+.auk.alpheios-color_schema_dark_class .multiselect__tags {
+  border-radius: 2px;
+  border: 1px solid #666666; }
+
+.auk.alpheios-font_large_class .multiselect__select,
+.auk.alpheios-font_medium_class .multiselect__select,
+.auk.alpheios-font_small_class .multiselect__select,
+.auk.alpheios-color_schema_light_class .multiselect__select,
+.auk.alpheios-color_schema_dark_class .multiselect__select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 25px;
+  height: 30px; }
+
+.auk.alpheios-font_large_class .multiselect__select::before,
+.auk.alpheios-font_medium_class .multiselect__select::before,
+.auk.alpheios-font_small_class .multiselect__select::before,
+.auk.alpheios-color_schema_light_class .multiselect__select::before,
+.auk.alpheios-color_schema_dark_class .multiselect__select::before {
+  display: none; }
+
+.auk.alpheios-font_large_class .multiselect__option::after,
+.auk.alpheios-font_medium_class .multiselect__option::after,
+.auk.alpheios-font_small_class .multiselect__option::after,
+.auk.alpheios-color_schema_light_class .multiselect__option::after,
+.auk.alpheios-color_schema_dark_class .multiselect__option::after {
+  display: none; }
+
+.auk.alpheios-font_large_class .multiselect__option--highlight,
+.auk.alpheios-font_large_class .multiselect__tag,
+.auk.alpheios-font_large_class .multiselect__tag-icon:focus,
+.auk.alpheios-font_large_class .multiselect__tag-icon:hover,
+.auk.alpheios-font_medium_class .multiselect__option--highlight,
+.auk.alpheios-font_medium_class .multiselect__tag,
+.auk.alpheios-font_medium_class .multiselect__tag-icon:focus,
+.auk.alpheios-font_medium_class .multiselect__tag-icon:hover,
+.auk.alpheios-font_small_class .multiselect__option--highlight,
+.auk.alpheios-font_small_class .multiselect__tag,
+.auk.alpheios-font_small_class .multiselect__tag-icon:focus,
+.auk.alpheios-font_small_class .multiselect__tag-icon:hover,
+.auk.alpheios-color_schema_light_class .multiselect__option--highlight,
+.auk.alpheios-color_schema_light_class .multiselect__tag,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon:focus,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon:hover,
+.auk.alpheios-color_schema_dark_class .multiselect__option--highlight,
+.auk.alpheios-color_schema_dark_class .multiselect__tag,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:focus,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover {
+  background: #4E6476; }
+
+.auk.alpheios-font_large_class .multiselect__option--highlight span,
+.auk.alpheios-font_large_class .multiselect__tag span,
+.auk.alpheios-font_large_class .multiselect__tag-icon:focus span,
+.auk.alpheios-font_large_class .multiselect__tag-icon:hover span,
+.auk.alpheios-font_medium_class .multiselect__option--highlight span,
+.auk.alpheios-font_medium_class .multiselect__tag span,
+.auk.alpheios-font_medium_class .multiselect__tag-icon:focus span,
+.auk.alpheios-font_medium_class .multiselect__tag-icon:hover span,
+.auk.alpheios-font_small_class .multiselect__option--highlight span,
+.auk.alpheios-font_small_class .multiselect__tag span,
+.auk.alpheios-font_small_class .multiselect__tag-icon:focus span,
+.auk.alpheios-font_small_class .multiselect__tag-icon:hover span,
+.auk.alpheios-color_schema_light_class .multiselect__option--highlight span,
+.auk.alpheios-color_schema_light_class .multiselect__tag span,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon:focus span,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon:hover span,
+.auk.alpheios-color_schema_dark_class .multiselect__option--highlight span,
+.auk.alpheios-color_schema_dark_class .multiselect__tag span,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:focus span,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover span {
+  color: #fff; }
+
+.auk.alpheios-font_large_class .multiselect__tag-icon:after,
+.auk.alpheios-font_medium_class .multiselect__tag-icon:after,
+.auk.alpheios-font_small_class .multiselect__tag-icon:after,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon:after,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:after {
+  content: "\D7";
+  color: #fff;
+  font-size: 13.4px; }
 
 /*************** font sizes **************/
 /*************** dark schema colors **************/
@@ -8458,50 +8572,13 @@ to {
     transform: rotate(2turn);
 }
 }
+
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
+/*************** light schema colors tooltip **************/
 .alpheios-setting__label {
   display: block;
-}
-.multiselect {
-  max-width: 250px;
-  display: inline-block;
-  vertical-align: middle;
-}
-.multiselect__content-wrapper {
-  border: 1px solid #666;
-  border-top: 0;
-}
-ul.multiselect__content {
-  padding: 0;
-  margin: 0;
-}
-.multiselect__tags {
-  border-radius: 2px;
-  border: 1px solid #666;
-}
-.multiselect__select {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 25px;
-  height: 30px;
-}
-.multiselect__select::before {
-  display: none;
-}
-.multiselect__option::after {
-  display: none;
-}
-.multiselect__option--highlight,
-.multiselect__tag,
-.multiselect__tag-icon:focus,
-.multiselect__tag-icon:hover {
-  background: #4e6476;
-}
-.multiselect__tag-icon:after {
-  content: "\D7";
-  color: #fff;
-  font-size: 13.4px;
 }
 .alpheios-setting__label {
   vertical-align: middle;

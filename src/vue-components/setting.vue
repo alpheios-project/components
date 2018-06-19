@@ -57,61 +57,10 @@
 </script>
 <style lang="scss">
   @import "vue-multiselect-css";
+  @import "../styles/alpheios";
   .alpheios-setting__label {
     display: block;
   }
-
-  .multiselect {
-    max-width: 250px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .multiselect__content-wrapper {
-    border: 1px solid #666;
-    border-top: 0;
-  }
-  ul.multiselect__content {
-    padding: 0;
-    margin: 0;
-  }
-
-  .multiselect__tags {
-    border-radius: 2px;
-    border: 1px solid #666;
-  }
-
-  .multiselect__select {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    width: 25px;
-    height: 30px;
-  }
-
-  .multiselect__select::before {
-    display: none;
-  }
-
-  .multiselect__option::after {
-    display: none;
-  }
-
-  .multiselect__option--highlight,
-  .multiselect__tag,
-  .multiselect__tag-icon:focus, 
-  .multiselect__tag-icon:hover {
-    background: #4e6476;
-  }
-
-  .multiselect__tag-icon:after {
-    content: "\D7";
-    color: #fff;
-    font-size: 13.4px;
-  }
-
   .alpheios-setting__label {
     vertical-align: middle;
   }
