@@ -39,13 +39,13 @@
                 </div>
             </div>
 
-            <div v-show="this.selectedView.constructor.name === 'GreekParadigmView'"
+            <div v-show="selectedView.constructor.name === 'GreekParadigmView'"
                  class="alpheios-inflections__paradigms-expl"
                  v-html="messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(data.inflectionData.targetWord)">
             </div>
 
             <template v-if="selectedView.hasComponentData">
-                <widetable :data="selectedView.wideTable"></widetable>
+                <widetable :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></widetable>
                 <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
 
@@ -511,7 +511,7 @@
     }
 
     .infl-suff--suffix-match.infl-suff--full-feature-match {
-        background-color: rgb(255, 238, 119);
+        background-color: $alpheios-highlight-color;
         font-weight: 700;
     }
 
