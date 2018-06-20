@@ -1,5 +1,5 @@
 <template>
-  <div id="reskin-panel" class="alpheios-skin_panel alpheios-panel__options-item">
+  <div id="alpheios-reskin-panel" class="alpheios-skin_panel alpheios-panel__options-item">
       <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
     <ul class="alpheios-skin_properties">
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
