@@ -22,7 +22,7 @@
       ]
     },
     "panelOnActivate": {
-      "defaultValue": "open",
+      "defaultValue": "close",
       "labelText": "Panel on activate",
       "values": [
         {

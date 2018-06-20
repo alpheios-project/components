@@ -366,7 +366,9 @@ export default class UIController {
       this.resourceOptions.load(() => {
         this.uiOptions.load(() => {
           this.state.activateUI()
+          this.activaePanel()
           console.log('UI options are loaded')
+
           this.updateLanguage(this.options.items.preferredLanguage.currentValue)
           this.updateVerboseMode()
         })
@@ -643,6 +645,16 @@ export default class UIController {
     }
   }
 
+  activaePanel () {
+    if (this.manifest && this.manifest.browser_action && this.manifest.browser_action.browser_style) {
+      if (this.uiOptions.items.panelOnActivate.currentValue === 'open') {
+        this.panel.changeTab('info')
+        this.panel.open()
+      } else {
+        this.panel.close()
+      }
+    }
+  }
   /**
    * Finds a maximal z-index value of elements on a page.
    * @return {Number}
