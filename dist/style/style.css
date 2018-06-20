@@ -279,8 +279,6 @@
  ========================================================================== */
   /* Caption
  ========================================================================== */
-  /* Row
- ========================================================================== */
   /* Alignment modifier
  ========================================================================== */
   /* Style modifiers
@@ -294,6 +292,8 @@
   /*
  * Hover
  */
+  /* Active state
+ ========================================================================== */
   /* Size modifier
  ========================================================================== */
   /* Justify modifier
@@ -3007,9 +3007,6 @@
     font-size: 0.875rem;
     text-align: left;
     color: #999; }
-  .auk .uk-table > tr.uk-active,
-  .auk .uk-table tbody tr.uk-active {
-    background: #ffd; }
   .auk .uk-table-middle,
   .auk .uk-table-middle td {
     vertical-align: middle !important; }
@@ -3024,6 +3021,9 @@
     border-bottom: 1px solid #e5e5e5; }
   .auk .uk-table-hover > tr:hover,
   .auk .uk-table-hover tbody tr:hover {
+    background: #ffd; }
+  .auk .uk-table > tr.uk-active,
+  .auk .uk-table tbody tr.uk-active {
     background: #ffd; }
   .auk .uk-table-small th,
   .auk .uk-table-small td {
@@ -8199,6 +8199,12 @@ div.alpheios-morph__block {
       font-size: 10px;
       text-align: right;
 }
+.alpheios-morph__dictentry .alpheios-morph__definition {
+    margin-bottom: 5px;
+}
+.alpheios-morph__dictentry .alpheios-definition__text {
+    font-weight: normal;
+}
 .alpheios-morph__dictentry .alpheios-morph__inflset {
     margin-top: 0;
     margin-left: 7px;
@@ -9163,7 +9169,7 @@ h3.alpheios-inflections__title {
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
-.alpheios-skin_panel {
+#reskin-panel.alpheios-skin_panel {
   display: inline-block;
 }
 ul.alpheios-skin_properties {
@@ -9173,31 +9179,35 @@ ul.alpheios-skin_properties {
   max-width: 250px;
   display: inline-block;
 }
-.alpheios-skin_properties_item {
+#reskin-panel .alpheios-skin_properties_item {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
   color: #fff;
   background: #4E6476;
   cursor: pointer;
+  padding: 0;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  text-indent: 0;
+  list-style-type: none;
 }
-.alpheios-skin_properties_item__light_bg,
-.alpheios-skin_properties_item__dark_bg {
+#reskin-panel .alpheios-skin_properties_item__light_bg,
+#reskin-panel .alpheios-skin_properties_item__dark_bg {
   border-radius: 0;
   background: transparent;
 }
-.alpheios-skin_properties_item__light_bg svg,
-  .alpheios-skin_properties_item__dark_bg svg {
+#reskin-panel .alpheios-skin_properties_item__light_bg svg,
+  #reskin-panel .alpheios-skin_properties_item__dark_bg svg {
     width: 90%;
     height: 90%;
 }
-.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
+.alpheios-font_small_class #reskin-panel .alpheios-skin_properties_item__small_font {
   background: #7E8897;
 }
-.alpheios-font_medium_class .alpheios-skin_properties_item__medium_font {
+.alpheios-font_medium_class #reskin-panel .alpheios-skin_properties_item__medium_font {
   background: #7E8897;
 }
-.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
+.alpheios-font_large_class #reskin-panel .alpheios-skin_properties_item__large_font {
   background: #7E8897;
 }
 

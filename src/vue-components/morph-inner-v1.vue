@@ -387,6 +387,12 @@
       }
     }
 
+    .alpheios-morph__definition {
+      margin-bottom: 5px;
+    }
+    .alpheios-definition__text {
+      font-weight: normal;
+    }
     .alpheios-morph__inflset {
       margin-top: 0;
       margin-left: 7px;
