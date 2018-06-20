@@ -21,6 +21,20 @@
         }
       ]
     },
+    "panelOnActivate": {
+      "defaultValue": "open",
+      "labelText": "Panel on activate",
+      "values": [
+        {
+          "value": "open",
+          "text": "Open"
+        },
+        {
+          "value": "close",
+          "text": "Close"
+        }
+      ]
+    },
     "fontSize": {
       "defaultValue": "medium",
       "labelText": "Font size",

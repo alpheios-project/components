@@ -331,7 +331,12 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+          if (name === 'fontSize' || name === 'colorSchema') {
+            this.uiController.uiOptions.items[name].setValue(value)
+          } else {
+            this.uiController.uiOptions.items[name].setTextValue(value)
+          }
+
           switch (name) {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
@@ -359,10 +364,12 @@ export default class UIController {
 
     this.options.load(() => {
       this.resourceOptions.load(() => {
-        this.state.activateUI()
-        console.log('UI options are loaded')
-        this.updateLanguage(this.options.items.preferredLanguage.currentValue)
-        this.updateVerboseMode()
+        this.uiOptions.load(() => {
+          this.state.activateUI()
+          console.log('UI options are loaded')
+          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+          this.updateVerboseMode()
+        })
       })
     })
 
