@@ -719,8 +719,8 @@
 
     .alpheios-popup__morph-cont-providers-header {
         display: inline-block;
-        color: $alpheios-link-color;
-        font-size: 0.75*$alpheios-base-font-size;
+        /* color: $alpheios-link-color;
+        font-size: 0.75*$alpheios-base-font-size; */
         font-weight: 700;
         margin-top: 2px;
     }
@@ -733,17 +733,18 @@
     img.alpheios-popup__logo {
         height: 16px;
         width: auto;
+        vertical-align: middle;
     }
 
     .alpheios-popup__more-btn {
         float: right;
         margin-bottom: 10px;
-        font-size: 0.675 * $alpheios-base-font-size;
+        /* font-size: 0.675 * $alpheios-base-font-size; */
     }
     .alpheios-popup__morph-cont-providers-source {
       font-size: smaller;
       font-weight: normal;
-      color: $alpheios-toolbar-color;
+      /* color: $alpheios-toolbar-color; */
       font-style: italic;
       margin-left: .5em;
       margin-top: .5em;
@@ -752,7 +753,13 @@
     .alpheios-popup__providers {
       margin: 0 0 5px 10px;
     }
+    /*
     .alpheios-popup__providers-link {
       font-size: 0.675*$alpheios-base-font-size;
+    }*/
+    .alpheios-popup__providers-link {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 5px 0 0;
     }
 </style>
