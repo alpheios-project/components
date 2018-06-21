@@ -7478,6 +7478,18 @@
     font-size: 20.8px; }
   .auk.alpheios-font_medium_class .alpheios-skin_panel {
     padding-top: 16px; }
+  .auk.alpheios-font_medium_class .alpheios-checkbox-block {
+    line-height: 22px; }
+    .auk.alpheios-font_medium_class .alpheios-checkbox-block label {
+      padding-left: 22px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::before {
+        height: 16px;
+        width: 16px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::after {
+        height: 5px;
+        width: 9px;
+        left: 4px;
+        top: 7px; }
   .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
     font-size: 16px;
     width: 28px;
@@ -7563,6 +7575,18 @@
     font-size: 15.6px; }
   .auk.alpheios-font_small_class .alpheios-skin_panel {
     padding-top: 12px; }
+  .auk.alpheios-font_small_class .alpheios-checkbox-block {
+    line-height: 16.5px; }
+    .auk.alpheios-font_small_class .alpheios-checkbox-block label {
+      padding-left: 16.5px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block label::before {
+        height: 12px;
+        width: 12px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block label::after {
+        height: 3.75px;
+        width: 6.75px;
+        left: 3px;
+        top: 5.25px; }
   .auk.alpheios-font_small_class .alpheios-skin_properties_item {
     font-size: 12px;
     width: 24px;
@@ -7648,6 +7672,18 @@
     font-size: 26px; }
   .auk.alpheios-font_large_class .alpheios-skin_panel {
     padding-top: 20px; }
+  .auk.alpheios-font_large_class .alpheios-checkbox-block {
+    line-height: 27.5px; }
+    .auk.alpheios-font_large_class .alpheios-checkbox-block label {
+      padding-left: 27.5px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block label::before {
+        height: 20px;
+        width: 20px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block label::after {
+        height: 6.25px;
+        width: 11.25px;
+        left: 5px;
+        top: 8.75px; }
   .auk.alpheios-font_large_class .alpheios-skin_properties_item {
     font-size: 20px;
     width: 32px;
@@ -8022,6 +8058,55 @@ div.alpheios-color_schema_light_class {
   content: "\D7";
   color: #fff;
   font-size: 13.4px; }
+
+div.alpheios-checkbox-block {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  line-height: 22px; }
+
+.alpheios-checkbox-block {
+  /*Unhide on the checked state*/
+  /*Adding focus styles on the outer-box of the fake checkbox*/ }
+  .alpheios-checkbox-block input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    left: -999px; }
+  .alpheios-checkbox-block label {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
+    padding-left: 22px;
+    padding-top: 2px; }
+    .alpheios-checkbox-block label::before, .alpheios-checkbox-block label::after {
+      position: absolute;
+      content: "";
+      /*Needed for the line-height to take effect*/
+      display: inline-block; }
+    .alpheios-checkbox-block label::before {
+      height: 16px;
+      width: 16px;
+      border: 1px solid;
+      left: 0px;
+      /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+           *to vertically center it.
+           */
+      top: 3px; }
+    .alpheios-checkbox-block label::after {
+      height: 5px;
+      width: 9px;
+      border-left: 2px solid;
+      border-bottom: 2px solid;
+      transform: rotate(-45deg);
+      left: 4px;
+      top: 7px; }
+  .alpheios-checkbox-block input[type="checkbox"] + label::after {
+    content: none; }
+  .alpheios-checkbox-block input[type="checkbox"]:checked + label::after {
+    content: ""; }
+  .alpheios-checkbox-block input[type="checkbox"]:focus + label::before {
+    outline: #3b99fc auto 5px; }
 
 /*************** font sizes **************/
 /*************** dark schema colors **************/
@@ -9447,7 +9532,7 @@ ul.alpheios-skin_properties {
   max-width: none;
   width: 100%;
 }
-.alpheios-panel__options-item label {
+.alpheios-panel__options-item .alpheios-setting__label {
   width: 100px;
   display: inline-block;
 }

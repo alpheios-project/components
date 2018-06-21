@@ -785,11 +785,12 @@
       width: 100%;
     }
 
-    .alpheios-panel__options-item label {
+    .alpheios-panel__options-item .alpheios-setting__label {
       width: 100px;
       display: inline-block;
     }
     .alpheios-panel__options-item select {
       display: inline-block;
     }
+
 </style>

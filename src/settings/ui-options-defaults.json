@@ -22,15 +22,16 @@
       ]
     },
     "panelOnActivate": {
-      "defaultValue": "close",
+      "defaultValue": false,
       "labelText": "Panel on activate",
+      "boolean": true,
       "values": [
         {
-          "value": "open",
+          "value": true,
           "text": "Open"
         },
         {
-          "value": "close",
+          "value": false,
           "text": "Close"
         }
       ]

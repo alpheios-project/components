@@ -331,7 +331,7 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          if (name === 'fontSize' || name === 'colorSchema') {
+          if (name === 'fontSize' || name === 'colorSchema' || name === 'panelOnActivate') {
             this.uiController.uiOptions.items[name].setValue(value)
           } else {
             this.uiController.uiOptions.items[name].setTextValue(value)
