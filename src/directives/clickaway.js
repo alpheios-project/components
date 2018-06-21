@@ -54,12 +54,13 @@ function bind (el, binding, vnode) {
     //        the click, not whether it is there now, that the event has arrived
     //        to the top.
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
-    let panel = document.getElementById('alpheios-panel-embedded').children[0]
-    let popup = document.getElementById('alpheios-popup-embedded').children[0]
+    let panel = document.getElementById('alpheios-panel') ? document.getElementById('alpheios-panel').children[0] : null
+    let popup = document.getElementById('alpheios-popup') ? document.getElementById('alpheios-popup').children[0] : null
 
     let visible = function (elem) {
       return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
     }
+
     if (panel && !visible(panel) && popup && !visible(popup)) {
       return
     }
@@ -74,7 +75,9 @@ function bind (el, binding, vnode) {
       return callback.call(vm, ev)
     }
   }
+
   document.documentElement.addEventListener('click', el[HANDLER], checkPassiveSupport() ? { passive: true } : false)
+  // document.documentElement.addEventListener('click', el[HANDLER], false)
 }
 
 function unbind (el) {

@@ -58,7 +58,7 @@
 <style lang="scss">
     @import "../styles/alpheios";
 
-    #reskin-panel.alpheios-skin_panel {
+    #alpheios-reskin-panel.alpheios-skin_panel {
       display: inline-block;
     }
 
@@ -69,7 +69,7 @@
       max-width: 250px;
       display: inline-block;
     }
-    #reskin-panel .alpheios-skin_properties_item {
+    #alpheios-reskin-panel .alpheios-skin_properties_item {
         display: inline-block;
         vertical-align: middle;
         text-align: center;
@@ -82,8 +82,8 @@
         list-style-type: none;
     }
 
-    #reskin-panel .alpheios-skin_properties_item__light_bg,
-    #reskin-panel .alpheios-skin_properties_item__dark_bg {
+    #alpheios-reskin-panel .alpheios-skin_properties_item__light_bg,
+    #alpheios-reskin-panel .alpheios-skin_properties_item__dark_bg {
         border-radius: 0;
         background: transparent;
         svg {
@@ -93,15 +93,15 @@
     }
 
 
-    .alpheios-font_small_class #reskin-panel  .alpheios-skin_properties_item__small_font {
+    .alpheios-font_small_class #alpheios-reskin-panel  .alpheios-skin_properties_item__small_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_medium_class #reskin-panel  .alpheios-skin_properties_item__medium_font {
+    .alpheios-font_medium_class #alpheios-reskin-panel  .alpheios-skin_properties_item__medium_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_large_class #reskin-panel  .alpheios-skin_properties_item__large_font {
+    .alpheios-font_large_class #alpheios-reskin-panel  .alpheios-skin_properties_item__large_font {
         background: $alpheios-toolbar-active-color;
     }
 </style>
