@@ -1,7 +1,7 @@
 <template>
     <div ref="popup" class="auk alpheios-popup alpheios-popup--mobile" v-bind:class="data.classes" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data.notification.visible">
-        <span class="alpheios-popup__close-btn" @click.stop="closePopup" :title="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
+        <span class="alpheios-popup__close-btn" @click="closePopup" :title="data.l10n.messages.TOOLTIP_POPUP_CLOSE">
             <close-icon></close-icon>
         </span>
         <div class="alpheios-popup__header">
@@ -11,13 +11,13 @@
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
             <div class="uk-button-group alpheios-popup__button-area">
-                <button @click.stop="showPanelTab('inflections')" v-show="data.inflDataReady"
+                <button @click="showPanelTab('inflections')" v-show="data.inflDataReady"
                         class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_INFLECT}}
                 </button>
-                <button @click.stop="showPanelTab('definitions')" v-show="data.defDataReady"
+                <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                         class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_DEFINE}}
                 </button>
-                <button @click.stop="showPanelTab('options')"
+                <button @click="showPanelTab('options')"
                         class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn">{{data.l10n.messages.LABEL_POPUP_OPTIONS}}
                 </button>
             </div>
@@ -40,11 +40,11 @@
         </div>
         <div class="alpheios-popup__providers">
             <img class="alpheios-popup__logo" src="../images/icon.png">
-            <a class="alpheios-popup__providers-link" v-on:click.stop="switchProviders">{{providersLinkText}}</a>
+            <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{providersLinkText}}</a>
         </div>
         <div class="alpheios-popup__notifications alpheios-text-small" :class="notificationClasses"
              v-show="data.notification.important">
-            <span @click.stop="closeNotifications" class="alpheios-popup__notifications-close-btn">
+            <span @click="closeNotifications" class="alpheios-popup__notifications-close-btn">
                 <close-icon></close-icon>
             </span>
             <span v-html="data.notification.text"></span>

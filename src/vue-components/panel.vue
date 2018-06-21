@@ -10,49 +10,49 @@
             <span class="alpheios-panel__header-btn-group--center" v-if="data && data.tabs">
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_HELP')">
-                <span v-bind:class="{ active: data.tabs.info }" @click.stop="changeTab('info')"
+                <span v-bind:class="{ active: data.tabs.info }" @click="changeTab('info')"
                   class="alpheios-panel__header-nav-btn">
                   <info-icon class="icon"></info-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_DEFINITIONS')">
-                <span :class="{ active: data.tabs.definitions }" @click.stop="changeTab('definitions')"
+                <span :class="{ active: data.tabs.definitions }" @click="changeTab('definitions')"
                   class="alpheios-panel__header-nav-btn">
                   <definitions-icon class="icon"></definitions-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
-                <span v-bind:class="{ active: data.tabs.inflections }" @click.stop="changeTab('inflections')"
+                <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
                   class="alpheios-panel__header-nav-btn">
                   <inflections-icon class="icon"></inflections-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
-                <span v-bind:class="{ active: data.tabs.grammar }" @click.stop="changeTab('grammar')"
+                <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
                   class="alpheios-panel__header-nav-btn">
                   <grammar-icon class="icon"></grammar-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_TREEBANK')" v-show="treebankTabVisible">
-                <span v-bind:class="{ active: data.tabs.treebank }" @click.stop="changeTab('treebank')"
+                <span v-bind:class="{ active: data.tabs.treebank }" @click="changeTab('treebank')"
                       class="alpheios-panel__header-nav-btn">
                   <treebank-icon class="icon"></treebank-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_OPTIONS')">
-                <span v-bind:class="{ active: data.tabs.options }" @click.stop="changeTab('options')"
+                <span v-bind:class="{ active: data.tabs.options }" @click="changeTab('options')"
                   class="alpheios-panel__header-nav-btn">
                   <options-icon class="icon"></options-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_STATUS')">
-                <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click.stop="changeTab('status')"
+                <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
                   class="alpheios-panel__header-nav-btn">
                   <status-icon class="icon"></status-icon>
                 </span>
@@ -61,14 +61,14 @@
             <span class="alpheios-panel__header-btn-group--end">
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_LEFT')" v-show="attachToLeftVisible">
-                <span @click.stop="setPosition('left')" v-show="attachToLeftVisible"
+                <span @click="setPosition('left')" v-show="attachToLeftVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-left-icon></attach-left-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_RIGHT')" v-show="attachToRightVisible">
-                <span @click.stop="setPosition('right')" v-show="attachToRightVisible"
+                <span @click="setPosition('right')" v-show="attachToRightVisible"
                       class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
                     <attach-right-icon></attach-right-icon>
                 </span>
@@ -77,7 +77,7 @@
               <alph-tooltip
                 tooltipDirection = "bottom-right"
                 :tooltipText = "ln10Messages('TOOLTIP_CLOSE_PANEL')">
-                <span @click.stop="close" class="alpheios-panel__header-action-btn" >
+                <span @click="close" class="alpheios-panel__header-action-btn" >
                     <close-icon></close-icon>
                 </span>
               </alph-tooltip>
@@ -149,7 +149,7 @@
         </div>
         <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
           v-show="data.notification.important" v-if="data && data.notification">
-            <span @click.stop="closeNotifications" class="alpheios-panel__notifications-close-btn">
+            <span @click="closeNotifications" class="alpheios-panel__notifications-close-btn">
                 <close-icon></close-icon>
             </span>
             <span v-html="data.notification.text" class="alpheios-panel__notifications-text"></span>

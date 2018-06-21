@@ -6,11 +6,11 @@
     <alph-tooltip tooltipDirection="top-right" :tooltipText="ln10Messages('LABEL_LOOKUP_BUTTON')">
       <span class="alpheios-lookup__button_with_link">
       <button class="uk-button uk-button-primary uk-button-small alpheios-lookup__button" type="button" tabindex="-1"
-        @click.stop="lookup"
+        @click="lookup"
       >
         {{ ln10Messages('LABEL_LOOKUP_BUTTON') }}
       </button>
-      <a class="alpheios-lookup__settings-link alpheios-text__smaller" @click.stop="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
+      <a class="alpheios-lookup__settings-link alpheios-text__smaller" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
       </span>
     </alph-tooltip>
     <div class="alpheios-lookup__settings" v-if="uiController">

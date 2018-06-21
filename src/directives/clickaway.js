@@ -4,12 +4,27 @@ import Vue from 'vue/dist/vue'
 
 let HANDLER = '_vue_clickaway_handler'
 
+function checkPassiveSupport () {
+  let supportsPassive = false
+  try {
+    let opts = Object.defineProperty({}, 'passive', {
+      get: function () {
+        supportsPassive = true
+      }
+    })
+    window.addEventListener('testPassive', null, opts)
+    window.removeEventListener('testPassive', null, opts)
+  } catch (e) {}
+
+  return supportsPassive
+}
+
 function bind (el, binding, vnode) {
   unbind(el)
 
-  var vm = vnode.context
+  let vm = vnode.context
 
-  var callback = binding.value
+  let callback = binding.value
   if (typeof callback !== 'function') {
     if ('development' !== 'production') {
       Vue.util.warn(
@@ -28,7 +43,7 @@ function bind (el, binding, vnode) {
   //        we ignore events until the end of the "initial" macrotask.
   // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
   // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-  var initialMacrotaskEnded = false
+  let initialMacrotaskEnded = false
   setTimeout(function () {
     initialMacrotaskEnded = true
   }, 0)
@@ -39,12 +54,27 @@ function bind (el, binding, vnode) {
     //        the click, not whether it is there now, that the event has arrived
     //        to the top.
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
-    var path = ev.path || (ev.composedPath ? ev.composedPath() : undefined)
-    if (initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))) {
+    let panel = document.getElementById('alpheios-panel-embedded').children[0]
+    let popup = document.getElementById('alpheios-popup-embedded').children[0]
+
+    let visible = function (elem) {
+      return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
+    }
+    if (panel && !visible(panel) && popup && !visible(popup)) {
+      return
+    }
+
+    let path = ev.path || (ev.composedPath ? ev.composedPath() : undefined)
+
+    let checkStep1 = initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))
+    let checkStep2 = path ? path.indexOf(panel) < 0 : true
+    let checkStep3 = path ? path.indexOf(popup) < 0 : true
+
+    if (checkStep1 && checkStep2 && checkStep3) {
       return callback.call(vm, ev)
     }
   }
-  document.documentElement.addEventListener('click', el[HANDLER], false)
+  document.documentElement.addEventListener('click', el[HANDLER], checkPassiveSupport() ? { passive: true } : false)
 }
 
 function unbind (el) {
@@ -52,7 +82,7 @@ function unbind (el) {
   delete el[HANDLER]
 }
 
-export var directive = {
+export let directive = {
   bind: bind,
   update: function (el, binding) {
     if (binding.value === binding.oldValue) return

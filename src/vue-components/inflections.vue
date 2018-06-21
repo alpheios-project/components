@@ -28,7 +28,7 @@
                   <alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideEmptyCols.tooltipText">
                     <button v-show="false"
                           class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
-                          @click.stop="hideEmptyColsClick">
+                          @click="hideEmptyColsClick">
                       {{buttons.hideEmptyCols.text}}
                     </button>
                   </alph-tooltip>
@@ -36,7 +36,7 @@
                   <alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideNoSuffixGroups.tooltipText">
                     <button v-if="canCollapse"
                           class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
-                          @click.stop="hideNoSuffixGroupsClick">
+                          @click="hideNoSuffixGroupsClick">
                       {{buttons.hideNoSuffixGroups.text}}
                     </button>
                   </alph-tooltip>
