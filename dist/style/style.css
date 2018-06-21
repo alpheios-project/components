@@ -7481,7 +7481,8 @@
   .auk.alpheios-font_medium_class .alpheios-checkbox-block {
     line-height: 22px; }
     .auk.alpheios-font_medium_class .alpheios-checkbox-block label {
-      padding-left: 22px; }
+      padding-left: 22px;
+      min-height: 16px; }
       .auk.alpheios-font_medium_class .alpheios-checkbox-block label::before {
         height: 16px;
         width: 16px; }
@@ -7578,7 +7579,8 @@
   .auk.alpheios-font_small_class .alpheios-checkbox-block {
     line-height: 16.5px; }
     .auk.alpheios-font_small_class .alpheios-checkbox-block label {
-      padding-left: 16.5px; }
+      padding-left: 16.5px;
+      min-height: 12px; }
       .auk.alpheios-font_small_class .alpheios-checkbox-block label::before {
         height: 12px;
         width: 12px; }
@@ -7675,7 +7677,8 @@
   .auk.alpheios-font_large_class .alpheios-checkbox-block {
     line-height: 27.5px; }
     .auk.alpheios-font_large_class .alpheios-checkbox-block label {
-      padding-left: 27.5px; }
+      padding-left: 27.5px;
+      min-height: 20px; }
       .auk.alpheios-font_large_class .alpheios-checkbox-block label::before {
         height: 20px;
         width: 20px; }
@@ -8076,6 +8079,7 @@ div.alpheios-checkbox-block {
     position: relative;
     display: inline-block;
     user-select: none;
+    vertical-align: middle;
     /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
     padding-left: 22px;
     padding-top: 2px; }

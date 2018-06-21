@@ -60,7 +60,7 @@
       },
       checkboxLabel: function () {
         if (typeof this.data.currentTextValue === 'function') {
-          return this.data.currentTextValue()
+          return this.data.values.filter(item => item.value)[0].text
         }
       }
     },

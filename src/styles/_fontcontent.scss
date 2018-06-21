@@ -108,6 +108,7 @@
 
         label {
             padding-left: $baseFontSize * 1.375;
+            min-height: $baseFontSize;
             
             &::before{
               height: $baseFontSize;
@@ -122,7 +123,7 @@
             }
         }
    }
-   
+
   $baseSize: $baseFontSize + 12px;
 
     .alpheios-skin_properties_item {
