@@ -1,17 +1,20 @@
 <template>
       <div :class="classes" v-if="data && Object.keys(data).length > 0">
         <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{data.labelText}}</label>
-        <select v-model="selected" class="uk-select" multiple v-if="data.multiValue">
-            <option v-for="item in values">{{item}}</option>
-        </select>
+        <multiselect v-model="selected" :options="multiValues" :multiple="true" :searchable ="false" :close-on-select="true" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" v-if="data.multiValue">
+        </multiselect>
         <select v-model="selected" class="uk-select" v-if="! data.multiValue">
             <option v-for="item in values">{{item}}</option>
         </select>
     </div>
 </template>
 <script>
+  import Multiselect from 'vue-multiselect'
   export default {
     name: 'Setting',
+    components: {
+      Multiselect
+    },
     props: {
       data: {
         type: Object,
@@ -43,6 +46,9 @@
           this.$emit('change', this.data.name, newValue)
         }
       },
+      multiValues: function () {
+        return this.data ? this.data.textValues() : []
+      },
       values: function () {
         return this.data.textValues()
       }
@@ -50,7 +56,12 @@
   }
 </script>
 <style lang="scss">
+  @import "vue-multiselect-css";
+  @import "../styles/alpheios";
   .alpheios-setting__label {
     display: block;
+  }
+  .alpheios-setting__label {
+    vertical-align: middle;
   }
 </style>

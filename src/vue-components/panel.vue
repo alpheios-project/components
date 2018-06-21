@@ -62,14 +62,14 @@
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_LEFT')" v-show="attachToLeftVisible">
                 <span @click="setPosition('left')" v-show="attachToLeftVisible"
-                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow left">
                     <attach-left-icon></attach-left-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_RIGHT')" v-show="attachToRightVisible">
                 <span @click="setPosition('right')" v-show="attachToRightVisible"
-                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow">
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow right">
                     <attach-right-icon></attach-right-icon>
                 </span>
               </alph-tooltip>
@@ -77,7 +77,7 @@
               <alph-tooltip
                 tooltipDirection = "bottom-right"
                 :tooltipText = "ln10Messages('TOOLTIP_CLOSE_PANEL')">
-                <span @click="close" class="alpheios-panel__header-action-btn" >
+                <span @click="close" class="alpheios-panel__header-action-btn close" >
                     <close-icon></close-icon>
                 </span>
               </alph-tooltip>
@@ -154,7 +154,7 @@
             </span>
             <span v-html="data.notification.text" class="alpheios-panel__notifications-text"></span>
             <setting :data="data.settings.preferredLanguage" :show-title="false"
-                     :classes="['alpheios-panel__notifications--lang-switcher']" @change="settingChanged"
+                     :classes="['alpheios-panel__notifications--lang-switcher alpheios-text-smaller']" @change="settingChanged"
                      v-show="data.notification.showLanguageSwitcher"></setting>
         </div>
     </div>
@@ -595,7 +595,6 @@
         position: relative;
         top: -1px;
     }
-
     .#{$alpheios-uikit-namespace} .alpheios-panel__header-logo-img {
         width: auto;
         height: 30px;
@@ -685,7 +684,6 @@
     }
 
     .alpheios-panel__notifications--lang-switcher {
-        font-size: 12px;
         float: right;
         margin: -20px 10px 0 0;
         display: inline-block;
@@ -782,5 +780,23 @@
     .alpheios-panel__header-nav-btn.active {
         fill: $alpheios-link-hover-color;
         stroke: $alpheios-link-hover-color;
+    }
+
+    .alpheios-panel__tab__options {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .alpheios-panel__options-item {
+      max-width: none;
+      width: 100%;
+    }
+
+    .alpheios-panel__options-item label {
+      width: 100px;
+      display: inline-block;
+    }
+    .alpheios-panel__options-item select {
+      display: inline-block;
     }
 </style>

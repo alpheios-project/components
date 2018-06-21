@@ -333,15 +333,11 @@
 
     .lemma_index {
       display: inline-block;
-      color: #fff;
-      background: $alpheios-toolbar-color;
-      width: $lemma_index_size;
-      height: $lemma_index_size;
-      border-radius: $lemma_index_size;
       text-align: center;
-      line-height: $lemma_index_size;
       font-weight: bold;
       margin-right: 10px;
+      vertical-align: top;
+      margin-top: 3px;
     }
     .alpheios-morph__features {
       &:before,
@@ -391,6 +387,12 @@
       }
     }
 
+    .alpheios-morph__definition {
+      margin-bottom: 5px;
+    }
+    .alpheios-definition__text {
+      font-weight: normal;
+    }
     .alpheios-morph__inflset {
       margin-top: 0;
       margin-left: 7px;

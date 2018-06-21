@@ -1,15 +1,15 @@
 <template>
-	<div class="alpheios-skin_panel">
-      <label class="uk-form-label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
-	  <ul class="alpheios-skin_properties">
+  <div id="alpheios-reskin-panel" class="alpheios-skin_panel alpheios-panel__options-item">
+      <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{ messages.LABEL_RESKIN_SETTINGS }}:</label>
+    <ul class="alpheios-skin_properties">
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_SMALLFONT">
-	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
+          <li class="alpheios-skin_properties_item alpheios-skin_properties_item__small_font" @click="changeStyleClass('fontSize', 'small')">A</li>
         </alph-tooltip>
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_MEDIUMFONT">
-	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
+          <li class="alpheios-skin_properties_item alpheios-skin_properties_item__medium_font" @click="changeStyleClass('fontSize', 'medium')">A</li>
         </alph-tooltip>
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LARGEFONT">
-	  	    <li class="alpheios-skin_properties_item alpheios-skin_properties_item__large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
+          <li class="alpheios-skin_properties_item alpheios-skin_properties_item__large_font" @click="changeStyleClass('fontSize', 'large')">A</li>
         </alph-tooltip>
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_LIGHTBG">
             <li class="alpheios-skin_properties_item alpheios-skin_properties_item__light_bg" @click="changeStyleClass('colorSchema', 'light')"><black-brush></black-brush></li>
@@ -17,8 +17,8 @@
         <alph-tooltip tooltipDirection="top-left" :tooltipText="messages.TOOLTIP_RESKIN_DARKBG">
             <li class="alpheios-skin_properties_item alpheios-skin_properties_item__dark_bg" @click="changeStyleClass('colorSchema', 'dark')"><white-brush></white-brush></li>
         </alph-tooltip>
-	  </ul>
-	</div>
+    </ul>
+  </div>
 </template>
 <script>
   import WhiteBrush from '../images/inline-icons/white-brush.svg';
@@ -58,26 +58,32 @@
 <style lang="scss">
     @import "../styles/alpheios";
 
-    .alpheios-skin_panel {
-    	display: inline-block;
+    #reskin-panel.alpheios-skin_panel {
+      display: inline-block;
     }
 
     ul.alpheios-skin_properties {
-    	margin: 0;
-    	padding: 0 30px 10px 0;
-    	list-style: none;
+      margin: 0;
+      padding: 0 30px 10px 10px;
+      list-style: none;
+      max-width: 250px;
+      display: inline-block;
     }
-    .alpheios-skin_properties_item {
+    #reskin-panel .alpheios-skin_properties_item {
         display: inline-block;
         vertical-align: middle;
         text-align: center;
         color: #fff;
         background: $alpheios-toolbar-color;
         cursor: pointer;
+        padding: 0;
+        font-family: $alpheios-font-family;
+        text-indent: 0;
+        list-style-type: none;
     }
 
-    .alpheios-skin_properties_item__light_bg,
-    .alpheios-skin_properties_item__dark_bg {
+    #reskin-panel .alpheios-skin_properties_item__light_bg,
+    #reskin-panel .alpheios-skin_properties_item__dark_bg {
         border-radius: 0;
         background: transparent;
         svg {
@@ -87,15 +93,15 @@
     }
 
 
-    .alpheios-font_small_class .alpheios-skin_properties_item__small_font {
+    .alpheios-font_small_class #reskin-panel  .alpheios-skin_properties_item__small_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_medium_class .alpheios-skin_properties_item__medium_font {
+    .alpheios-font_medium_class #reskin-panel  .alpheios-skin_properties_item__medium_font {
         background: $alpheios-toolbar-active-color;
     }
 
-    .alpheios-font_large_class .alpheios-skin_properties_item__large_font {
+    .alpheios-font_large_class #reskin-panel  .alpheios-skin_properties_item__large_font {
         background: $alpheios-toolbar-active-color;
     }
 </style>

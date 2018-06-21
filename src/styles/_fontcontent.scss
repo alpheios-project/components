@@ -15,48 +15,48 @@
       color: $alpheios-uitext-color;
     }
     .uk-form-label {
-    	font-size: $baseFontSize * 0.85;
+        font-size: $baseFontSize * 0.85;
     }
 
-	  .uk-button {
-		    font-family: $alpheios-font-family !important;
-	   }
+      .uk-button {
+            font-family: $alpheios-font-family !important;
+       }
 
-	  .uk-button-small {
-		    font-size: $baseFontSize * 0.7;
-		    line-height: $baseFontSize * 1.75;
+      .uk-button-small {
+            font-size: $baseFontSize * 0.7;
+            line-height: $baseFontSize * 1.75;
     }
 
-	  .uk-input {
-		    height: $baseFontSize * 1.75;
-	  }
+      .uk-input {
+            height: $baseFontSize * 1.75;
+      }
 
     .uk-select:not([multiple]):not([size]) {
-    	height: $baseFontSize * 2.5;
+        height: $baseFontSize * 2.5;
     }
 
     .alpheios-text__smallest {
-    	font-size: $baseFontSize * 0.675;
+        font-size: $baseFontSize * 0.675;
     }
 
     .alpheios-text__smaller {
-    	font-size: $baseFontSize * 0.75;
+        font-size: $baseFontSize * 0.75;
     }
 
     .alpheios-text__small {
-    	font-size: $baseFontSize * 0.875;
+        font-size: $baseFontSize * 0.875;
     }
 
     .alpheios-text__medium {
-    	font-size: $baseFontSize;
+        font-size: $baseFontSize;
     }
 
     .alpheios-text__large {
-		    font-size: $baseFontSize * 1.1;
+            font-size: $baseFontSize * 1.1;
     }
 
     .alpheios-text__larger {
-    	font-size: $baseFontSize * 1.25;
+        font-size: $baseFontSize * 1.25;
     }
 
     .alpheios-panel__header-action-btn,
@@ -75,37 +75,58 @@
 
     /** TODO Remove this when we port inflection tables to Vue **/
     .infl-cell, .infl-cell span {
-    	font-size: $baseFontSize * 0.75;
+        font-size: $baseFontSize * 0.75;
     }
     .infl-cell sup {
-    	font-size: $baseFontSize * 0.675;
+        font-size: $baseFontSize * 0.675;
+    }
+
+    .alpheios-morph__dictentry .lemma_index {
+        font-size: $baseFontSize * 0.875;
+        line-height: $baseFontSize * 1.3;
+        width: $baseFontSize * 1.3;
+        height: $baseFontSize * 1.3;
+        border-radius: $baseFontSize * 0.8;
+    }
+
+    .alpheios-morph__morphdata {
+        margin-left: 15px + $baseFontSize * 1.3;
+    }
+
+    .alpheios-morph__listitem,
+    .alpheios-popup__header-selection {
+        font-size: $baseFontSize * 1.3;
+    }
+
+    .alpheios-skin_panel {
+      padding-top: $baseFontSize;
     }
 
   $baseSize: $baseFontSize + 12px;
 
-	.alpheios-skin_properties_item {
-		font-size: $baseFontSize;
+    .alpheios-skin_properties_item {
+        font-size: $baseFontSize;
     width: $baseSize;
     height: $baseSize;
     line-height: $baseSize;
     border-radius: $baseSize/2;
-	}
+    }
 
-	.alpheios-skin_properties_item__small_font {
-		font-size: $baseFontSize * 0.8;
+    .alpheios-skin_properties_item__small_font {
+        font-size: $baseFontSize * 0.8;
     width: $baseSize * 0.8;
     height: $baseSize * 0.8;
     line-height: $baseSize * 0.8;
     border-radius: $baseSize * 0.8 * 0.5;
-	}
+    }
 
   .alpheios-skin_properties_item__large_font {
-		font-size: $baseFontSize * 1.2;
+        font-size: $baseFontSize * 1.2;
     width: $baseSize * 1.2;
     height: $baseSize * 1.2;
     line-height: $baseSize * 1.2;
     border-radius: $baseSize * 1.2;
-	}
+    }
 }
 
 .#{$alpheios-uikit-namespace}.alpheios-font_medium_class {
@@ -123,7 +144,7 @@
     .alpheios-panel__header-action-btn.active:hover,
     .alpheios-panel__header-action-btn.active:focus,
     .alpheios-panel__header-nav-btn {
-    	margin-right: 10px;
-    	margin-left: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
     }
 }
