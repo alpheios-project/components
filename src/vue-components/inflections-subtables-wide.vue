@@ -2,7 +2,8 @@
     <div>
         <div class="infl-prdgm-tbl" v-for="table in data">
             <div class="infl-prdgm-tbl-row" v-for="row in table.rows">
-                <div class="infl-prdgm-tbl-cell" v-for="cell in row.cells">{{cell.value}}
+                <div class="infl-prdgm-tbl-cell" v-for="cell in row.cells">
+                    {{cell.value}} <a v-if="!!cell.reflink" @click="navigate(cell.reflink.id)">{{cell.reflink.text}}</a>
                 </div>
             </div>
         </div>
@@ -24,6 +25,9 @@
       cellClasses: function (cell) {
         if (cell.role === 'label') { return 'infl-prdgm-tbl-cell--label' }
         if (cell.role === 'data') { return 'infl-prdgm-tbl-cell--data' }
+      },
+      navigate: function (reflink) {
+        this.$emit('navigate', reflink)
       }
     }
   }

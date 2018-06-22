@@ -2,7 +2,8 @@
     <div v-if="data">
         <div class="infl-prdgm-tbl">
             <div class="infl-prdgm-tbl-row" v-for="row in data.rows">
-                <div class="infl-prdgm-tbl-cell" :class="cellClasses(cell)" v-for="cell in row.cells">{{cell.value}}
+                <div class="infl-prdgm-tbl-cell" :class="cellClasses(cell)" v-for="cell in row.cells">
+                    {{cell.value}}
                 </div>
             </div>
         </div>

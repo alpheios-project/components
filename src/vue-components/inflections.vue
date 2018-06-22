@@ -45,8 +45,8 @@
             </div>
 
             <template v-if="selectedView.hasComponentData">
-                <widetable :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></widetable>
-                <widesubtables :data="selectedView.wideSubTables"></widesubtables>
+                <main-table-wide :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></main-table-wide>
+                <sub-tables-wide :data="selectedView.wideSubTables" @navigate="navigate"></sub-tables-wide>
             </template>
 
             <div v-show="!selectedView.hasComponentData">
@@ -57,6 +57,13 @@
                         <dd>{{footnote.text}}</dd>
                     </template>
                 </div>
+            </div>
+
+            <div v-show="selectedView.hasSuppTables" class="alpheios-inflections__supp-tables">
+                <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER}}</h3>
+                <template v-for="suppTable of selectedView.suppTables">
+                    <supp-tables-wide :data="suppTable"></supp-tables-wide>
+                </template>
             </div>
 
             <div v-show="selectedView.hasCredits" class="alpheios-inflections__credits-cont">
@@ -70,6 +77,7 @@
   // Subcomponents
   import WideTable from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
+  import WideSuppTable from './inflections-supp-table-wide.vue'
 
   import Tooltip from './tooltip.vue'
 
@@ -79,8 +87,9 @@
   export default {
     name: 'Inflections',
     components: {
-      widetable: WideTable,
-      widesubtables: WideSubTables,
+      mainTableWide: WideTable,
+      subTablesWide: WideSubTables,
+      suppTablesWide: WideSuppTable,
       alphTooltip: Tooltip
     },
 
@@ -376,6 +385,19 @@
           this.selectedView.showNoSuffixGroups()
         }
         this.displayInflections()
+      },
+
+      navigate (reflink) {
+        const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
+        let el = document.querySelector(`#${reflink}`)
+        if (el) {
+          const offset = Math.round(el.offsetTop)
+          let parent = el.offsetParent
+          // parent.scrollTop = offset
+          parent.scrollTop = offset - paddingTop
+        } else {
+          console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
+        }
       }
     },
 
@@ -613,6 +635,10 @@
     .alpheios-inflections__paradigms-expl span {
         color: $alpheios-toolbar-color;
         font-weight: 700;
+    }
+
+    .alpheios-inflections__supp-tables {
+        margin-top: 4rem;
     }
 
     // endregion Footnotes
