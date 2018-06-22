@@ -102,31 +102,54 @@
       padding-top: $baseFontSize;
     }
 
+
+   .alpheios-checkbox-block {
+        line-height: $baseFontSize * 1.375;
+
+        label {
+            padding-left: $baseFontSize * 1.375;
+            min-height: $baseFontSize;
+            
+            &::before{
+              height: $baseFontSize;
+              width: $baseFontSize;
+            }
+
+            &::after {
+              height: $baseFontSize * 0.3125;
+              width: $baseFontSize * 0.5625;
+              left: $baseFontSize * 0.25;
+              top: $baseFontSize * 0.4375;
+            }
+        }
+   }
+
   $baseSize: $baseFontSize + 12px;
 
     .alpheios-skin_properties_item {
         font-size: $baseFontSize;
-    width: $baseSize;
-    height: $baseSize;
-    line-height: $baseSize;
-    border-radius: $baseSize/2;
+        width: $baseSize;
+        height: $baseSize;
+        line-height: $baseSize;
+        border-radius: $baseSize/2;
     }
 
     .alpheios-skin_properties_item__small_font {
         font-size: $baseFontSize * 0.8;
-    width: $baseSize * 0.8;
-    height: $baseSize * 0.8;
-    line-height: $baseSize * 0.8;
-    border-radius: $baseSize * 0.8 * 0.5;
+        width: $baseSize * 0.8;
+        height: $baseSize * 0.8;
+        line-height: $baseSize * 0.8;
+        border-radius: $baseSize * 0.8 * 0.5;
     }
 
-  .alpheios-skin_properties_item__large_font {
+    .alpheios-skin_properties_item__large_font {
         font-size: $baseFontSize * 1.2;
-    width: $baseSize * 1.2;
-    height: $baseSize * 1.2;
-    line-height: $baseSize * 1.2;
-    border-radius: $baseSize * 1.2;
+        width: $baseSize * 1.2;
+        height: $baseSize * 1.2;
+        line-height: $baseSize * 1.2;
+        border-radius: $baseSize * 1.2;
     }
+
 }
 
 .#{$alpheios-uikit-namespace}.alpheios-font_medium_class {
