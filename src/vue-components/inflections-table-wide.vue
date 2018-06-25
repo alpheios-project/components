@@ -1,8 +1,8 @@
 <template>
     <div v-if="data">
         <div class="infl-prdgm-tbl">
-            <div class="infl-prdgm-tbl-row" v-for="row in data.rows">
-                <div class="infl-prdgm-tbl-cell" :class="cellClasses(cell)" v-for="cell in row.cells">
+            <div class="infl-prdgm-tbl__row" v-for="row in data.rows">
+                <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
                     {{cell.value}}
                 </div>
             </div>
@@ -85,11 +85,11 @@
         margin-bottom: 30px;
     }
 
-    .infl-prdgm-tbl-row {
+    .infl-prdgm-tbl__row {
         display: table-row;
     }
 
-    .infl-prdgm-tbl-cell {
+    .infl-prdgm-tbl__cell {
         display: table-cell;
         padding: 2px 5px;
         border-right: 1px solid gray;

@@ -86,6 +86,7 @@ export default class UIController {
       components: this.template.panelComponents,
       data: {
         panelData: {
+          state: this.state,
           isOpen: false,
           tabs: {
             definitions: false,
@@ -103,6 +104,7 @@ export default class UIController {
             enabled: false,
             inflectionData: false // If no inflection data present, it is set to false
           },
+          inflDataReady: false,
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {

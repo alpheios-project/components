@@ -46,7 +46,7 @@
 
             <template v-if="selectedView.hasComponentData">
                 <main-table-wide :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></main-table-wide>
-                <sub-tables-wide :data="selectedView.wideSubTables" @navigate="navigate"></sub-tables-wide>
+                <sub-tables-wide :data="selectedView.wideSubTables" :supp-paradigms-map="selectedView.suppParadigmsMap" @navigate="navigate"></sub-tables-wide>
             </template>
 
             <div v-show="!selectedView.hasComponentData">
@@ -59,10 +59,11 @@
                 </div>
             </div>
 
-            <div v-show="selectedView.hasSuppTables" class="alpheios-inflections__supp-tables">
+            <div v-show="selectedView.hasSuppParadigms" class="alpheios-inflections__supp-tables">
                 <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER}}</h3>
-                <template v-for="suppTable of selectedView.suppTables">
-                    <supp-tables-wide :data="suppTable"></supp-tables-wide>
+                <template v-for="(suppTable, index) of selectedView.suppParadigms">
+                    <supp-tables-wide :data="suppTable" :bg-color="suppColors[index]"
+                                      :messages="messages" @navigate="navigate"></supp-tables-wide>
                 </template>
             </div>
 
@@ -150,7 +151,8 @@
             shownTooltip: this.messages.TOOLTIP_INFLECT_COLLAPSE,
             hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
           }
-        }
+        },
+        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)']
       }
     },
 
@@ -227,6 +229,17 @@
         if (inflectionData) {
           this.viewSet = new ViewSet(inflectionData, this.locale)
 
+          // Set colors for supplemental paradigm tables
+          for (let view of this.viewSet.getViews()) {
+            if (view.hasSuppParadigms) {
+              let currentColorIdx = 0
+              for (let paradigm of view.suppParadigms) {
+                paradigm.table.bgColor = this.suppColors[currentColorIdx]
+                currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx++ : 0
+              }
+            }
+          }
+
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
@@ -295,6 +308,7 @@
         let closeBtnClassName = 'alpheios-inflections__footnote-popup-close-btn'
         let hiddenClassName = 'hidden'
         let titleClassName = 'alpheios-inflections__footnote-popup-title'
+        this.htmlElements.wideView.innerHTML = ''
         this.htmlElements.wideView.appendChild(this.selectedView.wideViewNodes)
         let footnoteLinks = this.htmlElements.wideView.querySelectorAll('[data-footnote]')
         if (footnoteLinks) {
@@ -388,15 +402,23 @@
       },
 
       navigate (reflink) {
-        const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
-        let el = document.querySelector(`#${reflink}`)
-        if (el) {
-          const offset = Math.round(el.offsetTop)
-          let parent = el.offsetParent
-          // parent.scrollTop = offset
-          parent.scrollTop = offset - paddingTop
+        if (reflink === 'top') {
+          // Navigate to the top of the page
+          let parent = this.$el.offsetParent
+          if (parent) {
+            parent.scrollTop = 0
+          }
         } else {
-          console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
+          // Navigate to one of the supplemental tables
+          const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
+          let el = document.querySelector(`#${reflink}`)
+          if (el) {
+            const offset = Math.round(el.offsetTop)
+            let parent = el.offsetParent
+            parent.scrollTop = offset - paddingTop
+          } else {
+            console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
+          }
         }
       }
     },

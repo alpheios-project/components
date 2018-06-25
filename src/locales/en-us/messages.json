@@ -400,5 +400,10 @@
     "description": "A hint that indicates that the current table is representative pattern for verbs similar to the one chosen",
     "component": "InflectionTables",
     "params": ["word"]
+  },
+  "INFLECTIONS_MAIN_TABLE_LINK_TEXT": {
+    "message": "Back to main",
+    "description": "A link pointing to a main inflection table",
+    "component": "InflectionTables"
   }
 }
