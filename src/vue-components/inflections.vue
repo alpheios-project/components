@@ -46,7 +46,7 @@
 
             <template v-if="selectedView.hasComponentData">
                 <main-table-wide :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></main-table-wide>
-                <sub-tables-wide :data="selectedView.wideSubTables" :supp-paradigms-map="selectedView.suppParadigmsMap" @navigate="navigate"></sub-tables-wide>
+                <sub-tables-wide :view="selectedView" @navigate="navigate"></sub-tables-wide>
             </template>
 
             <div v-show="!selectedView.hasComponentData">
@@ -61,8 +61,9 @@
 
             <div v-show="selectedView.hasSuppParadigms" class="alpheios-inflections__supp-tables">
                 <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER}}</h3>
-                <template v-for="(suppTable, index) of selectedView.suppParadigms">
-                    <supp-tables-wide :data="suppTable" :bg-color="suppColors[index]"
+                <template v-for="paradigm of selectedView.suppParadigms">
+                    <supp-tables-wide :data="paradigm"
+                                      :bg-color="selectedView.hlSuppParadigms ? selectedView.suppHlColors.get(paradigm.paradigmID) : 'transparent'"
                                       :messages="messages" @navigate="navigate"></supp-tables-wide>
                 </template>
             </div>
@@ -231,11 +232,17 @@
 
           // Set colors for supplemental paradigm tables
           for (let view of this.viewSet.getViews()) {
+            view.hlSuppParadigms = false
             if (view.hasSuppParadigms) {
-              let currentColorIdx = 0
-              for (let paradigm of view.suppParadigms) {
-                paradigm.table.bgColor = this.suppColors[currentColorIdx]
-                currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx++ : 0
+              if (view.suppParadigms.length > 1) {
+                // Highlight tables and links only if more than one linked table present
+                view.hlSuppParadigms = true
+                view.suppHlColors = new Map()
+                let currentColorIdx = 0
+                for (let paradigm of view.suppParadigms) {
+                  view.suppHlColors.set(paradigm.paradigmID, this.suppColors[currentColorIdx])
+                  currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx + 1 : 0
+                }
               }
             }
           }

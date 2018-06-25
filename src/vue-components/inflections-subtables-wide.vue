@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="infl-prdgm-tbl" v-for="table in data">
+        <div class="infl-prdgm-tbl" v-for="table in view.wideSubTables">
             <div class="infl-prdgm-tbl__row" v-for="row in table.rows">
                 <div class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
                     {{cell.value}}
@@ -17,12 +17,8 @@
     name: 'WideInflectionsSubTables',
     props: {
       // This will be an InflectionData object
-      data: {
-        type: [Array],
-        required: true
-      },
-      suppParadigmsMap: {
-        type: [Map, undefined],
+      view: {
+        type: [Object],
         required: true
       }
     },
@@ -40,9 +36,7 @@
       },
 
       refColor: function (paradigmID) {
-        return (this.suppParadigmsMap && this.suppParadigmsMap.has(paradigmID))
-          ? this.suppParadigmsMap.get(paradigmID).table.bgColor
-          : 'transparent'
+        return this.view.hlSuppParadigms ? this.view.suppHlColors.get(paradigmID) : 'transparent'
       },
 
       navigate: function (reflink) {
@@ -74,9 +68,5 @@
 
     .infl-prdgm-tbl__cell--label {
         font-weight: 700;
-    }
-
-    a.infl-prdgm-tbl__cell-reflink {
-        color: $alpheios-copy-color;
     }
 </style>
