@@ -1,5 +1,5 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+    <div ref="popup" id="alpheios-popup-inner" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
          v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible" v-on-clickaway="attachTrackingClick">
          <alph-tooltip
           tooltipDirection = "left"

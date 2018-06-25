@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="divClasses" :style="mainstyles" v-on-clickaway="attachTrackingClick"
+    <div class="alpheios-panel auk" id="alpheios-panel-inner" :class="divClasses" :style="mainstyles" v-on-clickaway="attachTrackingClick"
          data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
         :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 

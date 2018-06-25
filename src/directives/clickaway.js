@@ -54,21 +54,27 @@ function bind (el, binding, vnode) {
     //        the click, not whether it is there now, that the event has arrived
     //        to the top.
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
-    let panel = document.getElementById('alpheios-panel') ? document.getElementById('alpheios-panel').children[0] : null
-    let popup = document.getElementById('alpheios-popup') ? document.getElementById('alpheios-popup').children[0] : null
+    let panel = document.getElementById('alpheios-panel-inner') ? document.getElementById('alpheios-panel-inner') : null
+    let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-panel-inner') : null
 
     let visible = function (elem) {
       return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
     }
 
+    // if inner popup and panel are not visible - stop the check
     if (panel && !visible(panel) && popup && !visible(popup)) {
       return
     }
 
     let path = ev.path || (ev.composedPath ? ev.composedPath() : undefined)
 
+    // checkStep1 checks if a click was not inside the component with v-on-clickaway event
     let checkStep1 = initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))
+
+    // checkStep2 checks if a click was not inside the inner panel
     let checkStep2 = path ? path.indexOf(panel) < 0 : true
+
+    // checkStep3 checks if a click was not inside the inner popup
     let checkStep3 = path ? path.indexOf(popup) < 0 : true
 
     if (checkStep1 && checkStep2 && checkStep3) {
