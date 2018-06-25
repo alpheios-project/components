@@ -135,6 +135,8 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.uiOptions.items.panelOnActivate" @change="uiOptionChanged" v-if="data.uiOptions"
+                         :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                   :key="languageSetting.name" 
                   v-if="languageSetting.values.length > 1 && data.resourceSettings"
@@ -792,11 +794,12 @@
       width: 100%;
     }
 
-    .alpheios-panel__options-item label {
+    .alpheios-panel__options-item .alpheios-setting__label {
       width: 100px;
       display: inline-block;
     }
     .alpheios-panel__options-item select {
       display: inline-block;
     }
+
 </style>
