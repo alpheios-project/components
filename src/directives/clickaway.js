@@ -55,13 +55,13 @@ function bind (el, binding, vnode) {
     //        to the top.
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
     let panel = document.getElementById('alpheios-panel-inner') ? document.getElementById('alpheios-panel-inner') : null
-    let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-panel-inner') : null
+    let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-popup-inner') : null
 
     let visible = function (elem) {
       return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
     }
 
-    // if inner popup and panel are not visible - stop the check
+    // if neither the popup nor the panel are visible, stop the check
     if (panel && !visible(panel) && popup && !visible(popup)) {
       return
     }
