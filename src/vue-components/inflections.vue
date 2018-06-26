@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div v-show="selectedView.constructor.name === 'GreekParadigmView'"
+            <div v-show="selectedView instanceOf GreekParadigmView"
                  class="alpheios-inflections__paradigms-expl"
                  v-html="messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(data.inflectionData.targetWord)">
             </div>
