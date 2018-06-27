@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div class="infl-prdgm-tbl" v-for="table in data">
-            <div class="infl-prdgm-tbl-row" v-for="row in table.rows">
-                <div class="infl-prdgm-tbl-cell" :class="cellClasses(cell)" v-for="cell in row.cells">{{cell.value}}
+        <div class="infl-prdgm-tbl" v-for="table in view.wideSubTables">
+            <div class="infl-prdgm-tbl__row" v-for="row in table.rows">
+                <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
+                    {{cell.value}}
+                    <a v-if="!!cell.reflink" class="infl-prdgm-tbl__cell-reflink" :style="{backgroundColor: refColor(cell.reflink.id)}"
+                       @click="navigate(cell.reflink.id)">{{cell.reflink.text}}</a>
                 </div>
             </div>
         </div>
@@ -14,16 +17,30 @@
     name: 'WideInflectionsSubTables',
     props: {
       // This will be an InflectionData object
-      data: {
-        type: [Array],
+      view: {
+        type: [Object],
         required: true
-      },
+      }
+    },
+
+    data: function () {
+      return {
+        currentRefColorIdx: 0
+      }
     },
 
     methods: {
       cellClasses: function (cell) {
-        if (cell.role === 'label') { return 'infl-prdgm-tbl-cell--label' }
-        if (cell.role === 'data') { return 'infl-prdgm-tbl-cell--data' }
+        if (cell.role === 'label') { return 'infl-prdgm-tbl__cell--label' }
+        if (cell.role === 'data') { return 'infl-prdgm-tbl__cell--data' }
+      },
+
+      refColor: function (paradigmID) {
+        return this.view.hlSuppParadigms ? this.view.suppHlColors.get(paradigmID) : 'transparent'
+      },
+
+      navigate: function (reflink) {
+        this.$emit('navigate', reflink)
       }
     }
   }
@@ -36,18 +53,18 @@
         margin-bottom: 30px;
     }
 
-    .infl-prdgm-tbl-row {
+    .infl-prdgm-tbl__row {
         display: table-row;
     }
 
-    .infl-prdgm-tbl-cell {
+    .infl-prdgm-tbl__cell {
         display: table-cell;
         padding: 2px 5px;
         border-right: 1px solid gray;
         border-bottom: 1px solid gray;
     }
 
-    .infl-prdgm-tbl-cell--label {
+    .infl-prdgm-tbl__cell--label {
         font-weight: 700;
     }
 </style>

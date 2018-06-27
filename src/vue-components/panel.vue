@@ -649,6 +649,7 @@
         box-sizing: border-box;
         display: flex;
         flex-flow: wrap;
+        position: relative; // Need to set element as an offset parent for panel content items
     }
 
     .alpheios-lookup__panel {
