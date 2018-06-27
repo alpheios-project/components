@@ -1,6 +1,6 @@
 <template>
-    <div ref="popup" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
-         v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible">
+    <div ref="popup" id="alpheios-popup-inner" class="alpheios-popup auk" v-bind:class="divClasses" :style="{left: positionLeftDm, top: positionTopDm, width: widthDm, height: heightDm}"
+         v-show="visible" :data-notification-visible="data && data.notification && data.notification.visible" v-on-clickaway="attachTrackingClick">
          <alph-tooltip
           tooltipDirection = "left"
           :additionalStyles = "additionalStylesTootipCloseIcon"
@@ -98,6 +98,8 @@
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
 
+  import { directive as onClickaway } from '@/directives/clickaway.js';
+
   export default {
     name: 'Popup',
     components: {
@@ -106,8 +108,10 @@
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
       lookup: Lookup
-    }
-    ,
+    },
+    directives: {
+      onClickaway: onClickaway,
+    },
     data: function () {
       return {
         resizable: true,
@@ -531,6 +535,10 @@
           return this.data.l10n.messages[value]
         }
         return defaultValue
+      },
+
+      attachTrackingClick: function () {
+        this.closePopup()
       }
 
     },

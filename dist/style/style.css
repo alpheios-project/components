@@ -9258,7 +9258,7 @@ h3.alpheios-inflections__title {
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
-#reskin-panel.alpheios-skin_panel {
+#alpheios-reskin-panel.alpheios-skin_panel {
   display: inline-block;
 }
 ul.alpheios-skin_properties {
@@ -9268,7 +9268,7 @@ ul.alpheios-skin_properties {
   max-width: 250px;
   display: inline-block;
 }
-#reskin-panel .alpheios-skin_properties_item {
+#alpheios-reskin-panel .alpheios-skin_properties_item {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
@@ -9280,23 +9280,23 @@ ul.alpheios-skin_properties {
   text-indent: 0;
   list-style-type: none;
 }
-#reskin-panel .alpheios-skin_properties_item__light_bg,
-#reskin-panel .alpheios-skin_properties_item__dark_bg {
+#alpheios-reskin-panel .alpheios-skin_properties_item__light_bg,
+#alpheios-reskin-panel .alpheios-skin_properties_item__dark_bg {
   border-radius: 0;
   background: transparent;
 }
-#reskin-panel .alpheios-skin_properties_item__light_bg svg,
-  #reskin-panel .alpheios-skin_properties_item__dark_bg svg {
+#alpheios-reskin-panel .alpheios-skin_properties_item__light_bg svg,
+  #alpheios-reskin-panel .alpheios-skin_properties_item__dark_bg svg {
     width: 90%;
     height: 90%;
 }
-.alpheios-font_small_class #reskin-panel .alpheios-skin_properties_item__small_font {
+.alpheios-font_small_class #alpheios-reskin-panel .alpheios-skin_properties_item__small_font {
   background: #7E8897;
 }
-.alpheios-font_medium_class #reskin-panel .alpheios-skin_properties_item__medium_font {
+.alpheios-font_medium_class #alpheios-reskin-panel .alpheios-skin_properties_item__medium_font {
   background: #7E8897;
 }
-.alpheios-font_large_class #reskin-panel .alpheios-skin_properties_item__large_font {
+.alpheios-font_large_class #alpheios-reskin-panel .alpheios-skin_properties_item__large_font {
   background: #7E8897;
 }
 

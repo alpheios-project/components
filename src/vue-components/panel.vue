@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-panel auk" :class="divClasses" :style="mainstyles"
+    <div class="alpheios-panel auk" id="alpheios-panel-inner" :class="divClasses" :style="mainstyles" v-on-clickaway="attachTrackingClick"
          data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
         :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 
@@ -188,6 +188,8 @@
   import TreebankIcon from '../images/inline-icons/sitemap.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
 
+  import { directive as onClickaway } from '@/directives/clickaway.js';
+
   export default {
     name: 'Panel',
     components: {
@@ -211,6 +213,9 @@
       alphTooltip: Tooltip,
       lookup: Lookup,
       reskinFontColor: ReskinFontColor
+    },
+    directives: {
+      onClickaway: onClickaway,
     },
     data: function () {
       return {
@@ -428,6 +433,10 @@
           return this.data.l10n.messages[value]
         }
         return defaultValue
+      },
+
+      attachTrackingClick: function () {
+        this.close()
       }
     },
     created: function () {
