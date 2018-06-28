@@ -1,4 +1,5 @@
 /* global Node */
+/* global Event */
 import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alpheios-data-models'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
@@ -333,7 +334,11 @@ export default class UIController {
         },
 
         uiOptionChange: function (name, value) {
-          if (name === 'fontSize' || name === 'colorSchema') { this.uiController.uiOptions.items[name].setValue(value) } else { this.uiController.uiOptions.items[name].setTextValue(value) }
+          if (name === 'fontSize' || name === 'colorSchema' || name === 'panelOnActivate') {
+            this.uiController.uiOptions.items[name].setValue(value)
+          } else {
+            this.uiController.uiOptions.items[name].setTextValue(value)
+          }
           switch (name) {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
@@ -361,10 +366,13 @@ export default class UIController {
 
     this.options.load(() => {
       this.resourceOptions.load(() => {
-        this.state.activateUI()
-        console.log('UI options are loaded')
-        this.updateLanguage(this.options.items.preferredLanguage.currentValue)
-        this.updateVerboseMode()
+        this.uiOptions.load(() => {
+          this.state.activateUI()
+          console.log('UI options are loaded')
+          document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
+          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+          this.updateVerboseMode()
+        })
       })
     })
 
@@ -802,20 +810,20 @@ export default class UIController {
     let hasFullDefs = false
     for (let lexeme of homonym.lexemes) {
       if (lexeme.meaning.shortDefs.length > 0) {
-        definitions[lexeme.lemma.key] = []
+        definitions[lexeme.lemma.ID] = []
         for (let def of lexeme.meaning.shortDefs) {
           // for now, to avoid duplicate showing of the provider we create a new unproxied definitions
           // object without a provider if it has the same provider as the morphology info
           if (def.provider && lexeme.provider && def.provider.uri === lexeme.provider.uri) {
-            definitions[lexeme.lemma.key].push(new Definition(def.text, def.language, def.format, def.lemmaText))
+            definitions[lexeme.lemma.ID].push(new Definition(def.text, def.language, def.format, def.lemmaText))
           } else {
-            definitions[lexeme.lemma.key].push(def)
+            definitions[lexeme.lemma.ID].push(def)
           }
         }
         this.panel.panelData.shortDefinitions.push(...lexeme.meaning.shortDefs)
         this.updateProviders(homonym)
-      } else if (Object.entries(lexeme.lemma.features).size > 0) {
-        definitions[lexeme.lemma.key] = [new Definition('No definition found.', 'en-US', 'text/plain', lexeme.lemma.word)]
+      } else if (Object.entries(lexeme.lemma.features).length > 0) {
+        definitions[lexeme.lemma.ID] = [new Definition('No definition found.', 'en-US', 'text/plain', lexeme.lemma.word)]
       }
 
       if (lexeme.meaning.fullDefs.length > 0) {
@@ -834,7 +842,7 @@ export default class UIController {
     let translations = {}
     for (let lexeme of homonym.lexemes) {
       if (lexeme.lemma.translation !== undefined) {
-        translations[lexeme.lemma.key] = lexeme.lemma.translation
+        translations[lexeme.lemma.ID] = lexeme.lemma.translation
       }
     }
     this.popup.translations = translations
@@ -868,7 +876,6 @@ export default class UIController {
   }
 
   updateVerboseMode () {
-    this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
     this.panel.panelData.verboseMode = this.state.verboseMode
     this.popup.popupData.verboseMode = this.state.verboseMode
@@ -926,7 +933,6 @@ export default class UIController {
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
-    // this.popup.classesChanged += 1
     Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
 
     let panelClasses = this.panel.panelData.classes
