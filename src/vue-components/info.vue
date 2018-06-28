@@ -32,7 +32,25 @@
 <style lang="scss">
   @import "../styles/alpheios";
 
+  .alpheios-info {
+    font-family: $alpheios-font-family;
+    font-size: $alpheios-base-font-size;
+    color: $alpheios-copy-color;
+  }
+
+  .alpheios-info .alpheios-info__helptext p {
+    font-size: 0.875*$alpheios-base-font-size;
+    font-family: $alpheios-font-family;
+    font-size: $alpheios-base-font-size;
+    color: $alpheios-copy-color;
+  }
+
+  .alpheios-info .alpheios-info__versiontext {
+    font-size: 0.675*$alpheios-base-font-size;
+  }
+
   .alpheios-info__currentlanguage {
+    font-size: 0.675*$alpheios-base-font-size;
     font-weight: bold;
   }
 

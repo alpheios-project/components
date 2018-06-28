@@ -244,8 +244,8 @@
 
   .alpheios-morph__linkedattr {
     color: $alpheios-link-color;
-  	font-weight: bold;
-  	cursor: pointer;
+    font-weight: bold;
+    cursor: pointer;
     padding-right: .25em;
   }
 

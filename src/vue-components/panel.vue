@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-panel auk" id="alpheios-panel-inner" :class="divClasses" :style="mainstyles" v-on-clickaway="attachTrackingClick"
-         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
+         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen"
         :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 
         <div class="alpheios-panel__header">
@@ -138,7 +138,7 @@
                 <setting :data="data.uiOptions.items.panelOnActivate" @change="uiOptionChanged" v-if="data.uiOptions"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name" 
+                  :key="languageSetting.name"
                   v-if="languageSetting.values.length > 1 && data.resourceSettings"
                   v-for="languageSetting in data.resourceSettings.lexicons"></setting>
             </div>
@@ -220,6 +220,7 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
+
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
@@ -451,13 +452,13 @@
         return
       }
       if (typeof this.$el.querySelector === 'function') {
-        let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-        this.navbarWidth = 0
-        if (navbar) {
-          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-        }
+      let navbar = this.$el.querySelector(`#${this.navbarID}`)
+      let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+      this.navbarWidth = 0
+      if (navbar) {
+        let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+        if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+      }
 
         if (inflectionsPanel) {
           let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
@@ -474,31 +475,30 @@
           }
         }
 
-        // Initialize Interact.js: make panel resizable
-        interact(this.$el)
-          .resizable({
-            // resize from all edges and corners
-            edges: { left: true, right: true, bottom: false, top: false },
+      // Initialize Interact.js: make panel resizable
+      interact(this.$el)
+        .resizable({
+          // resize from all edges and corners
+          edges: { left: true, right: true, bottom: false, top: false },
 
-            // keep the edges inside the parent
-            restrictEdges: {
-              outer: document.body,
-              endOnly: true
-            },
+          // keep the edges inside the parent
+          restrictEdges: {
+            outer: document.body,
+            endOnly: true
+          },
 
-            // minimum size
-            restrictSize: {
-              min: { width: this.data.minWidth }
-            },
+          // minimum size
+          restrictSize: {
+            min: { width: this.data.minWidth }
+          },
 
-            inertia: true
-          })
-          .on('resizemove', event => {
-            let target = event.target
-            // update the element's style
-            target.style.width = `${event.rect.width}px`
-          })
-      }
+          inertia: true
+        })
+        .on('resizemove', event => {
+          let target = event.target
+          // update the element's style
+          target.style.width = `${event.rect.width}px`
+        })
     }
   }
 </script>
@@ -597,6 +597,7 @@
         position: relative;
         top: -1px;
     }
+
     .#{$alpheios-uikit-namespace} .alpheios-panel__header-logo-img {
         width: auto;
         height: 30px;
@@ -649,6 +650,7 @@
         box-sizing: border-box;
         display: flex;
         flex-flow: wrap;
+        position: relative; // Need to set element as an offset parent for panel content items
     }
 
     .alpheios-lookup__panel {
@@ -686,6 +688,7 @@
     }
 
     .alpheios-panel__notifications--lang-switcher {
+        font-size: 12px;
         float: right;
         margin: -20px 10px 0 0;
         display: inline-block;
@@ -801,5 +804,4 @@
     .alpheios-panel__options-item select {
       display: inline-block;
     }
-
 </style>
