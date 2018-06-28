@@ -2,7 +2,7 @@
     <div>
         <div class="infl-prdgm-tbl" v-for="table in view.wideSubTables">
             <div class="infl-prdgm-tbl__row" v-for="row in table.rows">
-                <div class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
+                <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
                     {{cell.value}}
                     <a v-if="!!cell.reflink" class="infl-prdgm-tbl__cell-reflink" :style="{backgroundColor: refColor(cell.reflink.id)}"
                        @click="navigate(cell.reflink.id)">{{cell.reflink.text}}</a>

@@ -1,5 +1,6 @@
 /* eslint-env jest */
 /* eslint-disable no-unused-vars */
+
 import { shallowMount, mount } from '@vue/test-utils'
 import Panel from '@/vue-components/panel.vue'
 import Tooltip from '@/vue-components/tooltip.vue'
