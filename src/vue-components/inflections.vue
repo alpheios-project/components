@@ -23,7 +23,7 @@
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
                     </select>
                 </div>
-                <div v-show="hasInflectionData" class="alpheios-inflections__control-btn-cont uk-button-group">
+                <div class="alpheios-inflections__control-btn-cont uk-button-group">
 
                   <alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideEmptyCols.tooltipText">
                     <button v-show="false"
@@ -43,14 +43,10 @@
                 </div>
             </div>
 
-            <div v-show="selectedView instanceOf GreekParadigmView"
-                 class="alpheios-inflections__paradigms-expl"
-                 v-html="messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(data.inflectionData.targetWord)">
-            </div>
 
             <template v-if="selectedView.hasComponentData">
-                <main-table-wide :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></main-table-wide>
-                <sub-tables-wide :view="selectedView" @navigate="navigate"></sub-tables-wide>
+                <widetable :data="selectedView.wideTable"></widetable>
+                <widesubtables :data="selectedView.wideSubTables"></widesubtables>
             </template>
 
             <div v-show="!selectedView.hasComponentData">
@@ -62,20 +58,6 @@
                     </template>
                 </div>
             </div>
-
-            <div v-show="selectedView.hasSuppParadigms" class="alpheios-inflections__supp-tables">
-                <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER}}</h3>
-                <template v-for="paradigm of selectedView.suppParadigms">
-                    <supp-tables-wide :data="paradigm"
-                                      :bg-color="selectedView.hlSuppParadigms ? selectedView.suppHlColors.get(paradigm.paradigmID) : 'transparent'"
-                                      :messages="messages" @navigate="navigate"></supp-tables-wide>
-                </template>
-            </div>
-
-            <div v-show="selectedView.hasCredits" class="alpheios-inflections__credits-cont">
-                <h3 class="alpheios-inflections__credits-title">{{messages.INFLECTIONS_CREDITS_TITLE}}</h3>
-                <div v-html="selectedView.creditsText" class="alpheios-inflections__credits-text"></div>
-            </div>
         </div>
     </div>
 </template>
@@ -83,7 +65,6 @@
   // Subcomponents
   import WideTable from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
-  import WideSuppTable from './inflections-supp-table-wide.vue'
   import WordForms from './wordforms.vue'
 
   import Tooltip from './tooltip.vue'
@@ -94,9 +75,8 @@
   export default {
     name: 'Inflections',
     components: {
-      mainTableWide: WideTable,
-      subTablesWide: WideSubTables,
-      suppTablesWide: WideSuppTable,
+      widetable: WideTable,
+      widesubtables: WideSubTables,
       alphTooltip: Tooltip,
       wordForms: WordForms
     },
@@ -119,11 +99,6 @@
 
     data: function () {
       return {
-        events: {
-          EVENT: 'event',
-          DATA_UPDATE: 'dataUpdate'
-        },
-        hasInflectionData: false,
         partsOfSpeech: [],
         selectedPartOfSpeech: [],
         views: [],
@@ -158,8 +133,7 @@
             shownTooltip: this.messages.TOOLTIP_INFLECT_COLLAPSE,
             hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
           }
-        },
-        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)']
+        }
       }
     },
 
@@ -213,13 +187,6 @@
         }
         return footnotes
       },
-      forms: function () {
-        let forms = []
-        if (this.selectedView && this.selectedView.forms) {
-          forms = Array.from(this.selectedView.forms.values())
-        }
-        return forms
-      },
       canCollapse: function () {
         if (this.data.inflectionData && this.selectedView && this.selectedView.table) {
           return this.selectedView.table.canCollapse
@@ -232,28 +199,9 @@
     watch: {
 
       inflectionData: function (inflectionData) {
-        // Clear the panel when new inflections arrive
-        this.clearInflections().setDefaults()
         if (inflectionData) {
 
           this.viewSet = new ViewSet(inflectionData, this.locale)
-
-          // Set colors for supplemental paradigm tables
-          for (let view of this.viewSet.getViews()) {
-            view.hlSuppParadigms = false
-            if (view.hasSuppParadigms) {
-              if (view.suppParadigms.length > 1) {
-                // Highlight tables and links only if more than one linked table present
-                view.hlSuppParadigms = true
-                view.suppHlColors = new Map()
-                let currentColorIdx = 0
-                for (let paradigm of view.suppParadigms) {
-                  view.suppHlColors.set(paradigm.paradigmID, this.suppColors[currentColorIdx])
-                  currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx + 1 : 0
-                }
-              }
-            }
-          }
 
           this.partsOfSpeech = this.viewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
@@ -265,7 +213,6 @@
           }
 
           if (this.views.length > 0) {
-            this.hasInflectionData = true
             this.selectedView = this.views[0]
             if (!this.selectedView.hasComponentData) {
               // Rendering is not required for component-enabled views
@@ -275,8 +222,6 @@
             this.selectedView = ''
           }
         }
-        // Notify parent of inflection data change
-        this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.viewSet)
       },
       /*
       An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
@@ -307,11 +252,11 @@
     methods: {
       clearInflections: function () {
         for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
-        this.hasInflectionData = false
         return this
       },
 
       renderInflections: function () {
+        this.clearInflections().setDefaults()
         // Hide empty columns by default
         // TODO: change inflection library to take that as an option
         this.selectedView.render().hideEmptyColumns().hideNoSuffixGroups()
@@ -323,7 +268,6 @@
         let closeBtnClassName = 'alpheios-inflections__footnote-popup-close-btn'
         let hiddenClassName = 'hidden'
         let titleClassName = 'alpheios-inflections__footnote-popup-title'
-        this.htmlElements.wideView.innerHTML = ''
         this.htmlElements.wideView.appendChild(this.selectedView.wideViewNodes)
         let footnoteLinks = this.htmlElements.wideView.querySelectorAll('[data-footnote]')
         if (footnoteLinks) {
@@ -415,27 +359,6 @@
           this.selectedView.showNoSuffixGroups()
         }
         this.displayInflections()
-      },
-
-      navigate (reflink) {
-        if (reflink === 'top') {
-          // Navigate to the top of the page
-          let parent = this.$el.offsetParent
-          if (parent) {
-            parent.scrollTop = 0
-          }
-        } else {
-          // Navigate to one of the supplemental tables
-          const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
-          let el = document.querySelector(`#${reflink}`)
-          if (el) {
-            const offset = Math.round(el.offsetTop)
-            let parent = el.offsetParent
-            parent.scrollTop = offset - paddingTop
-          } else {
-            console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
-          }
-        }
       }
     },
 
@@ -564,7 +487,7 @@
     }
 
     .infl-suff--suffix-match.infl-suff--full-feature-match {
-        background-color: $alpheios-highlight-color;
+        background-color: rgb(255, 238, 119);
         font-weight: 700;
     }
 
@@ -634,42 +557,6 @@
     .alpheios-inflections__footnote-popup-close-btn:active {
         fill: $alpheios-link-hover-color;
         stroke: $alpheios-link-hover-color;
-    }
-
-    .alpheios-inflections__credits-cont {
-        margin-bottom: 10px;
-    }
-
-    h3.alpheios-inflections__credits-title {
-        font-size: $alpheios-base-font-size;
-        font-weight: 700;
-        color: $alpheios-toolbar-color;
-        margin-bottom: 0;
-    }
-
-    .alpheios-inflections__credits-text {
-        font-size: 0.75*$alpheios-base-font-size;
-        font-weight: normal;
-        color: $alpheios-toolbar-active-color;
-        font-style: italic;
-        padding: 5px;
-    }
-
-    .alpheios-inflections__paradigms-expl {
-        font-size: 0.75*$alpheios-base-font-size;
-        font-weight: normal;
-        color: $alpheios-toolbar-active-color;
-        font-style: italic;
-        margin: 20px 0 10px;
-    }
-
-    .alpheios-inflections__paradigms-expl span {
-        color: $alpheios-toolbar-color;
-        font-weight: 700;
-    }
-
-    .alpheios-inflections__supp-tables {
-        margin-top: 4rem;
     }
 
     // endregion Footnotes
