@@ -18,7 +18,7 @@ describe('lexical-query.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-  console.info = function () {}
+  // console.info = function () {}
 
   beforeEach(() => {
     jest.spyOn(console, 'error')
@@ -54,6 +54,7 @@ describe('lexical-query.test.js', () => {
     updateMorphology: function () { },
     updateDefinitions: function () { },
     showLanguageInfo: function () { },
+    updateLanguage: function () { },
     updateInflections: function () { },
     updateTranslations: function () { },
     l10n: l10n

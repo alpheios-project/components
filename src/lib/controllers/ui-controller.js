@@ -87,7 +87,6 @@ export default class UIController {
       components: this.template.panelComponents,
       data: {
         panelData: {
-          state: this.state,
           isOpen: false,
           tabs: {
             definitions: false,
@@ -105,7 +104,6 @@ export default class UIController {
             enabled: false,
             inflectionData: false // If no inflection data present, it is set to false
           },
-          inflDataReady: false,
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -339,6 +337,7 @@ export default class UIController {
           } else {
             this.uiController.uiOptions.items[name].setTextValue(value)
           }
+
           switch (name) {
             case 'skin':
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
@@ -869,6 +868,7 @@ export default class UIController {
     let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
     this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
+
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
 
     Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
@@ -927,12 +927,14 @@ export default class UIController {
 
   updateStyleClass (prefix, type) {
     let popupClasses = this.popup.popupData.classes
+
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
     Vue.set(this.popup.popupData, 'classes', popupClasses)
+
     Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
 
     let panelClasses = this.panel.panelData.classes
@@ -943,7 +945,6 @@ export default class UIController {
     })
 
     Vue.set(this.panel.panelData, 'classes', panelClasses)
-    // this.panel.classesChanged += 1
     Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
