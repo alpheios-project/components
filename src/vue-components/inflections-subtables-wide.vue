@@ -16,7 +16,7 @@
   export default {
     name: 'WideInflectionsSubTables',
     props: {
-      // This will be an InflectionData object
+      // View
       view: {
         type: [Object],
         required: true

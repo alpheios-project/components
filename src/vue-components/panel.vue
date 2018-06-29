@@ -452,53 +452,54 @@
         return
       }
       if (typeof this.$el.querySelector === 'function') {
-      let navbar = this.$el.querySelector(`#${this.navbarID}`)
-      let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-      this.navbarWidth = 0
-      if (navbar) {
-        let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-        if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-      }
+        let navbar = this.$el.querySelector(`#${this.navbarID}`)
+        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+        this.navbarWidth = 0
+        if (navbar) {
+          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+        }
 
         if (inflectionsPanel) {
           let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-          if ( Array.isArray(resPl1) ) {
+          if (Array.isArray(resPl1)) {
             this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
           } else {
             this.inflPanelLeftPadding = 0
           }
           let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-          if ( Array.isArray(resPl2) ) {
+          if (Array.isArray(resPl2)) {
             this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
           } else {
             this.inflPanelRightPadding = 0
           }
         }
 
-      // Initialize Interact.js: make panel resizable
-      interact(this.$el)
-        .resizable({
-          // resize from all edges and corners
-          edges: { left: true, right: true, bottom: false, top: false },
+        // Initialize Interact.js: make panel resizable
+        interact(this.$el)
+          .resizable({
+            // resize from all edges and corners
+            edges: {left: true, right: true, bottom: false, top: false},
 
-          // keep the edges inside the parent
-          restrictEdges: {
-            outer: document.body,
-            endOnly: true
-          },
+            // keep the edges inside the parent
+            restrictEdges: {
+              outer: document.body,
+              endOnly: true
+            },
 
-          // minimum size
-          restrictSize: {
-            min: { width: this.data.minWidth }
-          },
+            // minimum size
+            restrictSize: {
+              min: {width: this.data.minWidth}
+            },
 
-          inertia: true
-        })
-        .on('resizemove', event => {
-          let target = event.target
-          // update the element's style
-          target.style.width = `${event.rect.width}px`
-        })
+            inertia: true
+          })
+          .on('resizemove', event => {
+            let target = event.target
+            // update the element's style
+            target.style.width = `${event.rect.width}px`
+          })
+      }
     }
   }
 </script>

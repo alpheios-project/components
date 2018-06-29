@@ -67,23 +67,67 @@ describe('panel.test.js', () => {
     let cmp = mount(Panel, {
       propsData: {
         data: {
+          isOpen: false,
           tabs: {
             definitions: false,
             inflections: false,
-            info: true,
-            options: false,
             status: false,
+            options: false,
+            info: true,
             treebank: false
           },
-          l10n: l10n,
+          verboseMode: true,
           grammarRes: {},
-          infoComponentData: {},
-          inflectionComponentData: {},
-          treebankComponentData: {},
-          classes: [],
-
+          lexemes: [],
+          inflectionComponentData: {
+            visible: false,
+            enabled: false,
+            inflectionData: false // If no inflection data present, it is set to false
+          },
+          shortDefinitions: [],
+          fullDefinitions: '',
+          inflections: {
+            localeSwitcher: undefined,
+            viewSelector: undefined,
+            tableBody: undefined
+          },
+          inflectionIDs: {
+            localeSwitcher: 'alpheios-panel-content-infl-table-locale-switcher',
+            viewSelector: 'alpheios-panel-content-infl-table-view-selector',
+            tableBody: 'alpheios-panel-content-infl-table-body'
+          },
+          infoComponentData: {
+            manifest: {},
+            languageName: 'Test language'
+          },
+          messages: [],
+          notification: {
+            visible: false,
+            important: false,
+            showLanguageSwitcher: false,
+            text: ''
+          },
+          status: {
+            selectedText: '',
+            languageName: ''
+          },
           settings: options.items,
-          resourceSettings: resourceOptions.items
+          treebankComponentData: {
+            data: {
+              word: {},
+              page: {}
+
+            },
+            visible: false
+          },
+          resourceSettings: resourceOptions.items,
+          uiOptions: {},
+          classes: [],
+          styles: {
+            zIndex: 0
+          },
+          minWidth: 400,
+          l10n: l10n
         }
       }
     })

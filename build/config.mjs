@@ -68,7 +68,7 @@ const webpack = {
   },
 
   development: {
-    mode: 'production',
+    mode: 'development',
     output: {filename: 'alpheios-components.js'}
   }
 }

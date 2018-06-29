@@ -8951,24 +8951,45 @@ img.alpheios-popup__logo {
   font-weight: 700;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
+/*************** light schema colors tooltip **************/
 .infl-prdgm-tbl {
   display: table;
   border-top: 1px solid gray;
   border-left: 1px solid gray;
   margin-bottom: 30px;
 }
-.infl-prdgm-tbl-row {
+.infl-prdgm-tbl__row {
   display: table-row;
 }
-.infl-prdgm-tbl-cell {
+.infl-prdgm-tbl__cell {
   display: table-cell;
   padding: 2px 5px;
   border-right: 1px solid gray;
   border-bottom: 1px solid gray;
 }
-.infl-prdgm-tbl-cell--label {
+.infl-prdgm-tbl__cell--label {
   font-weight: 700;
+}
+
+
+h3.alpheios-inflections__supp-table-title {
+  font-size: 1rem;
+  line-height: 1;
+  margin: 1.5rem 0 0.6rem 0;
+  font-weight: 700;
+}
+.infl-supp-tbl__cont {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.infl-prdgm-tbl--supp {
+  margin-bottom: 10px;
+}
+a.infl-supp-tbl__reflink {
+  float: right;
 }
 
 
@@ -8990,6 +9011,8 @@ img.alpheios-popup__logo {
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
 h3.alpheios-inflections__title {
+  font-size: 1.2rem;
+  line-height: 1;
   margin: 0 0 0.6rem 0;
   font-weight: 700;
   text-align: center;
@@ -8997,6 +9020,11 @@ h3.alpheios-inflections__title {
 .auk .uk-select.alpheios-inflections__view-selector {
   height: auto !important;
   max-width: 220px;
+  font-size: .625rem;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn {
+  line-height: 1.5;
+  font-size: .625rem;
 }
 .alpheios-inflections__actions {
   display: flex;
@@ -9036,6 +9064,7 @@ h3.alpheios-inflections__title {
   flex-wrap: wrap;
 }
 .infl-cell {
+  font-size: 12px;
   padding: 0 2px 0 5px;
   border-right: 1px solid #111;
   border-top: 1px solid #111;
@@ -9150,7 +9179,7 @@ h3.alpheios-inflections__title {
   background-color: lightgray;
 }
 .infl-suff--suffix-match.infl-suff--full-feature-match {
-  background-color: #ffee77;
+  background-color: #F6D918;
   font-weight: 700;
 }
 .alpheios-inflections__footnotes {
@@ -9210,6 +9239,36 @@ h3.alpheios-inflections__title {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
+.alpheios-inflections__credits-cont {
+  margin-bottom: 10px;
+}
+h3.alpheios-inflections__credits-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #4E6476;
+  margin-bottom: 0;
+}
+.alpheios-inflections__credits-text {
+  font-size: 12px;
+  font-weight: normal;
+  color: #7E8897;
+  font-style: italic;
+  padding: 5px;
+}
+.alpheios-inflections__paradigms-expl {
+  font-size: 12px;
+  font-weight: normal;
+  color: #7E8897;
+  font-style: italic;
+  margin: 20px 0 10px;
+}
+.alpheios-inflections__paradigms-expl span {
+  color: #4E6476;
+  font-weight: 700;
+}
+.alpheios-inflections__supp-tables {
+  margin-top: 4rem;
+}
 
 /*************** font sizes **************/
 /*************** dark schema colors **************/
@@ -9247,7 +9306,22 @@ h3.alpheios-inflections__title {
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
+.alpheios-info {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  color: #666666;
+}
+.alpheios-info .alpheios-info__helptext p {
+  font-size: 14px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  color: #666666;
+}
+.alpheios-info .alpheios-info__versiontext {
+  font-size: 10.8px;
+}
 .alpheios-info__currentlanguage {
+  font-size: 10.8px;
   font-weight: bold;
 }
 .alpheios-info__helptext {
@@ -9415,6 +9489,7 @@ ul.alpheios-skin_properties {
   box-sizing: border-box;
   display: flex;
   flex-flow: wrap;
+  position: relative;
 }
 .alpheios-lookup__panel {
   display: block;
@@ -9447,6 +9522,7 @@ ul.alpheios-skin_properties {
   stroke: #5BC8DC;
 }
 .alpheios-panel__notifications--lang-switcher {
+  font-size: 12px;
   float: right;
   margin: -20px 10px 0 0;
   display: inline-block;

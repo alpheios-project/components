@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div v-show="selectedView instanceOf GreekParadigmView"
+            <div v-show="showExplanatoryHint"
                  class="alpheios-inflections__paradigms-expl"
                  v-html="messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(data.inflectionData.targetWord)">
             </div>
@@ -226,6 +226,9 @@
         } else {
           return true
         }
+      },
+      showExplanatoryHint: function () {
+        return this.selectedView && this.selectedView.constructor && this.selectedView.constructor.name === 'GreekParadigmView'
       }
     },
 
