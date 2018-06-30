@@ -9480,7 +9480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../images/inline-icons/info.svg */ "./images/inline-icons/info.svg");
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/directives/clickaway.js */ "./directives/clickaway.js");
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
 //
 //
 //
@@ -10088,7 +10088,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lookup_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lookup.vue */ "./vue-components/lookup.vue");
 /* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
 /* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/directives/clickaway.js */ "./directives/clickaway.js");
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
 //
 //
 //
@@ -10778,6 +10778,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "../node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_multiselect_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect-css */ "../node_modules/vue-multiselect/dist/vue-multiselect.min.css");
+/* harmony import */ var vue_multiselect_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -10792,6 +10794,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -14928,6 +14932,17 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "../node_modules/vue-multiselect/dist/vue-multiselect.min.css":
+/*!********************************************************************!*\
+  !*** ../node_modules/vue-multiselect/dist/vue-multiselect.min.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -26191,6 +26206,70 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 
 /***/ }),
 
+/***/ "./lib/controllers/language.js":
+/*!*************************************!*\
+  !*** ./lib/controllers/language.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Language; });
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+
+
+// TODO: Add language name to a language model?
+const languageNames = new Map([
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN, 'Latin'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_GREEK, 'Greek'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_ARABIC, 'Arabic'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN, 'Persian']
+])
+
+const UNKNOWN_LANGUAGE_NAME = ''
+
+// TODO: Shall we move it to data models?
+class Language {
+  /**
+   * @param {string | symbol} language - Language as a language ID (symbol) or a language code (string)
+   */
+  constructor (language) {
+    this.ID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_UNDEFINED
+    this.code = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].STR_LANG_CODE_UNDEFINED
+    this.name = UNKNOWN_LANGUAGE_NAME
+    this.model = undefined
+    this.set(language)
+  }
+
+  /**
+   * @param {string | symbol} language - Language as a language ID (symbol) or a language code (string)
+   */
+  set (language) {
+    if (language) {
+      this.ID = (typeof language === 'symbol') ? language : alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(language)
+      this.code = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(this.ID)
+      this.name = languageNames.has(this.ID) ? languageNames.get(this.ID) : UNKNOWN_LANGUAGE_NAME
+      this.model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(this.ID)
+    }
+  }
+
+  /**
+   * @param {string | symbol} language - Language as a language ID (symbol) or a language code (string)
+   */
+  is (language) {
+    if (language) {
+      const languageID = (typeof language === 'symbol') ? language : alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(language)
+      return alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].compareLanguages(this.ID, languageID)
+    }
+    return false
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/template.htmlf":
 /*!****************************************!*\
   !*** ./lib/controllers/template.htmlf ***!
@@ -27322,6 +27401,415 @@ class UIStateAPI {
 
 /***/ }),
 
+/***/ "./lib/custom-pointer-events/event-element.js":
+/*!****************************************************!*\
+  !*** ./lib/custom-pointer-events/event-element.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EventElement; });
+/**
+ * Represents either a start or an end point within a pointer event
+ */
+class EventElement {
+  constructor () {
+    /**
+     * Coordinates within a client area. Can be either integer or floating point number depending on the platform.
+     * @type {{x: number, y: number}}
+     */
+    this.client = {
+      x: null,
+      y: null
+    }
+
+    /**
+     * Event target. The same as path[0] but, because on iOS path[0] misses some properties
+     * such as `ownerDocument`. In order to access those properties we have to store event target
+     * in addition to `path`.
+     * @type {HTMLElement}
+     */
+    this.target = null
+
+    /**
+     *  When event took place. An integer number of milliseconds since 1 January 1970 UTC.
+     * @type {number}
+     */
+    this.time = 0
+
+    /**
+     * The first element in an array is the element where an event happened.
+     * The second on is its parent and so on, up until the latest HTML element in hierarchy.
+     * @type {HTMLElement[]}
+     */
+    this.path = []
+
+    /**
+     * Whether this element is excluded from processing an event with special data attribute of the current
+     * element or the one of its parents.
+     * @type {boolean}
+     */
+    this.excluded = false
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/long-tap.js":
+/*!***********************************************!*\
+  !*** ./lib/custom-pointer-events/long-tap.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LongTap; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class LongTap extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, mvmntThreshold = 5, durationThreshold = 125) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+
+    this.mvmntThreshold = mvmntThreshold
+    this.durationThreshold = durationThreshold
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeLongTapCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    const completed = this.mvmntDist <= this.mvmntThreshold && this.duration >= this.durationThreshold
+
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Long tap (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return completed && !this.start.excluded && !this.end.excluded
+  }
+
+  static listen (selector, evtHandler, mvmntThreshold, durationThreshold) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addUpDownListeners(element, new this(element, evtHandler, mvmntThreshold, durationThreshold))
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/mouse-dbl-click.js":
+/*!******************************************************!*\
+  !*** ./lib/custom-pointer-events/mouse-dbl-click.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MouseDblClick; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class MouseDblClick extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeDblClickCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Mouse double click (completed), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return !(this.start.excluded || this.end.excluded)
+  }
+
+  static listen (selector, evtHandler) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addDblClickListener(element, new this(element, evtHandler))
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/pointer-evt.js":
+/*!**************************************************!*\
+  !*** ./lib/custom-pointer-events/pointer-evt.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PointerEvt; });
+/* harmony import */ var _event_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event-element.js */ "./lib/custom-pointer-events/event-element.js");
+
+
+class PointerEvt {
+  constructor () {
+    this.tracking = false
+    this.start = new _event_element_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
+    this.end = new _event_element_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
+  }
+
+  static alpheiosIgnoreAllTest (dataset) {
+    const attrName = 'alpheiosIgnore'
+    const attrValue = 'all'
+    return dataset.hasOwnProperty(attrName) && dataset[attrName] === attrValue
+  }
+
+  static excludeAllCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeAllCpe')
+  }
+
+  static excludeCpeTest (dataset) {
+    return false
+  }
+
+  static get pointerEventSupported () {
+    return window.PointerEvent
+  }
+
+  setPoint (type, clientX, clientY, target, path) {
+    this[type].time = new Date().getTime()
+    this[type].client.x = clientX
+    this[type].client.y = clientY
+    this[type].target = target
+    if (!path) {
+      /*
+      This is probably an iOS where `event.path` does not exist.
+      We'll build path manually then.
+       */
+      path = this.constructor.buildPath(target)
+    }
+    if (!Array.isArray(path)) { path = [path] }
+    this[type].path = path
+    this[type].excluded = this[type].path.some(element =>
+      element.dataset && (
+        this.constructor.alpheiosIgnoreAllTest(element.dataset) ||
+        this.constructor.excludeAllCpeTest(element.dataset) ||
+        this.constructor.excludeCpeTest(element.dataset)
+      )
+    )
+    return this
+  }
+
+  /**
+   * Recursive function that builds a `path` array for an element. The first element in path is
+   * an element itself, the second element is its parent and so on up until the root element
+   * (the one that has no `parentElement` property).
+   * @param {Element} element - an HTML element we want to path for
+   * @param {Element[]} path - an array of elements in a path
+   * @return {Element[]} A path array
+   */
+  static buildPath (element, path = []) {
+    path.push(element)
+    if (element.parentElement) {
+      path = this.buildPath(element.parentElement, path)
+    }
+    return path
+  }
+
+  setStartPoint (clientX, clientY, target, path) {
+    return this.setPoint('start', clientX, clientY, target, path)
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    this.setPoint('end', clientX, clientY, target, path)
+  }
+
+  get type () {
+    return this.constructor.name
+  }
+
+  get duration () {
+    return this.end.time - this.start.time
+  }
+
+  get mvmntX () {
+    return this.end.client.x - this.start.client.x
+  }
+
+  get mvmntY () {
+    return this.end.client.y - this.start.client.y
+  }
+
+  get mvmntXAbs () {
+    return Math.abs(this.mvmntX)
+  }
+
+  get mvmntYAbs () {
+    return Math.abs(this.mvmntY)
+  }
+
+  get mvmntDist () {
+    return Math.sqrt(Math.pow(this.mvmntX, 2) + Math.pow(this.mvmntY, 2))
+  }
+
+  static pointerDownListener (event, domEvt) {
+    console.log(`Pointer down`, domEvt)
+    event.setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+  }
+
+  static pointerUpListener (event, domEvt) {
+    const valid = event.setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    console.log(`Pointer up, excluded: ${event.end.excluded}`, domEvt)
+    if (valid) { event.evtHandler(event) }
+  }
+
+  static touchStartListener (event, domEvt) {
+    console.log(`Touch start`, domEvt)
+    event.setStartPoint(domEvt.changedTouches[0].clientX, domEvt.changedTouches[0].clientY, domEvt.target, domEvt.path)
+  }
+
+  static touchEndListener (event, domEvt) {
+    const valid = event.setEndPoint(domEvt.changedTouches[0].clientX, domEvt.changedTouches[0].clientY, domEvt.target, domEvt.path)
+    console.log(`Touch end, excluded: ${event.end.excluded}`, domEvt)
+
+    if (valid) { event.evtHandler(event) }
+  }
+
+  static dblClickListener (event, domEvt) {
+    const valid = event
+      .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+      .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    console.log(`Mouse double click, [x,y]: [${event.end.client.x}, ${event.end.client.y}], excluded: ${event.end.excluded}`)
+    if (valid) { event.evtHandler(event) }
+  }
+
+  static addUpDownListeners (element, event) {
+    if (this.pointerEventSupported) {
+      // Will use pointer events
+      element.addEventListener('pointerdown', this.pointerDownListener.bind(this, event), {passive: true})
+      element.addEventListener('pointerup', this.pointerUpListener.bind(this, event), {passive: true})
+    } else {
+      element.addEventListener('touchstart', this.touchStartListener.bind(this, event), {passive: true})
+      element.addEventListener('touchend', this.touchEndListener.bind(this, event), {passive: true})
+    }
+  }
+
+  static addDblClickListener (element, event) {
+    element.addEventListener('dblclick', this.dblClickListener.bind(this, event), {passive: true})
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/swipe.js":
+/*!********************************************!*\
+  !*** ./lib/custom-pointer-events/swipe.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Swipe; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class Swipe extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, mvmntThreshold = 100, durationThreshold = 600) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+
+    this.mvmntThreshold = mvmntThreshold
+    this.durationThreshold = durationThreshold
+    this.direction = Swipe.directions.NONE
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeSwipeCpe')
+  }
+
+  static get directions () {
+    return {
+      UP: 'up',
+      RIGHT: 'right',
+      DOWN: 'down',
+      LEFT: 'left',
+      NONE: 'none'
+    }
+  }
+
+  isDirectedUp () {
+    return this.direction === Swipe.directions.UP
+  }
+
+  isDirectedRight () {
+    return this.direction === Swipe.directions.RIGHT
+  }
+
+  isDirectedDown () {
+    return this.direction === Swipe.directions.DOWN
+  }
+
+  isDirectedLeft () {
+    return this.direction === Swipe.directions.LEFT
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    let completed = false
+    if (this.mvmntXAbs > this.mvmntThreshold || this.mvmntYAbs > this.mvmntThreshold) {
+      // This is a swipe
+      completed = true
+      if (this.mvmntX > this.mvmntThreshold && this.mvmntYAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.RIGHT
+      } else if (-this.mvmntX > this.mvmntThreshold && this.mvmntYAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.LEFT
+      } else if (this.mvmntY > this.mvmntThreshold && this.mvmntXAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.DOWN
+      } else if (-this.mvmntY > this.mvmntThreshold && this.mvmntXAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.UP
+      }
+    }
+
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Swipe (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `direction: ${this.direction}, duration: ${this.duration}`)
+    }
+    return completed && !this.start.excluded && !this.end.excluded
+  }
+
+  static listen (selector, evtHandler, mvmntThreshold, durationThreshold) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addUpDownListeners(element, new this(element, evtHandler, mvmntThreshold, durationThreshold))
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/l10n/l10n.js":
 /*!**************************!*\
   !*** ./lib/l10n/l10n.js ***!
@@ -27608,6 +28096,97 @@ class Message {
         enumerable: true,
         configurable: true // So it can be deleted
       })
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/log/html-console.js":
+/*!*********************************!*\
+  !*** ./lib/log/html-console.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HTMLConsole; });
+let instance = null
+
+class HTMLConsole {
+  constructor (selector = null, enabled = true) {
+    this.selector = selector || this.constructor.defs.consoleSel
+    this.enabled = enabled
+
+    this.node = document.querySelector(this.selector)
+    if (!this.node) {
+      console.warn(`Cannot find HTML console node "${this.selector}". Console will be disabled`)
+      this.enabled = false
+    }
+  }
+
+  static get defs () {
+    return {
+      consoleSel: '#alpheios-html-console',
+      entryClNm: 'alpheios-html-console-entry',
+      separatorClNm: 'alpheios-html-console-separator'
+    }
+  }
+
+  static createInstance (selector, enabled) {
+    instance = new HTMLConsole(selector, enabled)
+    return instance
+  }
+
+  static get instance () {
+    if (!instance) {
+      instance = new HTMLConsole()
+    }
+    return instance
+  }
+
+  log (message) {
+    if (this.enabled) {
+      this.node.innerHTML += `<div class="${this.constructor.defs.entryClNm}">${message}</div>`
+      this.node.scrollTop = this.node.scrollHeight // Scroll to bottom
+    }
+  }
+
+  separator () {
+    if (this.enabled) {
+      this.node.innerHTML += `<div class="${this.constructor.defs.separatorClNm}"></div>`
+      this.node.scrollTop = this.node.scrollHeight // Scroll to bottom
+    }
+  }
+
+  clear () {
+    let records = this.node.querySelectorAll(`.${this.constructor.defs.entryClNm}, ${this.constructor.defs.separatorClNm}`)
+    for (let record of records) {
+      this.node.removeChild(record)
+    }
+  }
+
+  enable (enabled) {
+    if (enabled) {
+      this.show()
+    } else {
+      this.hide()
+    }
+  }
+
+  show () {
+    if (this.node && !this.enabled) {
+      this.node.style.display = 'block'
+      this.enabled = true
+    }
+  }
+
+  hide () {
+    if (this.node && this.enabled) {
+      this.node.style.display = 'none'
+      this.enabled = false
     }
   }
 }
@@ -29371,7 +29950,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************!*\
   !*** ./plugin.js ***!
   \*******************/
-/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style */
+/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29406,41 +29985,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_ui_state_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./lib/controllers/ui-state.js */ "./lib/controllers/ui-state.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UIStateAPI", function() { return _lib_controllers_ui_state_js__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HTMLSelector", function() { return _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _lib_controllers_language_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lib/controllers/language.js */ "./lib/controllers/language.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _lib_controllers_language_js__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnnotationQuery", function() { return _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HTMLSelector", function() { return _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_11__["default"]; });
 
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LexicalQuery", function() { return _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnnotationQuery", function() { return _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_12__["default"]; });
 
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourceQuery", function() { return _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LexicalQuery", function() { return _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"]; });
 
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalStorageArea", function() { return _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResourceQuery", function() { return _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"]; });
 
-/* harmony import */ var _lib_options_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lib/options/extension-sync-storage.js */ "./lib/options/extension-sync-storage.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExtensionSyncStorage", function() { return _lib_options_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_15__["default"]; });
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalStorageArea", function() { return _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "ContentOptionDefaults", function() { return _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___default.a; });
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "LanguageOptionDefaults", function() { return _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default.a; });
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "UIOptionDefaults", function() { return _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___default.a; });
-/* harmony import */ var _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./lib/options/defaults-loader.js */ "./lib/options/defaults-loader.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultsLoader", function() { return _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_19__["default"]; });
+/* harmony import */ var _lib_options_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./lib/options/extension-sync-storage.js */ "./lib/options/extension-sync-storage.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExtensionSyncStorage", function() { return _lib_options_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_16__["default"]; });
 
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./lib/options/options.js */ "./lib/options/options.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options_js__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "ContentOptionDefaults", function() { return _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___default.a; });
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "LanguageOptionDefaults", function() { return _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___default.a; });
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "UIOptionDefaults", function() { return _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___default.a; });
+/* harmony import */ var _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./lib/options/defaults-loader.js */ "./lib/options/defaults-loader.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DefaultsLoader", function() { return _lib_options_defaults_loader_js__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./lib/options/options.js */ "./lib/options/options.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Options", function() { return _lib_options_options_js__WEBPACK_IMPORTED_MODULE_21__["default"]; });
+
+/* harmony import */ var _lib_log_logger_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./lib/log/logger.js */ "./lib/log/logger.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Logger", function() { return _lib_log_logger_js__WEBPACK_IMPORTED_MODULE_22__["default"]; });
+
+/* harmony import */ var _lib_log_html_console_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./lib/log/html-console.js */ "./lib/log/html-console.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HTMLConsole", function() { return _lib_log_html_console_js__WEBPACK_IMPORTED_MODULE_23__["default"]; });
+
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MouseDblClick", function() { return _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__["default"]; });
+
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LongTap", function() { return _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+
+/* harmony import */ var _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./lib/custom-pointer-events/swipe.js */ "./lib/custom-pointer-events/swipe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Swipe", function() { return _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__["default"]; });
 
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
+
+
+
+
+
+
+
 
 
 

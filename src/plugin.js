@@ -11,6 +11,7 @@ import enUS from './locales/en-us/messages.json'
 import enGB from './locales/en-gb/messages.json'
 import UIController from './lib/controllers/ui-controller.js'
 import UIStateAPI from './lib/controllers/ui-state.js'
+import Language from './lib/controllers/language.js'
 import HTMLSelector from './lib/selection/media/html-selector.js'
 import AnnotationQuery from './lib/queries/annotation-query.js'
 import LexicalQuery from './lib/queries/lexical-query.js'
@@ -22,6 +23,12 @@ import LanguageOptionDefaults from './settings/language-options-defaults.json'
 import UIOptionDefaults from './settings/ui-options-defaults.json'
 import DefaultsLoader from './lib/options/defaults-loader.js'
 import Options from './lib/options/options.js'
-export { Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery,
+import Logger from './lib/log/logger.js'
+import HTMLConsole from './lib/log/html-console.js'
+import MouseDblClick from './lib/custom-pointer-events/mouse-dbl-click.js'
+import LongTap from './lib/custom-pointer-events/long-tap.js'
+import Swipe from './lib/custom-pointer-events/swipe.js'
+
+export { Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery,
   LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults,
-  DefaultsLoader, Options, UIStateAPI, Style }
+  DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe }
