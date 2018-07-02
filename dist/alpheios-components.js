@@ -10849,14 +10849,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     multiValues: function () {
-      return this.data ? this.data.textValues() : []
+      return this.data && this.data.textValues ? this.data.textValues() : []
     },
     values: function () {
-      return this.data.textValues()
+      return this.data && this.data.textValues ? this.data.textValues() : []
     },
     checkboxLabel: function () {
-      if (typeof this.data.currentTextValue === 'function') {
-        return this.data.values.filter(item => item.value)[0].text
+      if (this.data && this.data.textValues) {
+        return this.data.textValues().filter(item => item.value)[0].text
       }
     }
   },

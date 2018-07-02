@@ -1,7 +1,7 @@
 <template>
       <div :class="classes" v-if="data && Object.keys(data).length > 0">
         <label class="uk-form-label alpheios-setting__label" v-show="showTitle">{{data.labelText}}</label>
-        <multiselect v-model="selected" :options="multiValues" :multiple="true" :searchable ="false" :close-on-select="true" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" v-if="data.multiValue">
+        <multiselect v-model="selected" :options="values" :multiple="true" :searchable ="false" :close-on-select="true" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" v-if="data.multiValue">
         </multiselect>
         <div class="alpheios-checkbox-block" v-if="data.boolean">
             <input type="checkbox" v-model="selected" id="alpheios-checkbox-input">
@@ -53,15 +53,12 @@
           this.$emit('change', this.data.name, newValue)
         }
       },
-      multiValues: function () {
-        return this.data ? this.data.textValues() : []
-      },
       values: function () {
-        return this.data.textValues()
+        return this.data && this.data.textValues ? this.data.textValues() : []
       },
       checkboxLabel: function () {
-        if (typeof this.data.currentTextValue === 'function') {
-          return this.data.values.filter(item => item.value)[0].text
+        if (this.data && this.data.textValues) {
+          return this.data.textValues()[0].text
         }
       }
     },
