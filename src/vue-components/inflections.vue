@@ -462,7 +462,7 @@
 
     h4.alpheios-inflections__additional_title {
       line-height: 1.6;
-      font-weight: 500;
+      font-weight: bold;
       text-align: left;
       margin: 0 0 0.6rem 0;
     }
