@@ -8412,22 +8412,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WideInflectionsTable',
   props: {
-    // This will be an InflectionData object
+    /*
+     An object that represents a wide version of a table, consists of array of rows.
+     Each rows consists of an array of cells.
+    */
     data: {
       type: [Object, Boolean],
       required: true
     },
+
+    /*
+    An `InflectionData` object
+    */
+    inflectionData: {
+      type: [Object],
+      required: true
+    }
   },
 
   methods: {
     cellClasses: function (cell) {
-      if (cell.role === 'label') { return 'infl-prdgm-tbl-cell--label' }
-      if (cell.role === 'data') { return 'infl-prdgm-tbl-cell--data' }
+      if (cell.role === 'label') {
+        return 'infl-prdgm-tbl-cell--label'
+      }
+
+      /*
+      If it is a data cell, we need to figure out if this is a cell with a full match and
+      highlight it accordingly. A full match is a cell which matches all features of the cell properties
+      with the ones in the inflection.
+      We do not check for suffix match because paradigm tables show example of a different word,
+      not the one selected by the user.
+       */
+      if (cell.role === 'data') {
+        let cellClassName = 'infl-prdgm-tbl-cell--data'
+        const fullMatchClassnName = 'infl-prdgm-tbl-cell--full-match'
+        // Get a list of cell feature properties
+        let cellFeatures = []
+        for (const prop of Object.keys(cell)) {
+          // Eliminate "non-feature" keys
+          if (prop !== 'role' && prop !== 'value') {
+            cellFeatures.push(prop)
+          }
+        }
+        for (const lexeme of this.inflectionData.homonym.lexemes) {
+          for (const inflection of lexeme.inflections) {
+            let fullMatch = true
+            for (const feature of cellFeatures) {
+              fullMatch = fullMatch && inflection.hasOwnProperty(feature) && inflection[feature].value === cell[feature]
+              if (!fullMatch) { break } // If at least one feature does not match, there is no reason to check others
+            }
+            if (fullMatch) {
+              // If full match is found, there is no need to check other inflections
+              return `${cellClassName} ${fullMatchClassnName}`
+            }
+          }
+        }
+        return cellClassName
+      }
     }
   }
 });
@@ -9026,7 +9073,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -9091,6 +9137,7 @@ __webpack_require__.r(__webpack_exports__);
       return settingName
     },
     lexiconsFiltered: function () {
+      console.log(`Lexicons filtered`)
       return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
     },
     lookupLanguage: function () {
@@ -9660,6 +9707,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9756,6 +9805,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     mainstyles: function () {
       return (this.data) ? this.data.styles : ''
+    },
+    resourceSettingsLexicons: function () {
+      return this.data.resourceSettings && this.data.resourceSettings.lexicons ? this.data.resourceSettings.lexicons.filter(item => item.values.length > 0) : []
+    },
+    resourceSettingsLexiconsShort: function () {
+      return this.data.resourceSettings && this.data.resourceSettings.lexiconsShort ? this.data.resourceSettings.lexiconsShort.filter(item => item.values.length > 0) : []
     },
     classes: function () {
       // Find index of an existing position class and replace it with an updated value
@@ -11365,15 +11420,21 @@ var render = function() {
           _vm._l(_vm.data.rows, function(row) {
             return _c(
               "div",
-              { staticClass: "infl-prdgm-tbl-row" },
+              { staticClass: "infl-prdgm-tbl__row" },
               _vm._l(row.cells, function(cell) {
                 return _c(
                   "div",
                   {
-                    staticClass: "infl-prdgm-tbl-cell",
+                    staticClass: "infl-prdgm-tbl__cell",
                     class: _vm.cellClasses(cell)
                   },
-                  [_vm._v(_vm._s(cell.value) + "\n            ")]
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(cell.value) +
+                        "\n            "
+                    )
+                  ]
                 )
               })
             )
@@ -12068,6 +12129,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.lexiconsFiltered, function(lexicon) {
                       return _c("alph-setting", {
+                        key: lexicon.name,
                         attrs: {
                           data: lexicon,
                           classes: ["alpheios-panel__options-item"]
@@ -13386,20 +13448,28 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._l(_vm.data.resourceSettings.lexicons, function(
+                _vm._l(_vm.resourceSettingsLexicons, function(languageSetting) {
+                  return _c("setting", {
+                    key: languageSetting.name,
+                    attrs: {
+                      data: languageSetting,
+                      classes: ["alpheios-panel__options-item"]
+                    },
+                    on: { change: _vm.resourceSettingChanged }
+                  })
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.resourceSettingsLexiconsShort, function(
                   languageSetting
                 ) {
-                  return languageSetting.values.length > 1 &&
-                    _vm.data.resourceSettings
-                    ? _c("setting", {
-                        key: languageSetting.name,
-                        attrs: {
-                          data: languageSetting,
-                          classes: ["alpheios-panel__options-item"]
-                        },
-                        on: { change: _vm.resourceSettingChanged }
-                      })
-                    : _vm._e()
+                  return _c("setting", {
+                    key: languageSetting.name,
+                    attrs: {
+                      data: languageSetting,
+                      classes: ["alpheios-panel__options-item"]
+                    },
+                    on: { change: _vm.resourceSettingChanged }
+                  })
                 })
               ],
               2
@@ -26295,17 +26365,6 @@ class Language {
 
 /***/ }),
 
-/***/ "./lib/controllers/template.htmlf":
-/*!****************************************!*\
-  !*** ./lib/controllers/template.htmlf ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"alpheios-popup\" >\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :translations=\"translations\"\r\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\" :classes-changed=\"classesChanged\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\">\r\n    </component>\r\n</div>\r\n";
-
-/***/ }),
-
 /***/ "./lib/controllers/ui-controller.js":
 /*!******************************************!*\
   !*** ./lib/controllers/ui-controller.js ***!
@@ -26328,8 +26387,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./template.htmlf */ "./lib/controllers/template.htmlf");
-/* harmony import */ var _template_htmlf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_template_htmlf__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
@@ -26388,7 +26447,7 @@ class UIController {
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
     const templateDefaults = {
-      html: _template_htmlf__WEBPACK_IMPORTED_MODULE_8___default.a,
+      html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8___default.a,
       panelId: 'alpheios-panel',
       panelComponents: {
         panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -30129,7 +30188,7 @@ module.exports = "{\n  \"domain\": \"alpheios-content-options\",\n  \"items\": {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "{\r\n  \"domain\": \"alpheios-resource-options\",\r\n  \"items\": {\r\n    \"lexicons\": {\r\n      \"labelText\": \"Lexicons (Full Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"lexiconsShort\": {\r\n      \"labelText\": \"Lexicons (Short Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"treebanks\": {\r\n      \"labelText\": \"Treebanks\",\r\n      \"defaultValue\": [],\r\n      \"labelText\": \"Latin Treebanks\",\r\n      \"multiValue\": true,\r\n      \"values\": [ ]\r\n    }\r\n  }\r\n}\r\n"
+module.exports = "{\r\n  \"domain\": \"alpheios-resource-options\",\r\n  \"items\": {\r\n    \"lexicons\": {\r\n      \"labelText\": \"Lexicons (Full Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"lat\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/ls\"\r\n          ],\r\n          \"labelText\": \"Latin Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ls\",\r\n              \"text\": \"Lewis & Short\"\r\n            }\r\n          ]\r\n        },\r\n        \"ara\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lan\"\r\n          ],\r\n          \"labelText\": \"Arabic Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lan\",\r\n              \"text\": \"Lane\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/sal\",\r\n              \"text\": \"Salmone\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"lexiconsShort\": {\r\n      \"labelText\": \"Lexicons (Short Definitions)\",\r\n      \"group\": {\r\n        \"grc\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/lsj\"\r\n          ],\r\n          \"labelText\": \"Greek Lexicons (short)\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/ml\",\r\n              \"text\": \"Middle Liddell\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/lsj\",\r\n              \"text\": \"Liddell, Scott, Jones\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/aut\",\r\n              \"text\": \"Autenrieth Homeric Lexicon\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/dod\",\r\n              \"text\": \"Dodson\"\r\n            },\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/as\",\r\n              \"text\": \"Abbott-Smith\"\r\n            }\r\n          ]\r\n        },\r\n        \"per\": {\r\n          \"defaultValue\": [\r\n            \"https://github.com/alpheios-project/stg\"\r\n          ],\r\n          \"labelText\": \"Persian Lexicons (short)\",\r\n          \"multiValue\": true,\r\n          \"values\": [\r\n            {\r\n              \"value\": \"https://github.com/alpheios-project/stg\",\r\n              \"text\": \"Steingass\"\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    },\r\n    \"treebanks\": {\r\n      \"labelText\": \"Treebanks\",\r\n      \"defaultValue\": [],\r\n      \"labelText\": \"Latin Treebanks\",\r\n      \"multiValue\": true,\r\n      \"values\": [ ]\r\n    }\r\n  }\r\n}\r\n"
 
 /***/ }),
 
@@ -30152,6 +30211,17 @@ module.exports = "{\n  \"domain\": \"alpheios-ui-options\",\n  \"items\": {\n   
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./templates/template.htmlf":
+/*!**********************************!*\
+  !*** ./templates/template.htmlf ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :translations=\"translations\"\r\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\" :classes-changed=\"classesChanged\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\">\r\n    </component>\r\n</div>\r\n";
 
 /***/ }),
 

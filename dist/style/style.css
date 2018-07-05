@@ -7485,9 +7485,9 @@
   .auk.alpheios-font_medium_class .alpheios-skin_panel {
     padding-top: 16px; }
   .auk.alpheios-font_medium_class .alpheios-checkbox-block {
-    line-height: 22px; }
+    line-height: 27.2px; }
     .auk.alpheios-font_medium_class .alpheios-checkbox-block label {
-      padding-left: 22px;
+      padding-left: 21.2px;
       min-height: 16px; }
       .auk.alpheios-font_medium_class .alpheios-checkbox-block label::before {
         height: 16px;
@@ -7589,9 +7589,9 @@
   .auk.alpheios-font_small_class .alpheios-skin_panel {
     padding-top: 12px; }
   .auk.alpheios-font_small_class .alpheios-checkbox-block {
-    line-height: 16.5px; }
+    line-height: 20.4px; }
     .auk.alpheios-font_small_class .alpheios-checkbox-block label {
-      padding-left: 16.5px;
+      padding-left: 15.9px;
       min-height: 12px; }
       .auk.alpheios-font_small_class .alpheios-checkbox-block label::before {
         height: 12px;
@@ -7693,9 +7693,9 @@
   .auk.alpheios-font_large_class .alpheios-skin_panel {
     padding-top: 20px; }
   .auk.alpheios-font_large_class .alpheios-checkbox-block {
-    line-height: 27.5px; }
+    line-height: 34px; }
     .auk.alpheios-font_large_class .alpheios-checkbox-block label {
-      padding-left: 27.5px;
+      padding-left: 26.5px;
       min-height: 20px; }
       .auk.alpheios-font_large_class .alpheios-checkbox-block label::before {
         height: 20px;
@@ -8708,17 +8708,20 @@ img.alpheios-popup__logo {
   padding-top: 25px;
 }
 
-
+/*************** font sizes **************/
+/*************** dark schema colors **************/
+/*************** light schema colors **************/
+/*************** light schema colors tooltip **************/
 .infl-prdgm-tbl {
   display: table;
   border-top: 1px solid gray;
   border-left: 1px solid gray;
   margin-bottom: 30px;
 }
-.infl-prdgm-tbl-row {
+.infl-prdgm-tbl__row {
   display: table-row;
 }
-.infl-prdgm-tbl-cell {
+.infl-prdgm-tbl__cell {
   display: table-cell;
   padding: 2px 5px;
   border-right: 1px solid gray;
@@ -8726,6 +8729,10 @@ img.alpheios-popup__logo {
   min-width: 20px;
 }
 .infl-prdgm-tbl-cell--label {
+  font-weight: 700;
+}
+.infl-prdgm-tbl-cell--full-match {
+  background-color: #F6D918;
   font-weight: 700;
 }
 
