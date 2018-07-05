@@ -33,12 +33,13 @@ const webpack = {
       alias: {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-data-models/dist/alpheios-data-models.js'),
-        'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
+        'alpheios-inflection-games': path.join(projectRoot, 'node_modules/alpheios-inflection-games/dist/alpheios-inflection-games.js'),
         '@': path.join(projectRoot, 'src')
       }
     },
     externals: {
       'alpheios-data-models': 'alpheios-data-models',
+      'alpheios-inflection-games': 'alpheios-inflection-games',
       'alpheios-inflection-tables': 'alpheios-inflection-tables',
       'alpheios-experience': 'alpheios-experience',
       'alpheios-res-client': 'alpheios-res-client',

@@ -8529,6 +8529,18 @@ a.alpheios-lookup__settings-link {
   max-width: 250px;
 }
 
+
+#alpheios-welcome-panel {
+  width: 200px;
+  height: 200px;
+  color: red;
+  background: #dedede;
+  position: fixed;
+}
+
+
+/*# sourceMappingURL=style.css.map*/
+
 /*************** font sizes **************/
 /*************** dark schema colors **************/
 /*************** light schema colors **************/

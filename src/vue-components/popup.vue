@@ -9,6 +9,7 @@
               <close-icon></close-icon>
           </span>
          </alph-tooltip>
+         <welcome-panel></welcome-panel>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
@@ -100,6 +101,8 @@
 
   import { directive as onClickaway } from '../directives/clickaway.js';
 
+  import { WelcomePanel } from 'alpheios-inflection-games'
+
   export default {
     name: 'Popup',
     components: {
@@ -107,7 +110,8 @@
       setting: Setting,
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup
+      lookup: Lookup,
+      welcomePanel: WelcomePanel
     },
     directives: {
       onClickaway: onClickaway,
@@ -603,6 +607,7 @@
   }
 </script>
 <style lang="scss">
+    @import "../../node_modules/alpheios-inflection-games/dist/style/style.css";
     @import "../styles/alpheios";
 
     .alpheios-popup {
