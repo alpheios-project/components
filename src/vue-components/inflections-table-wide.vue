@@ -49,18 +49,18 @@
           let cellClassName = 'infl-prdgm-tbl-cell--data'
           const fullMatchClassnName = 'infl-prdgm-tbl-cell--full-match'
           // Get a list of cell feature properties
-          let cellFeatures = []
+          let comparativeFeatures = []
           for (const prop of Object.keys(cell)) {
             // Eliminate "non-feature" keys
             if (prop !== 'role' && prop !== 'value') {
-              cellFeatures.push(prop)
+              comparativeFeatures.push(prop)
             }
           }
           for (const lexeme of this.inflectionData.homonym.lexemes) {
             for (const inflection of lexeme.inflections) {
               let fullMatch = true
-              for (const feature of cellFeatures) {
-                fullMatch = fullMatch && inflection.hasOwnProperty(feature) && inflection[feature].value === cell[feature]
+              for (const feature of comparativeFeatures) {
+                fullMatch = fullMatch && inflection.hasOwnProperty(feature) && cell[feature].hasValues(inflection[feature].values)
                 if (!fullMatch) { break } // If at least one feature does not match, there is no reason to check others
               }
               if (fullMatch) {
