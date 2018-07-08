@@ -10150,8 +10150,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
 /* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
-/* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! alpheios-inflection-games */ "alpheios-inflection-games");
-/* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_8__);
+//
+//
+//
+//
 //
 //
 //
@@ -10255,8 +10257,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Popup',
   components: {
@@ -10264,8 +10264,7 @@ __webpack_require__.r(__webpack_exports__);
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    welcomePanel: alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_8__["WelcomePanel"]
+    lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   directives: {
     onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__["directive"],
@@ -10536,6 +10535,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
+    openGames () {
+      if (this.morphDataReady && this.hasMorphData) {
+        this.uiController.games.open()
+      }
+    },
+
+    closeGames () {
+      this.uiController.games.close()
+    },
+
     closePopup () {
       this.logger.log(`Closing a popup and resetting its dimensions`)
       this.$emit('close')
@@ -10734,6 +10743,7 @@ __webpack_require__.r(__webpack_exports__);
     visible: function(value) {
       if (value) {
         // A popup became visible
+        this.closeGames()
         this.updatePopupDimensions()
       } else {
         // A popup became invisible
@@ -13965,8 +13975,6 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("welcome-panel"),
-      _vm._v(" "),
       _c("div", { staticClass: "alpheios-popup__header" }, [
         _vm.data && _vm.data.status
           ? _c("div", { staticClass: "alpheios-popup__header-text" }, [
@@ -14010,6 +14018,35 @@ var render = function() {
               "div",
               { staticClass: "alpheios-popup__button-area" },
               [
+                _c(
+                  "alph-tooltip",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.morphDataReady && _vm.hasMorphData,
+                        expression: "morphDataReady && hasMorphData"
+                      }
+                    ],
+                    attrs: {
+                      tooltipDirection: "bottom-wide",
+                      tooltipText: "Games"
+                    }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-games",
+                        on: { click: _vm.openGames }
+                      },
+                      [_vm._v("Games\n              ")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
                 _c(
                   "alph-tooltip",
                   {
@@ -26093,13 +26130,14 @@ function bind (el, binding, vnode) {
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
     let panel = document.getElementById('alpheios-panel-inner') ? document.getElementById('alpheios-panel-inner') : null
     let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-popup-inner') : null
+    let games = document.getElementById('alpheios-games') ? document.getElementById('alpheios-games') : null
 
     let visible = function (elem) {
       return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
     }
 
     // if neither the popup nor the panel are visible, stop the check
-    if (panel && !visible(panel) && popup && !visible(popup)) {
+    if (panel && !visible(panel) && popup && !visible(popup) && games && !visible(games)) {
       return
     }
 
@@ -26114,7 +26152,9 @@ function bind (el, binding, vnode) {
     // checkStep3 checks if a click was not inside the inner popup
     let checkStep3 = path ? path.indexOf(popup) < 0 : true
 
-    if (checkStep1 && checkStep2 && checkStep3) {
+    let checkStep4 = path ? path.indexOf(games) < 0 : true
+
+    if (checkStep1 && checkStep2 && checkStep3 && checkStep4) {
       return callback.call(vm, ev)
     }
   }
@@ -26374,6 +26414,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _lib_queries_resource_query__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/queries/resource-query */ "./lib/queries/resource-query.js");
+/* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! alpheios-inflection-games */ "alpheios-inflection-games");
+/* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_11__);
 /* global Node */
 /* global Event */
 
@@ -26383,6 +26425,8 @@ __webpack_require__.r(__webpack_exports__);
 // A panel component
 
 // A popup component
+
+
 
 
 
@@ -26443,6 +26487,7 @@ class UIController {
       draggable: true,
       resizable: true
     }
+
     this.template = Object.assign(templateDefaults, template)
 
     this.zIndex = this.getZIndexMax()
@@ -26458,6 +26503,9 @@ class UIController {
     document.body.insertBefore(container, null)
     container.outerHTML = this.template.html
     // Initialize components
+
+    this.games = new alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_11__["GamesController"](this.template.draggable)
+
     this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a({
       el: `#${this.template.panelId}`,
       components: this.template.panelComponents,
@@ -26746,6 +26794,7 @@ class UIController {
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
           this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+          this.games.updateLocale(this.options.items.locale.currentValue)
           this.updateVerboseMode()
         })
       })
@@ -27154,6 +27203,7 @@ class UIController {
     this.panel.panelData.lexemes = homonym.lexemes
     this.popup.popupData.updates = this.popup.popupData.updates + 1
     this.updateProviders(homonym)
+    this.games.updateHomonym(homonym)
   }
 
   updateProviders (homonym) {
@@ -27214,6 +27264,8 @@ class UIController {
     this.popup.definitions = definitions
     this.popup.popupData.defDataReady = hasFullDefs
     this.popup.popupData.updates = this.popup.popupData.updates + 1
+
+    this.games.updateDefinitions(homonym)
   }
 
   updateTranslations (homonym) {

@@ -9,7 +9,6 @@
               <close-icon></close-icon>
           </span>
          </alph-tooltip>
-         <welcome-panel></welcome-panel>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
@@ -17,6 +16,11 @@
             </div>
 
             <div class="alpheios-popup__button-area" v-if="data">
+                <alph-tooltip v-show="morphDataReady && hasMorphData" tooltipDirection="bottom-wide" tooltipText="Games">
+                  <button @click="openGames"
+                          class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-games">Games
+                  </button>
+                </alph-tooltip>
                 <alph-tooltip v-show="data.defDataReady" tooltipDirection="bottom-wide" :tooltipText="ln10Messages('TOOLTIP_SHOW_DEFINITIONS')">
                   <button @click="showPanelTab('definitions')" v-show="data.defDataReady"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-definitions">{{ ln10Messages('LABEL_POPUP_DEFINE') }}
@@ -101,8 +105,6 @@
 
   import { directive as onClickaway } from '../directives/clickaway.js';
 
-  import { WelcomePanel } from 'alpheios-inflection-games'
-
   export default {
     name: 'Popup',
     components: {
@@ -110,8 +112,7 @@
       setting: Setting,
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup,
-      welcomePanel: WelcomePanel
+      lookup: Lookup
     },
     directives: {
       onClickaway: onClickaway,
@@ -382,6 +383,16 @@
         }
       },
 
+      openGames () {
+        if (this.morphDataReady && this.hasMorphData) {
+          this.uiController.games.open()
+        }
+      },
+
+      closeGames () {
+        this.uiController.games.close()
+      },
+
       closePopup () {
         this.logger.log(`Closing a popup and resetting its dimensions`)
         this.$emit('close')
@@ -580,6 +591,7 @@
       visible: function(value) {
         if (value) {
           // A popup became visible
+          this.closeGames()
           this.updatePopupDimensions()
         } else {
           // A popup became invisible
@@ -607,7 +619,6 @@
   }
 </script>
 <style lang="scss">
-    @import "../../node_modules/alpheios-inflection-games/dist/style/style.css";
     @import "../styles/alpheios";
 
     .alpheios-popup {

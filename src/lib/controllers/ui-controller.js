@@ -17,6 +17,8 @@ import Template from '@/templates/template.htmlf'
 import { Grammars } from 'alpheios-res-client'
 import ResourceQuery from '@/lib/queries/resource-query'
 
+import { GamesController } from 'alpheios-inflection-games'
+
 const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
   [Constants.LANG_GREEK, 'Greek'],
@@ -67,6 +69,7 @@ export default class UIController {
       draggable: true,
       resizable: true
     }
+
     this.template = Object.assign(templateDefaults, template)
 
     this.zIndex = this.getZIndexMax()
@@ -82,6 +85,9 @@ export default class UIController {
     document.body.insertBefore(container, null)
     container.outerHTML = this.template.html
     // Initialize components
+
+    this.games = new GamesController(this.template.draggable)
+
     this.panel = new Vue({
       el: `#${this.template.panelId}`,
       components: this.template.panelComponents,
@@ -370,6 +376,7 @@ export default class UIController {
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
           this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+          this.games.updateLocale(this.options.items.locale.currentValue)
           this.updateVerboseMode()
         })
       })
@@ -778,6 +785,7 @@ export default class UIController {
     this.panel.panelData.lexemes = homonym.lexemes
     this.popup.popupData.updates = this.popup.popupData.updates + 1
     this.updateProviders(homonym)
+    this.games.updateHomonym(homonym)
   }
 
   updateProviders (homonym) {
@@ -838,6 +846,8 @@ export default class UIController {
     this.popup.definitions = definitions
     this.popup.popupData.defDataReady = hasFullDefs
     this.popup.popupData.updates = this.popup.popupData.updates + 1
+
+    this.games.updateDefinitions(homonym)
   }
 
   updateTranslations (homonym) {

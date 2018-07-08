@@ -56,13 +56,14 @@ function bind (el, binding, vnode) {
     // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
     let panel = document.getElementById('alpheios-panel-inner') ? document.getElementById('alpheios-panel-inner') : null
     let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-popup-inner') : null
+    let games = document.getElementById('alpheios-games') ? document.getElementById('alpheios-games') : null
 
     let visible = function (elem) {
       return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
     }
 
     // if neither the popup nor the panel are visible, stop the check
-    if (panel && !visible(panel) && popup && !visible(popup)) {
+    if (panel && !visible(panel) && popup && !visible(popup) && games && !visible(games)) {
       return
     }
 
@@ -77,7 +78,9 @@ function bind (el, binding, vnode) {
     // checkStep3 checks if a click was not inside the inner popup
     let checkStep3 = path ? path.indexOf(popup) < 0 : true
 
-    if (checkStep1 && checkStep2 && checkStep3) {
+    let checkStep4 = path ? path.indexOf(games) < 0 : true
+
+    if (checkStep1 && checkStep2 && checkStep3 && checkStep4) {
       return callback.call(vm, ev)
     }
   }
