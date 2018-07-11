@@ -90,7 +90,7 @@
   import Tooltip from './tooltip.vue'
 
   // Other dependencies
-  import { ViewSet, L10n} from 'alpheios-inflection-tables'
+  import { ViewSetFactory, L10n} from 'alpheios-inflection-tables'
 
   export default {
     name: 'Inflections',
@@ -239,7 +239,7 @@
         // Clear the panel when new inflections arrive
         this.clearInflections().setDefaults()
         if (inflectionData) {
-          this.viewSet = new ViewSet(inflectionData, this.locale)
+          this.viewSet = ViewSetFactory.create(inflectionData, this.locale)
 
           // Set colors for supplemental paradigm tables
           for (let view of this.viewSet.getViews()) {

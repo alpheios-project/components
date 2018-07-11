@@ -8739,7 +8739,7 @@ __webpack_require__.r(__webpack_exports__);
       // Clear the panel when new inflections arrive
       this.clearInflections().setDefaults()
       if (inflectionData) {
-        this.viewSet = new alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSet"](inflectionData, this.locale)
+        this.viewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSetFactory"].create(inflectionData, this.locale)
 
         // Set colors for supplemental paradigm tables
         for (let view of this.viewSet.getViews()) {
