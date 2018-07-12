@@ -166,13 +166,13 @@
 
     computed: {
       isEnabled: function () {
-        return this.data.enabled
+        return this.data.inflectionViewSet && this.data.inflectionViewSet.enabled
       },
       isContentAvailable: function () {
-        return this.data.enabled && Boolean(this.data.inflectionData)
+        return this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews
       },
-      inflectionData: function () {
-        return this.data.inflectionData
+      inflectionViewSet: function () {
+        return this.data.inflectionViewSet
       },
       // Need this for a watcher that will monitor a parent container visibility state
       isVisible: function () {
@@ -184,7 +184,7 @@
         },
         set: function (newValue) {
           this.selectedPartOfSpeech = newValue
-          this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+          this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
 
           this.selectedView = this.views[0]
           if (!this.selectedView.hasComponentData) {
@@ -234,15 +234,11 @@
     },
 
     watch: {
-
-      inflectionData: function (inflectionData) {
-        // Clear the panel when new inflections arrive
+      inflectionViewSet: function () {
         this.clearInflections().setDefaults()
-        if (inflectionData) {
-          this.viewSet = ViewSetFactory.create(inflectionData, this.locale)
-
+        if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
           // Set colors for supplemental paradigm tables
-          for (let view of this.viewSet.getViews()) {
+          for (let view of this.data.inflectionViewSet.getViews()) {
             view.hlSuppParadigms = false
             if (view.hasSuppParadigms) {
               if (view.suppParadigms.length > 1) {
@@ -258,10 +254,10 @@
             }
           }
 
-          this.partsOfSpeech = this.viewSet.partsOfSpeech
+          this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
             this.selectedPartOfSpeech = this.partsOfSpeech[0]
-            this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+            this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
           } else {
             this.selectedPartOfSpeech = []
             this.views = []
@@ -279,8 +275,9 @@
           }
         }
         // Notify parent of inflection data change
-        this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.viewSet)
+        this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.data.inflectionViewSet)
       },
+
       /*
       An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
       use this information to adjust a width of a container that displays an inflection component. However, a width
@@ -298,7 +295,7 @@
       },
       locale: function (locale) {
         if (this.data.inflectionData) {
-          this.viewSet.setLocale(this.locale)
+          this.data.inflectionViewSet.setLocale(this.locale)
           if (!this.selectedView.hasComponentData) {
             // Rendering is not required for component-enabled views
             this.renderInflections().displayInflections() // Re-render inflections for a different locale

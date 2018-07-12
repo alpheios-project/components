@@ -8666,13 +8666,13 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     isEnabled: function () {
-      return this.data.enabled
+      return this.data.inflectionViewSet && this.data.inflectionViewSet.enabled
     },
     isContentAvailable: function () {
-      return this.data.enabled && Boolean(this.data.inflectionData)
+      return this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews
     },
-    inflectionData: function () {
-      return this.data.inflectionData
+    inflectionViewSet: function () {
+      return this.data.inflectionViewSet
     },
     // Need this for a watcher that will monitor a parent container visibility state
     isVisible: function () {
@@ -8684,7 +8684,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       set: function (newValue) {
         this.selectedPartOfSpeech = newValue
-        this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+        this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
 
         this.selectedView = this.views[0]
         if (!this.selectedView.hasComponentData) {
@@ -8734,15 +8734,11 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   watch: {
-
-    inflectionData: function (inflectionData) {
-      // Clear the panel when new inflections arrive
+    inflectionViewSet: function () {
       this.clearInflections().setDefaults()
-      if (inflectionData) {
-        this.viewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSetFactory"].create(inflectionData, this.locale)
-
+      if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
         // Set colors for supplemental paradigm tables
-        for (let view of this.viewSet.getViews()) {
+        for (let view of this.data.inflectionViewSet.getViews()) {
           view.hlSuppParadigms = false
           if (view.hasSuppParadigms) {
             if (view.suppParadigms.length > 1) {
@@ -8758,10 +8754,10 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
 
-        this.partsOfSpeech = this.viewSet.partsOfSpeech
+        this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
         if (this.partsOfSpeech.length > 0) {
           this.selectedPartOfSpeech = this.partsOfSpeech[0]
-          this.views = this.viewSet.getViews(this.selectedPartOfSpeech)
+          this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
         } else {
           this.selectedPartOfSpeech = []
           this.views = []
@@ -8779,8 +8775,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       // Notify parent of inflection data change
-      this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.viewSet)
+      this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.data.inflectionViewSet)
     },
+
     /*
     An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
     use this information to adjust a width of a container that displays an inflection component. However, a width
@@ -8798,7 +8795,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     locale: function (locale) {
       if (this.data.inflectionData) {
-        this.viewSet.setLocale(this.locale)
+        this.data.inflectionViewSet.setLocale(this.locale)
         if (!this.selectedView.hasComponentData) {
           // Rendering is not required for component-enabled views
           this.renderInflections().displayInflections() // Re-render inflections for a different locale
@@ -26351,23 +26348,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UIController; });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../vue-components/panel.vue */ "./vue-components/panel.vue");
-/* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../vue-components/popup.vue */ "./vue-components/popup.vue");
-/* harmony import */ var _l10n_l10n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../l10n/l10n */ "./lib/l10n/l10n.js");
-/* harmony import */ var _locales_locales__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../locales/locales */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../templates/template.htmlf */ "./templates/template.htmlf");
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../vue-components/panel.vue */ "./vue-components/panel.vue");
+/* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../vue-components/popup.vue */ "./vue-components/popup.vue");
+/* harmony import */ var _l10n_l10n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../l10n/l10n */ "./lib/l10n/l10n.js");
+/* harmony import */ var _locales_locales__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../locales/locales */ "./locales/locales.js");
+/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
 /* global Node */
 /* global Event */
+
 
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
  // Vue in a runtime + compiler configuration
@@ -26421,28 +26421,29 @@ class UIController {
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
     const templateDefaults = {
-      html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_8___default.a,
+      html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9___default.a,
       panelId: 'alpheios-panel',
       panelComponents: {
-        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
       },
       defaultPanelComponent: 'panel',
       popupId: 'alpheios-popup',
       popupComponents: {
-        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
       },
       defaultPopupComponent: 'popup',
       draggable: true,
       resizable: true
     }
     this.template = Object.assign(templateDefaults, template)
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
 
     this.zIndex = this.getZIndexMax()
 
-    this.l10n = new _l10n_l10n__WEBPACK_IMPORTED_MODULE_4__["default"]()
-      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_GB)
-      .setLocale(_locales_locales__WEBPACK_IMPORTED_MODULE_5__["default"].en_US)
+    this.l10n = new _l10n_l10n__WEBPACK_IMPORTED_MODULE_5__["default"]()
+      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___default.a, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_GB)
+      .setLocale(_locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
@@ -26450,7 +26451,7 @@ class UIController {
     document.body.insertBefore(container, null)
     container.outerHTML = this.template.html
     // Initialize components
-    this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a({
+    this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a({
       el: `#${this.template.panelId}`,
       components: this.template.panelComponents,
       data: {
@@ -26469,8 +26470,7 @@ class UIController {
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            enabled: false,
-            inflectionData: false // If no inflection data present, it is set to false
+            inflectionViewSet: null
           },
           shortDefinitions: [],
           fullDefinitions: '',
@@ -26653,19 +26653,11 @@ class UIController {
           return this
         },
 
-        updateInflections: function (inflectionData) {
-          this.panelData.inflectionComponentData.inflectionData = inflectionData
-        },
-
-        enableInflections: function (enabled) {
-          this.panelData.inflectionComponentData.enabled = enabled
-        },
-
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _queries_resource_query__WEBPACK_IMPORTED_MODULE_10__["default"].create(feature, {
+          _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
             uiController: this.uiController,
-            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_9__["Grammars"]
+            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__["Grammars"]
           }).getData()
           //, {
           // experience: 'Get resource',
@@ -26744,7 +26736,7 @@ class UIController {
     })
 
     // Create a Vue instance for a popup
-    this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a({
+    this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a({
       el: `#${this.template.popupId}`,
       components: this.template.popupComponents,
       data: {
@@ -26792,7 +26784,7 @@ class UIController {
           verboseMode: this.state.verboseMode,
           defDataReady: false,
           hasTreebank: false,
-          inflDataReady: false,
+          inflDataReady: this.inflDataReady,
           morphDataReady: false,
 
           translationsDataReady: false,
@@ -27238,11 +27230,11 @@ class UIController {
     this.state.setItem('currentLanguage', currentLanguage)
     let languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(currentLanguage)
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
-    this.panel.enableInflections(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(languageID).canInflect())
+    this.popup.popupData.inflDataReady = this.inflDataReady
 
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
@@ -27252,11 +27244,17 @@ class UIController {
     this.popup.popupData.verboseMode = this.state.verboseMode
   }
 
-  updateInflections (inflectionData, homonym) {
-    let enabled = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).canInflect()
-    this.panel.enableInflections(enabled)
-    this.panel.updateInflections(inflectionData, homonym)
-    this.popup.popupData.inflDataReady = enabled && inflectionData.hasInflectionSets
+  updateInflections (homonym) {
+    this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].create(homonym, this.options.items.locale.currentValue)
+    this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
+    if (this.inflectionsViewSet.hasMatchingViews) {
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+    }
+    this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  get inflDataReady () {
+    return this.inflectionsViewSet && this.inflectionsViewSet.hasMatchingViews
   }
 
   clear () {
@@ -27290,10 +27288,10 @@ class UIController {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
     }
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.popup.popupData, 'classes', classes)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.panel.panelData, 'classes', classes)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'classes', classes)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel.panelData, 'classes', classes)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
   updateStyleClass (prefix, type) {
@@ -27304,9 +27302,9 @@ class UIController {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.popup.popupData, 'classes', popupClasses)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'classes', popupClasses)
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
 
     let panelClasses = this.panel.panelData.classes
     panelClasses.forEach(function (item, index) {
@@ -27315,8 +27313,8 @@ class UIController {
       }
     })
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.panel.panelData, 'classes', panelClasses)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel.panelData, 'classes', panelClasses)
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
   updateFontSizeClass (type) {
@@ -29013,14 +29011,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LexicalQuery; });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _query_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./query.js */ "./lib/queries/query.js");
+/* harmony import */ var _query_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./query.js */ "./lib/queries/query.js");
 
 
 
-
-class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
+class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor (name, selector, options) {
     super(name)
     this.selector = selector
@@ -29040,11 +29035,10 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     } else {
       this.canReset = false
     }
-    this.LDFAdapter = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["LanguageDatasetFactory"]
   }
 
   static create (selector, options) {
-    return _query_js__WEBPACK_IMPORTED_MODULE_2__["default"].create(LexicalQuery, selector, options)
+    return _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].create(LexicalQuery, selector, options)
   }
 
   async getData () {
@@ -29057,7 +29051,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
-      if (_query_js__WEBPACK_IMPORTED_MODULE_2__["default"].isPromise(result.value)) {
+      if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
           result = iterator.next(resolvedValue)
@@ -29106,10 +29100,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     this.ui.updateDefinitions(this.homonym)
     // Update status info with data from a morphological analyzer
     this.ui.showStatusInfo(this.homonym.targetWord, this.homonym.languageID)
-
-    this.lexicalData = yield this.LDFAdapter.getInflectionData(this.homonym)
-    this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
-    this.ui.updateInflections(this.lexicalData, this.homonym)
+    this.ui.updateInflections(this.homonym)
 
     let definitionRequests = []
 
@@ -29204,7 +29195,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
-    _query_js__WEBPACK_IMPORTED_MODULE_2__["default"].destroy(this)
+    _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].destroy(this)
     return result
   }
 
