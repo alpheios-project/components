@@ -465,13 +465,13 @@ describe('options.test.js', () => {
 
   it('18 UIController - updateLanguage', () => {
     uiC.panel.requestGrammar = jest.fn(function () { })
-    uiC.updateLanguage('lat')
+    uiC.updateLanguage(Constants.LANG_LATIN)
 
     expect(uiC.panel.requestGrammar).toHaveBeenCalled()
     expect(uiC.panel.panelData.infoComponentData.languageName).toEqual('Latin')
     expect(uiC.popup.popupData.currentLanguageName).toEqual('Latin')
 
-    uiC.updateLanguage('ara')
+    uiC.updateLanguage(Constants.LANG_ARABIC)
     expect(uiC.panel.panelData.inflectionComponentData.enabled).toBeFalsy()
   })
 

@@ -1,7 +1,7 @@
 <template>
-    <div v-if="data">
+    <div v-if="view.wideTable">
         <div class="infl-prdgm-tbl">
-            <div class="infl-prdgm-tbl__row" v-for="row in data.rows">
+            <div class="infl-prdgm-tbl__row" v-for="row in view.wideTable.rows">
                 <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
                     {{cell.value}}
                 </div>
@@ -14,22 +14,23 @@
   export default {
     name: 'WideInflectionsTable',
     props: {
-      /*
-       An object that represents a wide version of a table, consists of array of rows.
-       Each rows consists of an array of cells.
-      */
-      data: {
+      // An inflection table view
+      view: {
         type: [Object, Boolean],
         required: true
-      },
-
-      /*
-      An `InflectionData` object
-      */
-      inflectionData: {
-        type: [Object],
-        required: true
       }
+    },
+
+    data: function () {
+      return {
+        elementIDs: {
+          wideView: 'alph-inflection-table-wide',
+          footnotes: 'alph-inflection-footnotes'
+        }
+      }
+    },
+
+    computed: {
     },
 
     methods: {
@@ -56,7 +57,7 @@
               comparativeFeatures.push(prop)
             }
           }
-          for (const lexeme of this.inflectionData.homonym.lexemes) {
+          for (const lexeme of this.view.homonym.lexemes) {
             for (const inflection of lexeme.inflections) {
               let fullMatch = true
               for (const feature of comparativeFeatures) {

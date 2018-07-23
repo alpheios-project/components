@@ -3,7 +3,8 @@
         <div v-show="! isEnabled" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
         <div v-show="isEnabled && ! isContentAvailable" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT}}</div>
 
-        <div v-show="isContentAvailable" class="alpheios-inflections__content">
+        <standard-forms :language-id="languageID" :collapsed="sfCollapsed" @collapse="sfCollapse"></standard-forms>
+        <div v-show="isContentAvailable && sfCollapsed" class="alpheios-inflections__content">
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
               <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS}}</label>
@@ -50,7 +51,7 @@
             </div>
 
             <template v-if="selectedView.hasComponentData">
-                <main-table-wide :data="selectedView.wideTable" :inflection-data="selectedView.inflectionData"></main-table-wide>
+                <main-table-wide :view="selectedView"></main-table-wide>
                 <sub-tables-wide :view="selectedView" @navigate="navigate"></sub-tables-wide>
             </template>
 
@@ -86,10 +87,12 @@
   import WideSubTables from './inflections-subtables-wide.vue'
   import WideSuppTable from './inflections-supp-table-wide.vue'
   import WordForms from './wordforms.vue'
+  import StandardForms from './inflections-standard-forms.vue'
 
   import Tooltip from './tooltip.vue'
 
   // Other dependencies
+  import { Constants } from 'alpheios-data-models'
   import { ViewSetFactory, L10n} from 'alpheios-inflection-tables'
 
   export default {
@@ -99,7 +102,8 @@
       subTablesWide: WideSubTables,
       suppTablesWide: WideSuppTable,
       alphTooltip: Tooltip,
-      wordForms: WordForms
+      wordForms: WordForms,
+      standardForms: StandardForms
     },
 
     props: {
@@ -120,6 +124,7 @@
 
     data: function () {
       return {
+        languageID: Constants.LANG_LATIN, // Default value
         events: {
           EVENT: 'event',
           DATA_UPDATE: 'dataUpdate'
@@ -160,7 +165,8 @@
             hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
           }
         },
-        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)']
+        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
+        sfCollapsed: true
       }
     },
 
@@ -333,7 +339,7 @@
               console.warn(`[data-footnote] attribute has no index value`)
               break
             }
-            let indexes = index.replace(/\s+/g, ' ').trim().split(' ')
+            let indexes = index.replace(/(?:\s|,)+/g, ' ').trim().split(' ')
             let popup = document.createElement('div')
             popup.classList.add(popupClassName, hiddenClassName)
             let title = document.createElement('div')
@@ -435,6 +441,10 @@
             console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
           }
         }
+      },
+
+      sfCollapse: function (currentState) {
+        this.sfCollapsed = currentState
       }
     },
 

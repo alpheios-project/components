@@ -717,8 +717,17 @@ export default class UIController {
     this.popup.showImportantNotification(message)
   }
 
-  static getLanguageName (languageID) {
-    return languageNames.has(languageID) ? languageNames.get(languageID) : ''
+  /**
+   * Gets language name by either language ID (a symbol) or language code (string)
+   * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
+   * @return {string} A language name
+   */
+  static getLanguageName (language) {
+    let langID
+    let langCode // eslint-disable-line
+    // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
+    ;({languageID: langID, languageCode: langCode} = LanguageModelFactory.getLanguageAttrs(language))
+    return languageNames.has(langID) ? languageNames.get(langID) : ''
   }
 
   showLanguageInfo (homonym) {
@@ -859,15 +868,14 @@ export default class UIController {
     }
   }
 
-  updateLanguage (currentLanguage) {
-    this.state.setItem('currentLanguage', currentLanguage)
-    let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
-    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
+  updateLanguage (currentLanguageID) {
+    this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
+    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
 
-    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
 
-    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
+    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 

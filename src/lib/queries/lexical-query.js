@@ -15,12 +15,8 @@ export default class LexicalQuery extends Query {
     this.siteOptions = options.siteOptions || []
     this.lemmaTranslations = options.lemmaTranslations
     this.l10n = options.l10n
-    let langID = LMF.getLanguageIdFromCode(this.selector.languageCode)
-    if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {
-      this.canReset = true
-    } else {
-      this.canReset = false
-    }
+    const langID = this.selector.languageID
+    this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
   }
 
   static create (selector, options) {
@@ -28,7 +24,7 @@ export default class LexicalQuery extends Query {
   }
 
   async getData () {
-    this.languageID = LMF.getLanguageIdFromCode(this.selector.languageCode)
+    this.languageID = this.selector.languageID
     this.ui.setTargetRect(this.htmlSelector.targetRect).newLexicalRequest().message(`Please wait while data is retrieved ...`)
     this.ui.showStatusInfo(this.selector.normalizedText, this.languageID)
     this.ui.updateWordAnnotationData(this.selector.data)
@@ -54,11 +50,11 @@ export default class LexicalQuery extends Query {
   }
 
   * iterations () {
-    let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageCode), [])
-    this.ui.updateLanguage(this.selector.languageCode)
+    let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageID), [])
+    this.ui.updateLanguage(this.selector.languageID)
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
-      this.homonym = yield this.maAdapter.getHomonym(this.selector.languageCode, this.selector.normalizedText)
+      this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {
@@ -151,7 +147,8 @@ export default class LexicalQuery extends Query {
     let userLang = navigator.language || navigator.userLanguage
 
     if (this.lemmaTranslations) {
-      yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
+      const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
+      yield this.lemmaTranslations.fetchTranslations(lemmaList, languageCode, userLang)
       this.ui.updateTranslations(this.homonym)
     }
 
@@ -187,13 +184,14 @@ export default class LexicalQuery extends Query {
 
   getLexiconOptions (lexiconKey) {
     let allOptions
+    const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
     let siteMatch = this.siteOptions.filter((s) => this.selector.location.match(new RegExp(s.uriMatch)))
     if (siteMatch.length > 0 && siteMatch[0].resourceOptions.items[lexiconKey]) {
       allOptions = [...siteMatch[0].resourceOptions.items[lexiconKey], ...this.resourceOptions.items[lexiconKey]]
     } else {
       allOptions = this.resourceOptions.items[lexiconKey] || []
     }
-    let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === this.selector.languageCode
+    let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === languageCode
     ).map((l) => { return {allow: l.currentValue} }
     )
     if (lexiconOpts.length > 0) {
