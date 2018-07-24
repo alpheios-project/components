@@ -8775,40 +8775,6 @@ a.infl-supp-tbl__reflink {
 /*************** dark schema colors **************/
 /*************** light schema colors **************/
 /*************** light schema colors tooltip **************/
-.alpheios-table-sf__title {
-  margin-bottom: 5px;
-  padding-left: 30px;
-}
-.infl-suff-footnote-link {
-  position: relative;
-}
-
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
-.alpheios-sf__title {
-  font-size: 1.2em;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
-.alpheios-sf__pofs-title {
-  font-weight: 700;
-  margin: 20px 0 10px;
-}
-.alpheios-sf__pofs-title-2 {
-  font-weight: 700;
-  margin: 10px 0;
-  padding-left: 30px;
-}
-.alpheios-clickable {
-  cursor: pointer;
-}
-
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
 h3.alpheios-inflections__title {
   font-size: 1.2rem;
   line-height: 1;

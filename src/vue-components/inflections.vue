@@ -3,7 +3,6 @@
         <div v-show="! isEnabled" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}</div>
         <div v-show="isEnabled && ! isContentAvailable" class="alpheios-inflections__placeholder">{{messages.PLACEHOLDER_INFLECT}}</div>
 
-        <standard-forms :language-id="languageID" :collapsed="sfCollapsed" @collapse="sfCollapse"></standard-forms>
         <div v-show="isContentAvailable && sfCollapsed" class="alpheios-inflections__content">
             <h3 class="alpheios-inflections__title">{{selectedView.title}}</h3>
             <div v-show="partsOfSpeech.length > 1">
@@ -87,7 +86,6 @@
   import WideSubTables from './inflections-subtables-wide.vue'
   import WideSuppTable from './inflections-supp-table-wide.vue'
   import WordForms from './wordforms.vue'
-  import StandardForms from './inflections-standard-forms.vue'
 
   import Tooltip from './tooltip.vue'
 
@@ -102,8 +100,7 @@
       subTablesWide: WideSubTables,
       suppTablesWide: WideSuppTable,
       alphTooltip: Tooltip,
-      wordForms: WordForms,
-      standardForms: StandardForms
+      wordForms: WordForms
     },
 
     props: {
