@@ -77,7 +77,13 @@ describe('lexical-query.test.js', () => {
     lexemes: [{
       isPopulated: function () { return true },
       lemma: { word: 'foo lemma' }
-    }]
+    }],
+    disambiguate: function () { }
+
+  }
+
+  let testTbAdapter = {
+    getHomonym: function () { return new Promise((resolve, reject) => { resolve(testHomonym) }) }
   }
   let testMaAdapter = {
     getHomonym: function () { return new Promise((resolve, reject) => { resolve(testHomonym) }) }
@@ -368,5 +374,54 @@ describe('lexical-query.test.js', () => {
     })
 
     expect(query.getLexiconOptions('lexiconsShort')).toEqual({})
+  })
+
+  it('12 LexicalQuery - calls tbAdapter if treebank data is present in selector', async () => {
+    let curUI = Object.assign({}, testUI)
+    let mockSelector = {
+      normalizedText: 'foo',
+      word: 'foo',
+      languageCode: 'lat',
+      data: { treebank: { word: 'mockref' } }
+    }
+    let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    let query = LexicalQuery.create(mockSelector, {
+      uiController: curUI,
+      resourceOptions: languageOptions,
+      htmlSelector: testHtmlSelector,
+      siteOptions: [],
+      langOpts: {},
+      maAdapter: testMaAdapter,
+      tbAdapter: Object.assign({}, testTbAdapter)
+    })
+    jest.spyOn(query.tbAdapter, 'getHomonym')
+    jest.spyOn(query.maAdapter, 'getHomonym')
+    await query.getData()
+    expect(query.tbAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.data.treebank.word)
+    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.normalizedText)
+  })
+
+  it('13 LexicalQuery - does not call tbAdapter if treebank data is not present in selector', async () => {
+    let curUI = Object.assign({}, testUI)
+    let mockSelector = {
+      normalizedText: 'foo',
+      word: 'foo',
+      languageCode: 'lat',
+      data: { treebank: { } }
+    }
+    let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    let query = LexicalQuery.create(mockSelector, {
+      uiController: curUI,
+      resourceOptions: languageOptions,
+      htmlSelector: testHtmlSelector,
+      siteOptions: [],
+      langOpts: {},
+      maAdapter: testMaAdapter,
+      tbAdapter: Object.assign({}, testTbAdapter)
+    })
+    jest.spyOn(query.tbAdapter, 'getHomonym')
+    await query.getData()
+    expect(query.tbAdapter.getHomonym).not.toHaveBeenCalled()
+    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.normalizedText)
   })
 })
