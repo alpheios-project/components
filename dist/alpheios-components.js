@@ -9796,7 +9796,7 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     divClasses () {
-      return this.data.classes.join(' ') + ' ' + this.positionClasses
+      return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
     },
     clearLookupText: function () {
       // always true to clear panels lookup
@@ -10346,7 +10346,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     divClasses () {
-      return this.data.classes.join(' ')
+      return this.data && this.data.classes ? this.data.classes.join(' ') : ''
     },
     uiController: function () {
       return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
@@ -28350,7 +28350,7 @@ __webpack_require__.r(__webpack_exports__);
 class DefaultsLoader {
   static fromJSON (jsonString) {
     try {
-      return jsonString
+      return JSON.parse(jsonString)
     } catch (err) {
       console.error(`Unable to parse JSON options string:`, err)
       return {}
