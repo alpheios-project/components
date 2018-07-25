@@ -595,13 +595,7 @@
       translationsDataReady: function(value) {
         let time = new Date().getTime()
         this.logger.log(`${time}: translation data became available`, this.translations)
-      }/*,
-      "data.classes": function () {
-        this.divClasses = this.data.classes.join(' ')
-      },
-      classesChanged () {
-          this.divClasses = this.data.classes.join(' ')
-      }*/
+      }
 
     }
   }
