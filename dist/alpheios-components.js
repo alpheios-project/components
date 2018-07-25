@@ -9779,8 +9779,7 @@ __webpack_require__.r(__webpack_exports__);
       positionClassVariants: {
         left: 'alpheios-panel-left',
         right: 'alpheios-panel-right'
-      },
-      divClasses: ''
+      }
     }
   },
   props: {
@@ -9796,6 +9795,9 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
+    divClasses () {
+      return this.data.classes.join(' ') + ' ' + this.positionClasses
+    },
     clearLookupText: function () {
       // always true to clear panels lookup
       return true
@@ -9898,13 +9900,6 @@ __webpack_require__.r(__webpack_exports__);
       return null
     }
   },
-  watch: {
-    classesChanged: function (value) {
-      this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
-      this.setContentWidth('auto')
-    }
-  },
-
   methods: {
     updateZIndex: function (zIndexMax) {
       if (zIndexMax >= this.zIndex) {
@@ -10302,8 +10297,7 @@ __webpack_require__.r(__webpack_exports__);
       resizeDelta: 20, // Changes in size below this value (in pixels) will be ignored to avoid minor dimension updates
       resizeCount: 0, // Should not exceed `resizeCountMax`
       resizeCountMax: 100, // Max number of resize iteration
-      updateDimensionsTimeout: null,
-      divClasses: ''
+      updateDimensionsTimeout: null
     }
   },
   props: {
@@ -10351,6 +10345,9 @@ __webpack_require__.r(__webpack_exports__);
     })
   },
   computed: {
+    divClasses () {
+      return this.data.classes.join(' ')
+    },
     uiController: function () {
       return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
     },
@@ -10762,11 +10759,13 @@ __webpack_require__.r(__webpack_exports__);
     translationsDataReady: function(value) {
       let time = new Date().getTime()
       this.logger.log(`${time}: translation data became available`, this.translations)
-    },
-
-    classesChanged: function (value) {
+    }/*,
+    "data.classes": function () {
       this.divClasses = this.data.classes.join(' ')
-    }
+    },
+    classesChanged () {
+        this.divClasses = this.data.classes.join(' ')
+    }*/
 
   }
 });
