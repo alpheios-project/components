@@ -67,23 +67,67 @@ describe('panel.test.js', () => {
     let cmp = mount(Panel, {
       propsData: {
         data: {
+          isOpen: false,
           tabs: {
             definitions: false,
             inflections: false,
-            info: true,
-            options: false,
             status: false,
+            options: false,
+            info: true,
             treebank: false
           },
-          l10n: l10n,
+          verboseMode: true,
           grammarRes: {},
-          infoComponentData: {},
-          inflectionComponentData: {},
-          treebankComponentData: {},
-          classes: [],
-
+          lexemes: [],
+          inflectionComponentData: {
+            visible: false,
+            enabled: false,
+            inflectionData: false // If no inflection data present, it is set to false
+          },
+          shortDefinitions: [],
+          fullDefinitions: '',
+          inflections: {
+            localeSwitcher: undefined,
+            viewSelector: undefined,
+            tableBody: undefined
+          },
+          inflectionIDs: {
+            localeSwitcher: 'alpheios-panel-content-infl-table-locale-switcher',
+            viewSelector: 'alpheios-panel-content-infl-table-view-selector',
+            tableBody: 'alpheios-panel-content-infl-table-body'
+          },
+          infoComponentData: {
+            manifest: {},
+            languageName: 'Test language'
+          },
+          messages: [],
+          notification: {
+            visible: false,
+            important: false,
+            showLanguageSwitcher: false,
+            text: ''
+          },
+          status: {
+            selectedText: '',
+            languageName: ''
+          },
           settings: options.items,
-          resourceSettings: resourceOptions.items
+          treebankComponentData: {
+            data: {
+              word: {},
+              page: {}
+
+            },
+            visible: false
+          },
+          resourceSettings: resourceOptions.items,
+          uiOptions: {},
+          classes: [],
+          styles: {
+            zIndex: 0
+          },
+          minWidth: 400,
+          l10n: l10n
         }
       }
     })
@@ -95,7 +139,8 @@ describe('panel.test.js', () => {
 
     expect(cmp.find('.alpheios-panel__content').findAll('.alpheios-panel__tab-panel').length).not.toBeLessThan(7)
 
-    expect(cmp.find('.alpheios-panel__notifications').exists()).toBeFalsy()
+    expect(cmp.find('.alpheios-panel__notifications').exists()).toBeTruthy()
+    expect(cmp.find('.alpheios-panel__notifications').element.style.display).toEqual('none')
   })
 
   it('3 Panel - header tabs buttons', async () => {
@@ -317,8 +362,6 @@ describe('panel.test.js', () => {
 
     expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__settings-items').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-panel__tab__info').find('.alpheios-lookup__settings-items').element.style.display).toEqual('none')
-
-    // expect(cmp.find('.alpheios-panel__tab__info').find(Lookup).vm.parentLanguage).toEqual('Latin')
 
     expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__versiontext').text().indexOf('Foo name')).toBeGreaterThan(-1)
     expect(cmp.find('.alpheios-panel__tab__info').find(Info).find('.alpheios-info__versiontext').text().indexOf('Foo version')).toBeGreaterThan(-1)

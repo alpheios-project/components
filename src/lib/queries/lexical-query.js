@@ -58,6 +58,7 @@ export default class LexicalQuery extends Query {
 
   * iterations () {
     let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageCode), [])
+    this.ui.updateLanguage(this.selector.languageCode)
     if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
       this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageCode, this.selector.data.treebank.word)
     }
@@ -72,6 +73,9 @@ export default class LexicalQuery extends Query {
           this.homonym = this.annotatedHomonym
         } else {
           this.ui.addImportantMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+          // Need to notify a UI controller that there is no morph data on this word in an analyzer
+          // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
+          if (this.ui.morphologyDataNotFound) { this.ui.morphologyDataNotFound(true) }
           this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
         }
       }

@@ -72,10 +72,10 @@ describe('tooltip.test.js', () => {
     expect(cmp.emitted()['sendfeature'][0]).toEqual([{ value: 'fooValue', type: 'fooType2' }])
   })
 
-  it('3 InflectionAttribute - check required props', () => {
+/*  it('3 InflectionAttribute - check required props', () => {
     let cmp = mount(InflectionAttribute)
 
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "type"'))
-  })
+  }) */
 })

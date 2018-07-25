@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-panel auk" id="alpheios-panel-inner" :class="divClasses" :style="mainstyles" v-on-clickaway="attachTrackingClick"
-         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen" 
+         data-component="alpheios-panel" data-resizable="true" v-show="data && data.isOpen"
         :data-notification-visible="data && data.notification && data.notification.important"> <!-- Show only important notifications for now -->
 
         <div class="alpheios-panel__header">
@@ -131,16 +131,18 @@
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="data.settings.verboseMode" @change="settingChanged" v-if="data.settings"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.uiOptions"
+                <setting :data="data.uiOptions.items.skin" @change="uiOptionChanged" v-if="data.uiOptions && data.uiOptions.items"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions"
+                <setting :data="data.uiOptions.items.popup" @change="uiOptionChanged" v-if="data.uiOptions && data.uiOptions.items"
                          :classes="['alpheios-panel__options-item']"></setting>
-                <setting :data="data.uiOptions.items.panelOnActivate" @change="uiOptionChanged" v-if="data.uiOptions"
+                <setting :data="data.uiOptions.items.panelOnActivate" @change="uiOptionChanged" v-if="data.uiOptions && data.uiOptions.items"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name" 
-                  v-if="languageSetting.values.length > 1 && data.resourceSettings"
-                  v-for="languageSetting in data.resourceSettings.lexicons"></setting>
+                    :key="languageSetting.name"
+                    v-for="languageSetting in resourceSettingsLexicons"></setting>
+                <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
+                    :key="languageSetting.name"
+                    v-for="languageSetting in resourceSettingsLexiconsShort"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
@@ -188,7 +190,7 @@
   import TreebankIcon from '../images/inline-icons/sitemap.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
 
-  import { directive as onClickaway } from '@/directives/clickaway.js';
+  import { directive as onClickaway } from '../directives/clickaway.js';
 
   export default {
     name: 'Panel',
@@ -220,6 +222,7 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
+
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
@@ -256,6 +259,12 @@
       },
       mainstyles: function () {
         return (this.data) ? this.data.styles : ''
+      },
+      resourceSettingsLexicons: function () {
+        return this.data.resourceSettings && this.data.resourceSettings.lexicons ? this.data.resourceSettings.lexicons.filter(item => item.values.length > 0) : []
+      },
+      resourceSettingsLexiconsShort: function () {
+        return this.data.resourceSettings && this.data.resourceSettings.lexiconsShort ? this.data.resourceSettings.lexiconsShort.filter(item => item.values.length > 0) : []
       },
       classes: function () {
         // Find index of an existing position class and replace it with an updated value
@@ -461,13 +470,13 @@
 
         if (inflectionsPanel) {
           let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-          if ( Array.isArray(resPl1) ) {
+          if (Array.isArray(resPl1)) {
             this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
           } else {
             this.inflPanelLeftPadding = 0
           }
           let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-          if ( Array.isArray(resPl2) ) {
+          if (Array.isArray(resPl2)) {
             this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
           } else {
             this.inflPanelRightPadding = 0
@@ -478,7 +487,7 @@
         interact(this.$el)
           .resizable({
             // resize from all edges and corners
-            edges: { left: true, right: true, bottom: false, top: false },
+            edges: {left: true, right: true, bottom: false, top: false},
 
             // keep the edges inside the parent
             restrictEdges: {
@@ -488,7 +497,7 @@
 
             // minimum size
             restrictSize: {
-              min: { width: this.data.minWidth }
+              min: {width: this.data.minWidth}
             },
 
             inertia: true
@@ -597,6 +606,7 @@
         position: relative;
         top: -1px;
     }
+
     .#{$alpheios-uikit-namespace} .alpheios-panel__header-logo-img {
         width: auto;
         height: 30px;
@@ -649,6 +659,7 @@
         box-sizing: border-box;
         display: flex;
         flex-flow: wrap;
+        position: relative; // Need to set element as an offset parent for panel content items
     }
 
     .alpheios-lookup__panel {
@@ -686,6 +697,7 @@
     }
 
     .alpheios-panel__notifications--lang-switcher {
+        font-size: 12px;
         float: right;
         margin: -20px 10px 0 0;
         display: inline-block;
@@ -801,5 +813,4 @@
     .alpheios-panel__options-item select {
       display: inline-block;
     }
-
 </style>
