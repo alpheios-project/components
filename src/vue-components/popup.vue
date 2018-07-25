@@ -182,7 +182,7 @@
     },
     computed: {
       divClasses () {
-        return this.data.classes.join(' ')
+        return this.data && this.data.classes ? this.data.classes.join(' ') : ''
       },
       uiController: function () {
         return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null

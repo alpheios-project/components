@@ -243,7 +243,7 @@
 
     computed: {
       divClasses () {
-        return this.data.classes.join(' ') + ' ' + this.positionClasses
+        return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
       },
       clearLookupText: function () {
         // always true to clear panels lookup
