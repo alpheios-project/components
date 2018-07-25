@@ -23,7 +23,7 @@ describe('deafults-loader.test.js', () => {
   })
 
   it('2 DefaultsLoader - fromJSON method parses JSON string', () => {
-    let res = DefaultsLoader.fromJSON(['panelPosition', 'preferredLanguage'])
+    let res = DefaultsLoader.fromJSON('["panelPosition", "preferredLanguage"]')
     expect(Array.isArray(res)).toBeTruthy()
     expect(res[0]).toEqual('panelPosition')
     expect(res[1]).toEqual('preferredLanguage')
