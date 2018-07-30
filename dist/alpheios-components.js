@@ -29104,7 +29104,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_2__["default"] {
     let formLexeme = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"](new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lemma"](this.selector.normalizedText, this.selector.languageCode), [])
     this.ui.updateLanguage(this.selector.languageCode)
     if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
-      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageCode, this.selector.data.treebank.word)
+      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageCode, this.selector.data.treebank.word.ref)
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
