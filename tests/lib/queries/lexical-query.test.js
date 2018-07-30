@@ -384,8 +384,8 @@ describe('lexical-query.test.js', () => {
     let mockSelector = {
       normalizedText: 'foo',
       word: 'foo',
-      languageCode: 'lat',
-      data: { treebank: { word: 'mockref' } }
+      languageID: Constants.LANG_LATIN,
+      data: { treebank: { word: { src: '', ref: 'mockref' } } }
     }
     let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
     let query = LexicalQuery.create(mockSelector, {
@@ -400,8 +400,8 @@ describe('lexical-query.test.js', () => {
     jest.spyOn(query.tbAdapter, 'getHomonym')
     jest.spyOn(query.maAdapter, 'getHomonym')
     await query.getData()
-    expect(query.tbAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.data.treebank.word)
-    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.normalizedText)
+    expect(query.tbAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.data.treebank.word.ref)
+    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.normalizedText)
   })
 
   it('13 LexicalQuery - does not call tbAdapter if treebank data is not present in selector', async () => {
@@ -409,7 +409,7 @@ describe('lexical-query.test.js', () => {
     let mockSelector = {
       normalizedText: 'foo',
       word: 'foo',
-      languageCode: 'lat',
+      languageID: Constants.LANG_LATIN,
       data: { treebank: { } }
     }
     let languageOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
@@ -425,6 +425,6 @@ describe('lexical-query.test.js', () => {
     jest.spyOn(query.tbAdapter, 'getHomonym')
     await query.getData()
     expect(query.tbAdapter.getHomonym).not.toHaveBeenCalled()
-    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageCode, mockSelector.normalizedText)
+    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.normalizedText)
   })
 })

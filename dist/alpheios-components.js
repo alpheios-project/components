@@ -11084,8 +11084,11 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('treebankcontentwidth', '43em')
         let newSrcUrl
         if (this.res.word && this.res.word.src && this.res.word.ref) {
-          let [s,w] = this.res.word.ref.split(/-/)
-          newSrcUrl = this.res.word.src.replace('SENTENCE',s).replace('WORD',w)
+          let [doc,ref] = this.res.word.ref.split(/#/)
+          if (doc && ref) {
+            let [s,w] = ref.split(/-/)
+            newSrcUrl = this.res.word.src.replace('DOC',doc).replace('SENTENCE',s).replace('WORD',w)
+          }
           // only update the srcUrl property if we have a new URL - we don't
           // want to reload if it was hidden after being populated but hasn't
           // actually changed
@@ -29097,7 +29100,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     let formLexeme = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"](new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lemma"](this.selector.normalizedText, this.selector.languageID), [])
     this.ui.updateLanguage(this.selector.languageID)
     if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
-      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageCode, this.selector.data.treebank.word.ref)
+      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
