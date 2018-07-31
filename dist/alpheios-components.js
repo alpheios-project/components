@@ -9796,6 +9796,7 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     divClasses () {
+      console.log('*****************panel divClasses', this.data.classes)
       return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
     },
     clearLookupText: function () {
@@ -12087,7 +12088,7 @@ var render = function() {
                   "a",
                   {
                     staticClass:
-                      "alpheios-lookup__settings-link alpheios-text__smaller",
+                      "alpheios-lookup__settings-link alpheios-text__smaller uk-link",
                     on: { click: _vm.switchLookupSettings }
                   },
                   [_vm._v(_vm._s(_vm.ln10Messages("LABEL_LOOKUP_SETTINGS")))]
@@ -14337,7 +14338,7 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "alpheios-popup__providers-link",
+            staticClass: "alpheios-popup__providers-link uk-link",
             on: { click: _vm.switchProviders }
           },
           [_vm._v(_vm._s(_vm.providersLinkText))]
@@ -27317,33 +27318,61 @@ class UIController {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
     }
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'classes', classes)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel.panelData, 'classes', classes)
+    console.info('****************setRootComponentClasses before', this.panel.panelData.classes)
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+    classes.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+      this.panel.panelData.classes.push(classItem)
+    })
+    /*    Vue.set(this.popup.popupData, 'classes', classes)
+    Vue.set(this.panel.panelData, 'classes', classes) */
+
+    console.info('****************setRootComponentClasses after', this.panel.panelData.classes)
     vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
     vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
   updateStyleClass (prefix, type) {
-    let popupClasses = this.popup.popupData.classes
+    let popupClasses = this.popup.popupData.classes.slice(0)
 
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'classes', popupClasses)
+    /*    Vue.set(this.popup.popupData, 'classes', popupClasses)
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1) */
 
-    let panelClasses = this.panel.panelData.classes
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    popupClasses.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+    })
+
+    let panelClasses = this.panel.panelData.classes.slice(0)
     panelClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         panelClasses[index] = `${prefix}${type}_class`
       }
     })
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel.panelData, 'classes', panelClasses)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    console.info('****************updateStyleClass before1', panelClasses, this.panel.panelData.classes)
+
+    /*    Vue.set(this.panel.panelData, 'classes', panelClasses)
+    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1) */
+
+    this.panel.panelData.classes.splice(0, this.panel.panelData.classes.length)
+
+    console.info('****************updateStyleClass before1', panelClasses, this.panel.panelData.classes)
+
+    panelClasses.forEach(classItem => {
+      console.info('*************panelClasses classItem', classItem)
+      this.panel.panelData.classes.push(classItem)
+      console.info('*************panelClasses this.panel.panelData.classes', this.panel.panelData.classes)
+    })
+
+    console.info('****************updateStyleClass after', this.panel.panelData.classes)
   }
 
   updateFontSizeClass (type) {

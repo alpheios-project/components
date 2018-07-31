@@ -1,0 +1,160 @@
+.#{$alpheios-uikit-namespace} {
+  .uk-button {
+  	font-family: $alpheios-font-family;
+    font-size: $alpheios-base-font-size * 0.7;
+    line-height: $alpheios-base-font-size * 1.75;
+    background-color: $alpheios-toolbar-color;
+    color: $alpheios-toolbar-text-color;
+  }
+
+  .uk-input {
+  	font-family: $alpheios-font-family;
+    font-size: $alpheios-base-font-size * 0.875;
+    height: $alpheios-base-font-size * 2;
+  }
+
+  .uk-link {
+  	font-family: $alpheios-font-family;
+  	color: $alpheios-link-color;
+  	font-size: $alpheios-base-font-size * 0.7;
+  }
+
+  .uk-form-label {
+  	font-family: $alpheios-font-family;
+  	font-size: $alpheios-base-font-size * 0.85;
+  }
+
+  .alpheios-popup__close-btn {
+  	background: inherit;
+  }
+
+  .alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+  .alpheios-checkbox-block, .multiselect {
+	max-width: 235px;
+	display: inline-block;
+	vertical-align: top;
+  }
+
+  .multiselect__tag {
+  	background-color: $alpheios-toolbar-color;
+    
+    display: inline-block;
+    border-radius: 5px;
+    padding: 4px 26px 4px 10px;
+
+    position: relative;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	span {
+	  color: $alpheios-toolbar-text-color;
+	}
+  }
+
+  .multiselect__content {
+  	padding: 0;
+  }
+
+  .multiselect__single {
+  	display: none;
+  }
+  .multiselect__option {
+  	padding: 12px;
+  }
+  .multiselect__option.multiselect__option--highlight {
+  	background-color: $alpheios-toolbar-color;
+
+  	&:after {
+  	  display: none;
+  	}
+	span {
+	  color: $alpheios-toolbar-text-color;
+	}
+  }
+
+
+  .multiselect__tag-icon {
+    border-radius: 5px;
+    bottom: 0;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: bold;
+    line-height: $alpheios-base-font-size * 1.4;
+    margin-left: 7px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transition: all .2s ease;
+    width: $alpheios-base-font-size * 1.4;
+    color: $alpheios-toolbar-text-color;
+    &:hover {
+      background-color: $alpheios-toolbar-color;
+    }
+  }
+
+  .alph_tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .alph_tooltip .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .alpheios-skin_properties_item {
+  	font-family: $alpheios-font-family;
+  	background-color: $alpheios-toolbar-color;
+    color: $alpheios-toolbar-text-color;
+  	list-style-type: none;
+  	vertical-align: middle;
+
+  	font-size: $alpheios-base-font-size;
+  	width: $alpheios-base-font-size * 1.75;
+  	height: $alpheios-base-font-size * 1.75;
+  	line-height: $alpheios-base-font-size * 1.75;
+  }
+
+  .alpheios-skin_properties_item__small_font {
+  	font-size: $alpheios-base-font-size * 0.8;
+  	width: $alpheios-base-font-size * 1.4;
+  	height: $alpheios-base-font-size * 1.4;
+	line-height: $alpheios-base-font-size * 1.4;
+	border-radius: $alpheios-base-font-size * 0.7;
+  }
+
+  .alpheios-skin_properties_item__medium_font {
+  	font-size: $alpheios-base-font-size;
+  	width: $alpheios-base-font-size * 1.75;
+  	height: $alpheios-base-font-size * 1.75;
+	line-height: $alpheios-base-font-size * 1.75;
+	border-radius: $alpheios-base-font-size * 0.9;
+  }
+
+  .alpheios-skin_properties_item__large_font {
+  	font-size: $alpheios-base-font-size * 1.2;
+  	width: $alpheios-base-font-size * 2.1;
+  	height: $alpheios-base-font-size * 2.1;
+	line-height: $alpheios-base-font-size * 2.1;
+	border-radius: $alpheios-base-font-size * 1.1;
+  }
+
+  .alpheios-grammar__frame-cont {
+  	overflow-y: auto;
+  }
+
+  .alpheios-grammar__frame {
+    border: none;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    overflow: scroll;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+}
