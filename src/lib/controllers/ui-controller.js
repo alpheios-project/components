@@ -916,9 +916,7 @@ export default class UIController {
   setRootComponentClasses () {
     let classes = []
 
-    console.info('******************UIController.hasRegularBaseFontSize()', UIController.hasRegularBaseFontSize())
     if (!UIController.hasRegularBaseFontSize()) {
-      console.info('******************UIController.hasRegularBaseFontSize() inside')
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     if (this.uiOptions.items.skin !== undefined) {

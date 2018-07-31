@@ -9796,7 +9796,6 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     divClasses () {
-      console.log('*****************panel divClasses', this.data.classes)
       return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
     },
     clearLookupText: function () {
@@ -27305,32 +27304,27 @@ class UIController {
 
   setRootComponentClasses () {
     let classes = []
+
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     if (this.uiOptions.items.skin !== undefined) {
       classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
     }
-    if (this.uiOptions.items.fontSize !== undefined) {
+    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.value !== undefined) {
       classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
     }
-    if (this.uiOptions.items.colorSchema !== undefined) {
+
+    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.value !== undefined) {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
     }
-
-    console.info('****************setRootComponentClasses before', this.panel.panelData.classes)
     this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
     this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+
     classes.forEach(classItem => {
       this.popup.popupData.classes.push(classItem)
       this.panel.panelData.classes.push(classItem)
     })
-    /*    Vue.set(this.popup.popupData, 'classes', classes)
-    Vue.set(this.panel.panelData, 'classes', classes) */
-
-    console.info('****************setRootComponentClasses after', this.panel.panelData.classes)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
   }
 
   updateStyleClass (prefix, type) {
@@ -27341,9 +27335,6 @@ class UIController {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
-    /*    Vue.set(this.popup.popupData, 'classes', popupClasses)
-
-    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1) */
 
     this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
     popupClasses.forEach(classItem => {
@@ -27356,23 +27347,11 @@ class UIController {
         panelClasses[index] = `${prefix}${type}_class`
       }
     })
-
-    console.info('****************updateStyleClass before1', panelClasses, this.panel.panelData.classes)
-
-    /*    Vue.set(this.panel.panelData, 'classes', panelClasses)
-    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1) */
-
     this.panel.panelData.classes.splice(0, this.panel.panelData.classes.length)
 
-    console.info('****************updateStyleClass before1', panelClasses, this.panel.panelData.classes)
-
     panelClasses.forEach(classItem => {
-      console.info('*************panelClasses classItem', classItem)
       this.panel.panelData.classes.push(classItem)
-      console.info('*************panelClasses this.panel.panelData.classes', this.panel.panelData.classes)
     })
-
-    console.info('****************updateStyleClass after', this.panel.panelData.classes)
   }
 
   updateFontSizeClass (type) {
