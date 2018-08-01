@@ -29107,7 +29107,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
         if (this.annotatedHomonym) {
-          this.homonym.disambiguate(this.annotatedHomonym)
+          this.homonym = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"].disambiguate(this.homonym, this.annotatedHomonym)
         }
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {
