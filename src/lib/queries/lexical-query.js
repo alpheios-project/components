@@ -61,7 +61,7 @@ export default class LexicalQuery extends Query {
       this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
         if (this.annotatedHomonym) {
-          this.homonym = Homonym.disambiguate(this.homonym, this.annotatedHomonym)
+          this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
         }
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {
