@@ -660,6 +660,7 @@
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
         stroke: $alpheios-link-color-dark-bg;
+        background: inherit;
     }
 
     .alpheios-popup__close-btn:hover,
