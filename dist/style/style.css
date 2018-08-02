@@ -1494,8 +1494,8 @@
  * 3. Gutter
  */
   /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
   /* Items
  ========================================================================== */
@@ -5007,8 +5007,6 @@
     margin-left: -15px; }
   .auk .uk-thumbnav > * {
     /* 1 */
-    flex: none;
-    /* 2 */
     padding-left: 15px; }
   .auk .uk-thumbnav > * > * {
     display: inline-block;
@@ -7827,6 +7825,8 @@ div.alpheios-color_schema_light_class {
   div.alpheios-color_schema_light_class .alpheios-morph__dictentry .lemma_index {
     color: #fff;
     background: #4E6476; }
+  div.alpheios-color_schema_light_class .alpheios-morph__dictentry-disambiguated {
+    background: #E49A0D; }
 
 .alph_tooltip {
   position: relative;
