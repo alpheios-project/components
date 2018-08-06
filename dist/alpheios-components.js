@@ -8305,8 +8305,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     refColor: function (paradigmID) {
-      console.info('*************paradigmID', paradigmID)
-      console.info('*************refColor', this.view.hlSuppParadigms ? this.view.suppHlColors.get(paradigmID) : 'transparent')
       return this.view.hlSuppParadigms ? this.view.suppHlColors.get(paradigmID) : 'transparent'
     },
 

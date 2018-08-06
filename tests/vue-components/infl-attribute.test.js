@@ -5,7 +5,7 @@ import InflectionAttribute from '@/vue-components/infl-attribute.vue'
 import Vue from 'vue/dist/vue'
 import { Feature, Constants } from 'alpheios-data-models'
 
-describe('tooltip.test.js', () => {
+describe('infl-attribute.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
