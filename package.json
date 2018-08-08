@@ -7,7 +7,7 @@
     "test": "standard --fix && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test-lib": "standard --fix && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test-components": "standard --fix && jest tests/vue-components --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test-c": "standard --fix && jest tests/lib/controllers/ui-controller.test.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test-c": "standard --fix && jest tests/vue-components/inflections-supp-table-wide.test.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all all vue",
     "build-prod": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all production vue",
     "build-dev": "standard --fix && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all development vue",
@@ -104,7 +104,8 @@
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4",
     "wrap-range-text": "*",
-    "zip-folder": "^1.0.0"
+    "zip-folder": "^1.0.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "peerDependencies": {
     "alpheios-data-models": "github:alpheios-project/data-models",
