@@ -9202,13 +9202,13 @@ h4.alpheios-inflections__additional_title {
 .infl-suff {
   cursor: pointer;
 }
-.infl-suff--suffix-match {
+.infl-suff.infl-suff--suffix-match {
   background-color: #bce6f0;
 }
 .infl-suff--full-feature-match {
   background-color: lightgray;
 }
-.infl-suff--suffix-match.infl-suff--full-feature-match {
+.infl-suff.infl-suff--suffix-match.infl-suff--full-feature-match {
   background-color: #F6D918;
   font-weight: 700;
 }
