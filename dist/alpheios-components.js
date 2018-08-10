@@ -27361,6 +27361,7 @@ class UIController {
     })
 
     let panelClasses = this.panel.panelData.classes.slice(0)
+
     panelClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         panelClasses[index] = `${prefix}${type}_class`
