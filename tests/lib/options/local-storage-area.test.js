@@ -3,18 +3,19 @@ import LocalStorageArea from '@/lib/options/local-storage-area'
 // import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
 describe('local-storage-area.test.js', () => {
-  window.localStorage = {
+  let localStorageMock = {
     values: {},
-    getItem: function (key) {
-      return this.values[key]
-    },
-    setItem: function (key, value) {
-      this.values[key] = value
-    },
-    removeItem: function (key, value) {
-      delete this.values[key]
-    }
+    getItem: jest.fn(key => localStorageMock.values[key]),
+    setItem: jest.fn((key, value) => {
+      localStorageMock.values[key] = value
+    }),
+    removeItem: jest.fn((key, value) => {
+      delete localStorageMock.values[key]
+    })
   }
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock
+  })
 
   console.error = function () {}
   console.log = function () {}
@@ -24,9 +25,6 @@ describe('local-storage-area.test.js', () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
-
-    jest.spyOn(window.localStorage, 'getItem')
-    jest.spyOn(window.localStorage, 'setItem')
   })
   afterEach(() => {
     jest.resetModules()
