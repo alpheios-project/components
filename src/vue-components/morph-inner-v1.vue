@@ -2,18 +2,18 @@
   <div :class="morphClass" v-if="lex">
     <div class="alpheios-morph__features">
 
-      <p class="principal_parts">
+      <p class="principal_parts" v-for="lemma in allLemmas">
         <span class="lemma_index" v-if="count > 1">{{ index + 1 }}</span>
 
         <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
-          v-if="! lex.lemma.principalParts.includes(lex.lemma.word)"
-          :lang="languageCode(lex.lemma.languageID)">{{ lex.lemma.word }}</span>
+          v-if="! lemma.principalParts.includes(lemma.word)"
+          :lang="languageCode(lemma.languageID)">{{ lemma.word }}</span>
 
         <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem">
           <span class="alpheios-morph__listitem"
-            v-for="part in lex.lemma.principalParts" :lang="languageCode(lex.lemma.languageID)">{{ part }}</span>
+            v-for="part in lemma.principalParts" :lang="languageCode(lemma.languageID)">{{ part }}</span>
         </span>
-        <inflectionattribute :data="lex.lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
+        <inflectionattribute :data="lemma.features" :type="types.pronunciation" :linkedfeatures="linkedfeatures" :decorators="['brackets']"/>
 
       <span
         class="feature_extras"
@@ -21,7 +21,6 @@
         <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
       </span>
       </p><!-- principal_parts -->
-
 
       <div class="alpheios-morph__morphdata" v-if="lex.lemma.features">
         <span class="alpheios-morph__pofs">
@@ -160,6 +159,9 @@
       this.types = GrmFeature.types
     },
     computed: {
+      allLemmas () {
+        return [this.lex.lemma, ...this.lex.lemma.altLemmas]
+      },
       morphClass () {
         let c = "alpheios-morph__dictentry"
         if (this.lex.disambiguated) {
