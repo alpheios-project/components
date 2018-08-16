@@ -8716,7 +8716,6 @@ to{transform:rotate(2turn)
 .alpheios-lookup__form {
   margin: 15px 10px 5px;
   text-align: left;
-  overflow: hidden;
 }
 .uk-input.alpheios-lookup__input {
   width: 70%;
@@ -9508,7 +9507,7 @@ ul.alpheios-skin_properties {
   flex-direction: row-reverse;
 }
 .alpheios-panel__content {
-  overflow: auto;
+  overflow: visible;
   grid-area: content;
   direction: ltr;
   box-sizing: border-box;
