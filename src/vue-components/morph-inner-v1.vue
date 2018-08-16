@@ -17,8 +17,8 @@
 
       <span
         class="feature_extras"
-        v-if="lex.lemma.features && (getFeature(lex.lemma,'frequency') || getFeature(lex.lemma,'age') || getFeature(lex.lemma,'area') || getFeature(lex.lemma,'geo'))">
-        <inflectionattribute :data="featureList(lex.lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
+        v-if="lemma.features && (getFeature(lemma,'frequency') || getFeature(lemma,'age') || getFeature(lemma,'area') || getFeature(lemma,'geo'))">
+        <inflectionattribute :data="featureList(lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
       </span>
       </p><!-- principal_parts -->
 

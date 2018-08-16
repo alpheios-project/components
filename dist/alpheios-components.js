@@ -12233,11 +12233,11 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm.lex.lemma.features &&
-                  (_vm.getFeature(_vm.lex.lemma, "frequency") ||
-                    _vm.getFeature(_vm.lex.lemma, "age") ||
-                    _vm.getFeature(_vm.lex.lemma, "area") ||
-                    _vm.getFeature(_vm.lex.lemma, "geo"))
+                  lemma.features &&
+                  (_vm.getFeature(lemma, "frequency") ||
+                    _vm.getFeature(lemma, "age") ||
+                    _vm.getFeature(lemma, "area") ||
+                    _vm.getFeature(lemma, "geo"))
                     ? _c(
                         "span",
                         { staticClass: "feature_extras" },
@@ -12245,7 +12245,7 @@ var render = function() {
                           _c("inflectionattribute", {
                             attrs: {
                               data: _vm.featureList(
-                                _vm.lex.lemma,
+                                lemma,
                                 ["age", "area", "geo", "frequency"],
                                 "extras"
                               ),
