@@ -648,7 +648,7 @@
     }
 
     .alpheios-panel__content {
-        overflow: auto;
+        overflow: visible;
         grid-area: content;
         direction: ltr;
         box-sizing: border-box;
