@@ -37,6 +37,10 @@ describe('options.test.js', () => {
     value: localStorageMock
   })
 
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock
+  })
+
   it('1 Options - constructor could create object without any arguments', () => {
     expect(function () {
       let l = new Options()
