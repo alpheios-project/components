@@ -9391,7 +9391,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     allLemmas () {
-      return [this.lex.lemma, ...this.lex.lemma.altLemmas]
+      return [this.lex.lemma, ...this.lex.altLemmas]
     },
     morphClass () {
       let c = "alpheios-morph__dictentry"
