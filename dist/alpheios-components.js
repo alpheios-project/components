@@ -11203,14 +11203,28 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.res
     ? _c("div", { staticClass: "alpheios-grammar" }, [
-        _c("div", { staticClass: "alpheios-grammar__frame-cont" }, [
-          _vm.res.url
-            ? _c("iframe", {
-                staticClass: "alpheios-grammar__frame",
-                attrs: { src: _vm.res.url, scrolling: "yes" }
-              })
-            : _vm._e()
-        ]),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.res.url,
+                expression: "res.url"
+              }
+            ],
+            staticClass: "alpheios-grammar__frame-cont"
+          },
+          [
+            _vm.res.url
+              ? _c("iframe", {
+                  staticClass: "alpheios-grammar__frame",
+                  attrs: { src: _vm.res.url, scrolling: "yes" }
+                })
+              : _vm._e()
+          ]
+        ),
         _vm._v(" "),
         _vm.res.provider
           ? _c("div", { staticClass: "alpheios-grammar__provider" }, [
