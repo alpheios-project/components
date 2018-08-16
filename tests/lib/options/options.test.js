@@ -33,6 +33,9 @@ describe('options.test.js', () => {
       delete localStorageMock.values[key]
     })
   }
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock
+  })
 
   Object.defineProperty(window, 'localStorage', {
     value: localStorageMock
