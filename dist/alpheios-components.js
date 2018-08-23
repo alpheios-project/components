@@ -12204,9 +12204,7 @@ var render = function() {
                         _vm._v(_vm._s(index + 1))
                       ])
                     : index > 0 && _vm.count > 1
-                      ? _c("span", {
-                          staticClass: "lemma_index lemma_index_spacer"
-                        })
+                      ? _c("span", { staticClass: "lemma_index_spacer" })
                       : _vm._e(),
                   _vm._v(" "),
                   !lemma.principalParts.includes(lemma.word)
