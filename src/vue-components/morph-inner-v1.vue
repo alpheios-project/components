@@ -4,6 +4,7 @@
 
       <p class="principal_parts" v-for="(lemma,index) in allLemmas">
         <span class="lemma_index" v-if="index === 0 && count > 1">{{ index + 1 }}</span>
+        <span class="lemma_index lemma_index_spacer" v-else-if="index > 0 && count > 1"> </span>
 
         <span class="alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
           v-if="! lemma.principalParts.includes(lemma.word)"
