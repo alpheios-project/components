@@ -352,7 +352,7 @@
   .alpheios-morph__dictentry {
     margin-bottom: 15px;
 
-    .lemma_index {
+    .lemma_index, .lemma_index_spacer {
       display: inline-block;
       text-align: center;
       font-weight: bold;
