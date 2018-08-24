@@ -11605,7 +11605,7 @@ var render = function() {
             ],
             staticClass: "infl-table infl-table--wide",
             style: _vm.tableStyle,
-            attrs: { id: "wide-vue-table" }
+            attrs: { id: "alpheios-wide-vue-table" }
           },
           [
             _vm._l(_vm.view.wideTable.rows, function(row) {

@@ -72,10 +72,10 @@ describe('latus-cupidinibus.test.js', () => {
       }
 
       expect(cmp.isVueInstance()).toBeTruthy()
-      expect(cmp.findAll('#wide-vue-table').length).toBeGreaterThan(0)
+      expect(cmp.findAll('#alpheios-wide-vue-table').length).toBeGreaterThan(0)
       expect(cmp.findAll('#alph-inflection-table-wide').length).toBeGreaterThan(0)
 
-      let newT = cmp.find('#wide-vue-table')
+      let newT = cmp.find('#alpheios-wide-vue-table')
       let oldT = cmp.find('#alph-inflection-table-wide')
 
       // compare rowTitles
