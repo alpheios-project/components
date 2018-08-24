@@ -379,11 +379,8 @@
         }
       }
       span.feature_source {
-        text-align: right;
-        float: right;
-
         .alpheios-morph__attr {
-          font-weight: bold;
+          font-size: smaller;
         }
       }
     }
