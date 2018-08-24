@@ -12198,16 +12198,16 @@ var render = function() {
           "div",
           { staticClass: "alpheios-morph__features" },
           [
-            _vm._l(_vm.allLemmas, function(lemma, index) {
+            _vm._l(_vm.allLemmas, function(lemma, lemmaIndex) {
               return _c(
                 "p",
                 { staticClass: "principal_parts" },
                 [
-                  index === 0 && _vm.count > 1
+                  lemmaIndex === 0 && _vm.count > 1
                     ? _c("span", { staticClass: "lemma_index" }, [
-                        _vm._v(_vm._s(index + 1))
+                        _vm._v(_vm._s(_vm.index + 1))
                       ])
-                    : index > 0 && _vm.count > 1
+                    : lemmaIndex > 0 && _vm.count > 1
                       ? _c("span", { staticClass: "lemma_index_spacer" })
                       : _vm._e(),
                   _vm._v(" "),
