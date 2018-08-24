@@ -12275,15 +12275,14 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.lex.lemma.features &&
-                  _vm.getFeature(_vm.lex.lemma, "source")
+                  lemma.features && _vm.getFeature(lemma, "source")
                     ? _c(
                         "span",
                         { staticClass: "feature_source" },
                         [
                           _c("inflectionattribute", {
                             attrs: {
-                              data: _vm.lex.lemma.features,
+                              data: lemma.features,
                               type: _vm.types.source,
                               linkedfeatures: _vm.linkedfeatures,
                               decorators: ["brackets"]

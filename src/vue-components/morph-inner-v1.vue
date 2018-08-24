@@ -21,8 +21,8 @@
         v-if="lemma.features && (getFeature(lemma,'frequency') || getFeature(lemma,'age') || getFeature(lemma,'area') || getFeature(lemma,'geo'))">
         <inflectionattribute :data="featureList(lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
       </span>
-      <span class="feature_source" v-if="lex.lemma.features && getFeature(lex.lemma,'source')">
-        <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
+      <span class="feature_source" v-if="lemma.features && getFeature(lemma,'source')">
+        <inflectionattribute :data="lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
       </span>
       </p><!-- principal_parts -->
 
@@ -374,22 +374,21 @@
       p {
         margin-bottom: 0;
         margin-top: 0;
-        &.feature_source {
-          text-align: right;
-          float: right;
-
-          .alpheios-morph__attr {
-            font-weight: bold;
-          }
-        }
         &.feature_extras {
           font-style: italic;
+        }
+      }
+      span.feature_source {
+        text-align: right;
+        float: right;
+
+        .alpheios-morph__attr {
+          font-weight: bold;
         }
       }
     }
 
     .alpheios-morph__morphdata,
-    p.feature_source,
     p.feature_extras,
     .alpheios-morph__definition_list,
     .alpheios-morph__translation_list,
