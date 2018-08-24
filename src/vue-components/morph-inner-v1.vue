@@ -21,6 +21,9 @@
         v-if="lemma.features && (getFeature(lemma,'frequency') || getFeature(lemma,'age') || getFeature(lemma,'area') || getFeature(lemma,'geo'))">
         <inflectionattribute :data="featureList(lemma,['age','area','geo','frequency'],'extras')" :type="'extras'" @sendfeature="sendFeature"/>
       </span>
+      <span class="feature_source" v-if="lex.lemma.features && getFeature(lex.lemma,'source')">
+        <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
+      </span>
       </p><!-- principal_parts -->
 
       <div class="alpheios-morph__morphdata" v-if="lex.lemma.features">
@@ -34,9 +37,6 @@
         <inflectionattribute :data="lex.lemma.features" :type="types.conjugation" :linkedfeatures="linkedfeatures" :decorators="['appendtype']" @sendfeature="sendFeature"/>
         <inflectionattribute :data="lex.lemma.features" :type="types.note" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
       </div>
-      <p class="feature_source" v-if="lex.lemma.features && getFeature(lex.lemma,'source')">
-        <inflectionattribute :data="lex.lemma.features" :type="types.source" :linkedfeatures="linkedfeatures" :decorators="['brackets']" @sendfeature="sendFeature"/>
-      </p>
     </div><!--alpheios-morph__features-->
 
     <div v-if="definitions.length > 0" class="alpheios-morph__definition_list">

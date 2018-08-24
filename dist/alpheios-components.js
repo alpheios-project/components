@@ -12273,6 +12273,26 @@ var render = function() {
                         ],
                         1
                       )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.lex.lemma.features &&
+                  _vm.getFeature(_vm.lex.lemma, "source")
+                    ? _c(
+                        "span",
+                        { staticClass: "feature_source" },
+                        [
+                          _c("inflectionattribute", {
+                            attrs: {
+                              data: _vm.lex.lemma.features,
+                              type: _vm.types.source,
+                              linkedfeatures: _vm.linkedfeatures,
+                              decorators: ["brackets"]
+                            },
+                            on: { sendfeature: _vm.sendFeature }
+                          })
+                        ],
+                        1
+                      )
                     : _vm._e()
                 ],
                 1
@@ -12352,25 +12372,6 @@ var render = function() {
                       attrs: {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.note,
-                        linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["brackets"]
-                      },
-                      on: { sendfeature: _vm.sendFeature }
-                    })
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.lex.lemma.features && _vm.getFeature(_vm.lex.lemma, "source")
-              ? _c(
-                  "p",
-                  { staticClass: "feature_source" },
-                  [
-                    _c("inflectionattribute", {
-                      attrs: {
-                        data: _vm.lex.lemma.features,
-                        type: _vm.types.source,
                         linkedfeatures: _vm.linkedfeatures,
                         decorators: ["brackets"]
                       },

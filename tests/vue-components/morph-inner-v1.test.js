@@ -159,7 +159,6 @@ describe('morph-inner-v1.test.js', () => {
 
       if (allInflectionAttributesPP.at(i).vm.type === 'extras') {
         checksPassed++
-        console.info(allInflectionAttributesPP.at(i).html())
         expect(allInflectionAttributesPP.at(i).find('span').exists()).toBeTruthy()
         expect(allInflectionAttributesPP.at(i).find('span').text().indexOf('fooFrequency')).toBeGreaterThan(-1)
         expect(allInflectionAttributesPP.at(i).find('span').text().indexOf('fooAge')).toBeGreaterThan(-1)
