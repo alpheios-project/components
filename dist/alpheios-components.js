@@ -9392,17 +9392,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     allLemmas () {
-      return [this.lex.lemma, ...this.lex.altLemmas].sort((a,b) => {
-        if (a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
-          return a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency].compareTo(b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency])
-        } else if (b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
-          // frequency of a isn't defined so sort b first
-          return 1
-        } else {
-          // equal
-          return 0
-        }
-      })
+      if (this.lex.altLemmas && this.lex.altLemmas.length > 0) {
+        return [this.lex.lemma, ...this.lex.altLemmas].sort((a,b) => {
+          if (a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
+            return a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency].compareTo(b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency])
+          } else if (b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
+            // frequency of a isn't defined so sort b first
+            return 1
+          } else {
+            // equal
+            return 0
+          }
+        })
+      } else {
+        return [this.lex.lemma]
+      }
     },
     morphClass () {
       let c = "alpheios-morph__dictentry"
@@ -9443,7 +9447,7 @@ __webpack_require__.r(__webpack_exports__);
       return letters.substr(index, 1) + '.'
     },
     featureList(lemma,features,name) {
-      let list = features.map(i => lemma.features[i]).filter(i => i)
+      let list = features.map(i => lemma.features[i] ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["GrmFeature"].toFeature(lemma.features[i]): null).filter(i => i)
       list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
       let returnObj = {}
       returnObj[name] = { value: list }

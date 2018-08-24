@@ -105,7 +105,7 @@
   </div><!--alpheios-morph__dictentry-->
 </template>
 <script>
-  import { LanguageModelFactory, Feature } from 'alpheios-data-models'
+  import { LanguageModelFactory, Feature, GrmFeature } from 'alpheios-data-models'
   import ShortDef from './shortdef.vue'
   import InflectionAttribute from './infl-attribute.vue'
 
@@ -161,17 +161,21 @@
     },
     computed: {
       allLemmas () {
-        return [this.lex.lemma, ...this.lex.altLemmas].sort((a,b) => {
-          if (a.features[Feature.types.frequency]) {
-            return a.features[Feature.types.frequency].compareTo(b.features[Feature.types.frequency])
-          } else if (b.features[Feature.types.frequency]) {
-            // frequency of a isn't defined so sort b first
-            return 1
-          } else {
-            // equal
-            return 0
-          }
-        })
+        if (this.lex.altLemmas && this.lex.altLemmas.length > 0) {
+          return [this.lex.lemma, ...this.lex.altLemmas].sort((a,b) => {
+            if (a.features[Feature.types.frequency]) {
+              return a.features[Feature.types.frequency].compareTo(b.features[Feature.types.frequency])
+            } else if (b.features[Feature.types.frequency]) {
+              // frequency of a isn't defined so sort b first
+              return 1
+            } else {
+              // equal
+              return 0
+            }
+          })
+        } else {
+          return [this.lex.lemma]
+        }
       },
       morphClass () {
         let c = "alpheios-morph__dictentry"
@@ -212,7 +216,7 @@
         return letters.substr(index, 1) + '.'
       },
       featureList(lemma,features,name) {
-        let list = features.map(i => lemma.features[i]).filter(i => i)
+        let list = features.map(i => lemma.features[i] ? GrmFeature.toFeature(lemma.features[i]): null).filter(i => i)
         list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
         let returnObj = {}
         returnObj[name] = { value: list }
