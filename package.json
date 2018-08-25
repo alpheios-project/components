@@ -61,6 +61,8 @@
     "source-map-loader": "^0.2.4",
     "standard": "^11.0.1",
     "style-loader": "^0.21.0",
+    "uikit": "^3.0.0-rc.11",
+    "vue": "^2.5.17",
     "whatwg-fetch": "^2.0.4",
     "wrap-range-text": "*"
   },
