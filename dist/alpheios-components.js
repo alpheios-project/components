@@ -9743,6 +9743,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9847,6 +9849,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     resourceSettingsLexiconsShort: function () {
       return this.data.resourceSettings && this.data.resourceSettings.lexiconsShort ? this.data.resourceSettings.lexiconsShort.filter(item => item.values.length > 0) : []
+    },
+
+    showDefinitionsPlaceholder: function () {
+      return (!this.data.shortDefinitions || this.data.shortDefinitions.length === 0) && (!this.data.fullDefinitions  || this.data.fullDefinitions.length === 0)
     },
     classes: function () {
       // Find index of an existing position class and replace it with an updated value
@@ -13243,29 +13249,14 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm.data.shortDefinitions && _vm.data.fullDefinitions
-                  ? _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value:
-                              _vm.data.shortDefinitions.length < 1 &&
-                              _vm.data.fullDefinitions.length < 1,
-                            expression:
-                              "data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1"
-                          }
-                        ]
-                      },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm.ln10Messages("PLACEHOLDER_DEFINITIONS"))
-                        )
-                      ]
-                    )
+                _vm.showDefinitionsPlaceholder
+                  ? _c("div", [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.ln10Messages("PLACEHOLDER_DEFINITIONS")) +
+                          "\n            "
+                      )
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm._l(_vm.data.shortDefinitions, function(definition) {
