@@ -9388,9 +9388,26 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function () {
-    this.types = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["GrmFeature"].types
+    this.types = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types
   },
   computed: {
+    allLemmas () {
+      if (this.lex.altLemmas && this.lex.altLemmas.length > 0) {
+        return [this.lex.lemma, ...this.lex.altLemmas].sort((a,b) => {
+          if (a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
+            return a.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency].compareTo(b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency])
+          } else if (b.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency]) {
+            // frequency of a isn't defined so sort b first
+            return 1
+          } else {
+            // equal
+            return 0
+          }
+        })
+      } else {
+        return [this.lex.lemma]
+      }
+    },
     morphClass () {
       let c = "alpheios-morph__dictentry"
       if (this.lex.disambiguated) {
@@ -9430,7 +9447,7 @@ __webpack_require__.r(__webpack_exports__);
       return letters.substr(index, 1) + '.'
     },
     featureList(lemma,features,name) {
-      let list = features.map(i => lemma.features[i] ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["GrmFeature"].toFeature(lemma.features[i]): null).filter(i => i)
+      let list = features.map(i => lemma.features[i] ? lemma.features[i]: null).filter(i => i)
       list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
       let returnObj = {}
       returnObj[name] = { value: list }
@@ -12197,190 +12214,195 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.lex
     ? _c("div", { class: _vm.morphClass }, [
-        _c("div", { staticClass: "alpheios-morph__features" }, [
-          _c(
-            "p",
-            { staticClass: "principal_parts" },
-            [
-              _vm.count > 1
-                ? _c("span", { staticClass: "lemma_index" }, [
-                    _vm._v(_vm._s(_vm.index + 1))
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.lex.lemma.principalParts.includes(_vm.lex.lemma.word)
-                ? _c(
+        _c(
+          "div",
+          { staticClass: "alpheios-morph__features" },
+          [
+            _vm._l(_vm.allLemmas, function(lemma, lemmaIndex) {
+              return _c(
+                "p",
+                { staticClass: "principal_parts" },
+                [
+                  lemmaIndex === 0 && _vm.count > 1
+                    ? _c("span", { staticClass: "lemma_index" }, [
+                        _vm._v(_vm._s(_vm.index + 1))
+                      ])
+                    : lemmaIndex > 0 && _vm.count > 1
+                      ? _c("span", { staticClass: "lemma_index_spacer" })
+                      : _vm._e(),
+                  _vm._v(" "),
+                  !lemma.principalParts.includes(lemma.word)
+                    ? _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem",
+                          attrs: { lang: _vm.languageCode(lemma.languageID) }
+                        },
+                        [_vm._v(_vm._s(lemma.word))]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
                     "span",
                     {
                       staticClass:
-                        "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem",
-                      attrs: {
-                        lang: _vm.languageCode(_vm.lex.lemma.languageID)
-                      }
+                        "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
                     },
-                    [_vm._v(_vm._s(_vm.lex.lemma.word))]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "alpheios-morph__hdwd alpheios-morph__formtext alpheios-morph__groupitem"
-                },
-                _vm._l(_vm.lex.lemma.principalParts, function(part) {
-                  return _c(
-                    "span",
-                    {
-                      staticClass: "alpheios-morph__listitem",
-                      attrs: {
-                        lang: _vm.languageCode(_vm.lex.lemma.languageID)
-                      }
-                    },
-                    [_vm._v(_vm._s(part))]
-                  )
-                })
-              ),
-              _vm._v(" "),
-              _c("inflectionattribute", {
-                attrs: {
-                  data: _vm.lex.lemma.features,
-                  type: _vm.types.pronunciation,
-                  linkedfeatures: _vm.linkedfeatures,
-                  decorators: ["brackets"]
-                }
-              }),
-              _vm._v(" "),
-              _vm.lex.lemma.features &&
-              (_vm.getFeature(_vm.lex.lemma, "frequency") ||
-                _vm.getFeature(_vm.lex.lemma, "age") ||
-                _vm.getFeature(_vm.lex.lemma, "area") ||
-                _vm.getFeature(_vm.lex.lemma, "geo"))
-                ? _c(
-                    "span",
-                    { staticClass: "feature_extras" },
-                    [
-                      _c("inflectionattribute", {
-                        attrs: {
-                          data: _vm.featureList(
-                            _vm.lex.lemma,
-                            ["age", "area", "geo", "frequency"],
-                            "extras"
-                          ),
-                          type: "extras"
+                    _vm._l(lemma.principalParts, function(part) {
+                      return _c(
+                        "span",
+                        {
+                          staticClass: "alpheios-morph__listitem",
+                          attrs: { lang: _vm.languageCode(lemma.languageID) }
                         },
-                        on: { sendfeature: _vm.sendFeature }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm.lex.lemma.features
-            ? _c(
-                "div",
-                { staticClass: "alpheios-morph__morphdata" },
-                [
-                  _c(
-                    "span",
-                    { staticClass: "alpheios-morph__pofs" },
-                    [
-                      _c("inflectionattribute", {
-                        attrs: {
-                          data: _vm.lex.lemma.features,
-                          type: _vm.types.grmCase,
-                          linkedfeatures: _vm.linkedfeatures
-                        },
-                        on: { sendfeature: _vm.sendFeature }
-                      }),
-                      _vm._v(" "),
-                      _c("inflectionattribute", {
-                        attrs: {
-                          data: _vm.lex.lemma.features,
-                          type: _vm.types.gender,
-                          linkedfeatures: _vm.linkedfeatures
-                        },
-                        on: { sendfeature: _vm.sendFeature }
-                      }),
-                      _vm._v(" "),
-                      _c("inflectionattribute", {
-                        attrs: {
-                          data: _vm.lex.lemma.features,
-                          type: _vm.types.part,
-                          linkedfeatures: _vm.linkedfeatures
-                        },
-                        on: { sendfeature: _vm.sendFeature }
-                      })
-                    ],
-                    1
+                        [_vm._v(_vm._s(part))]
+                      )
+                    })
                   ),
                   _vm._v(" "),
                   _c("inflectionattribute", {
                     attrs: {
-                      data: _vm.lex.lemma.features,
-                      type: _vm.types.kind,
-                      linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["parenthesize"]
-                    },
-                    on: { sendfeature: _vm.sendFeature }
-                  }),
-                  _vm._v(" "),
-                  _c("inflectionattribute", {
-                    attrs: {
-                      data: _vm.lex.lemma.features,
-                      type: _vm.types.declension,
-                      linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["appendtype"]
-                    },
-                    on: { sendfeature: _vm.sendFeature }
-                  }),
-                  _vm._v(" "),
-                  _c("inflectionattribute", {
-                    attrs: {
-                      data: _vm.lex.lemma.features,
-                      type: _vm.types.conjugation,
-                      linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["appendtype"]
-                    },
-                    on: { sendfeature: _vm.sendFeature }
-                  }),
-                  _vm._v(" "),
-                  _c("inflectionattribute", {
-                    attrs: {
-                      data: _vm.lex.lemma.features,
-                      type: _vm.types.note,
+                      data: lemma.features,
+                      type: _vm.types.pronunciation,
                       linkedfeatures: _vm.linkedfeatures,
                       decorators: ["brackets"]
-                    },
-                    on: { sendfeature: _vm.sendFeature }
-                  })
+                    }
+                  }),
+                  _vm._v(" "),
+                  lemma.features &&
+                  (_vm.getFeature(lemma, "frequency") ||
+                    _vm.getFeature(lemma, "age") ||
+                    _vm.getFeature(lemma, "area") ||
+                    _vm.getFeature(lemma, "geo"))
+                    ? _c(
+                        "span",
+                        { staticClass: "feature_extras" },
+                        [
+                          _c("inflectionattribute", {
+                            attrs: {
+                              data: _vm.featureList(
+                                lemma,
+                                ["age", "area", "geo", "frequency"],
+                                "extras"
+                              ),
+                              type: "extras"
+                            },
+                            on: { sendfeature: _vm.sendFeature }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  lemma.features && _vm.getFeature(lemma, "source")
+                    ? _c(
+                        "span",
+                        { staticClass: "feature_source" },
+                        [
+                          _c("inflectionattribute", {
+                            attrs: {
+                              data: lemma.features,
+                              type: _vm.types.source,
+                              linkedfeatures: _vm.linkedfeatures,
+                              decorators: ["brackets"]
+                            },
+                            on: { sendfeature: _vm.sendFeature }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ],
                 1
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.lex.lemma.features && _vm.getFeature(_vm.lex.lemma, "source")
-            ? _c(
-                "p",
-                { staticClass: "feature_source" },
-                [
-                  _c("inflectionattribute", {
-                    attrs: {
-                      data: _vm.lex.lemma.features,
-                      type: _vm.types.source,
-                      linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["brackets"]
-                    },
-                    on: { sendfeature: _vm.sendFeature }
-                  })
-                ],
-                1
-              )
-            : _vm._e()
-        ]),
+            }),
+            _vm._v(" "),
+            _vm.lex.lemma.features
+              ? _c(
+                  "div",
+                  { staticClass: "alpheios-morph__morphdata" },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "alpheios-morph__pofs" },
+                      [
+                        _c("inflectionattribute", {
+                          attrs: {
+                            data: _vm.lex.lemma.features,
+                            type: _vm.types.grmCase,
+                            linkedfeatures: _vm.linkedfeatures
+                          },
+                          on: { sendfeature: _vm.sendFeature }
+                        }),
+                        _vm._v(" "),
+                        _c("inflectionattribute", {
+                          attrs: {
+                            data: _vm.lex.lemma.features,
+                            type: _vm.types.gender,
+                            linkedfeatures: _vm.linkedfeatures
+                          },
+                          on: { sendfeature: _vm.sendFeature }
+                        }),
+                        _vm._v(" "),
+                        _c("inflectionattribute", {
+                          attrs: {
+                            data: _vm.lex.lemma.features,
+                            type: _vm.types.part,
+                            linkedfeatures: _vm.linkedfeatures
+                          },
+                          on: { sendfeature: _vm.sendFeature }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("inflectionattribute", {
+                      attrs: {
+                        data: _vm.lex.lemma.features,
+                        type: _vm.types.kind,
+                        linkedfeatures: _vm.linkedfeatures,
+                        decorators: ["parenthesize"]
+                      },
+                      on: { sendfeature: _vm.sendFeature }
+                    }),
+                    _vm._v(" "),
+                    _c("inflectionattribute", {
+                      attrs: {
+                        data: _vm.lex.lemma.features,
+                        type: _vm.types.declension,
+                        linkedfeatures: _vm.linkedfeatures,
+                        decorators: ["appendtype"]
+                      },
+                      on: { sendfeature: _vm.sendFeature }
+                    }),
+                    _vm._v(" "),
+                    _c("inflectionattribute", {
+                      attrs: {
+                        data: _vm.lex.lemma.features,
+                        type: _vm.types.conjugation,
+                        linkedfeatures: _vm.linkedfeatures,
+                        decorators: ["appendtype"]
+                      },
+                      on: { sendfeature: _vm.sendFeature }
+                    }),
+                    _vm._v(" "),
+                    _c("inflectionattribute", {
+                      attrs: {
+                        data: _vm.lex.lemma.features,
+                        type: _vm.types.note,
+                        linkedfeatures: _vm.linkedfeatures,
+                        decorators: ["brackets"]
+                      },
+                      on: { sendfeature: _vm.sendFeature }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ],
+          2
+        ),
         _vm._v(" "),
         _vm.definitions.length > 0
           ? _c(
