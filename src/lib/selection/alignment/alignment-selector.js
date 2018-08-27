@@ -1,4 +1,5 @@
 import PointerEvt from '@/lib/custom-pointer-events/pointer-evt'
+import jump from 'jump.js'
 /**
  * This class can be used to add aligned translation functionality to a page
  * Example Usage:
@@ -22,10 +23,15 @@ export default class AlignmentSelector {
     const DEFAULTS = {
       highlightClass: 'alpheios-alignment__highlight',
       disableClass: 'alpheios-alignment__disabled',
+      fixHighlightClass: 'alpheios-alignment__highlight_fix',
       focusEvent: 'mouseenter',
-      blurEvent: 'mouseleave'
+      blurEvent: 'mouseleave',
+      clickEventConstant: true
     }
     this.settings = Object.assign({}, DEFAULTS, options)
+    this.jumpTempHighlighted = false
+    this.jumpTimeout = null
+    this.cancelJump = false
   }
 
   /**
@@ -36,7 +42,21 @@ export default class AlignmentSelector {
     for (let a of alignments) {
       a.addEventListener(this.settings.focusEvent, event => { this.focus(event) })
       a.addEventListener(this.settings.blurEvent, event => { this.blur(event) })
+
+      if (this.settings.clickEventConstant) {
+        a.addEventListener('click', event => { this.click(event) })
+      }
     }
+  }
+
+  click (event) {
+    if (event.target.dataset.highlight_fixed === 'true') {
+      this.clearFixedHighlighted(event.target)
+      this.cancelJump = true
+    } else {
+      this.setFixedHighlighted()
+    }
+    this.jumpTempHighlighted = false
   }
 
   /**
@@ -44,7 +64,7 @@ export default class AlignmentSelector {
    * @param {Event} event the event which triggered the request
    */
   blur (event) {
-    this.doc.querySelectorAll(`.${this.settings.highlightClass}`).forEach(e => e.classList.remove(this.settings.highlightClass))
+    this.removeHighlightWords()
   }
 
   /**
@@ -52,31 +72,164 @@ export default class AlignmentSelector {
    * @param {Event} event the event which triggered the request
    */
   focus (event) {
-    let ref = event.target.dataset.alpheios_align_ref
-    if (ref) {
-      for (let r of ref.split(/,/)) {
-        let aligned = this.doc.querySelectorAll(r)
-        let disabled = Array.from(aligned).filter((a) => this.isDisabled(a))
-        if (aligned.length > 0 && disabled.length === 0) {
-          event.target.classList.add(this.settings.highlightClass)
-          for (let a of aligned) {
-            a.classList.add(this.settings.highlightClass)
-            let aref = a.dataset.alpheios_align_ref
-            if (aref) {
-              for (let ar of aref.split(/,/)) {
-                let reverse = this.doc.querySelectorAll(ar)
-                for (let reverseA of reverse) {
-                  if (reverseA !== event.target) {
-                    reverseA.classList.add(this.settings.highlightClass)
-                  }
-                }
+    let firstAligned = this.highlightWords(event.target)
+    if (firstAligned) {
+      this.scrollToElement(firstAligned)
+    }
+  }
+
+  scrollToElement (elem) {
+    if (!this.isElementInViewport(elem)) {
+      clearTimeout(this.jumpTimeout)
+
+      this.jumpTimeout = setTimeout(() => {
+        clearTimeout(this.jumpTimeout)
+
+        if (elem.dataset.highlight_fixed !== 'true') {
+          this.jumpTempHighlighted = true
+          this.setFixedHighlighted()
+        }
+
+        if (!this.cancelJump) {
+          jump(elem, {
+            duration: 2000,
+            callback: () => {
+              if (this.jumpTempHighlighted) {
+                setTimeout(() => {
+                  this.jumpTempHighlighted = false
+                  this.clearFixedHighlighted(elem)
+                }, 500)
               }
             }
-          }
-          this.scrollToElement(aligned[0])
+          })
+        }
+      }
+        , 1500)
+    }
+    this.cancelJump = false
+  }
+
+  isElementInViewport (elem) {
+    let bounding = elem.getBoundingClientRect()
+    return (
+      bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        bounding.bottom <= (window.innerHeight || this.doc.documentElement.clientHeight) &&
+        bounding.right <= (window.innerWidth || this.doc.documentElement.clientWidth)
+    )
+  }
+
+  makeElementFixedHighlighted(elem) {
+    elem.dataset.highlight_fixed = true
+    this.addClass(elem, this.settings.fixHighlightClass)
+    this.removeClass(elem, this.settings.highlightClass)
+  }
+
+  removeElementFixedHighlighted(elem) {
+    elem.dataset.highlight_fixed = false
+    this.removeClass(elem, this.settings.fixHighlightClass)
+    this.addClass(elem, this.settings.highlightClass)
+  }
+
+  setFixedHighlighted () {
+    this.doc.querySelectorAll(`.${this.settings.highlightClass}`).forEach(e => {
+      if (e.dataset.highlight_fixed !== 'true') {
+        this.makeElementFixedHighlighted(e)
+      }
+    })
+  }
+
+  clearFixedHighlighted (elem) {
+    let alignedToTarget = this.getAlignedListByRef(elem, true)
+
+    if (alignedToTarget.length > 0) {
+      this.removeClass(elem, this.settings.highlightClass)
+      this.removeClass(alignedToTarget, this.settings.highlightClass)
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedToTarget)
+      this.removeClass(reversedAlignedObj, this.settings.highlightClass)
+    }
+  }
+
+  removeHighlightWords () {
+    this.doc.querySelectorAll(`.${this.settings.highlightClass}`)
+      .forEach(e => {
+        if (e.dataset.highlight_fixed !== 'true') {
+          e.classList.remove(this.settings.highlightClass)
+        }
+      })
+  }
+
+  highlightWords (elem) {
+    let alignedToTarget = this.getAlignedListByRef(elem, true)
+
+    if (alignedToTarget.length > 0 && elem.dataset.highlight_fixed !== 'true') {
+      this.addClass(elem, this.settings.highlightClass)
+      this.addClass(alignedToTarget, this.settings.highlightClass)
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedToTarget)
+      this.addClass(reversedAlignedObj, this.settings.highlightClass)
+    }
+
+    return alignedToTarget.length > 0 ? alignedToTarget[0] : null
+  }
+
+  addClass (elem, className) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        if (!el.classList.contains(className)) {
+          el.classList.add(className)
+        }
+      }
+    } else {
+      if (!elem.classList.contains(className)) {
+        elem.classList.add(className)
+      }
+    }
+  }
+
+  removeClass (elem, className) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        if (el.classList.contains(className)) {
+          el.classList.remove(className)
+        }
+      }
+    } else {
+      if (elem.classList.contains(className)) {
+        if (fixRemove) {
+          this.makeElementFixedHighlighted(elem)
+        } else {
+          elem.classList.remove(className)
         }
       }
     }
+  }
+
+  getAlignedListByRef (target, checkDisabled = false) {
+    let ref = target.dataset.alpheios_align_ref
+    if (ref) {
+      let res = []
+      for (let r of ref.split(/,/)) {
+        let aligned = this.doc.querySelectorAll(r)
+
+        if (checkDisabled) {
+          aligned = Array.from(aligned).filter(el => !this.isDisabled(el))
+        }
+        aligned.forEach(el => { res.push(el) })
+      }
+
+      return res
+    }
+  }
+
+  getAllAlignedObjects (targetArr) {
+    let res = []
+    for (let a of targetArr) {
+      let aligned = this.getAlignedListByRef(a)
+      aligned.forEach(el => { res.push(el) })
+    }
+    return res
   }
 
   isDisabled (elem) {
@@ -87,52 +240,5 @@ export default class AlignmentSelector {
       }
     }
     return false
-  }
-
-  /**
-   * Scroll an element into view
-   * @param {Element} elem the element to scroll to
-   */
-  scrollToElement (elem) {
-    var top = elem.offsetTop
-    var left = elem.offsetLeft
-    var width = elem.offsetWidth
-    var height = elem.offsetHeight
-
-    while (elem.offsetParent) {
-      elem = elem.offsetParent
-      top += elem.offsetTop
-      left += elem.offsetLeft
-    }
-
-    var moveX = 0
-    var moveY = 0
-    if (left < elem.ownerDocument.defaultView.pageXOffset) {
-      moveX = left - elem.ownerDocument.defaultView.pageXOffset
-    } else if ((left + width) >
-               (elem.ownerDocument.defaultView.pageXOffset +
-                elem.ownerDocument.defaultView.innerWidth)
-    ) {
-      moveX = (left + width) -
-               (elem.ownerDocument.defaultView.pageXOffset +
-                elem.ownerDocument.defaultView.innerWidth)
-    }
-
-    if (top < elem.ownerDocument.defaultView.pageYOffset) {
-      moveY = top - elem.ownerDocument.defaultView.pageYOffset
-    } else if ((top >= elem.ownerDocument.defaultView.pageYOffset) &&
-                ((top + height) >
-                 (elem.ownerDocument.defaultView.pageYOffset +
-                  elem.ownerDocument.defaultView.innerHeight)
-                )
-    ) {
-      moveY =
-              (top + height) -
-              (elem.ownerDocument.defaultView.pageYOffset +
-               elem.ownerDocument.defaultView.innerHeight)
-    }
-    if (moveX !== 0 || moveY !== 0) {
-      elem.ownerDocument.defaultView.scrollBy(moveX, moveY)
-    }
   }
 }
