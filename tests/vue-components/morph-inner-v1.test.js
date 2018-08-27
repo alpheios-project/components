@@ -12,7 +12,8 @@ const mockFeature = function (value, type, languageCode) {
     value: value,
     type: type,
     languageID: LMF.getLanguageIdFromCode(languageCode),
-    toLocaleStringAbbr: () => { return `${value}-mockabbrev` }
+    toLocaleStringAbbr: () => { return `${value}-mockabbrev` },
+    toString: () => { return value }
   }
 }
 
