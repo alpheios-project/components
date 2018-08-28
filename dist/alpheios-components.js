@@ -29689,6 +29689,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jump_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jump.js */ "../node_modules/jump.js/dist/jump.module.js");
 
 
+
 /**
  * This class can be used to add aligned translation functionality to a page
  * Example Usage:
@@ -29715,12 +29716,14 @@ class AlignmentSelector {
       fixHighlightClass: 'alpheios-alignment__highlight_fix',
       focusEvent: 'mouseenter',
       blurEvent: 'mouseleave',
-      clickEventConstant: true
+      clickEventConstant: true,
+
+      scrollDuration: 1500,
+      scrollDelay: 1500
+
     }
     this.settings = Object.assign({}, DEFAULTS, options)
-    this.jumpTempHighlighted = false
     this.jumpTimeout = null
-    this.cancelJump = false
   }
 
   /**
@@ -29738,64 +29741,37 @@ class AlignmentSelector {
     }
   }
 
-  click (event) {
-    if (event.target.dataset.highlight_fixed === 'true') {
-      this.clearFixedHighlighted(event.target)
-      this.cancelJump = true
-    } else {
-      this.setFixedHighlighted()
-    }
-    this.jumpTempHighlighted = false
-  }
-
-  /**
-   * Respond to request to remove focus on an aligned word
-   * @param {Event} event the event which triggered the request
-   */
-  blur (event) {
-    this.removeHighlightWords()
-  }
-
-  /**
-   * Respond to request to focus on an aligned word
-   * @param {Event} event the event which triggered the request
-   */
   focus (event) {
-    let firstAligned = this.highlightWords(event.target)
-    if (firstAligned) {
+    let firstAligned = this.highlightWords(event.target, this.settings.highlightClass)
+
+    if (firstAligned && !this.isElementInViewport(firstAligned)) {
       this.scrollToElement(firstAligned)
     }
   }
 
+  blur (event) {
+    this.removeHighlightWords(event.target, this.settings.highlightClass)
+  }
+
+  click (event) {
+    if (this.isHighlightedFixed(event.target)) {
+      clearTimeout(this.jumpTimeout)
+      this.removeHighlightWords(event.target, this.settings.fixHighlightClass, false)
+    } else {
+      this.highlightWords(event.target, this.settings.fixHighlightClass, true)
+    }
+  }
+
   scrollToElement (elem) {
-    if (!this.isElementInViewport(elem)) {
+    clearTimeout(this.jumpTimeout)
+
+    this.jumpTimeout = setTimeout(() => {
       clearTimeout(this.jumpTimeout)
 
-      this.jumpTimeout = setTimeout(() => {
-        clearTimeout(this.jumpTimeout)
-
-        if (elem.dataset.highlight_fixed !== 'true') {
-          this.jumpTempHighlighted = true
-          this.setFixedHighlighted()
-        }
-
-        if (!this.cancelJump) {
-          Object(jump_js__WEBPACK_IMPORTED_MODULE_1__["default"])(elem, {
-            duration: 2000,
-            callback: () => {
-              if (this.jumpTempHighlighted) {
-                setTimeout(() => {
-                  this.jumpTempHighlighted = false
-                  this.clearFixedHighlighted(elem)
-                }, 500)
-              }
-            }
-          })
-        }
-      }
-        , 1500)
-    }
-    this.cancelJump = false
+      Object(jump_js__WEBPACK_IMPORTED_MODULE_1__["default"])(elem, {
+        duration: this.settings.scrollDuration
+      })
+    }, this.settings.scrollDelay)
   }
 
   isElementInViewport (elem) {
@@ -29808,48 +29784,93 @@ class AlignmentSelector {
     )
   }
 
-  setFixedHighlighted () {
-    this.doc.querySelectorAll(`.${this.settings.highlightClass}`).forEach(e => {
-      if (e.dataset.highlight_fixed !== 'true') {
-        e.dataset.highlight_fixed = true
-        this.addClass(e, this.settings.fixHighlightClass)
-      }
-    })
+  isHighlightedFixed (elem) {
+    return elem.dataset.highlight_fixed === 'true'
   }
 
-  clearFixedHighlighted (elem) {
-    let alignedToTarget = this.getAlignedListByRef(elem, true)
+  highlightWords (elem, highlightClass, setFixedValue = null) {
+    let alignedWithElem = this.getAlignedListByRef(elem, true)
 
-    if (alignedToTarget.length > 0) {
-      this.removeClass(elem, this.settings.highlightClass)
-      this.removeClass(alignedToTarget, this.settings.highlightClass)
+    if (alignedWithElem.length > 0) {
+      this.addClass(elem, highlightClass)
 
-      let reversedAlignedObj = this.getAllAlignedObjects(alignedToTarget)
-      this.removeClass(reversedAlignedObj, this.settings.highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(elem, true) }
+
+      this.addClass(alignedWithElem, highlightClass)
+
+      if (setFixedValue !== null) { this.setFixedAttribute(alignedWithElem, true) }
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedWithElem)
+      this.addClass(reversedAlignedObj, highlightClass)
+
+      if (setFixedValue !== null) { this.setFixedAttribute(reversedAlignedObj, true) }
     }
+
+    return alignedWithElem.length > 0 ? alignedWithElem[0] : null
   }
 
-  removeHighlightWords () {
-    this.doc.querySelectorAll(`.${this.settings.highlightClass}`)
-      .forEach(e => {
-        if (e.dataset.highlight_fixed !== 'true') {
-          e.classList.remove(this.settings.highlightClass)
+  removeHighlightWords (elem, highlightClass, setFixedValue = null) {
+    let alignedWithElem = this.getAlignedListByRef(elem, true)
+
+    if (alignedWithElem.length > 0) {
+      this.removeClass(elem, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(elem, false) }
+
+      this.removeClass(alignedWithElem, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(alignedWithElem, false) }
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedWithElem)
+      this.removeClass(reversedAlignedObj, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(reversedAlignedObj, false) }
+    }
+
+    return alignedWithElem.length > 0 ? alignedWithElem[0] : null
+  }
+
+  getAlignedListByRef (target, checkDisabled = false) {
+    let ref = target.dataset.alpheios_align_ref
+    let res = []
+    if (ref) {
+      for (let r of ref.split(/,/)) {
+        let aligned = this.doc.querySelectorAll(r)
+
+        if (checkDisabled) {
+          aligned = Array.from(aligned).filter(el => !this.isDisabled(el))
         }
-      })
-  }
-
-  highlightWords (elem) {
-    let alignedToTarget = this.getAlignedListByRef(elem, true)
-
-    if (alignedToTarget.length > 0 && elem.dataset.highlight_fixed !== 'true') {
-      this.addClass(elem, this.settings.highlightClass)
-      this.addClass(alignedToTarget, this.settings.highlightClass)
-
-      let reversedAlignedObj = this.getAllAlignedObjects(alignedToTarget)
-      this.addClass(reversedAlignedObj, this.settings.highlightClass)
+        aligned.forEach(el => { res.push(el) })
+      }
     }
 
-    return alignedToTarget.length > 0 ? alignedToTarget[0] : null
+    return res
+  }
+
+  getAllAlignedObjects (targetArr) {
+    let res = []
+    for (let a of targetArr) {
+      let aligned = this.getAlignedListByRef(a)
+      aligned.forEach(el => { res.push(el) })
+    }
+    return res
+  }
+
+  isDisabled (elem) {
+    let path = _lib_custom_pointer_events_pointer_evt__WEBPACK_IMPORTED_MODULE_0__["default"].buildPath(elem)
+    for (let p of path) {
+      if (p.classList.contains(this.settings.disableClass)) {
+        return true
+      }
+    }
+    return false
+  }
+
+  setFixedAttribute (elem, value) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        el.dataset.highlight_fixed = value
+      }
+    } else {
+      elem.dataset.highlight_fixed = value
+    }
   }
 
   addClass (elem, className) {
@@ -29871,53 +29892,13 @@ class AlignmentSelector {
       for (let el of Array.from(elem)) {
         if (el.classList.contains(className)) {
           el.classList.remove(className)
-          el.dataset.highlight_fixed = false
-          this.removeClass(el, this.settings.fixHighlightClass)
         }
       }
     } else {
       if (elem.classList.contains(className)) {
         elem.classList.remove(className)
-        elem.dataset.highlight_fixed = false
-        this.removeClass(elem, this.settings.fixHighlightClass)
       }
     }
-  }
-
-  getAlignedListByRef (target, checkDisabled = false) {
-    let ref = target.dataset.alpheios_align_ref
-    if (ref) {
-      let res = []
-      for (let r of ref.split(/,/)) {
-        let aligned = this.doc.querySelectorAll(r)
-
-        if (checkDisabled) {
-          aligned = Array.from(aligned).filter(el => !this.isDisabled(el))
-        }
-        aligned.forEach(el => { res.push(el) })
-      }
-
-      return res
-    }
-  }
-
-  getAllAlignedObjects (targetArr) {
-    let res = []
-    for (let a of targetArr) {
-      let aligned = this.getAlignedListByRef(a)
-      aligned.forEach(el => { res.push(el) })
-    }
-    return res
-  }
-
-  isDisabled (elem) {
-    let path = _lib_custom_pointer_events_pointer_evt__WEBPACK_IMPORTED_MODULE_0__["default"].buildPath(elem)
-    for (let p of path) {
-      if (p.classList.contains(this.settings.disableClass)) {
-        return true
-      }
-    }
-    return false
   }
 }
 
