@@ -81,7 +81,7 @@ describe('inflections-subtables-wide.test.js', () => {
     expect(cmp.emitted()['navigate'][0]).toEqual(['foolink'])
   })
 
-  it('5 WideInflectionsSubTables - full compare for testHomonym (συνδέει) - first view (present system middle-passive of contract verbs in -έω)', () => {
+  it.skip('5 WideInflectionsSubTables - full compare for testHomonym (συνδέει) - first view (present system middle-passive of contract verbs in -έω)', () => {
     let cmp = mount(WideInflectionsSubTables, {
       propsData: {
         view: testView

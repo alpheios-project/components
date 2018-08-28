@@ -389,7 +389,6 @@
  */
   /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
   /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -1990,9 +1989,6 @@
    Component: Sortable
  ========================================================================== */
   /*
- * Deactivate browser touch actions in IE11 and Edge
- */
-  /*
  * Deactivate pointer-events on SVGs in Safari
  */
   /*
@@ -2568,11 +2564,11 @@
  ========================================================================== */
   /*
  * Hidden
- * Can't use `display: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `display: none` because it's not accessible through keyboard.
  */
   /*
  * Invisible
- * Can't use `visibility: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
   /* Touch
  ========================================================================== */
@@ -2678,6 +2674,7 @@
   .auk audio,
   .auk canvas,
   .auk img,
+  .auk svg,
   .auk video {
     /* 1 */
     max-width: 100%;
@@ -2995,8 +2992,7 @@
     height: 1.5em;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
     background-repeat: no-repeat;
-    background-position: 50% 50%;
-    float: left; }
+    background-position: 50% 50%; }
   .auk .uk-list-large > li:nth-child(n+2),
   .auk .uk-list-large > li > ul {
     margin-top: 20px; }
@@ -3151,11 +3147,9 @@
   .auk .uk-icon::-moz-focus-inner {
     border: 0;
     padding: 0; }
-  .auk .uk-icon [fill*='#']:not(.uk-preserve),
-  .auk .uk-icon [FILL*='#']:not(.uk-preserve) {
+  .auk .uk-icon [fill*='#']:not(.uk-preserve) {
     fill: currentcolor; }
-  .auk .uk-icon [stroke*='#']:not(.uk-preserve),
-  .auk .uk-icon [STROKE*='#']:not(.uk-preserve) {
+  .auk .uk-icon [stroke*='#']:not(.uk-preserve) {
     stroke: currentcolor; }
   .auk .uk-icon > * {
     transform: translate(0, 0); }
@@ -3374,11 +3368,11 @@
     background-color: #f8f8f8;
     color: #999;
     border-color: #e5e5e5; }
-  .auk .uk-input:-ms-input-placeholder {
+  .auk .uk-input::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-input::placeholder {
     color: #999; }
-  .auk .uk-textarea:-ms-input-placeholder {
+  .auk .uk-textarea::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-textarea::placeholder {
     color: #999; }
@@ -5691,8 +5685,6 @@
     border: 0; }
   .auk .uk-sortable {
     position: relative; }
-  .auk .uk-sortable > * {
-    touch-action: none; }
   .auk .uk-sortable svg {
     pointer-events: none; }
   .auk .uk-sortable > :last-child {
@@ -7483,6 +7475,9 @@
 .sense-spacer2 {
   padding-left: 3em; }
 
+.alph-source {
+  margin-top: 1em; }
+
 .alph_tooltip {
   position: relative;
   display: inline-block; }
@@ -7609,6 +7604,17 @@
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent #555 transparent; }
+
+.alpheios-panel-right .alph_tooltip-bottom-right {
+  top: 135%;
+  right: auto;
+  margin-left: 0;
+  left: 0; }
+
+.alpheios-panel-right .alph_tooltip-bottom-right::after {
+  margin-left: 0;
+  right: auto;
+  left: 15%; }
 
 .alph_tooltip-left {
   top: -5px;
@@ -7954,7 +7960,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_medium_class .alpheios-inflections__additional_title {
     font-size: 14px;
     font-weight: 700; }
-  .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index {
+  .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index_spacer {
     font-size: 14px;
     line-height: 20.8px;
     width: 20.8px;
@@ -8053,7 +8059,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_small_class .alpheios-inflections__additional_title {
     font-size: 10.5px;
     font-weight: 700; }
-  .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index {
+  .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index_spacer {
     font-size: 10.5px;
     line-height: 15.6px;
     width: 15.6px;
@@ -8152,7 +8158,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_large_class .alpheios-inflections__additional_title {
     font-size: 17.5px;
     font-weight: 700; }
-  .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index {
+  .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index_spacer {
     font-size: 17.5px;
     line-height: 26px;
     width: 26px;
@@ -8456,7 +8462,7 @@ div.alpheios-morph__block {
 .alpheios-morph__dictentry {
   margin-bottom: 15px;
 }
-.alpheios-morph__dictentry .lemma_index {
+.alpheios-morph__dictentry .lemma_index, .alpheios-morph__dictentry .lemma_index_spacer {
     display: inline-block;
     text-align: center;
     font-weight: bold;
@@ -8473,18 +8479,13 @@ div.alpheios-morph__block {
     margin-bottom: 0;
     margin-top: 0;
 }
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source {
-      text-align: right;
-      float: right;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source .alpheios-morph__attr {
-        font-weight: bold;
-}
 .alpheios-morph__dictentry .alpheios-morph__features p.feature_extras {
       font-style: italic;
 }
+.alpheios-morph__dictentry .alpheios-morph__features span.feature_source .alpheios-morph__attr {
+    font-size: smaller;
+}
 .alpheios-morph__dictentry .alpheios-morph__morphdata,
-  .alpheios-morph__dictentry p.feature_source,
   .alpheios-morph__dictentry p.feature_extras,
   .alpheios-morph__dictentry .alpheios-morph__definition_list,
   .alpheios-morph__dictentry .alpheios-morph__translation_list,
@@ -8714,7 +8715,6 @@ to{transform:rotate(2turn)
 .alpheios-lookup__form {
   margin: 15px 10px 5px;
   text-align: left;
-  overflow: hidden;
 }
 .uk-input.alpheios-lookup__input {
   width: 70%;
@@ -9076,7 +9076,6 @@ h4.alpheios-inflections__additional_title {
 }
 .infl-cell--hdr {
   font-weight: 700;
-  text-transform: capitalize;
   text-align: center;
 }
 .infl-cell--hdr .infl-cell__conj-stem {
@@ -9184,6 +9183,9 @@ h4.alpheios-inflections__additional_title {
   background-color: #F6D918;
   font-weight: 700;
 }
+.row-title-cell {
+  text-transform: capitalize;
+}
 .alpheios-inflections__footnotes {
   display: none;
   grid-template-columns: 1.6rem 1fr;
@@ -9286,7 +9288,7 @@ h3.alpheios-inflections__credits-title {
   flex: none;
   font-weight: normal;
   font-style: italic;
-  padding: 5px;
+  padding: 5px 10px;
   font-size: 80%;
 }
 .alpheios-grammar__frame-cont {
@@ -9506,7 +9508,7 @@ ul.alpheios-skin_properties {
   flex-direction: row-reverse;
 }
 .alpheios-panel__content {
-  overflow: auto;
+  overflow: visible;
   grid-area: content;
   direction: ltr;
   box-sizing: border-box;

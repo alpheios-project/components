@@ -75,7 +75,7 @@ describe('inflections-table-wide.test.js', () => {
     expect(cmp.vm.cellClasses(cellFullMatchData)).toEqual('infl-prdgm-tbl-cell--data infl-prdgm-tbl-cell--full-match')
   })
 
-  it('4 WideInflectionsTable - full compare for testHomonym (συνδέει) - first view (present system middle-passive of contract verbs in -έω)', () => {
+  it.skip('4 WideInflectionsTable - full compare for testHomonym (συνδέει) - first view (present system middle-passive of contract verbs in -έω)', () => {
     let cmp = mount(WideInflectionsTable, {
       propsData: {
         view: testView
