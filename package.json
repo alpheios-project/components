@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Alpheios UI Compononents",
   "main": "dist/alpheios-components.min.js",
   "scripts": {
@@ -85,6 +85,9 @@
   },
   "jest": {
     "verbose": true,
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
     "transform": {
       "^.+\\.htmlf$": "html-loader-jest",
       "^.+\\.jsx?$": "babel-jest",
@@ -96,7 +99,9 @@
     ],
     "moduleNameMapper": {
       "^vue$": "vue/dist/vue.common.js",
-      "^@[/](.+)": "<rootDir>/src/$1"
+      "^@[/](.+)": "<rootDir>/src/$1",
+      "alpheios-morph-client": "<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js",
+      "alpheios-inflection-tables": "<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js"
     },
     "moduleFileExtensions": [
       "js",

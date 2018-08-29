@@ -7568,6 +7568,17 @@ var singleton = jumper();
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/index.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/lib/loader.js??ref--5-2!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/index.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-wide.vue?vue&type=style&index=0&lang=scss&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/lib/loader.js??ref--5-2!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/inflections-table-wide.vue?vue&type=style&index=0&lang=scss& ***!
@@ -8573,10 +8584,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue-components/inflections-table-wide.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue-components/inflections-table-wide.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8593,10 +8604,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'WideInflectionsTable',
+  name: 'InflectionsTablePrerendered',
   props: {
     // An inflection table view
     view: {
@@ -8665,6 +8680,123 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue-components/inflections-table-wide.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue-components/inflections-table-wide.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WideInflectionsTableStandardForm',
+  props: {
+    // An inflection table view
+    view: {
+      type: [Object, Boolean],
+      required: true
+    },
+    noSuffixMatchesHidden: {
+      type: [Boolean],
+      required: true
+    }
+  },
+
+  data: function () {
+    return {
+      collapsed: false
+    }
+  },
+
+  methods: {
+    collapse: function () {
+      this.view.wideView.collapsed = !this.view.wideView.collapsed
+      this.collapsed = this.view.wideView.collapsed
+    },
+
+    morphemeClasses: function (morpheme) {
+      return {
+        ['infl-suff']: true,
+        ['infl-suff--suffix-match']: morpheme.match.suffixMatch,
+        ['infl-suff--full-feature-match']: morpheme.match.fullMatch,
+      }
+    },
+
+    cellMouseOver: function (cell) {
+      let wideView =  this.view.wideView
+      if (cell.isDataCell) {
+        cell.highlightRowAndColumn()
+        this.view.wideView = wideView
+      }
+    },
+
+    cellMouseLeave: function (cell) {
+      let wideView =  this.view.wideView
+      if (cell.isDataCell) {
+        cell.clearRowAndColumnHighlighting()
+        this.view.wideView = wideView
+      }
+    }
+  },
+
+  watch: {
+    noSuffixMatchesHidden: function (value) {
+      this.view.noSuffixMatchesGroupsHidden(value)
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue-components/inflections.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue-components/inflections.vue?vue&type=script&lang=js& ***!
@@ -8674,15 +8806,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inflections-table-wide.vue */ "./vue-components/inflections-table-wide.vue");
-/* harmony import */ var _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inflections-subtables-wide.vue */ "./vue-components/inflections-subtables-wide.vue");
-/* harmony import */ var _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inflections-supp-table-wide.vue */ "./vue-components/inflections-supp-table-wide.vue");
-/* harmony import */ var _wordforms_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./wordforms.vue */ "./vue-components/wordforms.vue");
-/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tooltip.vue */ "./vue-components/tooltip.vue");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _inflections_table_prerendered_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inflections-table-prerendered.vue */ "./vue-components/inflections-table-prerendered.vue");
+/* harmony import */ var _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inflections-table-wide.vue */ "./vue-components/inflections-table-wide.vue");
+/* harmony import */ var _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inflections-subtables-wide.vue */ "./vue-components/inflections-subtables-wide.vue");
+/* harmony import */ var _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inflections-supp-table-wide.vue */ "./vue-components/inflections-supp-table-wide.vue");
+/* harmony import */ var _wordforms_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./wordforms.vue */ "./vue-components/wordforms.vue");
+/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tooltip.vue */ "./vue-components/tooltip.vue");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__);
 //
 //
 //
@@ -8776,6 +8909,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 // Other dependencies
 
 
@@ -8783,11 +8917,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Inflections',
   components: {
-    mainTableWide: _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    subTablesWide: _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    suppTablesWide: _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    wordForms: _wordforms_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    prerenderedTableWide: _inflections_table_prerendered_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    mainTableWideVue: _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    subTablesWide: _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    suppTablesWide: _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordForms: _wordforms_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
 
   props: {
@@ -8808,7 +8943,7 @@ __webpack_require__.r(__webpack_exports__);
 
   data: function () {
     return {
-      languageID: alpheios_data_models__WEBPACK_IMPORTED_MODULE_5__["Constants"].LANG_LATIN, // Default value
+      languageID: alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__["Constants"].LANG_LATIN, // Default value
       events: {
         EVENT: 'event',
         DATA_UPDATE: 'dataUpdate'
@@ -8821,6 +8956,8 @@ __webpack_require__.r(__webpack_exports__);
       selectedView: {},
       renderedView: {},
       elementIDs: {
+        panelInner: 'alpheios-panel-inner',
+        content: 'alpheios-inflections__content',
         wideView: 'alph-inflection-table-wide',
         footnotes: 'alph-inflection-footnotes'
       },
@@ -8839,7 +8976,7 @@ __webpack_require__.r(__webpack_exports__);
           hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWEMPTY
         },
         hideNoSuffixGroups: {
-          noSuffMatchHidden: true,
+          noSuffixMatchesHidden: true,
           text: '',
           shownText: this.messages.LABEL_INFLECT_COLLAPSE,
           hiddenText: this.messages.LABEL_INFLECT_SHOWFULL,
@@ -8850,6 +8987,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
+      canCollapse: false, // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
       sfCollapsed: true
     }
   },
@@ -8875,11 +9013,11 @@ __webpack_require__.r(__webpack_exports__);
       set: function (newValue) {
         this.selectedPartOfSpeech = newValue
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
-
         this.selectedView = this.views[0]
-        if (!this.selectedView.hasComponentData) {
+        if (!this.selectedView.hasPrerenderedTables) {
           // Rendering is not required for component-enabled views
-          this.renderInflections().displayInflections()
+          this.selectedView.render()
+          this.canCollapse = this.selectedView.canCollapse
         }
       }
     },
@@ -8889,8 +9027,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       set: function (newValue) {
         this.selectedView = this.views.find(view => view.id === newValue)
-        if (!this.selectedView.hasComponentData) {
-          this.renderInflections().displayInflections()
+        if (!this.selectedView.hasPrerenderedTables) {
+          this.selectedView.render()
+          this.canCollapse = this.selectedView.canCollapse
         }
       }
     },
@@ -8911,13 +9050,6 @@ __webpack_require__.r(__webpack_exports__);
       }
       return forms
     },
-    canCollapse: function () {
-      if (this.data.inflectionData && this.selectedView && this.selectedView.table) {
-        return this.selectedView.table.canCollapse
-      } else {
-        return true
-      }
-    },
     showExplanatoryHint: function () {
       return this.selectedView && this.selectedView.constructor && this.selectedView.constructor.name === 'GreekParadigmView'
     }
@@ -8925,7 +9057,7 @@ __webpack_require__.r(__webpack_exports__);
 
   watch: {
     inflectionViewSet: function () {
-      this.clearInflections().setDefaults()
+      this.clearInflections()
       if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
         // Set colors for supplemental paradigm tables
         for (let view of this.data.inflectionViewSet.getViews()) {
@@ -8956,9 +9088,11 @@ __webpack_require__.r(__webpack_exports__);
         if (this.views.length > 0) {
           this.hasInflectionData = true
           this.selectedView = this.views[0]
-          if (!this.selectedView.hasComponentData) {
+          if (!this.selectedView.hasPrerenderedTables) {
             // Rendering is not required for component-enabled views
-            this.renderInflections().displayInflections()
+            this.setDefaults()
+            this.selectedView.render()
+            this.canCollapse = this.selectedView.canCollapse
           }
         } else {
           this.selectedView = ''
@@ -8980,15 +9114,15 @@ __webpack_require__.r(__webpack_exports__);
     isVisible: function (visibility) {
       if (visibility) {
         // If container is become visible, update parent with its width
-        this.$emit('contentwidth', this.htmlElements.wideView.offsetWidth)
+        this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
       }
     },
     locale: function (locale) {
       if (this.data.inflectionData) {
         this.data.inflectionViewSet.setLocale(this.locale)
-        if (!this.selectedView.hasComponentData) {
+        if (!this.selectedView.hasPrerenderedTables) {
           // Rendering is not required for component-enabled views
-          this.renderInflections().displayInflections() // Re-render inflections for a different locale
+          this.selectedView.render() // Re-render inflections for a different locale
         }
       }
     }
@@ -8996,74 +9130,8 @@ __webpack_require__.r(__webpack_exports__);
 
   methods: {
     clearInflections: function () {
-      for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
+      // for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
       this.hasInflectionData = false
-      return this
-    },
-
-    renderInflections: function () {
-      // Hide empty columns by default
-      // TODO: change inflection library to take that as an option
-      this.selectedView.render().hideEmptyColumns().hideNoSuffixGroups()
-      return this
-    },
-
-    displayInflections: function () {
-      let popupClassName = 'alpheios-inflections__footnote-popup'
-      let closeBtnClassName = 'alpheios-inflections__footnote-popup-close-btn'
-      let hiddenClassName = 'hidden'
-      let titleClassName = 'alpheios-inflections__footnote-popup-title'
-      this.htmlElements.wideView.innerHTML = ''
-      this.htmlElements.wideView.appendChild(this.selectedView.wideViewNodes)
-      let footnoteLinks = this.htmlElements.wideView.querySelectorAll('[data-footnote]')
-      if (footnoteLinks) {
-        for (let footnoteLink of footnoteLinks) {
-          let index = footnoteLink.dataset.footnote
-          if (!index) {
-            console.warn(`[data-footnote] attribute has no index value`)
-            break
-          }
-          let indexes = index.replace(/(?:\s|,)+/g, ' ').trim().split(' ')
-          let popup = document.createElement('div')
-          popup.classList.add(popupClassName, hiddenClassName)
-          let title = document.createElement('div')
-          title.classList.add(titleClassName)
-          title.innerHTML = 'Footnotes:'
-          popup.appendChild(title)
-
-          for (const index of indexes) {
-            let footnote = this.selectedView.footnotes.get(index)
-            if (footnote) {
-              let dt = document.createElement('dt')
-              dt.innerHTML = footnote.index
-              popup.appendChild(dt)
-              let dd = document.createElement('dd')
-              dd.innerHTML = footnote.text
-              popup.appendChild(dd)
-            } else {
-              console.warn(`Footnote "${index}" is not found`)
-            }
-          }
-          let closeBtn = document.createElement('div')
-          closeBtn.classList.add(closeBtnClassName)
-          closeBtn.innerHTML =
-            `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="none" stroke-width="1.06" d="M16 16L4 4M16 4L4 16"></path>
-             </svg>`
-          popup.appendChild(closeBtn)
-          footnoteLink.appendChild(popup)
-
-          footnoteLink.addEventListener('click', (event) => {
-            popup.classList.remove(hiddenClassName)
-            event.stopPropagation()
-          })
-
-          closeBtn.addEventListener('click', (event) => {
-            popup.classList.add(hiddenClassName)
-            event.stopPropagation()
-          })
-        }
-      }
       return this
     },
 
@@ -9080,47 +9148,43 @@ __webpack_require__.r(__webpack_exports__);
 
     hideEmptyColsClick () {
       this.buttons.hideEmptyCols.contentHidden = !this.buttons.hideEmptyCols.contentHidden
+      this.selectedView.emptyColumnsHidden(this.buttons.hideEmptyCols.contentHidden)
       if (this.buttons.hideEmptyCols.contentHidden) {
         this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.hiddenText
         this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.hiddenTooltip
-        this.selectedView.hideEmptyColumns()
       } else {
         this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
         this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
-        this.selectedView.showEmptyColumns()
       }
-      this.displayInflections()
     },
 
     hideNoSuffixGroupsClick () {
-      this.buttons.hideNoSuffixGroups.contentHidden = !this.buttons.hideNoSuffixGroups.contentHidden
-      if (this.buttons.hideNoSuffixGroups.contentHidden) {
+      this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden = !this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden
+      this.selectedView.noSuffixMatchesGroupsHidden(this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden)
+      if (this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden) {
         this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.hiddenText
         this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.hiddenTooltip
-        this.selectedView.hideNoSuffixGroups()
       } else {
         this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
         this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
-        this.selectedView.showNoSuffixGroups()
       }
-      this.displayInflections()
     },
 
     navigate (reflink) {
+      let panel = document.querySelector(`#${this.elementIDs.panelInner}`)
+      if (!panel) {
+        console.warn(`Cannot find panel's inner element #${this.elementIDs.panelInner}. Scroll cancelled`)
+      }
       if (reflink === 'top') {
         // Navigate to the top of the page
-        let parent = this.$el.offsetParent
-        if (parent) {
-          parent.scrollTop = 0
-        }
+        panel.scrollTop = 0
       } else {
         // Navigate to one of the supplemental tables
         const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
         let el = document.querySelector(`#${reflink}`)
         if (el) {
           const offset = Math.round(el.offsetTop)
-          let parent = el.offsetParent
-          parent.scrollTop = offset - paddingTop
+          panel.scrollTop = offset - paddingTop
         } else {
           console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
         }
@@ -9134,7 +9198,8 @@ __webpack_require__.r(__webpack_exports__);
 
   mounted: function () {
     if (typeof this.$el.querySelector === 'function') {
-      this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      // this.htmlElements.wideView = this.$el.querySelector(`#${this.elementIDs.wideView}`)
+      this.htmlElements.content = this.$el.querySelector(`#${this.elementIDs.content}`)
     }
   }
 });
@@ -11627,10 +11692,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-wide.vue?vue&type=template&id=2d5411c6&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/inflections-table-wide.vue?vue&type=template&id=2d5411c6& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11644,6 +11709,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.view.wideTable
     ? _c("div", [
+        _c(
+          "h3",
+          {
+            staticClass: "alpheios-inflections__title alpheios-table-sf__title"
+          },
+          [_vm._v("\n        " + _vm._s(_vm.view.title) + "\n    ")]
+        ),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "infl-prdgm-tbl" },
@@ -11669,6 +11742,255 @@ var render = function() {
               })
             )
           })
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-wide.vue?vue&type=template&id=2d5411c6&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/inflections-table-wide.vue?vue&type=template&id=2d5411c6& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.view.wideView
+    ? _c("div", [
+        _c(
+          "h3",
+          {
+            staticClass:
+              "alpheios-inflections__title alpheios-table-sf__title alpheios-clickable",
+            on: { click: _vm.collapse }
+          },
+          [
+            _vm._v("\n        " + _vm._s(_vm.view.title) + "\n        "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.collapsed,
+                    expression: "collapsed"
+                  }
+                ]
+              },
+              [_vm._v("[+]")]
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.collapsed,
+                    expression: "!collapsed"
+                  }
+                ]
+              },
+              [_vm._v("[-]")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.collapsed,
+                expression: "!collapsed"
+              }
+            ],
+            staticClass: "infl-table infl-table--wide",
+            style: _vm.view.wideView.style,
+            attrs: { id: "alpheios-wide-vue-table" }
+          },
+          [
+            _vm._l(_vm.view.wideView.rows, function(row) {
+              return _vm._l(row.cells, function(cell) {
+                return _c(
+                  "div",
+                  {
+                    class: cell.classes,
+                    on: {
+                      mouseover: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        _vm.cellMouseOver(cell)
+                      },
+                      mouseleave: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        _vm.cellMouseLeave(cell)
+                      }
+                    }
+                  },
+                  [
+                    cell.isDataCell
+                      ? [
+                          _vm._l(cell.morphemes, function(morpheme, index) {
+                            return [
+                              _c(
+                                "span",
+                                { class: _vm.morphemeClasses(morpheme) },
+                                [
+                                  morpheme.value
+                                    ? [_vm._v(_vm._s(morpheme.value))]
+                                    : [_vm._v("-")]
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              morpheme.hasFootnotes
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass: "infl-suff-footnote-link",
+                                      on: {
+                                        click: function($event) {
+                                          $event.stopPropagation()
+                                          $event.preventDefault()
+                                          morpheme.footnotesPopupVisible = true
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._l(morpheme.footnotes, function(
+                                        footnote,
+                                        index
+                                      ) {
+                                        return _c(
+                                          "sup",
+                                          [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(footnote.index)
+                                            ),
+                                            index <
+                                            morpheme.footnotes.length - 1
+                                              ? [_vm._v(", ")]
+                                              : _vm._e()
+                                          ],
+                                          2
+                                        )
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value:
+                                                morpheme.footnotesPopupVisible,
+                                              expression:
+                                                "morpheme.footnotesPopupVisible"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "alpheios-inflections__footnote-popup"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "alpheios-inflections__footnote-popup-title"
+                                            },
+                                            [_vm._v("Footnotes:")]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._l(morpheme.footnotes, function(
+                                            footnote
+                                          ) {
+                                            return [
+                                              _c("dt", [
+                                                _vm._v(_vm._s(footnote.index))
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("dd", [
+                                                _vm._v(_vm._s(footnote.text))
+                                              ])
+                                            ]
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "alpheios-inflections__footnote-popup-close-btn",
+                                              on: {
+                                                click: function($event) {
+                                                  $event.stopPropagation()
+                                                  $event.preventDefault()
+                                                  morpheme.footnotesPopupVisible = false
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
+                                                {
+                                                  attrs: {
+                                                    viewBox: "0 0 20 20"
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      d: "M16 16L4 4M16 4L4 16"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        2
+                                      )
+                                    ],
+                                    2
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              index < cell.morphemes.length - 1
+                                ? [_vm._v(", ")]
+                                : _vm._e()
+                            ]
+                          })
+                        ]
+                      : _c("span", {
+                          domProps: { innerHTML: _vm._s(cell.value) }
+                        })
+                  ],
+                  2
+                )
+              })
+            })
+          ],
+          2
         )
       ])
     : _vm._e()
@@ -11739,13 +12061,10 @@ var render = function() {
             expression: "isContentAvailable && sfCollapsed"
           }
         ],
-        staticClass: "alpheios-inflections__content"
+        staticClass: "alpheios-inflections__content",
+        attrs: { id: _vm.elementIDs.content }
       },
       [
-        _c("h3", { staticClass: "alpheios-inflections__title" }, [
-          _vm._v(_vm._s(_vm.selectedView.title))
-        ]),
-        _vm._v(" "),
         _c(
           "div",
           {
@@ -11871,8 +12190,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.hasInflectionData,
-                    expression: "hasInflectionData"
+                    value: _vm.hasInflectionData && _vm.canCollapse,
+                    expression: "hasInflectionData && canCollapse"
                   }
                 ],
                 staticClass:
@@ -11884,62 +12203,25 @@ var render = function() {
                   {
                     attrs: {
                       tooltipDirection: "bottom-right",
-                      tooltipText: _vm.buttons.hideEmptyCols.tooltipText
+                      tooltipText: _vm.buttons.hideNoSuffixGroups.tooltipText
                     }
                   },
                   [
                     _c(
                       "button",
                       {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: false,
-                            expression: "false"
-                          }
-                        ],
                         staticClass:
                           "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn",
-                        on: { click: _vm.hideEmptyColsClick }
+                        on: { click: _vm.hideNoSuffixGroupsClick }
                       },
                       [
                         _vm._v(
                           "\n                  " +
-                            _vm._s(_vm.buttons.hideEmptyCols.text) +
+                            _vm._s(_vm.buttons.hideNoSuffixGroups.text) +
                             "\n                "
                         )
                       ]
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "alph-tooltip",
-                  {
-                    attrs: {
-                      tooltipDirection: "bottom-right",
-                      tooltipText: _vm.buttons.hideNoSuffixGroups.tooltipText
-                    }
-                  },
-                  [
-                    _vm.canCollapse
-                      ? _c(
-                          "button",
-                          {
-                            staticClass:
-                              "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn",
-                            on: { click: _vm.hideNoSuffixGroupsClick }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(_vm.buttons.hideNoSuffixGroups.text) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      : _vm._e()
                   ]
                 )
               ],
@@ -11978,89 +12260,90 @@ var render = function() {
             })
           : _vm._e(),
         _vm._v(" "),
-        _vm.selectedView.hasComponentData
-          ? [
-              _c("main-table-wide", { attrs: { view: _vm.selectedView } }),
+        !_vm.selectedView.hasPrerenderedTables
+          ? _c(
+              "div",
+              [
+                _c("main-table-wide-vue", {
+                  attrs: {
+                    view: _vm.selectedView,
+                    "no-suffix-matches-hidden":
+                      _vm.buttons.hideNoSuffixGroups.noSuffixMatchesHidden
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "alpheios-inflections__footnotes",
+                    attrs: { id: _vm.elementIDs.footnotes }
+                  },
+                  [
+                    _vm._l(_vm.footnotes, function(footnote) {
+                      return [
+                        _c("dt", [_vm._v(_vm._s(footnote.index))]),
+                        _vm._v(" "),
+                        _c("dd", [_vm._v(_vm._s(footnote.text))])
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ],
+              1
+            )
+          : [
+              _c("prerendered-table-wide", {
+                attrs: { view: _vm.selectedView }
+              }),
               _vm._v(" "),
               _c("sub-tables-wide", {
                 attrs: { view: _vm.selectedView },
                 on: { navigate: _vm.navigate }
-              })
-            ]
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.selectedView.hasComponentData,
-                expression: "!selectedView.hasComponentData"
-              }
-            ]
-          },
-          [
-            _c("div", { attrs: { id: _vm.elementIDs.wideView } }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "alpheios-inflections__footnotes",
-                attrs: { id: _vm.elementIDs.footnotes }
-              },
-              [
-                _vm._l(_vm.footnotes, function(footnote) {
-                  return [
-                    _c("dt", [_vm._v(_vm._s(footnote.index))]),
-                    _vm._v(" "),
-                    _c("dd", [_vm._v(_vm._s(footnote.text))])
-                  ]
-                })
-              ],
-              2
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.selectedView.hasSuppParadigms,
-                expression: "selectedView.hasSuppParadigms"
-              }
-            ],
-            staticClass: "alpheios-inflections__supp-tables"
-          },
-          [
-            _c("h3", { staticClass: "alpheios-inflections__title" }, [
-              _vm._v(
-                _vm._s(_vm.messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER)
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.selectedView.hasSuppParadigms,
+                      expression: "selectedView.hasSuppParadigms"
+                    }
+                  ],
+                  staticClass: "alpheios-inflections__supp-tables"
+                },
+                [
+                  _c("h3", { staticClass: "alpheios-inflections__title" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.selectedView.suppParadigms, function(paradigm) {
+                    return [
+                      _c("supp-tables-wide", {
+                        attrs: {
+                          data: paradigm,
+                          "bg-color": _vm.selectedView.hlSuppParadigms
+                            ? _vm.selectedView.suppHlColors.get(
+                                paradigm.paradigmID
+                              )
+                            : "transparent",
+                          messages: _vm.messages
+                        },
+                        on: { navigate: _vm.navigate }
+                      })
+                    ]
+                  })
+                ],
+                2
               )
-            ]),
-            _vm._v(" "),
-            _vm._l(_vm.selectedView.suppParadigms, function(paradigm) {
-              return [
-                _c("supp-tables-wide", {
-                  attrs: {
-                    data: paradigm,
-                    "bg-color": _vm.selectedView.hlSuppParadigms
-                      ? _vm.selectedView.suppHlColors.get(paradigm.paradigmID)
-                      : "transparent",
-                    messages: _vm.messages
-                  },
-                  on: { navigate: _vm.navigate }
-                })
-              ]
-            })
-          ],
-          2
-        ),
+            ],
         _vm._v(" "),
         _c(
           "div",
@@ -31045,6 +31328,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_supp_table_wide_vue_vue_type_template_id_1ae41c22___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_supp_table_wide_vue_vue_type_template_id_1ae41c22___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./vue-components/inflections-table-prerendered.vue":
+/*!**********************************************************!*\
+  !*** ./vue-components/inflections-table-prerendered.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inflections-table-prerendered.vue?vue&type=template&id=74f0137e& */ "./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e&");
+/* harmony import */ var _inflections_table_prerendered_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inflections-table-prerendered.vue?vue&type=script&lang=js& */ "./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss& */ "./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _inflections_table_prerendered_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue-components/inflections-table-prerendered.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_inflections_table_prerendered_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib??vue-loader-options!../../node_modules/source-map-loader!./inflections-table-prerendered.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue-components/inflections-table-prerendered.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_inflections_table_prerendered_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************!*\
+  !*** ./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader??ref--5-1!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/lib/loader.js??ref--5-2!../../node_modules/vue-loader/lib??vue-loader-options!./inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/index.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-prerendered.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e&":
+/*!*****************************************************************************************!*\
+  !*** ./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./inflections-table-prerendered.vue?vue&type=template&id=74f0137e& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue-components/inflections-table-prerendered.vue?vue&type=template&id=74f0137e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inflections_table_prerendered_vue_vue_type_template_id_74f0137e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
