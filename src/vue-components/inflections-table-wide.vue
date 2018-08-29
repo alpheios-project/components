@@ -17,8 +17,7 @@
                                 <template v-if="morpheme.value">{{morpheme.value}}</template>
                                 <template v-else>-</template>
                             </span>
-                            <!-- infl-footnote -->
-                            <infl-footnote v-if="morpheme.hasFootnotes" :morpheme="morpheme"></infl-footnote>
+                            <infl-footnote v-if="morpheme.hasFootnotes" :footnotes="morpheme.footnotes"></infl-footnote>
                             <template v-if="index < cell.morphemes.length-1">, </template>
                         </template>
                     </template>

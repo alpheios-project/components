@@ -8495,8 +8495,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'InflFootnote',
   props: {
-    morpheme: {
-      type: Object,
+    footnotes: {
+      type: Array,
       required: true
     }
   },
@@ -8785,7 +8785,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _infl_footnote_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./infl-footnote.vue */ "./vue-components/infl-footnote.vue");
-//
 //
 //
 //
@@ -11663,14 +11662,12 @@ var render = function() {
       }
     },
     [
-      _vm._l(_vm.morpheme.footnotes, function(footnote, index) {
+      _vm._l(_vm.footnotes, function(footnote, index) {
         return _c(
           "sup",
           [
             _vm._v("\n        " + _vm._s(footnote.index)),
-            index < _vm.morpheme.footnotes.length - 1
-              ? [_vm._v(", ")]
-              : _vm._e()
+            index < _vm.footnotes.length - 1 ? [_vm._v(", ")] : _vm._e()
           ],
           2
         )
@@ -11696,7 +11693,7 @@ var render = function() {
             [_vm._v("Footnotes:")]
           ),
           _vm._v(" "),
-          _vm._l(_vm.morpheme.footnotes, function(footnote) {
+          _vm._l(_vm.footnotes, function(footnote) {
             return [
               _c("dt", [_vm._v(_vm._s(footnote.index))]),
               _vm._v(" "),
@@ -12050,7 +12047,7 @@ var render = function() {
                               _vm._v(" "),
                               morpheme.hasFootnotes
                                 ? _c("infl-footnote", {
-                                    attrs: { morpheme: morpheme }
+                                    attrs: { footnotes: morpheme.footnotes }
                                   })
                                 : _vm._e(),
                               _vm._v(" "),

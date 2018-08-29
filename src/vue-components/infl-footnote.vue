@@ -1,12 +1,12 @@
 <template>
     <a class="infl-suff-footnote-link"
        @click.stop.prevent="footnotesPopupVisible = true">
-        <sup v-for="(footnote, index) in morpheme.footnotes">
-            {{footnote.index}}<template v-if="index < morpheme.footnotes.length-1">, </template>
+        <sup v-for="(footnote, index) in footnotes">
+            {{footnote.index}}<template v-if="index < footnotes.length-1">, </template>
         </sup>
         <div v-show="footnotesPopupVisible" class="alpheios-inflections__footnote-popup">
             <div class="alpheios-inflections__footnote-popup-title">Footnotes:</div>
-            <template v-for="footnote in morpheme.footnotes">
+            <template v-for="footnote in footnotes">
                 <dt>{{footnote.index}}</dt>
                 <dd>{{footnote.text}}</dd>
             </template>
@@ -22,8 +22,8 @@
   export default {
     name: 'InflFootnote',
     props: {
-      morpheme: {
-        type: Object,
+      footnotes: {
+        type: Array,
         required: true
       }
     },
