@@ -27089,7 +27089,19 @@ class UIController {
           }
           this.panelData.tabs[name] = true
           this.state.changeTab(name) // Reflect a tab change in a state
+
+          if (name === 'grammar') {
+            this.initGrammarTab()
+          }
+
           return this
+        },
+
+        initGrammarTab () {
+          if (!this.panelData.grammarRes || (!this.panelData.grammarRes.url && this.panelData.lexemes.length === 0)) {
+            const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+            this.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
+          }
         },
 
         clearContent: function () {
@@ -27245,6 +27257,8 @@ class UIController {
         this.panelData.inflections.localeSwitcher = document.querySelector(`#${this.panelData.inflectionIDs.localeSwitcher}`)
         this.panelData.inflections.viewSelector = document.querySelector(`#${this.panelData.inflectionIDs.viewSelector}`)
         this.panelData.inflections.tableBody = document.querySelector(`#${this.panelData.inflectionIDs.tableBody}`)
+
+        console.info('*******************mounted tabs.grammar', this.panelData.tabs.grammar)
       }
     })
 
