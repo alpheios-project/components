@@ -9251,13 +9251,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.lookuptext.length === 0) {
         return null
       }
-      let languageID
 
-      if (!this.overrideLanguage) {
-        languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
-      } else {
-        languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.lookupLanguage.currentValue)
-      }
+      const languageID = this.overrideLanguage
+            ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.lookupLanguage.currentValue)
+            : alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
 
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, languageID)
 

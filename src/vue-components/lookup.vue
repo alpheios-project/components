@@ -126,13 +126,10 @@
         if (this.lookuptext.length === 0) {
           return null
         }
-        let languageID
 
-        if (!this.overrideLanguage) {
-          languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
-        } else {
-          languageID = LanguageModelFactory.getLanguageIdFromCode(this.lookupLanguage.currentValue)
-        }
+        const languageID = this.overrideLanguage
+              ? LanguageModelFactory.getLanguageIdFromCode(this.lookupLanguage.currentValue)
+              : LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
 
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
