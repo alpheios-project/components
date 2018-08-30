@@ -1,5 +1,8 @@
 <template>
-    <div v-if="view.wideView">
+    <div v-if="!view.isImplemented" class="alpheios-inflections__not-impl-msg">
+        {{messages.INFLECT_MSG_TABLE_NOT_IMPLEMENTED}}
+    </div>
+    <div v-else-if="view.wideView">
         <h3 class="alpheios-inflections__title alpheios-table-sf__title alpheios-clickable"
             @click="collapse">
             {{view.title}}
@@ -51,6 +54,10 @@
       // An inflection table view
       view: {
         type: [Object, Boolean],
+        required: true
+      },
+      messages: {
+        type: Object,
         required: true
       },
       noSuffixMatchesHidden: {
@@ -117,5 +124,11 @@
 
     .alpheios-clickable {
         cursor: pointer;
+    }
+
+    .alpheios-inflections__not-impl-msg {
+        margin-top: 30px;
+        padding: 20px;
+        text-transform: uppercase;
     }
 </style>

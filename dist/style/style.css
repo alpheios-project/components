@@ -8955,6 +8955,11 @@ img.alpheios-popup__logo {
 .alpheios-clickable {
   cursor: pointer;
 }
+.alpheios-inflections__not-impl-msg {
+  margin-top: 30px;
+  padding: 20px;
+  text-transform: uppercase;
+}
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
