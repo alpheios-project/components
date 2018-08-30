@@ -98,12 +98,15 @@ export default class UIController {
             treebank: false
           },
           verboseMode: this.state.verboseMode,
+          grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
           inflectionComponentData: {
             visible: false,
             inflectionViewSet: null
           },
+          inflectionsWaitState: false,
+          inflectionsEnabled: false,
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -762,8 +765,11 @@ export default class UIController {
     return this
   }
 
-  newLexicalRequest () {
+  newLexicalRequest (languageID) {
     this.popup.newLexicalRequest()
+    this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
+    this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
+    this.panel.panelData.grammarAvailable = false
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -799,6 +805,7 @@ export default class UIController {
   updateGrammar (urls) {
     if (urls.length > 0) {
       this.panel.panelData.grammarRes = urls[0]
+      this.panel.panelData.grammarAvailable = true
     } else {
       this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
     }
@@ -886,11 +893,17 @@ export default class UIController {
 
   updateInflections (homonym) {
     this.inflectionsViewSet = ViewSetFactory.create(homonym, this.options.items.locale.currentValue)
+
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
+    this.panel.panelData.inflectionsWaitState = false
     this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  lexicalRequestComplete () {
+    this.panel.panelData.inflectionsWaitState = false
   }
 
   get inflDataReady () {

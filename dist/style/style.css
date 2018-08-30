@@ -389,7 +389,6 @@
  */
   /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
   /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -1990,9 +1989,6 @@
    Component: Sortable
  ========================================================================== */
   /*
- * Deactivate browser touch actions in IE11 and Edge
- */
-  /*
  * Deactivate pointer-events on SVGs in Safari
  */
   /*
@@ -2568,11 +2564,11 @@
  ========================================================================== */
   /*
  * Hidden
- * Can't use `display: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `display: none` because it's not accessible through keyboard.
  */
   /*
  * Invisible
- * Can't use `visibility: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
   /* Touch
  ========================================================================== */
@@ -2678,6 +2674,7 @@
   .auk audio,
   .auk canvas,
   .auk img,
+  .auk svg,
   .auk video {
     /* 1 */
     max-width: 100%;
@@ -2995,8 +2992,7 @@
     height: 1.5em;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
     background-repeat: no-repeat;
-    background-position: 50% 50%;
-    float: left; }
+    background-position: 50% 50%; }
   .auk .uk-list-large > li:nth-child(n+2),
   .auk .uk-list-large > li > ul {
     margin-top: 20px; }
@@ -3151,11 +3147,9 @@
   .auk .uk-icon::-moz-focus-inner {
     border: 0;
     padding: 0; }
-  .auk .uk-icon [fill*='#']:not(.uk-preserve),
-  .auk .uk-icon [FILL*='#']:not(.uk-preserve) {
+  .auk .uk-icon [fill*='#']:not(.uk-preserve) {
     fill: currentcolor; }
-  .auk .uk-icon [stroke*='#']:not(.uk-preserve),
-  .auk .uk-icon [STROKE*='#']:not(.uk-preserve) {
+  .auk .uk-icon [stroke*='#']:not(.uk-preserve) {
     stroke: currentcolor; }
   .auk .uk-icon > * {
     transform: translate(0, 0); }
@@ -3374,11 +3368,11 @@
     background-color: #f8f8f8;
     color: #999;
     border-color: #e5e5e5; }
-  .auk .uk-input:-ms-input-placeholder {
+  .auk .uk-input::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-input::placeholder {
     color: #999; }
-  .auk .uk-textarea:-ms-input-placeholder {
+  .auk .uk-textarea::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-textarea::placeholder {
     color: #999; }
@@ -5691,8 +5685,6 @@
     border: 0; }
   .auk .uk-sortable {
     position: relative; }
-  .auk .uk-sortable > * {
-    touch-action: none; }
   .auk .uk-sortable svg {
     pointer-events: none; }
   .auk .uk-sortable > :last-child {
@@ -9055,6 +9047,9 @@ h4.alpheios-inflections__additional_title {
   line-height: 1.2;
   justify-content: flex-start;
 }
+.alpheios-inflections__placeholder {
+  text-align: center;
+}
 .infl-table {
   display: grid;
   border-left: 1px solid #111;
@@ -9288,6 +9283,84 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-inflections__supp-tables {
   margin-top: 4rem;
+}
+.alpheios-inflections__progress-wrapper {
+  height: 1.2rem;
+  margin: 0 1rem 2rem;
+  font-size: 0.875rem;
+}
+.alpheios-inflections__progress-border {
+  border: 2px solid #73CDDE;
+  min-width: 300px;
+  height: 100%;
+  padding: 2px;
+}
+.alpheios-inflections__progress-whitespace {
+  overflow: hidden;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.alpheios-inflections__progress-line {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #73CDDE;
+  animation: cssload-slide 5.75s steps(40) infinite;
+}
+.alpheios-inflections__progress-whitespace div.alpheios-inflections__progress-text,
+.alpheios-inflections__progress-text {
+  text-transform: uppercase;
+  color: #666666;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 300px;
+  font-size: 13px;
+  top: 3px;
+}
+@keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-o-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-ms-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-webkit-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-moz-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
 }
 
 /************ UIKit vars ************************/
@@ -9582,6 +9655,7 @@ ul.alpheios-skin_properties {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  width: 100%;
 }
 .alpheios-panel__tab-panel--fw {
   width: 100%;
@@ -9664,6 +9738,9 @@ ul.alpheios-skin_properties {
 }
 .alpheios-panel__options-item select {
   display: inline-block;
+}
+.alpheios-panel__tab__inflections {
+  width: 100%;
 }
 
 
