@@ -8909,6 +8909,79 @@ img.alpheios-popup__logo {
   vertical-align: middle;
   padding: 5px 0 0;
 }
+.alpheios-popup-lexdataloading__progress-wrapper {
+  height: 1.2rem;
+  margin: 0 1rem 2rem;
+  font-size: 0.875rem;
+}
+.alpheios-popup-lexdataloading__progress-border {
+  border: 2px solid #73CDDE;
+  height: 100%;
+  padding: 2px;
+}
+.alpheios-popup-lexdataloading__progress-whitespace {
+  overflow: hidden;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.alpheios-popup-lexdataloading__progress-line {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #73CDDE;
+  animation: cssload-slide 5.75s steps(40) infinite;
+}
+.alpheios-popup-lexdataloading__progress-text {
+  text-transform: uppercase;
+  color: #666666;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-o-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-ms-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-webkit-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-moz-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
 
 
 .alpheios-popup.alpheios-popup--mobile {
