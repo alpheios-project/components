@@ -7322,6 +7322,186 @@ win.init = init;
 
 /***/ }),
 
+/***/ "../node_modules/jump.js/dist/jump.module.js":
+/*!***************************************************!*\
+  !*** ../node_modules/jump.js/dist/jump.module.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// Robert Penner's easeInOutQuad
+
+// find the rest of his easing functions here: http://robertpenner.com/easing/
+// find them exported for ES6 consumption here: https://github.com/jaxgeller/ez.js
+
+var easeInOutQuad = function easeInOutQuad(t, b, c, d) {
+  t /= d / 2;
+  if (t < 1) return c / 2 * t * t + b;
+  t--;
+  return -c / 2 * (t * (t - 2) - 1) + b;
+};
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var jumper = function jumper() {
+  // private variable cache
+  // no variables are created during a jump, preventing memory leaks
+
+  var element = void 0; // element to scroll to                   (node)
+
+  var start = void 0; // where scroll starts                    (px)
+  var stop = void 0; // where scroll stops                     (px)
+
+  var offset = void 0; // adjustment from the stop position      (px)
+  var easing = void 0; // easing function                        (function)
+  var a11y = void 0; // accessibility support flag             (boolean)
+
+  var distance = void 0; // distance of scroll                     (px)
+  var duration = void 0; // scroll duration                        (ms)
+
+  var timeStart = void 0; // time scroll started                    (ms)
+  var timeElapsed = void 0; // time spent scrolling thus far          (ms)
+
+  var next = void 0; // next scroll position                   (px)
+
+  var callback = void 0; // to call when done scrolling            (function)
+
+  // scroll position helper
+
+  function location() {
+    return window.scrollY || window.pageYOffset;
+  }
+
+  // element offset helper
+
+  function top(element) {
+    return element.getBoundingClientRect().top + start;
+  }
+
+  // rAF loop helper
+
+  function loop(timeCurrent) {
+    // store time scroll started, if not started already
+    if (!timeStart) {
+      timeStart = timeCurrent;
+    }
+
+    // determine time spent scrolling so far
+    timeElapsed = timeCurrent - timeStart;
+
+    // calculate next scroll position
+    next = easing(timeElapsed, start, distance, duration);
+
+    // scroll to it
+    window.scrollTo(0, next);
+
+    // check progress
+    timeElapsed < duration ? window.requestAnimationFrame(loop) // continue scroll loop
+    : done(); // scrolling is done
+  }
+
+  // scroll finished helper
+
+  function done() {
+    // account for rAF time rounding inaccuracies
+    window.scrollTo(0, start + distance);
+
+    // if scrolling to an element, and accessibility is enabled
+    if (element && a11y) {
+      // add tabindex indicating programmatic focus
+      element.setAttribute('tabindex', '-1');
+
+      // focus the element
+      element.focus();
+    }
+
+    // if it exists, fire the callback
+    if (typeof callback === 'function') {
+      callback();
+    }
+
+    // reset time for next jump
+    timeStart = false;
+  }
+
+  // API
+
+  function jump(target) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    // resolve options, or use defaults
+    duration = options.duration || 1000;
+    offset = options.offset || 0;
+    callback = options.callback; // "undefined" is a suitable default, and won't be called
+    easing = options.easing || easeInOutQuad;
+    a11y = options.a11y || false;
+
+    // cache starting position
+    start = location();
+
+    // resolve target
+    switch (typeof target === 'undefined' ? 'undefined' : _typeof(target)) {
+      // scroll from current position
+      case 'number':
+        element = undefined; // no element to scroll to
+        a11y = false; // make sure accessibility is off
+        stop = start + target;
+        break;
+
+      // scroll to element (node)
+      // bounding rect is relative to the viewport
+      case 'object':
+        element = target;
+        stop = top(element);
+        break;
+
+      // scroll to element (selector)
+      // bounding rect is relative to the viewport
+      case 'string':
+        element = document.querySelector(target);
+        stop = top(element);
+        break;
+    }
+
+    // resolve scroll distance, accounting for offset
+    distance = stop - start + offset;
+
+    // resolve duration
+    switch (_typeof(options.duration)) {
+      // number in ms
+      case 'number':
+        duration = options.duration;
+        break;
+
+      // function passed the distance of the scroll
+      case 'function':
+        duration = options.duration(distance);
+        break;
+    }
+
+    // start the loop
+    window.requestAnimationFrame(loop);
+  }
+
+  // expose only the jump method
+  return jump;
+};
+
+// export singleton
+
+var singleton = jumper();
+
+/* harmony default export */ __webpack_exports__["default"] = (singleton);
+
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/index.js!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib/index.js?!./vue-components/wordforms.vue?vue&type=style&index=0&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/vue-loader/lib??vue-loader-options!./vue-components/wordforms.vue?vue&type=style&index=0&lang=css& ***!
@@ -29890,6 +30070,236 @@ class ResourceQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ "./lib/selection/alignment/alignment-selector.js":
+/*!*******************************************************!*\
+  !*** ./lib/selection/alignment/alignment-selector.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AlignmentSelector; });
+/* harmony import */ var _lib_custom_pointer_events_pointer_evt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/custom-pointer-events/pointer-evt */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var jump_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jump.js */ "../node_modules/jump.js/dist/jump.module.js");
+
+
+
+/**
+ * This class can be used to add aligned translation functionality to a page
+ * Example Usage:
+ *    let alignment = new AlignmentSelector(window.document, options)
+ *    alignment.activiate()
+ *    options can contain the following settings
+ *      highlightClass: css class to be applied to highlight the aligned elements upon focus (default is '.alpheios-alignment__highlight')
+ *      disableClass: css class which is applied to a parent element of the aligned text to disable the trigger event (default is '.alpheios-alignment__disabled')
+ *      focusEvent: Event which triggers focus on an aligned text (default is 'mouseenter')
+ *      blurEvent: Event which triggers removal of focus on an aligned text  is 'mouseleave')
+ *    Aligned text elements are required to have data-alpheios_align_ref attributes which contain the selector for the corresponding aligned text in the page
+ */
+class AlignmentSelector {
+  /**
+   * @constructor
+   * @param {Document} doc the document containing a translation alignment
+   * @param {Object} options initialization options
+   */
+  constructor (doc, options = {}, triggerCallback = () => { return true }) {
+    this.doc = doc
+    const DEFAULTS = {
+      highlightClass: 'alpheios-alignment__highlight',
+      disableClass: 'alpheios-alignment__disabled',
+      fixHighlightClass: 'alpheios-alignment__highlight_fix',
+      focusEvent: 'mouseenter',
+      blurEvent: 'mouseleave',
+      clickEventConstant: true,
+
+      scrollDuration: 1500,
+      scrollDelay: 1500
+
+    }
+    this.settings = Object.assign({}, DEFAULTS, options)
+    this.jumpTimeout = null
+  }
+
+  /**
+   * Activate the Alignment event handling
+   */
+  activate () {
+    let alignments = this.doc.querySelectorAll('[data-alpheios_align_ref]')
+    for (let a of alignments) {
+      a.addEventListener(this.settings.focusEvent, event => { this.focus(event) })
+      a.addEventListener(this.settings.blurEvent, event => { this.blur(event) })
+
+      if (this.settings.clickEventConstant) {
+        a.addEventListener('click', event => { this.click(event) })
+      }
+    }
+  }
+
+  focus (event) {
+    let firstAligned = this.highlightWords(event.target, this.settings.highlightClass)
+
+    if (firstAligned && !this.isElementInViewport(firstAligned)) {
+      this.scrollToElement(firstAligned)
+    }
+  }
+
+  blur (event) {
+    this.removeHighlightWords(event.target, this.settings.highlightClass)
+  }
+
+  click (event) {
+    if (this.isHighlightedFixed(event.target)) {
+      clearTimeout(this.jumpTimeout)
+      this.removeHighlightWords(event.target, this.settings.fixHighlightClass, false)
+    } else {
+      this.highlightWords(event.target, this.settings.fixHighlightClass, true)
+    }
+  }
+
+  scrollToElement (elem) {
+    clearTimeout(this.jumpTimeout)
+
+    this.jumpTimeout = setTimeout(() => {
+      clearTimeout(this.jumpTimeout)
+
+      Object(jump_js__WEBPACK_IMPORTED_MODULE_1__["default"])(elem, {
+        duration: this.settings.scrollDuration
+      })
+    }, this.settings.scrollDelay)
+  }
+
+  isElementInViewport (elem) {
+    let bounding = elem.getBoundingClientRect()
+    return (
+      bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        bounding.bottom <= (window.innerHeight || this.doc.documentElement.clientHeight) &&
+        bounding.right <= (window.innerWidth || this.doc.documentElement.clientWidth)
+    )
+  }
+
+  isHighlightedFixed (elem) {
+    return elem.dataset.highlight_fixed === 'true'
+  }
+
+  highlightWords (elem, highlightClass, setFixedValue = null) {
+    let alignedWithElem = this.getAlignedListByRef(elem, true)
+
+    if (alignedWithElem.length > 0) {
+      this.addClass(elem, highlightClass)
+
+      if (setFixedValue !== null) { this.setFixedAttribute(elem, true) }
+
+      this.addClass(alignedWithElem, highlightClass)
+
+      if (setFixedValue !== null) { this.setFixedAttribute(alignedWithElem, true) }
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedWithElem)
+      this.addClass(reversedAlignedObj, highlightClass)
+
+      if (setFixedValue !== null) { this.setFixedAttribute(reversedAlignedObj, true) }
+    }
+
+    return alignedWithElem.length > 0 ? alignedWithElem[0] : null
+  }
+
+  removeHighlightWords (elem, highlightClass, setFixedValue = null) {
+    let alignedWithElem = this.getAlignedListByRef(elem, true)
+
+    if (alignedWithElem.length > 0) {
+      this.removeClass(elem, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(elem, false) }
+
+      this.removeClass(alignedWithElem, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(alignedWithElem, false) }
+
+      let reversedAlignedObj = this.getAllAlignedObjects(alignedWithElem)
+      this.removeClass(reversedAlignedObj, highlightClass)
+      if (setFixedValue !== null) { this.setFixedAttribute(reversedAlignedObj, false) }
+    }
+
+    return alignedWithElem.length > 0 ? alignedWithElem[0] : null
+  }
+
+  getAlignedListByRef (target, checkDisabled = false) {
+    let ref = target.dataset.alpheios_align_ref
+    let res = []
+    if (ref) {
+      for (let r of ref.split(/,/)) {
+        let aligned = this.doc.querySelectorAll(r)
+
+        if (checkDisabled) {
+          aligned = Array.from(aligned).filter(el => !this.isDisabled(el))
+        }
+        aligned.forEach(el => { res.push(el) })
+      }
+    }
+
+    return res
+  }
+
+  getAllAlignedObjects (targetArr) {
+    let res = []
+    for (let a of targetArr) {
+      let aligned = this.getAlignedListByRef(a)
+      aligned.forEach(el => { res.push(el) })
+    }
+    return res
+  }
+
+  isDisabled (elem) {
+    let path = _lib_custom_pointer_events_pointer_evt__WEBPACK_IMPORTED_MODULE_0__["default"].buildPath(elem)
+    for (let p of path) {
+      if (p.classList.contains(this.settings.disableClass)) {
+        return true
+      }
+    }
+    return false
+  }
+
+  setFixedAttribute (elem, value) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        el.dataset.highlight_fixed = value
+      }
+    } else {
+      elem.dataset.highlight_fixed = value
+    }
+  }
+
+  addClass (elem, className) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        if (!el.classList.contains(className)) {
+          el.classList.add(className)
+        }
+      }
+    } else {
+      if (!elem.classList.contains(className)) {
+        elem.classList.add(className)
+      }
+    }
+  }
+
+  removeClass (elem, className) {
+    if (elem.constructor.name === 'NodeList' || Array.isArray(elem)) {
+      for (let el of Array.from(elem)) {
+        if (el.classList.contains(className)) {
+          el.classList.remove(className)
+        }
+      }
+    } else {
+      if (elem.classList.contains(className)) {
+        elem.classList.remove(className)
+      }
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/selection/media/html-selector.js":
 /*!**********************************************!*\
   !*** ./lib/selection/media/html-selector.js ***!
@@ -30478,7 +30888,7 @@ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/_
 /*!*******************!*\
   !*** ./plugin.js ***!
   \*******************/
-/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe */
+/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe, AlignmentSelector */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30564,8 +30974,12 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace =
 /* harmony import */ var _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./lib/custom-pointer-events/swipe.js */ "./lib/custom-pointer-events/swipe.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Swipe", function() { return _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__["default"]; });
 
+/* harmony import */ var _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./lib/selection/alignment/alignment-selector.js */ "./lib/selection/alignment/alignment-selector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlignmentSelector", function() { return _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_27__["default"]; });
+
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
+
 
 
 

@@ -8371,6 +8371,15 @@ div.alpheios-color_schema_dark_class {
   div.alpheios-color_schema_dark_class .alpheios-morph__dictentry-disambiguated {
     background: #F6D918; }
 
+.alpheios-word {
+  transition: background-color 1s ease-out; }
+
+.alpheios-alignment__highlight_fix {
+  background-color: #E49A0D; }
+
+.alpheios-alignment__highlight {
+  background-color: #F6D918; }
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
