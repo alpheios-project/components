@@ -129,6 +129,6 @@
     .alpheios-inflections__not-impl-msg {
         margin-top: 30px;
         padding: 20px;
-        text-transform: uppercase;
+        font-size: 0.875rem;
     }
 </style>
