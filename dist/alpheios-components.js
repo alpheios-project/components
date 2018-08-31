@@ -27089,9 +27089,6 @@ class UIController {
           }
           this.panelData.tabs[name] = true
           this.state.changeTab(name) // Reflect a tab change in a state
-
-          // this.initGrammarTab()
-
           return this
         },
 
