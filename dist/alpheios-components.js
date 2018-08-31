@@ -27058,8 +27058,6 @@ class UIController {
           if (!this.state.isPanelOpen()) {
             this.panelData.isOpen = true
             this.state.setPanelOpen()
-
-            this.initGrammarTab()
           }
           return this
         },
@@ -27092,19 +27090,9 @@ class UIController {
           this.panelData.tabs[name] = true
           this.state.changeTab(name) // Reflect a tab change in a state
 
-          this.initGrammarTab()
+          // this.initGrammarTab()
 
           return this
-        },
-
-        initGrammarTab () {
-          console.info('************initGrammarTab', this.panelData.tabs['grammar'], (!this.panelData.grammarRes.url && this.panelData.lexemes.length === 0))
-          if (this.panelData.tabs['grammar'] &&
-              (!this.panelData.grammarRes || (!this.panelData.grammarRes.url && this.panelData.lexemes.length === 0))) {
-            const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
-            console.info('************************initGrammarTab inside', currentLanguageID)
-            this.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
-          }
         },
 
         clearContent: function () {
@@ -27195,7 +27183,6 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          console.info('************************in request grammar')
           _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
             uiController: this.uiController,
             grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__["Grammars"]
@@ -27270,7 +27257,9 @@ class UIController {
           this.state.activateUI()
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+
+          const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
       })
@@ -27710,7 +27699,6 @@ class UIController {
       this.panel.panelData.grammarRes = urls[0]
     } else {
       this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
-      this.panel.initGrammarTab()
     }
     // todo show TOC or not found
   }
@@ -27779,6 +27767,7 @@ class UIController {
 
   updateLanguage (currentLanguageID) {
     this.state.setItem('currentLanguage', alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(currentLanguageID))
+
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
 

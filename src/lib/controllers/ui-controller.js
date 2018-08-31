@@ -165,8 +165,6 @@ export default class UIController {
           if (!this.state.isPanelOpen()) {
             this.panelData.isOpen = true
             this.state.setPanelOpen()
-
-            this.initGrammarTab()
           }
           return this
         },
@@ -199,17 +197,9 @@ export default class UIController {
           this.panelData.tabs[name] = true
           this.state.changeTab(name) // Reflect a tab change in a state
 
-          this.initGrammarTab()
+          // this.initGrammarTab()
 
           return this
-        },
-
-        initGrammarTab () {
-          if (this.panelData.tabs['grammar'] &&
-              (!this.panelData.grammarRes || (!this.panelData.grammarRes.url && this.panelData.lexemes.length === 0))) {
-            const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
-            this.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
-          }
         },
 
         clearContent: function () {
@@ -374,7 +364,9 @@ export default class UIController {
           this.state.activateUI()
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+
+          const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
       })
@@ -814,7 +806,6 @@ export default class UIController {
       this.panel.panelData.grammarRes = urls[0]
     } else {
       this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
-      this.panel.initGrammarTab()
     }
     // todo show TOC or not found
   }
@@ -883,6 +874,7 @@ export default class UIController {
 
   updateLanguage (currentLanguageID) {
     this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
+
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
 
