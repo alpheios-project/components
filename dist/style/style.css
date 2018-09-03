@@ -8995,6 +8995,14 @@ img.alpheios-popup__logo {
   font-weight: 700;
 }
 
+
+.infl-suff-footnote-link {
+  position: relative;
+}
+.alpheios-inflections__footnote-popup {
+  cursor: move;
+}
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9003,9 +9011,6 @@ img.alpheios-popup__logo {
 .alpheios-table-sf__title {
   margin-bottom: 5px;
   padding-left: 30px;
-}
-.infl-suff-footnote-link {
-  position: relative;
 }
 .alpheios-clickable {
   cursor: pointer;
