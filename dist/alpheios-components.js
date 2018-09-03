@@ -9411,6 +9411,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9433,7 +9439,10 @@ __webpack_require__.r(__webpack_exports__);
       initLanguage: null,
       currentLanguage: null,
       options: {},
-      resourceOptions: {}
+      resourceOptions: {},
+
+      overrideLanguage: false,
+      overrideLanguageLabel: 'Override language'
     }
   },
   props: {
@@ -9480,7 +9489,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     lookupLanguage: function () {
       // let currentLanguage
-      if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
+      if (this.overrideLanguage && !this.currentLanguage ) {
+        this.initLanguage = this.options.items.preferredLanguage.currentTextValue()
+        this.currentLanguage = this.initLanguage
+        this.options.items.lookupLanguage.setTextValue(this.initLanguage)
+      } else if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
         this.initLanguage = this.parentLanguage
         this.currentLanguage = this.parentLanguage
         this.options.items.lookupLanguage.setTextValue(this.parentLanguage)
@@ -9493,7 +9506,7 @@ __webpack_require__.r(__webpack_exports__);
     clearLookupText: function(value) {
       if (value) {
         this.lookuptext = ''
-        this.showLanguageSettings = false
+        this.showLanguageSettings = this.overrideLanguage
       }
     }
   },
@@ -9502,7 +9515,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.lookuptext.length === 0) {
         return null
       }
-      let languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
+
+      const languageID = this.overrideLanguage
+            ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.lookupLanguage.currentValue)
+            : alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
 
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, languageID)
 
@@ -9537,6 +9553,18 @@ __webpack_require__.r(__webpack_exports__);
         return this.uiController.l10n.messages[value]
       }
       return defaultValue
+    },
+
+    checkboxClick: function () {
+      this.overrideLanguage = !this.overrideLanguage
+      if (this.overrideLanguage !== this.showLanguageSettings) {
+        this.switchLookupSettings()
+      }
+
+      if (!this.overrideLanguage) {
+        this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+        this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
+      }
     }
   }
 });
@@ -12682,6 +12710,62 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.ln10Messages("LABEL_LOOKUP_SETTINGS")))]
                 )
               ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small"
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.overrideLanguage,
+                    expression: "overrideLanguage"
+                  }
+                ],
+                attrs: { type: "checkbox", id: "alpheios-checkbox-input" },
+                domProps: {
+                  checked: Array.isArray(_vm.overrideLanguage)
+                    ? _vm._i(_vm.overrideLanguage, null) > -1
+                    : _vm.overrideLanguage
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.overrideLanguage,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.overrideLanguage = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.overrideLanguage = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.overrideLanguage = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  attrs: { for: "checkbox" },
+                  on: { click: _vm.checkboxClick }
+                },
+                [_vm._v(_vm._s(_vm.overrideLanguageLabel))]
+              )
             ]
           ),
           _vm._v(" "),
@@ -27330,7 +27414,9 @@ class UIController {
           this.state.activateUI()
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+
+          const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
       })
@@ -27838,6 +27924,7 @@ class UIController {
 
   updateLanguage (currentLanguageID) {
     this.state.setItem('currentLanguage', alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(currentLanguageID))
+
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
 
