@@ -170,7 +170,9 @@
         },
         suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
         canCollapse: false, // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
-        sfCollapsed: true
+        sfCollapsed: true,
+
+        updateContentDelay: 400
       }
     },
 
@@ -200,6 +202,8 @@
             // Rendering is not required for component-enabled views
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
+
+            this.updateWidth(true)
           }
         }
       },
@@ -212,6 +216,7 @@
           if (!this.selectedView.hasPrerenderedTables) {
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
+            this.updateWidth(true)
           }
         }
       },
@@ -296,7 +301,8 @@
       isVisible: function (visibility) {
         if (visibility) {
           // If container is become visible, update parent with its width
-          this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
+          // this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
+          this.updateWidth()
         }
       },
       locale: function (locale) {
@@ -311,6 +317,17 @@
     },
 
     methods: {
+      updateWidth: function (timeout) {
+        let vm = this
+        if (timeout) {
+          setTimeout(() => {
+            vm.$emit('contentwidth', vm.htmlElements.content.offsetWidth)
+          }, this.updateContentDelay)
+        } else {
+          this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
+        }
+      },
+
       clearInflections: function () {
         // for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
         this.hasInflectionData = false
@@ -338,6 +355,7 @@
           this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
           this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
         }
+        this.updateWidth(true)
       },
 
       hideNoSuffixGroupsClick () {
@@ -350,6 +368,7 @@
           this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
           this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
         }
+        this.updateWidth(true)
       },
 
       navigate (reflink) {
