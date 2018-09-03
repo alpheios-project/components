@@ -50,9 +50,15 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue :view="selectedView"
+                <main-table-wide-vue v-if="!selectedView.isEmpty" :view="selectedView"
                                      :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                 </main-table-wide-vue>
+
+                <template v-if="selectedView.linkedViews" v-for="linkedView in selectedView.linkedViews">
+                    <main-table-wide-vue v-if="!linkedView.isEmpty" :view="linkedView"
+                                         :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
+                    </main-table-wide-vue>
+                </template>
 
                 <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
                     <template v-for="footnote in footnotes">
