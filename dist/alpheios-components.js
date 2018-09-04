@@ -8900,6 +8900,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__);
 //
 //
 //
@@ -8995,6 +8997,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Other dependencies
+
+
 
 
 
@@ -9102,6 +9106,8 @@ __webpack_require__.r(__webpack_exports__);
           // Rendering is not required for component-enabled views
           this.selectedView.render()
           this.canCollapse = this.selectedView.canCollapse
+
+          this.updateWidth()
         }
       }
     },
@@ -9114,6 +9120,7 @@ __webpack_require__.r(__webpack_exports__);
         if (!this.selectedView.hasPrerenderedTables) {
           this.selectedView.render()
           this.canCollapse = this.selectedView.canCollapse
+          this.updateWidth()
         }
       }
     },
@@ -9198,7 +9205,7 @@ __webpack_require__.r(__webpack_exports__);
     isVisible: function (visibility) {
       if (visibility) {
         // If container is become visible, update parent with its width
-        this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
+        this.updateWidth()
       }
     },
     locale: function (locale) {
@@ -9213,6 +9220,12 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
+    updateWidth: function () {
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default.a.nextTick(() => {
+        this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+      })
+    },
+
     clearInflections: function () {
       // for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
       this.hasInflectionData = false
@@ -9240,6 +9253,7 @@ __webpack_require__.r(__webpack_exports__);
         this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
         this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
       }
+      this.updateWidth()
     },
 
     hideNoSuffixGroupsClick () {
@@ -9252,6 +9266,7 @@ __webpack_require__.r(__webpack_exports__);
         this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
         this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
       }
+      this.updateWidth()
     },
 
     navigate (reflink) {
@@ -10168,7 +10183,12 @@ __webpack_require__.r(__webpack_exports__);
       positionClassVariants: {
         left: 'alpheios-panel-left',
         right: 'alpheios-panel-right'
-      }
+      },
+
+      inflPanelLeftPadding: 0,
+      inflPanelRightPadding: 0,
+      scrollPadding: 0,
+      defaultScrollPadding: 20
     }
   },
   props: {
@@ -10361,13 +10381,20 @@ __webpack_require__.r(__webpack_exports__);
         this.$el.style.removeProperty('width')
         return
       }
-      let widthDelta = parseInt(this.navbarWidth, 10)
-        + parseInt(this.inflPanelLeftPadding, 10)
-        + parseInt(this.inflPanelRightPadding, 10)
-      if (width > this.data.minWidth + widthDelta) {
+
+      this.calcWidthPaddings()
+      this.calcScrollPadding()
+
+      let widthDelta = this.navbarWidth
+        + this.inflPanelLeftPadding
+        + this.inflPanelRightPadding
+        + this.scrollPadding
+
+      if (width > this.data.minWidth - widthDelta) {
         let adjustedWidth = width + widthDelta
         // Max viewport width less some space to display page content
         let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
+
         if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
         this.$el.style.width = `${adjustedWidth}px`
       }
@@ -10387,6 +10414,41 @@ __webpack_require__.r(__webpack_exports__);
 
     attachTrackingClick: function () {
       this.close()
+    },
+
+    calcScrollPadding: function () {
+      if (typeof this.$el.querySelector === 'function') {
+        this.scrollPadding = this.$el.scrollHeight > this.$el.offsetHeight ?
+                             this.defaultScrollPadding : 0
+      }
+    },
+
+    calcWidthPaddings: function () {
+      if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+        let navbar = this.$el.querySelector(`#${this.navbarID}`)
+        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+        this.navbarWidth = 0
+        if (navbar) {
+          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+        }
+
+        if (inflectionsPanel) {
+          let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+          if (Array.isArray(resPl1)) {
+            this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+          } else {
+            this.inflPanelLeftPadding = 0
+          }
+
+          let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+          if (Array.isArray(resPl2)) {
+            this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+          } else {
+            this.inflPanelRightPadding = 0
+          }
+        }
+      }
     }
   },
   created: function () {
@@ -10401,28 +10463,7 @@ __webpack_require__.r(__webpack_exports__);
       return
     }
     if (typeof this.$el.querySelector === 'function') {
-      let navbar = this.$el.querySelector(`#${this.navbarID}`)
-      let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-      this.navbarWidth = 0
-      if (navbar) {
-        let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-        if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-      }
-
-      if (inflectionsPanel) {
-        let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-        if (Array.isArray(resPl1)) {
-          this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
-        } else {
-          this.inflPanelLeftPadding = 0
-        }
-        let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-        if (Array.isArray(resPl2)) {
-          this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
-        } else {
-          this.inflPanelRightPadding = 0
-        }
-      }
+      this.calcWidthPaddings()
 
       // Initialize Interact.js: make panel resizable
       interactjs__WEBPACK_IMPORTED_MODULE_7___default()(this.$el)
