@@ -9076,9 +9076,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
       canCollapse: false, // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
-      sfCollapsed: true,
-
-      updateContentDelay: 400
+      sfCollapsed: true
     }
   },
 
@@ -9207,7 +9205,6 @@ __webpack_require__.r(__webpack_exports__);
     isVisible: function (visibility) {
       if (visibility) {
         // If container is become visible, update parent with its width
-        // this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
         this.updateWidth()
       }
     },
