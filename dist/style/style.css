@@ -157,17 +157,22 @@
  * Remove the gap between embedded content and the bottom of their containers.
  */
   /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 1. Add responsiveness.
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
+  /* 4 */
   /*
  * Hide the overflow in IE.
  */
   /*
  * Hide `alt` text for lazy load images
  * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ */
+  /*
+ * Iframe
+ * Remove border in all browsers
  */
   /* Block elements
  ========================================================================== */
@@ -225,8 +230,6 @@
   /*
  * Add the correct display in IE.
  */
-  /* Iframe
- ========================================================================== */
   /* Pass media breakpoints to JS
  ========================================================================== */
   /*
@@ -416,7 +419,6 @@
  */
   /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
   /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -667,15 +669,14 @@
   /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Remove border-radius in Chrome.
- * 4. Address `overflow` set to `hidden` in IE.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 7. Style
- * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Style
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 9. Align text if button has a width
- * 10. Required for `a`.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
  */
   /*
  * Remove the inner border and padding in Firefox.
@@ -1919,8 +1920,8 @@
  * 3. Gutter
  */
   /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
   /* Items
  ========================================================================== */
@@ -2016,9 +2017,6 @@
   /* ========================================================================
    Component: Sortable
  ========================================================================== */
-  /*
- * Deactivate browser touch actions in IE11 and Edge
- */
   /*
  * Deactivate pointer-events on SVGs in Safari
  */
@@ -2595,11 +2593,11 @@
  ========================================================================== */
   /*
  * Hidden
- * Can't use `display: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `display: none` because it's not accessible through keyboard.
  */
   /*
  * Invisible
- * Can't use `visibility: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
   /* Touch
  ========================================================================== */
@@ -2712,10 +2710,17 @@
     height: auto;
     /* 3 */
     box-sizing: border-box; }
+  @supports (display: block) {
+    .auk svg {
+      max-width: 100%;
+      height: auto;
+      box-sizing: border-box; } }
   .auk svg:not(:root) {
     overflow: hidden; }
   .auk img:not([src]) {
     visibility: hidden; }
+  .auk iframe {
+    border: 0; }
   .auk p,
   .auk ul,
   .auk ol,
@@ -2850,8 +2855,6 @@
     display: list-item; }
   .auk template {
     display: none; }
-  .auk iframe {
-    border: 0; }
   .auk .var-media-s::before {
     content: "640px"; }
   .auk .var-media-m::before {
@@ -3022,8 +3025,7 @@
     height: 1.5em;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
     background-repeat: no-repeat;
-    background-position: 50% 50%;
-    float: left; }
+    background-position: 50% 50%; }
   .auk .uk-list-large > li:nth-child(n+2),
   .auk .uk-list-large > li > ul {
     margin-top: 20px; }
@@ -3178,11 +3180,9 @@
   .auk .uk-icon::-moz-focus-inner {
     border: 0;
     padding: 0; }
-  .auk .uk-icon [fill*='#']:not(.uk-preserve),
-  .auk .uk-icon [FILL*='#']:not(.uk-preserve) {
+  .auk .uk-icon [fill*='#']:not(.uk-preserve) {
     fill: currentcolor; }
-  .auk .uk-icon [stroke*='#']:not(.uk-preserve),
-  .auk .uk-icon [STROKE*='#']:not(.uk-preserve) {
+  .auk .uk-icon [stroke*='#']:not(.uk-preserve) {
     stroke: currentcolor; }
   .auk .uk-icon > * {
     transform: translate(0, 0); }
@@ -3401,11 +3401,11 @@
     background-color: #f8f8f8;
     color: #999;
     border-color: #e5e5e5; }
-  .auk .uk-input:-ms-input-placeholder {
+  .auk .uk-input::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-input::placeholder {
     color: #999; }
-  .auk .uk-textarea:-ms-input-placeholder {
+  .auk .uk-textarea::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-textarea::placeholder {
     color: #999; }
@@ -3613,25 +3613,23 @@
     /* 2 */
     border: none;
     /* 3 */
-    border-radius: 0;
-    /* 4 */
     overflow: visible;
-    /* 5 */
+    /* 4 */
     font: inherit;
     color: inherit;
-    /* 6 */
+    /* 5 */
     text-transform: none;
-    /* 7 */
+    /* 6 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 30px;
     vertical-align: middle;
     font-size: 0.875rem;
-    /* 8 */
+    /* 7 */
     line-height: 38px;
-    /* 9 */
+    /* 8 */
     text-align: center;
-    /* 10 */
+    /* 9 */
     text-decoration: none;
     text-transform: uppercase;
     -webkit-transition: 0.1s ease-in-out;
@@ -3645,7 +3643,7 @@
     border: 0;
     padding: 0; }
   .auk .uk-button:hover {
-    /* 8 */
+    /* 9 */
     text-decoration: none; }
   .auk .uk-button:focus {
     outline: none; }
@@ -4678,7 +4676,7 @@
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    height: 80px;
+    min-height: 80px;
     padding: 0 15px;
     /* 3 */
     font-size: 0.875rem;
@@ -5569,8 +5567,6 @@
     margin-left: -10px; }
   .auk .uk-iconnav > * {
     /* 1 */
-    flex: none;
-    /* 2 */
     padding-left: 10px; }
   .auk .uk-iconnav > * > a {
     /* 1 */
@@ -5718,8 +5714,6 @@
     border: 0; }
   .auk .uk-sortable {
     position: relative; }
-  .auk .uk-sortable > * {
-    touch-action: none; }
   .auk .uk-sortable svg {
     pointer-events: none; }
   .auk .uk-sortable > :last-child {
@@ -6709,6 +6703,8 @@
     max-width: none; }
   .auk .uk-border-circle {
     border-radius: 50%; }
+  .auk .uk-border-pill {
+    border-radius: 500px; }
   .auk .uk-border-rounded {
     border-radius: 5px; }
   .auk .uk-inline-clip[class*='uk-border-'] {
