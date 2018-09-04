@@ -75,6 +75,7 @@
       if (this.uiController) {
         this.options = this.uiController.options.clone(TempStorageArea)
         this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+
         if (this.parentLanguage) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
@@ -134,6 +135,8 @@
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
         this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
+        this.resourceOptions.items.lexicons = this.uiController.resourceOptions.items.lexicons
+        
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()

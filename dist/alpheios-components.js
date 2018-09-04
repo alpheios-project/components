@@ -9482,6 +9482,7 @@ __webpack_require__.r(__webpack_exports__);
     if (this.uiController) {
       this.options = this.uiController.options.clone(_lib_options_temp_storage_area__WEBPACK_IMPORTED_MODULE_3__["default"])
       this.resourceOptions = this.uiController.resourceOptions.clone(_lib_options_temp_storage_area__WEBPACK_IMPORTED_MODULE_3__["default"])
+
       if (this.parentLanguage) {
         this.initLanguage = this.parentLanguage
         this.currentLanguage = this.parentLanguage
@@ -9541,6 +9542,8 @@ __webpack_require__.r(__webpack_exports__);
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, languageID)
 
       this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
+      this.resourceOptions.items.lexicons = this.uiController.resourceOptions.items.lexicons
+      
       _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, this.uiController, this.resourceOptions)
         .getData()
