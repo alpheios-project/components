@@ -67,6 +67,33 @@
   .alpheios-panel [type="radio"] {
     box-sizing: border-box;
     padding: 0; }
+  .alpheios-popup b,
+  .alpheios-panel b {
+    margin: 0;
+    padding: 0;
+    vertical-align: inherit;
+    font-size: inherit;
+    color: inherit;
+    letter-spacing: inherit; }
+  .alpheios-popup i,
+  .alpheios-panel i {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font-style: inherit; }
+  .alpheios-popup u,
+  .alpheios-panel u {
+    margin: 0;
+    padding: 0;
+    vertical-align: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    line-height: inherit; }
 
 .auk {
   /* ========================================================================
