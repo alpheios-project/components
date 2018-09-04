@@ -1,6 +1,6 @@
-/* global Node */
-/* global Event */
+/* global Node, Event */
 import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alpheios-data-models'
+import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
@@ -68,6 +68,7 @@ export default class UIController {
       resizable: true
     }
     this.template = Object.assign(templateDefaults, template)
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
 
     this.zIndex = this.getZIndexMax()
 
@@ -101,8 +102,7 @@ export default class UIController {
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            enabled: false,
-            inflectionData: false // If no inflection data present, it is set to false
+            inflectionViewSet: null
           },
           shortDefinitions: [],
           fullDefinitions: '',
@@ -285,14 +285,6 @@ export default class UIController {
           return this
         },
 
-        updateInflections: function (inflectionData) {
-          this.panelData.inflectionComponentData.inflectionData = inflectionData
-        },
-
-        enableInflections: function (enabled) {
-          this.panelData.inflectionComponentData.enabled = enabled
-        },
-
         requestGrammar: function (feature) {
           // ExpObjMon.track(
           ResourceQuery.create(feature, {
@@ -369,7 +361,9 @@ export default class UIController {
           this.state.activateUI()
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+
+          const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
       })
@@ -424,7 +418,7 @@ export default class UIController {
           verboseMode: this.state.verboseMode,
           defDataReady: false,
           hasTreebank: false,
-          inflDataReady: false,
+          inflDataReady: this.inflDataReady,
           morphDataReady: false,
 
           translationsDataReady: false,
@@ -724,8 +718,17 @@ export default class UIController {
     this.popup.showImportantNotification(message)
   }
 
-  static getLanguageName (languageID) {
-    return languageNames.has(languageID) ? languageNames.get(languageID) : ''
+  /**
+   * Gets language name by either language ID (a symbol) or language code (string)
+   * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
+   * @return {string} A language name
+   */
+  static getLanguageName (language) {
+    let langID
+    let langCode // eslint-disable-line
+    // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
+    ;({languageID: langID, languageCode: langCode} = LanguageModelFactory.getLanguageAttrs(language))
+    return languageNames.has(langID) ? languageNames.get(langID) : ''
   }
 
   showLanguageInfo (homonym) {
@@ -866,15 +869,15 @@ export default class UIController {
     }
   }
 
-  updateLanguage (currentLanguage) {
-    this.state.setItem('currentLanguage', currentLanguage)
-    let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
-    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
-    this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
+  updateLanguage (currentLanguageID) {
+    this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
 
-    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
+    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
+    this.popup.popupData.inflDataReady = this.inflDataReady
 
-    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
+
+    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
@@ -884,11 +887,17 @@ export default class UIController {
     this.popup.popupData.verboseMode = this.state.verboseMode
   }
 
-  updateInflections (inflectionData, homonym) {
-    let enabled = LanguageModelFactory.getLanguageModel(homonym.languageID).canInflect()
-    this.panel.enableInflections(enabled)
-    this.panel.updateInflections(inflectionData, homonym)
-    this.popup.popupData.inflDataReady = enabled && inflectionData.hasInflectionSets
+  updateInflections (homonym) {
+    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.options.items.locale.currentValue)
+    this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
+    if (this.inflectionsViewSet.hasMatchingViews) {
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+    }
+    this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  get inflDataReady () {
+    return this.inflectionsViewSet && this.inflectionsViewSet.hasMatchingViews
   }
 
   clear () {
@@ -909,46 +918,61 @@ export default class UIController {
 
   setRootComponentClasses () {
     let classes = []
+
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     if (this.uiOptions.items.skin !== undefined) {
       classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
     }
-    if (this.uiOptions.items.fontSize !== undefined) {
+
+    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.value !== undefined) {
       classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
-    }
-    if (this.uiOptions.items.colorSchema !== undefined) {
-      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-font_${this.uiOptions.items.fontSize.defaultValue}_class`)
     }
 
-    Vue.set(this.popup.popupData, 'classes', classes)
-    Vue.set(this.panel.panelData, 'classes', classes)
-    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
-    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.value !== undefined) {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.defaultValue}_class`)
+    }
+
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+
+    classes.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+      this.panel.panelData.classes.push(classItem)
+    })
   }
 
   updateStyleClass (prefix, type) {
-    let popupClasses = this.popup.popupData.classes
+    let popupClasses = this.popup.popupData.classes.slice(0)
 
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
-    Vue.set(this.popup.popupData, 'classes', popupClasses)
 
-    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    popupClasses.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+    })
 
-    let panelClasses = this.panel.panelData.classes
+    let panelClasses = this.panel.panelData.classes.slice(0)
+
     panelClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         panelClasses[index] = `${prefix}${type}_class`
       }
     })
+    this.panel.panelData.classes.splice(0, this.panel.panelData.classes.length)
 
-    Vue.set(this.panel.panelData, 'classes', panelClasses)
-    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    panelClasses.forEach(classItem => {
+      this.panel.panelData.classes.push(classItem)
+    })
   }
 
   updateFontSizeClass (type) {

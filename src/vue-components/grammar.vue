@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-grammar" v-if="res">
-      <div class="alpheios-grammar__frame-cont">
+      <div class="alpheios-grammar__frame-cont" v-show="res.url">
           <iframe class="alpheios-grammar__frame" :src="res.url" v-if="res.url" scrolling="yes"></iframe>
       </div>
       <div class="alpheios-grammar__provider" v-if="res.provider">{{ res.provider.toString() }}</div>
@@ -23,22 +23,22 @@
     .alpheios-grammar {
         display: flex;
         flex-direction: column;
+        height: 100%;
     }
 
     .alpheios-grammar__provider {
-        flex: 1 1 auto;
-        font-size: 0.75*$alpheios-base-font-size;
+        flex: none;
         font-weight: normal;
-        color: $alpheios-toolbar-color;
         font-style: italic;
-        padding: 5px;
+        padding: 5px 10px 20px;
+        font-size: 80%;
     }
 
     .alpheios-grammar__frame-cont {
-        flex: 1 1 100vh;
+        flex: 1 1 auto;
         position: relative;
         -webkit-overflow-scrolling: touch;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .alpheios-grammar__frame {

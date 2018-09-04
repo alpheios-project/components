@@ -10,9 +10,15 @@
       >
         {{ ln10Messages('LABEL_LOOKUP_BUTTON') }}
       </button>
-      <a class="alpheios-lookup__settings-link alpheios-text__smaller" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
+      <a class="alpheios-lookup__settings-link alpheios-text__smaller uk-link" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
       </span>
     </alph-tooltip>
+
+    <div class="alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small">
+      <input type="checkbox" v-model="overrideLanguage" id="alpheios-checkbox-input">
+      <label for="checkbox" @click="checkboxClick">{{ overrideLanguageLabel }}</label>
+    </div>
+
     <div class="alpheios-lookup__settings" v-if="uiController">
       <div class="alpheios-lookup__settings-items" v-show="showLanguageSettings">
         <alph-setting :data="lookupLanguage" @change="settingChange" :classes="['alpheios-panel__options-item']"></alph-setting>
@@ -44,7 +50,10 @@
         initLanguage: null,
         currentLanguage: null,
         options: {},
-        resourceOptions: {}
+        resourceOptions: {},
+
+        overrideLanguage: false,
+        overrideLanguageLabel: 'Override language'
       }
     },
     props: {
@@ -66,6 +75,7 @@
       if (this.uiController) {
         this.options = this.uiController.options.clone(TempStorageArea)
         this.resourceOptions = this.uiController.resourceOptions.clone(TempStorageArea)
+
         if (this.parentLanguage) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
@@ -91,7 +101,11 @@
       },
       lookupLanguage: function () {
         // let currentLanguage
-        if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
+        if (this.overrideLanguage && !this.currentLanguage ) {
+          this.initLanguage = this.options.items.preferredLanguage.currentTextValue()
+          this.currentLanguage = this.initLanguage
+          this.options.items.lookupLanguage.setTextValue(this.initLanguage)
+        } else if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
           this.initLanguage = this.parentLanguage
           this.currentLanguage = this.parentLanguage
           this.options.items.lookupLanguage.setTextValue(this.parentLanguage)
@@ -104,7 +118,7 @@
       clearLookupText: function(value) {
         if (value) {
           this.lookuptext = ''
-          this.showLanguageSettings = false
+          this.showLanguageSettings = this.overrideLanguage
         }
       }
     },
@@ -113,11 +127,16 @@
         if (this.lookuptext.length === 0) {
           return null
         }
-        let languageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
+
+        const languageID = this.overrideLanguage
+              ? LanguageModelFactory.getLanguageIdFromCode(this.lookupLanguage.currentValue)
+              : LanguageModelFactory.getLanguageIdFromCode(this.options.items.lookupLanguage.currentValue)
 
         let textSelector = TextSelector.createObjectFromText(this.lookuptext, languageID)
 
         this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
+        this.resourceOptions.items.lexicons = this.uiController.resourceOptions.items.lexicons
+        
         LexicalQueryLookup
           .create(textSelector, this.uiController, this.resourceOptions)
           .getData()
@@ -148,6 +167,18 @@
           return this.uiController.l10n.messages[value]
         }
         return defaultValue
+      },
+
+      checkboxClick: function () {
+        this.overrideLanguage = !this.overrideLanguage
+        if (this.overrideLanguage !== this.showLanguageSettings) {
+          this.switchLookupSettings()
+        }
+
+        if (!this.overrideLanguage) {
+          this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
+          this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
+        }
       }
     }
   }
@@ -159,6 +190,7 @@
       margin: 15px 10px 5px;
 
       text-align: left;
+      
     }
 
     .uk-input.alpheios-lookup__input {
@@ -209,6 +241,10 @@
         .uk-textarea {
           max-width: 250px;
         }
+    }
+
+    .alpheios-override-lang {
+      margin-bottom: 10px;
     }
 
 </style>

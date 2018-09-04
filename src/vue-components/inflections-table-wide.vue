@@ -1,76 +1,92 @@
 <template>
-    <div v-if="data">
-        <div class="infl-prdgm-tbl">
-            <div class="infl-prdgm-tbl__row" v-for="row in data.rows">
-                <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
-                    {{cell.value}}
+    <div v-if="view.wideView">
+        <h3 class="alpheios-inflections__title alpheios-table-sf__title alpheios-clickable"
+            @click="collapse">
+            {{view.title}}
+            <span v-show="collapsed">[+]</span>
+            <span v-show="!collapsed">[-]</span>
+        </h3>
+
+        <div v-show="!collapsed" :style="view.wideView.style" class="infl-table infl-table--wide" id="alpheios-wide-vue-table">
+            <template v-for="row in view.wideView.rows">
+                <div :class="cell.classes" v-for="cell in row.cells"
+                     @mouseover.stop.prevent="cellMouseOver(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)">
+                    <template v-if="cell.isDataCell">
+                        <template v-for="(morpheme, index) in cell.morphemes">
+                            <span :class="morphemeClasses(morpheme)">
+                                <template v-if="morpheme.value">{{morpheme.value}}</template>
+                                <template v-else>-</template>
+                            </span>
+                            <infl-footnote v-if="morpheme.hasFootnotes" :footnotes="morpheme.footnotes"></infl-footnote>
+                            <template v-if="index < cell.morphemes.length-1">, </template>
+                        </template>
+                    </template>
+                    <span v-else v-html="cell.value"></span>
                 </div>
-            </div>
+            </template>
         </div>
     </div>
 </template>
 <script>
+  import InflFootnote from './infl-footnote.vue'
 
   export default {
-    name: 'WideInflectionsTable',
+    name: 'WideInflectionsTableStandardForm',
+    components: {
+      inflFootnote: InflFootnote
+    },
     props: {
-      /*
-       An object that represents a wide version of a table, consists of array of rows.
-       Each rows consists of an array of cells.
-      */
-      data: {
+      // An inflection table view
+      view: {
         type: [Object, Boolean],
         required: true
       },
-
-      /*
-      An `InflectionData` object
-      */
-      inflectionData: {
-        type: [Object],
+      noSuffixMatchesHidden: {
+        type: [Boolean],
         required: true
       }
     },
 
-    methods: {
-      cellClasses: function (cell) {
-        if (cell.role === 'label') {
-          return 'infl-prdgm-tbl-cell--label'
-        }
+    data: function () {
+      return {
+        collapsed: false
+      }
+    },
 
-        /*
-        If it is a data cell, we need to figure out if this is a cell with a full match and
-        highlight it accordingly. A full match is a cell which matches all features of the cell properties
-        with the ones in the inflection.
-        We do not check for suffix match because paradigm tables show example of a different word,
-        not the one selected by the user.
-         */
-        if (cell.role === 'data') {
-          let cellClassName = 'infl-prdgm-tbl-cell--data'
-          const fullMatchClassnName = 'infl-prdgm-tbl-cell--full-match'
-          // Get a list of cell feature properties
-          let cellFeatures = []
-          for (const prop of Object.keys(cell)) {
-            // Eliminate "non-feature" keys
-            if (prop !== 'role' && prop !== 'value') {
-              cellFeatures.push(prop)
-            }
-          }
-          for (const lexeme of this.inflectionData.homonym.lexemes) {
-            for (const inflection of lexeme.inflections) {
-              let fullMatch = true
-              for (const feature of cellFeatures) {
-                fullMatch = fullMatch && inflection.hasOwnProperty(feature) && inflection[feature].value === cell[feature]
-                if (!fullMatch) { break } // If at least one feature does not match, there is no reason to check others
-              }
-              if (fullMatch) {
-                // If full match is found, there is no need to check other inflections
-                return `${cellClassName} ${fullMatchClassnName}`
-              }
-            }
-          }
-          return cellClassName
+    methods: {
+      collapse: function () {
+        this.view.wideView.collapsed = !this.view.wideView.collapsed
+        this.collapsed = this.view.wideView.collapsed
+      },
+
+      morphemeClasses: function (morpheme) {
+        return {
+          ['infl-suff']: true,
+          ['infl-suff--suffix-match']: morpheme.match.suffixMatch,
+          ['infl-suff--full-feature-match']: morpheme.match.fullMatch,
         }
+      },
+
+      cellMouseOver: function (cell) {
+        let wideView =  this.view.wideView
+        if (cell.isDataCell) {
+          cell.highlightRowAndColumn()
+          this.view.wideView = wideView
+        }
+      },
+
+      cellMouseLeave: function (cell) {
+        let wideView =  this.view.wideView
+        if (cell.isDataCell) {
+          cell.clearRowAndColumnHighlighting()
+          this.view.wideView = wideView
+        }
+      }
+    },
+
+    watch: {
+      noSuffixMatchesHidden: function (value) {
+        this.view.noSuffixMatchesGroupsHidden(value)
       }
     }
   }
@@ -78,31 +94,12 @@
 <style lang="scss">
     @import "../styles/alpheios";
 
-    .infl-prdgm-tbl {
-        display: table;
-        border-top: 1px solid gray;
-        border-left: 1px solid gray;
-        margin-bottom: 30px;
+    .alpheios-table-sf__title {
+        margin-bottom: 5px;
+        padding-left: 30px;
     }
 
-    .infl-prdgm-tbl__row {
-        display: table-row;
-    }
-
-    .infl-prdgm-tbl__cell {
-        display: table-cell;
-        padding: 2px 5px;
-        border-right: 1px solid gray;
-        border-bottom: 1px solid gray;
-        min-width: 20px;
-    }
-
-    .infl-prdgm-tbl-cell--label {
-        font-weight: 700;
-    }
-
-    .infl-prdgm-tbl-cell--full-match {
-        background-color: $alpheios-highlight-color;
-        font-weight: 700;
+    .alpheios-clickable {
+        cursor: pointer;
     }
 </style>
