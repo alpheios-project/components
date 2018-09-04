@@ -96,6 +96,8 @@
   import { Constants } from 'alpheios-data-models'
   import { ViewSetFactory, L10n} from 'alpheios-inflection-tables'
 
+  import Vue from 'vue/dist/vue'
+
   export default {
     name: 'Inflections',
     components: {
@@ -203,7 +205,7 @@
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
 
-            this.updateWidth(true)
+            this.updateWidth()
           }
         }
       },
@@ -216,7 +218,7 @@
           if (!this.selectedView.hasPrerenderedTables) {
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
-            this.updateWidth(true)
+            this.updateWidth()
           }
         }
       },
@@ -317,15 +319,10 @@
     },
 
     methods: {
-      updateWidth: function (timeout) {
-        let vm = this
-        if (timeout) {
-          setTimeout(() => {
-            vm.$emit('contentwidth', vm.htmlElements.content.offsetWidth)
-          }, this.updateContentDelay)
-        } else {
-          this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
-        }
+      updateWidth: function () {
+        Vue.nextTick(() => {
+          this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+        })
       },
 
       clearInflections: function () {
@@ -355,7 +352,7 @@
           this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
           this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
         }
-        this.updateWidth(true)
+        this.updateWidth()
       },
 
       hideNoSuffixGroupsClick () {
@@ -368,7 +365,7 @@
           this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
           this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
         }
-        this.updateWidth(true)
+        this.updateWidth()
       },
 
       navigate (reflink) {

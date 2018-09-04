@@ -8900,6 +8900,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__);
 //
 //
 //
@@ -8995,6 +8997,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Other dependencies
+
+
 
 
 
@@ -9105,7 +9109,7 @@ __webpack_require__.r(__webpack_exports__);
           this.selectedView.render()
           this.canCollapse = this.selectedView.canCollapse
 
-          this.updateWidth(true)
+          this.updateWidth()
         }
       }
     },
@@ -9118,7 +9122,7 @@ __webpack_require__.r(__webpack_exports__);
         if (!this.selectedView.hasPrerenderedTables) {
           this.selectedView.render()
           this.canCollapse = this.selectedView.canCollapse
-          this.updateWidth(true)
+          this.updateWidth()
         }
       }
     },
@@ -9219,15 +9223,10 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
-    updateWidth: function (timeout) {
-      let vm = this
-      if (timeout) {
-        setTimeout(() => {
-          vm.$emit('contentwidth', vm.htmlElements.content.offsetWidth)
-        }, this.updateContentDelay)
-      } else {
-        this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
-      }
+    updateWidth: function () {
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default.a.nextTick(() => {
+        this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+      })
     },
 
     clearInflections: function () {
@@ -9257,7 +9256,7 @@ __webpack_require__.r(__webpack_exports__);
         this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
         this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
       }
-      this.updateWidth(true)
+      this.updateWidth()
     },
 
     hideNoSuffixGroupsClick () {
@@ -9270,7 +9269,7 @@ __webpack_require__.r(__webpack_exports__);
         this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
         this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
       }
-      this.updateWidth(true)
+      this.updateWidth()
     },
 
     navigate (reflink) {
