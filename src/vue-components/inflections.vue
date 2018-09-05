@@ -22,7 +22,7 @@
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
                     </select>
                 </div>
-                <div v-show="hasInflectionData && canCollapse" class="alpheios-inflections__control-btn-cont uk-button-group">
+                <div v-show="selectedView.isImplemented && hasInflectionData && canCollapse" class="alpheios-inflections__control-btn-cont uk-button-group">
                   <!-- This button is never shown as of now -->
                   <!--<alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideEmptyCols.tooltipText">
                     <button v-show="false"
@@ -50,7 +50,7 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue v-if="!selectedView.isEmpty" :view="selectedView"
+                <main-table-wide-vue v-if="!selectedView.isEmpty" :view="selectedView" :messages="messages"
                                      :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                 </main-table-wide-vue>
 
@@ -101,6 +101,8 @@
   // Other dependencies
   import { Constants } from 'alpheios-data-models'
   import { ViewSetFactory, L10n} from 'alpheios-inflection-tables'
+
+  import Vue from 'vue/dist/vue'
 
   export default {
     name: 'Inflections',
@@ -202,10 +204,12 @@
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
           this.selectedView = this.views[0]
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
+
+            this.updateWidth()
           }
         }
       },
@@ -215,9 +219,10 @@
         },
         set: function (newValue) {
           this.selectedView = this.views.find(view => view.id === newValue)
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
+            this.updateWidth()
           }
         }
       },
@@ -276,7 +281,7 @@
           if (this.views.length > 0) {
             this.hasInflectionData = true
             this.selectedView = this.views[0]
-            if (!this.selectedView.hasPrerenderedTables) {
+            if (this.selectedView.isRenderable) {
               // Rendering is not required for component-enabled views
               this.setDefaults()
               this.selectedView.render()
@@ -302,13 +307,13 @@
       isVisible: function (visibility) {
         if (visibility) {
           // If container is become visible, update parent with its width
-          this.$emit('contentwidth', this.htmlElements.content.offsetWidth)
+          this.updateWidth()
         }
       },
       locale: function (locale) {
         if (this.data.inflectionData) {
           this.data.inflectionViewSet.setLocale(this.locale)
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render() // Re-render inflections for a different locale
           }
@@ -317,6 +322,12 @@
     },
 
     methods: {
+      updateWidth: function () {
+        Vue.nextTick(() => {
+          this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+        })
+      },
+
       clearInflections: function () {
         // for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
         this.hasInflectionData = false
@@ -344,6 +355,7 @@
           this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
           this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
         }
+        this.updateWidth()
       },
 
       hideNoSuffixGroupsClick () {
@@ -356,6 +368,7 @@
           this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
           this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
         }
+        this.updateWidth()
       },
 
       navigate (reflink) {
