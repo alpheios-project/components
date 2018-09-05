@@ -196,7 +196,7 @@
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
           this.selectedView = this.views[0]
-          if (this.selectedView.isImplemented && !this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
@@ -209,7 +209,7 @@
         },
         set: function (newValue) {
           this.selectedView = this.views.find(view => view.id === newValue)
-          if (this.selectedView.isImplemented && !this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
           }
@@ -270,7 +270,7 @@
           if (this.views.length > 0) {
             this.hasInflectionData = true
             this.selectedView = this.views[0]
-            if (this.selectedView.isImplemented && !this.selectedView.hasPrerenderedTables) {
+            if (this.selectedView.isRenderable) {
               // Rendering is not required for component-enabled views
               this.setDefaults()
               this.selectedView.render()
@@ -302,7 +302,7 @@
       locale: function (locale) {
         if (this.data.inflectionData) {
           this.data.inflectionViewSet.setLocale(this.locale)
-          if (this.selectedView.isImplemented && !this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render() // Re-render inflections for a different locale
           }
