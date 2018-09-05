@@ -22,7 +22,7 @@
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
                     </select>
                 </div>
-                <div v-show="hasInflectionData && canCollapse" class="alpheios-inflections__control-btn-cont uk-button-group">
+                <div v-show="selectedView.isImplemented && hasInflectionData && canCollapse" class="alpheios-inflections__control-btn-cont uk-button-group">
                   <!-- This button is never shown as of now -->
                   <!--<alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideEmptyCols.tooltipText">
                     <button v-show="false"
@@ -50,7 +50,7 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue :view="selectedView"
+                <main-table-wide-vue :view="selectedView" :messages="messages"
                                      :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                 </main-table-wide-vue>
 
@@ -198,7 +198,7 @@
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
           this.selectedView = this.views[0]
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
@@ -213,7 +213,7 @@
         },
         set: function (newValue) {
           this.selectedView = this.views.find(view => view.id === newValue)
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             this.selectedView.render()
             this.canCollapse = this.selectedView.canCollapse
             this.updateWidth()
@@ -275,7 +275,7 @@
           if (this.views.length > 0) {
             this.hasInflectionData = true
             this.selectedView = this.views[0]
-            if (!this.selectedView.hasPrerenderedTables) {
+            if (this.selectedView.isRenderable) {
               // Rendering is not required for component-enabled views
               this.setDefaults()
               this.selectedView.render()
@@ -307,7 +307,7 @@
       locale: function (locale) {
         if (this.data.inflectionData) {
           this.data.inflectionViewSet.setLocale(this.locale)
-          if (!this.selectedView.hasPrerenderedTables) {
+          if (this.selectedView.isRenderable) {
             // Rendering is not required for component-enabled views
             this.selectedView.render() // Re-render inflections for a different locale
           }
