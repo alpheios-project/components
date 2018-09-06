@@ -414,5 +414,10 @@
     "message": "Back to main",
     "description": "A link pointing to a main inflection table",
     "component": "InflectionTables"
+  },
+  "INFL_ATTRIBUTE_LINK_TEXT_SOURCE": {
+    "message": "Source",
+    "description": "A link pointing to the source of a lemma or inflection",
+    "component": "InflAttribute"
   }
 }
