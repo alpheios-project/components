@@ -55,7 +55,7 @@
                 </main-table-wide-vue>
 
                 <template v-if="selectedView.linkedViews" v-for="linkedView in selectedView.linkedViews">
-                    <main-table-wide-vue v-if="!linkedView.isEmpty" :view="linkedView"
+                    <main-table-wide-vue v-if="!linkedView.isEmpty" :view="linkedView" :messages="messages"
                                          :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                     </main-table-wide-vue>
                 </template>

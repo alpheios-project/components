@@ -8993,6 +8993,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 // Subcomponents
 
@@ -12431,13 +12437,33 @@ var render = function() {
           ? _c(
               "div",
               [
-                _c("main-table-wide-vue", {
-                  attrs: {
-                    view: _vm.selectedView,
-                    messages: _vm.messages,
-                    "no-suffix-matches-hidden":
-                      _vm.buttons.hideNoSuffixGroups.noSuffixMatchesHidden
-                  }
+                !_vm.selectedView.isEmpty
+                  ? _c("main-table-wide-vue", {
+                      attrs: {
+                        view: _vm.selectedView,
+                        messages: _vm.messages,
+                        "no-suffix-matches-hidden":
+                          _vm.buttons.hideNoSuffixGroups.noSuffixMatchesHidden
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.selectedView.linkedViews, function(linkedView) {
+                  return _vm.selectedView.linkedViews
+                    ? [
+                        !linkedView.isEmpty
+                          ? _c("main-table-wide-vue", {
+                              attrs: {
+                                view: linkedView,
+                                messages: _vm.messages,
+                                "no-suffix-matches-hidden":
+                                  _vm.buttons.hideNoSuffixGroups
+                                    .noSuffixMatchesHidden
+                              }
+                            })
+                          : _vm._e()
+                      ]
+                    : _vm._e()
                 }),
                 _vm._v(" "),
                 _c(
@@ -12458,7 +12484,7 @@ var render = function() {
                   2
                 )
               ],
-              1
+              2
             )
           : [
               _c("prerendered-table-wide", {
