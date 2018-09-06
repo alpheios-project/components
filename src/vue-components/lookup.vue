@@ -15,7 +15,7 @@
 
     <div class="alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small">
       <input type="checkbox" v-model="overrideLanguage" id="alpheios-checkbox-input">
-      <label for="checkbox" @click="checkboxClick">{{ overrideLanguageLabel }}</label>
+      <label class="alpheios-override-lang__label" for="checkbox" @click="checkboxClick">{{ overrideLanguageLabel }}</label>
     </div>
 
     <div class="alpheios-lookup__settings" v-if="uiController">
@@ -253,8 +253,10 @@
 
     .alpheios-override-lang {
       margin-bottom: 10px;
-      padding-bottom: 10px;
+    }
 
+    .alpheios-override-lang__label {
+      padding-bottom: 10px;
     }
 
 </style>

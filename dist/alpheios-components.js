@@ -12823,6 +12823,7 @@ var render = function() {
               _c(
                 "label",
                 {
+                  staticClass: "alpheios-override-lang__label",
                   attrs: { for: "checkbox" },
                   on: { click: _vm.checkboxClick }
                 },
