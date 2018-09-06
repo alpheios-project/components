@@ -157,22 +157,17 @@
  * Remove the gap between embedded content and the bottom of their containers.
  */
   /*
- * 1. Add responsiveness.
- * 2. Auto-scale the height. Only needed if `height` attribute is present.
- * 3. Corrects responsive `max-width` behavior if padding and border are used.
- * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
+ * Responsiveness
+ * 1. Set a maximum width
+ * 2. Auto scale the height. Only needed if `height` attribute is present
+ * 2. Corrects `max-width` behavior if padding and border are used
  */
-  /* 4 */
   /*
  * Hide the overflow in IE.
  */
   /*
  * Hide `alt` text for lazy load images
  * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
- */
-  /*
- * Iframe
- * Remove border in all browsers
  */
   /* Block elements
  ========================================================================== */
@@ -230,6 +225,8 @@
   /*
  * Add the correct display in IE.
  */
+  /* Iframe
+ ========================================================================== */
   /* Pass media breakpoints to JS
  ========================================================================== */
   /*
@@ -669,14 +666,15 @@
   /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Style
- * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Remove border-radius in Chrome.
+ * 4. Address `overflow` set to `hidden` in IE.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 7. Style
+ * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 8. Align text if button has a width
- * 9. Required for `a`.
+ * 9. Align text if button has a width
+ * 10. Required for `a`.
  */
   /*
  * Remove the inner border and padding in Firefox.
@@ -1920,8 +1918,8 @@
  * 3. Gutter
  */
   /*
- * Space is allocated based on content dimensions, but shrinks: 0 1 auto
- * 1. Gutter
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
  */
   /* Items
  ========================================================================== */
@@ -2703,6 +2701,7 @@
   .auk audio,
   .auk canvas,
   .auk img,
+  .auk svg,
   .auk video {
     /* 1 */
     max-width: 100%;
@@ -2710,17 +2709,10 @@
     height: auto;
     /* 3 */
     box-sizing: border-box; }
-  @supports (display: block) {
-    .auk svg {
-      max-width: 100%;
-      height: auto;
-      box-sizing: border-box; } }
   .auk svg:not(:root) {
     overflow: hidden; }
   .auk img:not([src]) {
     visibility: hidden; }
-  .auk iframe {
-    border: 0; }
   .auk p,
   .auk ul,
   .auk ol,
@@ -2855,6 +2847,8 @@
     display: list-item; }
   .auk template {
     display: none; }
+  .auk iframe {
+    border: 0; }
   .auk .var-media-s::before {
     content: "640px"; }
   .auk .var-media-m::before {
@@ -3613,23 +3607,25 @@
     /* 2 */
     border: none;
     /* 3 */
-    overflow: visible;
+    border-radius: 0;
     /* 4 */
+    overflow: visible;
+    /* 5 */
     font: inherit;
     color: inherit;
-    /* 5 */
-    text-transform: none;
     /* 6 */
+    text-transform: none;
+    /* 7 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 30px;
     vertical-align: middle;
     font-size: 0.875rem;
-    /* 7 */
-    line-height: 38px;
     /* 8 */
-    text-align: center;
+    line-height: 38px;
     /* 9 */
+    text-align: center;
+    /* 10 */
     text-decoration: none;
     text-transform: uppercase;
     -webkit-transition: 0.1s ease-in-out;
@@ -3643,7 +3639,7 @@
     border: 0;
     padding: 0; }
   .auk .uk-button:hover {
-    /* 9 */
+    /* 8 */
     text-decoration: none; }
   .auk .uk-button:focus {
     outline: none; }
@@ -4676,7 +4672,7 @@
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    min-height: 80px;
+    height: 80px;
     padding: 0 15px;
     /* 3 */
     font-size: 0.875rem;
@@ -5567,6 +5563,8 @@
     margin-left: -10px; }
   .auk .uk-iconnav > * {
     /* 1 */
+    flex: none;
+    /* 2 */
     padding-left: 10px; }
   .auk .uk-iconnav > * > a {
     /* 1 */
@@ -6703,8 +6701,6 @@
     max-width: none; }
   .auk .uk-border-circle {
     border-radius: 50%; }
-  .auk .uk-border-pill {
-    border-radius: 500px; }
   .auk .uk-border-rounded {
     border-radius: 5px; }
   .auk .uk-inline-clip[class*='uk-border-'] {
@@ -8832,6 +8828,7 @@ a.alpheios-lookup__settings-link {
 }
 .alpheios-override-lang {
   margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 /************ UIKit vars ************************/
