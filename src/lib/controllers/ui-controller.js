@@ -513,7 +513,6 @@ export default class UIController {
         },
 
         newLexicalRequest: function () {
-          console.log('Starting a new lexical request within a popup')
           this.popupData.requestStartTime = new Date().getTime()
         },
 
@@ -891,6 +890,10 @@ export default class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  lexicalRequestComplete () {
+    this.popup.popupData.morphDataReady = true
   }
 
   get inflDataReady () {

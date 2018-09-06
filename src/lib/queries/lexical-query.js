@@ -193,6 +193,7 @@ export default class LexicalQuery extends Query {
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
+    this.ui.lexicalRequestComplete()
     Query.destroy(this)
     return result
   }

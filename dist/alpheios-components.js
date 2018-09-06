@@ -27454,7 +27454,6 @@ class UIController {
         },
 
         newLexicalRequest: function () {
-          console.log('Starting a new lexical request within a popup')
           this.popupData.requestStartTime = new Date().getTime()
         },
 
@@ -27832,6 +27831,10 @@ class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  lexicalRequestComplete () {
+    this.popup.popupData.morphDataReady = true
   }
 
   get inflDataReady () {
@@ -29803,6 +29806,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
+    this.ui.lexicalRequestComplete()
     _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].destroy(this)
     return result
   }
