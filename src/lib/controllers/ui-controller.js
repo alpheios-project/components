@@ -238,6 +238,8 @@ export default class UIController {
           let languageName
           if (homonym) {
             languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.panelData.infoComponentData.languageName) {
+            languageName = this.panelData.infoComponentData.languageName
           } else {
             languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
@@ -490,6 +492,8 @@ export default class UIController {
           let languageName
           if (homonym) {
             languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.popupData.currentLanguageName) {
+            languageName = this.popupData.currentLanguageName
           } else {
             languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
