@@ -8829,6 +8829,9 @@ a.alpheios-lookup__settings-link {
 .alpheios-override-lang {
   margin-bottom: 10px;
 }
+.alpheios-override-lang__label {
+  padding-bottom: 10px;
+}
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/

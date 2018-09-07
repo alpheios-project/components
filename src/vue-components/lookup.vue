@@ -10,13 +10,12 @@
       >
         {{ ln10Messages('LABEL_LOOKUP_BUTTON') }}
       </button>
-      <a class="alpheios-lookup__settings-link alpheios-text__smaller uk-link" @click="switchLookupSettings">{{ ln10Messages('LABEL_LOOKUP_SETTINGS') }}</a>
       </span>
     </alph-tooltip>
 
     <div class="alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small">
       <input type="checkbox" v-model="overrideLanguage" id="alpheios-checkbox-input">
-      <label for="checkbox" @click="checkboxClick">{{ overrideLanguageLabel }}</label>
+      <label class="alpheios-override-lang__label" for="checkbox" @click="checkboxClick">{{ overrideLanguageLabel }}</label>
     </div>
 
     <div class="alpheios-lookup__settings" v-if="uiController">
@@ -112,7 +111,6 @@
         }
         return this.options.items.lookupLanguage
       }
-
     },
     watch: {
       clearLookupText: function(value) {
@@ -120,6 +118,10 @@
           this.lookuptext = ''
           this.showLanguageSettings = this.overrideLanguage
         }
+      },
+      'uiController.options.items.lookupLangOverride.currentValue': function(value) {
+        this.overrideLanguage = value
+        this.updateUIbyOverrideLanguage()
       }
     },
     methods: {
@@ -169,8 +171,7 @@
         return defaultValue
       },
 
-      checkboxClick: function () {
-        this.overrideLanguage = !this.overrideLanguage
+      updateUIbyOverrideLanguage: function () {
         if (this.overrideLanguage !== this.showLanguageSettings) {
           this.switchLookupSettings()
         }
@@ -179,6 +180,13 @@
           this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
           this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
         }
+      },
+
+      checkboxClick: function () {
+        this.overrideLanguage = !this.overrideLanguage
+        this.uiController.options.items.lookupLangOverride.setValue(this.overrideLanguage)
+
+        this.updateUIbyOverrideLanguage()
       }
     }
   }
@@ -245,6 +253,10 @@
 
     .alpheios-override-lang {
       margin-bottom: 10px;
+    }
+
+    .alpheios-override-lang__label {
+      padding-bottom: 10px;
     }
 
 </style>
