@@ -123,6 +123,21 @@
           "text": "Ge'ez"
         }
       ]
+    },
+    "lookupLangOverride": {
+      "defaultValue": false,
+      "labelText": "Override language at lookup panel",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

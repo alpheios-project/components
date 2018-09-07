@@ -363,6 +363,7 @@ export default class UIController {
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
 
           const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.options.items.lookupLangOverride.setValue(false)
           this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
