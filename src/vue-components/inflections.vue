@@ -50,12 +50,12 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue v-if="!selectedView.isEmpty" :view="selectedView" :messages="messages"
+                <main-table-wide-vue :view="selectedView" :messages="messages"
                                      :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                 </main-table-wide-vue>
 
                 <template v-if="selectedView.linkedViews" v-for="linkedView in selectedView.linkedViews">
-                    <main-table-wide-vue v-if="!linkedView.isEmpty" :view="linkedView" :messages="messages"
+                    <main-table-wide-vue :view="linkedView" :messages="messages"
                                          :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
                     </main-table-wide-vue>
                 </template>
