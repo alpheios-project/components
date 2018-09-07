@@ -766,6 +766,7 @@ export default class UIController {
   }
 
   newLexicalRequest (languageID) {
+    console.log(`new lexical request`)
     this.popup.newLexicalRequest()
     this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
@@ -902,7 +903,13 @@ export default class UIController {
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
-  lexicalRequestComplete () {
+  lexicalRequestSucceeded () {
+    console.log(`lexical request succeeded`)
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  lexicalRequestFailed (rqstLanID) {
+    console.log(`lexical request failed, lang ID is ${rqstLanID}`)
     this.panel.panelData.inflectionsWaitState = false
   }
 

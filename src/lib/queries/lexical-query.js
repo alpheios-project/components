@@ -185,15 +185,16 @@ export default class LexicalQuery extends Query {
       }
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
       if (typeof result === 'object' && result instanceof Error) {
+        this.ui.lexicalRequestFailed(this.languageID)
         console.error(`LexicalQuery failed: ${result.message}`)
       } else {
+        this.ui.lexicalRequestSucceeded()
         console.log('LexicalQuery completed successfully')
       }
       // we might have previous requests which succeeded so go ahead and try
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
-    this.ui.lexicalRequestComplete()
     Query.destroy(this)
     return result
   }

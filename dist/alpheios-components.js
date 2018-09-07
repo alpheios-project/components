@@ -27515,7 +27515,7 @@ class UIController {
   }
 
   newLexicalRequest (languageID) {
-    console.log(`new inflection request`)
+    console.log(`new lexical request`)
     this.popup.newLexicalRequest()
     this.panel.panelData.inflectionsEnabled = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
@@ -27652,7 +27652,13 @@ class UIController {
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
-  lexicalRequestComplete () {
+  lexicalRequestSucceeded () {
+    console.log(`lexical request succeeded`)
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  lexicalRequestFailed (rqstLanID) {
+    console.log(`lexical request failed, lang ID is ${rqstLanID}`)
     this.panel.panelData.inflectionsWaitState = false
   }
 
@@ -29618,14 +29624,15 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
       if (typeof result === 'object' && result instanceof Error) {
         console.error(`LexicalQuery failed: ${result.message}`)
+        this.ui.lexicalRequestSucceeded()
       } else {
         console.log('LexicalQuery completed successfully')
+        this.ui.lexicalRequestFailed(this.languageID)
       }
       // we might have previous requests which succeeded so go ahead and try
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
-    this.ui.lexicalRequestComplete()
     _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].destroy(this)
     return result
   }
