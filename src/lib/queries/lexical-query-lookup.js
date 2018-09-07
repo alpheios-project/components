@@ -44,8 +44,4 @@ export default class LexicalQueryLookup extends LexicalQuery {
     }
     return LexicalQuery.create(textSelector, options)
   }
-  /**
-   */
-  enableLemmaTranslations (textSelector) {
-  }
 }

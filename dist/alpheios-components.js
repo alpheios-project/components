@@ -29828,10 +29828,6 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
     }
     return _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__["default"].create(textSelector, options)
   }
-  /**
-   */
-  enableLemmaTranslations (textSelector) {
-  }
 }
 
 
