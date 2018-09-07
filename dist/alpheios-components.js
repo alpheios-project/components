@@ -27479,6 +27479,7 @@ class UIController {
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
 
           const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.options.items.lookupLangOverride.setValue(false)
           this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
         })
