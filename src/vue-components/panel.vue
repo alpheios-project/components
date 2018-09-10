@@ -90,7 +90,7 @@
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
-                <div 
+                <div
                   v-if="showDefinitionsPlaceholder">
                   {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}
                 </div>
@@ -145,6 +145,10 @@
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                     :key="languageSetting.name"
                     v-for="languageSetting in resourceSettingsLexiconsShort"></setting>
+                <setting :data="data.settings.enableLemmaTranslations" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.settings.locale" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
@@ -839,7 +843,7 @@
       display: inline-block;
       vertical-align: top;
     }
-  
+
     .alpheios-panel__options-item .alpheios-setting__label {
       width: 100px;
       display: inline-block;
