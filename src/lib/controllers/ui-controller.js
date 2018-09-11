@@ -936,7 +936,7 @@ export default class UIController {
   }
 
   lexicalRequestFailed (rqstLanID) {
-    console.log(`lexical request failed, lang ID is ${rqstLanID}`)
+    console.log(`lexical request failed, lang ID is ${rqstLanID.toString()}`)
     this.panel.panelData.inflectionsWaitState = false
   }
 
