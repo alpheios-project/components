@@ -159,11 +159,9 @@ export default class LexicalQuery extends Query {
     }
     yield 'Retrieval of short and full definitions complete'
 
-    let userLang = navigator.language || navigator.userLanguage
-
     if (this.lemmaTranslations) {
       const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
-      yield this.lemmaTranslations.fetchTranslations(lemmaList, languageCode, userLang)
+      yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
       this.ui.updateTranslations(this.homonym)
     }
 

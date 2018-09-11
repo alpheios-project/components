@@ -227,7 +227,7 @@
     "component": "Popup"
   },
   "PLACEHOLDER_NO_DATA_POPUP_DATA": {
-    "message": "Lexical data couldn't be populated  for unknown reason",
+    "message": "Lexical query produced no results",
     "description": "placeholder text for popup data",
     "component": "Popup"
   },

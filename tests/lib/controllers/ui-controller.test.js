@@ -164,7 +164,7 @@ describe('ui-controller.test.js', () => {
 
   it('6 UIController - showLanguageInfo methods', () => {
     uiC.showLanguageInfo()
-    let languageName = l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN
+    let languageName = UIController.getLanguageName(LMF.getLanguageIdFromCode(uiC.panel.options.items.preferredLanguage.currentValue))
 
     expect(uiC.panel.panelData.notification.visible).toBeTruthy()
     expect(uiC.panel.panelData.notification.important).toBeTruthy()
@@ -192,6 +192,17 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.popupData.notification.visible).toBeTruthy()
     expect(uiC.popup.popupData.notification.important).toBeFalsy()
     expect(uiC.popup.popupData.notification.showLanguageSwitcher).toBeFalsy()
+
+    // in this case, the language shown in the language notification should be
+    // the language actually tried, not the default from options
+    let testHomonymNoLexemes = {
+      languageID: LMF.getLanguageIdFromCode('grc')
+    }
+    uiC.showLanguageInfo(testHomonymNoLexemes)
+    expect(uiC.panel.panelData.notification.visible).toBeTruthy()
+    expect(uiC.panel.panelData.notification.important).toBeTruthy()
+    expect(uiC.panel.panelData.notification.showLanguageSwitcher).toBeTruthy()
+    expect(uiC.popup.popupData.notification.text).toEqual(l10n.messages.TEXT_NOTICE_CHANGE_LANGUAGE.get(UIController.getLanguageName(testHomonymNoLexemes.languageID)))
   })
 
   it('7 UIController - showStatusInfo methods', () => {
@@ -679,8 +690,8 @@ describe('ui-controller.test.js', () => {
   })
 
   it('26 UIController - panel methods - settingChange', () => {
-    uiC.panel.settingChange('locale', 'English (GB)')
-    expect(uiC.panel.options.items.locale.currentValue).toEqual('en-GB')
+    uiC.panel.settingChange('locale', 'French')
+    expect(uiC.panel.options.items.locale.currentValue).toEqual('fr')
 
     let setLocaleFN = jest.fn(() => { })
     uiC.presenter = { setLocale: setLocaleFN }
@@ -743,13 +754,13 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.messages).toEqual([])
   })
 
-  it('28 UIController - popup methods - close', () => {
+  it('30 UIController - popup methods - close', () => {
     uiC.popup.visible = true
     uiC.popup.close()
     expect(uiC.popup.visible).toBeFalsy()
   })
 
-  it('28 UIController - popup methods - showErrorInformation', () => {
+  it('31 UIController - popup methods - showErrorInformation', () => {
     uiC.popup.showErrorInformation('fooError')
     expect(uiC.popup.popupData.notification.visible).toBeTruthy()
     expect(uiC.popup.popupData.notification.important).toBeTruthy()
@@ -757,7 +768,7 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.popupData.notification.text).toEqual('fooError')
   })
 
-  it('28 UIController - popup methods - sendFeature, showPanelTab', () => {
+  it('32 UIController - popup methods - sendFeature, showPanelTab', () => {
     uiC.panel.requestGrammar = jest.fn(() => { })
     uiC.panel.changeTab = jest.fn(() => { })
     uiC.panel.open = jest.fn(() => { })
@@ -769,9 +780,9 @@ describe('ui-controller.test.js', () => {
     expect(uiC.panel.open).toHaveBeenCalledTimes(2)
   })
 
-  it('28 UIController - popup methods - settingChange', () => {
-    uiC.popup.settingChange('locale', 'English (GB)')
-    expect(uiC.popup.options.items.locale.currentValue).toEqual('en-GB')
+  it('33 UIController - popup methods - settingChange', () => {
+    uiC.popup.settingChange('locale', 'French')
+    expect(uiC.popup.options.items.locale.currentValue).toEqual('fr')
 
     let setLocaleFN = jest.fn(() => { })
     uiC.presenter = { setLocale: setLocaleFN }
@@ -784,7 +795,7 @@ describe('ui-controller.test.js', () => {
     expect(uiC.updateLanguage).toHaveBeenCalled()
   })
 
-  it('28 UIController - popup methods - resourceSettingChange', () => {
+  it('34 UIController - popup methods - resourceSettingChange', () => {
     let testName = 'lexicons-grc'
     let testValues = ['Liddell, Scott, Jones']
 
@@ -793,7 +804,7 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.resourceOptions.items.lexicons.filter((f) => f.name === testName)[0].currentValue).toEqual(checkValues.map(f => f.value))
   })
 
-  it(' UIController - popup methods - uiOptionChange', () => {
+  it('35 UIController - popup methods - uiOptionChange', () => {
     uiC.updateFontSizeClass = jest.fn(() => { })
     uiC.updateColorSchemaClass = jest.fn(() => { })
     uiC.changeSkin = jest.fn(() => { })
