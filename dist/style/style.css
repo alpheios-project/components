@@ -8039,6 +8039,8 @@ div.alpheios-checkbox-block {
         width: 7.2px;
         left: 2.88px;
         top: 5.12px; }
+  .auk.alpheios-font_medium_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 12.8px; }
   .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
     font-size: 16px;
     width: 28px;
@@ -8151,6 +8153,8 @@ div.alpheios-checkbox-block {
         width: 5.4px;
         left: 2.16px;
         top: 3.84px; }
+  .auk.alpheios-font_small_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 9.6px; }
   .auk.alpheios-font_small_class .alpheios-skin_properties_item {
     font-size: 12px;
     width: 24px;
@@ -8263,6 +8267,8 @@ div.alpheios-checkbox-block {
         width: 9px;
         left: 3.6px;
         top: 6.4px; }
+  .auk.alpheios-font_large_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 16px; }
   .auk.alpheios-font_large_class .alpheios-skin_properties_item {
     font-size: 20px;
     width: 32px;
@@ -8835,6 +8841,91 @@ a.alpheios-lookup__settings-link {
 }
 .alpheios-override-lang__label {
   padding-bottom: 10px;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-popup-lexdataloading__progress-wrapper {
+  margin: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+.alpheios-popup-lexdataloading__progress-inner {
+  border: 2px solid #73CDDE;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+}
+.alpheios-popup-lexdataloading__progress-line {
+  -webkit-animation: progress 3s infinite;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.alpheios-popup-lexdataloading__progress-text {
+  display: block;
+  padding: 4px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  border: 2px solid #fff;
+  font-size: 85%;
+}
+@-webkit-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-o-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-ms-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-moz-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
 }
 
 /************ UIKit vars ************************/
