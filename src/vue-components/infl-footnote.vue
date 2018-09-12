@@ -96,6 +96,7 @@
       },
       hidePopup () {
         this.footnotesPopupVisible = false
+        this.popupAlignmentStyles.transform = undefined
       }
 
     }

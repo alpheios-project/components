@@ -8579,6 +8579,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     hidePopup () {
       this.footnotesPopupVisible = false
+      this.popupAlignmentStyles.transform = undefined
     }
 
   }
