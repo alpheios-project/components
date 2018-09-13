@@ -7,18 +7,18 @@
         </div>
         <div v-if="!state.collapsed">
             <div class="alpheios-sf__pofs-title">Nouns</div>
-                <wide-table :view="standardForm('latin_noun_view').view"></wide-table>
+                <wide-table :view="standardForm('latin_noun_view').view" :messages="messages"></wide-table>
             <div class="alpheios-sf__pofs-title">Adjectives</div>
-                <wide-table :view="standardForm('latin_adjective_view').view"></wide-table>
+                <wide-table :view="standardForm('latin_adjective_view').view" :messages="messages"></wide-table>
             <div class="alpheios-sf__pofs-title">Verbs</div>
                 <div class="alpheios-sf__pofs-title-2">Participles</div>
-                    <wide-table :view="standardForm('latin_verb_participle_view').view"></wide-table>
+                    <wide-table :view="standardForm('latin_verb_participle_view').view" :messages="messages"></wide-table>
                 <div class="alpheios-sf__pofs-title-2">Infinitive</div>
-                    <wide-table :view="standardForm('latin_infinitive_view').view"></wide-table>
+                    <wide-table :view="standardForm('latin_infinitive_view').view" :messages="messages"></wide-table>
                 <div class="alpheios-sf__pofs-title-2">Imperative</div>
-                <wide-table :view="standardForm('latin_imperative_view').view"></wide-table>
+                <wide-table :view="standardForm('latin_imperative_view').view" :messages="messages"></wide-table>
                 <div class="alpheios-sf__pofs-title-2">Supine</div>
-                    <wide-table :view="standardForm('latin_supine_view').view"></wide-table>
+                    <wide-table :view="standardForm('latin_supine_view').view" :messages="messages"></wide-table>
         </div>
     </div>
 
@@ -38,6 +38,11 @@
     props: {
       languageId: {
         type: Symbol,
+        required: true
+      },
+
+      messages: {
+        type: [Object],
         required: true
       }
     },

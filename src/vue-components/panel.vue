@@ -23,14 +23,14 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
+              <alph-tooltip v-show="data.inflectionsEnabled" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
                 <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
                   class="alpheios-panel__header-nav-btn">
                   <inflections-icon class="icon"></inflections-icon>
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
+              <alph-tooltip v-show="data.grammarAvailable" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
                 <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
                   class="alpheios-panel__header-nav-btn">
                   <grammar-icon class="icon"></grammar-icon>
@@ -90,7 +90,7 @@
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
-                <div 
+                <div
                   v-if="showDefinitionsPlaceholder">
                   {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}
                 </div>
@@ -101,8 +101,8 @@
             </div>
             <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData && data.settings && data.l10n">
                 <inflections class="alpheios-panel-inflections"
-                             :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
-                             :messages="data.l10n.messages" @contentwidth="setContentWidth">
+                             :inflections-enabled="data.inflectionsEnabled" :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
+                             :messages="data.l10n.messages" :wait-state="data.inflectionsWaitState" @contentwidth="setContentWidth">
                 </inflections>
             </div>
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
@@ -145,6 +145,10 @@
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
                     :key="languageSetting.name"
                     v-for="languageSetting in resourceSettingsLexiconsShort"></setting>
+                <setting :data="data.settings.enableLemmaTranslations" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.settings.locale" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
@@ -228,7 +232,12 @@
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
-        }
+        },
+
+        inflPanelLeftPadding: 0,
+        inflPanelRightPadding: 0,
+        scrollPadding: 0,
+        defaultScrollPadding: 20
       }
     },
     props: {
@@ -421,13 +430,20 @@
           this.$el.style.removeProperty('width')
           return
         }
-        let widthDelta = parseInt(this.navbarWidth, 10)
-          + parseInt(this.inflPanelLeftPadding, 10)
-          + parseInt(this.inflPanelRightPadding, 10)
-        if (width > this.data.minWidth + widthDelta) {
+
+        this.calcWidthPaddings()
+        this.calcScrollPadding()
+
+        let widthDelta = this.navbarWidth
+          + this.inflPanelLeftPadding
+          + this.inflPanelRightPadding
+          + this.scrollPadding
+
+        if (width > this.data.minWidth - widthDelta) {
           let adjustedWidth = width + widthDelta
           // Max viewport width less some space to display page content
           let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
+
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
@@ -447,6 +463,41 @@
 
       attachTrackingClick: function () {
         this.close()
+      },
+
+      calcScrollPadding: function () {
+        if (typeof this.$el.querySelector === 'function') {
+          this.scrollPadding = this.$el.scrollHeight > this.$el.offsetHeight ?
+                               this.defaultScrollPadding : 0
+        }
+      },
+
+      calcWidthPaddings: function () {
+        if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+          let navbar = this.$el.querySelector(`#${this.navbarID}`)
+          let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+          this.navbarWidth = 0
+          if (navbar) {
+            let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+            if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+          }
+
+          if (inflectionsPanel) {
+            let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+            if (Array.isArray(resPl1)) {
+              this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+            } else {
+              this.inflPanelLeftPadding = 0
+            }
+
+            let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+            if (Array.isArray(resPl2)) {
+              this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+            } else {
+              this.inflPanelRightPadding = 0
+            }
+          }
+        }
       }
     },
     created: function () {
@@ -461,28 +512,7 @@
         return
       }
       if (typeof this.$el.querySelector === 'function') {
-        let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-        this.navbarWidth = 0
-        if (navbar) {
-          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-        }
-
-        if (inflectionsPanel) {
-          let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-          if (Array.isArray(resPl1)) {
-            this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
-          } else {
-            this.inflPanelLeftPadding = 0
-          }
-          let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-          if (Array.isArray(resPl2)) {
-            this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
-          } else {
-            this.inflPanelRightPadding = 0
-          }
-        }
+        this.calcWidthPaddings()
 
         // Initialize Interact.js: make panel resizable
         interact(this.$el)
@@ -721,6 +751,7 @@
         display: flex;
         flex-direction: column;
         padding: 20px;
+        width: 100%;
     }
 
     .alpheios-panel__tab-panel--fw {
@@ -813,12 +844,17 @@
       display: inline-block;
       vertical-align: top;
     }
-  
+
     .alpheios-panel__options-item .alpheios-setting__label {
       width: 100px;
       display: inline-block;
     }
+
     .alpheios-panel__options-item select {
       display: inline-block;
+    }
+
+    .alpheios-panel__tab__inflections {
+        width: 100%;
     }
 </style>
