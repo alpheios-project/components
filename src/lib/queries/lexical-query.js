@@ -130,35 +130,6 @@ export default class LexicalQuery extends Query {
       lemmaList.push(lexeme.lemma)
     }
 
-    // Handle definition responses
-    for (let definitionRequest of definitionRequests) {
-      definitionRequest.request.then(
-        definition => {
-          console.log(`${definitionRequest.type}(s) received:`, definition)
-          definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
-          definitionRequest.complete = true
-          if (this.active) {
-            this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
-            this.ui.updateDefinitions(this.homonym)
-          }
-          if (definitionRequests.every(request => request.complete)) {
-            this.finalize('Success')
-          }
-        },
-        error => {
-          console.error(`${definitionRequest.type}(s) request failed: ${error}`)
-          definitionRequest.complete = true
-          if (this.active) {
-            this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
-          }
-          if (definitionRequests.every(request => request.complete)) {
-            this.finalize(error)
-          }
-        }
-      )
-    }
-    yield 'Retrieval of short and full definitions complete'
-
     if (this.lemmaTranslations) {
       const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
       yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
@@ -166,6 +137,41 @@ export default class LexicalQuery extends Query {
     }
 
     yield 'Retrieval of lemma translations completed'
+
+    // Handle definition responses
+    if (definitionRequests.length > 0) {
+      for (let definitionRequest of definitionRequests) {
+        definitionRequest.request.then(
+          definition => {
+            console.log(`${definitionRequest.type}(s) received:`, definition)
+            definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
+            definitionRequest.complete = true
+            if (this.active) {
+              this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
+              this.ui.updateDefinitions(this.homonym)
+            }
+            if (definitionRequests.every(request => request.complete)) {
+              this.finalize('Success')
+            }
+          },
+          error => {
+            console.error(`${definitionRequest.type}(s) request failed: ${error}`)
+            definitionRequest.complete = true
+            if (this.active) {
+              this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
+            }
+            if (definitionRequests.every(request => request.complete)) {
+              this.finalize(error)
+            }
+          }
+        )
+      }
+      yield 'Retrieval of short and full definitions complete'
+    } else {
+      // need to finalize if there weren't any definition requests
+      this.finalize('Success-NoDefs')
+      yield 'No definitions to retrieve'
+    }
   }
 
   finalize (result) {
