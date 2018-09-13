@@ -817,6 +817,9 @@ export default class UIController {
           providers.set(d.provider, 1)
         }
       })
+      if (l.lemma && l.lemma.translation && l.lemma.translation.provider) {
+        providers.set(l.lemma.translation.provider, 1)
+      }
     })
     this.popup.popupData.providers = Array.from(providers.keys())
   }
@@ -877,6 +880,7 @@ export default class UIController {
     this.popup.translations = translations
     this.popup.popupData.translationsDataReady = true
     this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.updateProviders(homonym)
   }
 
   updatePageAnnotationData (data) {
