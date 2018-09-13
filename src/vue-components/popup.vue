@@ -42,18 +42,10 @@
                 </alph-tooltip>
             </div>
         </div>
+
         <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            <div class="alpheios-popup-lexdataloading__progress-wrapper">
-                <div class="alpheios-popup-lexdataloading__progress-border">
-                    <div class="alpheios-popup-lexdataloading__progress-whitespace">
-                        <div class="alpheios-popup-lexdataloading__progress-line"></div>
-                        <div class="alpheios-popup-lexdataloading__progress-text">
-                            {{ ln10Messages('PLACEHOLDER_POPUP_DATA') }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <progress-bar :text="ln10Messages('PLACEHOLDER_POPUP_DATA')"></progress-bar>
         </div>
 
         <div v-show="noLanguage && !morphDataReady"
@@ -103,6 +95,7 @@
 
   import Tooltip from './tooltip.vue'
   import Lookup from './lookup.vue'
+  import ProgressBar from './progress-bar.vue'
 
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
@@ -116,7 +109,8 @@
       setting: Setting,
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup
+      lookup: Lookup,
+      progressBar: ProgressBar
     },
     directives: {
       onClickaway: onClickaway,
@@ -746,7 +740,7 @@
 
     .alpheios-popup__definitions--placeholder {
         border: 0 none;
-        padding: 10px 0 0;
+        padding: 10px 0;
     }
 
     img.alpheios-popup__logo {
@@ -781,89 +775,4 @@
       vertical-align: middle;
       padding: 5px 0 0;
     }
-
-    // region Lexical data loading animation
-    .alpheios-popup-lexdataloading__progress-wrapper {
-        height: 1.2rem;
-        margin: 0 1rem 2rem;
-        font-size: 0.875rem;
-    }
-
-    .alpheios-popup-lexdataloading__progress-border {
-        border: 2px solid $alpheios-icon-color;
-        height: 100%;
-        padding: 2px;
-    }
-
-    .alpheios-popup-lexdataloading__progress-whitespace {
-        overflow: hidden;
-        height: 100%;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .alpheios-popup-lexdataloading__progress-line {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        background-color: $alpheios-icon-color;
-        animation: cssload-slide 5.75s steps(40) infinite;
-    }
-
-    .alpheios-popup-lexdataloading__progress-text {
-        text-transform: uppercase;
-        color: $alpheios-copy-color;
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    @keyframes cssload-slide {
-        0% {
-            left: -100%;
-        }
-        100% {
-            left: 100%;
-        }
-    }
-
-    @-o-keyframes cssload-slide {
-        0% {
-            left: -100%;
-        }
-        100% {
-            left: 100%;
-        }
-    }
-
-    @-ms-keyframes cssload-slide {
-        0% {
-            left: -100%;
-        }
-        100% {
-            left: 100%;
-        }
-    }
-
-    @-webkit-keyframes cssload-slide {
-        0% {
-            left: -100%;
-        }
-        100% {
-            left: 100%;
-        }
-    }
-
-    @-moz-keyframes cssload-slide {
-        0% {
-            left: -100%;
-        }
-        100% {
-            left: 100%;
-        }
-    }
-    // endregion Lexical data loading animation
 </style>
