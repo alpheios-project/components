@@ -28293,10 +28293,10 @@ class UIController {
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
-<<<<<<< HEAD
   lexicalRequestComplete () {
     this.popup.popupData.morphDataReady = true
-=======
+  }
+
   lexicalRequestSucceeded () {
     console.log(`lexical request succeeded`)
     this.panel.panelData.inflectionsWaitState = false
@@ -28305,7 +28305,6 @@ class UIController {
   lexicalRequestFailed (rqstLanID) {
     console.log(`lexical request failed, lang ID is ${rqstLanID.toString()}`)
     this.panel.panelData.inflectionsWaitState = false
->>>>>>> master
   }
 
   get inflDataReady () {
