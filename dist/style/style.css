@@ -130,17 +130,22 @@
  * Remove the gap between embedded content and the bottom of their containers.
  */
   /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 1. Add responsiveness.
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
+  /* 4 */
   /*
  * Hide the overflow in IE.
  */
   /*
  * Hide `alt` text for lazy load images
  * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ */
+  /*
+ * Iframe
+ * Remove border in all browsers
  */
   /* Block elements
  ========================================================================== */
@@ -198,8 +203,6 @@
   /*
  * Add the correct display in IE.
  */
-  /* Iframe
- ========================================================================== */
   /* Pass media breakpoints to JS
  ========================================================================== */
   /*
@@ -639,15 +642,14 @@
   /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Remove border-radius in Chrome.
- * 4. Address `overflow` set to `hidden` in IE.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 7. Style
- * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Style
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 9. Align text if button has a width
- * 10. Required for `a`.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
  */
   /*
  * Remove the inner border and padding in Firefox.
@@ -1891,8 +1893,8 @@
  * 3. Gutter
  */
   /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
   /* Items
  ========================================================================== */
@@ -2674,7 +2676,6 @@
   .auk audio,
   .auk canvas,
   .auk img,
-  .auk svg,
   .auk video {
     /* 1 */
     max-width: 100%;
@@ -2682,10 +2683,17 @@
     height: auto;
     /* 3 */
     box-sizing: border-box; }
+  @supports (display: block) {
+    .auk svg {
+      max-width: 100%;
+      height: auto;
+      box-sizing: border-box; } }
   .auk svg:not(:root) {
     overflow: hidden; }
   .auk img:not([src]) {
     visibility: hidden; }
+  .auk iframe {
+    border: 0; }
   .auk p,
   .auk ul,
   .auk ol,
@@ -2820,8 +2828,6 @@
     display: list-item; }
   .auk template {
     display: none; }
-  .auk iframe {
-    border: 0; }
   .auk .var-media-s::before {
     content: "640px"; }
   .auk .var-media-m::before {
@@ -3580,25 +3586,23 @@
     /* 2 */
     border: none;
     /* 3 */
-    border-radius: 0;
-    /* 4 */
     overflow: visible;
-    /* 5 */
+    /* 4 */
     font: inherit;
     color: inherit;
-    /* 6 */
+    /* 5 */
     text-transform: none;
-    /* 7 */
+    /* 6 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 30px;
     vertical-align: middle;
     font-size: 0.875rem;
-    /* 8 */
+    /* 7 */
     line-height: 38px;
-    /* 9 */
+    /* 8 */
     text-align: center;
-    /* 10 */
+    /* 9 */
     text-decoration: none;
     text-transform: uppercase;
     -webkit-transition: 0.1s ease-in-out;
@@ -3612,7 +3616,7 @@
     border: 0;
     padding: 0; }
   .auk .uk-button:hover {
-    /* 8 */
+    /* 9 */
     text-decoration: none; }
   .auk .uk-button:focus {
     outline: none; }
@@ -4645,7 +4649,7 @@
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    height: 80px;
+    min-height: 80px;
     padding: 0 15px;
     /* 3 */
     font-size: 0.875rem;
@@ -5536,8 +5540,6 @@
     margin-left: -10px; }
   .auk .uk-iconnav > * {
     /* 1 */
-    flex: none;
-    /* 2 */
     padding-left: 10px; }
   .auk .uk-iconnav > * > a {
     /* 1 */
@@ -6674,6 +6676,8 @@
     max-width: none; }
   .auk .uk-border-circle {
     border-radius: 50%; }
+  .auk .uk-border-pill {
+    border-radius: 500px; }
   .auk .uk-border-rounded {
     border-radius: 5px; }
   .auk .uk-inline-clip[class*='uk-border-'] {
@@ -7986,6 +7990,8 @@ div.alpheios-checkbox-block {
         width: 9px;
         left: 4px;
         top: 7px; }
+  .auk.alpheios-font_medium_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 12.8px; }
   .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
     font-size: 16px;
     width: 28px;
@@ -8085,6 +8091,8 @@ div.alpheios-checkbox-block {
         width: 6.75px;
         left: 3px;
         top: 5.25px; }
+  .auk.alpheios-font_small_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 9.6px; }
   .auk.alpheios-font_small_class .alpheios-skin_properties_item {
     font-size: 12px;
     width: 24px;
@@ -8184,6 +8192,8 @@ div.alpheios-checkbox-block {
         width: 11.25px;
         left: 5px;
         top: 8.75px; }
+  .auk.alpheios-font_large_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 16px; }
   .auk.alpheios-font_large_class .alpheios-skin_properties_item {
     font-size: 20px;
     width: 32px;
@@ -8757,6 +8767,91 @@ a.alpheios-lookup__settings-link {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-popup-lexdataloading__progress-wrapper {
+  margin: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+.alpheios-popup-lexdataloading__progress-inner {
+  border: 2px solid #73CDDE;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+}
+.alpheios-popup-lexdataloading__progress-line {
+  -webkit-animation: progress 3s infinite;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.alpheios-popup-lexdataloading__progress-text {
+  display: block;
+  padding: 4px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  border: 2px solid #fff;
+  font-size: 85%;
+}
+@-webkit-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-o-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-ms-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-moz-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-popup {
   display: flex;
   flex-direction: column;
@@ -8876,7 +8971,7 @@ a.alpheios-lookup__settings-link {
 }
 .alpheios-popup__definitions--placeholder {
   border: 0 none;
-  padding: 10px 0 0;
+  padding: 10px 0;
 }
 img.alpheios-popup__logo {
   height: 16px;
@@ -8908,79 +9003,6 @@ img.alpheios-popup__logo {
   display: inline-block;
   vertical-align: middle;
   padding: 5px 0 0;
-}
-.alpheios-popup-lexdataloading__progress-wrapper {
-  height: 1.2rem;
-  margin: 0 1rem 2rem;
-  font-size: 0.875rem;
-}
-.alpheios-popup-lexdataloading__progress-border {
-  border: 2px solid #73CDDE;
-  height: 100%;
-  padding: 2px;
-}
-.alpheios-popup-lexdataloading__progress-whitespace {
-  overflow: hidden;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-}
-.alpheios-popup-lexdataloading__progress-line {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: #73CDDE;
-  animation: cssload-slide 5.75s steps(40) infinite;
-}
-.alpheios-popup-lexdataloading__progress-text {
-  text-transform: uppercase;
-  color: #666666;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-@keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
-}
-@-o-keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
-}
-@-ms-keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
-}
-@-webkit-keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
-}
-@-moz-keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
 }
 
 
