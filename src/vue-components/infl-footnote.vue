@@ -34,7 +34,11 @@
         footnotesPopupVisible: false,
         draggable: true,
         interactInstance: undefined,
-        popupAlignmentStyles: {transform: undefined}
+        popupAlignmentStyles: {transform: undefined},
+        inflpopup: null,
+        inflpanel: null,
+        defaultRightPadding: 10,
+        defaultLeftPadding: 20
       }
     },
     mounted () {
@@ -76,17 +80,31 @@
         return childBR.x < 0
       },
 
-      checkBounds () {
-        let inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
-        let inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')      
+      deltaRightXBound(childBR, parentBR) {
+        return this.isOutOfRightXBound(childBR, parentBR) ?
+               Math.round((childBR.x + childBR.width) - (parentBR.x + parentBR.width)) + this.defaultRightPadding: 0
+      },
 
-        let popupBR = inflpopup.getBoundingClientRect()
-        let panelBR = inflpanel.getBoundingClientRect()
+      deltaLeftXBound(childBR, parentBR) {
+        return this.isOutOfLeftXBound(childBR, parentBR) ?
+               Math.round(Math.abs(childBR.x)) - this.defaultLeftPadding : 0
+      },
+
+      checkBounds () {
+        if (!this.inflpopup) {
+          this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+        }
+        if (!this.inflpanel) {
+          this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
+        }
+
+        let popupBR = this.inflpopup.getBoundingClientRect()
+        let panelBR = this.inflpanel.getBoundingClientRect()
 
         if (this.isOutOfRightXBound(popupBR, panelBR)) {
-          this.popupAlignmentStyles.transform = 'translateX(-100%)'
+          this.popupAlignmentStyles.transform = 'translateX(calc(-50% - ' + this.deltaRightXBound(popupBR, panelBR) + 'px))'
         } else if (this.isOutOfLeftXBound(popupBR, panelBR)) {
-          this.popupAlignmentStyles.transform = 'translateX(0)'
+          this.popupAlignmentStyles.transform = 'translateX(-' + this.deltaLeftXBound(popupBR, panelBR) + 'px)'
         }
       },
       async showPopup () {
