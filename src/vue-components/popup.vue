@@ -42,9 +42,10 @@
                 </alph-tooltip>
             </div>
         </div>
+
         <div v-show="!morphDataReady && !noLanguage"
              class="alpheios-popup__morph-cont alpheios-popup__definitions--placeholder uk-text-small">
-            {{ ln10Messages('PLACEHOLDER_POPUP_DATA') }}
+            <progress-bar :text="ln10Messages('PLACEHOLDER_POPUP_DATA')"></progress-bar>
         </div>
 
         <div v-show="noLanguage && !morphDataReady"
@@ -94,6 +95,7 @@
 
   import Tooltip from './tooltip.vue'
   import Lookup from './lookup.vue'
+  import ProgressBar from './progress-bar.vue'
 
   // Embeddable SVG icons
   import CloseIcon from '../images/inline-icons/close.svg'
@@ -107,7 +109,8 @@
       setting: Setting,
       closeIcon: CloseIcon,
       alphTooltip: Tooltip,
-      lookup: Lookup
+      lookup: Lookup,
+      progressBar: ProgressBar
     },
     directives: {
       onClickaway: onClickaway,
@@ -737,7 +740,7 @@
 
     .alpheios-popup__definitions--placeholder {
         border: 0 none;
-        padding: 10px 0 0;
+        padding: 10px 0;
     }
 
     img.alpheios-popup__logo {

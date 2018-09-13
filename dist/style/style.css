@@ -8026,6 +8026,8 @@ div.alpheios-checkbox-block {
         width: 9px;
         left: 4px;
         top: 7px; }
+  .auk.alpheios-font_medium_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 12.8px; }
   .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small {
     line-height: 20.8px; }
     .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small label {
@@ -8138,6 +8140,8 @@ div.alpheios-checkbox-block {
         width: 6.75px;
         left: 3px;
         top: 5.25px; }
+  .auk.alpheios-font_small_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 9.6px; }
   .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small {
     line-height: 15.6px; }
     .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small label {
@@ -8250,6 +8254,8 @@ div.alpheios-checkbox-block {
         width: 11.25px;
         left: 5px;
         top: 8.75px; }
+  .auk.alpheios-font_large_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 16px; }
   .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small {
     line-height: 26px; }
     .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small label {
@@ -8842,6 +8848,91 @@ a.alpheios-lookup__settings-link {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-popup-lexdataloading__progress-wrapper {
+  margin: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+.alpheios-popup-lexdataloading__progress-inner {
+  border: 2px solid #73CDDE;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+}
+.alpheios-popup-lexdataloading__progress-line {
+  -webkit-animation: progress 3s infinite;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.alpheios-popup-lexdataloading__progress-text {
+  display: block;
+  padding: 4px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  border: 2px solid #fff;
+  font-size: 85%;
+}
+@-webkit-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-o-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-ms-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-moz-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-popup {
   display: flex;
   flex-direction: column;
@@ -8961,7 +9052,7 @@ a.alpheios-lookup__settings-link {
 }
 .alpheios-popup__definitions--placeholder {
   border: 0 none;
-  padding: 10px 0 0;
+  padding: 10px 0;
 }
 img.alpheios-popup__logo {
   height: 16px;

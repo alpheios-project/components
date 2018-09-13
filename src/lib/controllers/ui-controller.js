@@ -930,6 +930,10 @@ export default class UIController {
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
+  lexicalRequestComplete () {
+    this.popup.popupData.morphDataReady = true
+  }
+
   lexicalRequestSucceeded () {
     console.log(`lexical request succeeded`)
     this.panel.panelData.inflectionsWaitState = false
