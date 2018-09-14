@@ -351,17 +351,25 @@
         set: function (newHeight) {
           let time = new Date().getTime()
           this.logger.log(`${time}: height setter, offsetHeight is ${newHeight}`)
+          /*
           let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
           let horizontalScrollbarWidth = window.innerHeight - document.documentElement.clientHeight
           let maxHeight = viewportHeight - 2*this.data.viewportMargin - horizontalScrollbarWidth
-          if (newHeight >= maxHeight) {
-            this.logger.log(`Popup is too tall, limiting its height to ${maxHeight}px`)
-            this.heightValue = maxHeight
+          */
+          if (newHeight >= this.maxHeight) {
+            this.logger.log(`Popup is too tall, limiting its height to ${this.maxHeight}px`)
+            this.heightValue = this.maxHeight
             this.exactHeight = this.heightValue
           } else {
             this.heightValue = 'auto'
           }
         }
+      },
+
+      maxHeight () {
+        let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+        let horizontalScrollbarWidth = window.innerHeight - document.documentElement.clientHeight
+        return viewportHeight - 2*this.data.viewportMargin - horizontalScrollbarWidth
       },
 
       additionalStylesTootipCloseIcon: function () {
@@ -493,7 +501,7 @@
 
         let innerDif = this.$el.querySelector("#alpheios-lexical-data-container").clientHeight - this.$el.querySelector("#alpheios-morph-component").clientHeight
 
-        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta) {
+        if (this.heightDm !== 'auto' && innerDif > this.resizeDelta && this.heightValue !== this.maxHeight) {
           this.heightDm ='auto'
           return
         }
@@ -761,6 +769,7 @@
       font-style: italic;
       margin-left: .5em;
       margin-top: .5em;
+      max-width: 700px;
     }
 
     .alpheios-popup__providers {
