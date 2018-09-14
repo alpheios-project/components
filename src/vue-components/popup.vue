@@ -119,6 +119,9 @@
       return {
         resizable: true,
         draggable: true,
+        // Whether there is an error with Interact.js drag coordinates in the corresponding direction
+        dragErrorX: false,
+        dragErrorY: false,
         // contentHeight: 0, // Morphological content height (updated with `heightchange` event emitted by a morph component)
         minResizableWidth: 0, // Resizable's min width (for Interact.js)
         minResizableHeight: 0, // Resizable's min height (for Interact.js)
@@ -474,8 +477,33 @@
       dragMoveListener (event) {
         if (this.draggable) {
           const target = event.target;
-          const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-          const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+          let dx = event.dx
+          let dy = event.dy
+
+          /*
+          On some websites Interact.js is unable to determine correct clientX or clientY coordinates.
+          This will result in a popup moving abruptly beyond screen limits.
+          To fix this, we will filter out erroneous coordinates and chancel a move in the corresponding
+          direction as incorrect. This will allow us to keep the popup on screen by sacrificing its movement
+          in (usually) one direction. This is probably the best we can do with all the information we have.
+           */
+          const drugTreshold = 100 // Drag distance values above this will be considered abnormal
+          if (Math.abs(dx) > drugTreshold) {
+            if (!this.dragErrorX) {
+              console.warn(`Calculated horizontal drag distance is out of bounds: ${dx}. This is probably an error. Dragging in horizontal direction will be disabled.`)
+              this.dragErrorX = true
+            }
+            dx = 0
+          }
+          if (Math.abs(dy) > drugTreshold) {
+            if (!this.dragErrorY) {
+              console.warn(`Calculated vertical drag distance is out of bounds: ${dy}. This is probably an error. Dragging in vertical direction will be disabled.`)
+              this.dragErrorY = true
+            }
+            dy = 0
+          }
+          const x = (parseFloat(target.getAttribute('data-x')) || 0) + dx;
+          const y = (parseFloat(target.getAttribute('data-y')) || 0) + dy;
 
           target.style.webkitTransform = `translate(${x}px, ${y}px)`;
           target.style.transform = `translate(${x}px, ${y}px)`;
