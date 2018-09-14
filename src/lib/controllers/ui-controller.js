@@ -21,7 +21,9 @@ const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
   [Constants.LANG_GREEK, 'Greek'],
   [Constants.LANG_ARABIC, 'Arabic'],
-  [Constants.LANG_PERSIAN, 'Persian']
+  [Constants.LANG_PERSIAN, 'Persian'],
+  [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
+
 ])
 
 export default class UIController {
