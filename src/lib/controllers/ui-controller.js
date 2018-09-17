@@ -1,5 +1,5 @@
 /* global Node, Event */
-import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alpheios-data-models'
+import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
@@ -107,6 +107,8 @@ export default class UIController {
           },
           inflectionsWaitState: false,
           inflectionsEnabled: false,
+          // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
+          inflectionBrowserEnabled: true,
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -746,7 +748,7 @@ export default class UIController {
     let langID
     let langCode // eslint-disable-line
     // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
-    ;({languageID: langID, languageCode: langCode} = LanguageModelFactory.getLanguageAttrs(language))
+    ;({ languageID: langID, languageCode: langCode } = LanguageModelFactory.getLanguageAttrs(language))
     return languageNames.has(langID) ? languageNames.get(langID) : ''
   }
 

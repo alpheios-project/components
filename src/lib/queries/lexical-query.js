@@ -206,7 +206,7 @@ export default class LexicalQuery extends Query {
       allOptions = this.resourceOptions.items[lexiconKey] || []
     }
     let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === languageCode
-    ).map((l) => { return {allow: l.currentValue} }
+    ).map((l) => { return { allow: l.currentValue } }
     )
     if (lexiconOpts.length > 0) {
       lexiconOpts = lexiconOpts[0]

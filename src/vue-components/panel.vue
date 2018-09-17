@@ -101,7 +101,8 @@
             </div>
             <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData && data.settings && data.l10n">
                 <inflections class="alpheios-panel-inflections"
-                             :inflections-enabled="data.inflectionsEnabled" :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
+                             :inflections-enabled="data.inflectionsEnabled" :inflection-browser-enabled="data.inflectionBrowserEnabled"
+                             :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
                              :messages="data.l10n.messages" :wait-state="data.inflectionsWaitState" @contentwidth="setContentWidth">
                 </inflections>
             </div>

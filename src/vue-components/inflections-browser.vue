@@ -251,7 +251,6 @@
 
     .alpheios-ib {
         padding: 1rem 20px 0.2rem;
-        border-top: 1px solid $alpheios-base-border-color;
     }
 
     .alpheios-ib__title,
