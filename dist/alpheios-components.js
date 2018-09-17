@@ -9177,7 +9177,6 @@ __webpack_require__.r(__webpack_exports__);
           hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
         }
       },
-      suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
       canCollapse: false // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
     }
   },
@@ -9252,22 +9251,6 @@ __webpack_require__.r(__webpack_exports__);
     inflectionViewSet: function () {
       this.hasInflectionData = false
       if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
-        // Set colors for supplemental paradigm tables
-        for (let view of this.data.inflectionViewSet.getViews()) {
-          view.hlSuppParadigms = false
-          if (view.hasSuppParadigms) {
-            if (view.suppParadigms.length > 1) {
-              // Highlight tables and links only if more than one linked table present
-              view.hlSuppParadigms = true
-              view.suppHlColors = new Map()
-              let currentColorIdx = 0
-              for (let paradigm of view.suppParadigms) {
-                view.suppHlColors.set(paradigm.paradigmID, this.suppColors[currentColorIdx])
-                currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx + 1 : 0
-              }
-            }
-          }
-        }
 
         this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
         if (this.partsOfSpeech.length > 0) {
@@ -28109,7 +28092,7 @@ class UIController {
     let langID
     let langCode // eslint-disable-line
     // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
-    ;({languageID: langID, languageCode: langCode} = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageAttrs(language))
+    ;({ languageID: langID, languageCode: langCode } = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageAttrs(language))
     return languageNames.has(langID) ? languageNames.get(langID) : ''
   }
 
@@ -28832,16 +28815,16 @@ class PointerEvt {
   static addUpDownListeners (element, event) {
     if (this.pointerEventSupported) {
       // Will use pointer events
-      element.addEventListener('pointerdown', this.pointerDownListener.bind(this, event), {passive: true})
-      element.addEventListener('pointerup', this.pointerUpListener.bind(this, event), {passive: true})
+      element.addEventListener('pointerdown', this.pointerDownListener.bind(this, event), { passive: true })
+      element.addEventListener('pointerup', this.pointerUpListener.bind(this, event), { passive: true })
     } else {
-      element.addEventListener('touchstart', this.touchStartListener.bind(this, event), {passive: true})
-      element.addEventListener('touchend', this.touchEndListener.bind(this, event), {passive: true})
+      element.addEventListener('touchstart', this.touchStartListener.bind(this, event), { passive: true })
+      element.addEventListener('touchend', this.touchEndListener.bind(this, event), { passive: true })
     }
   }
 
   static addDblClickListener (element, event) {
-    element.addEventListener('dblclick', this.dblClickListener.bind(this, event), {passive: true})
+    element.addEventListener('dblclick', this.dblClickListener.bind(this, event), { passive: true })
   }
 }
 
@@ -29632,7 +29615,7 @@ class OptionItem {
   }
 
   addValue (value, text) {
-    this.values.push({value: value, text: text})
+    this.values.push({ value: value, text: text })
     return this
   }
 
@@ -30300,7 +30283,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       allOptions = this.resourceOptions.items[lexiconKey] || []
     }
     let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === languageCode
-    ).map((l) => { return {allow: l.currentValue} }
+    ).map((l) => { return { allow: l.currentValue } }
     )
     if (lexiconOpts.length > 0) {
       lexiconOpts = lexiconOpts[0]

@@ -363,7 +363,7 @@ describe('lexical-query.test.js', () => {
       siteOptions: allSiteOptions,
       langOpts: {}
     })
-    expect(query.getLexiconOptions('lexiconsShort')).toEqual({allow: ['https://github.com/alpheios-project/xx']})
+    expect(query.getLexiconOptions('lexiconsShort')).toEqual({ allow: ['https://github.com/alpheios-project/xx'] })
   })
 
   it('11 LexicalQuery - getLexiconOptions parses empty lexicons and returns {}', () => {

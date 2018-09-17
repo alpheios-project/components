@@ -192,7 +192,6 @@
             hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
           }
         },
-        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
         canCollapse: false // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
       }
     },
@@ -267,22 +266,6 @@
       inflectionViewSet: function () {
         this.hasInflectionData = false
         if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
-          // Set colors for supplemental paradigm tables
-          for (let view of this.data.inflectionViewSet.getViews()) {
-            view.hlSuppParadigms = false
-            if (view.hasSuppParadigms) {
-              if (view.suppParadigms.length > 1) {
-                // Highlight tables and links only if more than one linked table present
-                view.hlSuppParadigms = true
-                view.suppHlColors = new Map()
-                let currentColorIdx = 0
-                for (let paradigm of view.suppParadigms) {
-                  view.suppHlColors.set(paradigm.paradigmID, this.suppColors[currentColorIdx])
-                  currentColorIdx = (currentColorIdx + 1 < this.suppColors.length ) ? currentColorIdx + 1 : 0
-                }
-              }
-            }
-          }
 
           this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
           if (this.partsOfSpeech.length > 0) {
