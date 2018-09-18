@@ -9149,106 +9149,6 @@ img.alpheios-popup__logo {
   padding: 20px;
   font-size: 0.875rem;
 }
-
-/************ UIKit vars ************************/
-/************ Multiselect vars ************************/
-/*********** Font styles ***********************/
-/********** Light Schema ***********************/
-/********** Dark Schema ***********************/
-.infl-prdgm-tbl {
-  display: table;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
-  margin-bottom: 30px;
-}
-.infl-prdgm-tbl__row {
-  display: table-row;
-}
-.infl-prdgm-tbl__cell {
-  display: table-cell;
-  padding: 2px 5px;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
-}
-.infl-prdgm-tbl__cell--label {
-  font-weight: 700;
-}
-
-
-h3.alpheios-inflections__supp-table-title {
-  font-size: 1rem;
-  line-height: 1;
-  margin: 1.5rem 0 0.6rem 0;
-  font-weight: 700;
-}
-.infl-supp-tbl__cont {
-  margin-bottom: 20px;
-  display: inline-block;
-}
-.infl-prdgm-tbl--supp {
-  margin-bottom: 10px;
-}
-a.infl-supp-tbl__reflink {
-  float: right;
-}
-
-
-.alpheios-inflections__form-parts {
-	  display: inline-block;
-}
-.alpheios-inflections__forms-targetword {
-      font-weight: bold;
-}
-.alpheios-inflections__forms-cont {
-      padding-right: 30px;
-}
-.alpheios-inflections__control-btn-cont {
-      padding-left: 30px;
-}
-
-/************ UIKit vars ************************/
-/************ Multiselect vars ************************/
-/*********** Font styles ***********************/
-/********** Light Schema ***********************/
-/********** Dark Schema ***********************/
-h3.alpheios-inflections__title {
-  line-height: 1;
-  margin: 0 0 0.6rem 0;
-  font-weight: 700;
-  text-align: center;
-}
-h4.alpheios-inflections__additional_title {
-  line-height: 1.6;
-  font-weight: bold;
-  text-align: left;
-  margin: 0 0 0.6rem 0;
-}
-.auk .uk-select.alpheios-inflections__view-selector {
-  height: auto !important;
-  max-width: 220px;
-  font-size: .625rem;
-  line-height: 1.6;
-}
-.auk .uk-button-small.alpheios-inflections__control-btn {
-  line-height: 1.6;
-  font-size: .625rem;
-}
-.alpheios-inflections__actions {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 0.6rem;
-  margin-top: 10px;
-}
-.alpheios-inflections__form {
-  font-weight: bold;
-  line-height: 1.2;
-  justify-content: flex-start;
-}
-.alpheios-inflections__placeholder {
-  text-align: center;
-}
 .infl-table {
   display: grid;
   border-left: 1px solid #111;
@@ -9377,24 +9277,128 @@ h4.alpheios-inflections__additional_title {
 .infl-cell--hl {
   background: lightgray;
 }
+.infl-cell--morph-match,
+.infl-table .infl-cell.infl-cell--morph-match {
+  border: 3px solid #bce6f0;
+}
 .infl-cell__conj-stem {
   text-transform: none;
 }
 .infl-suff {
   cursor: pointer;
 }
+.row-title-cell {
+  text-transform: capitalize;
+}
 .infl-suff.infl-suff--suffix-match {
   background-color: #bce6f0;
 }
-.infl-suff--full-feature-match {
+.infl-suff--full-match {
   background-color: lightgray;
 }
-.infl-suff.infl-suff--suffix-match.infl-suff--full-feature-match {
+.infl-suff.infl-suff--suffix-match.infl-suff--full-match {
   background-color: #F6D918;
   font-weight: 700;
 }
-.row-title-cell {
-  text-transform: capitalize;
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.infl-prdgm-tbl {
+  display: table;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  margin-bottom: 30px;
+}
+.infl-prdgm-tbl__row {
+  display: table-row;
+}
+.infl-prdgm-tbl__cell {
+  display: table-cell;
+  padding: 2px 5px;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+.infl-prdgm-tbl__cell--label {
+  font-weight: 700;
+}
+
+
+h3.alpheios-inflections__supp-table-title {
+  font-size: 1rem;
+  line-height: 1;
+  margin: 1.5rem 0 0.6rem 0;
+  font-weight: 700;
+}
+.infl-supp-tbl__cont {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.infl-prdgm-tbl--supp {
+  margin-bottom: 10px;
+}
+a.infl-supp-tbl__reflink {
+  float: right;
+}
+
+
+.alpheios-inflections__form-parts {
+	  display: inline-block;
+}
+.alpheios-inflections__forms-targetword {
+      font-weight: bold;
+}
+.alpheios-inflections__forms-cont {
+      padding-right: 30px;
+}
+.alpheios-inflections__control-btn-cont {
+      padding-left: 30px;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+h3.alpheios-inflections__title {
+  line-height: 1;
+  margin: 0 0 0.6rem 0;
+  font-weight: 700;
+  text-align: center;
+}
+h4.alpheios-inflections__additional_title {
+  line-height: 1.6;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 0 0.6rem 0;
+}
+.auk .uk-select.alpheios-inflections__view-selector {
+  height: auto !important;
+  max-width: 220px;
+  font-size: .625rem;
+  line-height: 1.6;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn {
+  line-height: 1.6;
+  font-size: .625rem;
+}
+.alpheios-inflections__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  margin-top: 10px;
+}
+.alpheios-inflections__form {
+  font-weight: bold;
+  line-height: 1.2;
+  justify-content: flex-start;
+}
+.alpheios-inflections__placeholder {
+  text-align: center;
 }
 .alpheios-inflections__footnotes {
   display: none;
