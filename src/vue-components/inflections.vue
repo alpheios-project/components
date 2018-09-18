@@ -42,7 +42,7 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue :view="selectedView" :messages="messages" v-bind:collapsed="false" @widthchange="updateWidth">
+                <main-table-wide-vue :view="selectedView" :messages="messages" :collapsed="mainTableCollapsed" @widthchange="updateWidth">
                 </main-table-wide-vue>
 
                 <template v-if="selectedView.linkedViews" v-for="linkedView in selectedView.linkedViews">
@@ -80,7 +80,9 @@
             {{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}
         </div>
 
-        <inflection-browser v-if="inflectionBrowserEnabled" :language-id="languageID" :messages="messages"></inflection-browser>
+        <inflection-browser v-if="inflectionBrowserEnabled" :language-id="languageID" :messages="messages"
+                            :infl-browser-tables-collapsed="inflBrowserTablesCollapsed" @interaction="inflTableInteraction">
+        </inflection-browser>
     </div>
 </template>
 <script>
@@ -127,6 +129,12 @@
         required: false
       },
 
+      inflBrowserTablesCollapsed: {
+        type: Boolean,
+        default: true,
+        required: false
+      },
+
       data: {
         type: Object,
         required: true
@@ -164,6 +172,7 @@
         selectedViewName: '',
         selectedView: {},
         renderedView: {},
+        mainTableCollapsed: false,
         elementIDs: {
           panelInner: 'alpheios-panel-inner',
           footnotes: 'alph-inflection-footnotes'
@@ -293,12 +302,22 @@
           // Rendering is not required for component-enabled views
           this.selectedView.render()
         }
+        this.mainTableCollapsed = false
       },
 
       updateWidth: function () {
         Vue.nextTick(() => {
           this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
         })
+      },
+
+      inflTableInteraction: function () {
+        this.mainTableCollapsed = true
+        Vue.nextTick()
+          .then(() => {
+            this.mainTableCollapsed = null
+          })
+
       },
 
       navigate (reflink) {

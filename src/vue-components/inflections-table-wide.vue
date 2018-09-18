@@ -47,7 +47,7 @@
             <div v-if="!view.hasPrerenderedTables" :style="view.wideView.style"
                  class="infl-table infl-table--wide" id="alpheios-wide-vue-table">
                 <template v-for="row in view.wideView.rows">
-                    <div :class="cell.classes" v-for="cell in row.cells"
+                    <div :class="cellClasses(cell)" v-for="cell in row.cells"
                          @mouseover.stop.prevent="cellMouseOver(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)">
                         <template v-if="cell.isDataCell">
                             <template v-for="(morpheme, index) in cell.morphemes">
@@ -65,7 +65,7 @@
             </div>
             <div v-else-if="!state.collapsed" class="infl-prdgm-tbl">
                 <div class="infl-prdgm-tbl__row" v-for="row in view.wideTable.rows">
-                    <div class="infl-prdgm-tbl__cell" :class="cellClasses(cell)" v-for="cell in row.cells">
+                    <div class="infl-prdgm-tbl__cell" :class="prerenderedCellClasses(cell)" v-for="cell in row.cells">
                         {{cell.value}}
                     </div>
                 </div>
@@ -97,6 +97,12 @@
         type: [Boolean],
         default: true,
         required: false
+      },
+      // Indicate if this is a table for the inflection browser
+      inflBrowserTable: {
+        type: [Boolean],
+        default: false,
+        required: false
       }
     },
 
@@ -105,6 +111,9 @@
         state: {
           collapsed: true,
           noSuffixGroupsHidden: true
+        },
+        classes: {
+          fullMorphologyMatch: 'infl-cell--morph-match'
         }
       }
     },
@@ -122,6 +131,7 @@
       collapse: function () {
         this.state.collapsed = !this.state.collapsed
         this.view.wideView.collapsed = this.state.collapsed
+        this.$emit('interaction')
       },
 
       hideNoSuffixGroups: function () {
@@ -136,7 +146,19 @@
         this.$emit('widthchange')
       },
 
+      // Cell classes for regular tables
       cellClasses: function (cell) {
+        let classes = cell.classes
+        if (this.inflBrowserTable) {
+          // Do not show full morphology matches in an inflection browser
+          classes[this.classes.fullMorphologyMatch] = false
+        }
+        return classes
+      },
+
+      // Cell classes for pre-rendered tables
+      // TODO: merge with `cellClasses()`
+      prerenderedCellClasses: function (cell) {
         switch (cell.role) {
           case 'label':
             return 'infl-prdgm-tbl-cell--label'
@@ -173,12 +195,20 @@
     watch: {
       view: function () {
         this.initView()
+      },
+
+      collapsed: function (state) {
+        if (this.collapsed !== null) {
+          this.state.collapsed = state
+        }
       }
     },
 
     mounted: function () {
       // Set a default value by the parent component
-      this.state.collapsed = this.collapsed
+      if (this.collapsed !== null) {
+        this.state.collapsed = this.collapsed
+      }
 
       this.initView()
     }

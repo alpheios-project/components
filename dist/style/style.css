@@ -9149,6 +9149,48 @@ img.alpheios-popup__logo {
   padding: 20px;
   font-size: 0.875rem;
 }
+.alpheios-inflections__table-ctrl-cont {
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.2rem;
+  justify-content: space-between;
+}
+.alpheios-inflections__table-ctrl-cell {
+  flex-grow: 1;
+}
+div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-cell {
+  font-size: 0.875rem;
+}
+.alpheios-inflections__table-ctrl-btn-cont {
+  margin-left: 0.2rem;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn {
+  line-height: 1.6;
+  font-size: .625rem;
+  white-space: nowrap;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn--right {
+  margin-left: .5rem;
+}
+.infl-prdgm-tbl {
+  display: table;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  margin-bottom: 30px;
+}
+.infl-prdgm-tbl__row {
+  display: table-row;
+}
+.infl-prdgm-tbl__cell {
+  display: table-cell;
+  padding: 2px 5px;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  min-width: 20px;
+}
+.infl-prdgm-tbl-cell--label {
+  font-weight: 700;
+}
 .infl-table {
   display: grid;
   border-left: 1px solid #111;
@@ -9343,6 +9385,53 @@ a.infl-supp-tbl__reflink {
   float: right;
 }
 
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-ib {
+  padding: 1rem 20px 0.2rem;
+}
+.alpheios-ib__title,
+div.alpheios-ib div.alpheios-ib__title {
+  color: #4E6476;
+  font-weight: 700;
+  margin: 1rem 0 0.6rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+.alpheios-ib__pofs-title {
+  font-weight: 700;
+}
+.alpheios-ib__pofs-title-l2 {
+  font-weight: 700;
+  margin-top: 0.2rem;
+  margin-left: 1rem;
+}
+.alpheios-ib__pofs-title-l3 {
+  font-weight: 700;
+  margin-top: 0.2rem;
+  margin-left: 2rem;
+}
+div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
+  font-weight: 400;
+  font-size: 0.875rem;
+  position: relative;
+  top: -0.1rem;
+  left: 0.2rem;
+  color: #4E6476;
+}
+.alpheios-clickable {
+  cursor: pointer;
+}
+.alpheios-ib .alpheios-inflections__title.alpheios-table-sf__title {
+  text-align: left;
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 0 0 0.2rem 3rem;
+}
+
 
 .alpheios-inflections__form-parts {
 	  display: inline-block;
@@ -9362,6 +9451,17 @@ a.infl-supp-tbl__reflink {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-panel__tab-panel.alpheios-panel__tab__inflections {
+  padding: 0 0 20px;
+}
+.alpheios-inflections__placeholder {
+  padding: 0 20px;
+  margin-bottom: 1rem;
+}
+.alpheios-inflections__content {
+  padding: 0 20px;
+  border-bottom: 1px solid #d3d3d3;
+}
 h3.alpheios-inflections__title {
   line-height: 1;
   margin: 0 0 0.6rem 0;
@@ -9379,10 +9479,6 @@ h4.alpheios-inflections__additional_title {
   max-width: 220px;
   font-size: .625rem;
   line-height: 1.6;
-}
-.auk .uk-button-small.alpheios-inflections__control-btn {
-  line-height: 1.6;
-  font-size: .625rem;
 }
 .alpheios-inflections__actions {
   display: flex;
