@@ -487,15 +487,15 @@
           direction as incorrect. This will allow us to keep the popup on screen by sacrificing its movement
           in (usually) one direction. This is probably the best we can do with all the information we have.
            */
-          const drugTreshold = 100 // Drag distance values above this will be considered abnormal
-          if (Math.abs(dx) > drugTreshold) {
+          const dragTreshold = 100 // Drag distance values above this will be considered abnormal
+          if (Math.abs(dx) > dragTreshold) {
             if (!this.dragErrorX) {
               console.warn(`Calculated horizontal drag distance is out of bounds: ${dx}. This is probably an error. Dragging in horizontal direction will be disabled.`)
               this.dragErrorX = true
             }
             dx = 0
           }
-          if (Math.abs(dy) > drugTreshold) {
+          if (Math.abs(dy) > dragTreshold) {
             if (!this.dragErrorY) {
               console.warn(`Calculated vertical drag distance is out of bounds: ${dy}. This is probably an error. Dragging in vertical direction will be disabled.`)
               this.dragErrorY = true
