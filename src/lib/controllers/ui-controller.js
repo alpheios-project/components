@@ -814,11 +814,13 @@ export default class UIController {
       if (l.provider) {
         providers.set(l.provider, 1)
       }
-      l.meaning.shortDefs.forEach((d) => {
-        if (d.provider) {
-          providers.set(d.provider, 1)
-        }
-      })
+      if (l.meaning && l.meaning.shortDefs) {
+        l.meaning.shortDefs.forEach((d) => {
+          if (d.provider) {
+            providers.set(d.provider, 1)
+          }
+        })
+      }
       if (l.lemma && l.lemma.translation && l.lemma.translation.provider) {
         providers.set(l.lemma.translation.provider, 1)
       }
