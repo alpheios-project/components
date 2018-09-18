@@ -149,7 +149,7 @@
         return {
           ['infl-suff']: true,
           ['infl-suff--suffix-match']: morpheme.match.showMatches && morpheme.match.suffixMatch,
-          ['infl-suff--full-feature-match']: morpheme.match.showMatches && morpheme.match.fullMatch,
+          ['infl-suff--full-match']: morpheme.match.showMatches && morpheme.match.fullMatch,
         }
       },
 
@@ -257,4 +257,110 @@
         font-weight: 700;
     }
     // endregion Paradigm table styles
+
+    // region Tables
+    .infl-table {
+        display: grid;
+        border-left: 1px solid #111;
+        border-bottom: 1px solid #111;
+        margin-bottom: 1rem;
+    }
+
+    .infl-table--wide {
+        /* Data flow order: number- case - declension - gender - type*/
+        grid-auto-flow: row;
+        grid-template-columns: repeat(21, 1fr); /* Default value, will be redefined in JS if necessary */
+    }
+
+    .infl-table--narrow {
+        /* Data flow order: declension - number- case - gender - type*/
+        grid-auto-flow: row;
+        grid-template-columns: repeat(6, 1fr); /* Default value, will be redefined in JS if necessary */
+    }
+
+    .infl-table.hidden {
+        display: none;
+    }
+
+    .infl-table-narrow-views-cont {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .infl-cell {
+        font-size: 12px;
+        padding: 0 2px 0 5px;
+        border-right: 1px solid #111;
+        border-top: 1px solid #111;
+        position: relative;
+    }
+
+    .infl-cell.hidden {
+        display: none;
+    }
+
+    .infl-cell--hdr {
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .infl-cell--hdr .infl-cell__conj-stem {
+        text-transform: none;
+    }
+
+    .infl-cell--fw {
+        grid-column: 1 / -1;
+        font-style: italic;
+        text-transform: capitalize;
+    }
+
+    .infl-cell.infl-cell--sep {
+        height: 50px;
+    }
+
+    .infl-cell--sp0 {
+        display: none;
+    }
+
+    @for $i from 1 through 24 {
+        .infl-cell--sp#{$i} {
+            grid-column-end: span #{$i};
+        }
+    }
+
+    .infl-cell--hl {
+        background: lightgray;
+    }
+
+    .infl-cell--morph-match,
+    .infl-table .infl-cell.infl-cell--morph-match // To override a color schema
+    {
+        border: 3px solid rgb(188, 230, 240);
+    }
+
+    .infl-cell__conj-stem {
+        text-transform: none;
+    }
+
+    .infl-suff {
+        cursor: pointer;
+    }
+
+    .row-title-cell {
+        text-transform: capitalize;
+    }
+
+    .infl-suff.infl-suff--suffix-match {
+        background-color: rgb(188, 230, 240);
+    }
+
+    .infl-suff--full-match {
+        background-color: lightgray;
+    }
+
+    .infl-suff.infl-suff--suffix-match.infl-suff--full-match {
+        background-color: $alpheios-highlight-color;
+        font-weight: 700;
+    }
+    // endregion Tables
 </style>
