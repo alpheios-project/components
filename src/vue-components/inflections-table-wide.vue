@@ -261,7 +261,6 @@
 
     .auk .uk-button-small.alpheios-inflections__control-btn {
         line-height: 1.6;
-        font-size: .625rem;
         white-space: nowrap;
     }
 
