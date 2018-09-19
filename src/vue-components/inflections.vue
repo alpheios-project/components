@@ -31,14 +31,6 @@
                         <option v-for="view in views" :value="view.id">{{view.name}}</option>
                     </select>
                 </div>
-                <div v-show="selectedView.isImplemented && hasInflectionData && canCollapse" class="alpheios-inflections__control-btn-cont uk-button-group">
-                    <alph-tooltip tooltipDirection="bottom-right" :tooltipText="buttons.hideNoSuffixGroups.tooltipText">
-                        <button class="uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn"
-                                @click="hideNoSuffixGroupsClick">
-                            {{buttons.hideNoSuffixGroups.text}}
-                        </button>
-                    </alph-tooltip>
-                </div>
             </div>
 
             <h4 class="alpheios-inflections__additional_title" v-if="selectedView.additionalTitle">{{selectedView.additionalTitle}}</h4>
@@ -50,13 +42,11 @@
             </div>
 
             <div v-if="!selectedView.hasPrerenderedTables">
-                <main-table-wide-vue :view="selectedView" :messages="messages"
-                                     :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
+                <main-table-wide-vue :view="selectedView" :messages="messages" :collapsed="mainTableCollapsed" @widthchange="updateWidth">
                 </main-table-wide-vue>
 
                 <template v-if="selectedView.linkedViews" v-for="linkedView in selectedView.linkedViews">
-                    <main-table-wide-vue :view="linkedView" :messages="messages"
-                                         :no-suffix-matches-hidden="buttons.hideNoSuffixGroups.noSuffixMatchesHidden">
+                    <main-table-wide-vue :view="linkedView" :messages="messages" @widthchange="updateWidth">
                     </main-table-wide-vue>
                 </template>
 
@@ -86,9 +76,13 @@
                 <div v-html="selectedView.creditsText" class="alpheios-inflections__credits-text"></div>
             </div>
         </div>
-        <div v-else class="alpheios-inflections__placeholder">
+        <div v-else-if="!inflectionBrowserEnabled" class="alpheios-inflections__placeholder">
             {{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}
         </div>
+
+        <inflection-browser v-if="inflectionBrowserEnabled" :language-id="languageID" :messages="messages"
+                            :infl-browser-tables-collapsed="inflBrowserTablesCollapsed" @interaction="inflTableInteraction">
+        </inflection-browser>
     </div>
 </template>
 <script>
@@ -97,6 +91,7 @@
   import WideTableVue from './inflections-table-wide.vue'
   import WideSubTables from './inflections-subtables-wide.vue'
   import WideSuppTable from './inflections-supp-table-wide.vue'
+  import InflectionBrowser from './inflections-browser.vue'
   import WordForms from './wordforms.vue'
 
   import Tooltip from './tooltip.vue'
@@ -114,6 +109,7 @@
       mainTableWideVue: WideTableVue,
       subTablesWide: WideSubTables,
       suppTablesWide: WideSuppTable,
+      inflectionBrowser: InflectionBrowser,
       alphTooltip: Tooltip,
       wordForms: WordForms
     },
@@ -123,6 +119,19 @@
       inflectionsEnabled: {
         type: Boolean,
         default: false,
+        required: false
+      },
+
+      // Whether a inflection browser component is enabled or not (depends on the language)
+      inflectionBrowserEnabled: {
+        type: Boolean,
+        default: true,
+        required: false
+      },
+
+      inflBrowserTablesCollapsed: {
+        type: Boolean,
+        default: true,
         required: false
       },
 
@@ -151,7 +160,7 @@
 
     data: function () {
       return {
-        languageID: Constants.LANG_LATIN, // Default value
+        languageID: undefined,
         events: {
           EVENT: 'event',
           DATA_UPDATE: 'dataUpdate'
@@ -163,6 +172,7 @@
         selectedViewName: '',
         selectedView: {},
         renderedView: {},
+        mainTableCollapsed: false,
         elementIDs: {
           panelInner: 'alpheios-panel-inner',
           footnotes: 'alph-inflection-footnotes'
@@ -170,28 +180,7 @@
         htmlElements: {
           content: undefined,
         },
-        buttons: {
-          hideEmptyCols: {
-            contentHidden: true,
-            text: '',
-            shownText: this.messages.LABEL_INFLECT_HIDEEMPTY,
-            hiddenText: this.messages.LABEL_INFLECT_SHOWEMPTY,
-
-            tooltipText: '',
-            shownTooltip: this.messages.TOOLTIP_INFLECT_HIDEEMPTY,
-            hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWEMPTY
-          },
-          hideNoSuffixGroups: {
-            noSuffixMatchesHidden: true,
-            text: '',
-            shownText: this.messages.LABEL_INFLECT_COLLAPSE,
-            hiddenText: this.messages.LABEL_INFLECT_SHOWFULL,
-
-            tooltipText: '',
-            shownTooltip: this.messages.TOOLTIP_INFLECT_COLLAPSE,
-            hiddenTooltip: this.messages.TOOLTIP_INFLECT_SHOWFULL
-          }
-        },
+        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
         canCollapse: false // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
       }
     },
@@ -218,13 +207,7 @@
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
           this.selectedView = this.views[0]
-          if (this.selectedView.isRenderable) {
-            // Rendering is not required for component-enabled views
-            this.selectedView.render()
-            this.canCollapse = this.selectedView.canCollapse
-
-            this.updateWidth()
-          }
+          this.prepareView(this.selectedView)
         }
       },
       viewSelector: {
@@ -233,11 +216,7 @@
         },
         set: function (newValue) {
           this.selectedView = this.views.find(view => view.id === newValue)
-          if (this.selectedView.isRenderable) {
-            this.selectedView.render()
-            this.canCollapse = this.selectedView.canCollapse
-            this.updateWidth()
-          }
+          this.prepareView(this.selectedView)
         }
       },
       inflectionTable: function () {
@@ -265,6 +244,9 @@
     watch: {
       inflectionViewSet: function () {
         this.hasInflectionData = false
+        if (this.data.inflectionViewSet) {
+          this.languageID = this.data.inflectionViewSet.languageID
+        }
         if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
 
           this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
@@ -279,12 +261,7 @@
           if (this.views.length > 0) {
             this.hasInflectionData = true
             this.selectedView = this.views[0]
-            if (this.selectedView.isRenderable) {
-              // Rendering is not required for component-enabled views
-              this.setDefaults()
-              this.selectedView.render()
-              this.canCollapse = this.selectedView.canCollapse
-            }
+            this.prepareView(this.selectedView)
           } else {
             this.selectedView = ''
           }
@@ -320,53 +297,27 @@
     },
 
     methods: {
+      prepareView (view) {
+        if (view.isRenderable) {
+          // Rendering is not required for component-enabled views
+          this.selectedView.render()
+        }
+        this.mainTableCollapsed = false
+      },
+
       updateWidth: function () {
         Vue.nextTick(() => {
           this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
         })
       },
 
-      clearInflections: function () {
-        // for (let element of Object.values(this.htmlElements)) { element.innerHTML = '' }
-        this.hasInflectionData = false
-        return this
-      },
+      inflTableInteraction: function () {
+        this.mainTableCollapsed = true
+        Vue.nextTick()
+          .then(() => {
+            this.mainTableCollapsed = null
+          })
 
-      setDefaults () {
-        this.buttons.hideEmptyCols.contentHidden = true
-        this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.hiddenText
-        this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.hiddenTooltip
-
-        this.buttons.hideNoSuffixGroups.contentHidden = true
-        this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.hiddenText
-        this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.hiddenTooltip
-        return this
-      },
-
-      hideEmptyColsClick () {
-        this.buttons.hideEmptyCols.contentHidden = !this.buttons.hideEmptyCols.contentHidden
-        this.selectedView.emptyColumnsHidden(this.buttons.hideEmptyCols.contentHidden)
-        if (this.buttons.hideEmptyCols.contentHidden) {
-          this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.hiddenText
-          this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.hiddenTooltip
-        } else {
-          this.buttons.hideEmptyCols.text = this.buttons.hideEmptyCols.shownText
-          this.buttons.hideEmptyCols.tooltipText = this.buttons.hideEmptyCols.shownTooltip
-        }
-        this.updateWidth()
-      },
-
-      hideNoSuffixGroupsClick () {
-        this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden = !this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden
-        this.selectedView.noSuffixMatchesGroupsHidden(this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden)
-        if (this.buttons.hideNoSuffixGroups.noSuffixMatchesHidden) {
-          this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.hiddenText
-          this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.hiddenTooltip
-        } else {
-          this.buttons.hideNoSuffixGroups.text = this.buttons.hideNoSuffixGroups.shownText
-          this.buttons.hideNoSuffixGroups.tooltipText = this.buttons.hideNoSuffixGroups.shownTooltip
-        }
-        this.updateWidth()
       },
 
       navigate (reflink) {
@@ -401,6 +352,20 @@
 <style lang="scss">
     @import "../styles/alpheios";
 
+    .alpheios-panel__tab-panel.alpheios-panel__tab__inflections {
+        padding: 0 0 20px;
+    }
+
+    .alpheios-inflections__placeholder {
+        padding: 0 20px;
+        margin-bottom: 1rem;
+    }
+
+    .alpheios-inflections__content {
+        padding: 0 20px;
+        border-bottom: 1px solid $alpheios-base-border-color;
+    }
+
     h3.alpheios-inflections__title {
         line-height: 1;
         margin: 0 0 0.6rem 0;
@@ -417,10 +382,6 @@
     .#{$alpheios-uikit-namespace} .uk-select.alpheios-inflections__view-selector {
         height: auto !important;
         max-width: 220px;
-        line-height: 1.6;
-    }
-
-    .auk .uk-button-small.alpheios-inflections__control-btn {
         line-height: 1.6;
     }
 
