@@ -1,5 +1,4 @@
 import { LanguageModelFactory as LMF, Lexeme, Lemma, Homonym } from 'alpheios-data-models'
-import { LanguageDatasetFactory as LDF } from 'alpheios-inflection-tables'
 import Query from './query.js'
 
 export default class LexicalQuery extends Query {
@@ -9,6 +8,7 @@ export default class LexicalQuery extends Query {
     this.htmlSelector = options.htmlSelector
     this.ui = options.uiController
     this.maAdapter = options.maAdapter
+    this.tbAdapter = options.tbAdapter
     this.langData = options.langData
     this.lexicons = options.lexicons
     this.langOpts = options.langOpts || []
@@ -16,13 +16,8 @@ export default class LexicalQuery extends Query {
     this.siteOptions = options.siteOptions || []
     this.lemmaTranslations = options.lemmaTranslations
     this.l10n = options.l10n
-    let langID = LMF.getLanguageIdFromCode(this.selector.languageCode)
-    if (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast) {
-      this.canReset = true
-    } else {
-      this.canReset = false
-    }
-    this.LDFAdapter = LDF
+    const langID = this.selector.languageID
+    this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
   }
 
   static create (selector, options) {
@@ -30,8 +25,8 @@ export default class LexicalQuery extends Query {
   }
 
   async getData () {
-    this.languageID = LMF.getLanguageIdFromCode(this.selector.languageCode)
-    this.ui.setTargetRect(this.htmlSelector.targetRect).newLexicalRequest().message(`Please wait while data is retrieved ...`)
+    this.languageID = this.selector.languageID
+    this.ui.setTargetRect(this.htmlSelector.targetRect).newLexicalRequest(this.languageID).message(`Please wait while data is retrieved ...`)
     this.ui.showStatusInfo(this.selector.normalizedText, this.languageID)
     this.ui.updateWordAnnotationData(this.selector.data)
     let iterator = this.iterations()
@@ -56,23 +51,37 @@ export default class LexicalQuery extends Query {
   }
 
   * iterations () {
-    let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageCode), [])
-    this.ui.updateLanguage(this.selector.languageCode)
+    let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageID), [])
+    this.ui.updateLanguage(this.selector.languageID)
+    if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
+      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
+    }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
-      this.homonym = yield this.maAdapter.getHomonym(this.selector.languageCode, this.selector.normalizedText)
+      this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
+        if (this.annotatedHomonym) {
+          this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
+        }
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {
-        this.ui.addImportantMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
-        // Need to notify a UI controller that there is no morph data on this word in an analyzer
-        // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
-        if (this.ui.morphologyDataNotFound) { this.ui.morphologyDataNotFound(true) }
-        this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+        if (this.annotatedHomonym) {
+          this.homonym = this.annotatedHomonym
+        } else {
+          this.ui.addImportantMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+          // Need to notify a UI controller that there is no morph data on this word in an analyzer
+          // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
+          if (this.ui.morphologyDataNotFound) { this.ui.morphologyDataNotFound(true) }
+          this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+        }
       }
     } else {
-      // if we can reset then start with definitions of just the form first
-      this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+      // if we can reset then start with definitions of the unanalyzed form
+      if (this.annotatedHomonym) {
+        this.homonym = this.annotatedHomonym
+      } else {
+        this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+      }
     }
 
     let lexiconFullOpts = this.getLexiconOptions('lexicons')
@@ -88,10 +97,7 @@ export default class LexicalQuery extends Query {
     this.ui.updateDefinitions(this.homonym)
     // Update status info with data from a morphological analyzer
     this.ui.showStatusInfo(this.homonym.targetWord, this.homonym.languageID)
-
-    this.lexicalData = yield this.LDFAdapter.getInflectionData(this.homonym)
-    this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
-    this.ui.updateInflections(this.lexicalData, this.homonym)
+    this.ui.updateInflections(this.homonym)
 
     let definitionRequests = []
 
@@ -124,43 +130,48 @@ export default class LexicalQuery extends Query {
       lemmaList.push(lexeme.lemma)
     }
 
-    // Handle definition responses
-    for (let definitionRequest of definitionRequests) {
-      definitionRequest.request.then(
-        definition => {
-          console.log(`${definitionRequest.type}(s) received:`, definition)
-          definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
-          definitionRequest.complete = true
-          if (this.active) {
-            this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
-            this.ui.updateDefinitions(this.homonym)
-          }
-          if (definitionRequests.every(request => request.complete)) {
-            this.finalize('Success')
-          }
-        },
-        error => {
-          console.error(`${definitionRequest.type}(s) request failed: ${error}`)
-          definitionRequest.complete = true
-          if (this.active) {
-            this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
-          }
-          if (definitionRequests.every(request => request.complete)) {
-            this.finalize(error)
-          }
-        }
-      )
-    }
-    yield 'Retrieval of short and full definitions complete'
-
-    let userLang = navigator.language || navigator.userLanguage
-
     if (this.lemmaTranslations) {
-      yield this.lemmaTranslations.fetchTranslations(lemmaList, this.selector.languageCode, userLang)
+      const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
+      yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
       this.ui.updateTranslations(this.homonym)
     }
 
     yield 'Retrieval of lemma translations completed'
+
+    // Handle definition responses
+    if (definitionRequests.length > 0) {
+      for (let definitionRequest of definitionRequests) {
+        definitionRequest.request.then(
+          definition => {
+            console.log(`${definitionRequest.type}(s) received:`, definition)
+            definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
+            definitionRequest.complete = true
+            if (this.active) {
+              this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
+              this.ui.updateDefinitions(this.homonym)
+            }
+            if (definitionRequests.every(request => request.complete)) {
+              this.finalize('Success')
+            }
+          },
+          error => {
+            console.error(`${definitionRequest.type}(s) request failed: ${error}`)
+            definitionRequest.complete = true
+            if (this.active) {
+              this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get(definitionRequest.type, definitionRequest.lexeme.lemma.word))
+            }
+            if (definitionRequests.every(request => request.complete)) {
+              this.finalize(error)
+            }
+          }
+        )
+      }
+      yield 'Retrieval of short and full definitions complete'
+    } else {
+      // need to finalize if there weren't any definition requests
+      this.finalize('Success-NoDefs')
+      yield 'No definitions to retrieve'
+    }
   }
 
   finalize (result) {
@@ -178,28 +189,31 @@ export default class LexicalQuery extends Query {
       }
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
       if (typeof result === 'object' && result instanceof Error) {
+        this.ui.lexicalRequestFailed(this.languageID)
         console.error(`LexicalQuery failed: ${result.message}`)
       } else {
-        console.log('LexicalQuery completed successfully')
+        this.ui.lexicalRequestSucceeded()
       }
       // we might have previous requests which succeeded so go ahead and try
       // to show language info. It will catch empty data.
       this.ui.showLanguageInfo(this.homonym)
     }
+    this.ui.lexicalRequestComplete()
     Query.destroy(this)
     return result
   }
 
   getLexiconOptions (lexiconKey) {
     let allOptions
+    const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
     let siteMatch = this.siteOptions.filter((s) => this.selector.location.match(new RegExp(s.uriMatch)))
     if (siteMatch.length > 0 && siteMatch[0].resourceOptions.items[lexiconKey]) {
       allOptions = [...siteMatch[0].resourceOptions.items[lexiconKey], ...this.resourceOptions.items[lexiconKey]]
     } else {
       allOptions = this.resourceOptions.items[lexiconKey] || []
     }
-    let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === this.selector.languageCode
-    ).map((l) => { return {allow: l.currentValue} }
+    let lexiconOpts = allOptions.filter((l) => this.resourceOptions.parseKey(l.name).group === languageCode
+    ).map((l) => { return { allow: l.currentValue } }
     )
     if (lexiconOpts.length > 0) {
       lexiconOpts = lexiconOpts[0]

@@ -1,16 +1,20 @@
-// Alpheios Styles
 @import "alpheios";
+@import "normalize";
 
 // UIKit styles
 @import "uikit/uikit";
+@import "ui_base";
 
 @import "content";
-@import "_fontcontent";
-@import "_colorschema_dark";
-@import "_colorschema_light";
-
 @import "_tooltip";
+
 @import "_multiselect";
 @import "_checkbox";
 
 @import "../../node_modules/alpheios-inflection-games/dist/style/style.css";
+@import "_fontcontent";
+
+@import "_colorschema_light";
+@import "_colorschema_dark";
+
+@import "alignment";

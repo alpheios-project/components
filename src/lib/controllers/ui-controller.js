@@ -1,6 +1,6 @@
-/* global Node */
-/* global Event */
-import {Lexeme, Feature, Definition, LanguageModelFactory, Constants} from 'alpheios-data-models'
+/* global Node, Event */
+import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
+import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
@@ -23,7 +23,9 @@ const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
   [Constants.LANG_GREEK, 'Greek'],
   [Constants.LANG_ARABIC, 'Arabic'],
-  [Constants.LANG_PERSIAN, 'Persian']
+  [Constants.LANG_PERSIAN, 'Persian'],
+  [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
+
 ])
 
 export default class UIController {
@@ -71,6 +73,7 @@ export default class UIController {
     }
 
     this.template = Object.assign(templateDefaults, template)
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
 
     this.zIndex = this.getZIndexMax()
 
@@ -103,13 +106,19 @@ export default class UIController {
             treebank: false
           },
           verboseMode: this.state.verboseMode,
+          grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            enabled: false,
-            inflectionData: false // If no inflection data present, it is set to false
+            inflectionViewSet: null
           },
+          inflectionsWaitState: false,
+          inflectionsEnabled: false,
+          // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
+          inflectionBrowserEnabled: true,
+          // Whether all table in an inflection browser should be collapsed
+          inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -244,6 +253,8 @@ export default class UIController {
           let languageName
           if (homonym) {
             languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.panelData.infoComponentData.languageName) {
+            languageName = this.panelData.infoComponentData.languageName
           } else {
             languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
@@ -291,14 +302,6 @@ export default class UIController {
           return this
         },
 
-        updateInflections: function (inflectionData) {
-          this.panelData.inflectionComponentData.inflectionData = inflectionData
-        },
-
-        enableInflections: function (enabled) {
-          this.panelData.inflectionComponentData.enabled = enabled
-        },
-
         requestGrammar: function (feature) {
           // ExpObjMon.track(
           ResourceQuery.create(feature, {
@@ -316,18 +319,27 @@ export default class UIController {
 
         settingChange: function (name, value) {
           console.log('Change inside instance', name, value)
-          this.options.items[name].setTextValue(value)
+          // TODO we need to refactor handling of boolean options
+          if (name === 'enableLemmaTranslations') {
+            this.options.items[name].setValue(value)
+          } else {
+            this.options.items[name].setTextValue(value)
+          }
           switch (name) {
             case 'locale':
               if (this.uiController.presenter) {
                 this.uiController.presenter.setLocale(this.options.items.locale.currentValue)
               }
+              this.uiController.updateLemmaTranslations()
               break
             case 'preferredLanguage':
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
               break
             case 'verboseMode':
               this.uiController.updateVerboseMode()
+              break
+            case 'enableLemmaTranslations':
+              this.uiController.updateLemmaTranslations()
               break
           }
         },
@@ -375,9 +387,14 @@ export default class UIController {
           this.state.activateUI()
           console.log('UI options are loaded')
           document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-          this.updateLanguage(this.options.items.preferredLanguage.currentValue)
+
+          const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.options.items.lookupLangOverride.setValue(false)
+          this.updateLanguage(currentLanguageID)
           this.games.updateLocale(this.options.items.locale.currentValue)
+
           this.updateVerboseMode()
+          this.updateLemmaTranslations()
         })
       })
     })
@@ -431,7 +448,7 @@ export default class UIController {
           verboseMode: this.state.verboseMode,
           defDataReady: false,
           hasTreebank: false,
-          inflDataReady: false,
+          inflDataReady: this.inflDataReady,
           morphDataReady: false,
 
           translationsDataReady: false,
@@ -502,6 +519,8 @@ export default class UIController {
           let languageName
           if (homonym) {
             languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.popupData.currentLanguageName) {
+            languageName = this.popupData.currentLanguageName
           } else {
             languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
@@ -528,7 +547,6 @@ export default class UIController {
         },
 
         newLexicalRequest: function () {
-          console.log('Starting a new lexical request within a popup')
           this.popupData.requestStartTime = new Date().getTime()
         },
 
@@ -594,6 +612,7 @@ export default class UIController {
               if (this.uiController.presenter) {
                 this.uiController.presenter.setLocale(this.options.items.locale.currentValue)
               }
+              this.uiController.updateLemmaTranslations()
               break
             case 'preferredLanguage':
               this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
@@ -651,7 +670,8 @@ export default class UIController {
     return {
       uiTypePanel: 'panel',
       uiTypePopup: 'popup',
-      verboseMode: 'verbose'
+      verboseMode: 'verbose',
+      enableLemmaTranslations: false
     }
   }
 
@@ -731,8 +751,17 @@ export default class UIController {
     this.popup.showImportantNotification(message)
   }
 
-  static getLanguageName (languageID) {
-    return languageNames.has(languageID) ? languageNames.get(languageID) : ''
+  /**
+   * Gets language name by either language ID (a symbol) or language code (string)
+   * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
+   * @return {string} A language name
+   */
+  static getLanguageName (language) {
+    let langID
+    let langCode // eslint-disable-line
+    // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
+    ;({ languageID: langID, languageCode: langCode } = LanguageModelFactory.getLanguageAttrs(language))
+    return languageNames.has(langID) ? languageNames.get(langID) : ''
   }
 
   showLanguageInfo (homonym) {
@@ -768,8 +797,12 @@ export default class UIController {
     return this
   }
 
-  newLexicalRequest () {
+  newLexicalRequest (languageID) {
     this.popup.newLexicalRequest()
+    this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
+    this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
+    this.panel.panelData.grammarAvailable = false
+    this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -794,11 +827,16 @@ export default class UIController {
       if (l.provider) {
         providers.set(l.provider, 1)
       }
-      l.meaning.shortDefs.forEach((d) => {
-        if (d.provider) {
-          providers.set(d.provider, 1)
-        }
-      })
+      if (l.meaning && l.meaning.shortDefs) {
+        l.meaning.shortDefs.forEach((d) => {
+          if (d.provider) {
+            providers.set(d.provider, 1)
+          }
+        })
+      }
+      if (l.lemma && l.lemma.translation && l.lemma.translation.provider) {
+        providers.set(l.lemma.translation.provider, 1)
+      }
     })
     this.popup.popupData.providers = Array.from(providers.keys())
   }
@@ -806,6 +844,7 @@ export default class UIController {
   updateGrammar (urls) {
     if (urls.length > 0) {
       this.panel.panelData.grammarRes = urls[0]
+      this.panel.panelData.grammarAvailable = true
     } else {
       this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
     }
@@ -860,6 +899,7 @@ export default class UIController {
     this.popup.translations = translations
     this.popup.popupData.translationsDataReady = true
     this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.updateProviders(homonym)
   }
 
   updatePageAnnotationData (data) {
@@ -876,15 +916,15 @@ export default class UIController {
     }
   }
 
-  updateLanguage (currentLanguage) {
-    this.state.setItem('currentLanguage', currentLanguage)
-    let languageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguage)
-    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: languageID })
-    this.panel.enableInflections(LanguageModelFactory.getLanguageModel(languageID).canInflect())
+  updateLanguage (currentLanguageID) {
+    this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
 
-    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(languageID)
+    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
+    this.popup.popupData.inflDataReady = this.inflDataReady
 
-    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(languageID))
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
+
+    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
@@ -894,11 +934,40 @@ export default class UIController {
     this.popup.popupData.verboseMode = this.state.verboseMode
   }
 
-  updateInflections (inflectionData, homonym) {
-    let enabled = LanguageModelFactory.getLanguageModel(homonym.languageID).canInflect()
-    this.panel.enableInflections(enabled)
-    this.panel.updateInflections(inflectionData, homonym)
-    this.popup.popupData.inflDataReady = enabled && inflectionData.hasInflectionSets
+  updateLemmaTranslations () {
+    if (this.options.items.enableLemmaTranslations.currentValue && !this.options.items.locale.currentValue.match(/en-/)) {
+      this.state.setItem('lemmaTranslationLang', this.options.items.locale.currentValue)
+    } else {
+      this.state.setItem('lemmaTranslationLang', null)
+    }
+  }
+
+  updateInflections (homonym) {
+    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.options.items.locale.currentValue)
+
+    this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
+    if (this.inflectionsViewSet.hasMatchingViews) {
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+    }
+    this.panel.panelData.inflectionsWaitState = false
+    this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  lexicalRequestComplete () {
+    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
+    this.popup.popupData.morphDataReady = true
+  }
+
+  lexicalRequestSucceeded () {
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  lexicalRequestFailed () {
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  get inflDataReady () {
+    return this.inflectionsViewSet && this.inflectionsViewSet.hasMatchingViews
   }
 
   clear () {
@@ -919,46 +988,61 @@ export default class UIController {
 
   setRootComponentClasses () {
     let classes = []
+
     if (!UIController.hasRegularBaseFontSize()) {
       classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
     }
     if (this.uiOptions.items.skin !== undefined) {
       classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
     }
-    if (this.uiOptions.items.fontSize !== undefined) {
+
+    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.value !== undefined) {
       classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
-    }
-    if (this.uiOptions.items.colorSchema !== undefined) {
-      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-font_${this.uiOptions.items.fontSize.defaultValue}_class`)
     }
 
-    Vue.set(this.popup.popupData, 'classes', classes)
-    Vue.set(this.panel.panelData, 'classes', classes)
-    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
-    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.value !== undefined) {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.defaultValue}_class`)
+    }
+
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+
+    classes.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+      this.panel.panelData.classes.push(classItem)
+    })
   }
 
   updateStyleClass (prefix, type) {
-    let popupClasses = this.popup.popupData.classes
+    let popupClasses = this.popup.popupData.classes.slice(0)
 
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         popupClasses[index] = `${prefix}${type}_class`
       }
     })
-    Vue.set(this.popup.popupData, 'classes', popupClasses)
 
-    Vue.set(this.popup, 'classesChanged', this.popup.classesChanged + 1)
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    popupClasses.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+    })
 
-    let panelClasses = this.panel.panelData.classes
+    let panelClasses = this.panel.panelData.classes.slice(0)
+
     panelClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
         panelClasses[index] = `${prefix}${type}_class`
       }
     })
+    this.panel.panelData.classes.splice(0, this.panel.panelData.classes.length)
 
-    Vue.set(this.panel.panelData, 'classes', panelClasses)
-    Vue.set(this.panel, 'classesChanged', this.panel.classesChanged + 1)
+    panelClasses.forEach(classItem => {
+      this.panel.panelData.classes.push(classItem)
+    })
   }
 
   updateFontSizeClass (type) {

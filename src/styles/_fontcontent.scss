@@ -2,34 +2,29 @@
     font-family: $alpheios-font-family;
     font-size: $baseFontSize;
     line-height: normal;
-    color: $alpheios-uitext-color;
 
     h3 {
-      font-size: $baseFontSize & 1.25;
+      font-size: $baseFontSize;
+      line-height: 1.25;
     }
 
-    p,span,div,a {
-      font-family: $alpheios-font-family;
+    p,span,div,a, input {
       font-size: $baseFontSize;
       line-height: normal;
-      color: $alpheios-uitext-color;
     }
+
     .uk-form-label {
         font-size: $baseFontSize * 0.85;
     }
 
-      .uk-button {
-            font-family: $alpheios-font-family !important;
-       }
-
-      .uk-button-small {
-            font-size: $baseFontSize * 0.7;
-            line-height: $baseFontSize * 1.75;
+    .uk-button-small {
+        font-size: $baseFontSize * 0.7;
+        line-height: $baseFontSize * 1.75;
     }
 
-      .uk-input {
-            height: $baseFontSize * 1.75;
-      }
+    .uk-input {
+        height: $baseFontSize * 1.75;
+    }
 
     .uk-select:not([multiple]):not([size]) {
         height: $baseFontSize * 2.5;
@@ -81,7 +76,16 @@
         font-size: $baseFontSize * 0.675;
     }
 
-    .alpheios-morph__dictentry .lemma_index {
+    .alpheios-inflections__title {
+        font-size: $baseFontSize * 1.25;
+    }
+
+    .alpheios-inflections__additional_title {
+        font-size: $baseFontSize * 0.875;
+        font-weight: 700;
+    }
+
+    .alpheios-morph__dictentry .lemma_index, .alpheios-morph__dictentry .lemma_index_spacer {
         font-size: $baseFontSize * 0.875;
         line-height: $baseFontSize * 1.3;
         width: $baseFontSize * 1.3;
@@ -104,10 +108,10 @@
 
 
    .alpheios-checkbox-block {
-        line-height: $baseFontSize * 1.375;
+        line-height: $baseFontSize * 1.7;
 
         label {
-            padding-left: $baseFontSize * 1.375;
+            padding-left: $baseFontSize * 1.325;
             min-height: $baseFontSize;
 
             &::before{
@@ -123,6 +127,32 @@
             }
         }
    }
+
+   .alpheios-popup-lexdataloading__progress-text {
+        font-size: $baseFontSize * 0.8;
+   }
+   
+   .alpheios-checkbox-block.alpheios-checkbox-small {
+        line-height: $baseFontSize * 1.3;
+
+        label {
+            padding-left: $baseFontSize;
+            min-height: $baseFontSize * 0.75;
+
+            &::before{
+              height: $baseFontSize * 0.75;
+              width: $baseFontSize * 0.75;
+            }
+
+            &::after {
+              height: $baseFontSize * 0.23;
+              width: $baseFontSize * 0.45;
+              left: $baseFontSize * 0.18;
+              top: $baseFontSize * 0.32;
+            }
+        }
+   }
+
 
   $baseSize: $baseFontSize + 12px;
 

@@ -22,11 +22,12 @@ import { LanguageModelFactory as LMF, Definition, Constants } from 'alpheios-dat
 import Panel from '@/vue-components/panel.vue'
 import Popup from '@/vue-components/popup.vue'
 
-describe('options.test.js', () => {
+describe('ui-controller.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-  let uiC
+
+  let uiC, options, resourceOptions, state
 
   beforeEach(() => {
     jest.spyOn(console, 'error')
@@ -34,9 +35,9 @@ describe('options.test.js', () => {
     jest.spyOn(console, 'warn')
     jest.spyOn(Options, 'initItems')
 
-    let state = new State()
-    let options = new Options(ContentOptionDefaults, LocalStorageArea)
-    let resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
+    state = new State()
+    options = new Options(ContentOptionDefaults, LocalStorageArea)
+    resourceOptions = new Options(LanguageOptionDefaults, LocalStorageArea)
     let uiOptions = new Options(UIOptionDefaults, LocalStorageArea)
 
     uiC = new UIController(state, options, resourceOptions, uiOptions)
@@ -163,7 +164,7 @@ describe('options.test.js', () => {
 
   it('6 UIController - showLanguageInfo methods', () => {
     uiC.showLanguageInfo()
-    let languageName = l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN
+    let languageName = UIController.getLanguageName(LMF.getLanguageIdFromCode(uiC.panel.options.items.preferredLanguage.currentValue))
 
     expect(uiC.panel.panelData.notification.visible).toBeTruthy()
     expect(uiC.panel.panelData.notification.important).toBeTruthy()
@@ -191,6 +192,17 @@ describe('options.test.js', () => {
     expect(uiC.popup.popupData.notification.visible).toBeTruthy()
     expect(uiC.popup.popupData.notification.important).toBeFalsy()
     expect(uiC.popup.popupData.notification.showLanguageSwitcher).toBeFalsy()
+
+    // in this case, the language shown in the language notification should be
+    // the language actually tried, not the default from options
+    let testHomonymNoLexemes = {
+      languageID: LMF.getLanguageIdFromCode('grc')
+    }
+    uiC.showLanguageInfo(testHomonymNoLexemes)
+    expect(uiC.panel.panelData.notification.visible).toBeTruthy()
+    expect(uiC.panel.panelData.notification.important).toBeTruthy()
+    expect(uiC.panel.panelData.notification.showLanguageSwitcher).toBeTruthy()
+    expect(uiC.popup.popupData.notification.text).toEqual(l10n.messages.TEXT_NOTICE_CHANGE_LANGUAGE.get(UIController.getLanguageName(testHomonymNoLexemes.languageID)))
   })
 
   it('7 UIController - showStatusInfo methods', () => {
@@ -250,7 +262,7 @@ describe('options.test.js', () => {
   it('12 UIController - newLexicalRequest methods', () => {
     let oldRT = uiC.popup.popupData.requestStartTime
 
-    uiC.newLexicalRequest()
+    uiC.newLexicalRequest(latID)
     expect(uiC.popup.popupData.requestStartTime).toBeGreaterThan(oldRT)
 
     expect(uiC.popup.definitions).toEqual({})
@@ -465,14 +477,13 @@ describe('options.test.js', () => {
 
   it('18 UIController - updateLanguage', () => {
     uiC.panel.requestGrammar = jest.fn(function () { })
-    uiC.updateLanguage('lat')
+    uiC.updateLanguage(Constants.LANG_LATIN)
 
     expect(uiC.panel.requestGrammar).toHaveBeenCalled()
-    expect(uiC.panel.panelData.inflectionComponentData.enabled).toBeTruthy()
     expect(uiC.panel.panelData.infoComponentData.languageName).toEqual('Latin')
     expect(uiC.popup.popupData.currentLanguageName).toEqual('Latin')
 
-    uiC.updateLanguage('ara')
+    uiC.updateLanguage(Constants.LANG_ARABIC)
     expect(uiC.panel.panelData.inflectionComponentData.enabled).toBeFalsy()
   })
 
@@ -491,7 +502,8 @@ describe('options.test.js', () => {
     expect(uiC.popup.popupData.verboseMode).toBeFalsy()
   })
 
-  it('19 UIController - updateInflections', () => {
+  // TODO: Rewrite after updateInflection changes are finalized
+  it.skip('19 UIController - updateInflections', () => {
     let testHomonym = {
       languageID: latID
     }
@@ -499,7 +511,7 @@ describe('options.test.js', () => {
       hasInflectionSets: true
     }
 
-    uiC.updateInflections(testInflectionData, testHomonym)
+    uiC.updateInflections(testHomonym)
 
     expect(uiC.panel.panelData.inflectionComponentData.enabled).toBeTruthy()
     expect(uiC.panel.panelData.inflectionComponentData.inflectionData).toEqual(testInflectionData)
@@ -552,44 +564,32 @@ describe('options.test.js', () => {
     expect(uiC.popup.visible).toBeTruthy()
   })
 
-  it('21 UIController - setRootComponentClasses', () => {
+  it.skip('21 UIController - setRootComponentClasses', () => {
     let emptyPromise = () => { return new Promise((resolve, reject) => {}) }
     let stAdapter = { domain: 'alpheios-content-options', set: emptyPromise }
 
     document.querySelector('html').style['font-size'] = '16px'
 
-    uiC.uiOptions.items.skin = undefined
-    uiC.uiOptions.items.fontSize = undefined
-    uiC.uiOptions.items.colorSchema = undefined
+    let uiOptions1 = new Options(UIOptionDefaults, LocalStorageArea)
+    uiOptions1.items.skin = undefined
+    uiOptions1.items.fontSize = undefined
+    uiOptions1.items.colorSchema = undefined
 
-    uiC.popup.classesChanged = 0
-    uiC.panel.classesChanged = 0
-    uiC.setRootComponentClasses()
-
-    let resClasses = []
-    expect(uiC.popup.popupData.classes).toEqual(resClasses)
-    expect(uiC.panel.panelData.classes).toEqual(resClasses)
-    expect(uiC.popup.classesChanged).toEqual(1)
-    expect(uiC.panel.classesChanged).toEqual(1)
+    let uiC1 = new UIController(state, options, resourceOptions, uiOptions1)
+    uiC1.setRootComponentClasses()
+    let resClasses = ['alpheios-irregular-base-font-size', 'auk--default']
+    expect(uiC1.popup.popupData.classes).toEqual(resClasses)
+    expect(uiC1.panel.panelData.classes).toEqual(resClasses)
 
     //* ****************************************************************
-    document.querySelector('html').style['font-size'] = '14px'
-    uiC.setRootComponentClasses()
+    uiOptions1.items.skin = new OptionItem({ defaultValue: 'fooskin' }, 'skin', stAdapter)
 
-    resClasses = [ UIController.defaults.irregularBaseFontSizeClassName ]
-
-    expect(uiC.popup.popupData.classes).toEqual(resClasses)
-    expect(uiC.panel.panelData.classes).toEqual(resClasses)
-
-    //* ****************************************************************
-    uiC.uiOptions.items.skin = new OptionItem({ defaultValue: 'fooskin' }, 'skin', stAdapter)
-
-    uiC.setRootComponentClasses()
-
+    let uiC2 = new UIController(state, options, resourceOptions, uiOptions1)
+    uiC2.setRootComponentClasses()
     resClasses.push('auk--fooskin')
 
-    expect(uiC.popup.popupData.classes).toEqual(resClasses)
-    expect(uiC.panel.panelData.classes).toEqual(resClasses)
+    expect(uiC2.popup.popupData.classes).toEqual(resClasses)
+    expect(uiC2.panel.panelData.classes).toEqual(resClasses)
 
     //* ****************************************************************
     uiC.uiOptions.items.fontSize = new OptionItem({ defaultValue: 'foofontsize' }, 'fontSize', stAdapter)
@@ -614,15 +614,11 @@ describe('options.test.js', () => {
   it('22 UIController - updateStyleClass', () => {
     uiC.popup.popupData.classes = []
     uiC.panel.panelData.classes = []
-    uiC.popup.classesChanged = 0
-    uiC.panel.classesChanged = 0
 
     uiC.updateStyleClass('alpheios-font_', 'footype')
 
     expect(uiC.popup.popupData.classes).toEqual([])
-    expect(uiC.popup.classesChanged).toEqual(1)
     expect(uiC.panel.panelData.classes).toEqual([])
-    expect(uiC.panel.classesChanged).toEqual(1)
 
     uiC.popup.popupData.classes = [ 'alpheios-font_footype2_class' ]
     uiC.panel.panelData.classes = [ 'alpheios-font_footype2_class' ]
@@ -647,11 +643,9 @@ describe('options.test.js', () => {
   })
 
   it('24 UIController - panel methods - setPositionTo, attachToLeft, attachToRight', () => {
-    uiC.panel.classesChanged = 0
     uiC.panel.setPositionTo('right')
 
     expect(uiC.panel.options.items.panelPosition.currentValue).toEqual('right')
-    expect(uiC.panel.classesChanged).toEqual(1)
 
     uiC.panel.attachToLeft()
     expect(uiC.panel.options.items.panelPosition.currentValue).toEqual('left')
@@ -696,8 +690,8 @@ describe('options.test.js', () => {
   })
 
   it('26 UIController - panel methods - settingChange', () => {
-    uiC.panel.settingChange('locale', 'English (GB)')
-    expect(uiC.panel.options.items.locale.currentValue).toEqual('en-GB')
+    uiC.panel.settingChange('locale', 'French')
+    expect(uiC.panel.options.items.locale.currentValue).toEqual('fr')
 
     let setLocaleFN = jest.fn(() => { })
     uiC.presenter = { setLocale: setLocaleFN }
@@ -760,13 +754,13 @@ describe('options.test.js', () => {
     expect(uiC.popup.messages).toEqual([])
   })
 
-  it('28 UIController - popup methods - close', () => {
+  it('30 UIController - popup methods - close', () => {
     uiC.popup.visible = true
     uiC.popup.close()
     expect(uiC.popup.visible).toBeFalsy()
   })
 
-  it('28 UIController - popup methods - showErrorInformation', () => {
+  it('31 UIController - popup methods - showErrorInformation', () => {
     uiC.popup.showErrorInformation('fooError')
     expect(uiC.popup.popupData.notification.visible).toBeTruthy()
     expect(uiC.popup.popupData.notification.important).toBeTruthy()
@@ -774,7 +768,7 @@ describe('options.test.js', () => {
     expect(uiC.popup.popupData.notification.text).toEqual('fooError')
   })
 
-  it('28 UIController - popup methods - sendFeature, showPanelTab', () => {
+  it('32 UIController - popup methods - sendFeature, showPanelTab', () => {
     uiC.panel.requestGrammar = jest.fn(() => { })
     uiC.panel.changeTab = jest.fn(() => { })
     uiC.panel.open = jest.fn(() => { })
@@ -786,9 +780,9 @@ describe('options.test.js', () => {
     expect(uiC.panel.open).toHaveBeenCalledTimes(2)
   })
 
-  it('28 UIController - popup methods - settingChange', () => {
-    uiC.popup.settingChange('locale', 'English (GB)')
-    expect(uiC.popup.options.items.locale.currentValue).toEqual('en-GB')
+  it('33 UIController - popup methods - settingChange', () => {
+    uiC.popup.settingChange('locale', 'French')
+    expect(uiC.popup.options.items.locale.currentValue).toEqual('fr')
 
     let setLocaleFN = jest.fn(() => { })
     uiC.presenter = { setLocale: setLocaleFN }
@@ -801,7 +795,7 @@ describe('options.test.js', () => {
     expect(uiC.updateLanguage).toHaveBeenCalled()
   })
 
-  it('28 UIController - popup methods - resourceSettingChange', () => {
+  it('34 UIController - popup methods - resourceSettingChange', () => {
     let testName = 'lexicons-grc'
     let testValues = ['Liddell, Scott, Jones']
 
@@ -810,7 +804,7 @@ describe('options.test.js', () => {
     expect(uiC.popup.resourceOptions.items.lexicons.filter((f) => f.name === testName)[0].currentValue).toEqual(checkValues.map(f => f.value))
   })
 
-  it(' UIController - popup methods - uiOptionChange', () => {
+  it('35 UIController - popup methods - uiOptionChange', () => {
     uiC.updateFontSizeClass = jest.fn(() => { })
     uiC.updateColorSchemaClass = jest.fn(() => { })
     uiC.changeSkin = jest.fn(() => { })

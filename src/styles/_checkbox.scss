@@ -3,6 +3,9 @@
     position: relative;
     overflow: hidden;
     line-height: 22px;
+
+    max-width: 235px;
+    vertical-align: top;
   }
 
   .alpheios-checkbox-block {
@@ -16,7 +19,7 @@
       position: relative;
       display: inline-block;
       user-select: none;
-      vertical-align: middle;
+      vertical-align: top;
 
       /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
       padding-left: 22px;
@@ -69,5 +72,18 @@
     /*Adding focus styles on the outer-box of the fake checkbox*/
     input[type="checkbox"]:focus + label::before {
         outline: rgb(59, 153, 252) auto 5px;
+    }
+  }
+
+  .alpheios-checkbox-small {
+    label {
+      font-size: 90%;
+      padding-left: 18px;
+      line-height: 100%;
+    }
+
+    label::before{
+          height: 12px;
+          width: 12px;
     }
   }

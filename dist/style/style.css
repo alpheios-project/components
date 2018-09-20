@@ -7875,10 +7875,102 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
 
 /*# sourceMappingURL=style.css.map*/
 @charset "UTF-8";
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-popup,
+.alpheios-panel {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  color: #333333;
+  background: #ffffff;
+  border-color: 1px solid #d3d3d3;
+  box-sizing: border-box;
+  overflow: auto;
+  margin: 0; }
+  .alpheios-popup h1, .alpheios-popup h2, .alpheios-popup h3, .alpheios-popup h4, .alpheios-popup h5, .alpheios-popup h6, .alpheios-popup p, .alpheios-popup span, .alpheios-popup a,
+  .alpheios-panel h1,
+  .alpheios-panel h2,
+  .alpheios-panel h3,
+  .alpheios-panel h4,
+  .alpheios-panel h5,
+  .alpheios-panel h6,
+  .alpheios-panel p,
+  .alpheios-panel span,
+  .alpheios-panel a {
+    font-family: inherit;
+    background: transparent;
+    color: #333333;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    padding: 0; }
+  .alpheios-popup button,
+  .alpheios-popup input,
+  .alpheios-popup optgroup,
+  .alpheios-popup select,
+  .alpheios-popup textarea,
+  .alpheios-panel button,
+  .alpheios-panel input,
+  .alpheios-panel optgroup,
+  .alpheios-panel select,
+  .alpheios-panel textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0; }
+  .alpheios-popup button,
+  .alpheios-popup select,
+  .alpheios-panel button,
+  .alpheios-panel select {
+    text-transform: none; }
+  .alpheios-popup button,
+  .alpheios-popup [type="button"],
+  .alpheios-popup [type="reset"],
+  .alpheios-popup [type="submit"],
+  .alpheios-panel button,
+  .alpheios-panel [type="button"],
+  .alpheios-panel [type="reset"],
+  .alpheios-panel [type="submit"] {
+    -webkit-appearance: button; }
+  .alpheios-popup textarea,
+  .alpheios-panel textarea {
+    overflow: auto; }
+  .alpheios-popup [type="checkbox"],
+  .alpheios-popup [type="radio"],
+  .alpheios-panel [type="checkbox"],
+  .alpheios-panel [type="radio"] {
+    box-sizing: border-box;
+    padding: 0; }
+  .alpheios-popup b,
+  .alpheios-panel b {
+    margin: 0;
+    padding: 0;
+    vertical-align: inherit;
+    font-size: inherit;
+    color: inherit;
+    letter-spacing: inherit; }
+  .alpheios-popup i,
+  .alpheios-panel i {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+    font-style: inherit; }
+  .alpheios-popup u,
+  .alpheios-panel u {
+    margin: 0;
+    padding: 0;
+    vertical-align: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    line-height: inherit; }
+
 .auk {
   /* ========================================================================
    Component: Base
@@ -7941,17 +8033,22 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  * Remove the gap between embedded content and the bottom of their containers.
  */
   /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 1. Add responsiveness.
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
+  /* 4 */
   /*
  * Hide the overflow in IE.
  */
   /*
  * Hide `alt` text for lazy load images
  * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ */
+  /*
+ * Iframe
+ * Remove border in all browsers
  */
   /* Block elements
  ========================================================================== */
@@ -8008,14 +8105,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  */
   /*
  * Add the correct display in IE.
- */
-  /* Iframe
- ========================================================================== */
-  /* Prevent the 300ms delay for touchscreen interactions
- ========================================================================== */
-  /*
- * Most browsers prevent the 300ms delay automatically for sites that use the `width=device-width` property.
- * For Safari on iOS 9.3+, IE 11 and Edge on desktops and IE 11 on Windows Phone 8.1 it must be applied manually.
  */
   /* Pass media breakpoints to JS
  ========================================================================== */
@@ -8206,7 +8295,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  */
   /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
   /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -8457,15 +8545,14 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Remove border-radius in Chrome.
- * 4. Address `overflow` set to `hidden` in IE.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 7. Style
- * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Style
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 9. Align text if button has a width
- * 10. Required for `a`.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
  */
   /*
  * Remove the inner border and padding in Firefox.
@@ -9370,8 +9457,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  * 3. Gutter
  */
   /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
   /* Items
  ========================================================================== */
@@ -9709,8 +9796,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  * 3. Gutter
  */
   /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
   /* Items
  ========================================================================== */
@@ -9806,9 +9893,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   /* ========================================================================
    Component: Sortable
  ========================================================================== */
-  /*
- * Deactivate browser touch actions in IE11 and Edge
- */
   /*
  * Deactivate pointer-events on SVGs in Safari
  */
@@ -9936,16 +10020,10 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   /* Equal child widths
  ========================================================================== */
   /*
- *    Instead of 0, 1px is needed to make cell wrap into next row if predecessor is 100% wide
- *    and the grid gutter is 0 pixels wide
- */
-  /*
- * 1. Make `width: 1px` work, because according to the spec flex items won’t shrink
- *    below their minimum content size. To change this, set the min-width.
- *    Only needed for Firefox. All other browsers ignore this.
- *
- * 2. `width` is ignored when wrapping flex items in Safari
- *    https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items
+ * 1. Reset the `min-width`, which is set to auto by default, because
+ *    flex items won't shrink below their minimum intrinsic content size.
+ *    Using `1px` instead of `0`, so items still wrap into the next line,
+ *    if they have zero width and padding and the predecessor is 100% wide.
  */
   /* Phone landscape and bigger */
   /* Tablet landscape and bigger */
@@ -10391,11 +10469,11 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
  ========================================================================== */
   /*
  * Hidden
- * Can't use `display: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `display: none` because it's not accessible through keyboard.
  */
   /*
  * Invisible
- * Can't use `visibility: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
   /* Touch
  ========================================================================== */
@@ -10508,10 +10586,17 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     height: auto;
     /* 3 */
     box-sizing: border-box; }
+  @supports (display: block) {
+    .auk svg {
+      max-width: 100%;
+      height: auto;
+      box-sizing: border-box; } }
   .auk svg:not(:root) {
     overflow: hidden; }
   .auk img:not([src]) {
     visibility: hidden; }
+  .auk iframe {
+    border: 0; }
   .auk p,
   .auk ul,
   .auk ol,
@@ -10646,17 +10731,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     display: list-item; }
   .auk template {
     display: none; }
-  .auk iframe {
-    border: 0; }
-  .auk a,
-  .auk area,
-  .auk button,
-  .auk input,
-  .auk label,
-  .auk select,
-  .auk summary,
-  .auk textarea {
-    touch-action: manipulation; }
   .auk .var-media-s::before {
     content: "640px"; }
   .auk .var-media-m::before {
@@ -10827,8 +10901,7 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     height: 1.5em;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
     background-repeat: no-repeat;
-    background-position: 50% 50%;
-    float: left; }
+    background-position: 50% 50%; }
   .auk .uk-list-large > li:nth-child(n+2),
   .auk .uk-list-large > li > ul {
     margin-top: 20px; }
@@ -10983,11 +11056,9 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   .auk .uk-icon::-moz-focus-inner {
     border: 0;
     padding: 0; }
-  .auk .uk-icon [fill*='#']:not(.uk-preserve),
-  .auk .uk-icon [FILL*='#']:not(.uk-preserve) {
+  .auk .uk-icon [fill*='#']:not(.uk-preserve) {
     fill: currentcolor; }
-  .auk .uk-icon [stroke*='#']:not(.uk-preserve),
-  .auk .uk-icon [STROKE*='#']:not(.uk-preserve) {
+  .auk .uk-icon [stroke*='#']:not(.uk-preserve) {
     stroke: currentcolor; }
   .auk .uk-icon > * {
     transform: translate(0, 0); }
@@ -11206,11 +11277,11 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     background-color: #f8f8f8;
     color: #999;
     border-color: #e5e5e5; }
-  .auk .uk-input:-ms-input-placeholder {
+  .auk .uk-input::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-input::placeholder {
     color: #999; }
-  .auk .uk-textarea:-ms-input-placeholder {
+  .auk .uk-textarea::-ms-input-placeholder {
     color: #999 !important; }
   .auk .uk-textarea::placeholder {
     color: #999; }
@@ -11418,25 +11489,23 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     /* 2 */
     border: none;
     /* 3 */
-    border-radius: 0;
-    /* 4 */
     overflow: visible;
-    /* 5 */
+    /* 4 */
     font: inherit;
     color: inherit;
-    /* 6 */
+    /* 5 */
     text-transform: none;
-    /* 7 */
+    /* 6 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 30px;
     vertical-align: middle;
     font-size: 0.875rem;
-    /* 8 */
+    /* 7 */
     line-height: 38px;
-    /* 9 */
+    /* 8 */
     text-align: center;
-    /* 10 */
+    /* 9 */
     text-decoration: none;
     text-transform: uppercase;
     -webkit-transition: 0.1s ease-in-out;
@@ -11450,7 +11519,7 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     border: 0;
     padding: 0; }
   .auk .uk-button:hover {
-    /* 8 */
+    /* 9 */
     text-decoration: none; }
   .auk .uk-button:focus {
     outline: none; }
@@ -11648,6 +11717,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   .auk .uk-container .uk-container {
     padding-left: 0;
     padding-right: 0; }
+  .auk .uk-container-xsmall {
+    max-width: 750px; }
   .auk .uk-container-small {
     max-width: 900px; }
   .auk .uk-container-large {
@@ -12481,7 +12552,7 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    height: 80px;
+    min-height: 80px;
     padding: 0 15px;
     /* 3 */
     font-size: 0.875rem;
@@ -12883,8 +12954,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     margin-left: -15px; }
   .auk .uk-thumbnav > * {
     /* 1 */
-    flex: none;
-    /* 2 */
     padding-left: 15px; }
   .auk .uk-thumbnav > * > * {
     display: inline-block;
@@ -13374,8 +13443,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     margin-left: -10px; }
   .auk .uk-iconnav > * {
     /* 1 */
-    flex: none;
-    /* 2 */
     padding-left: 10px; }
   .auk .uk-iconnav > * > a {
     /* 1 */
@@ -13523,8 +13590,6 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     border: 0; }
   .auk .uk-sortable {
     position: relative; }
-  .auk .uk-sortable > * {
-    touch-action: none; }
   .auk .uk-sortable svg {
     pointer-events: none; }
   .auk .uk-sortable > :last-child {
@@ -13768,14 +13833,10 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     width: calc(100% * 1 / 6.001); }
   .auk .uk-child-width-auto > * {
     width: auto; }
-  .auk .uk-child-width-expand > * {
-    width: 1px; }
   .auk .uk-child-width-expand > :not([class*='uk-width']) {
     flex: 1;
     /* 1 */
-    min-width: 0;
-    /* 2 */
-    flex-basis: 1px; }
+    min-width: 1px; }
   @media (min-width: 640px) {
     .auk .uk-child-width-1-1\@s > * {
       width: 100%; }
@@ -13791,12 +13852,9 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       width: calc(100% * 1 / 6.001); }
     .auk .uk-child-width-auto\@s > * {
       width: auto; }
-    .auk .uk-child-width-expand\@s > * {
-      width: 1px; }
     .auk .uk-child-width-expand\@s > :not([class*='uk-width']) {
       flex: 1;
-      min-width: 0;
-      flex-basis: 1px; } }
+      min-width: 1px; } }
   @media (min-width: 960px) {
     .auk .uk-child-width-1-1\@m > * {
       width: 100%; }
@@ -13812,12 +13870,9 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       width: calc(100% * 1 / 6.001); }
     .auk .uk-child-width-auto\@m > * {
       width: auto; }
-    .auk .uk-child-width-expand\@m > * {
-      width: 1px; }
     .auk .uk-child-width-expand\@m > :not([class*='uk-width']) {
       flex: 1;
-      min-width: 0;
-      flex-basis: 1px; } }
+      min-width: 1px; } }
   @media (min-width: 1200px) {
     .auk .uk-child-width-1-1\@l > * {
       width: 100%; }
@@ -13833,12 +13888,9 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       width: calc(100% * 1 / 6.001); }
     .auk .uk-child-width-auto\@l > * {
       width: auto; }
-    .auk .uk-child-width-expand\@l > * {
-      width: 1px; }
     .auk .uk-child-width-expand\@l > :not([class*='uk-width']) {
       flex: 1;
-      min-width: 0;
-      flex-basis: 1px; } }
+      min-width: 1px; } }
   @media (min-width: 1600px) {
     .auk .uk-child-width-1-1\@xl > * {
       width: 100%; }
@@ -13854,12 +13906,9 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       width: calc(100% * 1 / 6.001); }
     .auk .uk-child-width-auto\@xl > * {
       width: auto; }
-    .auk .uk-child-width-expand\@xl > * {
-      width: 1px; }
     .auk .uk-child-width-expand\@xl > :not([class*='uk-width']) {
       flex: 1;
-      min-width: 0;
-      flex-basis: 1px; } }
+      min-width: 1px; } }
   .auk [class*='uk-width'] {
     box-sizing: border-box;
     width: 100%;
@@ -13900,10 +13949,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   .auk .uk-width-auto {
     width: auto; }
   .auk .uk-width-expand {
-    width: 1px;
     flex: 1;
-    min-width: 0;
-    flex-basis: 1px; }
+    min-width: 1px; }
   @media (min-width: 640px) {
     .auk {
       /* Whole */
@@ -13952,10 +13999,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       .auk .uk-width-auto\@s {
         width: auto; }
       .auk .uk-width-expand\@s {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px; } }
+        min-width: 1px; } }
   @media (min-width: 960px) {
     .auk {
       /* Whole */
@@ -14004,10 +14049,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       .auk .uk-width-auto\@m {
         width: auto; }
       .auk .uk-width-expand\@m {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px; } }
+        min-width: 1px; } }
   @media (min-width: 1200px) {
     .auk {
       /* Whole */
@@ -14056,10 +14099,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       .auk .uk-width-auto\@l {
         width: auto; }
       .auk .uk-width-expand\@l {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px; } }
+        min-width: 1px; } }
   @media (min-width: 1600px) {
     .auk {
       /* Whole */
@@ -14108,10 +14149,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
       .auk .uk-width-auto\@xl {
         width: auto; }
       .auk .uk-width-expand\@xl {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px; } }
+        min-width: 1px; } }
   .auk .uk-text-lead {
     font-size: 1.5rem;
     line-height: 1.5;
@@ -14540,6 +14579,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
     max-width: none; }
   .auk .uk-border-circle {
     border-radius: 50%; }
+  .auk .uk-border-pill {
+    border-radius: 500px; }
   .auk .uk-border-rounded {
     border-radius: 5px; }
   .auk .uk-inline-clip[class*='uk-border-'] {
@@ -15256,6 +15297,59 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
   margin-top: 10px;
   margin-bottom: 10px; }
 
+.auk .uk-button {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 11.2px;
+  line-height: 28px;
+  background-color: #4E6476;
+  color: #ffffff; }
+
+.auk .uk-input {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  height: 32px; }
+
+.auk .uk-link {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #3E8D9C;
+  font-size: 11.2px; }
+
+.auk .uk-form-label {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13.6px; }
+
+.auk .alpheios-skin_properties_item {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: #4E6476;
+  color: #ffffff;
+  list-style-type: none;
+  vertical-align: middle;
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px; }
+
+.auk .alpheios-skin_properties_item__small_font {
+  font-size: 12.8px;
+  width: 22.4px;
+  height: 22.4px;
+  line-height: 22.4px;
+  border-radius: 11.2px; }
+
+.auk .alpheios-skin_properties_item__medium_font {
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 14.4px; }
+
+.auk .alpheios-skin_properties_item__large_font {
+  font-size: 19.2px;
+  width: 33.6px;
+  height: 33.6px;
+  line-height: 33.6px;
+  border-radius: 17.6px; }
+
 /* panel contents */
 .lex_sense1 {
   margin-left: .5em; }
@@ -15288,403 +15382,8 @@ div.infl-prdgm-tbl-cell--full-match[data-v-51645c47] {
 .sense-spacer2 {
   padding-left: 3em; }
 
-.auk.alpheios-font_medium_class {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: normal;
-  color: #333333;
-  /** TODO Remove this when we port inflection tables to Vue **/ }
-  .auk.alpheios-font_medium_class h3 {
-    font-size: 16px .auk.alpheios-font_medium_class h3 1.25; }
-  .auk.alpheios-font_medium_class p, .auk.alpheios-font_medium_class span, .auk.alpheios-font_medium_class div, .auk.alpheios-font_medium_class a {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 16px;
-    line-height: normal;
-    color: #333333; }
-  .auk.alpheios-font_medium_class .uk-form-label {
-    font-size: 13.6px; }
-  .auk.alpheios-font_medium_class .uk-button {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
-  .auk.alpheios-font_medium_class .uk-button-small {
-    font-size: 11.2px;
-    line-height: 28px; }
-  .auk.alpheios-font_medium_class .uk-input {
-    height: 28px; }
-  .auk.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
-    height: 40px; }
-  .auk.alpheios-font_medium_class .alpheios-text__smallest {
-    font-size: 10.8px; }
-  .auk.alpheios-font_medium_class .alpheios-text__smaller {
-    font-size: 12px; }
-  .auk.alpheios-font_medium_class .alpheios-text__small {
-    font-size: 14px; }
-  .auk.alpheios-font_medium_class .alpheios-text__medium {
-    font-size: 16px; }
-  .auk.alpheios-font_medium_class .alpheios-text__large {
-    font-size: 17.6px; }
-  .auk.alpheios-font_medium_class .alpheios-text__larger {
-    font-size: 20px; }
-  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
-    width: 20px;
-    height: 20px;
-    margin: 9px 15px; }
-    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
-      width: 20px;
-      height: 20px; }
-  .auk.alpheios-font_medium_class .infl-cell, .auk.alpheios-font_medium_class .infl-cell span {
-    font-size: 12px; }
-  .auk.alpheios-font_medium_class .infl-cell sup {
-    font-size: 10.8px; }
-  .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index {
-    font-size: 14px;
-    line-height: 20.8px;
-    width: 20.8px;
-    height: 20.8px;
-    border-radius: 12.8px; }
-  .auk.alpheios-font_medium_class .alpheios-morph__morphdata {
-    margin-left: 35.8px; }
-  .auk.alpheios-font_medium_class .alpheios-morph__listitem,
-  .auk.alpheios-font_medium_class .alpheios-popup__header-selection {
-    font-size: 20.8px; }
-  .auk.alpheios-font_medium_class .alpheios-skin_panel {
-    padding-top: 16px; }
-  .auk.alpheios-font_medium_class .alpheios-checkbox-block {
-    line-height: 22px; }
-    .auk.alpheios-font_medium_class .alpheios-checkbox-block label {
-      padding-left: 22px;
-      min-height: 16px; }
-      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::before {
-        height: 16px;
-        width: 16px; }
-      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::after {
-        height: 5px;
-        width: 9px;
-        left: 4px;
-        top: 7px; }
-  .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
-    font-size: 16px;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 14px; }
-  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__small_font {
-    font-size: 12.8px;
-    width: 22.4px;
-    height: 22.4px;
-    line-height: 22.4px;
-    border-radius: 11.2px; }
-  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__large_font {
-    font-size: 19.2px;
-    width: 33.6px;
-    height: 33.6px;
-    line-height: 33.6px;
-    border-radius: 33.6px; }
-
-.auk.alpheios-font_small_class {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 12px;
-  line-height: normal;
-  color: #333333;
-  /** TODO Remove this when we port inflection tables to Vue **/ }
-  .auk.alpheios-font_small_class h3 {
-    font-size: 12px .auk.alpheios-font_small_class h3 1.25; }
-  .auk.alpheios-font_small_class p, .auk.alpheios-font_small_class span, .auk.alpheios-font_small_class div, .auk.alpheios-font_small_class a {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 12px;
-    line-height: normal;
-    color: #333333; }
-  .auk.alpheios-font_small_class .uk-form-label {
-    font-size: 10.2px; }
-  .auk.alpheios-font_small_class .uk-button {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
-  .auk.alpheios-font_small_class .uk-button-small {
-    font-size: 8.4px;
-    line-height: 21px; }
-  .auk.alpheios-font_small_class .uk-input {
-    height: 21px; }
-  .auk.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
-    height: 30px; }
-  .auk.alpheios-font_small_class .alpheios-text__smallest {
-    font-size: 8.1px; }
-  .auk.alpheios-font_small_class .alpheios-text__smaller {
-    font-size: 9px; }
-  .auk.alpheios-font_small_class .alpheios-text__small {
-    font-size: 10.5px; }
-  .auk.alpheios-font_small_class .alpheios-text__medium {
-    font-size: 12px; }
-  .auk.alpheios-font_small_class .alpheios-text__large {
-    font-size: 13.2px; }
-  .auk.alpheios-font_small_class .alpheios-text__larger {
-    font-size: 15px; }
-  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
-    width: 15px;
-    height: 15px;
-    margin: 13px 15px; }
-    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
-      width: 15px;
-      height: 15px; }
-  .auk.alpheios-font_small_class .infl-cell, .auk.alpheios-font_small_class .infl-cell span {
-    font-size: 9px; }
-  .auk.alpheios-font_small_class .infl-cell sup {
-    font-size: 8.1px; }
-  .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index {
-    font-size: 10.5px;
-    line-height: 15.6px;
-    width: 15.6px;
-    height: 15.6px;
-    border-radius: 9.6px; }
-  .auk.alpheios-font_small_class .alpheios-morph__morphdata {
-    margin-left: 30.6px; }
-  .auk.alpheios-font_small_class .alpheios-morph__listitem,
-  .auk.alpheios-font_small_class .alpheios-popup__header-selection {
-    font-size: 15.6px; }
-  .auk.alpheios-font_small_class .alpheios-skin_panel {
-    padding-top: 12px; }
-  .auk.alpheios-font_small_class .alpheios-checkbox-block {
-    line-height: 16.5px; }
-    .auk.alpheios-font_small_class .alpheios-checkbox-block label {
-      padding-left: 16.5px;
-      min-height: 12px; }
-      .auk.alpheios-font_small_class .alpheios-checkbox-block label::before {
-        height: 12px;
-        width: 12px; }
-      .auk.alpheios-font_small_class .alpheios-checkbox-block label::after {
-        height: 3.75px;
-        width: 6.75px;
-        left: 3px;
-        top: 5.25px; }
-  .auk.alpheios-font_small_class .alpheios-skin_properties_item {
-    font-size: 12px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 12px; }
-  .auk.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
-    font-size: 9.6px;
-    width: 19.2px;
-    height: 19.2px;
-    line-height: 19.2px;
-    border-radius: 9.6px; }
-  .auk.alpheios-font_small_class .alpheios-skin_properties_item__large_font {
-    font-size: 14.4px;
-    width: 28.8px;
-    height: 28.8px;
-    line-height: 28.8px;
-    border-radius: 28.8px; }
-
-.auk.alpheios-font_large_class {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 20px;
-  line-height: normal;
-  color: #333333;
-  /** TODO Remove this when we port inflection tables to Vue **/ }
-  .auk.alpheios-font_large_class h3 {
-    font-size: 20px .auk.alpheios-font_large_class h3 1.25; }
-  .auk.alpheios-font_large_class p, .auk.alpheios-font_large_class span, .auk.alpheios-font_large_class div, .auk.alpheios-font_large_class a {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 20px;
-    line-height: normal;
-    color: #333333; }
-  .auk.alpheios-font_large_class .uk-form-label {
-    font-size: 17px; }
-  .auk.alpheios-font_large_class .uk-button {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important; }
-  .auk.alpheios-font_large_class .uk-button-small {
-    font-size: 14px;
-    line-height: 35px; }
-  .auk.alpheios-font_large_class .uk-input {
-    height: 35px; }
-  .auk.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
-    height: 50px; }
-  .auk.alpheios-font_large_class .alpheios-text__smallest {
-    font-size: 13.5px; }
-  .auk.alpheios-font_large_class .alpheios-text__smaller {
-    font-size: 15px; }
-  .auk.alpheios-font_large_class .alpheios-text__small {
-    font-size: 17.5px; }
-  .auk.alpheios-font_large_class .alpheios-text__medium {
-    font-size: 20px; }
-  .auk.alpheios-font_large_class .alpheios-text__large {
-    font-size: 22px; }
-  .auk.alpheios-font_large_class .alpheios-text__larger {
-    font-size: 25px; }
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
-    width: 25px;
-    height: 25px;
-    margin: 5px 15px; }
-    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
-    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
-    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
-    .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
-      width: 25px;
-      height: 25px; }
-  .auk.alpheios-font_large_class .infl-cell, .auk.alpheios-font_large_class .infl-cell span {
-    font-size: 15px; }
-  .auk.alpheios-font_large_class .infl-cell sup {
-    font-size: 13.5px; }
-  .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index {
-    font-size: 17.5px;
-    line-height: 26px;
-    width: 26px;
-    height: 26px;
-    border-radius: 16px; }
-  .auk.alpheios-font_large_class .alpheios-morph__morphdata {
-    margin-left: 41px; }
-  .auk.alpheios-font_large_class .alpheios-morph__listitem,
-  .auk.alpheios-font_large_class .alpheios-popup__header-selection {
-    font-size: 26px; }
-  .auk.alpheios-font_large_class .alpheios-skin_panel {
-    padding-top: 20px; }
-  .auk.alpheios-font_large_class .alpheios-checkbox-block {
-    line-height: 27.5px; }
-    .auk.alpheios-font_large_class .alpheios-checkbox-block label {
-      padding-left: 27.5px;
-      min-height: 20px; }
-      .auk.alpheios-font_large_class .alpheios-checkbox-block label::before {
-        height: 20px;
-        width: 20px; }
-      .auk.alpheios-font_large_class .alpheios-checkbox-block label::after {
-        height: 6.25px;
-        width: 11.25px;
-        left: 5px;
-        top: 8.75px; }
-  .auk.alpheios-font_large_class .alpheios-skin_properties_item {
-    font-size: 20px;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 16px; }
-  .auk.alpheios-font_large_class .alpheios-skin_properties_item__small_font {
-    font-size: 16px;
-    width: 25.6px;
-    height: 25.6px;
-    line-height: 25.6px;
-    border-radius: 12.8px; }
-  .auk.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
-    font-size: 24px;
-    width: 38.4px;
-    height: 38.4px;
-    line-height: 38.4px;
-    border-radius: 38.4px; }
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
-  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
-  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
-    margin-right: 10px;
-    margin-left: 10px; }
-
-div.alpheios-color_schema_dark_class {
-  background: #282828;
-  color: #f2f2f2; }
-  div.alpheios-color_schema_dark_class .uk-form-label,
-  div.alpheios-color_schema_dark_class h3,
-  div.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p,
-  div.alpheios-color_schema_dark_class .alpheios-info,
-  div.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
-  div.alpheios-color_schema_dark_class .alpheios-definition__text,
-  div.alpheios-color_schema_dark_class .alpheios-morph__lexemes {
-    color: #f2f2f2; }
-  div.alpheios-color_schema_dark_class .uk-link,
-  div.alpheios-color_schema_dark_class .alpheios-lookup__settings-link,
-  div.alpheios-color_schema_dark_class .alpheios-popup__providers-link,
-  div.alpheios-color_schema_dark_class .alpheios-morph__linkedattr {
-    color: #b1d1d7; }
-  div.alpheios-color_schema_dark_class .uk-button-primary {
-    background-color: #f2f2f2;
-    color: #7E8897; }
-  div.alpheios-color_schema_dark_class .infl-cell,
-  div.alpheios-color_schema_dark_class .infl-table {
-    border-color: #f2f2f2; }
-  div.alpheios-color_schema_dark_class .infl-suff--suffix-match {
-    color: #f2f2f2; }
-  div.alpheios-color_schema_dark_class .infl-cell--hl {
-    background: #686868; }
-  div.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
-    background-color: #fcfcfa;
-    color: #4E6476;
-    border: 1px solid #4E6476; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-top::after {
-    border-color: #4E6476 transparent transparent transparent; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-top-right::after {
-    border-color: #4E6476 transparent transparent transparent; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-right::after {
-    border-color: transparent #4E6476 transparent transparent; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-bottom::after,
-  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-wide::after,
-  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-narrow::after {
-    border-color: transparent transparent #4E6476 transparent; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
-    border-color: transparent transparent #4E6476 transparent; }
-  div.alpheios-color_schema_dark_class .alph_tooltip-left::after {
-    border-color: transparent transparent transparent #4E6476; }
-  div.alpheios-color_schema_dark_class .alpheios-morph__dictentry .lemma_index {
-    color: #fff;
-    background: #4E6476; }
-
-div.alpheios-color_schema_light_class {
-  background: #fff;
-  color: #0e2233; }
-  div.alpheios-color_schema_light_class a, div.alpheios-color_schema_light_class div, div.alpheios-color_schema_light_class p, div.alpheios-color_schema_light_class span {
-    color: #333333; }
-  div.alpheios-color_schema_light_class .uk-form-label,
-  div.alpheios-color_schema_light_class h3,
-  div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p,
-  div.alpheios-color_schema_light_class .alpheios-info,
-  div.alpheios-color_schema_light_class .alpheios-popup__header-selection,
-  div.alpheios-color_schema_light_class .alpheios-definition__text,
-  div.alpheios-color_schema_light_class .alpheios-morph__lexemes {
-    color: #0e2233; }
-  div.alpheios-color_schema_light_class .uk-link,
-  div.alpheios-color_schema_light_class .alpheios-lookup__settings-link,
-  div.alpheios-color_schema_light_class .alpheios-popup__providers-link,
-  div.alpheios-color_schema_light_class .alpheios-morph__linkedattr {
-    color: #3E8D9C; }
-  div.alpheios-color_schema_light_class .uk-button-primary {
-    background-color: #4E6476;
-    color: #fff; }
-  div.alpheios-color_schema_light_class .infl-cell,
-  div.alpheios-color_schema_light_class .infl-table {
-    border-color: #0e2233; }
-  div.alpheios-color_schema_light_class .infl-suff--suffix-match {
-    color: #0e2233; }
-  div.alpheios-color_schema_light_class .infl-cell--hl {
-    background: #d3d3d3; }
-  div.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
-    background-color: #fcfcfa;
-    color: #4E6476;
-    border: 1px solid #4E6476; }
-  div.alpheios-color_schema_light_class .alph_tooltip-top::after {
-    border-color: #4E6476 transparent transparent transparent; }
-  div.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
-    border-color: #4E6476 transparent transparent transparent; }
-  div.alpheios-color_schema_light_class .alph_tooltip-right::after {
-    border-color: transparent #4E6476 transparent transparent; }
-  div.alpheios-color_schema_light_class .alph_tooltip-bottom::after,
-  div.alpheios-color_schema_light_class .alph_tooltip-bottom-wide::after,
-  div.alpheios-color_schema_light_class .alph_tooltip-bottom-narrow::after {
-    border-color: transparent transparent #4E6476 transparent; }
-  div.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
-    border-color: transparent transparent #4E6476 transparent; }
-  div.alpheios-color_schema_light_class .alph_tooltip-left::after {
-    border-color: transparent transparent transparent #4E6476; }
-  div.alpheios-color_schema_light_class .alpheios-morph__dictentry .lemma_index {
-    color: #fff;
-    background: #4E6476; }
+.alph-source {
+  margin-top: 1em; }
 
 .alph_tooltip {
   position: relative;
@@ -15702,11 +15401,13 @@ div.alpheios-color_schema_light_class {
   z-index: 1;
   opacity: 0;
   transition: opacity .6s;
-  font-size: 12px; }
+  font-size: 12px;
+  display: none; }
 
 .alph_tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 1; }
+  opacity: 1;
+  display: inline; }
 
 .alph_tooltip-top {
   bottom: 125%;
@@ -15811,6 +15512,17 @@ div.alpheios-color_schema_light_class {
   border-style: solid;
   border-color: transparent transparent #555 transparent; }
 
+.alpheios-panel-right .alph_tooltip-bottom-right {
+  top: 135%;
+  right: auto;
+  margin-left: 0;
+  left: 0; }
+
+.alpheios-panel-right .alph_tooltip-bottom-right::after {
+  margin-left: 0;
+  right: auto;
+  left: 15%; }
+
 .alph_tooltip-left {
   top: -5px;
   bottom: auto;
@@ -15830,8 +15542,9 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-font_medium_class .multiselect,
 .auk.alpheios-font_small_class .multiselect,
 .auk.alpheios-color_schema_light_class .multiselect,
-.auk.alpheios-color_schema_dark_class .multiselect {
-  max-width: 250px;
+.auk.alpheios-color_schema_dark_class .multiselect,
+.auk.alpheios-panel .multiselect {
+  max-width: 235px;
   display: inline-block;
   vertical-align: middle; }
 
@@ -15839,7 +15552,8 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-font_medium_class .multiselect__content-wrapper,
 .auk.alpheios-font_small_class .multiselect__content-wrapper,
 .auk.alpheios-color_schema_light_class .multiselect__content-wrapper,
-.auk.alpheios-color_schema_dark_class .multiselect__content-wrapper {
+.auk.alpheios-color_schema_dark_class .multiselect__content-wrapper,
+.auk.alpheios-panel .multiselect__content-wrapper {
   border: 1px solid #666666;
   border-top: 0; }
 
@@ -15847,7 +15561,8 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-font_medium_class ul.multiselect__content,
 .auk.alpheios-font_small_class ul.multiselect__content,
 .auk.alpheios-color_schema_light_class ul.multiselect__content,
-.auk.alpheios-color_schema_dark_class ul.multiselect__content {
+.auk.alpheios-color_schema_dark_class ul.multiselect__content,
+.auk.alpheios-panel ul.multiselect__content {
   padding: 0;
   margin: 0; }
 
@@ -15855,15 +15570,38 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-font_medium_class .multiselect__tags,
 .auk.alpheios-font_small_class .multiselect__tags,
 .auk.alpheios-color_schema_light_class .multiselect__tags,
-.auk.alpheios-color_schema_dark_class .multiselect__tags {
+.auk.alpheios-color_schema_dark_class .multiselect__tags,
+.auk.alpheios-panel .multiselect__tags {
   border-radius: 2px;
   border: 1px solid #666666; }
+
+.auk.alpheios-font_large_class .multiselect__tag,
+.auk.alpheios-font_medium_class .multiselect__tag,
+.auk.alpheios-font_small_class .multiselect__tag,
+.auk.alpheios-color_schema_light_class .multiselect__tag,
+.auk.alpheios-color_schema_dark_class .multiselect__tag,
+.auk.alpheios-panel .multiselect__tag {
+  background-color: #4E6476;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 4px 26px 4px 10px;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+  .auk.alpheios-font_large_class .multiselect__tag span,
+  .auk.alpheios-font_medium_class .multiselect__tag span,
+  .auk.alpheios-font_small_class .multiselect__tag span,
+  .auk.alpheios-color_schema_light_class .multiselect__tag span,
+  .auk.alpheios-color_schema_dark_class .multiselect__tag span,
+  .auk.alpheios-panel .multiselect__tag span {
+    color: #ffffff; }
 
 .auk.alpheios-font_large_class .multiselect__select,
 .auk.alpheios-font_medium_class .multiselect__select,
 .auk.alpheios-font_small_class .multiselect__select,
 .auk.alpheios-color_schema_light_class .multiselect__select,
-.auk.alpheios-color_schema_dark_class .multiselect__select {
+.auk.alpheios-color_schema_dark_class .multiselect__select,
+.auk.alpheios-panel .multiselect__select {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
   background-size: contain;
   background-repeat: no-repeat;
@@ -15875,14 +15613,40 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-font_medium_class .multiselect__select::before,
 .auk.alpheios-font_small_class .multiselect__select::before,
 .auk.alpheios-color_schema_light_class .multiselect__select::before,
-.auk.alpheios-color_schema_dark_class .multiselect__select::before {
+.auk.alpheios-color_schema_dark_class .multiselect__select::before,
+.auk.alpheios-panel .multiselect__select::before {
   display: none; }
+
+.auk.alpheios-font_large_class .multiselect__content,
+.auk.alpheios-font_medium_class .multiselect__content,
+.auk.alpheios-font_small_class .multiselect__content,
+.auk.alpheios-color_schema_light_class .multiselect__content,
+.auk.alpheios-color_schema_dark_class .multiselect__content,
+.auk.alpheios-panel .multiselect__content {
+  padding: 0; }
+
+.auk.alpheios-font_large_class .multiselect__single,
+.auk.alpheios-font_medium_class .multiselect__single,
+.auk.alpheios-font_small_class .multiselect__single,
+.auk.alpheios-color_schema_light_class .multiselect__single,
+.auk.alpheios-color_schema_dark_class .multiselect__single,
+.auk.alpheios-panel .multiselect__single {
+  display: none; }
+
+.auk.alpheios-font_large_class .multiselect__option,
+.auk.alpheios-font_medium_class .multiselect__option,
+.auk.alpheios-font_small_class .multiselect__option,
+.auk.alpheios-color_schema_light_class .multiselect__option,
+.auk.alpheios-color_schema_dark_class .multiselect__option,
+.auk.alpheios-panel .multiselect__option {
+  padding: 12px; }
 
 .auk.alpheios-font_large_class .multiselect__option::after,
 .auk.alpheios-font_medium_class .multiselect__option::after,
 .auk.alpheios-font_small_class .multiselect__option::after,
 .auk.alpheios-color_schema_light_class .multiselect__option::after,
-.auk.alpheios-color_schema_dark_class .multiselect__option::after {
+.auk.alpheios-color_schema_dark_class .multiselect__option::after,
+.auk.alpheios-panel .multiselect__option::after {
   display: none; }
 
 .auk.alpheios-font_large_class .multiselect__option--highlight,
@@ -15904,8 +15668,34 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-color_schema_dark_class .multiselect__option--highlight,
 .auk.alpheios-color_schema_dark_class .multiselect__tag,
 .auk.alpheios-color_schema_dark_class .multiselect__tag-icon:focus,
-.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover {
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover,
+.auk.alpheios-panel .multiselect__option--highlight,
+.auk.alpheios-panel .multiselect__tag,
+.auk.alpheios-panel .multiselect__tag-icon:focus,
+.auk.alpheios-panel .multiselect__tag-icon:hover {
   background: #4E6476; }
+
+.auk.alpheios-font_large_class .multiselect__option.multiselect__option--highlight,
+.auk.alpheios-font_medium_class .multiselect__option.multiselect__option--highlight,
+.auk.alpheios-font_small_class .multiselect__option.multiselect__option--highlight,
+.auk.alpheios-color_schema_light_class .multiselect__option.multiselect__option--highlight,
+.auk.alpheios-color_schema_dark_class .multiselect__option.multiselect__option--highlight,
+.auk.alpheios-panel .multiselect__option.multiselect__option--highlight {
+  background-color: #4E6476; }
+  .auk.alpheios-font_large_class .multiselect__option.multiselect__option--highlight:after,
+  .auk.alpheios-font_medium_class .multiselect__option.multiselect__option--highlight:after,
+  .auk.alpheios-font_small_class .multiselect__option.multiselect__option--highlight:after,
+  .auk.alpheios-color_schema_light_class .multiselect__option.multiselect__option--highlight:after,
+  .auk.alpheios-color_schema_dark_class .multiselect__option.multiselect__option--highlight:after,
+  .auk.alpheios-panel .multiselect__option.multiselect__option--highlight:after {
+    display: none; }
+  .auk.alpheios-font_large_class .multiselect__option.multiselect__option--highlight span,
+  .auk.alpheios-font_medium_class .multiselect__option.multiselect__option--highlight span,
+  .auk.alpheios-font_small_class .multiselect__option.multiselect__option--highlight span,
+  .auk.alpheios-color_schema_light_class .multiselect__option.multiselect__option--highlight span,
+  .auk.alpheios-color_schema_dark_class .multiselect__option.multiselect__option--highlight span,
+  .auk.alpheios-panel .multiselect__option.multiselect__option--highlight span {
+    color: #ffffff; }
 
 .auk.alpheios-font_large_class .multiselect__option--highlight span,
 .auk.alpheios-font_large_class .multiselect__tag span,
@@ -15926,23 +15716,58 @@ div.alpheios-color_schema_light_class {
 .auk.alpheios-color_schema_dark_class .multiselect__option--highlight span,
 .auk.alpheios-color_schema_dark_class .multiselect__tag span,
 .auk.alpheios-color_schema_dark_class .multiselect__tag-icon:focus span,
-.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover span {
-  color: #fff; }
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover span,
+.auk.alpheios-panel .multiselect__option--highlight span,
+.auk.alpheios-panel .multiselect__tag span,
+.auk.alpheios-panel .multiselect__tag-icon:focus span,
+.auk.alpheios-panel .multiselect__tag-icon:hover span {
+  color: #ffffff; }
 
 .auk.alpheios-font_large_class .multiselect__tag-icon:after,
 .auk.alpheios-font_medium_class .multiselect__tag-icon:after,
 .auk.alpheios-font_small_class .multiselect__tag-icon:after,
 .auk.alpheios-color_schema_light_class .multiselect__tag-icon:after,
-.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:after {
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon:after,
+.auk.alpheios-panel .multiselect__tag-icon:after {
   content: "\D7";
-  color: #fff;
+  color: #ffffff;
   font-size: 13.4px; }
+
+.auk.alpheios-font_large_class .multiselect__tag-icon,
+.auk.alpheios-font_medium_class .multiselect__tag-icon,
+.auk.alpheios-font_small_class .multiselect__tag-icon,
+.auk.alpheios-color_schema_light_class .multiselect__tag-icon,
+.auk.alpheios-color_schema_dark_class .multiselect__tag-icon,
+.auk.alpheios-panel .multiselect__tag-icon {
+  border-radius: 5px;
+  bottom: 0;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 22.4px;
+  margin-left: 7px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  transition: all .2s ease;
+  width: 22.4px;
+  color: #ffffff; }
+  .auk.alpheios-font_large_class .multiselect__tag-icon:hover,
+  .auk.alpheios-font_medium_class .multiselect__tag-icon:hover,
+  .auk.alpheios-font_small_class .multiselect__tag-icon:hover,
+  .auk.alpheios-color_schema_light_class .multiselect__tag-icon:hover,
+  .auk.alpheios-color_schema_dark_class .multiselect__tag-icon:hover,
+  .auk.alpheios-panel .multiselect__tag-icon:hover {
+    background-color: #4E6476; }
 
 div.alpheios-checkbox-block {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  line-height: 22px; }
+  line-height: 22px;
+  max-width: 235px;
+  vertical-align: top; }
 
 .alpheios-checkbox-block {
   /*Unhide on the checked state*/
@@ -15955,7 +15780,7 @@ div.alpheios-checkbox-block {
     position: relative;
     display: inline-block;
     user-select: none;
-    vertical-align: middle;
+    vertical-align: top;
     /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
     padding-left: 22px;
     padding-top: 2px; }
@@ -15988,35 +15813,522 @@ div.alpheios-checkbox-block {
   .alpheios-checkbox-block input[type="checkbox"]:focus + label::before {
     outline: #3b99fc auto 5px; }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+.alpheios-checkbox-small label {
+  font-size: 90%;
+  padding-left: 18px;
+  line-height: 100%; }
+
+.alpheios-checkbox-small label::before {
+  height: 12px;
+  width: 12px; }
+
+.auk.alpheios-font_medium_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_medium_class h3 {
+    font-size: 16px;
+    line-height: 1.25; }
+  .auk.alpheios-font_medium_class p, .auk.alpheios-font_medium_class span, .auk.alpheios-font_medium_class div, .auk.alpheios-font_medium_class a, .auk.alpheios-font_medium_class input {
+    font-size: 16px;
+    line-height: normal; }
+  .auk.alpheios-font_medium_class .uk-form-label {
+    font-size: 13.6px; }
+  .auk.alpheios-font_medium_class .uk-button-small {
+    font-size: 11.2px;
+    line-height: 28px; }
+  .auk.alpheios-font_medium_class .uk-input {
+    height: 28px; }
+  .auk.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
+    height: 40px; }
+  .auk.alpheios-font_medium_class .alpheios-text__smallest {
+    font-size: 10.8px; }
+  .auk.alpheios-font_medium_class .alpheios-text__smaller {
+    font-size: 12px; }
+  .auk.alpheios-font_medium_class .alpheios-text__small {
+    font-size: 14px; }
+  .auk.alpheios-font_medium_class .alpheios-text__medium {
+    font-size: 16px; }
+  .auk.alpheios-font_medium_class .alpheios-text__large {
+    font-size: 17.6px; }
+  .auk.alpheios-font_medium_class .alpheios-text__larger {
+    font-size: 20px; }
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
+    width: 20px;
+    height: 20px;
+    margin: 9px 15px; }
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn svg {
+      width: 20px;
+      height: 20px; }
+  .auk.alpheios-font_medium_class .infl-cell, .auk.alpheios-font_medium_class .infl-cell span {
+    font-size: 12px; }
+  .auk.alpheios-font_medium_class .infl-cell sup {
+    font-size: 10.8px; }
+  .auk.alpheios-font_medium_class .alpheios-inflections__title {
+    font-size: 20px; }
+  .auk.alpheios-font_medium_class .alpheios-inflections__additional_title {
+    font-size: 14px;
+    font-weight: 700; }
+  .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_medium_class .alpheios-morph__dictentry .lemma_index_spacer {
+    font-size: 14px;
+    line-height: 20.8px;
+    width: 20.8px;
+    height: 20.8px;
+    border-radius: 12.8px; }
+  .auk.alpheios-font_medium_class .alpheios-morph__morphdata {
+    margin-left: 35.8px; }
+  .auk.alpheios-font_medium_class .alpheios-morph__listitem,
+  .auk.alpheios-font_medium_class .alpheios-popup__header-selection {
+    font-size: 20.8px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_panel {
+    padding-top: 16px; }
+  .auk.alpheios-font_medium_class .alpheios-checkbox-block {
+    line-height: 27.2px; }
+    .auk.alpheios-font_medium_class .alpheios-checkbox-block label {
+      padding-left: 21.2px;
+      min-height: 16px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::before {
+        height: 16px;
+        width: 16px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block label::after {
+        height: 5px;
+        width: 9px;
+        left: 4px;
+        top: 7px; }
+  .auk.alpheios-font_medium_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 12.8px; }
+  .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small {
+    line-height: 20.8px; }
+    .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small label {
+      padding-left: 16px;
+      min-height: 12px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small label::before {
+        height: 12px;
+        width: 12px; }
+      .auk.alpheios-font_medium_class .alpheios-checkbox-block.alpheios-checkbox-small label::after {
+        height: 3.68px;
+        width: 7.2px;
+        left: 2.88px;
+        top: 5.12px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item {
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 14px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__small_font {
+    font-size: 12.8px;
+    width: 22.4px;
+    height: 22.4px;
+    line-height: 22.4px;
+    border-radius: 11.2px; }
+  .auk.alpheios-font_medium_class .alpheios-skin_properties_item__large_font {
+    font-size: 19.2px;
+    width: 33.6px;
+    height: 33.6px;
+    line-height: 33.6px;
+    border-radius: 33.6px; }
+
+.auk.alpheios-font_small_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: normal;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_small_class h3 {
+    font-size: 12px;
+    line-height: 1.25; }
+  .auk.alpheios-font_small_class p, .auk.alpheios-font_small_class span, .auk.alpheios-font_small_class div, .auk.alpheios-font_small_class a, .auk.alpheios-font_small_class input {
+    font-size: 12px;
+    line-height: normal; }
+  .auk.alpheios-font_small_class .uk-form-label {
+    font-size: 10.2px; }
+  .auk.alpheios-font_small_class .uk-button-small {
+    font-size: 8.4px;
+    line-height: 21px; }
+  .auk.alpheios-font_small_class .uk-input {
+    height: 21px; }
+  .auk.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
+    height: 30px; }
+  .auk.alpheios-font_small_class .alpheios-text__smallest {
+    font-size: 8.1px; }
+  .auk.alpheios-font_small_class .alpheios-text__smaller {
+    font-size: 9px; }
+  .auk.alpheios-font_small_class .alpheios-text__small {
+    font-size: 10.5px; }
+  .auk.alpheios-font_small_class .alpheios-text__medium {
+    font-size: 12px; }
+  .auk.alpheios-font_small_class .alpheios-text__large {
+    font-size: 13.2px; }
+  .auk.alpheios-font_small_class .alpheios-text__larger {
+    font-size: 15px; }
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
+    width: 15px;
+    height: 15px;
+    margin: 13px 15px; }
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn svg {
+      width: 15px;
+      height: 15px; }
+  .auk.alpheios-font_small_class .infl-cell, .auk.alpheios-font_small_class .infl-cell span {
+    font-size: 9px; }
+  .auk.alpheios-font_small_class .infl-cell sup {
+    font-size: 8.1px; }
+  .auk.alpheios-font_small_class .alpheios-inflections__title {
+    font-size: 15px; }
+  .auk.alpheios-font_small_class .alpheios-inflections__additional_title {
+    font-size: 10.5px;
+    font-weight: 700; }
+  .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_small_class .alpheios-morph__dictentry .lemma_index_spacer {
+    font-size: 10.5px;
+    line-height: 15.6px;
+    width: 15.6px;
+    height: 15.6px;
+    border-radius: 9.6px; }
+  .auk.alpheios-font_small_class .alpheios-morph__morphdata {
+    margin-left: 30.6px; }
+  .auk.alpheios-font_small_class .alpheios-morph__listitem,
+  .auk.alpheios-font_small_class .alpheios-popup__header-selection {
+    font-size: 15.6px; }
+  .auk.alpheios-font_small_class .alpheios-skin_panel {
+    padding-top: 12px; }
+  .auk.alpheios-font_small_class .alpheios-checkbox-block {
+    line-height: 20.4px; }
+    .auk.alpheios-font_small_class .alpheios-checkbox-block label {
+      padding-left: 15.9px;
+      min-height: 12px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block label::before {
+        height: 12px;
+        width: 12px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block label::after {
+        height: 3.75px;
+        width: 6.75px;
+        left: 3px;
+        top: 5.25px; }
+  .auk.alpheios-font_small_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 9.6px; }
+  .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small {
+    line-height: 15.6px; }
+    .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small label {
+      padding-left: 12px;
+      min-height: 9px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small label::before {
+        height: 9px;
+        width: 9px; }
+      .auk.alpheios-font_small_class .alpheios-checkbox-block.alpheios-checkbox-small label::after {
+        height: 2.76px;
+        width: 5.4px;
+        left: 2.16px;
+        top: 3.84px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item {
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item__small_font {
+    font-size: 9.6px;
+    width: 19.2px;
+    height: 19.2px;
+    line-height: 19.2px;
+    border-radius: 9.6px; }
+  .auk.alpheios-font_small_class .alpheios-skin_properties_item__large_font {
+    font-size: 14.4px;
+    width: 28.8px;
+    height: 28.8px;
+    line-height: 28.8px;
+    border-radius: 28.8px; }
+
+.auk.alpheios-font_large_class {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: normal;
+  /** TODO Remove this when we port inflection tables to Vue **/ }
+  .auk.alpheios-font_large_class h3 {
+    font-size: 20px;
+    line-height: 1.25; }
+  .auk.alpheios-font_large_class p, .auk.alpheios-font_large_class span, .auk.alpheios-font_large_class div, .auk.alpheios-font_large_class a, .auk.alpheios-font_large_class input {
+    font-size: 20px;
+    line-height: normal; }
+  .auk.alpheios-font_large_class .uk-form-label {
+    font-size: 17px; }
+  .auk.alpheios-font_large_class .uk-button-small {
+    font-size: 14px;
+    line-height: 35px; }
+  .auk.alpheios-font_large_class .uk-input {
+    height: 35px; }
+  .auk.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
+    height: 50px; }
+  .auk.alpheios-font_large_class .alpheios-text__smallest {
+    font-size: 13.5px; }
+  .auk.alpheios-font_large_class .alpheios-text__smaller {
+    font-size: 15px; }
+  .auk.alpheios-font_large_class .alpheios-text__small {
+    font-size: 17.5px; }
+  .auk.alpheios-font_large_class .alpheios-text__medium {
+    font-size: 20px; }
+  .auk.alpheios-font_large_class .alpheios-text__large {
+    font-size: 22px; }
+  .auk.alpheios-font_large_class .alpheios-text__larger {
+    font-size: 25px; }
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
+    width: 25px;
+    height: 25px;
+    margin: 5px 15px; }
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
+    .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn svg {
+      width: 25px;
+      height: 25px; }
+  .auk.alpheios-font_large_class .infl-cell, .auk.alpheios-font_large_class .infl-cell span {
+    font-size: 15px; }
+  .auk.alpheios-font_large_class .infl-cell sup {
+    font-size: 13.5px; }
+  .auk.alpheios-font_large_class .alpheios-inflections__title {
+    font-size: 25px; }
+  .auk.alpheios-font_large_class .alpheios-inflections__additional_title {
+    font-size: 17.5px;
+    font-weight: 700; }
+  .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index, .auk.alpheios-font_large_class .alpheios-morph__dictentry .lemma_index_spacer {
+    font-size: 17.5px;
+    line-height: 26px;
+    width: 26px;
+    height: 26px;
+    border-radius: 16px; }
+  .auk.alpheios-font_large_class .alpheios-morph__morphdata {
+    margin-left: 41px; }
+  .auk.alpheios-font_large_class .alpheios-morph__listitem,
+  .auk.alpheios-font_large_class .alpheios-popup__header-selection {
+    font-size: 26px; }
+  .auk.alpheios-font_large_class .alpheios-skin_panel {
+    padding-top: 20px; }
+  .auk.alpheios-font_large_class .alpheios-checkbox-block {
+    line-height: 34px; }
+    .auk.alpheios-font_large_class .alpheios-checkbox-block label {
+      padding-left: 26.5px;
+      min-height: 20px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block label::before {
+        height: 20px;
+        width: 20px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block label::after {
+        height: 6.25px;
+        width: 11.25px;
+        left: 5px;
+        top: 8.75px; }
+  .auk.alpheios-font_large_class .alpheios-popup-lexdataloading__progress-text {
+    font-size: 16px; }
+  .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small {
+    line-height: 26px; }
+    .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small label {
+      padding-left: 20px;
+      min-height: 15px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small label::before {
+        height: 15px;
+        width: 15px; }
+      .auk.alpheios-font_large_class .alpheios-checkbox-block.alpheios-checkbox-small label::after {
+        height: 4.6px;
+        width: 9px;
+        left: 3.6px;
+        top: 6.4px; }
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px; }
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item__small_font {
+    font-size: 16px;
+    width: 25.6px;
+    height: 25.6px;
+    line-height: 25.6px;
+    border-radius: 12.8px; }
+  .auk.alpheios-font_large_class .alpheios-skin_properties_item__large_font {
+    font-size: 24px;
+    width: 38.4px;
+    height: 38.4px;
+    line-height: 38.4px;
+    border-radius: 38.4px; }
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
+  .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
+  .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
+    margin-right: 10px;
+    margin-left: 10px; }
+
+div.alpheios-color_schema_light_class {
+  background: #ffffff;
+  color: #333333; }
+  div.alpheios-color_schema_light_class a, div.alpheios-color_schema_light_class div, div.alpheios-color_schema_light_class p, div.alpheios-color_schema_light_class span {
+    color: #333333; }
+  div.alpheios-color_schema_light_class .uk-form-label,
+  div.alpheios-color_schema_light_class h3,
+  div.alpheios-color_schema_light_class .alpheios-info .alpheios-info__helptext p,
+  div.alpheios-color_schema_light_class .alpheios-info,
+  div.alpheios-color_schema_light_class .alpheios-popup__header-selection,
+  div.alpheios-color_schema_light_class .alpheios-definition__text,
+  div.alpheios-color_schema_light_class .alpheios-morph__lexemes {
+    color: #333333; }
+  div.alpheios-color_schema_light_class .uk-link,
+  div.alpheios-color_schema_light_class .alpheios-lookup__settings-link,
+  div.alpheios-color_schema_light_class .alpheios-popup__providers-link,
+  div.alpheios-color_schema_light_class .alpheios-morph__linkedattr {
+    color: #3E8D9C; }
+  div.alpheios-color_schema_light_class .uk-button-primary {
+    background-color: #4E6476;
+    color: #ffffff; }
+  div.alpheios-color_schema_light_class .infl-cell,
+  div.alpheios-color_schema_light_class .infl-table {
+    border-color: #333333; }
+  div.alpheios-color_schema_light_class .infl-suff--suffix-match {
+    color: #333333;
+    background: #bce6f0; }
+  div.alpheios-color_schema_light_class .infl-suff--suffix-match.infl-suff--full-feature-match {
+    color: #333333;
+    background: #f6d918; }
+  div.alpheios-color_schema_light_class .infl-cell--hl {
+    background: #d3d3d3; }
+  div.alpheios-color_schema_light_class .alph_tooltip .tooltiptext {
+    background-color: #fcfcfa;
+    color: #4E6476;
+    border: 1px solid #4E6476; }
+  div.alpheios-color_schema_light_class .alph_tooltip-top::after {
+    border-color: #4E6476 transparent transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-top-right::after {
+    border-color: #4E6476 transparent transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-right::after {
+    border-color: transparent #4E6476 transparent transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom::after,
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-wide::after,
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-narrow::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-bottom-right::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_light_class .alph_tooltip-left::after {
+    border-color: transparent transparent transparent #4E6476; }
+  div.alpheios-color_schema_light_class .alpheios-morph__dictentry .lemma_index {
+    color: #ffffff;
+    background: #4E6476; }
+  div.alpheios-color_schema_light_class .alpheios-morph__dictentry-disambiguated {
+    background: #E49A0D; }
+
+div.alpheios-color_schema_dark_class {
+  background: #282828;
+  color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .uk-form-label,
+  div.alpheios-color_schema_dark_class h3,
+  div.alpheios-color_schema_dark_class span,
+  div.alpheios-color_schema_dark_class .alpheios-info .alpheios-info__helptext p,
+  div.alpheios-color_schema_dark_class .alpheios-info,
+  div.alpheios-color_schema_dark_class .alpheios-popup__header-selection,
+  div.alpheios-color_schema_dark_class .alpheios-definition__text,
+  div.alpheios-color_schema_dark_class .alpheios-morph__lexemes,
+  div.alpheios-color_schema_dark_class .alpheios-morph__forms {
+    color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .multiselect__option span {
+    color: #333333; }
+  div.alpheios-color_schema_dark_class .uk-link,
+  div.alpheios-color_schema_dark_class .alpheios-lookup__settings-link,
+  div.alpheios-color_schema_dark_class .alpheios-popup__providers-link,
+  div.alpheios-color_schema_dark_class .alpheios-morph__linkedattr {
+    color: #b1d1d7; }
+  div.alpheios-color_schema_dark_class .uk-button-primary {
+    background-color: #f2f2f2;
+    color: #282828; }
+  div.alpheios-color_schema_dark_class .infl-cell,
+  div.alpheios-color_schema_dark_class .infl-table {
+    border-color: #f2f2f2; }
+  div.alpheios-color_schema_dark_class .infl-suff--suffix-match {
+    color: #333333;
+    background: #bce6f0; }
+  div.alpheios-color_schema_dark_class .infl-suff--suffix-match.infl-suff--full-feature-match {
+    color: #333333;
+    background: #f6d918; }
+  div.alpheios-color_schema_dark_class .infl-cell--hl {
+    background: #686868; }
+  div.alpheios-color_schema_dark_class .alph_tooltip .tooltiptext {
+    background-color: #fcfcfa;
+    color: #4E6476;
+    border: 1px solid #4E6476; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-top::after {
+    border-color: #4E6476 transparent transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-top-right::after {
+    border-color: #4E6476 transparent transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-right::after {
+    border-color: transparent #4E6476 transparent transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom::after,
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-wide::after,
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-narrow::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-bottom-right::after {
+    border-color: transparent transparent #4E6476 transparent; }
+  div.alpheios-color_schema_dark_class .alph_tooltip-left::after {
+    border-color: transparent transparent transparent #4E6476; }
+  div.alpheios-color_schema_dark_class .alpheios-morph__dictentry .lemma_index {
+    color: #4E6476;
+    background: #ffffff; }
+  div.alpheios-color_schema_dark_class .alpheios-morph__dictentry-disambiguated {
+    background: #F6D918; }
+
+.alpheios-word {
+  transition: background-color 1s ease-out; }
+
+.alpheios-alignment__highlight_fix {
+  background-color: #E49A0D; }
+
+.alpheios-alignment__highlight {
+  background-color: #F6D918; }
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-definition__text {
   color: #0E2233;
   font-weight: bold;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-lemma__translations {
   padding: 5px 0 0 22px;
   font-style: italic;
   color: #585858;
   font-weight: bold;
 }
+p.alpheios-lemma__translations-value {
+  margin-bottom: 5px;
+}
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-morph__lexemes {
   color: #0E2233;
 }
@@ -16114,7 +16426,7 @@ div.alpheios-morph__block {
 .alpheios-morph__dictentry {
   margin-bottom: 15px;
 }
-.alpheios-morph__dictentry .lemma_index {
+.alpheios-morph__dictentry .lemma_index, .alpheios-morph__dictentry .lemma_index_spacer {
     display: inline-block;
     text-align: center;
     font-weight: bold;
@@ -16131,18 +16443,13 @@ div.alpheios-morph__block {
     margin-bottom: 0;
     margin-top: 0;
 }
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source {
-      text-align: right;
-      float: right;
-}
-.alpheios-morph__dictentry .alpheios-morph__features p.feature_source .alpheios-morph__attr {
-        font-weight: bold;
-}
 .alpheios-morph__dictentry .alpheios-morph__features p.feature_extras {
       font-style: italic;
 }
+.alpheios-morph__dictentry .alpheios-morph__features span.feature_source .alpheios-morph__attr {
+    font-size: smaller;
+}
 .alpheios-morph__dictentry .alpheios-morph__morphdata,
-  .alpheios-morph__dictentry p.feature_source,
   .alpheios-morph__dictentry p.feature_extras,
   .alpheios-morph__dictentry .alpheios-morph__definition_list,
   .alpheios-morph__dictentry .alpheios-morph__translation_list,
@@ -16192,10 +16499,11 @@ div.alpheios-morph__block {
     display: inline-block;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-morph__lexemes {
   color: #0E2233;
 }
@@ -16345,10 +16653,11 @@ fieldset[disabled] .multiselect{pointer-events:none
 to{transform:rotate(2turn)
 }
 }
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-setting__label {
   display: block;
 }
@@ -16356,15 +16665,17 @@ to{transform:rotate(2turn)
   vertical-align: middle;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-lookup__form {
   margin: 15px 10px 5px;
   text-align: left;
@@ -16404,11 +16715,103 @@ a.alpheios-lookup__settings-link {
 .alpheios-panel__options-item .uk-textarea {
   max-width: 250px;
 }
+.alpheios-override-lang {
+  margin-bottom: 10px;
+}
+.alpheios-override-lang__label {
+  padding-bottom: 10px;
+}
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-popup-lexdataloading__progress-wrapper {
+  margin: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+.alpheios-popup-lexdataloading__progress-inner {
+  border: 2px solid #73CDDE;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+}
+.alpheios-popup-lexdataloading__progress-line {
+  -webkit-animation: progress 3s infinite;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.alpheios-popup-lexdataloading__progress-text {
+  display: block;
+  padding: 4px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  border: 2px solid #fff;
+  font-size: 85%;
+}
+@-webkit-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-o-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-ms-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+@-moz-keyframes progress {
+0% {
+    background: #b1e3ed;
+    width: 0%;
+}
+100% {
+    background: #73CDDE;
+    width: 100%;
+}
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-popup {
   display: flex;
   flex-direction: column;
@@ -16462,6 +16865,7 @@ a.alpheios-lookup__settings-link {
   cursor: pointer;
   fill: #D1D1D0;
   stroke: #D1D1D0;
+  background: inherit;
 }
 .alpheios-popup__close-btn:hover,
 .alpheios-popup__close-btn:focus {
@@ -16527,7 +16931,7 @@ a.alpheios-lookup__settings-link {
 }
 .alpheios-popup__definitions--placeholder {
   border: 0 none;
-  padding: 10px 0 0;
+  padding: 10px 0;
 }
 img.alpheios-popup__logo {
   height: 16px;
@@ -16546,6 +16950,7 @@ img.alpheios-popup__logo {
   font-style: italic;
   margin-left: .5em;
   margin-top: .5em;
+  max-width: 700px;
 }
 .alpheios-popup__providers {
   margin: 0 0 5px 10px;
@@ -16566,10 +16971,11 @@ img.alpheios-popup__logo {
   padding-top: 25px;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .infl-prdgm-tbl {
   display: table;
   border-top: 1px solid gray;
@@ -16594,10 +17000,53 @@ img.alpheios-popup__logo {
   font-weight: 700;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+
+.infl-suff-footnote-link {
+  position: relative;
+}
+.alpheios-inflections__footnote-popup {
+  cursor: move;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-table-sf__title {
+  margin-bottom: 5px;
+  padding-left: 30px;
+}
+.alpheios-clickable {
+  cursor: pointer;
+}
+.alpheios-inflections__not-impl-msg {
+  margin-top: 30px;
+  padding: 20px;
+  font-size: 0.875rem;
+}
+.alpheios-inflections__table-ctrl-cont {
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.2rem;
+  justify-content: flex-end;
+}
+.alpheios-inflections__table-ctrl-cell {
+  flex-grow: 1;
+}
+div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-cell {
+  font-size: 0.875rem;
+}
+.alpheios-inflections__table-ctrl-btn-cont {
+  margin-left: 0.2rem;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn {
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.auk .uk-button-small.alpheios-inflections__control-btn--right {
+  margin-left: .5rem;
+}
 .infl-prdgm-tbl {
   display: table;
   border-top: 1px solid gray;
@@ -16612,74 +17061,10 @@ img.alpheios-popup__logo {
   padding: 2px 5px;
   border-right: 1px solid gray;
   border-bottom: 1px solid gray;
+  min-width: 20px;
 }
-.infl-prdgm-tbl__cell--label {
+.infl-prdgm-tbl-cell--label {
   font-weight: 700;
-}
-
-
-h3.alpheios-inflections__supp-table-title {
-  font-size: 1rem;
-  line-height: 1;
-  margin: 1.5rem 0 0.6rem 0;
-  font-weight: 700;
-}
-.infl-supp-tbl__cont {
-  margin-bottom: 20px;
-  display: inline-block;
-}
-.infl-prdgm-tbl--supp {
-  margin-bottom: 10px;
-}
-a.infl-supp-tbl__reflink {
-  float: right;
-}
-
-
-.alpheios-inflections__form-parts {
-	  display: inline-block;
-}
-.alpheios-inflections__forms-targetword {
-      font-weight: bold;
-}
-.alpheios-inflections__forms-cont {
-      padding-right: 30px;
-}
-.alpheios-inflections__control-btn-cont {
-      padding-left: 30px;
-}
-
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
-h3.alpheios-inflections__title {
-  font-size: 1.2rem;
-  line-height: 1;
-  margin: 0 0 0.6rem 0;
-  font-weight: 700;
-  text-align: center;
-}
-.auk .uk-select.alpheios-inflections__view-selector {
-  height: auto !important;
-  max-width: 220px;
-  font-size: .625rem;
-}
-.auk .uk-button-small.alpheios-inflections__control-btn {
-  line-height: 1.5;
-  font-size: .625rem;
-}
-.alpheios-inflections__actions {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 0.6rem;
-}
-.alpheios-inflections__form {
-  font-weight: bold;
-  line-height: 1.2;
-  justify-content: flex-start;
 }
 .infl-table {
   display: grid;
@@ -16711,13 +17096,13 @@ h3.alpheios-inflections__title {
   padding: 0 2px 0 5px;
   border-right: 1px solid #111;
   border-top: 1px solid #111;
+  position: relative;
 }
 .infl-cell.hidden {
   display: none;
 }
 .infl-cell--hdr {
   font-weight: 700;
-  text-transform: capitalize;
   text-align: center;
 }
 .infl-cell--hdr .infl-cell__conj-stem {
@@ -16809,21 +17194,178 @@ h3.alpheios-inflections__title {
 .infl-cell--hl {
   background: lightgray;
 }
+.infl-cell--morph-match,
+.infl-table .infl-cell.infl-cell--morph-match {
+  border: 3px solid #bce6f0;
+}
 .infl-cell__conj-stem {
   text-transform: none;
 }
 .infl-suff {
   cursor: pointer;
 }
-.infl-suff--suffix-match {
+.row-title-cell {
+  text-transform: capitalize;
+}
+.infl-suff.infl-suff--suffix-match {
   background-color: #bce6f0;
 }
-.infl-suff--full-feature-match {
+.infl-suff--full-match {
   background-color: lightgray;
 }
-.infl-suff--suffix-match.infl-suff--full-feature-match {
+.infl-suff.infl-suff--suffix-match.infl-suff--full-match {
   background-color: #F6D918;
   font-weight: 700;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.infl-prdgm-tbl {
+  display: table;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  margin-bottom: 30px;
+}
+.infl-prdgm-tbl__row {
+  display: table-row;
+}
+.infl-prdgm-tbl__cell {
+  display: table-cell;
+  padding: 2px 5px;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+.infl-prdgm-tbl__cell--label {
+  font-weight: 700;
+}
+
+
+h3.alpheios-inflections__supp-table-title {
+  font-size: 1rem;
+  line-height: 1;
+  margin: 1.5rem 0 0.6rem 0;
+  font-weight: 700;
+}
+.infl-supp-tbl__cont {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.infl-prdgm-tbl--supp {
+  margin-bottom: 10px;
+}
+a.infl-supp-tbl__reflink {
+  float: right;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-ib {
+  padding: 1rem 20px 0.2rem;
+}
+.alpheios-ib__title,
+div.alpheios-ib div.alpheios-ib__title {
+  color: #4E6476;
+  font-weight: 700;
+  margin: 1rem 0 0.6rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+.alpheios-ib__pofs-title {
+  font-weight: 700;
+}
+.alpheios-ib__pofs-title-l2 {
+  font-weight: 700;
+  margin-top: 0.2rem;
+  margin-left: 1rem;
+}
+.alpheios-ib__pofs-title-l3 {
+  font-weight: 700;
+  margin-top: 0.2rem;
+  margin-left: 2rem;
+}
+div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
+  font-weight: 400;
+  font-size: 0.875rem;
+  position: relative;
+  top: -0.1rem;
+  left: 0.2rem;
+  color: #4E6476;
+}
+.alpheios-clickable {
+  cursor: pointer;
+}
+.alpheios-ib .alpheios-inflections__title.alpheios-table-sf__title {
+  text-align: left;
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 0 0 0.2rem 3rem;
+}
+
+
+.alpheios-inflections__form-parts {
+	  display: inline-block;
+}
+.alpheios-inflections__forms-targetword {
+      font-weight: bold;
+}
+.alpheios-inflections__forms-cont {
+      padding-right: 30px;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-panel__tab-panel.alpheios-panel__tab__inflections {
+  padding: 0 0 20px;
+}
+.alpheios-inflections__placeholder {
+  padding: 0 20px;
+  margin-bottom: 1rem;
+}
+.alpheios-inflections__content {
+  padding: 0 20px;
+  border-bottom: 1px solid #d3d3d3;
+}
+h3.alpheios-inflections__title {
+  line-height: 1;
+  margin: 0 0 0.6rem 0;
+  font-weight: 700;
+  text-align: center;
+}
+h4.alpheios-inflections__additional_title {
+  line-height: 1.6;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 0 0.6rem 0;
+}
+.auk .uk-select.alpheios-inflections__view-selector {
+  height: auto !important;
+  max-width: 220px;
+  line-height: 1.6;
+}
+.alpheios-inflections__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  margin-top: 10px;
+}
+.alpheios-inflections__form {
+  font-weight: bold;
+  line-height: 1.2;
+  justify-content: flex-start;
+}
+.alpheios-inflections__placeholder {
+  text-align: center;
 }
 .alpheios-inflections__footnotes {
   display: none;
@@ -16912,28 +17454,106 @@ h3.alpheios-inflections__credits-title {
 .alpheios-inflections__supp-tables {
   margin-top: 4rem;
 }
+.alpheios-inflections__progress-wrapper {
+  height: 1.2rem;
+  margin: 0 1rem 2rem;
+  font-size: 0.875rem;
+}
+.alpheios-inflections__progress-border {
+  border: 2px solid #73CDDE;
+  min-width: 300px;
+  height: 100%;
+  padding: 2px;
+}
+.alpheios-inflections__progress-whitespace {
+  overflow: hidden;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.alpheios-inflections__progress-line {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #73CDDE;
+  animation: cssload-slide 5.75s steps(40) infinite;
+}
+.alpheios-inflections__progress-whitespace div.alpheios-inflections__progress-text,
+.alpheios-inflections__progress-text {
+  text-transform: uppercase;
+  color: #666666;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 300px;
+  font-size: 13px;
+  top: 3px;
+}
+@keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-o-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-ms-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-webkit-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
+@-moz-keyframes cssload-slide {
+0% {
+    left: -100%;
+}
+100% {
+    left: 100%;
+}
+}
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-grammar {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .alpheios-grammar__provider {
-  flex: 1 1 auto;
-  font-size: 12px;
+  flex: none;
   font-weight: normal;
-  color: #4E6476;
-  font-style: italic;
-  padding: 5px;
+  padding: 20px 25px 20px;
+  font-size: 80%;
 }
 .alpheios-grammar__frame-cont {
-  flex: 1 1 100vh;
+  flex: 1 1 auto;
   position: relative;
   -webkit-overflow-scrolling: touch;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .alpheios-grammar__frame {
   position: absolute;
@@ -16949,10 +17569,11 @@ h3.alpheios-inflections__credits-title {
   overflow: scroll;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-treebank {
   display: flex;
   flex-direction: column;
@@ -16961,10 +17582,11 @@ h3.alpheios-inflections__credits-title {
   flex: 1 1 100vh;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-info {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 16px;
@@ -16987,10 +17609,11 @@ h3.alpheios-inflections__credits-title {
   margin-top: 1em;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 #alpheios-reskin-panel.alpheios-skin_panel {
   display: inline-block;
 }
@@ -17033,10 +17656,11 @@ ul.alpheios-skin_properties {
   background: #7E8897;
 }
 
-/*************** font sizes **************/
-/*************** dark schema colors **************/
-/*************** light schema colors **************/
-/*************** light schema colors tooltip **************/
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-panel {
   width: 400px;
   height: 100vh;
@@ -17142,7 +17766,7 @@ ul.alpheios-skin_properties {
   flex-direction: row-reverse;
 }
 .alpheios-panel__content {
-  overflow: auto;
+  overflow: visible;
   grid-area: content;
   direction: ltr;
   box-sizing: border-box;
@@ -17200,6 +17824,7 @@ ul.alpheios-skin_properties {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  width: 100%;
 }
 .alpheios-panel__tab-panel--fw {
   width: 100%;
@@ -17271,12 +17896,20 @@ ul.alpheios-skin_properties {
   max-width: none;
   width: 100%;
 }
+.alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
+  max-width: 235px;
+  display: inline-block;
+  vertical-align: top;
+}
 .alpheios-panel__options-item .alpheios-setting__label {
   width: 100px;
   display: inline-block;
 }
 .alpheios-panel__options-item select {
   display: inline-block;
+}
+.alpheios-panel__tab__inflections {
+  width: 100%;
 }
 
 

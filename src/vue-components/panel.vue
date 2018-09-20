@@ -30,7 +30,7 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
+              <alph-tooltip v-show="data.grammarAvailable" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_GRAMMAR')">
                 <span v-bind:class="{ active: data.tabs.grammar }" @click="changeTab('grammar')"
                   class="alpheios-panel__header-nav-btn">
                   <grammar-icon class="icon"></grammar-icon>
@@ -62,14 +62,14 @@
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_LEFT')" v-show="attachToLeftVisible">
                 <span @click="setPosition('left')" v-show="attachToLeftVisible"
-                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow left">
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow alpheios_left">
                     <attach-left-icon></attach-left-icon>
                 </span>
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_MOVE_PANEL_RIGHT')" v-show="attachToRightVisible">
                 <span @click="setPosition('right')" v-show="attachToRightVisible"
-                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow right">
+                      class="alpheios-panel__header-action-btn alpheios-panel__header-action-btn--narrow alpheios_right">
                     <attach-right-icon></attach-right-icon>
                 </span>
               </alph-tooltip>
@@ -77,7 +77,7 @@
               <alph-tooltip
                 tooltipDirection = "bottom-right"
                 :tooltipText = "ln10Messages('TOOLTIP_CLOSE_PANEL')">
-                <span @click="close" class="alpheios-panel__header-action-btn close" >
+                <span @click="close" class="alpheios-panel__header-action-btn alpheios_close" >
                     <close-icon></close-icon>
                 </span>
               </alph-tooltip>
@@ -90,8 +90,10 @@
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
-                <div v-show="data.shortDefinitions.length < 1 && data.fullDefinitions.length < 1" v-if="data.shortDefinitions && data.fullDefinitions">
-                  {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}</div>
+                <div
+                  v-if="showDefinitionsPlaceholder">
+                  {{ ln10Messages('PLACEHOLDER_DEFINITIONS') }}
+                </div>
                 <div class="alpheios-panel__contentitem" v-for="definition in data.shortDefinitions">
                     <shortdef :definition="definition"></shortdef>
                 </div>
@@ -99,8 +101,10 @@
             </div>
             <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData && data.settings && data.l10n">
                 <inflections class="alpheios-panel-inflections"
+                             :inflections-enabled="data.inflectionsEnabled" :inflection-browser-enabled="data.inflectionBrowserEnabled"
+                             :infl-browser-tables-collapsed="data.inflBrowserTablesCollapsed"
                              :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
-                             :messages="data.l10n.messages" @contentwidth="setContentWidth">
+                             :messages="data.l10n.messages" :wait-state="data.inflectionsWaitState" @contentwidth="setContentWidth">
                 </inflections>
             </div>
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
@@ -138,9 +142,15 @@
                 <setting :data="data.uiOptions.items.panelOnActivate" @change="uiOptionChanged" v-if="data.uiOptions && data.uiOptions.items"
                          :classes="['alpheios-panel__options-item']"></setting>
                 <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
-                  :key="languageSetting.name"
-                  v-if="languageSetting.values.length > 1 && data.resourceSettings"
-                  v-for="languageSetting in data.resourceSettings.lexicons"></setting>
+                    :key="languageSetting.name"
+                    v-for="languageSetting in resourceSettingsLexicons"></setting>
+                <setting :data="languageSetting" @change="resourceSettingChanged" :classes="['alpheios-panel__options-item']"
+                    :key="languageSetting.name"
+                    v-for="languageSetting in resourceSettingsLexiconsShort"></setting>
+                <setting :data="data.settings.enableLemmaTranslations" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
+                <setting :data="data.settings.locale" @change="settingChanged" v-if="data.settings"
+                         :classes="['alpheios-panel__options-item']"></setting>
             </div>
             <div v-show="data.tabs.info" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info">
                 <div class="alpheios-lookup__panel" v-if="data.infoComponentData">
@@ -225,7 +235,11 @@
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
         },
-        divClasses: ''
+
+        inflPanelLeftPadding: 0,
+        inflPanelRightPadding: 0,
+        scrollPadding: 0,
+        defaultScrollPadding: 20
       }
     },
     props: {
@@ -241,6 +255,9 @@
     },
 
     computed: {
+      divClasses () {
+        return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
+      },
       clearLookupText: function () {
         // always true to clear panels lookup
         return true
@@ -257,6 +274,16 @@
       },
       mainstyles: function () {
         return (this.data) ? this.data.styles : ''
+      },
+      resourceSettingsLexicons: function () {
+        return this.data.resourceSettings && this.data.resourceSettings.lexicons ? this.data.resourceSettings.lexicons.filter(item => item.values.length > 0) : []
+      },
+      resourceSettingsLexiconsShort: function () {
+        return this.data.resourceSettings && this.data.resourceSettings.lexiconsShort ? this.data.resourceSettings.lexiconsShort.filter(item => item.values.length > 0) : []
+      },
+
+      showDefinitionsPlaceholder: function () {
+        return (!this.data.shortDefinitions || this.data.shortDefinitions.length === 0) && (!this.data.fullDefinitions  || this.data.fullDefinitions.length === 0)
       },
       classes: function () {
         // Find index of an existing position class and replace it with an updated value
@@ -337,13 +364,6 @@
         return null
       }
     },
-    watch: {
-      classesChanged: function (value) {
-        this.divClasses = this.data.classes.join(' ') + ' ' + this.positionClasses
-        this.setContentWidth('auto')
-      }
-    },
-
     methods: {
       updateZIndex: function (zIndexMax) {
         if (zIndexMax >= this.zIndex) {
@@ -412,13 +432,20 @@
           this.$el.style.removeProperty('width')
           return
         }
-        let widthDelta = parseInt(this.navbarWidth, 10)
-          + parseInt(this.inflPanelLeftPadding, 10)
-          + parseInt(this.inflPanelRightPadding, 10)
-        if (width > this.data.minWidth + widthDelta) {
+
+        this.calcWidthPaddings()
+        this.calcScrollPadding()
+
+        let widthDelta = this.navbarWidth
+          + this.inflPanelLeftPadding
+          + this.inflPanelRightPadding
+          + this.scrollPadding
+
+        if (width > this.data.minWidth - widthDelta) {
           let adjustedWidth = width + widthDelta
           // Max viewport width less some space to display page content
           let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
+
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
@@ -438,6 +465,41 @@
 
       attachTrackingClick: function () {
         this.close()
+      },
+
+      calcScrollPadding: function () {
+        if (typeof this.$el.querySelector === 'function') {
+          this.scrollPadding = this.$el.scrollHeight > this.$el.offsetHeight ?
+                               this.defaultScrollPadding : 0
+        }
+      },
+
+      calcWidthPaddings: function () {
+        if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+          let navbar = this.$el.querySelector(`#${this.navbarID}`)
+          let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+          this.navbarWidth = 0
+          if (navbar) {
+            let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+            if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+          }
+
+          if (inflectionsPanel) {
+            let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+            if (Array.isArray(resPl1)) {
+              this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+            } else {
+              this.inflPanelLeftPadding = 0
+            }
+
+            let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+            if (Array.isArray(resPl2)) {
+              this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+            } else {
+              this.inflPanelRightPadding = 0
+            }
+          }
+        }
       }
     },
     created: function () {
@@ -452,28 +514,7 @@
         return
       }
       if (typeof this.$el.querySelector === 'function') {
-        let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
-        this.navbarWidth = 0
-        if (navbar) {
-          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-        }
-
-        if (inflectionsPanel) {
-          let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
-          if (Array.isArray(resPl1)) {
-            this.inflPanelLeftPadding = inflectionsPanel ? resPl1[0] : 0
-          } else {
-            this.inflPanelLeftPadding = 0
-          }
-          let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
-          if (Array.isArray(resPl2)) {
-            this.inflPanelRightPadding = inflectionsPanel ? resPl2[0] : 0
-          } else {
-            this.inflPanelRightPadding = 0
-          }
-        }
+        this.calcWidthPaddings()
 
         // Initialize Interact.js: make panel resizable
         interact(this.$el)
@@ -645,7 +686,7 @@
     }
 
     .alpheios-panel__content {
-        overflow: auto;
+        overflow: visible;
         grid-area: content;
         direction: ltr;
         box-sizing: border-box;
@@ -712,6 +753,7 @@
         display: flex;
         flex-direction: column;
         padding: 20px;
+        width: 100%;
     }
 
     .alpheios-panel__tab-panel--fw {
@@ -798,11 +840,23 @@
       width: 100%;
     }
 
+
+    .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
+      max-width: 235px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
     .alpheios-panel__options-item .alpheios-setting__label {
       width: 100px;
       display: inline-block;
     }
+
     .alpheios-panel__options-item select {
       display: inline-block;
+    }
+
+    .alpheios-panel__tab__inflections {
+        width: 100%;
     }
 </style>
