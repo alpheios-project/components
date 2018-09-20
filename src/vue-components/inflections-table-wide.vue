@@ -109,10 +109,6 @@
 
     methods: {
       initView: function () {
-        if (this.view.isRenderable) {
-          // Rendering is not required for component-enabled views
-          this.view.render()
-        }
         this.state.noSuffixGroupsHidden = this.view.isNoSuffixMatchesGroupsHidden
         this.$emit('widthchange')
       },

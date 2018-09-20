@@ -9273,10 +9273,6 @@ __webpack_require__.r(__webpack_exports__);
 
   methods: {
     initView: function () {
-      if (this.view.isRenderable) {
-        // Rendering is not required for component-enabled views
-        this.view.render()
-      }
       this.state.noSuffixGroupsHidden = this.view.isNoSuffixMatchesGroupsHidden
       this.$emit('widthchange')
     },
@@ -9608,7 +9604,7 @@ __webpack_require__.r(__webpack_exports__);
         this.selectedPartOfSpeech = newValue
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
         this.selectedView = this.views[0]
-        this.prepareView(this.selectedView)
+        this.mainTableCollapsed = false
       }
     },
     viewSelector: {
@@ -9617,7 +9613,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       set: function (newValue) {
         this.selectedView = this.views.find(view => view.id === newValue)
-        this.prepareView(this.selectedView)
+        this.mainTableCollapsed = false
       }
     },
     inflectionTable: function () {
@@ -9662,7 +9658,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.views.length > 0) {
           this.hasInflectionData = true
           this.selectedView = this.views[0]
-          this.prepareView(this.selectedView)
+          this.mainTableCollapsed = false
         } else {
           this.selectedView = ''
         }
@@ -9698,14 +9694,6 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
-    prepareView (view) {
-      if (view.isRenderable) {
-        // Rendering is not required for component-enabled views
-        this.selectedView.render()
-      }
-      this.mainTableCollapsed = false
-    },
-
     updateWidth: function () {
       vue_dist_vue__WEBPACK_IMPORTED_MODULE_9___default.a.nextTick(() => {
         this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
