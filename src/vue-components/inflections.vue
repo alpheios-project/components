@@ -206,6 +206,7 @@
         set: function (newValue) {
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
+          console.info('*************************inflections.vue', this.views)
           this.selectedView = this.views[0]
           this.prepareView(this.selectedView)
         }

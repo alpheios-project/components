@@ -9602,6 +9602,7 @@ __webpack_require__.r(__webpack_exports__);
       set: function (newValue) {
         this.selectedPartOfSpeech = newValue
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
+        console.info('*************************inflections.vue', this.views)
         this.selectedView = this.views[0]
         this.prepareView(this.selectedView)
       }
@@ -30311,7 +30312,9 @@ class UIController {
 
   updateInflections (homonym) {
     this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].create(homonym, this.options.items.locale.currentValue)
-
+    console.info('*******************updateInflections homonym', homonym)
+    console.info('*******************updateInflections this.inflectionsViewSet', this.inflectionsViewSet)
+    console.info('*******************updateInflections this.inflectionsViewSet.hasMatchingViews', this.inflectionsViewSet.hasMatchingViews)
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
