@@ -9615,7 +9615,7 @@ __webpack_require__.r(__webpack_exports__);
       set: function (newValue) {
         this.selectedPartOfSpeech = newValue
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
-        this.selectedView = this.views[0]
+        this.selectedView = this.views[0].render()
         this.mainTableCollapsed = false
       }
     },
@@ -9624,7 +9624,7 @@ __webpack_require__.r(__webpack_exports__);
         return this.selectedView ? this.selectedView.id : ''
       },
       set: function (newValue) {
-        this.selectedView = this.views.find(view => view.id === newValue)
+        this.selectedView = this.views.find(view => view.id === newValue).render()
         this.mainTableCollapsed = false
       }
     },
@@ -9669,7 +9669,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.views.length > 0) {
           this.hasInflectionData = true
-          this.selectedView = this.views[0]
+          this.selectedView = this.views[0].render()
           this.mainTableCollapsed = false
         } else {
           this.selectedView = ''
