@@ -81,7 +81,8 @@
         </div>
 
         <inflection-browser v-if="inflectionBrowserEnabled" :language-id="languageID" :messages="messages"
-                            :infl-browser-tables-collapsed="inflBrowserTablesCollapsed" @interaction="inflTableInteraction">
+                            :infl-browser-tables-collapsed="inflBrowserTablesCollapsed"
+                            @widthchange="updateWidth" @interaction="inflTableInteraction">
         </inflection-browser>
     </div>
 </template>
@@ -180,7 +181,6 @@
         htmlElements: {
           content: undefined,
         },
-        suppColors: ['rgb(208,255,254)', 'rgb(255,253,219)', 'rgb(228,255,222)', 'rgb(255,211,253)', 'rgb(255,231,211)'],
         canCollapse: false // Whether a selected view can be expanded or collapsed (it can't if has no suffix matches)
       }
     },
@@ -206,9 +206,8 @@
         set: function (newValue) {
           this.selectedPartOfSpeech = newValue
           this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
-          console.info('*************************inflections.vue', this.views)
-          this.selectedView = this.views[0]
-          this.prepareView(this.selectedView)
+          this.selectedView = this.views[0].render()
+          this.mainTableCollapsed = false
         }
       },
       viewSelector: {
@@ -216,8 +215,8 @@
           return this.selectedView ? this.selectedView.id : ''
         },
         set: function (newValue) {
-          this.selectedView = this.views.find(view => view.id === newValue)
-          this.prepareView(this.selectedView)
+          this.selectedView = this.views.find(view => view.id === newValue).render()
+          this.mainTableCollapsed = false
         }
       },
       inflectionTable: function () {
@@ -261,8 +260,8 @@
 
           if (this.views.length > 0) {
             this.hasInflectionData = true
-            this.selectedView = this.views[0]
-            this.prepareView(this.selectedView)
+            this.selectedView = this.views[0].render()
+            this.mainTableCollapsed = false
           } else {
             this.selectedView = ''
           }
@@ -298,14 +297,6 @@
     },
 
     methods: {
-      prepareView (view) {
-        if (view.isRenderable) {
-          // Rendering is not required for component-enabled views
-          this.selectedView.render()
-        }
-        this.mainTableCollapsed = false
-      },
-
       updateWidth: function () {
         Vue.nextTick(() => {
           this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
