@@ -29843,7 +29843,7 @@ class UIController {
           inflectionsWaitState: false,
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
-          inflectionBrowserEnabled: true,
+          inflectionBrowserEnabled: false,
           // Whether all table in an inflection browser should be collapsed
           inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
@@ -30120,6 +30120,7 @@ class UIController {
           this.updateLanguage(currentLanguageID)
           this.updateVerboseMode()
           this.updateLemmaTranslations()
+          this.notifyInflectionBrowser()
         })
       })
     })
@@ -30662,6 +30663,10 @@ class UIController {
     } else {
       this.state.setItem('lemmaTranslationLang', null)
     }
+  }
+
+  notifyInflectionBrowser () {
+    this.panel.panelData.inflectionBrowserEnabled = true
   }
 
   updateInflections (homonym) {
