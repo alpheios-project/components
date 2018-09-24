@@ -8790,6 +8790,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -12455,11 +12456,15 @@ var render = function() {
           _vm._v("Regular verbs")
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
+          _vm._v("Sorted by...")
+        ]),
+        _vm._v(" "),
         _c("wide-table", {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_conjugation_mood_voice_view",
-              title: "Regular Verb (conjugation-mood-voice)"
+              title: "Conjugation-Mood-Voice"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12476,7 +12481,7 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_conjugation_voice_mood_view",
-              title: "Regular Verb (conjugation-voice-mood)"
+              title: "Conjugation-Voice-Mood"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12493,7 +12498,7 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_mood_conjugation_voice_view",
-              title: "Regular Verb (mood-conjugation-voice)"
+              title: "Mood-Conjugation-Voice"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12510,7 +12515,7 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_mood_voice_conjugation_view",
-              title: "Regular Verb (mood-voice-conjugation)"
+              title: "Mood-Coice-Conjugation"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12527,7 +12532,7 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_voice_conjugation_mood_view",
-              title: "Regular Verb (voice-conjugation-mood)"
+              title: "Voice-Conjugation-Mood"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12544,7 +12549,7 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_voice_mood_conjugation_view",
-              title: "Regular Verb (voice-mood-conjugation)"
+              title: "Voice-Mood-Conjugation"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12556,6 +12561,10 @@ var render = function() {
             interaction: _vm.inflTableInteraction
           }
         }),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
+          _vm._v("Other Forms")
+        ]),
         _vm._v(" "),
         _c("wide-table", {
           attrs: {
