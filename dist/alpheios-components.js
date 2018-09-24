@@ -9078,6 +9078,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9087,11 +9091,19 @@ __webpack_require__.r(__webpack_exports__);
     view: {
       type: [Object, Boolean],
       required: true
-    }
+    },
+    collapsed: {
+      type: [Boolean],
+      default: true,
+      required: false
+    },
   },
 
   data: function () {
     return {
+      state: {
+        collapsed: true,
+      },
       elementIDs: {
         wideView: 'alph-inflection-table-wide',
         footnotes: 'alph-inflection-footnotes'
@@ -9101,8 +9113,27 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
   },
-
+  watch: {
+    collapsed: function (state) {
+      if (this.collapsed !== null) {
+        this.state.collapsed = state
+        this.$emit('prerenderedinteraction')
+      }
+    }
+  },
+  mounted: function () {
+    // Set a default value by the parent component
+    if (this.collapsed !== null) {
+      this.state.collapsed = this.collapsed
+    }
+  },
   methods: {
+    collapse: function () {
+      this.state.collapsed = !this.state.collapsed
+      this.$emit('prerenderedinteraction')
+      this.$emit('widthchange') // When view is open, we might need to adjust a panel width
+    },
+
     cellClasses: function (cell) {
       if (cell.role === 'label') {
         return 'infl-prdgm-tbl-cell--label'
@@ -9584,6 +9615,7 @@ __webpack_require__.r(__webpack_exports__);
       selectedView: {},
       renderedView: {},
       mainTableCollapsed: false,
+      prerenderedCollapsed: false,
       elementIDs: {
         panelInner: 'alpheios-panel-inner',
         footnotes: 'alph-inflection-footnotes'
@@ -9618,6 +9650,7 @@ __webpack_require__.r(__webpack_exports__);
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
         this.selectedView = this.views[0].render()
         this.mainTableCollapsed = false
+        this.prerenderedCollapsed = false
       }
     },
     viewSelector: {
@@ -9627,6 +9660,7 @@ __webpack_require__.r(__webpack_exports__);
       set: function (newValue) {
         this.selectedView = this.views.find(view => view.id === newValue).render()
         this.mainTableCollapsed = false
+        this.prerenderedCollapsed = false
       }
     },
     inflectionTable: function () {
@@ -9672,6 +9706,7 @@ __webpack_require__.r(__webpack_exports__);
           this.hasInflectionData = true
           this.selectedView = this.views[0].render()
           this.mainTableCollapsed = false
+          this.prerenderedCollapsed = false
         } else {
           this.selectedView = ''
         }
@@ -9720,6 +9755,9 @@ __webpack_require__.r(__webpack_exports__);
           this.mainTableCollapsed = null
         })
 
+    },
+    prerenderedInteraction: function() {
+      this.prerenderedCollapsed = ! this.prerenderedCollapsed
     },
 
     navigate (reflink) {
@@ -14229,42 +14267,83 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.view.wideTable
-    ? _c("div", [
-        _c(
-          "h3",
-          {
-            staticClass: "alpheios-inflections__title alpheios-table-sf__title"
-          },
-          [_vm._v("\n        " + _vm._s(_vm.view.title) + "\n    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "infl-prdgm-tbl" },
-          _vm._l(_vm.view.wideTable.rows, function(row) {
-            return _c(
-              "div",
-              { staticClass: "infl-prdgm-tbl__row" },
-              _vm._l(row.cells, function(cell) {
-                return _c(
-                  "div",
-                  {
-                    staticClass: "infl-prdgm-tbl__cell",
-                    class: _vm.cellClasses(cell)
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(cell.value) +
-                        "\n            "
-                    )
+    ? _c(
+        "div",
+        [
+          _c(
+            "h3",
+            {
+              staticClass:
+                "alpheios-inflections__title alpheios-table-sf__title",
+              on: { click: _vm.collapse }
+            },
+            [
+              _vm._v("\n      " + _vm._s(_vm.view.title) + "\n    "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.state.collapsed,
+                      expression: "state.collapsed"
+                    }
                   ]
+                },
+                [_vm._v("[+]")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.state.collapsed,
+                      expression: "!state.collapsed"
+                    }
+                  ]
+                },
+                [_vm._v("[-]")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          !_vm.state.collapsed
+            ? [
+                _c(
+                  "div",
+                  { staticClass: "infl-prdgm-tbl" },
+                  _vm._l(_vm.view.wideTable.rows, function(row) {
+                    return _c(
+                      "div",
+                      { staticClass: "infl-prdgm-tbl__row" },
+                      _vm._l(row.cells, function(cell) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "infl-prdgm-tbl__cell",
+                            class: _vm.cellClasses(cell)
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(cell.value) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      })
+                    )
+                  })
                 )
-              })
-            )
-          })
-        )
-      ])
+              ]
+            : _vm._e()
+        ],
+        2
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -14861,10 +14940,24 @@ var render = function() {
                     )
                   : [
                       _c("prerendered-table-wide", {
-                        attrs: { view: _vm.selectedView }
+                        attrs: {
+                          view: _vm.selectedView,
+                          collapsed: _vm.mainTableCollapsed
+                        },
+                        on: {
+                          prerenderedinteraction: _vm.prerenderedInteraction
+                        }
                       }),
                       _vm._v(" "),
                       _c("sub-tables-wide", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.prerenderedCollapsed,
+                            expression: "!prerenderedCollapsed"
+                          }
+                        ],
                         attrs: { view: _vm.selectedView },
                         on: { navigate: _vm.navigate }
                       }),
@@ -14876,8 +14969,11 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.selectedView.hasSuppParadigms,
-                              expression: "selectedView.hasSuppParadigms"
+                              value:
+                                _vm.selectedView.hasSuppParadigms &&
+                                !_vm.prerenderedCollapsed,
+                              expression:
+                                "selectedView.hasSuppParadigms && !prerenderedCollapsed"
                             }
                           ],
                           staticClass: "alpheios-inflections__supp-tables"
@@ -14926,8 +15022,11 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.selectedView.hasCredits,
-                        expression: "selectedView.hasCredits"
+                        value:
+                          _vm.selectedView.hasCredits &&
+                          !_vm.prerenderedCollapsed,
+                        expression:
+                          "selectedView.hasCredits && !prerenderedCollapsed"
                       }
                     ],
                     staticClass: "alpheios-inflections__credits-cont"
