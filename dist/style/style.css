@@ -159,7 +159,7 @@
 
 /***************** panel settings **********************/
 .alpheios-title-block__title[data-v-4f5481db] {
-  font-size: 30px;
+  font-size: 20px;
   margin: 10px 0;
   color: #333333;
 }
@@ -198,6 +198,7 @@
 }
 .alpheios-lexemes-data-block__list__item[data-v-4840684f] {
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .alpheios-lexemes-data-block__list__item__word[data-v-4840684f] {
   font-weight: bold;
