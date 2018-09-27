@@ -21,7 +21,11 @@ export default class L10n {
     let messageBundle
     if (this.bundles.has(locale)) {
       messageBundle = this.bundles.get(locale)
-      messageBundle.appendFromJSON(messageJSON)
+      if (typeof messageJSON === 'string') {
+        messageBundle.appendFromJSON(messageJSON)
+      } else {
+        messageBundle.append(messageJSON)
+      }
     } else {
       messageBundle = new MessageBundle(messageJSON, locale)
       this.addMessageBundle(messageBundle)

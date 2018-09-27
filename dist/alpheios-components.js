@@ -31366,7 +31366,11 @@ class L10n {
     let messageBundle
     if (this.bundles.has(locale)) {
       messageBundle = this.bundles.get(locale)
-      messageBundle.appendFromJSON(messageJSON)
+      if (typeof messageJSON === 'string') {
+        messageBundle.appendFromJSON(messageJSON)
+      } else {
+        messageBundle.append(messageJSON)
+      }
     } else {
       messageBundle = new _message_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](messageJSON, locale)
       this.addMessageBundle(messageBundle)
