@@ -1,8 +1,6 @@
 <template>
-    <div v-if="!view.isImplemented" class="alpheios-inflections__not-impl-msg">
-        {{messages.INFLECT_MSG_TABLE_NOT_IMPLEMENTED}}
-    </div>
-    <div v-else>
+
+    <div>
         <h3 class="alpheios-inflections__title alpheios-table-sf__title alpheios-clickable"
             @click="collapse">
             {{view.title}}
@@ -11,8 +9,11 @@
         </h3>
 
         <template v-if="!state.collapsed">
-            <div v-if="view.wideView">
-                <div v-if="view.isImplemented && !view.hasPrerenderedTables && !inflBrowserTable" class="alpheios-inflections__table-ctrl-cont">
+            <div v-if="!view.isImplemented" class="alpheios-inflections__not-impl-msg">
+                {{messages.INFLECT_MSG_TABLE_NOT_IMPLEMENTED}}
+            </div>
+            <div v-else-if="view.wideView">
+                <div v-if="!view.hasPrerenderedTables && !inflBrowserTable" class="alpheios-inflections__table-ctrl-cont">
                     <div v-show="view.canCollapse && state.noSuffixGroupsHidden" class="alpheios-inflections__table-ctrl-cell--btn">
                         <alph-tooltip tooltipDirection="bottom-right"
                                       :tooltipText="messages.TOOLTIP_INFLECT_SHOWFULL">
@@ -114,16 +115,14 @@
     },
 
     methods: {
-      initView: function () {
-        // this.state.noSuffixGroupsHidden = this.view.isNoSuffixMatchesGroupsHidden
-      },
-
       collapse: function () {
         if (!this.view.isRendered) {
           this.view.render(this.options)
         }
         this.state.collapsed = !this.state.collapsed
-        this.view.wideView.collapsed = this.state.collapsed
+        if (this.view.isImplemented) {
+          this.view.wideView.collapsed = this.state.collapsed
+        }
         this.$emit('interaction')
         this.$emit('widthchange') // When view is open, we might need to adjust a panel width
       },
@@ -194,7 +193,7 @@
 
     watch: {
       view: function () {
-        this.initView()
+        this.$emit('widthchange')
       },
 
       collapsed: function (state) {
@@ -213,8 +212,6 @@
       if (this.collapsed !== null) {
         this.state.collapsed = this.collapsed
       }
-
-      this.initView()
     }
   }
 </script>
@@ -231,7 +228,6 @@
     }
 
     .alpheios-inflections__not-impl-msg {
-        margin-top: 30px;
         padding: 20px;
         font-size: 0.875rem;
     }

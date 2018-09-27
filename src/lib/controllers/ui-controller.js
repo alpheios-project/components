@@ -116,7 +116,7 @@ export default class UIController {
           inflectionsWaitState: false,
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
-          inflectionBrowserEnabled: true,
+          inflectionBrowserEnabled: false,
           // Whether all table in an inflection browser should be collapsed
           inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
@@ -395,6 +395,7 @@ export default class UIController {
 
           this.updateVerboseMode()
           this.updateLemmaTranslations()
+          this.notifyInflectionBrowser()
         })
       })
     })
@@ -940,6 +941,10 @@ export default class UIController {
     } else {
       this.state.setItem('lemmaTranslationLang', null)
     }
+  }
+
+  notifyInflectionBrowser () {
+    this.panel.panelData.inflectionBrowserEnabled = true
   }
 
   updateInflections (homonym) {
