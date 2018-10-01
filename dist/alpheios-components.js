@@ -9261,6 +9261,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -14423,7 +14424,16 @@ var render = function() {
       _vm._v(" "),
       !_vm.state.collapsed
         ? [
-            !_vm.view.isImplemented
+            _vm.view.additionalTitle
+              ? _c(
+                  "h4",
+                  { staticClass: "alpheios-inflections__additional_title" },
+                  [_vm._v(_vm._s(_vm.view.additionalTitle))]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.view.isImplemented ||
+            (_vm.view.wideView && _vm.view.wideView.rows.length == 0)
               ? _c(
                   "div",
                   { staticClass: "alpheios-inflections__not-impl-msg" },
