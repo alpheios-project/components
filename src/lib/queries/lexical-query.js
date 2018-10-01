@@ -53,15 +53,21 @@ export default class LexicalQuery extends Query {
   * iterations () {
     let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageID), [])
     this.ui.updateLanguage(this.selector.languageID)
+    console.info('***************iterations1', this.tbAdapter)
+    console.info('***************iterations2', this.selector.data.treebank)
+    console.info('***************iterations3', this.selector.data.treebank ? this.selector.data.treebank.word : 'no treebank')
     if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
       this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
+      console.info('***************iterations4', this.annotatedHomonym)
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
       this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
+        console.info('****************iterations5', this.annotatedHomonym)
         if (this.annotatedHomonym) {
           this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
+          console.info('****************disambiguate6', this.homonym)
         }
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {

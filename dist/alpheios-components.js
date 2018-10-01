@@ -30739,9 +30739,6 @@ class UIController {
 
   updateInflections (homonym) {
     this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].create(homonym, this.options.items.locale.currentValue)
-    console.info('*******************updateInflections homonym', homonym)
-    console.info('*******************updateInflections this.inflectionsViewSet', this.inflectionsViewSet)
-    console.info('*******************updateInflections this.inflectionsViewSet.hasMatchingViews', this.inflectionsViewSet.hasMatchingViews)
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
@@ -32599,15 +32596,21 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
   * iterations () {
     let formLexeme = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"](new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lemma"](this.selector.normalizedText, this.selector.languageID), [])
     this.ui.updateLanguage(this.selector.languageID)
+    console.info('***************iterations1', this.tbAdapter)
+    console.info('***************iterations2', this.selector.data.treebank)
+    console.info('***************iterations3', this.selector.data.treebank ? this.selector.data.treebank.word : 'no treebank')
     if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
       this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
+      console.info('***************iterations4', this.annotatedHomonym)
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
       this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       if (this.homonym) {
+        console.info('****************iterations5', this.annotatedHomonym)
         if (this.annotatedHomonym) {
           this.homonym = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"].disambiguate(this.homonym, [this.annotatedHomonym])
+          console.info('****************disambiguate6', this.homonym)
         }
         this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
       } else {
