@@ -9951,7 +9951,7 @@ __webpack_require__.r(__webpack_exports__);
       resourceOptions: {},
 
       overrideLanguage: false,
-      overrideLanguageLabel: 'Override language'
+      overrideLanguageLabel: 'Change language'
     }
   },
   props: {
@@ -10037,7 +10037,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
       this.resourceOptions.items.lexicons = this.uiController.resourceOptions.items.lexicons
-      
+
       _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, this.uiController, this.resourceOptions)
         .getData()
