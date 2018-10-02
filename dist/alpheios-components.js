@@ -9261,6 +9261,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -9436,8 +9437,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_9__);
-//
-//
 //
 //
 //
@@ -9951,7 +9950,7 @@ __webpack_require__.r(__webpack_exports__);
       resourceOptions: {},
 
       overrideLanguage: false,
-      overrideLanguageLabel: 'Override language'
+      overrideLanguageLabel: 'Change language'
     }
   },
   props: {
@@ -10037,7 +10036,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.uiController.updateLanguage(this.options.items.lookupLanguage.currentValue)
       this.resourceOptions.items.lexicons = this.uiController.resourceOptions.items.lexicons
-      
+
       _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, this.uiController, this.resourceOptions)
         .getData()
@@ -14439,6 +14438,14 @@ var render = function() {
       _vm._v(" "),
       !_vm.state.collapsed
         ? [
+            _vm.view.additionalTitle
+              ? _c(
+                  "h4",
+                  { staticClass: "alpheios-inflections__additional_title" },
+                  [_vm._v(_vm._s(_vm.view.additionalTitle))]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             !_vm.view.isImplemented
               ? _c(
                   "div",
@@ -14882,14 +14889,6 @@ var render = function() {
                   ],
                   1
                 ),
-                _vm._v(" "),
-                _vm.selectedView.additionalTitle
-                  ? _c(
-                      "h4",
-                      { staticClass: "alpheios-inflections__additional_title" },
-                      [_vm._v(_vm._s(_vm.selectedView.additionalTitle))]
-                    )
-                  : _vm._e(),
                 _vm._v(" "),
                 _vm.data.inflectionData
                   ? _c("div", {
