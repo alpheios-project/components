@@ -665,6 +665,16 @@
         }
     }
 
+    // Make close icons more noticeable
+    .alpheios-panel__header-action-btn.alpheios_close {
+        stroke-width: 2.5;
+    }
+
+    .alpheios-panel__header-action-btn.alpheios_left,
+    .alpheios-panel__header-action-btn.alpheios_right {
+        stroke-width: 2;
+    }
+
     .alpheios-panel__header-action-btn:hover,
     .alpheios-panel__header-action-btn:focus,
     .alpheios-panel__header-action-btn.active {
