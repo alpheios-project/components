@@ -113,12 +113,12 @@ describe('ui-controller.test.js', () => {
   })
 
   it('3 UIController - getZIndexMax method', () => {
-    // defaultZIndex = 2000
+    // defaultZIndex = 4000
 
-    expect(uiC.getZIndexMax()).toEqual(2001)
-    expect(uiC.getZIndexMax(2010)).toEqual(2010)
+    expect(uiC.getZIndexMax()).toEqual(4001)
+    expect(uiC.getZIndexMax(4010)).toEqual(4010)
 
-    expect(uiC.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)).toEqual(2000)
+    expect(uiC.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)).toEqual(4000)
   })
 
   it('4 UIController - formatFullDefinitions method', () => {
@@ -329,6 +329,8 @@ describe('ui-controller.test.js', () => {
       ]
     }
     uiC.popup.popupData.updates = 1
+
+    uiC.games.updateHomonym = jest.fn()
 
     uiC.updateMorphology(testHomonymEmpty)
 
