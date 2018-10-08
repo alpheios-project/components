@@ -60,7 +60,7 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.2",
-    "sinon": "^6.3.4",
+    "sinon": "^6.3.5",
     "source-map-loader": "^0.2.4",
     "standard": "^12.0.1",
     "style-loader": "^0.23.0",
@@ -127,6 +127,6 @@
     ]
   },
   "dependencies": {
-    "vue-multiselect": "^2.1.0"
+    "vue-multiselect": "^2.1.3"
   }
 }
