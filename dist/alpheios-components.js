@@ -31046,6 +31046,57 @@ class EventElement {
 
 /***/ }),
 
+/***/ "./lib/custom-pointer-events/generic-evt.js":
+/*!**************************************************!*\
+  !*** ./lib/custom-pointer-events/generic-evt.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GenericEvt; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+/**
+ * This is a Generic Event Class that can be used to
+ * to wrap events for which we haven't explicitly defined wrappers
+ */
+class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, evtName) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+    this.evtName = evtName
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeDblClickCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`${this.evtName} (completed), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return !(this.start.excluded || this.end.excluded)
+  }
+
+  static listen (selector, evtHandler, evtName) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addGenericListener(element, new this(element, evtHandler, evtName), evtName)
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/custom-pointer-events/long-tap.js":
 /*!***********************************************!*\
   !*** ./lib/custom-pointer-events/long-tap.js ***!
@@ -31264,7 +31315,7 @@ class PointerEvt {
 
   static pointerUpListener (event, domEvt) {
     const valid = event.setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
-    if (valid) { event.evtHandler(event) }
+    if (valid) { event.evtHandler(event, domEvt) }
   }
 
   static touchStartListener (event, domEvt) {
@@ -31273,14 +31324,21 @@ class PointerEvt {
 
   static touchEndListener (event, domEvt) {
     const valid = event.setEndPoint(domEvt.changedTouches[0].clientX, domEvt.changedTouches[0].clientY, domEvt.target, domEvt.path)
-    if (valid) { event.evtHandler(event) }
+    if (valid) { event.evtHandler(event, domEvt) }
   }
 
   static dblClickListener (event, domEvt) {
     const valid = event
       .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
       .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
-    if (valid) { event.evtHandler(event) }
+    if (valid) { event.evtHandler(event, domEvt) }
+  }
+
+  static genericListener (event, domEvt) {
+    const valid = event
+      .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+      .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    if (valid) { event.evtHandler(event, domEvt) }
   }
 
   static addUpDownListeners (element, event) {
@@ -31296,6 +31354,10 @@ class PointerEvt {
 
   static addDblClickListener (element, event) {
     element.addEventListener('dblclick', this.dblClickListener.bind(this, event), { passive: true })
+  }
+
+  static addGenericListener (element, event, eventName) {
+    element.addEventListener(eventName, this.genericListener.bind(this, event), { passive: true })
   }
 }
 
@@ -33820,7 +33882,7 @@ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/_
 /*!*******************!*\
   !*** ./plugin.js ***!
   \*******************/
-/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe, AlignmentSelector */
+/*! exports provided: Popup, PopupMobile, Panel, L10n, Locales, enUS, enGB, UIController, Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery, LocalStorageArea, ExtensionSyncStorage, ContentOptionDefaults, LanguageOptionDefaults, UIOptionDefaults, DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe, GenericEvt, AlignmentSelector */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33900,17 +33962,21 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace =
 /* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MouseDblClick", function() { return _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__["default"]; });
 
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LongTap", function() { return _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GenericEvt", function() { return _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"]; });
 
-/* harmony import */ var _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./lib/custom-pointer-events/swipe.js */ "./lib/custom-pointer-events/swipe.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Swipe", function() { return _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LongTap", function() { return _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_26__["default"]; });
 
-/* harmony import */ var _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./lib/selection/alignment/alignment-selector.js */ "./lib/selection/alignment/alignment-selector.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlignmentSelector", function() { return _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_27__["default"]; });
+/* harmony import */ var _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./lib/custom-pointer-events/swipe.js */ "./lib/custom-pointer-events/swipe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Swipe", function() { return _lib_custom_pointer_events_swipe_js__WEBPACK_IMPORTED_MODULE_27__["default"]; });
+
+/* harmony import */ var _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./lib/selection/alignment/alignment-selector.js */ "./lib/selection/alignment/alignment-selector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AlignmentSelector", function() { return _lib_selection_alignment_alignment_selector_js__WEBPACK_IMPORTED_MODULE_28__["default"]; });
 
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
+
 
 
 
