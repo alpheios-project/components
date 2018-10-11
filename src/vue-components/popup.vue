@@ -433,8 +433,7 @@
             min: { width: this.minResizableWidth, height: this.minResizableHeight }
           },
           restrictEdges: {
-            outer: document.body,
-            endOnly: true,
+            endOnly: true
           }
         }
       },
