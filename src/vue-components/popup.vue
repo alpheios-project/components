@@ -16,7 +16,7 @@
             </div>
 
             <div class="alpheios-popup__button-area" v-if="data">
-                <alph-tooltip v-show="morphDataReady && hasMorphData" tooltipDirection="bottom-wide" tooltipText="Games">
+                <alph-tooltip v-show="showGamesButton" tooltipDirection="bottom-wide" tooltipText="Games">
                   <button @click="openGames"
                           class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-games">Games
                   </button>
@@ -234,6 +234,9 @@
       },
       morphDataReady: function () {
         return (this.data && this.data.morphDataReady) ? this.data.morphDataReady : false
+      },
+      showGamesButton () {
+        return this.morphDataReady && this.hasMorphData && this.data.inflDataReady
       },
       noLanguage: function () {
         return (this.data) ? this.data.currentLanguageName === undefined : false

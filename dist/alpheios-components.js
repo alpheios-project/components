@@ -11393,6 +11393,9 @@ __webpack_require__.r(__webpack_exports__);
     morphDataReady: function () {
       return (this.data && this.data.morphDataReady) ? this.data.morphDataReady : false
     },
+    showGamesButton () {
+      return this.morphDataReady && this.hasMorphData && this.data.inflDataReady
+    },
     noLanguage: function () {
       return (this.data) ? this.data.currentLanguageName === undefined : false
     },
@@ -17406,8 +17409,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.morphDataReady && _vm.hasMorphData,
-                        expression: "morphDataReady && hasMorphData"
+                        value: _vm.showGamesButton,
+                        expression: "showGamesButton"
                       }
                     ],
                     attrs: {
