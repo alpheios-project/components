@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-grammar" v-if="res">
+  <div class="alpheios-grammar" v-if="res && !isSafari">
       <div class="alpheios-grammar__frame-cont" v-show="res.url">
           <iframe class="alpheios-grammar__frame" :src="res.url" v-if="res.url" scrolling="yes"></iframe>
       </div>
@@ -14,7 +14,12 @@
         type: Object,
         required: true
       }
-    }
+    },
+    computed: {
+        isSafari () {
+          return window['safari'] && window['safari'].extension
+        }
+    }    
   }
 </script>
 <style lang="scss">

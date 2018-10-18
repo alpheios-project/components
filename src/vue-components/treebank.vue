@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-treebank">
+  <div class="alpheios-treebank" v-if="srcUrl && !isSafari">
     <iframe class="alpheios-treebank__frame" :src="srcUrl"></iframe>
   </div>
 </template>
@@ -27,6 +27,11 @@
     data: function () {
       return {
         srcUrl: ""
+      }
+    },
+    computed: {
+      isSafari () {
+        return window['safari'] && window['safari'].extension
       }
     },
     methods: {
