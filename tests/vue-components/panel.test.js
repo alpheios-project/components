@@ -722,7 +722,7 @@ describe('panel.test.js', () => {
 
     let treebankC = cmp.find(Treebank)
     expect(treebankC.exists()).toBeTruthy()
-    expect(treebankC.find('iframe').exists()).toBeTruthy()
+    expect(treebankC.find('iframe').exists()).toBeFalsy()
 
     expect(treebankC.vm.visible).toBeTruthy()
     expect(treebankC.vm.srcUrl).toEqual('')
