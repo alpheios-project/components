@@ -29505,6 +29505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directive", function() { return directive; });
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__);
+<<<<<<< HEAD
 /* eslint-disable no-constant-condition */
 // #taken from here https://github.com/simplesmiler/vue-clickaway
 
@@ -29609,6 +29610,109 @@ let directive = {
   },
   unbind: unbind
 }
+=======
+/* eslint-disable no-constant-condition */
+// #taken from here https://github.com/simplesmiler/vue-clickaway
+
+
+let HANDLER = '_vue_clickaway_handler'
+
+function checkPassiveSupport () {
+  let supportsPassive = false
+  try {
+    let opts = Object.defineProperty({}, 'passive', {
+      get: function () {
+        supportsPassive = true
+      }
+    })
+    window.addEventListener('testPassive', null, opts)
+    window.removeEventListener('testPassive', null, opts)
+  } catch (e) {}
+
+  return supportsPassive
+}
+
+function bind (el, binding, vnode) {
+  unbind(el)
+
+  let vm = vnode.context
+
+  let callback = binding.value
+  if (typeof callback !== 'function') {
+    if (true) {
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default.a.util.warn(
+        'v-' + binding.name + '="' +
+        binding.expression + '" expects a function value, ' +
+        'got ' + callback
+      )
+    }
+    return
+  }
+
+  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
+  //        in macrotasks. This causes the listener to be set up before
+  //        the "origin" click event (the event that lead to the binding of
+  //        the directive) arrives at the document root. To work around that,
+  //        we ignore events until the end of the "initial" macrotask.
+  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
+  let initialMacrotaskEnded = false
+  setTimeout(function () {
+    initialMacrotaskEnded = true
+  }, 0)
+
+  el[HANDLER] = function (ev) {
+    // @NOTE: this test used to be just `el.contains`, but working with path is better,
+    //        because it tests whether the element was there at the time of
+    //        the click, not whether it is there now, that the event has arrived
+    //        to the top.
+    // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
+    let panel = document.getElementById('alpheios-panel-inner') ? document.getElementById('alpheios-panel-inner') : null
+    let popup = document.getElementById('alpheios-popup-inner') ? document.getElementById('alpheios-popup-inner') : null
+
+    let visible = function (elem) {
+      return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
+    }
+
+    // if neither the popup nor the panel are visible, stop the check
+    if (panel && !visible(panel) && popup && !visible(popup)) {
+      return
+    }
+
+    let path = ev.path || (ev.composedPath ? ev.composedPath() : undefined)
+
+    // checkStep1 checks if a click was not inside the component with v-on-clickaway event
+    let checkStep1 = initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))
+
+    // checkStep2 checks if a click was not inside the inner panel
+    let checkStep2 = path ? path.indexOf(panel) < 0 : true
+
+    // checkStep3 checks if a click was not inside the inner popup
+    let checkStep3 = path ? path.indexOf(popup) < 0 : true
+
+    if (checkStep1 && checkStep2 && checkStep3) {
+      return callback.call(vm, ev)
+    }
+  }
+
+  document.documentElement.addEventListener('click', el[HANDLER], checkPassiveSupport() ? { passive: true } : false)
+  // document.documentElement.addEventListener('click', el[HANDLER], false)
+}
+
+function unbind (el) {
+  document.documentElement.removeEventListener('click', el[HANDLER], false)
+  delete el[HANDLER]
+}
+
+let directive = {
+  bind: bind,
+  update: function (el, binding) {
+    if (binding.value === binding.oldValue) return
+    bind(el, binding)
+  },
+  unbind: unbind
+}
+>>>>>>> master
 
 
 /***/ }),
@@ -29848,9 +29952,21 @@ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__P
 /* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__);
+<<<<<<< HEAD
 /* harmony import */ var _lib_queries_resource_query__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/queries/resource-query */ "./lib/queries/resource-query.js");
 /* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! alpheios-inflection-games */ "alpheios-inflection-games");
 /* harmony import */ var alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_12__);
+/* global Node, Event */
+
+
+// import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
+ // Vue in a runtime + compiler configuration
+
+// A panel component
+
+// A popup component
+=======
+/* harmony import */ var _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../queries/resource-query */ "./lib/queries/resource-query.js");
 /* global Node, Event */
 
 
@@ -29867,6 +29983,1182 @@ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__P
 
 
 
+
+
+
+const languageNames = new Map([
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN, 'Latin'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_GREEK, 'Greek'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_ARABIC, 'Arabic'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN, 'Persian'],
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
+
+])
+
+class UIController {
+  /**
+   * @constructor
+   * @param {UIStateAPI} state - State object for the parent application
+   * @param {Options} options - content options (see `src/setting/content-options-defaults.js`)
+   * @param {Options} resourceOptions - resource options (see `src/setting/language-options-defaults.js`)
+   * @param {Options} uiOptions - UI options (see `src/setting/ui-options-defaults.js`)
+   * @param {Object} manifest - parent application info details  (API definition pending)
+   * In some environments manifest data may not be available. Then a `{}` default value
+   * will be used.
+   * @param {Object} template - object with the following properties:
+   *                            html: HTML string for the container of the Alpheios components
+   *                            panelId: the id of the wrapper for the panel component,
+   *                            panelComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative panel layout
+   *                            popupId: the id of the wrapper for the popup component
+   *                            popupComponent: Vue single file component of a panel element.
+   *                              Allows to provide an alternative popup layout
+   */
+  constructor (state, options, resourceOptions, uiOptions, manifest = {}, template = {}) {
+    this.state = state
+    this.options = options
+    this.resourceOptions = resourceOptions
+    this.uiOptions = uiOptions
+    this.settings = UIController.settingValues
+    this.irregularBaseFontSizeClassName = 'alpheios-irregular-base-font-size'
+    this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
+    this.manifest = manifest
+    const templateDefaults = {
+      html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_9___default.a,
+      panelId: 'alpheios-panel',
+      panelComponents: {
+        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+      },
+      defaultPanelComponent: 'panel',
+      popupId: 'alpheios-popup',
+      popupComponents: {
+        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+      },
+      defaultPopupComponent: 'popup',
+      draggable: true,
+      resizable: true
+    }
+    this.template = Object.assign(templateDefaults, template)
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
+
+    this.zIndex = this.getZIndexMax()
+
+    this.l10n = new _l10n_l10n__WEBPACK_IMPORTED_MODULE_5__["default"]()
+      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_GB)
+      .setLocale(_locales_locales__WEBPACK_IMPORTED_MODULE_6__["default"].en_US)
+
+    // Inject HTML code of a plugin. Should go in reverse order.
+    document.body.classList.add('alpheios')
+    let container = document.createElement('div')
+    document.body.insertBefore(container, null)
+    container.outerHTML = this.template.html
+    // Initialize components
+    this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a({
+      el: `#${this.template.panelId}`,
+      components: this.template.panelComponents,
+      data: {
+        panelData: {
+          isOpen: false,
+          tabs: {
+            definitions: false,
+            inflections: false,
+            status: false,
+            options: false,
+            info: true,
+            treebank: false
+          },
+          verboseMode: this.state.verboseMode,
+          grammarAvailable: false,
+          grammarRes: {},
+          lexemes: [],
+          inflectionComponentData: {
+            visible: false,
+            inflectionViewSet: null
+          },
+          inflectionsWaitState: false,
+          inflectionsEnabled: false,
+          // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
+          inflectionBrowserEnabled: false,
+          // Whether all table in an inflection browser should be collapsed
+          inflBrowserTablesCollapsed: null, // Null means that state is not set
+          shortDefinitions: [],
+          fullDefinitions: '',
+          inflections: {
+            localeSwitcher: undefined,
+            viewSelector: undefined,
+            tableBody: undefined
+          },
+          inflectionIDs: {
+            localeSwitcher: 'alpheios-panel-content-infl-table-locale-switcher',
+            viewSelector: 'alpheios-panel-content-infl-table-view-selector',
+            tableBody: 'alpheios-panel-content-infl-table-body'
+          },
+          infoComponentData: {
+            manifest: this.manifest,
+            languageName: UIController.getLanguageName(this.state.currentLanguage)
+          },
+          messages: [],
+          notification: {
+            visible: false,
+            important: false,
+            showLanguageSwitcher: false,
+            text: ''
+          },
+          status: {
+            selectedText: '',
+            languageName: ''
+          },
+          settings: this.options.items,
+          treebankComponentData: {
+            data: {
+              word: {},
+              page: {}
+
+            },
+            visible: false
+          },
+          resourceSettings: this.resourceOptions.items,
+          uiOptions: this.uiOptions,
+          classes: [], // Will be set later by `setRootComponentClasses()`
+          styles: {
+            zIndex: this.zIndex
+          },
+          minWidth: 400,
+          l10n: this.l10n
+        },
+        state: this.state,
+        options: this.options,
+        resourceOptions: this.resourceOptions,
+        currentPanelComponent: this.template.defaultPanelComponent,
+        uiController: this,
+        classesChanged: 0
+      },
+      methods: {
+        isOpen: function () {
+          return this.state.isPanelOpen()
+        },
+
+        open: function () {
+          if (!this.state.isPanelOpen()) {
+            this.panelData.isOpen = true
+            this.state.setPanelOpen()
+          }
+          return this
+        },
+
+        close: function () {
+          if (!this.state.isPanelClosed()) {
+            this.panelData.isOpen = false
+            this.state.setPanelClosed()
+          }
+          return this
+        },
+
+        setPositionTo: function (position) {
+          this.options.items.panelPosition.setValue(position)
+          this.classesChanged += 1
+        },
+
+        attachToLeft: function () {
+          this.setPositionTo('left')
+        },
+
+        attachToRight: function () {
+          this.setPositionTo('right')
+        },
+
+        changeTab (name) {
+          for (let key of Object.keys(this.panelData.tabs)) {
+            if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
+          }
+          this.panelData.tabs[name] = true
+          this.state.changeTab(name) // Reflect a tab change in a state
+          return this
+        },
+
+        clearContent: function () {
+          this.panelData.shortDefinitions = []
+          this.panelData.fullDefinitions = ''
+          this.panelData.messages = ''
+          this.panelData.treebankComponentData.data.word = {}
+          this.panelData.treebankComponentData.visible = false
+          this.clearNotifications()
+          this.clearStatus()
+          return this
+        },
+
+        showMessage: function (message) {
+          this.panelData.messages = [message]
+        },
+
+        appendMessage: function (message) {
+          this.panelData.messages.push(message)
+        },
+
+        clearMessages: function () {
+          this.panelData.messages = []
+        },
+
+        showNotification: function (text, important = false) {
+          this.panelData.notification.visible = true
+          this.panelData.notification.important = important
+          this.panelData.notification.showLanguageSwitcher = false
+          this.panelData.notification.text = text
+        },
+
+        showImportantNotification: function (text) {
+          this.showNotification(text, true)
+        },
+
+        showLanguageNotification: function (homonym, notFound = false) {
+          this.panelData.notification.visible = true
+          let languageName
+          if (homonym) {
+            languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.panelData.infoComponentData.languageName) {
+            languageName = this.panelData.infoComponentData.languageName
+          } else {
+            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+          }
+          if (notFound) {
+            this.panelData.notification.important = true
+            this.panelData.notification.showLanguageSwitcher = true
+            this.panelData.notification.text = this.panelData.l10n.messages.TEXT_NOTICE_CHANGE_LANGUAGE.get(languageName)
+          } else {
+            this.panelData.notification.visible = true
+            this.panelData.notification.important = false
+            this.panelData.notification.showLanguageSwitcher = false
+          }
+        },
+
+        showStatusInfo: function (selectionText, languageID) {
+          this.panelData.status.languageName = UIController.getLanguageName(languageID)
+          this.panelData.status.selectedText = selectionText
+        },
+
+        showErrorInformation: function (errorText) {
+          this.panelData.notification.visible = true
+          this.panelData.notification.important = true
+          this.panelData.notification.showLanguageSwitcher = false
+          this.panelData.notification.text = errorText
+        },
+
+        clearNotifications: function () {
+          this.panelData.notification.visible = false
+          this.panelData.notification.important = false
+          this.panelData.notification.showLanguageSwitcher = false
+          this.panelData.notification.text = ''
+        },
+
+        clearStatus: function () {
+          this.panelData.status.languageName = ''
+          this.panelData.status.selectedText = ''
+        },
+
+        toggle: function () {
+          if (this.state.isPanelOpen()) {
+            this.close()
+          } else {
+            this.open()
+          }
+          return this
+        },
+
+        requestGrammar: function (feature) {
+          // ExpObjMon.track(
+          _queries_resource_query__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
+            uiController: this.uiController,
+            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_10__["Grammars"]
+          }).getData()
+          //, {
+          // experience: 'Get resource',
+          //  actions: [
+          //    { name: 'getData', action: ExpObjMon.actions.START, event: ExpObjMon.events.GET },
+          //    { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
+          // ]
+          // }).getData()
+        },
+
+        settingChange: function (name, value) {
+          console.log('Change inside instance', name, value)
+          // TODO we need to refactor handling of boolean options
+          if (name === 'enableLemmaTranslations') {
+            this.options.items[name].setValue(value)
+          } else {
+            this.options.items[name].setTextValue(value)
+          }
+          switch (name) {
+            case 'locale':
+              if (this.uiController.presenter) {
+                this.uiController.presenter.setLocale(this.options.items.locale.currentValue)
+              }
+              this.uiController.updateLemmaTranslations()
+              break
+            case 'preferredLanguage':
+              this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
+              break
+            case 'verboseMode':
+              this.uiController.updateVerboseMode()
+              break
+            case 'enableLemmaTranslations':
+              this.uiController.updateLemmaTranslations()
+              break
+          }
+        },
+        resourceSettingChange: function (name, value) {
+          let keyinfo = this.resourceOptions.parseKey(name)
+          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
+          this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+        },
+
+        uiOptionChange: function (name, value) {
+          if (name === 'fontSize' || name === 'colorSchema' || name === 'panelOnActivate') {
+            this.uiController.uiOptions.items[name].setValue(value)
+          } else {
+            this.uiController.uiOptions.items[name].setTextValue(value)
+          }
+
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+            case 'popup':
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(value)
+              break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
+              break
+          }
+        }
+      },
+      mounted: function () {
+        this.panelData.inflections.localeSwitcher = document.querySelector(`#${this.panelData.inflectionIDs.localeSwitcher}`)
+        this.panelData.inflections.viewSelector = document.querySelector(`#${this.panelData.inflectionIDs.viewSelector}`)
+        this.panelData.inflections.tableBody = document.querySelector(`#${this.panelData.inflectionIDs.tableBody}`)
+      }
+    })
+
+    this.options.load(() => {
+      this.resourceOptions.load(() => {
+        this.uiOptions.load(() => {
+          this.state.activateUI()
+          console.log('UI options are loaded')
+          document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
+
+          const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
+          this.options.items.lookupLangOverride.setValue(false)
+          this.updateLanguage(currentLanguageID)
+          this.updateVerboseMode()
+          this.updateLemmaTranslations()
+          this.notifyInflectionBrowser()
+        })
+      })
+    })
+
+    // Create a Vue instance for a popup
+    this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a({
+      el: `#${this.template.popupId}`,
+      components: this.template.popupComponents,
+      data: {
+        messages: [],
+        lexemes: [],
+        definitions: {},
+
+        translations: {},
+
+        linkedFeatures: [],
+        visible: false,
+        popupData: {
+          fixedPosition: true, // Whether to put popup into a fixed position or calculate that position dynamically
+          // Default popup position, with units
+          top: '10vh',
+          left: '10vw',
+
+          draggable: this.template.draggable,
+          resizable: this.template.resizable,
+          // Default popup dimensions, in pixels, without units. These values will override CSS rules.
+          // Can be scaled down on small screens automatically.
+          width: 210,
+          /*
+          `fixedElementsHeight` is a sum of heights of all elements of a popup, including a top bar, a button area,
+          and a bottom bar. A height of all variable elements (i.e. morphological data container) will be
+          a height of a popup less this value.
+           */
+          fixedElementsHeight: 120,
+          heightMin: 150, // Initially, popup height will be set to this value
+          heightMax: 400, // If a morphological content height is greater than `contentHeightLimit`, a popup height will be increased to this value
+          // A margin between a popup and a selection
+          placementMargin: 15,
+          // A minimal margin between a popup and a viewport border, in pixels. In effect when popup is scaled down.
+          viewportMargin: 5,
+
+          // A position of a word selection
+          targetRect: {},
+
+          /*
+          A date and time when a new request was started, in milliseconds since 1970-01-01. It is used within a
+          component to identify a new request coming in and to distinguish it from data updates of the current request.
+           */
+          requestStartTime: 0,
+          settings: this.options.items,
+          verboseMode: this.state.verboseMode,
+          defDataReady: false,
+          hasTreebank: false,
+          inflDataReady: this.inflDataReady,
+          morphDataReady: false,
+
+          translationsDataReady: false,
+
+          showProviders: false,
+          updates: 0,
+          classes: [], // Will be set later by `setRootComponentClasses()`
+          l10n: this.l10n,
+          notification: {
+            visible: false,
+            important: false,
+            showLanguageSwitcher: false,
+            text: ''
+          },
+          providers: [],
+          status: {
+            selectedText: '',
+            languageName: ''
+          },
+          currentLanguage: null,
+          resourceSettings: this.resourceOptions.items,
+          styles: {
+            zIndex: this.zIndex
+          }
+        },
+        panel: this.panel,
+        options: this.options,
+        resourceOptions: this.resourceOptions,
+        currentPopupComponent: this.template.defaultPopupComponent,
+        uiController: this,
+        classesChanged: 0
+      },
+      methods: {
+        setTargetRect: function (targetRect) {
+          this.popupData.targetRect = targetRect
+        },
+
+        showMessage: function (message) {
+          this.messages = [message]
+          return this
+        },
+
+        appendMessage: function (message) {
+          this.messages.push(message)
+          return this
+        },
+
+        clearMessages: function () {
+          while (this.messages.length > 0) {
+            this.messages.pop()
+          }
+          return this
+        },
+
+        showNotification: function (text, important = false) {
+          this.popupData.notification.visible = true
+          this.popupData.notification.important = important
+          this.popupData.notification.showLanguageSwitcher = false
+          this.popupData.notification.text = text
+        },
+
+        showImportantNotification: function (text) {
+          this.showNotification(text, true)
+        },
+
+        showLanguageNotification: function (homonym, notFound = false) {
+          this.popupData.notification.visible = true
+          let languageName
+          if (homonym) {
+            languageName = UIController.getLanguageName(homonym.languageID)
+          } else if (this.popupData.currentLanguageName) {
+            languageName = this.popupData.currentLanguageName
+          } else {
+            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+          }
+          if (notFound) {
+            this.popupData.notification.important = true
+            this.popupData.notification.showLanguageSwitcher = true
+            this.popupData.notification.text = this.popupData.l10n.messages.TEXT_NOTICE_CHANGE_LANGUAGE.get(languageName)
+          } else {
+            this.popupData.notification.important = false
+            this.popupData.notification.showLanguageSwitcher = false
+          }
+        },
+
+        showStatusInfo: function (selectionText, languageID) {
+          this.popupData.status.languageName = UIController.getLanguageName(languageID)
+          this.popupData.status.selectedText = selectionText
+        },
+
+        showErrorInformation: function (errorText) {
+          this.popupData.notification.visible = true
+          this.popupData.notification.important = true
+          this.popupData.notification.showLanguageSwitcher = false
+          this.popupData.notification.text = errorText
+        },
+
+        newLexicalRequest: function () {
+          this.popupData.requestStartTime = new Date().getTime()
+        },
+
+        clearContent: function () {
+          this.definitions = {}
+          this.translations = {}
+
+          this.lexemes = []
+          this.popupData.providers = []
+          this.popupData.defDataReady = false
+          this.popupData.inflDataReady = false
+          this.popupData.morphDataReady = false
+
+          this.popupData.translationsDataReady = false
+
+          this.popupData.showProviders = false
+          this.popupData.hasTreebank = false
+          this.clearNotifications()
+          this.clearStatus()
+          return this
+        },
+
+        clearNotifications: function () {
+          this.popupData.notification.visible = false
+          this.popupData.notification.important = false
+          this.popupData.notification.showLanguageSwitcher = false
+          this.popupData.notification.text = ''
+        },
+
+        clearStatus: function () {
+          this.popupData.status.languageName = ''
+          this.popupData.status.selectedText = ''
+        },
+
+        open: function () {
+          this.visible = true
+          return this
+        },
+
+        close: function () {
+          this.visible = false
+          return this
+        },
+
+        showPanelTab: function (tabName) {
+          this.panel.changeTab(tabName)
+          this.panel.open()
+          return this
+        },
+
+        sendFeature: function (feature) {
+          this.panel.requestGrammar(feature)
+          this.panel.changeTab('grammar')
+          this.panel.open()
+          return this
+        },
+
+        settingChange: function (name, value) {
+          console.log('Change inside instance', name, value)
+          this.options.items[name].setTextValue(value)
+          switch (name) {
+            case 'locale':
+              if (this.uiController.presenter) {
+                this.uiController.presenter.setLocale(this.options.items.locale.currentValue)
+              }
+              this.uiController.updateLemmaTranslations()
+              break
+            case 'preferredLanguage':
+              this.uiController.updateLanguage(this.options.items.preferredLanguage.currentValue)
+              break
+          }
+        },
+
+        resourceSettingChange: function (name, value) {
+          let keyinfo = this.resourceOptions.parseKey(name)
+          console.log('Change inside instance', keyinfo.setting, keyinfo.language, value)
+          this.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+        },
+
+        uiOptionChange: function (name, value) {
+          // TODO this should really be handled within OptionsItem
+          // the difference between value and textValues is a little confusing
+          // see issue #73
+          if (name === 'fontSize' || name === 'colorSchema') {
+            this.uiController.uiOptions.items[name].setValue(value)
+          } else {
+            this.uiController.uiOptions.items[name].setTextValue(value)
+          }
+
+          switch (name) {
+            case 'skin':
+              this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
+              break
+            case 'popup':
+              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
+              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              break
+            case 'fontSize':
+              this.uiController.updateFontSizeClass(value)
+              break
+            case 'colorSchema':
+              this.uiController.updateColorSchemaClass(value)
+              break
+          }
+        }
+      }
+    })
+
+    // Set initial values of components
+    this.setRootComponentClasses()
+  }
+
+  static get defaults () {
+    return {
+      irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size'
+    }
+  }
+
+  static get settingValues () {
+    return {
+      uiTypePanel: 'panel',
+      uiTypePopup: 'popup',
+      verboseMode: 'verbose',
+      enableLemmaTranslations: false
+    }
+  }
+
+  /**
+   * Finds a maximal z-index value of elements on a page.
+   * @return {Number}
+   */
+  getZIndexMax (zIndexDefualt = 2000) {
+    let startTime = new Date().getTime()
+    let zIndex = this.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)
+    let timeDiff = new Date().getTime() - startTime
+    console.log(`Z-index max value is ${zIndex}, calculation time is ${timeDiff} ms`)
+
+    if (zIndex >= zIndexDefualt) {
+      if (zIndex < Number.POSITIVE_INFINITY) { zIndex++ } // To be one level higher that the highest element on a page
+    } else {
+      zIndex = zIndexDefualt
+    }
+
+    return zIndex
+  }
+
+  /**
+   * A recursive function that iterates over all elements on a page searching for a highest z-index.
+   * @param {Node} element - A root page element to start scan with (usually `body`).
+   * @param {Number} zIndexMax - A current highest z-index value found.
+   * @return {Number} - A current highest z-index value.
+   */
+  zIndexRecursion (element, zIndexMax) {
+    if (element) {
+      let zIndexValues = [
+        window.getComputedStyle(element).getPropertyValue('z-index'), // If z-index defined in CSS rules
+        element.style.getPropertyValue('z-index') // If z-index is defined in an inline style
+      ]
+      for (const zIndex of zIndexValues) {
+        if (zIndex && zIndex !== 'auto') {
+          // Value has some numerical z-index value
+          zIndexMax = Math.max(zIndexMax, zIndex)
+        }
+      }
+      for (let node of element.childNodes) {
+        let nodeType = node.nodeType
+        if (nodeType === Node.ELEMENT_NODE || nodeType === Node.DOCUMENT_NODE || nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+          zIndexMax = this.zIndexRecursion(node, zIndexMax)
+        }
+      }
+    }
+    return zIndexMax
+  }
+
+  static hasRegularBaseFontSize () {
+    let htmlElement = document.querySelector('html')
+    return window.getComputedStyle(htmlElement, null).getPropertyValue('font-size') === '16px'
+  }
+
+  formatFullDefinitions (lexeme) {
+    let content = `<h3>${lexeme.lemma.word}</h3>\n`
+    for (let fullDef of lexeme.meaning.fullDefs) {
+      content += `${fullDef.text}<br>\n`
+    }
+    return content
+  }
+
+  message (message) {
+    this.panel.showMessage(message)
+    return this
+  }
+
+  addMessage (message) {
+    this.panel.appendMessage(message)
+  }
+
+  addImportantMessage (message) {
+    this.panel.appendMessage(message)
+    this.popup.appendMessage(message)
+    this.panel.showImportantNotification(message)
+    this.popup.showImportantNotification(message)
+  }
+
+  /**
+   * Gets language name by either language ID (a symbol) or language code (string)
+   * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
+   * @return {string} A language name
+   */
+  static getLanguageName (language) {
+    let langID
+    let langCode // eslint-disable-line
+    // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
+    ;({ languageID: langID, languageCode: langCode } = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageAttrs(language))
+    return languageNames.has(langID) ? languageNames.get(langID) : ''
+  }
+
+  showLanguageInfo (homonym) {
+    let notFound = !homonym ||
+      !homonym.lexemes ||
+      homonym.lexemes.length < 1 ||
+      homonym.lexemes.filter((l) => l.isPopulated()).length < 1
+    this.panel.showLanguageNotification(homonym, notFound)
+    this.popup.showLanguageNotification(homonym, notFound)
+  }
+
+  showStatusInfo (selectionText, languageID) {
+    this.panel.showStatusInfo(selectionText, languageID)
+    this.popup.showStatusInfo(selectionText, languageID)
+  }
+
+  showErrorInfo (errorText) {
+    this.panel.showErrorInformation(errorText)
+  }
+
+  showImportantNotification (message) {
+    this.panel.showImportantNotification(message)
+    this.popup.showImportantNotification(message)
+  }
+
+  changeTab (tabName) {
+    this.panel.changeTab(tabName)
+    return this
+  }
+
+  setTargetRect (targetRect) {
+    this.popup.setTargetRect(targetRect)
+    return this
+  }
+
+  newLexicalRequest (languageID) {
+    this.popup.newLexicalRequest()
+    this.panel.panelData.inflectionsEnabled = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].hasInflectionsEnabled(languageID)
+    this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
+    this.panel.panelData.grammarAvailable = false
+    this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
+    this.clear().open().changeTab('definitions')
+    return this
+  }
+
+  updateMorphology (homonym) {
+    homonym.lexemes.sort(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"].getSortByTwoLemmaFeatures(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency, alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.part))
+    this.popup.lexemes = homonym.lexemes
+    if (homonym.lexemes.length > 0) {
+      // TODO we could really move this into the morph component and have it be calculated for each lemma in case languages are multiple
+      this.popup.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.lexemes[0].lemma.languageID).grammarFeatures()
+    }
+    this.popup.popupData.morphDataReady = true
+    this.panel.panelData.lexemes = homonym.lexemes
+    this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.updateProviders(homonym)
+  }
+
+  updateProviders (homonym) {
+    let providers = new Map()
+    homonym.lexemes.forEach((l) => {
+      if (l.provider) {
+        providers.set(l.provider, 1)
+      }
+      if (l.meaning && l.meaning.shortDefs) {
+        l.meaning.shortDefs.forEach((d) => {
+          if (d.provider) {
+            providers.set(d.provider, 1)
+          }
+        })
+      }
+      if (l.lemma && l.lemma.translation && l.lemma.translation.provider) {
+        providers.set(l.lemma.translation.provider, 1)
+      }
+    })
+    this.popup.popupData.providers = Array.from(providers.keys())
+  }
+
+  updateGrammar (urls) {
+    if (urls.length > 0) {
+      this.panel.panelData.grammarRes = urls[0]
+      this.panel.panelData.grammarAvailable = true
+    } else {
+      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
+    }
+    // todo show TOC or not found
+  }
+
+  updateDefinitions (homonym) {
+    this.panel.panelData.fullDefinitions = ''
+    this.panel.panelData.shortDefinitions = []
+    let definitions = {}
+    // let defsList = []
+    let hasFullDefs = false
+    for (let lexeme of homonym.lexemes) {
+      if (lexeme.meaning.shortDefs.length > 0) {
+        definitions[lexeme.lemma.ID] = []
+        for (let def of lexeme.meaning.shortDefs) {
+          // for now, to avoid duplicate showing of the provider we create a new unproxied definitions
+          // object without a provider if it has the same provider as the morphology info
+          if (def.provider && lexeme.provider && def.provider.uri === lexeme.provider.uri) {
+            definitions[lexeme.lemma.ID].push(new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Definition"](def.text, def.language, def.format, def.lemmaText))
+          } else {
+            definitions[lexeme.lemma.ID].push(def)
+          }
+        }
+        this.panel.panelData.shortDefinitions.push(...lexeme.meaning.shortDefs)
+        this.updateProviders(homonym)
+      } else if (Object.entries(lexeme.lemma.features).length > 0) {
+        definitions[lexeme.lemma.ID] = [new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Definition"]('No definition found.', 'en-US', 'text/plain', lexeme.lemma.word)]
+      }
+
+      if (lexeme.meaning.fullDefs.length > 0) {
+        this.panel.panelData.fullDefinitions += this.formatFullDefinitions(lexeme)
+        hasFullDefs = true
+      }
+    }
+
+    // Populate a popup
+    this.popup.definitions = definitions
+    this.popup.popupData.defDataReady = hasFullDefs
+    this.popup.popupData.updates = this.popup.popupData.updates + 1
+  }
+
+  updateTranslations (homonym) {
+    let translations = {}
+    for (let lexeme of homonym.lexemes) {
+      if (lexeme.lemma.translation !== undefined) {
+        translations[lexeme.lemma.ID] = lexeme.lemma.translation
+      }
+    }
+    this.popup.translations = translations
+    this.popup.popupData.translationsDataReady = true
+    this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.updateProviders(homonym)
+  }
+
+  updatePageAnnotationData (data) {
+    this.panel.panelData.treebankComponentData.data.page = data.treebank.page || {}
+  }
+
+  updateWordAnnotationData (data) {
+    if (data && data.treebank) {
+      this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
+      this.popup.popupData.hasTreebank = data.treebank.word
+    } else {
+      this.panel.panelData.treebankComponentData.data.word = {}
+      this.popup.popupData.hasTreebank = false
+    }
+  }
+
+  updateLanguage (currentLanguageID) {
+    this.state.setItem('currentLanguage', alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(currentLanguageID))
+
+    this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
+    this.popup.popupData.inflDataReady = this.inflDataReady
+
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
+
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
+    console.log(`Current language is ${this.state.currentLanguage}`)
+  }
+
+  updateVerboseMode () {
+    this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
+    this.panel.panelData.verboseMode = this.state.verboseMode
+    this.popup.popupData.verboseMode = this.state.verboseMode
+  }
+
+  updateLemmaTranslations () {
+    if (this.options.items.enableLemmaTranslations.currentValue && !this.options.items.locale.currentValue.match(/en-/)) {
+      this.state.setItem('lemmaTranslationLang', this.options.items.locale.currentValue)
+    } else {
+      this.state.setItem('lemmaTranslationLang', null)
+    }
+  }
+
+  notifyInflectionBrowser () {
+    this.panel.panelData.inflectionBrowserEnabled = true
+  }
+
+  updateInflections (homonym) {
+    this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].create(homonym, this.options.items.locale.currentValue)
+
+    this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
+    if (this.inflectionsViewSet.hasMatchingViews) {
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+    }
+    this.panel.panelData.inflectionsWaitState = false
+    this.popup.popupData.inflDataReady = this.inflDataReady
+  }
+
+  lexicalRequestComplete () {
+    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
+    this.popup.popupData.morphDataReady = true
+  }
+
+  lexicalRequestSucceeded () {
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  lexicalRequestFailed () {
+    this.panel.panelData.inflectionsWaitState = false
+  }
+
+  get inflDataReady () {
+    return this.inflectionsViewSet && this.inflectionsViewSet.hasMatchingViews
+  }
+
+  clear () {
+    this.panel.clearContent()
+    this.popup.clearContent()
+    return this
+  }
+
+  open () {
+    if (this.options.items.uiType.currentValue === this.settings.uiTypePanel) {
+      this.panel.open()
+    } else {
+      if (this.panel.isOpen) { this.panel.close() }
+      this.popup.open()
+    }
+    return this
+  }
+
+  setRootComponentClasses () {
+    let classes = []
+
+    if (!UIController.hasRegularBaseFontSize()) {
+      classes.push(this.constructor.defaults.irregularBaseFontSizeClassName)
+    }
+    if (this.uiOptions.items.skin !== undefined) {
+      classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
+    }
+
+    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.value !== undefined) {
+      classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-font_${this.uiOptions.items.fontSize.defaultValue}_class`)
+    }
+
+    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.value !== undefined) {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
+    } else {
+      classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.defaultValue}_class`)
+    }
+
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+
+    classes.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+      this.panel.panelData.classes.push(classItem)
+    })
+  }
+
+  updateStyleClass (prefix, type) {
+    let popupClasses = this.popup.popupData.classes.slice(0)
+
+    popupClasses.forEach(function (item, index) {
+      if (item.indexOf(prefix) === 0) {
+        popupClasses[index] = `${prefix}${type}_class`
+      }
+    })
+
+    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    popupClasses.forEach(classItem => {
+      this.popup.popupData.classes.push(classItem)
+    })
+
+    let panelClasses = this.panel.panelData.classes.slice(0)
+
+    panelClasses.forEach(function (item, index) {
+      if (item.indexOf(prefix) === 0) {
+        panelClasses[index] = `${prefix}${type}_class`
+      }
+    })
+    this.panel.panelData.classes.splice(0, this.panel.panelData.classes.length)
+
+    panelClasses.forEach(classItem => {
+      this.panel.panelData.classes.push(classItem)
+    })
+  }
+
+  updateFontSizeClass (type) {
+    this.updateStyleClass('alpheios-font_', type)
+  }
+
+  updateColorSchemaClass (type) {
+    this.updateStyleClass('alpheios-color_schema_', type)
+  }
+
+  changeSkin () {
+    // Update skin name in classes
+    this.setRootComponentClasses()
+  }
+}
+>>>>>>> master
+
+
+/***/ }),
+
+/***/ "./lib/controllers/ui-state.js":
+/*!*************************************!*\
+  !*** ./lib/controllers/ui-state.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UIStateAPI; });
+/**
+ * Interface for a State Object to manage Alpheios UI State
+ */
+class UIStateAPI {
+  constructor () {
+    /**
+     * A language of a latest lexical query
+     * @type {Language}
+     */
+    this.selectionLang = undefined
+
+    this.watchers = new Map()
+  }
+
+  static get statuses () {
+    return {
+      script: {
+        PENDING: Symbol.for('Alpheios_Status_Pending'), // Script has not been fully initialized yet
+        ACTIVE: Symbol.for('Alpheios_Status_Active'), // Script is loaded and active
+        DEACTIVATED: Symbol.for('Alpheios_Status_Deactivated'), // Script has been loaded, but is deactivated
+        DISABLED: Symbol.for('Alpheios_Status_Disabled') // Script has been loaded, but it is disabled
+      },
+      panel: {
+        OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
+        CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+      }
+    }
+  }
+
+  /**
+   * SetItem provides a monitored way to change a TabScript state. If value is assigned to a data property directly
+   * there is no way to know if a property was changed. However, if a property was changed using setItem() method,
+   * and if there is a watcher function registered for a changed property name,
+   * this function will be called on every property change, passing a changed property name as an argument.
+   * @param key
+   * @param value
+   * @return {UIStateAPI}
+   */
+  setItem (key, value) {
+    this[key] = value
+    if (this.watchers && this.watchers.has(key)) {
+      this.watchers.get(key)(key, this)
+    }
+    return this
+  }
+
+  /**
+   * Sets a watcher function that is called every time a property is changed using a setItem() method.
+   * @param {String} property - A name of a property that should be monitored
+   * @param {Function} watchFunc - A function that will be called every time a property changes
+   * @return {UIStateAPI} Reference to self for chaining
+   */
+  setWatcher (property, watchFunc) {
+    this.watchers.set(property, watchFunc)
+    return this
+  }
+
+  /**
+   * Check if the state of the panel is open
+   * @return {boolean} true if open false if closed
+   */
+  isPanelOpen () {
+    return false
+  }
+
+  /**
+   * Check if the state of the panel is closed
+   * @return {boolean} true if closed false if open
+   */
+  isPanelClosed () {
+    return false
+  }
+
+  /**
+   * Set the state of the panel to open
+   * @return {UIStateAPI} the updated state object
+   */
+  setPanelOpen () {
+    console.log('setPanelOpen is not implemented')
+    return this
+  }
+
+  /**
+   * Set the state of the panel to closed
+   * @return {UIStateAPI} the updated state object
+   */
+  setPanelClosed () {
+    console.log('setPanelClosed is not implemented')
+    return this
+  }
+
+  /**
+   * Check if the state of the UI is active (i.e. fully loaded and ready to use)
+   * @return {boolean} true if active false if not
+   */
+  uiIsActive () {
+    return false
+  }
+
+  /**
+   * Set the state of the UI to active (i.e. fully loaded and ready to use)
+   * @return {IState} the updated state object
+   */
+  activateUI () {
+    console.log('activateUI is not implemented')
+    return this
+  }
+
+  /**
+   * Set the currently active panel tab
+   * @param {String} tabName name of the tab
+   * @return {UIStateAPI} the updated state object
+   */
+  changeTab (tabName) {
+    console.log('changeTab is not implemented')
+    return this
+  }
+}
+
+
+/***/ }),
+
+<<<<<<< HEAD
 
 
 
@@ -31051,12 +32343,1376 @@ class UIStateAPI {
 
 /***/ }),
 
+=======
+>>>>>>> master
 /***/ "./lib/custom-pointer-events/event-element.js":
 /*!****************************************************!*\
   !*** ./lib/custom-pointer-events/event-element.js ***!
   \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+<<<<<<< HEAD
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EventElement; });
+/**
+ * Represents either a start or an end point within a pointer event
+ */
+class EventElement {
+  constructor () {
+    /**
+     * Coordinates within a client area. Can be either integer or floating point number depending on the platform.
+     * @type {{x: number, y: number}}
+     */
+    this.client = {
+      x: null,
+      y: null
+    }
+
+    /**
+     * Event target. The same as path[0] but, because on iOS path[0] misses some properties
+     * such as `ownerDocument`. In order to access those properties we have to store event target
+     * in addition to `path`.
+     * @type {HTMLElement}
+     */
+    this.target = null
+
+    /**
+     *  When event took place. An integer number of milliseconds since 1 January 1970 UTC.
+     * @type {number}
+     */
+    this.time = 0
+
+    /**
+     * The first element in an array is the element where an event happened.
+     * The second on is its parent and so on, up until the latest HTML element in hierarchy.
+     * @type {HTMLElement[]}
+     */
+    this.path = []
+
+    /**
+     * Whether this element is excluded from processing an event with special data attribute of the current
+     * element or the one of its parents.
+     * @type {boolean}
+     */
+    this.excluded = false
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/generic-evt.js":
+/*!**************************************************!*\
+  !*** ./lib/custom-pointer-events/generic-evt.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GenericEvt; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+/**
+ * This is a Generic Event Class that can be used to
+ * to wrap events for which we haven't explicitly defined wrappers
+ */
+class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, evtName) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+    this.evtName = evtName
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeDblClickCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`${this.evtName} (completed), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return !(this.start.excluded || this.end.excluded)
+  }
+
+  static listen (selector, evtHandler, evtName) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addGenericListener(element, new this(element, evtHandler, evtName), evtName)
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/long-tap.js":
+/*!***********************************************!*\
+  !*** ./lib/custom-pointer-events/long-tap.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LongTap; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class LongTap extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, mvmntThreshold = 5, durationThreshold = 125) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+
+    this.mvmntThreshold = mvmntThreshold
+    this.durationThreshold = durationThreshold
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeLongTapCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    const completed = this.mvmntDist <= this.mvmntThreshold && this.duration >= this.durationThreshold
+
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Long tap (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return completed && !this.start.excluded && !this.end.excluded
+  }
+
+  static listen (selector, evtHandler, mvmntThreshold, durationThreshold) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addUpDownListeners(element, new this(element, evtHandler, mvmntThreshold, durationThreshold))
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/mouse-dbl-click.js":
+/*!******************************************************!*\
+  !*** ./lib/custom-pointer-events/mouse-dbl-click.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MouseDblClick; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class MouseDblClick extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeDblClickCpe')
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Mouse double click (completed), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `duration: ${this.duration}`)
+    }
+    return !(this.start.excluded || this.end.excluded)
+  }
+
+  static listen (selector, evtHandler) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addDblClickListener(element, new this(element, evtHandler))
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/pointer-evt.js":
+/*!**************************************************!*\
+  !*** ./lib/custom-pointer-events/pointer-evt.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PointerEvt; });
+/* harmony import */ var _event_element_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event-element.js */ "./lib/custom-pointer-events/event-element.js");
+
+
+class PointerEvt {
+  constructor () {
+    this.tracking = false
+    this.start = new _event_element_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
+    this.end = new _event_element_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
+  }
+
+  static alpheiosIgnoreAllTest (dataset) {
+    const attrName = 'alpheiosIgnore'
+    const attrValue = 'all'
+    return dataset.hasOwnProperty(attrName) && dataset[attrName] === attrValue
+  }
+
+  static excludeAllCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeAllCpe')
+  }
+
+  static excludeCpeTest (dataset) {
+    return false
+  }
+
+  static get pointerEventSupported () {
+    return window.PointerEvent
+  }
+
+  setPoint (type, clientX, clientY, target, path) {
+    this[type].time = new Date().getTime()
+    this[type].client.x = clientX
+    this[type].client.y = clientY
+    this[type].target = target
+    // TODO: Can also use composedPath() as probably a more standard approach
+    if (!path) {
+      /*
+      This is probably an iOS where `event.path` does not exist.
+      We'll build path manually then.
+       */
+      path = this.constructor.buildPath(target)
+    }
+    if (!Array.isArray(path)) { path = [path] }
+    this[type].path = path
+    this[type].excluded = this[type].path.some(element =>
+      element.dataset && (
+        this.constructor.alpheiosIgnoreAllTest(element.dataset) ||
+        this.constructor.excludeAllCpeTest(element.dataset) ||
+        this.constructor.excludeCpeTest(element.dataset)
+      )
+    )
+    return this
+  }
+
+  /**
+   * Recursive function that builds a `path` array for an element. The first element in path is
+   * an element itself, the second element is its parent and so on up until the root element
+   * (the one that has no `parentElement` property).
+   * @param {Element} element - an HTML element we want to path for
+   * @param {Element[]} path - an array of elements in a path
+   * @return {Element[]} A path array
+   */
+  static buildPath (element, path = []) {
+    path.push(element)
+    if (element.parentElement) {
+      path = this.buildPath(element.parentElement, path)
+    }
+    return path
+  }
+
+  setStartPoint (clientX, clientY, target, path) {
+    return this.setPoint('start', clientX, clientY, target, path)
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    this.setPoint('end', clientX, clientY, target, path)
+  }
+
+  get type () {
+    return this.constructor.name
+  }
+
+  get duration () {
+    return this.end.time - this.start.time
+  }
+
+  get mvmntX () {
+    return this.end.client.x - this.start.client.x
+  }
+
+  get mvmntY () {
+    return this.end.client.y - this.start.client.y
+  }
+
+  get mvmntXAbs () {
+    return Math.abs(this.mvmntX)
+  }
+
+  get mvmntYAbs () {
+    return Math.abs(this.mvmntY)
+  }
+
+  get mvmntDist () {
+    return Math.sqrt(Math.pow(this.mvmntX, 2) + Math.pow(this.mvmntY, 2))
+  }
+
+  static pointerDownListener (event, domEvt) {
+    event.setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+  }
+
+  static pointerUpListener (event, domEvt) {
+    const valid = event.setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    if (valid) { event.evtHandler(event, domEvt) }
+  }
+
+  static touchStartListener (event, domEvt) {
+    event.setStartPoint(domEvt.changedTouches[0].clientX, domEvt.changedTouches[0].clientY, domEvt.target, domEvt.path)
+  }
+
+  static touchEndListener (event, domEvt) {
+    const valid = event.setEndPoint(domEvt.changedTouches[0].clientX, domEvt.changedTouches[0].clientY, domEvt.target, domEvt.path)
+    if (valid) { event.evtHandler(event, domEvt) }
+  }
+
+  static dblClickListener (event, domEvt) {
+    const valid = event
+      .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+      .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    if (valid) { event.evtHandler(event, domEvt) }
+  }
+
+  static genericListener (event, domEvt) {
+    const valid = event
+      .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+      .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
+    if (valid) { event.evtHandler(event, domEvt) }
+  }
+
+  static addUpDownListeners (element, event) {
+    if (this.pointerEventSupported) {
+      // Will use pointer events
+      element.addEventListener('pointerdown', this.pointerDownListener.bind(this, event), { passive: true })
+      element.addEventListener('pointerup', this.pointerUpListener.bind(this, event), { passive: true })
+    } else {
+      element.addEventListener('touchstart', this.touchStartListener.bind(this, event), { passive: true })
+      element.addEventListener('touchend', this.touchEndListener.bind(this, event), { passive: true })
+    }
+  }
+
+  static addDblClickListener (element, event) {
+    element.addEventListener('dblclick', this.dblClickListener.bind(this, event), { passive: true })
+  }
+
+  static addGenericListener (element, event, eventName) {
+    element.addEventListener(eventName, this.genericListener.bind(this, event), { passive: true })
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/custom-pointer-events/swipe.js":
+/*!********************************************!*\
+  !*** ./lib/custom-pointer-events/swipe.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Swipe; });
+/* harmony import */ var _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pointer-evt.js */ "./lib/custom-pointer-events/pointer-evt.js");
+/* harmony import */ var _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../log/html-console.js */ "./lib/log/html-console.js");
+
+
+
+class Swipe extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor (element, evtHandler, mvmntThreshold = 100, durationThreshold = 600) {
+    super()
+    this.element = element
+    this.evtHandler = evtHandler
+
+    this.mvmntThreshold = mvmntThreshold
+    this.durationThreshold = durationThreshold
+    this.direction = Swipe.directions.NONE
+  }
+
+  static excludeCpeTest (dataset) {
+    return dataset.hasOwnProperty('alphExcludeSwipeCpe')
+  }
+
+  static get directions () {
+    return {
+      UP: 'up',
+      RIGHT: 'right',
+      DOWN: 'down',
+      LEFT: 'left',
+      NONE: 'none'
+    }
+  }
+
+  isDirectedUp () {
+    return this.direction === Swipe.directions.UP
+  }
+
+  isDirectedRight () {
+    return this.direction === Swipe.directions.RIGHT
+  }
+
+  isDirectedDown () {
+    return this.direction === Swipe.directions.DOWN
+  }
+
+  isDirectedLeft () {
+    return this.direction === Swipe.directions.LEFT
+  }
+
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    let completed = false
+    if (this.mvmntXAbs > this.mvmntThreshold || this.mvmntYAbs > this.mvmntThreshold) {
+      // This is a swipe
+      completed = true
+      if (this.mvmntX > this.mvmntThreshold && this.mvmntYAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.RIGHT
+      } else if (-this.mvmntX > this.mvmntThreshold && this.mvmntYAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.LEFT
+      } else if (this.mvmntY > this.mvmntThreshold && this.mvmntXAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.DOWN
+      } else if (-this.mvmntY > this.mvmntThreshold && this.mvmntXAbs < this.mvmntThreshold) {
+        this.direction = Swipe.directions.UP
+      }
+    }
+
+    if (!(this.start.excluded || this.end.excluded)) {
+      _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Swipe (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
+        `direction: ${this.direction}, duration: ${this.duration}`)
+    }
+    return completed && !this.start.excluded && !this.end.excluded
+  }
+
+  static listen (selector, evtHandler, mvmntThreshold, durationThreshold) {
+    let elements = document.querySelectorAll(selector)
+    for (const element of elements) {
+      this.addUpDownListeners(element, new this(element, evtHandler, mvmntThreshold, durationThreshold))
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/l10n/l10n.js":
+/*!**************************!*\
+  !*** ./lib/l10n/l10n.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return L10n; });
+/* harmony import */ var _message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message-bundle */ "./lib/l10n/message-bundle.js");
+
+
+/**
+ * Combines several message bundles of different locales.
+ */
+class L10n {
+  constructor () {
+    this.selectedLocale = undefined // A locale that currently selected
+    this.bundles = new Map() // Maps message bundles to their locales
+    return this
+  }
+
+  /**
+   * Adds, or appends, one or several messages for a locale specified.
+   * This method is chainable.
+   * @param {string} messageJSON - Messages in a JSON string
+   * @param {string} locale - A locale of the messages
+   * @return {L10n} - Self reference (for chaining)
+   */
+  addMessages (messageJSON, locale) {
+    let messageBundle
+    if (this.bundles.has(locale)) {
+      messageBundle = this.bundles.get(locale)
+      messageBundle.appendFromJSON(messageJSON)
+    } else {
+      messageBundle = new _message_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](messageJSON, locale)
+      this.addMessageBundle(messageBundle)
+    }
+    return this
+  }
+
+  /**
+   * Adds a message bundle to a L10n object. If selected locale is not set, sets it to the locale of the message bundle.
+   * This function is chainable.
+   * @param {MessageBundle} messageBundle - A message bundle that will be stored within an L10n object.
+   * @return {L10n} - Returns self for chaining.
+   */
+  addMessageBundle (messageBundle) {
+    this.bundles.set(messageBundle.locale, messageBundle)
+    if (!this.selectedLocale) {
+      this.setLocale(messageBundle.locale)
+    }
+    return this
+  }
+
+  /**
+   * Returns an array of locales supported by the L10n object.
+   * @return {string[]}
+   */
+  get locales () {
+    return Array.from(this.bundles.keys())
+  }
+
+  /**
+   * Returns a message bundle for a currently selected locale
+   * @return {MessageBundle | undefined} A message bundle object or undefined if selectedLocale is not set
+   */
+  get bundle () {
+    return this.bundles.get(this.selectedLocale)
+  }
+
+  /**
+   *
+   * @return {Object} - An object containing message objects as property values.
+   * The name of the property is a message key.
+   */
+  get messages () {
+    return this.bundles.has(this.selectedLocale) ? this.bundles.get(this.selectedLocale).messages : {}
+  }
+
+  /**
+   * Sets, or switches a locale that is currently selected. If message bundle for such locale
+   * does not exist, does nothing.
+   * This method is chainable.
+   * @param {string} locale - A locale to be set as currently selected.
+   * @return {L10n} Reference to self for chaining
+   */
+  setLocale (locale) {
+    if (this.bundles.has(locale)) {
+      this.selectedLocale = locale
+    } else {
+      console.error(`Cannot set locale to "${locale}" because there is no message bundle for it`)
+    }
+    return this
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/l10n/message-bundle.js":
+/*!************************************!*\
+  !*** ./lib/l10n/message-bundle.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MessageBundle; });
+/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message.js */ "./lib/l10n/message.js");
+
+// TODO: Deal with situations when message is not available, but is requested
+
+/**
+ * Combines messages with the same locale code into a single message bundle.
+ */
+class MessageBundle {
+  /**
+   * Creates a message bundle (a list of messages) for a locale.
+   * @param {String} messagesJSON - Messages for a locale as a JSON string or as an object.
+   * @param {string} locale - A locale code for a message group. IETF language tag format is recommended.
+   */
+  constructor (messagesJSON, locale) {
+    if (!locale) {
+      throw new Error('Locale data is missing')
+    }
+    if (!messagesJSON) {
+      throw new Error('Message data is missing')
+    }
+
+    this._locale = locale
+    /**
+     * An object whose properties are messages. Each message has a get() method and,
+     * if a message has any parameters, a format() method.
+     * @type {{get: Function, [format]: Function}}
+     */
+    this.messages = {}
+
+    let messages = (typeof messagesJSON === 'string') ? JSON.parse(messagesJSON) : messagesJSON
+    this.append(messages)
+  }
+
+  /**
+   * Appends a series of messages from a JSON string
+   * @param {string} messagesJSON - A JSON string
+   */
+  appendFromJSON (messagesJSON) {
+    let messages = JSON.parse(messagesJSON)
+    this.append(messages)
+  }
+
+  /**
+   * Appends a series of messages from an object. Object properties are message names, and
+   * values are message objects.
+   * @param {object} messages - An object containing messages.
+   */
+  append (messages) {
+    for (const [key, messageObj] of Object.entries(messages)) {
+      if (!this.hasOwnProperty(key)) {
+        let message = new _message_js__WEBPACK_IMPORTED_MODULE_0__["default"](messageObj, this._locale)
+        this[key] = message
+        message.defineProperties(this.messages, key)
+      } else {
+        console.warn(`A key name "${key}" is reserved or already used. A message will be ignored"`)
+      }
+    }
+  }
+
+  /**
+   * Returns a (formatted) message for a message ID provided.
+   * @param messageID - An ID of a message.
+   * @param options - Options that can be used for message formatting in the following format:
+   * {
+   *     paramOneName: paramOneValue,
+   *     paramTwoName: paramTwoValue
+   * }.
+   * @returns {string} A formatted message. If message not found, returns a message that contains an error text.
+   */
+  get (messageID, options = undefined) {
+    if (this[messageID]) {
+      if (typeof this[messageID].format === 'function') {
+        return this[messageID].format(options)
+      } else {
+        return this[messageID]
+      }
+    } else {
+      // If message with the ID provided is not in translation data, generate a warning.
+      return `Not in translation data: "${messageID}"`
+    }
+  }
+
+  /**
+   * Returns a locale of a current message bundle.
+   * @return {string} A locale of this message bundle.
+   */
+  get locale () {
+    return this._locale
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/l10n/message.js":
+/*!*****************************!*\
+  !*** ./lib/l10n/message.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Message; });
+/* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat */ "intl-messageformat");
+/* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(intl_messageformat__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Represents a single message object
+ */
+class Message {
+  /**
+   * Creates a new Message object.
+   * @param {object} message - A message object as read from JSON file.
+   * @param {string} locale - A message's locale.
+   */
+  constructor (message, locale) {
+    if (!locale) {
+      throw new Error('Locale data is missing')
+    }
+    if (!message) {
+      throw new Error('Message data is missing')
+    }
+
+    this.locale = locale
+    for (const key of Object.keys(message)) {
+      this[key] = message[key]
+    }
+
+    this.formatFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(message.message, this.locale)
+  }
+
+  /**
+   * Whether this message has any parameters or not.
+   * @return {boolean} True if message has any parameters, false otherwise.
+   */
+  get hasParameters () {
+    return !!(this.params && Array.isArray(this.params) && this.params.length > 0)
+  }
+
+  /**
+   * Defines getter methods on an object of messages.
+   * @param {object} messages - On object where messages will be stored. Each property corresponds to a message key.
+   *        Each property will have a getter function defined (will return a formatted message), and,
+   *        for messages with parameters, a format(function).
+   *        `messages` object usually comes from a MessageBundle object.
+   * @param {string} key - A message key, a name of a message.
+   * @return {undefined} Has no return value.
+   */
+  defineProperties (messages, key) {
+    let self = this
+
+    if (this.hasParameters) {
+      messages[key] = {
+        format (options) {
+          return self.formatFunc.format(options)
+        },
+        get (...options) {
+          let params = {}
+          // TODO: Add checks
+          for (let [index, param] of self.params.entries()) {
+            params[param] = options[index]
+          }
+          return self.formatFunc.format(params)
+        }
+      }
+    } else {
+      Object.defineProperty(messages, key, {
+        get () {
+          return self.formatFunc.format()
+        },
+        enumerable: true,
+        configurable: true // So it can be deleted
+      })
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/log/html-console.js":
+/*!*********************************!*\
+  !*** ./lib/log/html-console.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HTMLConsole; });
+let instance = null
+
+class HTMLConsole {
+  constructor (selector = null, enabled = true) {
+    this.selector = selector || this.constructor.defs.consoleSel
+    this.enabled = enabled
+
+    this.node = document.querySelector(this.selector)
+    if (!this.node) {
+      console.warn(`Cannot find HTML console node "${this.selector}". Console will be disabled`)
+      this.enabled = false
+    }
+  }
+
+  static get defs () {
+    return {
+      consoleSel: '#alpheios-html-console',
+      entryClNm: 'alpheios-html-console-entry',
+      separatorClNm: 'alpheios-html-console-separator'
+    }
+  }
+
+  static createInstance (selector, enabled) {
+    instance = new HTMLConsole(selector, enabled)
+    return instance
+  }
+
+  static get instance () {
+    if (!instance) {
+      instance = new HTMLConsole()
+    }
+    return instance
+  }
+
+  log (message) {
+    if (this.enabled) {
+      this.node.innerHTML += `<div class="${this.constructor.defs.entryClNm}">${message}</div>`
+      this.node.scrollTop = this.node.scrollHeight // Scroll to bottom
+    }
+  }
+
+  separator () {
+    if (this.enabled) {
+      this.node.innerHTML += `<div class="${this.constructor.defs.separatorClNm}"></div>`
+      this.node.scrollTop = this.node.scrollHeight // Scroll to bottom
+    }
+  }
+
+  clear () {
+    let records = this.node.querySelectorAll(`.${this.constructor.defs.entryClNm}, ${this.constructor.defs.separatorClNm}`)
+    for (let record of records) {
+      this.node.removeChild(record)
+    }
+  }
+
+  enable (enabled) {
+    if (enabled) {
+      this.show()
+    } else {
+      this.hide()
+    }
+  }
+
+  show () {
+    if (this.node && !this.enabled) {
+      this.node.style.display = 'block'
+      this.enabled = true
+    }
+  }
+
+  hide () {
+    if (this.node && this.enabled) {
+      this.node.style.display = 'none'
+      this.enabled = false
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/log/logger.js":
+/*!***************************!*\
+  !*** ./lib/log/logger.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Logger; });
+/**
+ * A simple proxy for the console log functionality
+ */
+class Logger {
+  /**
+   * get a proxied logger object
+   * (if not in verbose mode, only errors will be allowed through)
+   * @param {boolean} verbose - set to true for verbose logging
+   */
+  static getLogger (verbose = false) {
+    return {
+      log: (...data) => {
+        if (verbose) {
+          console.log(...data)
+        }
+      },
+      warn: (...data) => {
+        if (verbose) {
+          console.warn(...data)
+        }
+      },
+      error: (...data) => {
+        console.error(...data)
+      },
+      info: (...data) => {
+        if (verbose) {
+          console.info(...data)
+        }
+      }
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/defaults-loader.js":
+/*!****************************************!*\
+  !*** ./lib/options/defaults-loader.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DefaultsLoader; });
+class DefaultsLoader {
+  static fromJSON (jsonString) {
+    try {
+      return JSON.parse(jsonString)
+    } catch (err) {
+      console.error(`Unable to parse JSON options string:`, err)
+      return {}
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/extension-sync-storage.js":
+/*!***********************************************!*\
+  !*** ./lib/options/extension-sync-storage.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ExtensionSyncStorage; });
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./storage-adapter.js */ "./lib/options/storage-adapter.js");
+/* global browser */
+
+
+/**
+ * An implementation of a StorageAdapter interface for an extension synchronized storage.
+ */
+class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /**
+   * A wrapper around a `browser.storage.sync.set()` of webextension.
+   * It allows to store one or several key-value pairs to local storage.
+   * @param {object} keysObject - An object containing one or more key/value pairs to be stored in storage.
+   * If a particular item already exists, its value will be updated.
+   * @return {Promise} - A promise that is resolved with with a void value if all key/value pairs are stored
+   * successfully. If at least on save operation fails, returns a rejected promise with an error information.
+   */
+  set (keysObject) {
+    return browser.storage.sync.set(keysObject)
+  }
+
+  /**
+   * A wrapper around a `browser.storage.sync.get()` of webextension. It retrieves one or several values from
+   * local storage.
+   * @param {string | Array | object | null | undefined } keys - A key (string)
+   * or keys (an array of strings or an object) to identify the item(s) to be retrieved from storage.
+   * If you pass an empty string, object or array here, an empty object will be retrieved. If you pass null,
+   * or an undefined value, the entire storage contents will be retrieved.
+   * @return {Promise} A Promise that will be fulfilled with a results object containing key-value pairs
+   * found in the storage area. If this operation failed, the promise will be rejected with an error message.
+   */
+  get (keys = undefined) {
+    return browser.storage.sync.get(keys)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/local-storage-area.js":
+/*!*******************************************!*\
+  !*** ./lib/options/local-storage-area.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LocalStorageArea; });
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./storage-adapter.js */ "./lib/options/storage-adapter.js");
+
+
+/**
+ * An implementation of a StorageAdapter interface for a local storage.
+ */
+class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  /**
+   * A wrapper around a local storage `setItem()` function.
+   * It allows to store one or several key-value pairs to local storage.
+   * @param {object} keysObject - An object containing one or more key/value pairs to be stored in storage.
+   * If a particular item already exists, its value will be updated.
+   * @return {Promise} - A promise that is resolved with with a void value if all key/value pairs are stored
+   * successfully. If at least on save operation fails, returns a rejected promise with an error information.
+   */
+  set (keysObject) {
+    return new Promise((resolve, reject) => {
+      try {
+        let keys = window.localStorage.getItem(`${this.domain}-keys`)
+        if (keys) {
+          keys = JSON.parse(keys)
+        } else {
+          keys = [] // No keys in storage yet
+        }
+        for (const [key, value] of Object.entries(keysObject)) {
+          window.localStorage.setItem(key, value)
+          if (!keys.includes(key)) {
+            keys.push(key)
+          }
+        }
+        // Save a list of keys to the local storage
+        window.localStorage.setItem(`${this.domain}-keys`, JSON.stringify(keys))
+      } catch (e) {
+        reject(e)
+      }
+      resolve()
+    })
+  }
+
+  /**
+   * A wrapper around a local storage `removeItem()` function.
+   * It allows to remove one key-value pair from local storage.
+   * @param {String} key - key of the item to be removed.
+   * If a particular item exists, it will be removed.
+   * @return {Promise} - A promise that is resolved with with true if a key was removed
+   * successfully. If at least on save operation fails, returns a rejected promise with an error information.
+   */
+  remove (key) {
+    return new Promise((resolve, reject) => {
+      try {
+        let result = null
+        if (key) {
+          let keys = window.localStorage.getItem(`${this.domain}-keys`)
+          if (keys) {
+            keys = JSON.parse(keys)
+
+            let index = keys.indexOf(key)
+            if (index !== -1) { keys.splice(index, 1) }
+
+            window.localStorage.setItem(`${this.domain}-keys`, JSON.stringify(keys))
+            window.localStorage.removeItem(key)
+            resolve(true)
+          } else {
+            // Nothing to retrieve
+            console.log(`Unable to retrieve data for "${this.domain}" storage domain because no keys provided or no keys listed in local storage. ` +
+              `This might be normal for devices where no data is saved to the local storage yet`)
+            resolve(result)
+          }
+        }
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  /**
+   * A wrapper around a local storage `getItem()` function. It retrieves one or several values from
+   * local storage.
+   * @param {string | Array | object | null | undefined } keys - A key (string)
+   * or keys (an array of strings or an object) to identify the item(s) to be retrieved from storage.
+   * If you pass an empty string, object or array here, an empty object will be retrieved. If you pass null,
+   * or an undefined value, the entire storage contents will be retrieved.
+   * @return {Promise} A Promise that will be fulfilled with a results object containing key-value pairs
+   * found in the storage area. If this operation failed, the promise will be rejected with an error message.
+   */
+  get (keys = undefined) {
+    return new Promise((resolve, reject) => {
+      try {
+        if (!keys) {
+          keys = []
+        } else if (Array.isArray(keys) && keys.length === 0) {
+          keys = []
+        } else if (typeof keys === 'string') {
+          keys = [keys]
+        } else if (typeof keys === 'object') {
+          keys = Object.keys(keys)
+        } else {
+          keys = []
+        }
+
+        let result = {}
+        if (keys.length === 0) {
+          // If no keys specified, will retrieve all values
+          keys = window.localStorage.getItem(`${this.domain}-keys`)
+          if (keys) {
+            keys = JSON.parse(keys)
+          } else {
+            // Nothing to retrieve
+            console.log(`Unable to retrieve data for "${this.domain}" storage domain because no keys provided or no keys listed in local storage. ` +
+              `This might be normal for devices where no data is saved to the local storage yet`)
+            resolve(result)
+          }
+        }
+
+        for (const key of keys) {
+          result[key] = window.localStorage.getItem(key)
+        }
+
+        resolve(result)
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/options-item.js":
+/*!*************************************!*\
+  !*** ./lib/options/options-item.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OptionItem; });
+/**
+ * A single option item with access methods.
+ */
+class OptionItem {
+  constructor (item, key, storageAdapter) {
+    if (!item) {
+      throw new Error(`Item cannot be empty`)
+    }
+    if (!key) {
+      throw new Error(`Key cannot be empty`)
+    }
+    if (!storageAdapter) {
+      throw new Error(`Storage adapter object should be provided`)
+    }
+    for (const key of Object.keys(item)) {
+      this[key] = item[key]
+    }
+    this.currentValue = this.defaultValue
+    this.name = key
+    this.storageAdapter = storageAdapter
+  }
+
+  textValues () {
+    return this.values.map(value => value.text)
+  }
+
+  currentTextValue () {
+    let currentTextValue = []
+    for (let value of this.values) {
+      if (this.multiValue) {
+        if (this.currentValue.includes(value.value)) { currentTextValue.push(value.text) }
+      } else {
+        if (value.value === this.currentValue) {
+          currentTextValue = value.text
+        }
+      }
+    }
+    return currentTextValue
+  }
+
+  addValue (value, text) {
+    this.values.push({ value: value, text: text })
+    return this
+  }
+
+  setValue (value) {
+    this.currentValue = value
+    this.save()
+    return this
+  }
+
+  setTextValue (textValue) {
+    this.currentValue = this.multiValue ? [] : ''
+    for (let value of this.values) {
+      if (this.multiValue) {
+        for (let tv of textValue) {
+          if (value.text === tv) { this.currentValue.push(value.value) }
+        }
+      } else {
+        if (value.text === textValue) { this.currentValue = value.value }
+      }
+    }
+    this.save()
+    return this
+  }
+
+  removeItem () {
+    this.currentValue = null
+    this.storageAdapter.remove(this.name).then(
+      () => {
+        // Options storage succeeded
+        console.log(`Item "${this.name}" was removed from storage successfully`)
+      },
+      (errorMessage) => {
+        console.error(`Removeing an option failed: ${errorMessage}`)
+      }
+    )
+  }
+
+  /**
+   * Saves an option value to the local storage.
+   */
+  save () {
+    let option = {}
+    option[this.name] = JSON.stringify(this.currentValue)
+
+    this.storageAdapter.set(option).then(
+      () => {
+        // Options storage succeeded
+        console.log(`Value "${this.currentValue}" of "${this.name}" option value was stored successfully`)
+      },
+      (errorMessage) => {
+        console.error(`Storage of an option value failed: ${errorMessage}`)
+      }
+    )
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/options.js":
+/*!********************************!*\
+  !*** ./lib/options/options.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Options; });
+/* harmony import */ var _options_item_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options-item.js */ "./lib/options/options-item.js");
+
+/**
+ * A set of options grouped by domain. Domain name should be passed in `defaults.domain`.
+ */
+class Options {
+  /**
+   * Options is a class which encapsulates defaults and user preferences
+   * @param {Object} defaults - defaults for the instance of the class.
+   * Use DefaultsLoader class to convert defaults data from different sources.
+   * Mandatory fields:
+   *    {string} domain - A domain name that defines options context
+   *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
+   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
+   */
+  constructor (defaults = null, StorageAdapter = null) {
+    if (defaults !== null && (!defaults.domain || !defaults.items)) {
+      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+    }
+    // if defaults aren't provided, properties need to be initialized separately
+    if (defaults !== null && StorageAdapter !== null) {
+      this.storageAdapter = new StorageAdapter(defaults.domain)
+      this.domain = defaults.domain
+      for (const key of Object.keys(defaults)) {
+        this[key] = defaults[key]
+      }
+      this.items = Options.initItems(this.items, this.storageAdapter)
+    }
+  }
+
+  static initItems (defaults, storageAdapter) {
+    let items = {}
+    for (let [option, value] of Object.entries(defaults)) {
+      if (value.group) {
+        items[option] = []
+        for (let [key, item] of Object.entries(value.group)) {
+          items[option].push(new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](item, `${option}-${key}`, storageAdapter))
+        }
+      } else {
+        items[option] = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](value, option, storageAdapter)
+      }
+    }
+    return items
+  }
+
+  /**
+   * Clone an existing Options object applying a new StorageAdapter
+   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
+   * @return {Options} the cloned Options object
+   */
+  clone (StorageAdapter) {
+    let obj = new Options(null, null)
+    obj.storageAdapter = new StorageAdapter(this.domain)
+    obj.domain = this.domain
+    obj.items = {}
+    for (let item of this.names) {
+      if (Array.isArray(this.items[item])) {
+        obj.items[item] = []
+        for (let option of this.items[item]) {
+          obj.items[item].push(new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](JSON.parse(JSON.stringify(option)), option.name, obj.storageAdapter))
+        }
+      } else {
+        obj.items[item] = new _options_item_js__WEBPACK_IMPORTED_MODULE_0__["default"](JSON.parse(JSON.stringify(this.items[item])), item, obj.storageAdapter)
+      }
+    }
+    return obj
+  }
+
+  get names () {
+    return Object.keys(this.items)
+  }
+
+  /**
+   * Will always return a resolved promise.
+   */
+  load (callbackFunc) {
+    this.storageAdapter.get().then(
+      values => {
+        for (let key in values) {
+          if (this.items.hasOwnProperty(key)) {
+            let value
+            try {
+              value = JSON.parse(values[key])
+            } catch (e) {
+              // backwards compatibility
+              value = values[key]
+            }
+            this.items[key].currentValue = value
+          } else {
+            let keyinfo = this.parseKey(key)
+            if (this.items.hasOwnProperty(keyinfo.setting)) {
+              this.items[keyinfo.setting].forEach((f) => {
+                if (f.name === key) {
+                  try {
+                    f.currentValue = JSON.parse(values[key])
+                  } catch (e) {
+                    // backwards compatibility
+                    f.currentValue = values[key]
+                  }
+                }
+              })
+            }
+          }
+        }
+        callbackFunc(this)
+      },
+      error => {
+        console.error(`Cannot retrieve options for Alpheios extension from a local storage: ${error}. Default values
+          will be used instead`, error)
+        callbackFunc(this)
+      }
+    )
+  }
+
+  /**
+  * Parse a stored setting name into its component parts
+  * (for simplicity of the data structure, setting names are stored under
+  * keys which combine the setting and the language)
+  */
+  parseKey (name) {
+    let [setting, group] = name.split('-', 2)
+    return {
+      setting: setting,
+      group: group
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/options/storage-adapter.js":
+/*!****************************************!*\
+  !*** ./lib/options/storage-adapter.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+>>>>>>> master
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -34125,7 +36781,11 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+<<<<<<< HEAD
 module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :translations=\"translations\"\r\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\" :classes-changed=\"classesChanged\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-games\" data-alpheios-ignore=\"all\">\r\n    <component \r\n      v-bind:is=\"currentGamesComponents\"\r\n\r\n      :data=\"gamesData\"\r\n      :homonym=\"homonym\"\r\n      :visible=\"visible\"\r\n      \r\n      @close=\"close\"\r\n    ></component>\r\n</div>\r\n";
+=======
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :visible=\"visible\" :lexemes=\"lexemes\" :translations=\"translations\"\r\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\r\n           :data=\"popupData\" @close=\"close\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @close=\"close\" @closenotifications=\"clearNotifications\" :classes-changed=\"classesChanged\"\r\n           @setposition=\"setPositionTo\" @settingchange=\"settingChange\" @resourcesettingchange=\"resourceSettingChange\"\r\n           @ui-option-change=\"uiOptionChange\" @changetab=\"changeTab\">\r\n    </component>\r\n</div>\r\n";
+>>>>>>> master
 
 /***/ }),
 
