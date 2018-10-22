@@ -344,10 +344,7 @@
 
       treebankTabVisible: function() {
         // Inform treebank component about visibility state change
-        if (this.data && this.data.treebankComponentData) {
-          this.data.treebankComponentData.visible = this.data.tabs.treebank
-        }
-        return this.data.tabs.treebank
+        return this.data.treebankComponentData.visible
       },
 
       additionalStylesTootipCloseIcon: function () {
