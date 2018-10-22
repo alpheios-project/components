@@ -8810,6 +8810,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -13421,7 +13423,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
-          _vm._v("Present System of Contract Verbs (-εω, -αω, -οω)")
+          _vm._v("Athematic Perfects")
         ]),
         _vm._v(" "),
         _c("wide-table", {
@@ -13437,6 +13439,38 @@ var render = function() {
             interaction: _vm.inflTableInteraction
           }
         }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.greekParadigmView({ paradigmID: "verbpdgm17b" }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: {
+            widthchange: _vm.inflTableWidthUpd,
+            interaction: _vm.inflTableInteraction
+          }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.greekParadigmView({ paradigmID: "verbpdgm17c" }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: {
+            widthchange: _vm.inflTableWidthUpd,
+            interaction: _vm.inflTableInteraction
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
+          _vm._v("Present System of Contract Verbs (-εω, -αω, -οω)")
+        ]),
         _vm._v(" "),
         _c("wide-table", {
           attrs: {
@@ -13563,10 +13597,6 @@ var render = function() {
             interaction: _vm.inflTableInteraction
           }
         }),
-        _vm._v(" "),
-        _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
-          _vm._v("Second Aorist of βαίνω, γιγνώσκω, ἁλίσκομαι, δύω")
-        ]),
         _vm._v(" "),
         _c("wide-table", {
           attrs: {
