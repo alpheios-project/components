@@ -899,11 +899,9 @@ export default class UIController {
   updateWordAnnotationData (data) {
     if (data && data.treebank) {
       this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
-      this.panel.panelData.treebankComponentData.visible = true
       this.popup.popupData.hasTreebank = data.treebank.word
     } else {
       this.panel.panelData.treebankComponentData.data.word = {}
-      this.panel.panelData.treebankComponentData.visible = false
       this.popup.popupData.hasTreebank = false
     }
   }

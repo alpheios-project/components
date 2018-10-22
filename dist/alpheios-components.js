@@ -10845,19 +10845,18 @@ __webpack_require__.r(__webpack_exports__);
       return this.data.tabs.inflections
     },
 
-    treebankTabPossible: function() {
+    treebankTabAvailable: function() {
       // treebank data is possible if we have it for the word or the page
       return this.data && (this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src) ? true : false
     },
 
     treebankTabVisible: function() {
       // Inform treebank component about visibility state change
-      /*
-      if (this.data && this.data.treebankComponentData) {
+      if (this.data && this.data.treebankComponentData && this.data.treebankComponentData.data && 
+          (this.data.treebankComponentData.data.word.src || (this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.res))
+        ) {
         this.data.treebankComponentData.visible = this.data.tabs.treebank
-      }
-      return this.data.tabs.treebank
-      */
+      } 
       return this.data.treebankComponentData.visible
     },
 
@@ -16310,8 +16309,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.treebankTabVisible,
-                        expression: "treebankTabVisible"
+                        value: _vm.treebankTabAvailable,
+                        expression: "treebankTabAvailable"
                       }
                     ],
                     attrs: {
@@ -30700,11 +30699,9 @@ class UIController {
   updateWordAnnotationData (data) {
     if (data && data.treebank) {
       this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
-      this.panel.panelData.treebankComponentData.visible = true
       this.popup.popupData.hasTreebank = data.treebank.word
     } else {
       this.panel.panelData.treebankComponentData.data.word = {}
-      this.panel.panelData.treebankComponentData.visible = false
       this.popup.popupData.hasTreebank = false
     }
   }
