@@ -344,12 +344,10 @@
 
       treebankTabVisible: function() {
         // Inform treebank component about visibility state change
-        if (this.data && this.data.treebankComponentData && this.data.treebankComponentData.data && 
-            (this.data.treebankComponentData.data.word.src || (this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.res))
-          ) {
+        if (this.data && this.data.treebankComponentData && this.data.treebankComponentData.data) {
           this.data.treebankComponentData.visible = this.data.tabs.treebank
         } 
-        return this.data.treebankComponentData.visible
+        return this.data.tabs.treebank
       },
 
       additionalStylesTootipCloseIcon: function () {
