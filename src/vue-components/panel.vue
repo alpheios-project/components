@@ -339,7 +339,9 @@
 
       treebankTabAvailable: function() {
         // treebank data is possible if we have it for the word or the page
-        return this.data && (this.data.treebankComponentData.data.page.src || this.data.treebankComponentData.data.word.src) ? true : false
+        return this.data && this.data.treebankComponentData && this.data.treebankComponentData.data && 
+              ((this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.src) || 
+               (this.data.treebankComponentData.data.word && this.data.treebankComponentData.data.word.src)) ? true : false
       },
 
       treebankTabVisible: function() {
