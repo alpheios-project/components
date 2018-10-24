@@ -8812,6 +8812,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -13850,6 +13851,20 @@ var render = function() {
         _c("wide-table", {
           attrs: {
             view: _vm.greekParadigmView({ paradigmID: "verbpdgm43" }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: {
+            widthchange: _vm.inflTableWidthUpd,
+            interaction: _vm.inflTableInteraction
+          }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.greekParadigmView({ paradigmID: "verbpdgm43b" }),
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
