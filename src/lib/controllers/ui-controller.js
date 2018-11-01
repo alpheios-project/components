@@ -1,5 +1,9 @@
-/* global Node, Event */
+/* global Event */
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
+import { AlpheiosTuftsAdapter } from 'alpheios-morph-client'
+import { Lexicons } from 'alpheios-lexicon-client'
+import { Grammars } from 'alpheios-res-client'
+import { LemmaTranslations } from 'alpheios-lemma-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
@@ -9,14 +13,24 @@ import Panel from '@/vue-components/panel.vue'
 // A popup component
 import Popup from '@/vue-components/popup.vue'
 
-import L10n from '@/lib/l10n/l10n'
-import Locales from '@/locales/locales'
+import L10n from '@/lib/l10n/l10n.js'
+import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 import Template from '@/templates/template.htmlf'
-import { Grammars } from 'alpheios-res-client'
-import ResourceQuery from '@/lib/queries/resource-query'
-
+import LexicalQuery from '@/lib/queries/lexical-query.js'
+import ResourceQuery from '@/lib/queries/resource-query.js'
+import AnnotationQuery from '@/lib/queries/annotation-query.js'
+import SiteOptions from '@/settings/site-options.json'
+import ContentOptionDefaults from '@/settings/content-options-defaults.json'
+import UIOptionDefaults from '@/settings/ui-options-defaults.json'
+import HTMLSelector from '@/lib/selection/media/html-selector.js'
+import HTMLPage from '@/lib/utility/html-page.js'
+import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
+import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
+import LongTap from '@/lib/custom-pointer-events/long-tap.js'
+import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
+import Options from '@/lib/options/options.js'
 import { GamesController } from 'alpheios-inflection-games'
 
 const languageNames = new Map([
@@ -25,16 +39,28 @@ const languageNames = new Map([
   [Constants.LANG_ARABIC, 'Arabic'],
   [Constants.LANG_PERSIAN, 'Persian'],
   [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
-
 ])
 
 export default class UIController {
   /**
    * @constructor
-   * @param {UIStateAPI} state - State object for the parent application
-   * @param {Options} options - content options (see `src/setting/content-options-defaults.js`)
-   * @param {Options} resourceOptions - resource options (see `src/setting/language-options-defaults.js`)
-   * @param {Options} uiOptions - UI options (see `src/setting/ui-options-defaults.js`)
+   * @param {UIStateAPI} state - An object to store a UI state.
+   * @param {Object} storageAdapter - A storage adapter for storing options (see `lib/options`). Is environment dependent.
+   * @param {Object} options - UI controller options, an object with the following props
+   * (if not specified, will be set to default):
+   *     {boolean} openPanel - whether to open panel when UI controller is activated. Default: panelOnActivate of uiOptions.
+   *     {string} textQueryTrigger - what event will start a lexical query on a selected text. Possible values are
+   *     (see custom pointer events library for more details):
+   *         'dblClick' - MouseDblClick pointer event will be used;
+   *         'longTap' - LongTap pointer event will be used;
+   *         genericEvt - if trigger name other than above specified, it will be treated as a GenericEvt pointer event
+   *             with the name of the event being the value of this filed;
+   *             This name will be passed to the GenericEvt pointer event object;
+   *         'none' - do not register any trigger. This will allow a UIController owner to
+   *         register its own custom trigger and listener.
+   *         Default value: 'dblClick'.
+   *     {string} textQuerySelector - an area(s) on a page where a trigger event will start a lexical query. This is
+   *     a standard CSS selector. Default value: 'body'.
    * @param {Object} manifest - parent application info details  (API definition pending)
    * In some environments manifest data may not be available. Then a `{}` default value
    * will be used.
@@ -47,12 +73,27 @@ export default class UIController {
    *                            popupComponent: Vue single file component of a panel element.
    *                              Allows to provide an alternative popup layout
    */
-  constructor (state, options, resourceOptions, uiOptions, manifest = {}, template = {}) {
+  constructor (state, storageAdapter, options = {}, manifest = {}, template = {}) {
     this.state = state
-    this.options = options
-    this.resourceOptions = resourceOptions
-    this.uiOptions = uiOptions
-    this.settings = UIController.settingValues
+    this.storageAdapter = storageAdapter
+    this.contentOptions = new Options(ContentOptionDefaults, this.storageAdapter)
+    this.resourceOptions = new Options(LanguageOptionDefaults, this.storageAdapter)
+    this.uiOptions = new Options(UIOptionDefaults, this.storageAdapter)
+    this.siteOptions = null // Will be set during an `init` phase
+
+    // Default values for options
+    const optionsDefaults = {
+      openPanel: this.uiOptions.items.panelOnActivate.currentValue,
+      textQueryTrigger: 'dblClick',
+      textQuerySelector: 'body',
+      uiTypePanel: 'panel',
+      uiTypePopup: 'popup',
+      verboseMode: 'verbose',
+      enableLemmaTranslations: false
+    }
+
+    this.options = Object.assign({}, optionsDefaults, options)
+
     this.irregularBaseFontSizeClassName = 'alpheios-irregular-base-font-size'
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.manifest = manifest
@@ -73,23 +114,48 @@ export default class UIController {
     }
 
     this.template = Object.assign(templateDefaults, template)
-    this.inflectionsViewSet = null // Holds inflection tables ViewSet
+    this.isInitialized = false
+    this.isActivated = false
+    this.isDeactivated = false
 
-    this.zIndex = this.getZIndexMax()
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
+  }
+
+  static get defaults () {
+    return {
+      irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size'
+    }
+  }
+
+  async init () {
+    if (this.isInitialized) { return `Already initialized` }
+    // Start loading options as early as possible
+    let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
+    this.siteOptions = this.loadSiteOptions()
+
+    this.zIndex = HTMLPage.getZIndexMax()
 
     this.l10n = new L10n()
       .addMessages(enUS, Locales.en_US)
       .addMessages(enGB, Locales.en_GB)
       .setLocale(Locales.en_US)
 
+    // Will add morph adapter options to the `options` object of UI controller constructor as needed.
+    this.maAdapter = new AlpheiosTuftsAdapter() // Morphological analyzer adapter, with default arguments
+
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
     let container = document.createElement('div')
     document.body.insertBefore(container, null)
     container.outerHTML = this.template.html
+
+    await Promise.all(optionLoadPromises)
+    // All options shall be loaded at this point. Can initialize Vue components that will use them
+
     // Initialize components
 
     this.games = new GamesController(this.template.draggable)
+    this.games.updateLocale(this.contentOptions.items.locale.currentValue)
 
     this.panel = new Vue({
       el: `#${this.template.panelId}`,
@@ -105,7 +171,7 @@ export default class UIController {
             info: true,
             treebank: false
           },
-          verboseMode: this.state.verboseMode,
+          verboseMode: this.options.verboseMode,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
@@ -146,7 +212,7 @@ export default class UIController {
             selectedText: '',
             languageName: ''
           },
-          settings: this.options.items,
+          settings: this.contentOptions.items,
           treebankComponentData: {
             data: {
               word: {},
@@ -165,7 +231,7 @@ export default class UIController {
           l10n: this.l10n
         },
         state: this.state,
-        options: this.options,
+        options: this.contentOptions,
         resourceOptions: this.resourceOptions,
         currentPanelComponent: this.template.defaultPanelComponent,
         uiController: this,
@@ -381,25 +447,6 @@ export default class UIController {
       }
     })
 
-    this.options.load(() => {
-      this.resourceOptions.load(() => {
-        this.uiOptions.load(() => {
-          this.state.activateUI()
-          console.log('UI options are loaded')
-          document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-
-          const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
-          this.options.items.lookupLangOverride.setValue(false)
-          this.updateLanguage(currentLanguageID)
-          this.games.updateLocale(this.options.items.locale.currentValue)
-
-          this.updateVerboseMode()
-          this.updateLemmaTranslations()
-          this.notifyInflectionBrowser()
-        })
-      })
-    })
-
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.template.popupId}`,
@@ -445,8 +492,8 @@ export default class UIController {
           component to identify a new request coming in and to distinguish it from data updates of the current request.
            */
           requestStartTime: 0,
-          settings: this.options.items,
-          verboseMode: this.state.verboseMode,
+          settings: this.contentOptions.items,
+          verboseMode: this.options.verboseMode,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -476,7 +523,7 @@ export default class UIController {
           }
         },
         panel: this.panel,
-        options: this.options,
+        options: this.contentOptions,
         resourceOptions: this.resourceOptions,
         currentPopupComponent: this.template.defaultPopupComponent,
         uiController: this,
@@ -659,68 +706,95 @@ export default class UIController {
 
     // Set initial values of components
     this.setRootComponentClasses()
-  }
 
-  static get defaults () {
-    return {
-      irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size'
-    }
-  }
+    const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
+    this.contentOptions.items.lookupLangOverride.setValue(false)
+    this.updateLanguage(currentLanguageID)
+    this.updateVerboseMode()
+    this.updateLemmaTranslations()
+    this.notifyInflectionBrowser()
 
-  static get settingValues () {
-    return {
-      uiTypePanel: 'panel',
-      uiTypePopup: 'popup',
-      verboseMode: 'verbose',
-      enableLemmaTranslations: false
-    }
+    this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
+
+    this.isInitialized = true
+
+    return this
   }
 
   /**
-   * Finds a maximal z-index value of elements on a page.
-   * @return {Number}
+   * Activates a UI controller. If `deactivate()` method unloads some resources, we should restore them here.
+   * @returns {Promise<UIController>}
    */
-  getZIndexMax (zIndexDefualt = 2000) {
-    let startTime = new Date().getTime()
-    let zIndex = this.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)
-    let timeDiff = new Date().getTime() - startTime
-    console.log(`Z-index max value is ${zIndex}, calculation time is ${timeDiff} ms`)
+  async activate () {
+    if (this.isActivated) { return `Already activated` }
+    if (this.state.isDisabled()) { return `UI controller is disabled` }
 
-    if (zIndex >= zIndexDefualt) {
-      if (zIndex < Number.POSITIVE_INFINITY) { zIndex++ } // To be one level higher that the highest element on a page
+    if (!this.isInitialized) { await this.init() }
+
+    // Activate listeners
+    if (this.options.textQueryTrigger !== 'none') { this.addTextQueryListener(this.options.textQueryTrigger, this.options.textQuerySelector) }
+    document.addEventListener('keydown', this.handleEscapeKey.bind(this))
+    document.body.addEventListener('Alpheios_Page_Load', this.updateAnnotations.bind(this))
+
+    this.state.activateUI()
+
+    // Update panel on activation
+    if (this.options.openPanel && !this.panel.isOpen()) {
+      /**
+       * Without this, the panel will close immediately after opening.
+       * Probably this is a matter of timing between state updates.
+       * Shall be solved during state refactoring.
+       */
+      setTimeout(() => this.panel.open(), 0)
+    }
+    this.isActivated = true
+    this.isDeactivated = false
+    this.state.activate()
+
+    return this
+  }
+
+  addTextQueryListener (trigger, selector = 'body') {
+    if (trigger === 'dblClick') {
+      MouseDblClick.listen(selector, evt => this.getSelectedText(evt))
+    } else if (trigger === 'longTap') {
+      LongTap.listen(selector, evt => this.getSelectedText(evt))
     } else {
-      zIndex = zIndexDefualt
+      GenericEvt.listen(selector, (evt) => this.getSelectedText(evt), trigger)
     }
-
-    return zIndex
   }
 
   /**
-   * A recursive function that iterates over all elements on a page searching for a highest z-index.
-   * @param {Node} element - A root page element to start scan with (usually `body`).
-   * @param {Number} zIndexMax - A current highest z-index value found.
-   * @return {Number} - A current highest z-index value.
+   * Deactivates a UI controller. May unload some resources to preserve memory.
+   * In this case an `activate()` method will be responsible for restoring them.
+   * @returns {Promise<UIController>}
    */
-  zIndexRecursion (element, zIndexMax) {
-    if (element) {
-      let zIndexValues = [
-        window.getComputedStyle(element).getPropertyValue('z-index'), // If z-index defined in CSS rules
-        element.style.getPropertyValue('z-index') // If z-index is defined in an inline style
-      ]
-      for (const zIndex of zIndexValues) {
-        if (zIndex && zIndex !== 'auto') {
-          // Value has some numerical z-index value
-          zIndexMax = Math.max(zIndexMax, zIndex)
-        }
-      }
-      for (let node of element.childNodes) {
-        let nodeType = node.nodeType
-        if (nodeType === Node.ELEMENT_NODE || nodeType === Node.DOCUMENT_NODE || nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-          zIndexMax = this.zIndexRecursion(node, zIndexMax)
-        }
+  async deactivate () {
+    if (this.isDeactivated) { return `Already deactivated` }
+
+    // TODO: probably need to remove event listeners here
+
+    this.popup.close()
+    this.panel.close()
+    this.isActivated = false
+    this.isDeactivated = true
+    this.state.deactivate()
+
+    return this
+  }
+
+  /**
+   * Load site-specific settings
+   */
+  loadSiteOptions () {
+    let allSiteOptions = []
+    for (let site of SiteOptions) {
+      for (let domain of site.options) {
+        let siteOpts = new Options(domain, this.storageAdapter)
+        allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
-    return zIndexMax
+    return allSiteOptions
   }
 
   static hasRegularBaseFontSize () {
@@ -819,7 +893,9 @@ export default class UIController {
     this.panel.panelData.lexemes = homonym.lexemes
     this.popup.popupData.updates = this.popup.popupData.updates + 1
     this.updateProviders(homonym)
-    this.games.updateHomonym(homonym)
+    if (homonym.lexemes.length > 0) {
+      this.games.updateHomonym(homonym)
+    }
   }
 
   updateProviders (homonym) {
@@ -930,14 +1006,14 @@ export default class UIController {
   }
 
   updateVerboseMode () {
-    this.state.setItem('verboseMode', this.options.items.verboseMode.currentValue === this.settings.verboseMode)
-    this.panel.panelData.verboseMode = this.state.verboseMode
-    this.popup.popupData.verboseMode = this.state.verboseMode
+    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.panel.panelData.verboseMode = this.options.verboseMode
+    this.popup.popupData.verboseMode = this.options.verboseMode
   }
 
   updateLemmaTranslations () {
-    if (this.options.items.enableLemmaTranslations.currentValue && !this.options.items.locale.currentValue.match(/en-/)) {
-      this.state.setItem('lemmaTranslationLang', this.options.items.locale.currentValue)
+    if (this.contentOptions.items.enableLemmaTranslations.currentValue && !this.contentOptions.items.locale.currentValue.match(/en-/)) {
+      this.state.setItem('lemmaTranslationLang', this.contentOptions.items.locale.currentValue)
     } else {
       this.state.setItem('lemmaTranslationLang', null)
     }
@@ -948,7 +1024,8 @@ export default class UIController {
   }
 
   updateInflections (homonym) {
-    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.options.items.locale.currentValue)
+    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.contentOptions.items.locale.currentValue)
+
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
@@ -981,7 +1058,7 @@ export default class UIController {
   }
 
   open () {
-    if (this.options.items.uiType.currentValue === this.settings.uiTypePanel) {
+    if (this.contentOptions.items.uiType.currentValue === this.options.uiTypePanel) {
       this.panel.open()
     } else {
       if (this.panel.isOpen) { this.panel.close() }
@@ -1060,5 +1137,86 @@ export default class UIController {
   changeSkin () {
     // Update skin name in classes
     this.setRootComponentClasses()
+  }
+
+  getSelectedText (event) {
+    if (this.state.isActive() && this.state.uiIsActive()) {
+      /*
+      TextSelector conveys text selection information. It is more generic of the two.
+      HTMLSelector conveys page-specific information, such as location of a selection on a page.
+      It's probably better to keep them separated in order to follow a more abstract model.
+       */
+      let htmlSelector = new HTMLSelector(event, this.contentOptions.items.preferredLanguage.currentValue)
+      let textSelector = htmlSelector.createTextSelector()
+
+      if (!textSelector.isEmpty()) {
+        // TODO: disable experience monitor as it might cause memory leaks
+        /* ExpObjMon.track(
+          LexicalQuery.create(textSelector, {
+            htmlSelector: htmlSelector,
+            uiController: this.ui,
+            maAdapter: this.maAdapter,
+            lexicons: Lexicons,
+            resourceOptions: this.resourceOptions,
+            siteOptions: [],
+            lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.contentOptions.items.locale.currentValue } : null,
+            langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
+          }),
+          {
+            experience: 'Get word data',
+            actions: [
+              { name: 'getData', action: ExpObjMon.actions.START, event: ExpObjMon.events.GET },
+              { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
+            ]
+          })
+          .getData() */
+
+        LexicalQuery.create(textSelector, {
+          htmlSelector: htmlSelector,
+          uiController: this,
+          maAdapter: this.maAdapter,
+          lexicons: Lexicons,
+          resourceOptions: this.resourceOptions,
+          siteOptions: [],
+          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.contentOptions.items.locale.currentValue } : null,
+          langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
+        }).getData()
+      }
+    }
+  }
+
+  /**
+   * Check to see if Lemma Translations should be enabled for a query
+   *  NB this is Prototype functionality
+   */
+  enableLemmaTranslations (textSelector) {
+    return textSelector.languageID === Constants.LANG_LATIN &&
+      this.contentOptions.items.enableLemmaTranslations.currentValue &&
+      !this.contentOptions.items.locale.currentValue.match(/^en-/)
+  }
+
+  handleEscapeKey (event) {
+    // TODO: Move to keypress as keyCode is deprecated
+    // TODO: Why does it not work on initial panel opening?
+    if (event.keyCode === 27 && this.state.isActive()) {
+      if (this.state.isPanelOpen()) {
+        this.panel.close()
+      } else if (this.popup.visible) {
+        this.popup.close()
+      }
+    }
+    return true
+  }
+  /**
+   * Issues an AnnotationQuery to find and apply annotations for the currently loaded document
+   */
+  updateAnnotations () {
+    if (this.state.isActive() && this.state.uiIsActive()) {
+      AnnotationQuery.create({
+        uiController: this,
+        document: document,
+        siteOptions: this.siteOptions
+      }).getData()
+    }
   }
 }
