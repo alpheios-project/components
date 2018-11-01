@@ -174,7 +174,7 @@ export default class UIController {
 
     // Initialize components
 
-    this.games = new GamesController(this.template.draggable)
+    this.games = new GamesController(this.options.template.draggable)
     this.games.updateLocale(this.contentOptions.items.locale.currentValue)
 
     this.panel = new Vue({

@@ -30112,7 +30112,7 @@ class UIController {
 
     // Initialize components
 
-    this.games = new alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_28__["GamesController"](this.template.draggable)
+    this.games = new alpheios_inflection_games__WEBPACK_IMPORTED_MODULE_28__["GamesController"](this.options.template.draggable)
     this.games.updateLocale(this.contentOptions.items.locale.currentValue)
 
     this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
