@@ -119,6 +119,7 @@ describe('ui-controller.test.js', () => {
 
   it('3 UIController - getZIndexMax method', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     // defaultZIndex = 4000
 
     expect(uiC.getZIndexMax()).toEqual(4001)
@@ -126,16 +127,22 @@ describe('ui-controller.test.js', () => {
 
     expect(uiC.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)).toEqual(4000)
 =======
+=======
+>>>>>>> a3cba40f5d188319fb7de1ecae718ad272eafed1
 
     uiC.zIndex = HTMLPage.getZIndexMax(2000)
-    expect(uiC.zIndex).toEqual(2001)
+    expect(uiC.zIndex).toEqual(4001)
 
     uiC.zIndex = HTMLPage.getZIndexMax(2010)
-    expect(uiC.zIndex).toEqual(2010)
+    expect(uiC.zIndex).toEqual(4001)
 
     uiC.zIndex = HTMLPage.zIndexRecursion(document.querySelector('body'), Number.NEGATIVE_INFINITY)
+<<<<<<< HEAD
     expect(uiC.zIndex).toEqual(2000)
 >>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
+=======
+    expect(uiC.zIndex).toEqual(4000)
+>>>>>>> a3cba40f5d188319fb7de1ecae718ad272eafed1
   })
 
   it('4 UIController - formatFullDefinitions method', () => {
@@ -346,8 +353,6 @@ describe('ui-controller.test.js', () => {
       ]
     }
     uiC.popup.popupData.updates = 1
-
-    uiC.games.updateHomonym = jest.fn()
 
     uiC.updateMorphology(testHomonymEmpty)
 
@@ -847,4 +852,5 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.currentPopupComponent).toEqual('popup')
     expect(uiC.popup.open).toHaveBeenCalled()
   })
+
 })

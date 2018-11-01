@@ -917,7 +917,9 @@ export default class UIController {
     this.panel.panelData.lexemes = homonym.lexemes
     this.popup.popupData.updates = this.popup.popupData.updates + 1
     this.updateProviders(homonym)
-    this.games.updateHomonym(homonym)
+    if (homonym.lexemes.length > 0) {
+      this.games.updateHomonym(homonym)
+    }
   }
 
   updateProviders (homonym) {
