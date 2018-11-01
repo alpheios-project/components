@@ -13,17 +13,6 @@ import Panel from '@/vue-components/panel.vue'
 // A popup component
 import Popup from '@/vue-components/popup.vue'
 
-<<<<<<< HEAD
-import L10n from '@/lib/l10n/l10n'
-import Locales from '@/locales/locales'
-import enUS from '@/locales/en-us/messages.json'
-import enGB from '@/locales/en-gb/messages.json'
-import Template from '@/templates/template.htmlf'
-import { Grammars } from 'alpheios-res-client'
-import ResourceQuery from '@/lib/queries/resource-query'
-
-import { GamesController } from 'alpheios-inflection-games'
-=======
 import L10n from '@/lib/l10n/l10n.js'
 import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
@@ -43,7 +32,7 @@ import LongTap from '@/lib/custom-pointer-events/long-tap.js'
 import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
 import Options from '@/lib/options/options.js'
 import LocalStorage from '@/lib/options/local-storage-area.js'
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
+import { GamesController } from 'alpheios-inflection-games'
 
 const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
@@ -129,11 +118,6 @@ export default class UIController {
         resizable: true
       }
     }
-<<<<<<< HEAD
-
-    this.template = Object.assign(templateDefaults, template)
-    this.inflectionsViewSet = null // Holds inflection tables ViewSet
-=======
   }
 
   /**
@@ -162,7 +146,6 @@ export default class UIController {
     }
     return result
   }
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
 
   async init () {
     if (this.isInitialized) { return `Already initialized` }
@@ -192,6 +175,7 @@ export default class UIController {
     // Initialize components
 
     this.games = new GamesController(this.template.draggable)
+    this.games.updateLocale(this.contentOptions.items.locale.currentValue)
 
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -485,28 +469,6 @@ export default class UIController {
       }
     })
 
-<<<<<<< HEAD
-    this.options.load(() => {
-      this.resourceOptions.load(() => {
-        this.uiOptions.load(() => {
-          this.state.activateUI()
-          console.log('UI options are loaded')
-          document.body.dispatchEvent(new Event('Alpheios_Options_Loaded'))
-
-          const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.options.items.preferredLanguage.currentValue)
-          this.options.items.lookupLangOverride.setValue(false)
-          this.updateLanguage(currentLanguageID)
-          this.games.updateLocale(this.options.items.locale.currentValue)
-
-          this.updateVerboseMode()
-          this.updateLemmaTranslations()
-          this.notifyInflectionBrowser()
-        })
-      })
-    })
-
-=======
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
     // Create a Vue instance for a popup
     this.popup = new Vue({
       el: `#${this.options.template.popupId}`,
@@ -1084,12 +1046,8 @@ export default class UIController {
   }
 
   updateInflections (homonym) {
-<<<<<<< HEAD
-    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.options.items.locale.currentValue)
-=======
     this.inflectionsViewSet = ViewSetFactory.create(homonym, this.contentOptions.items.locale.currentValue)
 
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)

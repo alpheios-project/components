@@ -36,11 +36,7 @@
     "alpheios-morph-client": "github:alpheios-project/morph-client",
     "alpheios-node-build": "github:alpheios-project/node-build",
     "alpheios-res-client": "github:alpheios-project/res-client",
-<<<<<<< HEAD
-    "autoprefixer": "^9.2.0",
-=======
     "autoprefixer": "^9.3.1",
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
     "bytes": "^3.0.0",
     "chalk": "^2.4.1",
     "coveralls": "^3.0.2",
@@ -70,18 +66,10 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.2",
-<<<<<<< HEAD
-    "sinon": "^6.3.5",
-    "source-map-loader": "^0.2.4",
-    "standard": "^12.0.1",
-    "style-loader": "^0.23.1",
-    "uikit": "^3.0.0-rc.19",
-=======
     "sinon": "^7.1.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.0",
     "uikit": "^3.0.0-rc.20",
->>>>>>> 2a33644744bd3a86f7caad5e2722b39cb023113d
     "vue": "^2.5.17",
     "whatwg-fetch": "^3.0.0",
     "wrap-range-text": "*"
