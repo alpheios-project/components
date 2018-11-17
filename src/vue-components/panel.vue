@@ -686,7 +686,7 @@
 
     .alpheios-panel__body {
         display: flex;
-        height: calc(100vh - #{$alpheios-panel-header-height});
+        // height: calc(100vh - #{$alpheios-panel-header-height});
     }
 
     .alpheios-panel-left .alpheios-panel__body {
