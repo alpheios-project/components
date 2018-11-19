@@ -8160,7 +8160,7 @@
     line-height: 27.2px !important; }
     #alpheios-panel .alpheios-font_medium_class .alpheios-checkbox-block label, #alpheios-popup .alpheios-font_medium_class .alpheios-checkbox-block label {
       padding-left: 21.2px !important;
-      min-height: 16px !important; }
+      min-height: 20px !important; }
       #alpheios-panel .alpheios-font_medium_class .alpheios-checkbox-block label::before, #alpheios-popup .alpheios-font_medium_class .alpheios-checkbox-block label::before {
         height: 16px !important;
         width: 16px !important; }
@@ -8285,7 +8285,7 @@
     line-height: 20.4px !important; }
     #alpheios-panel .alpheios-font_small_class .alpheios-checkbox-block label, #alpheios-popup .alpheios-font_small_class .alpheios-checkbox-block label {
       padding-left: 15.9px !important;
-      min-height: 12px !important; }
+      min-height: 15px !important; }
       #alpheios-panel .alpheios-font_small_class .alpheios-checkbox-block label::before, #alpheios-popup .alpheios-font_small_class .alpheios-checkbox-block label::before {
         height: 12px !important;
         width: 12px !important; }
@@ -8410,7 +8410,7 @@
     line-height: 34px !important; }
     #alpheios-panel .alpheios-font_large_class .alpheios-checkbox-block label, #alpheios-popup .alpheios-font_large_class .alpheios-checkbox-block label {
       padding-left: 26.5px !important;
-      min-height: 20px !important; }
+      min-height: 25px !important; }
       #alpheios-panel .alpheios-font_large_class .alpheios-checkbox-block label::before, #alpheios-popup .alpheios-font_large_class .alpheios-checkbox-block label::before {
         height: 20px !important;
         width: 20px !important; }

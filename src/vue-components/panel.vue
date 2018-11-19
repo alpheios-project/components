@@ -52,7 +52,7 @@
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_STATUS')">
-                <span v-show="data.verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
+                <span v-show="verboseMode" v-bind:class="{ active: data.tabs.status }" @click="changeTab('status')"
                   class="alpheios-panel__header-nav-btn">
                   <status-icon class="alpheios-icon"></status-icon>
                 </span>
@@ -255,6 +255,9 @@
     },
 
     computed: {
+      verboseMode () {
+        return this.data.verboseMode.toLowerCase() === 'verbose'
+      },
       divClasses () {
         return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
       },

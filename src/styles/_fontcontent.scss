@@ -118,7 +118,7 @@
 
         label {
             padding-left: $baseFontSize * 1.325;
-            min-height: $baseFontSize;
+            min-height: $baseFontSize * 1.25;
 
             &::before{
               height: $baseFontSize;

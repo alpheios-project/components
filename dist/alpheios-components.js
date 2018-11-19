@@ -10814,6 +10814,9 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
+    verboseMode () {
+      return this.data.verboseMode.toLowerCase() === 'verbose'
+    },
     divClasses () {
       return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
     },
@@ -11398,6 +11401,9 @@ __webpack_require__.r(__webpack_exports__);
     })
   },
   computed: {
+    verboseMode () {
+      return this.data.verboseMode.toLowerCase() === 'verbose'
+    },
     divClasses () {
       return this.data && this.data.classes ? this.data.classes.join(' ') : ''
     },
@@ -16484,8 +16490,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.data.verboseMode,
-                            expression: "data.verboseMode"
+                            value: _vm.verboseMode,
+                            expression: "verboseMode"
                           }
                         ],
                         staticClass: "alpheios-panel__header-nav-btn",
@@ -17474,9 +17480,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value:
-                        _vm.data.status.languageName && _vm.data.verboseMode,
-                      expression: "data.status.languageName && data.verboseMode"
+                      value: _vm.data.status.languageName && _vm.verboseMode,
+                      expression: "data.status.languageName && verboseMode"
                     }
                   ],
                   staticClass: "alpheios-popup__header-word"
@@ -30102,7 +30107,7 @@ class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-
+    console.info('***************************verboseMode', this.contentOptions.items.verboseMode.currentValue, this.options.verboseMode)
     // Initialize components
     this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
       el: `#${this.options.template.panelId}`,
@@ -30120,7 +30125,7 @@ class UIController {
             info: true,
             treebank: false
           },
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
@@ -30444,7 +30449,7 @@ class UIController {
            */
           requestStartTime: 0,
           settings: this.contentOptions.items,
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -30952,9 +30957,10 @@ class UIController {
   }
 
   updateVerboseMode () {
-    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-    this.panel.panelData.verboseMode = this.options.verboseMode
-    this.popup.popupData.verboseMode = this.options.verboseMode
+    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue)
+
+    this.panel.panelData.verboseMode = this.contentOptions.items.verboseMode.currentValue
+    this.popup.popupData.verboseMode = this.contentOptions.items.verboseMode.currentValue
   }
 
   updateLemmaTranslations () {
