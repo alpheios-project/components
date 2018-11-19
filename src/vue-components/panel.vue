@@ -23,8 +23,15 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
+              <alph-tooltip v-show="data.inflectionComponentData" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
                 <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
+                  class="alpheios-panel__header-nav-btn">
+                  <inflections-icon class="alpheios-icon"></inflections-icon>
+                </span>
+              </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT_BROWSER')">
+                <span v-bind:class="{ active: data.tabs.inflectionsbrowser }" @click="changeTab('inflectionsbrowser')"
                   class="alpheios-panel__header-nav-btn">
                   <inflections-icon class="alpheios-icon"></inflections-icon>
                 </span>
@@ -99,13 +106,16 @@
                 </div>
                 <div class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions" v-html="data.fullDefinitions"></div>
             </div>
-            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData && data.settings && data.l10n">
+            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData.inflectionViewSet && data.settings && data.l10n">
                 <inflections class="alpheios-panel-inflections"
-                             :inflections-enabled="data.inflectionsEnabled" :inflection-browser-enabled="data.inflectionBrowserEnabled"
-                             :infl-browser-tables-collapsed="data.inflBrowserTablesCollapsed"
+                             :inflections-enabled="data.inflectionsEnabled"
                              :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
                              :messages="data.l10n.messages" :wait-state="data.inflectionsWaitState" @contentwidth="setContentWidth">
                 </inflections>
+            </div>
+            <div v-show="inflectionsBrowserTabVisible" id="alpheios-panel__inflections-browser-panel" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser" v-if="data.inflectionBrowserEnabled && data.settings && data.l10n">
+                <inflection-browser :messages="data.l10n.messages" @contentwidth="setInflBrowserContentWidth" :data=data.inflectionBrowserData>
+                </inflection-browser>
             </div>
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw">
@@ -197,6 +207,7 @@
   import GrammarIcon from '../images/inline-icons/resources.svg';
   import TreebankIcon from '../images/inline-icons/sitemap.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
+  import InflectionBrowser from './inflections-browser.vue'
 
   import { directive as onClickaway } from '../directives/clickaway.js';
 
@@ -204,6 +215,7 @@
     name: 'Panel',
     components: {
       inflections: Inflections,
+      inflectionBrowser: InflectionBrowser,
       setting: Setting,
       shortdef: ShortDef,
       morph: Morph,
@@ -331,16 +343,25 @@
       // Need this to watch when inflections tab becomes active and adjust panel width to fully fit an inflection table in
       inflectionsTabVisible: function () {
         // Inform an inflection component about its visibility state change
-        if (this.data && this.data.inflectionComponentData) {
+        if (this.data && this.data.inflectionComponentData.inflectionViewSet) {
           this.data.inflectionComponentData.visible = this.data.tabs.inflections
         }
         return this.data.tabs.inflections
       },
 
+      // Need this to watch when inflections browser tab becomes active and adjust panel width to fully fit an inflection table in
+      inflectionsBrowserTabVisible: function () {
+        // Inform an inflection browser component about its visibility state change
+        if (this.data && this.data.inflectionBrowserData) {
+          this.data.inflectionBrowserData.visible = this.data.tabs.inflectionsbrowser
+        }
+        return this.data.tabs.inflectionsbrowser
+      },
+
       treebankTabAvailable: function() {
         // treebank data is possible if we have it for the word or the page
-        return this.data && this.data.treebankComponentData && this.data.treebankComponentData.data && 
-              ((this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.src) || 
+        return this.data && this.data.treebankComponentData && this.data.treebankComponentData.data &&
+              ((this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.src) ||
                (this.data.treebankComponentData.data.word && this.data.treebankComponentData.data.word.src)) ? true : false
       },
 
@@ -348,7 +369,7 @@
         // Inform treebank component about visibility state change
         if (this.data && this.data.treebankComponentData && this.data.treebankComponentData.data) {
           this.data.treebankComponentData.visible = this.data.tabs.treebank
-        } 
+        }
         return this.data.tabs.treebank
       },
 
@@ -427,6 +448,7 @@
       },
 
       setContentWidth: function (width) {
+        console.log("1 RECEIVED WIDTH",width)
         if (this.data === undefined) {
           return
         }
@@ -451,6 +473,11 @@
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
+      },
+
+      setInflBrowserContentWidth: function(width) {
+        console.log("RECEIVED WIDTH",width)
+        this.$el.style.width = `${width}px`
       },
 
       setTreebankContentWidth: function(width) {
@@ -869,6 +896,9 @@
     }
 
     .alpheios-panel__tab__inflections {
+        width: 100%;
+    }
+    .alpheios-panel__tab__inflectionsbrowser {
         width: 100%;
     }
 </style>
