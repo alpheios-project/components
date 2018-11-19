@@ -10089,15 +10089,6 @@ ul.alpheios-skin_properties {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
-.alpheios-panel__body {
-  display: flex;
-}
-.alpheios-panel-left .alpheios-panel__body {
-  flex-direction: row;
-}
-.alpheios-panel-right .alpheios-panel__body {
-  flex-direction: row-reverse;
-}
 .alpheios-panel__content {
   overflow: visible;
   grid-area: content;
