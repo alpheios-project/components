@@ -8600,6 +8600,14 @@
 #alpheios-panel .alpheios-alignment__highlight, #alpheios-popup .alpheios-alignment__highlight {
   background-color: #F6D918 !important; }
 
+body {
+  -webkit-touch-callout: auto !important;
+  -webkit-user-select: auto !important;
+  -khtml-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important; }
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
