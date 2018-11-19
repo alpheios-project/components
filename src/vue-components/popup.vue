@@ -12,7 +12,7 @@
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status">
                 <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
-                <span v-show="data.status.languageName && verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
+                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
 
             <div class="alpheios-popup__button-area" v-if="data">
@@ -187,9 +187,6 @@
       })
     },
     computed: {
-      verboseMode () {
-        return this.data.verboseMode.toLowerCase() === 'verbose'
-      },
       divClasses () {
         return this.data && this.data.classes ? this.data.classes.join(' ') : ''
       },

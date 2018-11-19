@@ -173,7 +173,7 @@ export default class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-    console.info('***************************verboseMode', this.contentOptions.items.verboseMode.currentValue, this.options.verboseMode)
+
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -191,7 +191,7 @@ export default class UIController {
             info: true,
             treebank: false
           },
-          verboseMode: this.contentOptions.items.verboseMode.currentValue,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
@@ -515,7 +515,7 @@ export default class UIController {
            */
           requestStartTime: 0,
           settings: this.contentOptions.items,
-          verboseMode: this.contentOptions.items.verboseMode.currentValue,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -1023,10 +1023,10 @@ export default class UIController {
   }
 
   updateVerboseMode () {
-    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue)
+    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
 
-    this.panel.panelData.verboseMode = this.contentOptions.items.verboseMode.currentValue
-    this.popup.popupData.verboseMode = this.contentOptions.items.verboseMode.currentValue
+    this.panel.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.popup.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
   }
 
   updateLemmaTranslations () {
