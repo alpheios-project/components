@@ -79,5 +79,10 @@
 			color: $alpheios-toolbar-text-color;
 			background: $alpheios-toolbar-color;
 		}
+
+		.alpheios-ib__title,
+		div.alpheios-ib div.alpheios-ib__title {
+			color: $alpheios-toolbar-color;
+		}
 	}
 }
