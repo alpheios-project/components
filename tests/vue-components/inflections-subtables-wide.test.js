@@ -53,7 +53,7 @@ describe('inflections-subtables-wide.test.js', () => {
     })
 
     let cellLabel = { role: 'label' }
-    expect(cmp.vm.cellClasses(cellLabel)).toEqual('infl-prdgm-tbl-cell--label')
+    expect(cmp.vm.cellClasses(cellLabel)).toEqual('infl-prdgm-tbl__cell--label')
 
     let cellData = { role: 'data' }
     expect(cmp.vm.cellClasses(cellData)).toContain('infl-prdgm-tbl-cell--data')

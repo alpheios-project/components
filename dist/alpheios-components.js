@@ -9016,7 +9016,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     cellClasses: function (cell) {
       if (cell.role === 'label') {
-        return 'infl-prdgm-tbl-cell--label'
+        return 'infl-prdgm-tbl__cell--label'
       }
 
       /*
