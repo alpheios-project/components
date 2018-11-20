@@ -9397,13 +9397,13 @@ div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-c
 .infl-table--wide {
   /* Data flow order: number- case - declension - gender - type*/
   grid-auto-flow: row !important;
-  grid-template-columns: repeat(21, 1fr) !important;
+  grid-template-columns: repeat(21, 1fr);
   /* Default value, will be redefined in JS if necessary */
 }
 .infl-table--narrow {
   /* Data flow order: declension - number- case - gender - type*/
   grid-auto-flow: row !important;
-  grid-template-columns: repeat(6, 1fr) !important;
+  grid-template-columns: repeat(6, 1fr);
   /* Default value, will be redefined in JS if necessary */
 }
 .infl-table.hidden {
@@ -9692,7 +9692,7 @@ h4.alpheios-inflections__additional_title {
 }
 .alpheios-inflections__footnotes {
   display: none;
-  grid-template-columns: 1.6rem 1fr !important;
+  grid-template-columns: 1.6rem 1fr;
   font-size: 0.875rem !important;
   line-height: 1.2 !important;
   margin-bottom: 2rem !important;
@@ -9707,7 +9707,7 @@ h4.alpheios-inflections__additional_title {
 }
 .alpheios-inflections__footnote-popup {
   display: grid;
-  grid-template-columns: 20px 1fr !important;
+  grid-template-columns: 20px 1fr;
   grid-row-gap: 2px !important;
   background: #FFF !important;
   color: #333333 !important;
@@ -9995,7 +9995,7 @@ ul.alpheios-skin_properties {
   opacity: 0.95 !important;
   direction: ltr !important;
   display: grid;
-  grid-template-columns: auto !important;
+  grid-template-columns: auto;
   grid-template-rows: 40px 20px auto 60px !important;
   grid-template-areas: "header" "title" "content" "content" !important;
 }
@@ -10009,7 +10009,7 @@ ul.alpheios-skin_properties {
 .alpheios-panel.alpheios-panel-right {
   right: 0 !important;
   border-left: 1px solid #D1D1D0 !important;
-  grid-template-columns: auto !important;
+  grid-template-columns: auto;
   grid-template-areas: "header" "title" "content" "content" !important;
 }
 .alpheios-panel.alpheios-panel-right[data-notification-visible="true"] {
