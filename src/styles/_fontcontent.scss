@@ -26,6 +26,9 @@
 
     .uk-input {
         height: $baseFontSize * 1.75 ;
+        padding: $baseFontSize * 0.3;
+        line-height: $baseFontSize * 1.75 ;
+        box-shadow: none;
     }
 
     .uk-select:not([multiple]):not([size]) {

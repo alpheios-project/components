@@ -7972,7 +7972,10 @@ div.alpheios-checkbox-block {
     padding: 0 14.4px !important;
     height: auto !important; }
   .auk.alpheios-font_medium_class .uk-input {
-    height: 28px !important; }
+    height: 28px !important;
+    padding: 4.8px !important;
+    line-height: 28px !important;
+    box-shadow: none !important; }
   .auk.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
     height: 40px !important; }
   .auk.alpheios-font_medium_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
@@ -8094,7 +8097,10 @@ div.alpheios-checkbox-block {
     padding: 0 10.8px !important;
     height: auto !important; }
   .auk.alpheios-font_small_class .uk-input {
-    height: 21px !important; }
+    height: 21px !important;
+    padding: 3.6px !important;
+    line-height: 21px !important;
+    box-shadow: none !important; }
   .auk.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
     height: 30px !important; }
   .auk.alpheios-font_small_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
@@ -8216,7 +8222,10 @@ div.alpheios-checkbox-block {
     padding: 0 18px !important;
     height: auto !important; }
   .auk.alpheios-font_large_class .uk-input {
-    height: 35px !important; }
+    height: 35px !important;
+    padding: 6px !important;
+    line-height: 35px !important;
+    box-shadow: none !important; }
   .auk.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
     height: 50px !important; }
   .auk.alpheios-font_large_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {

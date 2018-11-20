@@ -7972,7 +7972,10 @@ div.alpheios-checkbox-block {
     padding: 0 14.4px !important;
     height: auto !important; }
   .auk.alpheios-font_medium_class .uk-input {
-    height: 28px; }
+    height: 28px;
+    padding: 4.8px;
+    line-height: 28px;
+    box-shadow: none; }
   .auk.alpheios-font_medium_class .uk-select:not([multiple]):not([size]) {
     height: 40px; }
   .auk.alpheios-font_medium_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
@@ -8094,7 +8097,10 @@ div.alpheios-checkbox-block {
     padding: 0 10.8px !important;
     height: auto !important; }
   .auk.alpheios-font_small_class .uk-input {
-    height: 21px; }
+    height: 21px;
+    padding: 3.6px;
+    line-height: 21px;
+    box-shadow: none; }
   .auk.alpheios-font_small_class .uk-select:not([multiple]):not([size]) {
     height: 30px; }
   .auk.alpheios-font_small_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
@@ -8216,7 +8222,10 @@ div.alpheios-checkbox-block {
     padding: 0 18px !important;
     height: auto !important; }
   .auk.alpheios-font_large_class .uk-input {
-    height: 35px; }
+    height: 35px;
+    padding: 6px;
+    line-height: 35px;
+    box-shadow: none; }
   .auk.alpheios-font_large_class .uk-select:not([multiple]):not([size]) {
     height: 50px; }
   .auk.alpheios-font_large_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
