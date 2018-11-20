@@ -218,7 +218,6 @@
 
     watch: {
       inflectionViewSet: function () {
-        console.log("Watching IVS")
         this.initViewSet()
         this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.data.inflectionViewSet)
       },
@@ -233,7 +232,6 @@
       as it won't be used by anything and thus will not be calculated by Vue.
        */
       isVisible: function (visibility) {
-        console.log("watching IVS visible")
         if (visibility && this.htmlElements.content) {
           // If container is become visible, update parent with its width
           this.updateWidth()

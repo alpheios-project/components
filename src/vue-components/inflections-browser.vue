@@ -231,7 +231,6 @@
       as it won't be used by anything and thus will not be calculated by Vue.
        */
       isVisible: function (visibility) {
-        console.log("JJJJJ")
         if (visibility && this.htmlElements.content) {
           // If container is become visible, update parent with its width
           this.inflTableWidthUpd()
