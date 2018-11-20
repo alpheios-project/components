@@ -9985,14 +9985,13 @@ ul.alpheios-skin_properties {
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
 .alpheios-panel {
-  width: 400px;
-  /* no !important */
   height: 100vh;
   top: 0;
   z-index: 2000;
   position: fixed;
   background: #FFF;
   resize: both;
+  /* no !important */
   opacity: 0.95;
   direction: ltr;
   display: grid;
