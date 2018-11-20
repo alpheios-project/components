@@ -53,10 +53,10 @@ describe('inflections-subtables-wide.test.js', () => {
     })
 
     let cellLabel = { role: 'label' }
-    expect(cmp.vm.cellClasses(cellLabel)).toEqual('infl-prdgm-tbl__cell--label')
+    expect(cmp.vm.cellClasses(cellLabel)).toEqual('infl-prdgm-tbl-cell--label')
 
     let cellData = { role: 'data' }
-    expect(cmp.vm.cellClasses(cellData)).toEqual('infl-prdgm-tbl__cell--data')
+    expect(cmp.vm.cellClasses(cellData)).toContain('infl-prdgm-tbl-cell--data')
   })
 
   it('3 WideInflectionsSubTables - refColors method  returns color depending on paradigm and view properties', () => {

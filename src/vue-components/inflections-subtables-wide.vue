@@ -32,7 +32,7 @@
     methods: {
       cellClasses: function (cell) {
         if (cell.role === 'label') {
-          return 'infl-prdgm-tbl__cell--label'
+          return 'infl-prdgm-tbl-cell--label'
         }
 
         /*
@@ -110,7 +110,7 @@
         border-bottom: 1px solid gray;
     }
 
-    .infl-prdgm-tbl__cell--label {
+    .infl-prdgm-tbl-cell--label {
         font-weight: 700;
     }
 </style>
