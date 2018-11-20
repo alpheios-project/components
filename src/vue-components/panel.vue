@@ -33,7 +33,7 @@
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT_BROWSER')">
                 <span v-bind:class="{ active: data.tabs.inflectionsbrowser }" @click="changeTab('inflectionsbrowser')"
                   class="alpheios-panel__header-nav-btn">
-                  <inflections-icon class="alpheios-icon"></inflections-icon>
+                  <inflections-browser-icon class="alpheios-icon"></inflections-browser-icon>
                 </span>
               </alph-tooltip>
 
@@ -202,6 +202,7 @@
   import CloseIcon from '../images/inline-icons/close.svg';
   import DefinitionsIcon from '../images/inline-icons/definitions.svg';
   import InflectionsIcon from '../images/inline-icons/inflections.svg';
+  import InflectionsBrowserIcon from '../images/inline-icons/inflections-browser.svg';
   import StatusIcon from '../images/inline-icons/status.svg';
   import OptionsIcon from '../images/inline-icons/options.svg';
   import GrammarIcon from '../images/inline-icons/resources.svg';
@@ -227,6 +228,7 @@
       closeIcon: CloseIcon,
       definitionsIcon: DefinitionsIcon,
       inflectionsIcon: InflectionsIcon,
+      inflectionsBrowserIcon: InflectionsBrowserIcon,
       statusIcon: StatusIcon,
       optionsIcon: OptionsIcon,
       infoIcon: InfoIcon,
