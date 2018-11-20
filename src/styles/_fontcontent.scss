@@ -36,6 +36,10 @@
         height: $baseFontSize * 2.5 !important;
     }
 
+    .alpheios-inflections__content .uk-select:not([multiple]):not([size]) {
+        height: auto;
+    }
+
     .alpheios-text__smallest {
         font-size: $baseFontSize * 0.675;
     }

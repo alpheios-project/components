@@ -7977,6 +7977,8 @@ div.alpheios-checkbox-block {
     height: 40px !important; }
   .auk.alpheios-font_medium_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
     height: 40px !important; }
+  .auk.alpheios-font_medium_class .alpheios-inflections__content .uk-select:not([multiple]):not([size]) {
+    height: auto !important; }
   .auk.alpheios-font_medium_class .alpheios-text__smallest {
     font-size: 10.8px !important; }
   .auk.alpheios-font_medium_class .alpheios-text__smaller {
@@ -8097,6 +8099,8 @@ div.alpheios-checkbox-block {
     height: 30px !important; }
   .auk.alpheios-font_small_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
     height: 30px !important; }
+  .auk.alpheios-font_small_class .alpheios-inflections__content .uk-select:not([multiple]):not([size]) {
+    height: auto !important; }
   .auk.alpheios-font_small_class .alpheios-text__smallest {
     font-size: 8.1px !important; }
   .auk.alpheios-font_small_class .alpheios-text__smaller {
@@ -8217,6 +8221,8 @@ div.alpheios-checkbox-block {
     height: 50px !important; }
   .auk.alpheios-font_large_class .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
     height: 50px !important; }
+  .auk.alpheios-font_large_class .alpheios-inflections__content .uk-select:not([multiple]):not([size]) {
+    height: auto !important; }
   .auk.alpheios-font_large_class .alpheios-text__smallest {
     font-size: 13.5px !important; }
   .auk.alpheios-font_large_class .alpheios-text__smaller {
