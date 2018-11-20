@@ -555,6 +555,7 @@
 
     .alpheios-panel {
         // width: 400px; /* no !important */
+        overflow: auto;
         height: 100vh;
         top: 0;
         z-index: 2000;
@@ -571,6 +572,7 @@
             "title"
             "content"
             "content"
+        
     }
 
     .alpheios-panel[data-notification-visible="true"] {

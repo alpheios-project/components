@@ -9985,6 +9985,7 @@ ul.alpheios-skin_properties {
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
 .alpheios-panel {
+  overflow: auto !important;
   height: 100vh !important;
   top: 0 !important;
   z-index: 2000 !important;
