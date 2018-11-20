@@ -11008,9 +11008,7 @@ __webpack_require__.r(__webpack_exports__);
         let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
 
         if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
-        // this.$el.style.width = `${adjustedWidth}px`
-
-        this.$el.style.setProperty('width', `${adjustedWidth}px`, 'important');
+        this.$el.style.width = `${adjustedWidth}px`
       }
     },
 
