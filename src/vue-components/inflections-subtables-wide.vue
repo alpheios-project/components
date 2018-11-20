@@ -32,7 +32,7 @@
     methods: {
       cellClasses: function (cell) {
         if (cell.role === 'label') {
-          return 'infl-prdgm-tbl-cell--label'
+          return 'infl-prdgm-tbl__cell--label'
         }
 
         /*
