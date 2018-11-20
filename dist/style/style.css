@@ -9985,7 +9985,6 @@ ul.alpheios-skin_properties {
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
 .alpheios-panel {
-  width: 400px;
   height: 100vh;
   top: 0;
   z-index: 2000;

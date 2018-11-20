@@ -554,7 +554,7 @@
     $alpheios-panel-title-height: 20px;
 
     .alpheios-panel {
-        width: 400px; // Initial width
+        // width: 400px; // Initial width
         height: 100vh;
         top: 0;
         z-index: 2000;
