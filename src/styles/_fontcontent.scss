@@ -25,10 +25,14 @@
     }
 
     .uk-input {
-        height: $baseFontSize * 1.75 !important;
+        height: $baseFontSize * 1.75 ;
     }
 
     .uk-select:not([multiple]):not([size]) {
+        height: $baseFontSize * 2.5 ;
+    }
+
+    .alpheios-panel__options-item .uk-select:not([multiple]):not([size]) {
         height: $baseFontSize * 2.5 !important;
     }
 
@@ -188,24 +192,24 @@
 
 }
 
-#{$alpheios-ID-namespace} {
-    .alpheios-font_medium_class {
-        @include font-class($alpheios-base-font-size);
-    }
 
-    .alpheios-font_small_class {
-        @include font-class($alpheios-small-font-size);
-    }
+.#{$alpheios-uikit-namespace}.alpheios-font_medium_class {
+    @include font-class($alpheios-base-font-size);
+}
 
-    .alpheios-font_large_class {
-        @include font-class($alpheios-large-font-size);
+.#{$alpheios-uikit-namespace}.alpheios-font_small_class {
+    @include font-class($alpheios-small-font-size);
+}
 
-        .alpheios-panel__header-action-btn,
-        .alpheios-panel__header-action-btn.active:hover,
-        .alpheios-panel__header-action-btn.active:focus,
-        .alpheios-panel__header-nav-btn {
-            margin-right: 10px;
-            margin-left: 10px;
-        }
+.#{$alpheios-uikit-namespace}.alpheios-font_large_class {
+    @include font-class($alpheios-large-font-size);
+
+    .alpheios-panel__header-action-btn,
+    .alpheios-panel__header-action-btn.active:hover,
+    .alpheios-panel__header-action-btn.active:focus,
+    .alpheios-panel__header-nav-btn {
+        margin-right: 10px;
+        margin-left: 10px;
     }
 }
+
