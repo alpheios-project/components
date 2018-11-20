@@ -192,7 +192,7 @@ export default class UIController {
             info: true,
             treebank: false
           },
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
@@ -518,7 +518,7 @@ export default class UIController {
            */
           requestStartTime: 0,
           settings: this.contentOptions.items,
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -1026,8 +1026,9 @@ export default class UIController {
 
   updateVerboseMode () {
     this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-    this.panel.panelData.verboseMode = this.options.verboseMode
-    this.popup.popupData.verboseMode = this.options.verboseMode
+
+    this.panel.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.popup.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
   }
 
   updateLemmaTranslations () {
