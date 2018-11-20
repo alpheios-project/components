@@ -23,7 +23,7 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip v-show="data.inflectionComponentData" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
+              <alph-tooltip v-show="data.inflectionComponentData.inflDataReady" tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_INFLECT')">
                 <span v-bind:class="{ active: data.tabs.inflections }" @click="changeTab('inflections')"
                   class="alpheios-panel__header-nav-btn">
                   <inflections-icon class="alpheios-icon"></inflections-icon>
@@ -106,15 +106,15 @@
                 </div>
                 <div class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions" v-html="data.fullDefinitions"></div>
             </div>
-            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData.inflectionViewSet && data.settings && data.l10n">
+            <div v-show="inflectionsTabVisible" :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections" v-if="data.inflectionComponentData.inflDataReady && data.settings && data.l10n">
                 <inflections class="alpheios-panel-inflections"
                              :inflections-enabled="data.inflectionsEnabled"
                              :data="data.inflectionComponentData" :locale="data.settings.locale.currentValue"
                              :messages="data.l10n.messages" :wait-state="data.inflectionsWaitState" @contentwidth="setContentWidth">
                 </inflections>
             </div>
-            <div v-show="inflectionsBrowserTabVisible" id="alpheios-panel__inflections-browser-panel" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser" v-if="data.inflectionBrowserEnabled && data.settings && data.l10n">
-                <inflection-browser :messages="data.l10n.messages" @contentwidth="setInflBrowserContentWidth" :data=data.inflectionBrowserData>
+            <div v-show="inflectionsBrowserTabVisible" :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser" v-if="data.inflectionBrowserEnabled && data.settings && data.l10n">
+                <inflection-browser :messages="data.l10n.messages" @contentwidth="setContentWidth" :data=data.inflectionBrowserData>
                 </inflection-browser>
             </div>
             <div v-show="data.tabs.grammar" class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
@@ -242,14 +242,15 @@
     data: function () {
       return {
         inflectionsPanelID: 'alpheios-panel__inflections-panel',
+        inflectionsBrowserPanelID: 'alpheios-panel__inflections-browser-panel',
 
         positionClassVariants: {
           left: 'alpheios-panel-left',
           right: 'alpheios-panel-right'
         },
 
-        inflPanelLeftPadding: 0,
-        inflPanelRightPadding: 0,
+        panelLeftPadding: 0,
+        panelRightPadding: 0,
         scrollPadding: 0,
         defaultScrollPadding: 20
       }
@@ -409,7 +410,7 @@
       },
 
       changeTab (name) {
-        this.setContentWidth('auto')
+        this.setContentWidth({ width:'auto',component:null })
         this.$emit('changetab', name)
       },
 
@@ -447,37 +448,31 @@
         this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
       },
 
-      setContentWidth: function (width) {
-        console.log("1 RECEIVED WIDTH",width)
+      setContentWidth: function (dataObj) {
         if (this.data === undefined) {
           return
         }
-        if (width === 'auto') {
+        if (dataObj.width === 'auto') {
           this.$el.style.removeProperty('width')
           return
         }
 
-        this.calcWidthPaddings()
+        this.calcWidthPaddings(dataObj.component)
         this.calcScrollPadding()
 
         let widthDelta = this.navbarWidth
-          + this.inflPanelLeftPadding
-          + this.inflPanelRightPadding
+          + this.panelLeftPadding
+          + this.panelRightPadding
           + this.scrollPadding
 
-        if (width > this.data.minWidth - widthDelta) {
-          let adjustedWidth = width + widthDelta
+        if (dataObj.width > this.data.minWidth - widthDelta) {
+          let adjustedWidth = dataObj.width + widthDelta
           // Max viewport width less some space to display page content
           let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
 
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
           this.$el.style.width = `${adjustedWidth}px`
         }
-      },
-
-      setInflBrowserContentWidth: function(width) {
-        console.log("RECEIVED WIDTH",width)
-        this.$el.style.width = `${width}px`
       },
 
       setTreebankContentWidth: function(width) {
@@ -503,29 +498,36 @@
         }
       },
 
-      calcWidthPaddings: function () {
-        if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+      calcWidthPaddings: function (component) {
+        let panelTabId
+        if ( component === 'inflections') {
+          panelTabId =this.inflectionsPanelID
+        } else if ( component === 'inflections=browser' ) {
+          panelTabId =this.inflectionsBrowserPanelID
+        }
+
+        if (typeof this.$el.querySelector === 'function' && panelTabId && (this.panelLeftPadding === 0 || this.panelRightPadding === 0)) {
           let navbar = this.$el.querySelector(`#${this.navbarID}`)
-          let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+          let panel = this.$el.querySelector(`#${panelTabId}`)
           this.navbarWidth = 0
           if (navbar) {
             let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
             if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
           }
 
-          if (inflectionsPanel) {
-            let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+          if (panel) {
+            let resPl1 = window.getComputedStyle(panel).getPropertyValue('padding-left').match(/\d+/)
             if (Array.isArray(resPl1)) {
-              this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+              this.panelLeftPadding = parseInt(resPl1[0])
             } else {
-              this.inflPanelLeftPadding = 0
+              this.panelLeftPadding = 0
             }
 
-            let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+            let resPl2 = window.getComputedStyle(panel).getPropertyValue('padding-right').match(/\d+/)
             if (Array.isArray(resPl2)) {
-              this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+              this.panelRightPadding = parseInt(resPl2[0])
             } else {
-              this.inflPanelRightPadding = 0
+              this.panelRightPadding = 0
             }
           }
         }

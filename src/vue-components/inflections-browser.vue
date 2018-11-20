@@ -288,7 +288,7 @@
 
       inflTableWidthUpd: function () {
         Vue.nextTick(() => {
-          this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+          this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: "inflections-browser" })
         })
       }
     },

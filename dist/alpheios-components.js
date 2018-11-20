@@ -8955,7 +8955,7 @@ __webpack_require__.r(__webpack_exports__);
 
     inflTableWidthUpd: function () {
       vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick(() => {
-        this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+        this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: "inflections-browser" })
       })
     }
   },
@@ -9802,7 +9802,7 @@ __webpack_require__.r(__webpack_exports__);
     as it won't be used by anything and thus will not be calculated by Vue.
      */
     isVisible: function (visibility) {
-      console.log("HHHHHHH")
+      console.log("watching IVS visible")
       if (visibility && this.htmlElements.content) {
         // If container is become visible, update parent with its width
         this.updateWidth()
@@ -9849,7 +9849,7 @@ __webpack_require__.r(__webpack_exports__);
 
     updateWidth: function () {
       vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default.a.nextTick(() => {
-        this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+        this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: 'inflections' } )
       })
     },
 
@@ -9876,7 +9876,9 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   mounted: function () {
-    console.log("IVS mounted")
+    if (typeof this.$el.querySelector === 'function') {
+      this.htmlElements.content = this.$el
+    }
     this.initViewSet()
   }
 });
@@ -10785,14 +10787,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function () {
     return {
       inflectionsPanelID: 'alpheios-panel__inflections-panel',
+      inflectionsBrowserPanelID: 'alpheios-panel__inflections-browser-panel',
 
       positionClassVariants: {
         left: 'alpheios-panel-left',
         right: 'alpheios-panel-right'
       },
 
-      inflPanelLeftPadding: 0,
-      inflPanelRightPadding: 0,
+      panelLeftPadding: 0,
+      panelRightPadding: 0,
       scrollPadding: 0,
       defaultScrollPadding: 20
     }
@@ -10952,7 +10955,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     changeTab (name) {
-      this.setContentWidth('auto')
+      this.setContentWidth({ width:'auto',component:null })
       this.$emit('changetab', name)
     },
 
@@ -10990,37 +10993,31 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
     },
 
-    setContentWidth: function (width) {
-      console.log("1 RECEIVED WIDTH",width)
+    setContentWidth: function (dataObj) {
       if (this.data === undefined) {
         return
       }
-      if (width === 'auto') {
+      if (dataObj.width === 'auto') {
         this.$el.style.removeProperty('width')
         return
       }
 
-      this.calcWidthPaddings()
+      this.calcWidthPaddings(dataObj.component)
       this.calcScrollPadding()
 
       let widthDelta = this.navbarWidth
-        + this.inflPanelLeftPadding
-        + this.inflPanelRightPadding
+        + this.panelLeftPadding
+        + this.panelRightPadding
         + this.scrollPadding
 
-      if (width > this.data.minWidth - widthDelta) {
-        let adjustedWidth = width + widthDelta
+      if (dataObj.width > this.data.minWidth - widthDelta) {
+        let adjustedWidth = dataObj.width + widthDelta
         // Max viewport width less some space to display page content
         let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
 
         if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
         this.$el.style.width = `${adjustedWidth}px`
       }
-    },
-
-    setInflBrowserContentWidth: function(width) {
-      console.log("RECEIVED WIDTH",width)
-      this.$el.style.width = `${width}px`
     },
 
     setTreebankContentWidth: function(width) {
@@ -11046,29 +11043,36 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    calcWidthPaddings: function () {
-      if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+    calcWidthPaddings: function (component) {
+      let panelTabId
+      if ( component === 'inflections') {
+        panelTabId =this.inflectionsPanelID
+      } else if ( component === 'inflections=browser' ) {
+        panelTabId =this.inflectionsBrowserPanelID
+      }
+
+      if (typeof this.$el.querySelector === 'function' && panelTabId && (this.panelLeftPadding === 0 || this.panelRightPadding === 0)) {
         let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+        let panel = this.$el.querySelector(`#${panelTabId}`)
         this.navbarWidth = 0
         if (navbar) {
           let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
           if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
         }
 
-        if (inflectionsPanel) {
-          let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+        if (panel) {
+          let resPl1 = window.getComputedStyle(panel).getPropertyValue('padding-left').match(/\d+/)
           if (Array.isArray(resPl1)) {
-            this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+            this.panelLeftPadding = parseInt(resPl1[0])
           } else {
-            this.inflPanelLeftPadding = 0
+            this.panelLeftPadding = 0
           }
 
-          let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+          let resPl2 = window.getComputedStyle(panel).getPropertyValue('padding-right').match(/\d+/)
           if (Array.isArray(resPl2)) {
-            this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+            this.panelRightPadding = parseInt(resPl2[0])
           } else {
-            this.inflPanelRightPadding = 0
+            this.panelRightPadding = 0
           }
         }
       }
@@ -16007,8 +16011,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.data.inflectionComponentData,
-                        expression: "data.inflectionComponentData"
+                        value: _vm.data.inflectionComponentData.inflDataReady,
+                        expression: "data.inflectionComponentData.inflDataReady"
                       }
                     ],
                     attrs: {
@@ -16370,7 +16374,7 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _vm.data.inflectionComponentData.inflectionViewSet &&
+            _vm.data.inflectionComponentData.inflDataReady &&
             _vm.data.settings &&
             _vm.data.l10n
               ? _c(
@@ -16421,7 +16425,7 @@ var render = function() {
                     ],
                     staticClass:
                       "alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser",
-                    attrs: { id: "alpheios-panel__inflections-browser-panel" }
+                    attrs: { id: _vm.inflectionsBrowserPanelID }
                   },
                   [
                     _c("inflection-browser", {
@@ -16429,7 +16433,7 @@ var render = function() {
                         messages: _vm.data.l10n.messages,
                         data: _vm.data.inflectionBrowserData
                       },
-                      on: { contentwidth: _vm.setInflBrowserContentWidth }
+                      on: { contentwidth: _vm.setContentWidth }
                     })
                   ],
                   1
@@ -29844,7 +29848,8 @@ class UIController {
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            inflectionViewSet: null
+            inflectionViewSet: null,
+            inflDataReady: false
           },
           inflectionBrowserData: {
             visible: false
@@ -30695,6 +30700,7 @@ class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.panel.panelData.inflectionsWaitState = false
+    this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 

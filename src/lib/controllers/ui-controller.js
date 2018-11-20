@@ -198,7 +198,8 @@ export default class UIController {
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            inflectionViewSet: null
+            inflectionViewSet: null,
+            inflDataReady: false
           },
           inflectionBrowserData: {
             visible: false
@@ -1049,6 +1050,7 @@ export default class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.panel.panelData.inflectionsWaitState = false
+    this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 

@@ -233,7 +233,7 @@
       as it won't be used by anything and thus will not be calculated by Vue.
        */
       isVisible: function (visibility) {
-        console.log("HHHHHHH")
+        console.log("watching IVS visible")
         if (visibility && this.htmlElements.content) {
           // If container is become visible, update parent with its width
           this.updateWidth()
@@ -280,7 +280,7 @@
 
       updateWidth: function () {
         Vue.nextTick(() => {
-          this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
+          this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: 'inflections' } )
         })
       },
 
@@ -307,7 +307,9 @@
     },
 
     mounted: function () {
-      console.log("IVS mounted")
+      if (typeof this.$el.querySelector === 'function') {
+        this.htmlElements.content = this.$el
+      }
       this.initViewSet()
     }
   }
