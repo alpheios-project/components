@@ -273,9 +273,9 @@
         return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
       },
       mainstyles: function () {
-        let mainstyles = (this.data) ? this.data.styles : ''
-        mainstyles += ' width: 400px'
-        return mainstyles
+        let mainstyles = (this.data) ? this.data.styles : {}
+        
+        return Object.assign({ width: '400px' }, mainstyles)
       },
       resourceSettingsLexicons: function () {
         return this.data.resourceSettings && this.data.resourceSettings.lexicons ? this.data.resourceSettings.lexicons.filter(item => item.values.length > 0) : []
