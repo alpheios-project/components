@@ -9028,7 +9028,7 @@ __webpack_require__.r(__webpack_exports__);
        */
       if (cell.role === 'data') {
 
-        let cellClassName = 'infl-prdgm-tbl-cell--data'
+        let cellClassName = 'infl-prdgm-tbl__cell--data'
         const fullMatchClassnName = 'infl-prdgm-tbl-cell--full-match'
         // Get a list of cell feature properties
         let comparativeFeatures = []
