@@ -8663,6 +8663,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_utility_comparable_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/utility/comparable.js */ "./lib/utility/comparable.js");
 /* harmony import */ var _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inflections-table-wide.vue */ "./vue-components/inflections-table-wide.vue");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -8813,6 +8815,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -8842,6 +8845,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: true
+    },
+    data: {
+      type: Object,
+      required: true
     }
   },
 
@@ -8858,6 +8865,16 @@ __webpack_require__.r(__webpack_exports__);
         [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN.toString()]: true,
         [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_GREEK.toString()]: true
       },
+      htmlElements: {
+        content: undefined,
+      }
+    }
+  },
+
+  computed: {
+    // Need this for a watcher that will monitor a parent container visibility state
+    isVisible: function () {
+      return this.data.visible
     }
   },
 
@@ -8869,6 +8886,21 @@ __webpack_require__.r(__webpack_exports__);
       if (newValue) {
         this.languageId = newValue
         this.collapsed[newValue.toString()] = false
+      }
+    },
+    /*
+    An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
+    use this information to adjust a width of a container that displays an inflection component. However, a width
+    of an inflection table within an invisible parent container will always be zero. Because of that, we can determine
+    an inflection table width and notify a parent component only when a parent container is visible.
+    A parent component will notify us of that by setting a `visible` property. A change of that property state
+    will be monitored here with the help of a `isVisible` computed property. Computed property alone will not work
+    as it won't be used by anything and thus will not be calculated by Vue.
+     */
+    isVisible: function (visibility) {
+      if (visibility && this.htmlElements.content) {
+        // If container is become visible, update parent with its width
+        this.inflTableWidthUpd()
       }
     }
   },
@@ -8918,15 +8950,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.collapsed.hasOwnProperty(language)) {
         this.collapsed[language] = !this.collapsed[language]
       }
-      this.$emit('interaction')
     },
 
     inflTableWidthUpd: function () {
-      this.$emit('widthchange')
-    },
-
-    inflTableInteraction: function () {
-      this.$emit('interaction')
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick(() => {
+        this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: "inflections-browser" })
+      })
     }
   },
 
@@ -8934,6 +8963,9 @@ __webpack_require__.r(__webpack_exports__);
     if (this.languageId) {
       // Set a group that will be opened initially
       this.collapsed[this.languageId.toString()] = false
+    }
+    if (typeof this.$el.querySelector === 'function') {
+      this.htmlElements.content = this.$el
     }
   }
 });
@@ -8984,7 +9016,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     cellClasses: function (cell) {
       if (cell.role === 'label') {
-        return 'infl-prdgm-tbl-cell--label'
+        return 'infl-prdgm-tbl__cell--label'
       }
 
       /*
@@ -8996,7 +9028,7 @@ __webpack_require__.r(__webpack_exports__);
        */
       if (cell.role === 'data') {
 
-        let cellClassName = 'infl-prdgm-tbl-cell--data'
+        let cellClassName = 'infl-prdgm-tbl__cell--data'
         const fullMatchClassnName = 'infl-prdgm-tbl-cell--full-match'
         // Get a list of cell feature properties
         let comparativeFeatures = []
@@ -9183,7 +9215,6 @@ __webpack_require__.r(__webpack_exports__);
     collapsed: function (state) {
       if (this.collapsed !== null) {
         this.state.collapsed = state
-        this.$emit('prerenderedinteraction')
       }
     }
   },
@@ -9196,7 +9227,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     collapse: function () {
       this.state.collapsed = !this.state.collapsed
-      this.$emit('prerenderedinteraction')
       this.$emit('widthchange') // When view is open, we might need to adjust a panel width
     },
 
@@ -9402,7 +9432,6 @@ __webpack_require__.r(__webpack_exports__);
       if (this.view.isImplemented) {
         this.view.wideView.collapsed = this.state.collapsed
       }
-      this.$emit('interaction')
       this.$emit('widthchange') // When view is open, we might need to adjust a panel width
     },
 
@@ -9529,20 +9558,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inflections-table-wide.vue */ "./vue-components/inflections-table-wide.vue");
 /* harmony import */ var _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inflections-subtables-wide.vue */ "./vue-components/inflections-subtables-wide.vue");
 /* harmony import */ var _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inflections-supp-table-wide.vue */ "./vue-components/inflections-supp-table-wide.vue");
-/* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue-components/inflections-browser.vue");
-/* harmony import */ var _wordforms_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./wordforms.vue */ "./vue-components/wordforms.vue");
-/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tooltip.vue */ "./vue-components/tooltip.vue");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_9__);
-//
-//
-//
-//
-//
+/* harmony import */ var _wordforms_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./wordforms.vue */ "./vue-components/wordforms.vue");
+/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tooltip.vue */ "./vue-components/tooltip.vue");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_8__);
 //
 //
 //
@@ -9634,7 +9657,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 // Other dependencies
 
 
@@ -9648,9 +9670,8 @@ __webpack_require__.r(__webpack_exports__);
     mainTableWideVue: _inflections_table_wide_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     subTablesWide: _inflections_subtables_wide_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     suppTablesWide: _inflections_supp_table_wide_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    inflectionBrowser: _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    wordForms: _wordforms_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordForms: _wordforms_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
 
   props: {
@@ -9658,19 +9679,6 @@ __webpack_require__.r(__webpack_exports__);
     inflectionsEnabled: {
       type: Boolean,
       default: false,
-      required: false
-    },
-
-    // Whether a inflection browser component is enabled or not (depends on the language)
-    inflectionBrowserEnabled: {
-      type: Boolean,
-      default: true,
-      required: false
-    },
-
-    inflBrowserTablesCollapsed: {
-      type: Boolean,
-      default: true,
       required: false
     },
 
@@ -9711,8 +9719,6 @@ __webpack_require__.r(__webpack_exports__);
       selectedViewName: '',
       selectedView: {},
       renderedView: {},
-      mainTableCollapsed: false,
-      prerenderedCollapsed: false,
       elementIDs: {
         panelInner: 'alpheios-panel-inner',
         footnotes: 'alph-inflection-footnotes'
@@ -9746,7 +9752,6 @@ __webpack_require__.r(__webpack_exports__);
         this.selectedPartOfSpeech = newValue
         this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
         this.selectedView = this.views[0].render()
-        this.mainTableCollapsed = false
       }
     },
     viewSelector: {
@@ -9755,7 +9760,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       set: function (newValue) {
         this.selectedView = this.views.find(view => view.id === newValue).render()
-        this.mainTableCollapsed = false
       }
     },
     inflectionTable: function () {
@@ -9782,31 +9786,7 @@ __webpack_require__.r(__webpack_exports__);
 
   watch: {
     inflectionViewSet: function () {
-      this.hasInflectionData = false
-      if (this.data.inflectionViewSet) {
-        this.languageID = this.data.inflectionViewSet.languageID
-      }
-      if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
-
-        this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
-        if (this.partsOfSpeech.length > 0) {
-          this.selectedPartOfSpeech = this.partsOfSpeech[0]
-          this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
-        } else {
-          this.selectedPartOfSpeech = []
-          this.views = []
-        }
-
-        if (this.views.length > 0) {
-          this.hasInflectionData = true
-          this.selectedView = this.views[0].render()
-          this.mainTableCollapsed = false
-          this.prerenderedCollapsed = false
-        } else {
-          this.selectedView = ''
-        }
-      }
-      // Notify parent of inflection data change
+      this.initViewSet()
       this.$emit(this.events.EVENT, this.events.DATA_UPDATE, this.data.inflectionViewSet)
     },
 
@@ -9839,34 +9819,35 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
-    updateWidth: function () {
-      vue_dist_vue__WEBPACK_IMPORTED_MODULE_9___default.a.nextTick(() => {
-        this.$emit('contentwidth', this.htmlElements.content.offsetWidth + 1)
-      })
-    },
-
-    inflTableInteraction: function () {
-      this.mainTableCollapsed = true
-      vue_dist_vue__WEBPACK_IMPORTED_MODULE_9___default.a.nextTick()
-        .then(() => {
-          this.mainTableCollapsed = null
-        })
-
-    },
-    prerenderedInteraction: function() {
-      // this is a bit of  hack -- prerendered tables collapsed state
-      // should follow the main table collapsed state but
-      // the prerendered tables are a group of sibling tables and we
-      // are only tracking state in a property on the main one we have
-      // to keep a separate property for the sub and supplementary and credits
-      // pieces to follow. So we use a simple toggle for that state
-      // but it should always be overridden by the main table state which is
-      // more fully captured
-      if (this.mainTableCollapsed) {
-        this.prerenderedCollapsed = true
-      } else {
-        this.prerenderedCollapsed = ! this.prerenderedCollapsed
+    initViewSet() {
+      this.hasInflectionData = false
+      if (this.data.inflectionViewSet) {
+        this.languageID = this.data.inflectionViewSet.languageID
       }
+      if (this.data.inflectionViewSet && this.data.inflectionViewSet.hasMatchingViews) {
+
+        this.partsOfSpeech = this.data.inflectionViewSet.partsOfSpeech
+        if (this.partsOfSpeech.length > 0) {
+          this.selectedPartOfSpeech = this.partsOfSpeech[0]
+          this.views = this.data.inflectionViewSet.getViews(this.selectedPartOfSpeech)
+        } else {
+          this.selectedPartOfSpeech = []
+          this.views = []
+        }
+
+        if (this.views.length > 0) {
+          this.hasInflectionData = true
+          this.selectedView = this.views[0].render()
+        } else {
+          this.selectedView = ''
+        }
+      }
+    },
+
+    updateWidth: function () {
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_8___default.a.nextTick(() => {
+        this.$emit('contentwidth', { width: this.htmlElements.content.offsetWidth + 1, component: 'inflections' } )
+      })
     },
 
     navigate (reflink) {
@@ -9895,6 +9876,7 @@ __webpack_require__.r(__webpack_exports__);
     if (typeof this.$el.querySelector === 'function') {
       this.htmlElements.content = this.$el
     }
+    this.initViewSet()
   }
 });
 
@@ -10546,17 +10528,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../images/inline-icons/inflections.svg */ "./images/inline-icons/inflections.svg");
 /* harmony import */ var _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../images/inline-icons/status.svg */ "./images/inline-icons/status.svg");
-/* harmony import */ var _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../images/inline-icons/options.svg */ "./images/inline-icons/options.svg");
-/* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../images/inline-icons/resources.svg */ "./images/inline-icons/resources.svg");
-/* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../images/inline-icons/sitemap.svg */ "./images/inline-icons/sitemap.svg");
-/* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../images/inline-icons/info.svg */ "./images/inline-icons/info.svg");
-/* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
+/* harmony import */ var _images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../images/inline-icons/inflections-browser.svg */ "./images/inline-icons/inflections-browser.svg");
+/* harmony import */ var _images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../images/inline-icons/status.svg */ "./images/inline-icons/status.svg");
+/* harmony import */ var _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../images/inline-icons/options.svg */ "./images/inline-icons/options.svg");
+/* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../images/inline-icons/resources.svg */ "./images/inline-icons/resources.svg");
+/* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../images/inline-icons/sitemap.svg */ "./images/inline-icons/sitemap.svg");
+/* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../images/inline-icons/info.svg */ "./images/inline-icons/info.svg");
+/* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue-components/inflections-browser.vue");
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10759,10 +10754,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Panel',
   components: {
     inflections: _inflections_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    inflectionBrowser: _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     shortdef: _shortdef_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     morph: _morph_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -10774,31 +10772,35 @@ __webpack_require__.r(__webpack_exports__);
     closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_14___default.a,
     definitionsIcon: _images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_15___default.a,
     inflectionsIcon: _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_16___default.a,
-    statusIcon: _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_17___default.a,
-    optionsIcon: _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
-    infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_21___default.a,
-    grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_19___default.a,
-    treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_20___default.a,
+    inflectionsBrowserIcon: _images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_17___default.a,
+    statusIcon: _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
+    optionsIcon: _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_19___default.a,
+    infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22___default.a,
+    grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_20___default.a,
+    treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_21___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_22__["directive"],
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_24__["directive"],
   },
   data: function () {
     return {
       inflectionsPanelID: 'alpheios-panel__inflections-panel',
+      inflectionsBrowserPanelID: 'alpheios-panel__inflections-browser-panel',
 
       positionClassVariants: {
         left: 'alpheios-panel-left',
         right: 'alpheios-panel-right'
       },
 
-      inflPanelLeftPadding: 0,
-      inflPanelRightPadding: 0,
+      panelLeftPadding: 0,
+      panelRightPadding: 0,
       scrollPadding: 0,
-      defaultScrollPadding: 20
+      defaultScrollPadding: 20,
+      defaultPanelWidth: 400,
+      panelWidth: null
     }
   },
   props: {
@@ -10833,8 +10835,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     mainstyles: function () {
       let mainstyles = (this.data) ? this.data.styles : {}
-      
-      return Object.assign({ width: '400px' }, mainstyles)
+      this.panelWidth = this.panelWidth ? this.panelWidth : this.defaultPanelWidth
+
+      return Object.assign({ width: `${this.panelWidth}px` }, mainstyles)
     },
     resourceSettingsLexicons: function () {
       return this.data.resourceSettings && this.data.resourceSettings.lexicons ? this.data.resourceSettings.lexicons.filter(item => item.values.length > 0) : []
@@ -10892,16 +10895,25 @@ __webpack_require__.r(__webpack_exports__);
     // Need this to watch when inflections tab becomes active and adjust panel width to fully fit an inflection table in
     inflectionsTabVisible: function () {
       // Inform an inflection component about its visibility state change
-      if (this.data && this.data.inflectionComponentData) {
+      if (this.data && this.data.inflectionComponentData.inflectionViewSet) {
         this.data.inflectionComponentData.visible = this.data.tabs.inflections
       }
       return this.data.tabs.inflections
     },
 
+    // Need this to watch when inflections browser tab becomes active and adjust panel width to fully fit an inflection table in
+    inflectionsBrowserTabVisible: function () {
+      // Inform an inflection browser component about its visibility state change
+      if (this.data && this.data.inflectionBrowserData) {
+        this.data.inflectionBrowserData.visible = this.data.tabs.inflectionsbrowser
+      }
+      return this.data.tabs.inflectionsbrowser
+    },
+
     treebankTabAvailable: function() {
       // treebank data is possible if we have it for the word or the page
-      return this.data && this.data.treebankComponentData && this.data.treebankComponentData.data && 
-            ((this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.src) || 
+      return this.data && this.data.treebankComponentData && this.data.treebankComponentData.data &&
+            ((this.data.treebankComponentData.data.page && this.data.treebankComponentData.data.page.src) ||
              (this.data.treebankComponentData.data.word && this.data.treebankComponentData.data.word.src)) ? true : false
     },
 
@@ -10909,7 +10921,7 @@ __webpack_require__.r(__webpack_exports__);
       // Inform treebank component about visibility state change
       if (this.data && this.data.treebankComponentData && this.data.treebankComponentData.data) {
         this.data.treebankComponentData.visible = this.data.tabs.treebank
-      } 
+      }
       return this.data.tabs.treebank
     },
 
@@ -10949,7 +10961,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     changeTab (name) {
-      this.setContentWidth('auto')
+      this.setContentWidth({ width:'auto',component:null })
       this.$emit('changetab', name)
     },
 
@@ -10987,36 +10999,36 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('ui-option-change', name, value) // Re-emit for a Vue instance to catch
     },
 
-    setContentWidth: function (width) {
+    setContentWidth: function (dataObj) {
       if (this.data === undefined) {
         return
       }
-      if (width === 'auto') {
-        this.$el.style.removeProperty('width')
+      if (dataObj.width === 'auto') {
+        this.panelWidth = null
         return
       }
 
-      this.calcWidthPaddings()
+      this.calcWidthPaddings(dataObj.component)
       this.calcScrollPadding()
 
       let widthDelta = this.navbarWidth
-        + this.inflPanelLeftPadding
-        + this.inflPanelRightPadding
+        + this.panelLeftPadding
+        + this.panelRightPadding
         + this.scrollPadding
 
-      if (width > this.data.minWidth - widthDelta) {
-        let adjustedWidth = width + widthDelta
+      if (dataObj.width > this.data.minWidth - widthDelta) {
+        let adjustedWidth = dataObj.width + widthDelta
         // Max viewport width less some space to display page content
         let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
 
         if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
-        this.$el.style.width = `${adjustedWidth}px`
+        this.panelWidth = adjustedWidth
       }
     },
 
     setTreebankContentWidth: function(width) {
         console.log(`Set width to ${width}`)
-        this.$el.style.width = width
+        this.panelWidth = width
     },
 
     ln10Messages: function (value, defaultValue = 'unknown') {
@@ -11037,29 +11049,36 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    calcWidthPaddings: function () {
-      if (typeof this.$el.querySelector === 'function' && (this.inflPanelLeftPadding === 0 || this.inflPanelRightPadding === 0)) {
+    calcWidthPaddings: function (component) {
+      let panelTabId
+      if ( component === 'inflections') {
+        panelTabId =this.inflectionsPanelID
+      } else if ( component === 'inflections=browser' ) {
+        panelTabId =this.inflectionsBrowserPanelID
+      }
+
+      if (typeof this.$el.querySelector === 'function' && panelTabId && (this.panelLeftPadding === 0 || this.panelRightPadding === 0)) {
         let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let inflectionsPanel = this.$el.querySelector(`#${this.inflectionsPanelID}`)
+        let panel = this.$el.querySelector(`#${panelTabId}`)
         this.navbarWidth = 0
         if (navbar) {
           let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
           if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
         }
 
-        if (inflectionsPanel) {
-          let resPl1 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-left').match(/\d+/)
+        if (panel) {
+          let resPl1 = window.getComputedStyle(panel).getPropertyValue('padding-left').match(/\d+/)
           if (Array.isArray(resPl1)) {
-            this.inflPanelLeftPadding = inflectionsPanel ? parseInt(resPl1[0]) : 0
+            this.panelLeftPadding = parseInt(resPl1[0])
           } else {
-            this.inflPanelLeftPadding = 0
+            this.panelLeftPadding = 0
           }
 
-          let resPl2 = window.getComputedStyle(inflectionsPanel).getPropertyValue('padding-right').match(/\d+/)
+          let resPl2 = window.getComputedStyle(panel).getPropertyValue('padding-right').match(/\d+/)
           if (Array.isArray(resPl2)) {
-            this.inflPanelRightPadding = inflectionsPanel ? parseInt(resPl2[0]) : 0
+            this.panelRightPadding = parseInt(resPl2[0])
           } else {
-            this.inflPanelRightPadding = 0
+            this.panelRightPadding = 0
           }
         }
       }
@@ -12573,12 +12592,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -12591,12 +12607,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -12620,12 +12633,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12637,12 +12647,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12654,12 +12661,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12671,12 +12675,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12688,12 +12689,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12705,12 +12703,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -12723,12 +12718,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12737,12 +12729,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12751,12 +12740,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12765,12 +12751,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -12787,12 +12770,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12805,12 +12785,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12823,12 +12800,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12841,12 +12815,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12859,12 +12830,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12877,12 +12845,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12895,12 +12860,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         })
       ],
       1
@@ -12975,12 +12937,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -12989,12 +12948,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -13007,12 +12963,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13023,12 +12976,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -13045,12 +12995,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13063,12 +13010,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13081,12 +13025,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13099,12 +13040,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13117,12 +13055,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13135,12 +13070,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13153,12 +13085,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13171,12 +13100,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13189,12 +13115,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -13210,12 +13133,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -13231,12 +13151,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -13257,12 +13174,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13271,12 +13185,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13285,12 +13196,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13299,12 +13207,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13313,12 +13218,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13327,12 +13229,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13341,12 +13240,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13355,12 +13251,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13369,12 +13262,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13383,12 +13273,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13397,12 +13284,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13411,12 +13295,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13425,12 +13306,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13439,12 +13317,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13453,12 +13328,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13467,12 +13339,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13485,12 +13354,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13499,12 +13365,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13513,12 +13376,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13531,12 +13391,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13545,12 +13402,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13559,12 +13413,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13573,12 +13424,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13587,12 +13435,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13601,12 +13446,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13615,12 +13457,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13629,12 +13468,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13643,12 +13479,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13657,12 +13490,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -13679,12 +13509,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13693,12 +13520,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13707,12 +13531,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13721,12 +13542,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13739,12 +13557,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13753,12 +13568,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13767,12 +13579,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13781,12 +13590,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13799,12 +13605,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13813,12 +13616,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13827,12 +13627,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13841,12 +13638,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13859,12 +13653,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13873,12 +13664,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13887,12 +13675,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -13905,12 +13690,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13919,12 +13701,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13933,12 +13712,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13947,12 +13723,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13961,12 +13734,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13975,12 +13745,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -13989,12 +13756,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14003,12 +13767,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14017,12 +13778,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14031,12 +13789,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14045,12 +13800,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14059,12 +13811,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -14077,12 +13826,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14091,12 +13837,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14105,12 +13848,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14119,12 +13859,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14133,12 +13870,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14147,12 +13881,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14161,12 +13892,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14175,12 +13903,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14189,12 +13914,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14203,12 +13925,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14217,12 +13936,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14231,12 +13947,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         }),
         _vm._v(" "),
         _c("wide-table", {
@@ -14245,12 +13958,9 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: _vm.inflBrowserTablesCollapsed
+            collapsed: true
           },
-          on: {
-            widthchange: _vm.inflTableWidthUpd,
-            interaction: _vm.inflTableInteraction
-          }
+          on: { widthchange: _vm.inflTableWidthUpd }
         })
       ],
       1
@@ -14857,44 +14567,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: _vm.elementIDs.content } },
-    [
-      _vm.waitState
-        ? _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
+  return _c("div", { attrs: { id: _vm.elementIDs.content } }, [
+    _vm.waitState
+      ? _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
+          _c("div", { staticClass: "alpheios-inflections__progress-wrapper" }, [
             _c(
               "div",
-              { staticClass: "alpheios-inflections__progress-wrapper" },
+              { staticClass: "alpheios-inflections__progress-border" },
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-inflections__progress-border" },
+                  { staticClass: "alpheios-inflections__progress-whitespace" },
                   [
+                    _c("div", {
+                      staticClass: "alpheios-inflections__progress-line"
+                    }),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      {
-                        staticClass: "alpheios-inflections__progress-whitespace"
-                      },
+                      { staticClass: "alpheios-inflections__progress-text" },
                       [
-                        _c("div", {
-                          staticClass: "alpheios-inflections__progress-line"
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "alpheios-inflections__progress-text"
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS
-                                ) +
-                                "\n                    "
-                            )
-                          ]
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(
+                              _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS
+                            ) +
+                            "\n                    "
                         )
                       ]
                     )
@@ -14903,342 +14601,306 @@ var render = function() {
               ]
             )
           ])
-        : _vm.inflectionsEnabled && _vm.hasMatchingViews
-          ? _c(
-              "div",
-              { staticClass: "alpheios-inflections__content" },
-              [
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.partsOfSpeech.length > 1,
-                        expression: "partsOfSpeech.length > 1"
-                      }
-                    ]
-                  },
-                  [
-                    _c("label", { staticClass: "uk-form-label" }, [
-                      _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.partOfSpeechSelector,
-                            expression: "partOfSpeechSelector"
-                          }
-                        ],
-                        staticClass:
-                          "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.partOfSpeechSelector = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      _vm._l(_vm.partsOfSpeech, function(partOfSpeech) {
-                        return _c("option", [_vm._v(_vm._s(partOfSpeech))])
-                      })
-                    )
+        ])
+      : _vm.inflectionsEnabled && _vm.hasMatchingViews
+        ? _c(
+            "div",
+            { staticClass: "alpheios-inflections__content" },
+            [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.partsOfSpeech.length > 1,
+                      expression: "partsOfSpeech.length > 1"
+                    }
                   ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "alpheios-inflections__actions" },
-                  [
-                    _vm.selectedView && _vm.selectedView.homonym
-                      ? _c("word-forms", {
-                          attrs: {
-                            partOfSpeech:
-                              _vm.selectedView.constructor.mainPartOfSpeech,
-                            targetWord: _vm.selectedView.homonym.targetWord,
-                            lexemes: _vm.selectedView.homonym.lexemes
-                          }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.views.length > 1,
-                            expression: "views.length > 1"
-                          }
-                        ]
-                      },
-                      [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.viewSelector,
-                                expression: "viewSelector"
-                              }
-                            ],
-                            staticClass:
-                              "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.viewSelector = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          _vm._l(_vm.views, function(view) {
-                            return _c(
-                              "option",
-                              { domProps: { value: view.id } },
-                              [_vm._v(_vm._s(view.name))]
-                            )
-                          })
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.data.inflectionData
-                  ? _c("div", {
+                },
+                [
+                  _c("label", { staticClass: "uk-form-label" }, [
+                    _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.partOfSpeechSelector,
+                          expression: "partOfSpeechSelector"
+                        }
+                      ],
+                      staticClass:
+                        "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.partOfSpeechSelector = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.partsOfSpeech, function(partOfSpeech) {
+                      return _c("option", [_vm._v(_vm._s(partOfSpeech))])
+                    })
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "alpheios-inflections__actions" },
+                [
+                  _vm.selectedView && _vm.selectedView.homonym
+                    ? _c("word-forms", {
+                        attrs: {
+                          partOfSpeech:
+                            _vm.selectedView.constructor.mainPartOfSpeech,
+                          targetWord: _vm.selectedView.homonym.targetWord,
+                          lexemes: _vm.selectedView.homonym.lexemes
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
                       directives: [
                         {
                           name: "show",
                           rawName: "v-show",
-                          value: _vm.showExplanatoryHint,
-                          expression: "showExplanatoryHint"
+                          value: _vm.views.length > 1,
+                          expression: "views.length > 1"
                         }
-                      ],
-                      staticClass: "alpheios-inflections__paradigms-expl",
-                      domProps: {
-                        innerHTML: _vm._s(
-                          _vm.messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(
-                            _vm.data.inflectionData.targetWord
-                          )
-                        )
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.selectedView.hasPrerenderedTables
-                  ? _c(
-                      "div",
-                      [
-                        _c("main-table-wide-vue", {
-                          attrs: {
-                            view: _vm.selectedView,
-                            messages: _vm.messages,
-                            collapsed: _vm.mainTableCollapsed
-                          },
-                          on: { widthchange: _vm.updateWidth }
-                        }),
-                        _vm._v(" "),
-                        _vm._l(_vm.selectedView.linkedViews, function(
-                          linkedView
-                        ) {
-                          return _vm.selectedView.linkedViews
-                            ? [
-                                _c("main-table-wide-vue", {
-                                  attrs: {
-                                    view: linkedView,
-                                    messages: _vm.messages
-                                  },
-                                  on: { widthchange: _vm.updateWidth }
-                                })
-                              ]
-                            : _vm._e()
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "alpheios-inflections__footnotes",
-                            attrs: { id: _vm.elementIDs.footnotes }
-                          },
-                          [
-                            _vm._l(_vm.footnotes, function(footnote) {
-                              return [
-                                _c("dt", [_vm._v(_vm._s(footnote.index))]),
-                                _vm._v(" "),
-                                _c("dd", [_vm._v(_vm._s(footnote.text))])
-                              ]
-                            })
+                      ]
+                    },
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.viewSelector,
+                              expression: "viewSelector"
+                            }
                           ],
-                          2
+                          staticClass:
+                            "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.viewSelector = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.views, function(view) {
+                          return _c(
+                            "option",
+                            { domProps: { value: view.id } },
+                            [_vm._v(_vm._s(view.name))]
+                          )
+                        })
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.data.inflectionData
+                ? _c("div", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showExplanatoryHint,
+                        expression: "showExplanatoryHint"
+                      }
+                    ],
+                    staticClass: "alpheios-inflections__paradigms-expl",
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(
+                          _vm.data.inflectionData.targetWord
                         )
-                      ],
-                      2
-                    )
-                  : [
-                      _c("prerendered-table-wide", {
+                      )
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.selectedView.hasPrerenderedTables
+                ? _c(
+                    "div",
+                    [
+                      _c("main-table-wide-vue", {
                         attrs: {
                           view: _vm.selectedView,
-                          collapsed: _vm.mainTableCollapsed
+                          messages: _vm.messages,
+                          collapsed: false
                         },
-                        on: {
-                          prerenderedinteraction: _vm.prerenderedInteraction
-                        }
+                        on: { widthchange: _vm.updateWidth }
                       }),
                       _vm._v(" "),
-                      _c("sub-tables-wide", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.prerenderedCollapsed,
-                            expression: "!prerenderedCollapsed"
-                          }
-                        ],
-                        attrs: { view: _vm.selectedView },
-                        on: { navigate: _vm.navigate }
+                      _vm._l(_vm.selectedView.linkedViews, function(
+                        linkedView
+                      ) {
+                        return _vm.selectedView.linkedViews
+                          ? [
+                              _c("main-table-wide-vue", {
+                                attrs: {
+                                  view: linkedView,
+                                  messages: _vm.messages,
+                                  collapsed: false
+                                },
+                                on: { widthchange: _vm.updateWidth }
+                              })
+                            ]
+                          : _vm._e()
                       }),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value:
-                                _vm.selectedView.hasSuppParadigms &&
-                                !_vm.prerenderedCollapsed,
-                              expression:
-                                "selectedView.hasSuppParadigms && !prerenderedCollapsed"
-                            }
-                          ],
-                          staticClass: "alpheios-inflections__supp-tables"
+                          staticClass: "alpheios-inflections__footnotes",
+                          attrs: { id: _vm.elementIDs.footnotes }
                         },
                         [
-                          _c(
-                            "h3",
-                            { staticClass: "alpheios-inflections__title" },
-                            [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.messages
-                                    .INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER
-                                )
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _vm._l(_vm.selectedView.suppParadigms, function(
-                            paradigm
-                          ) {
+                          _vm._l(_vm.footnotes, function(footnote) {
                             return [
-                              _c("supp-tables-wide", {
-                                attrs: {
-                                  data: paradigm,
-                                  "bg-color": _vm.selectedView.hlSuppParadigms
-                                    ? _vm.selectedView.suppHlColors.get(
-                                        paradigm.paradigmID
-                                      )
-                                    : "transparent",
-                                  messages: _vm.messages
-                                },
-                                on: { navigate: _vm.navigate }
-                              })
+                              _c("dt", [_vm._v(_vm._s(footnote.index))]),
+                              _vm._v(" "),
+                              _c("dd", [_vm._v(_vm._s(footnote.text))])
                             ]
                           })
                         ],
                         2
                       )
                     ],
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.selectedView.hasCredits &&
-                          !_vm.prerenderedCollapsed,
-                        expression:
-                          "selectedView.hasCredits && !prerenderedCollapsed"
-                      }
-                    ],
-                    staticClass: "alpheios-inflections__credits-cont"
-                  },
-                  [
-                    _c(
-                      "h3",
-                      { staticClass: "alpheios-inflections__credits-title" },
-                      [_vm._v(_vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE))]
-                    ),
+                    2
+                  )
+                : [
+                    _c("prerendered-table-wide", {
+                      attrs: { view: _vm.selectedView, collapsed: false }
+                    }),
                     _vm._v(" "),
-                    _c("div", {
-                      staticClass: "alpheios-inflections__credits-text",
-                      domProps: {
-                        innerHTML: _vm._s(_vm.selectedView.creditsText)
-                      }
-                    })
-                  ]
-                )
-              ],
-              2
+                    _c("sub-tables-wide", {
+                      attrs: { view: _vm.selectedView, collapsed: false },
+                      on: { navigate: _vm.navigate }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.selectedView.hasSuppParadigms,
+                            expression: "selectedView.hasSuppParadigms"
+                          }
+                        ],
+                        staticClass: "alpheios-inflections__supp-tables"
+                      },
+                      [
+                        _c(
+                          "h3",
+                          { staticClass: "alpheios-inflections__title" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.messages
+                                  .INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER
+                              )
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.selectedView.suppParadigms, function(
+                          paradigm
+                        ) {
+                          return [
+                            _c("supp-tables-wide", {
+                              attrs: {
+                                data: paradigm,
+                                "bg-color": _vm.selectedView.hlSuppParadigms
+                                  ? _vm.selectedView.suppHlColors.get(
+                                      paradigm.paradigmID
+                                    )
+                                  : "transparent",
+                                messages: _vm.messages
+                              },
+                              on: { navigate: _vm.navigate }
+                            })
+                          ]
+                        })
+                      ],
+                      2
+                    )
+                  ],
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.selectedView.hasCredits,
+                      expression: "selectedView.hasCredits"
+                    }
+                  ],
+                  staticClass: "alpheios-inflections__credits-cont"
+                },
+                [
+                  _c(
+                    "h3",
+                    { staticClass: "alpheios-inflections__credits-title" },
+                    [_vm._v(_vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE))]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "alpheios-inflections__credits-text",
+                    domProps: {
+                      innerHTML: _vm._s(_vm.selectedView.creditsText)
+                    }
+                  })
+                ]
+              )
+            ],
+            2
+          )
+        : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) +
+                "\n    "
             )
-          : !_vm.inflectionBrowserEnabled
-            ? _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) +
-                    "\n    "
-                )
-              ])
-            : _vm._e(),
-      _vm._v(" "),
-      _vm.inflectionBrowserEnabled
-        ? _c("inflection-browser", {
-            attrs: {
-              "language-id": _vm.languageID,
-              messages: _vm.messages,
-              "infl-browser-tables-collapsed": _vm.inflBrowserTablesCollapsed
-            },
-            on: {
-              widthchange: _vm.updateWidth,
-              interaction: _vm.inflTableInteraction
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
+          ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -16351,6 +16013,14 @@ var render = function() {
                 _c(
                   "alph-tooltip",
                   {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.data.inflectionComponentData.inflDataReady,
+                        expression: "data.inflectionComponentData.inflDataReady"
+                      }
+                    ],
                     attrs: {
                       tooltipDirection: "bottom-narrow",
                       tooltipText: _vm.ln10Messages("TOOLTIP_INFLECT")
@@ -16370,6 +16040,36 @@ var render = function() {
                       },
                       [
                         _c("inflections-icon", { staticClass: "alpheios-icon" })
+                      ],
+                      1
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "alph-tooltip",
+                  {
+                    attrs: {
+                      tooltipDirection: "bottom-narrow",
+                      tooltipText: _vm.ln10Messages("TOOLTIP_INFLECT_BROWSER")
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "alpheios-panel__header-nav-btn",
+                        class: { active: _vm.data.tabs.inflectionsbrowser },
+                        on: {
+                          click: function($event) {
+                            _vm.changeTab("inflectionsbrowser")
+                          }
+                        }
+                      },
+                      [
+                        _c("inflections-browser-icon", {
+                          staticClass: "alpheios-icon"
+                        })
                       ],
                       1
                     )
@@ -16682,7 +16382,7 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _vm.data.inflectionComponentData &&
+            _vm.data.inflectionComponentData.inflDataReady &&
             _vm.data.settings &&
             _vm.data.l10n
               ? _c(
@@ -16705,14 +16405,41 @@ var render = function() {
                       staticClass: "alpheios-panel-inflections",
                       attrs: {
                         "inflections-enabled": _vm.data.inflectionsEnabled,
-                        "inflection-browser-enabled":
-                          _vm.data.inflectionBrowserEnabled,
-                        "infl-browser-tables-collapsed":
-                          _vm.data.inflBrowserTablesCollapsed,
                         data: _vm.data.inflectionComponentData,
                         locale: _vm.data.settings.locale.currentValue,
                         messages: _vm.data.l10n.messages,
                         "wait-state": _vm.data.inflectionsWaitState
+                      },
+                      on: { contentwidth: _vm.setContentWidth }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.data.inflectionBrowserEnabled &&
+            _vm.data.settings &&
+            _vm.data.l10n
+              ? _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.inflectionsBrowserTabVisible,
+                        expression: "inflectionsBrowserTabVisible"
+                      }
+                    ],
+                    staticClass:
+                      "alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser",
+                    attrs: { id: _vm.inflectionsBrowserPanelID }
+                  },
+                  [
+                    _c("inflection-browser", {
+                      attrs: {
+                        messages: _vm.data.l10n.messages,
+                        data: _vm.data.inflectionBrowserData
                       },
                       on: { contentwidth: _vm.setContentWidth }
                     })
@@ -29736,6 +29463,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 
 /***/ }),
 
+/***/ "./images/inline-icons/inflections-browser.svg":
+/*!*****************************************************!*\
+  !*** ./images/inline-icons/inflections-browser.svg ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\inflections-browser.svg"};module.exports = { render: render, toString: toString };
+
+/***/ }),
+
 /***/ "./images/inline-icons/inflections.svg":
 /*!*********************************************!*\
   !*** ./images/inline-icons/inflections.svg ***!
@@ -30117,6 +29855,7 @@ class UIController {
           tabs: {
             definitions: false,
             inflections: false,
+            inflectionsbrowser: false,
             status: false,
             options: false,
             info: true,
@@ -30128,14 +29867,16 @@ class UIController {
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            inflectionViewSet: null
+            inflectionViewSet: null,
+            inflDataReady: false
+          },
+          inflectionBrowserData: {
+            visible: false
           },
           inflectionsWaitState: false,
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
           inflectionBrowserEnabled: false,
-          // Whether all table in an inflection browser should be collapsed
-          inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -30830,7 +30571,6 @@ class UIController {
     this.panel.panelData.inflectionsEnabled = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSetFactory"].hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
     this.panel.panelData.grammarAvailable = false
-    this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -30980,11 +30720,11 @@ class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.panel.panelData.inflectionsWaitState = false
+    this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
   lexicalRequestComplete () {
-    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
     this.popup.popupData.morphDataReady = true
   }
 
@@ -34669,10 +34409,10 @@ module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about
 /*!*************************************!*\
   !*** ./locales/en-us/messages.json ***!
   \*************************************/
-/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, default */
+/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, default */
 /***/ (function(module) {
 
-module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflection Tables","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"}};
+module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"}};
 
 /***/ }),
 
