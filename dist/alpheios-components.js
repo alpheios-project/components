@@ -8846,6 +8846,7 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: true
     },
+
     data: {
       type: Object,
       required: true
@@ -8876,6 +8877,7 @@ __webpack_require__.r(__webpack_exports__);
     isVisible: function () {
       return this.data.visible
     }
+
   },
 
   watch: {
@@ -10542,6 +10544,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue-components/inflections-browser.vue");
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
+//
 //
 //
 //
@@ -12592,7 +12595,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12607,7 +12610,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12633,7 +12636,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12647,7 +12650,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12661,7 +12664,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12675,7 +12678,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12689,7 +12692,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12703,7 +12706,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12718,7 +12721,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12729,7 +12732,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12740,7 +12743,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12751,7 +12754,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12770,7 +12773,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12785,7 +12788,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12800,7 +12803,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12815,7 +12818,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12830,7 +12833,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12845,7 +12848,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12860,7 +12863,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         })
@@ -12937,7 +12940,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12948,7 +12951,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12963,7 +12966,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12976,7 +12979,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -12995,7 +12998,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13010,7 +13013,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13025,7 +13028,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13040,7 +13043,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13055,7 +13058,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13070,7 +13073,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13085,7 +13088,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13100,7 +13103,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13115,7 +13118,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13133,7 +13136,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13151,7 +13154,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13174,7 +13177,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13185,7 +13188,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13196,7 +13199,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13207,7 +13210,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13218,7 +13221,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13229,7 +13232,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13240,7 +13243,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13251,7 +13254,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13262,7 +13265,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13273,7 +13276,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13284,7 +13287,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13295,7 +13298,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13306,7 +13309,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13317,7 +13320,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13328,7 +13331,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13339,7 +13342,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13354,7 +13357,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13365,7 +13368,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13376,7 +13379,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13391,7 +13394,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13402,7 +13405,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13413,7 +13416,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13424,7 +13427,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13435,7 +13438,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13446,7 +13449,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13457,7 +13460,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13468,7 +13471,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13479,7 +13482,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13490,7 +13493,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13509,7 +13512,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13520,7 +13523,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13531,7 +13534,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13542,7 +13545,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13557,7 +13560,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13568,7 +13571,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13579,7 +13582,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13590,7 +13593,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13605,7 +13608,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13616,7 +13619,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13627,7 +13630,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13638,7 +13641,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13653,7 +13656,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13664,7 +13667,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13675,7 +13678,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13690,7 +13693,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13701,7 +13704,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13712,7 +13715,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13723,7 +13726,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13734,7 +13737,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13745,7 +13748,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13756,7 +13759,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13767,7 +13770,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13778,7 +13781,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13789,7 +13792,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13800,7 +13803,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13811,7 +13814,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13826,7 +13829,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13837,7 +13840,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13848,7 +13851,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13859,7 +13862,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13870,7 +13873,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13881,7 +13884,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13892,7 +13895,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13903,7 +13906,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13914,7 +13917,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13925,7 +13928,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13936,7 +13939,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13947,7 +13950,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         }),
@@ -13958,7 +13961,7 @@ var render = function() {
             "infl-browser-table": true,
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
-            collapsed: true
+            collapsed: _vm.inflBrowserTablesCollapsed
           },
           on: { widthchange: _vm.inflTableWidthUpd }
         })
@@ -16439,7 +16442,9 @@ var render = function() {
                     _c("inflection-browser", {
                       attrs: {
                         messages: _vm.data.l10n.messages,
-                        data: _vm.data.inflectionBrowserData
+                        data: _vm.data.inflectionBrowserData,
+                        "infl-browser-tables-collapsed":
+                          _vm.data.inflBrowserTablesCollapsed
                       },
                       on: { contentwidth: _vm.setContentWidth }
                     })
@@ -29877,6 +29882,7 @@ class UIController {
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
           inflectionBrowserEnabled: false,
+          inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -30290,6 +30296,7 @@ class UIController {
 
         newLexicalRequest: function () {
           this.popupData.requestStartTime = new Date().getTime()
+          this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
         },
 
         clearContent: function () {
@@ -30726,6 +30733,7 @@ class UIController {
 
   lexicalRequestComplete () {
     this.popup.popupData.morphDataReady = true
+    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
   }
 
   lexicalRequestSucceeded () {
