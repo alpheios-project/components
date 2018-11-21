@@ -436,7 +436,6 @@
           return
         }
         if (width === 'auto') {
-          // this.$el.style.removeProperty('width')
           this.panelWidth = null
           return
         }
@@ -455,14 +454,12 @@
           let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
 
           if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
-          // this.$el.style.width = `${adjustedWidth}px`
           this.panelWidth = adjustedWidth
         }
       },
 
       setTreebankContentWidth: function(width) {
           console.log(`Set width to ${width}`)
-          // this.$el.style.width = width
           this.panelWidth = width
       },
 
