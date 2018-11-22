@@ -164,6 +164,14 @@
         cursor: move;
         -webkit-transition: -webkit-transform 0.05s;
         transition: transform 0.05s;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
     }
 
     .alpheios-inflections__footnote-popup.hidden {
