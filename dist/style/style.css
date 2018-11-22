@@ -9517,6 +9517,7 @@ h4.alpheios-inflections__additional_title {
   left: 0;
   bottom: 20px;
   transform: translateX(-50%);
+  /* no !important */
   z-index: 10;
   min-width: 200px;
   border: 1px solid #4E6476;
