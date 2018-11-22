@@ -51,6 +51,7 @@
     methods: {
       // Named according to Vue style guide: https://vuejs.org/v2/style-guide/#Private-property-names-essential
       $_alpheios_init () {
+        console.info('*******************$_alpheios_init', this.draggable, !this.interactInstance)
         if (this.draggable && !this.interactInstance) {
           this.interactInstance = interact(this.target)
             .draggable(this.draggableSettings())
