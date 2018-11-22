@@ -157,7 +157,6 @@
         padding: 30px 15px 15px;
         left: 0;
         bottom: 20px;
-        // transform: translateX(-50%);
         z-index: 10;
         min-width: 200px;
         border: 1px solid $alpheios-toolbar-color;
