@@ -43,7 +43,8 @@
       }
     },
     mounted () {
-      this.target = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+      this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+      this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
     },
     beforeDestroy () {
       this.$_alpheios_cleanup()
@@ -52,15 +53,10 @@
       // Named according to Vue style guide: https://vuejs.org/v2/style-guide/#Private-property-names-essential
       $_alpheios_init () {
         if (this.draggable && !this.interactInstance) {
-          this.interactInstance = interact(this.target)
+          this.interactInstance = interact(this.inflpopup)
             .draggable(this.draggableSettings())
-          
-          if (!this.inflpopup) {
-            this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
-          }
 
-          this.inflpopup.style.webkitTransform = 'translate(-50%)'
-          this.inflpopup.style.transform = 'translate(-50%)'
+          this.setTransformPopup('translate(-50%)')
         }
       },
 
@@ -69,6 +65,11 @@
           this.interactInstance.unset()
           this.interactInstance = null
         }
+      },
+
+      setTransformPopup(transformValue) {
+        this.popupAlignmentStyles.webkitTransform = transformValue
+        this.popupAlignmentStyles.transform = transformValue
       },
 
       draggableSettings: function () {
@@ -89,8 +90,7 @@
         const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
         const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
 
-        target.style.webkitTransform = `translate(${x}px, ${y}px)`
-        target.style.transform = `translate(${x}px, ${y}px)`
+        this.setTransformPopup(`translate(${x}px, ${y}px)`)
 
         target.setAttribute('data-x', x)
         target.setAttribute('data-y', y)
@@ -115,20 +115,13 @@
       },
 
       checkBounds () {
-        if (!this.inflpopup) {
-          this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
-        }
-        if (!this.inflpanel) {
-          this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
-        }
-
         let popupBR = this.inflpopup.getBoundingClientRect()
         let panelBR = this.inflpanel.getBoundingClientRect()
 
         if (this.isOutOfRightXBound(popupBR, panelBR)) {
-          this.popupAlignmentStyles.transform = 'translateX(calc(-50% - ' + this.deltaRightXBound(popupBR, panelBR) + 'px))'
+          this.setTransformPopup(`translateX(calc(-50% - ${this.deltaRightXBound(popupBR, panelBR)}px))`)
         } else if (this.isOutOfLeftXBound(popupBR, panelBR)) {
-          this.popupAlignmentStyles.transform = 'translateX(-' + this.deltaLeftXBound(popupBR, panelBR) + 'px)'
+          this.setTransformPopup(`translateX(-${this.deltaLeftXBound(popupBR, panelBR)}px)`)
         }
       },
 
@@ -169,6 +162,8 @@
         min-width: 200px;
         border: 1px solid $alpheios-toolbar-color;
         cursor: move;
+        -webkit-transition: -webkit-transform 0.05s;
+        transition: transform 0.05s;
     }
 
     .alpheios-inflections__footnote-popup.hidden {

@@ -8548,7 +8548,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted () {
-    this.target = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+    this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+    this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
   },
   beforeDestroy () {
     this.$_alpheios_cleanup()
@@ -8557,15 +8558,10 @@ __webpack_require__.r(__webpack_exports__);
     // Named according to Vue style guide: https://vuejs.org/v2/style-guide/#Private-property-names-essential
     $_alpheios_init () {
       if (this.draggable && !this.interactInstance) {
-        this.interactInstance = interactjs__WEBPACK_IMPORTED_MODULE_0___default()(this.target)
+        this.interactInstance = interactjs__WEBPACK_IMPORTED_MODULE_0___default()(this.inflpopup)
           .draggable(this.draggableSettings())
-        
-        if (!this.inflpopup) {
-          this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
-        }
 
-        this.inflpopup.style.webkitTransform = 'translate(-50%)'
-        this.inflpopup.style.transform = 'translate(-50%)'
+        this.setTransformPopup('translate(-50%)')
       }
     },
 
@@ -8574,6 +8570,11 @@ __webpack_require__.r(__webpack_exports__);
         this.interactInstance.unset()
         this.interactInstance = null
       }
+    },
+
+    setTransformPopup(transformValue) {
+      this.popupAlignmentStyles.webkitTransform = transformValue
+      this.popupAlignmentStyles.transform = transformValue
     },
 
     draggableSettings: function () {
@@ -8594,8 +8595,7 @@ __webpack_require__.r(__webpack_exports__);
       const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
       const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
 
-      target.style.webkitTransform = `translate(${x}px, ${y}px)`
-      target.style.transform = `translate(${x}px, ${y}px)`
+      this.setTransformPopup(`translate(${x}px, ${y}px)`)
 
       target.setAttribute('data-x', x)
       target.setAttribute('data-y', y)
@@ -8620,20 +8620,13 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     checkBounds () {
-      if (!this.inflpopup) {
-        this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
-      }
-      if (!this.inflpanel) {
-        this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
-      }
-
       let popupBR = this.inflpopup.getBoundingClientRect()
       let panelBR = this.inflpanel.getBoundingClientRect()
 
       if (this.isOutOfRightXBound(popupBR, panelBR)) {
-        this.popupAlignmentStyles.transform = 'translateX(calc(-50% - ' + this.deltaRightXBound(popupBR, panelBR) + 'px))'
+        this.setTransformPopup(`translateX(calc(-50% - ${this.deltaRightXBound(popupBR, panelBR)}px))`)
       } else if (this.isOutOfLeftXBound(popupBR, panelBR)) {
-        this.popupAlignmentStyles.transform = 'translateX(-' + this.deltaLeftXBound(popupBR, panelBR) + 'px)'
+        this.setTransformPopup(`translateX(-${this.deltaLeftXBound(popupBR, panelBR)}px)`)
       }
     },
 

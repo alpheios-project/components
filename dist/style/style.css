@@ -9194,6 +9194,8 @@ img.alpheios-popup__logo {
   min-width: 200px;
   border: 1px solid #4E6476;
   cursor: move;
+  -webkit-transition: -webkit-transform 0.05s;
+  transition: transform 0.05s;
 }
 .alpheios-inflections__footnote-popup.hidden {
   display: none;
