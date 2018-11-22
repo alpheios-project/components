@@ -54,6 +54,13 @@
         if (this.draggable && !this.interactInstance) {
           this.interactInstance = interact(this.target)
             .draggable(this.draggableSettings())
+          
+          if (!this.inflpopup) {
+            this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+          }
+
+          this.inflpopup.style.webkitTransform = 'translate(-50%)'
+          this.inflpopup.style.transform = 'translate(-50%)'
         }
       },
 

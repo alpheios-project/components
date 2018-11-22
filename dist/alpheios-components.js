@@ -8559,6 +8559,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.draggable && !this.interactInstance) {
         this.interactInstance = interactjs__WEBPACK_IMPORTED_MODULE_0___default()(this.target)
           .draggable(this.draggableSettings())
+        
+        if (!this.inflpopup) {
+          this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
+        }
+
+        this.inflpopup.style.webkitTransform = 'translate(-50%)'
+        this.inflpopup.style.transform = 'translate(-50%)'
       }
     },
 
