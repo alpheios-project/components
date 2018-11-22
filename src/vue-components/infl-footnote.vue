@@ -162,8 +162,6 @@
         min-width: 200px;
         border: 1px solid $alpheios-toolbar-color;
         cursor: move;
-        -webkit-transition: -webkit-transform 0.05s;
-        transition: transform 0.05s;
 
         -webkit-touch-callout: none;
         -webkit-user-select: none;

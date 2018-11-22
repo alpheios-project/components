@@ -9194,8 +9194,6 @@ img.alpheios-popup__logo {
   min-width: 200px !important;
   border: 1px solid #4E6476 !important;
   cursor: move !important;
-  -webkit-transition: -webkit-transform 0.05s !important;
-  transition: transform 0.05s !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
   -khtml-user-select: none !important;
