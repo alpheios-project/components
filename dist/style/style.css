@@ -1833,7 +1833,6 @@
   /*
  * 1. Hide by default
  * 2. Set position
- * 3. Use height instead of `bottom: 0` because of wrong height calculation on Android (+ Chrome Responsive Mode)
  */
   /*
  * Flip modifier
@@ -2699,7 +2698,6 @@
   .auk svg,
   .auk video {
     vertical-align: middle; }
-  .auk audio,
   .auk canvas,
   .auk img,
   .auk video {
@@ -5452,10 +5450,9 @@
     /* 2 */
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
-    z-index: 1000;
-    /* 3 */
-    height: 100vh; }
+    z-index: 1000; }
   .auk .uk-offcanvas-flip .uk-offcanvas {
     right: 0;
     left: auto; }
@@ -6688,7 +6685,6 @@
     /* 6 */
     overflow: hidden; }
   .auk .uk-preserve-width,
-  .auk .uk-preserve-width audio,
   .auk .uk-preserve-width canvas,
   .auk .uk-preserve-width img,
   .auk .uk-preserve-width svg,
