@@ -224,25 +224,28 @@ export default class UIController {
           tabs: {
             definitions: false,
             inflections: false,
+            inflectionsbrowser: false,
             status: false,
             options: false,
             info: true,
             treebank: false
           },
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            inflectionViewSet: null
+            inflectionViewSet: null,
+            inflDataReady: false
+          },
+          inflectionBrowserData: {
+            visible: false
           },
           inflectionsWaitState: false,
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
           inflectionBrowserEnabled: false,
-          // Whether all table in an inflection browser should be collapsed
-          inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -553,7 +556,7 @@ export default class UIController {
            */
           requestStartTime: 0,
           settings: this.contentOptions.items,
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -926,7 +929,6 @@ export default class UIController {
     this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
     this.panel.panelData.grammarAvailable = false
-    this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -1051,8 +1053,9 @@ export default class UIController {
 
   updateVerboseMode () {
     this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-    this.panel.panelData.verboseMode = this.options.verboseMode
-    this.popup.popupData.verboseMode = this.options.verboseMode
+
+    this.panel.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.popup.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
   }
 
   updateLemmaTranslations () {
@@ -1075,11 +1078,11 @@ export default class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.panel.panelData.inflectionsWaitState = false
+    this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
   lexicalRequestComplete () {
-    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
     this.popup.popupData.morphDataReady = true
   }
 
