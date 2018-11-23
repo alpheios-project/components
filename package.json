@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Alpheios UI Compononents",
   "main": "dist/alpheios-components.min.js",
   "scripts": {
@@ -123,9 +123,8 @@
       "node": true
     },
     "parserOptions": {
-      "ecmaVersion": 2017,
-      "sourceType": "module",
-      "experimentalObjectRestSpread": true
+      "ecmaVersion": 2018,
+      "sourceType": "module"
     }
   },
   "eslintIgnore": [
