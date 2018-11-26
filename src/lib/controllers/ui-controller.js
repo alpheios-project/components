@@ -246,6 +246,7 @@ export default class UIController {
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
           inflectionBrowserEnabled: false,
+          inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
           inflections: {
@@ -659,6 +660,7 @@ export default class UIController {
 
         newLexicalRequest: function () {
           this.popupData.requestStartTime = new Date().getTime()
+          this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
         },
 
         clearContent: function () {
@@ -1084,6 +1086,7 @@ export default class UIController {
 
   lexicalRequestComplete () {
     this.popup.popupData.morphDataReady = true
+    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
   }
 
   lexicalRequestSucceeded () {
