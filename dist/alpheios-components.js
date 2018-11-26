@@ -10833,6 +10833,9 @@ __webpack_require__.r(__webpack_exports__);
         return this.options.items.preferredLanguage.currentTextValue()
       }
     },
+    inflectionBrowserLanguageID: function() {
+      return this.data.currentLanguageID
+    },
     uiController: function () {
       return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
     },
@@ -16443,6 +16446,7 @@ var render = function() {
                       attrs: {
                         messages: _vm.data.l10n.messages,
                         data: _vm.data.inflectionBrowserData,
+                        "language-id": _vm.inflectionBrowserLanguageID,
                         "infl-browser-tables-collapsed":
                           _vm.data.inflBrowserTablesCollapsed
                       },
@@ -29906,6 +29910,7 @@ class UIController {
             treebank: false
           },
           verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
+          currentLanguageID: null,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
@@ -30717,11 +30722,17 @@ class UIController {
   }
 
   updateLanguage (currentLanguageID) {
+    // the code which follows assumes we have been passed a languageID symbol
+    // we can try to recover gracefully if we accidentally get passed a string value
+    if (typeof currentLanguageID !== "symbol") {
+      console.warn("updateLanguage was called with a string value")
+      currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(currentLanguageID)
+    }
     this.state.setItem('currentLanguage', alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(currentLanguageID))
 
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
-
+    this.panel.panelData.currentLanguageID = currentLanguageID
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
 
     vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
