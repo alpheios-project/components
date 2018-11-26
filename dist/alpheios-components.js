@@ -12781,7 +12781,7 @@ var render = function() {
         _c("wide-table", {
           attrs: {
             view: _vm.latinInflView({
-              viewID: "latin_verb_irregular_view",
+              viewID: "latin_verb_irregular_voice_view",
               form: "fero",
               title: "Fero (ferre, tuli, latus)"
             }),
