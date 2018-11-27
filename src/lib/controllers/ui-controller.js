@@ -18,6 +18,7 @@ import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 import Template from '@/templates/template.htmlf'
+import TabScript from '@/lib/state/tab-script.js'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
 import ResourceQuery from '@/lib/queries/resource-query.js'
 import AnnotationQuery from '@/lib/queries/annotation-query.js'
@@ -59,8 +60,6 @@ export default class UIController {
     this.resourceOptions = new Options(LanguageOptionDefaults, this.options.storageAdapter)
     this.uiOptions = new Options(UIOptionDefaults, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
-
-    this.options.openPanel = this.uiOptions.items.panelOnActivate.currentValue
 
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.isInitialized = false
@@ -212,6 +211,11 @@ export default class UIController {
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
 
+    // Set default panel status based on user preferences
+    this.state.panelStatus = this.uiOptions.items.panelOnActivate.currentValue
+      ? TabScript.statuses.panel.OPEN
+      : TabScript.statuses.panel.CLOSED
+
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -304,8 +308,8 @@ export default class UIController {
           return this.state.isPanelOpen()
         },
 
-        open: function () {
-          if (!this.state.isPanelOpen()) {
+        open: function (forceOpen) {
+          if (forceOpen || !this.state.isPanelOpen()) {
             this.panelData.isOpen = true
             this.state.setPanelOpen()
           }
@@ -801,14 +805,14 @@ export default class UIController {
 
     this.state.activateUI()
 
-    // Update panel on activation
-    if (this.options.openPanel && !this.panel.isOpen()) {
+    // If panel should be opened according to the state, open it
+    if (this.state.isPanelOpen()) {
       /**
        * Without this, the panel will close immediately after opening.
        * Probably this is a matter of timing between state updates.
        * Shall be solved during state refactoring.
        */
-      setTimeout(() => this.panel.open(), 0)
+      setTimeout(() => this.panel.open(true), 0) // TODO: Figure out if we really need a timeout now
     }
     this.isActivated = true
     this.isDeactivated = false

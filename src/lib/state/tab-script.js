@@ -257,7 +257,14 @@ export default class TabScript extends UIStateAPI {
     return this
   }
 
-  diff (state) {
+  /**
+   * Compares the current state with a targetState. A targetState is a state to where the current state should transform.
+   * If any field value in the state is undefined, it means that there is no transformation goal for this field
+   * (i.e we don't care about it value). Because of this, we will not include such fields into a diff result.
+   * @param targetState
+   * @return {{_changedKeys: Array, _changedEntries: Array}}
+   */
+  diff (targetState) {
     let diff = {
       _changedKeys: [],
       _changedEntries: []
@@ -265,20 +272,20 @@ export default class TabScript extends UIStateAPI {
 
     // Check if there are any differences in tab IDs
 
-    if (this.tabID !== state.tabID) {
-      diff.tabID = state.tabID
+    if (this.tabID !== targetState.tabID) {
+      diff.tabID = targetState.tabID
       diff['_changedKeys'].push('tabID')
-      diff['_changedEntries'].push(['tabID', state.tabID])
+      diff['_changedEntries'].push(['tabID', targetState.tabID])
     }
 
-    for (let key of Object.keys(state)) {
+    for (let key of Object.keys(targetState)) {
       // Build diffs only for data properties
       if (TabScript.dataProps.includes(key)) {
         if (this.hasOwnProperty(key)) {
-          if (this[key] !== state[key]) {
-            diff[key] = state[key]
+          if (this[key] && targetState[key] && this[key] !== targetState[key]) {
+            diff[key] = targetState[key]
             diff['_changedKeys'].push(key)
-            diff['_changedEntries'].push([key, state[key]])
+            diff['_changedEntries'].push([key, targetState[key]])
           }
         } else {
           console.warn(`TabScript has no property named "${key}"`)
