@@ -81,7 +81,7 @@ export default class UIController {
    * Creates an instance of a UI controller with default options. Provide your own implementation of this method
    * if you want to initialize a UI controller differently.
    */
-  static build (state, options) {
+  static create (state, options) {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
