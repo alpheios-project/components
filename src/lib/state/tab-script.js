@@ -135,7 +135,7 @@ export default class TabScript extends UIStateAPI {
         PENDING: Symbol.for('Alpheios_Status_Pending'), // Content script has not been fully initialized yet
         ACTIVE: Symbol.for('Alpheios_Status_Active'), // Content script is loaded and active
         DEACTIVATED: Symbol.for('Alpheios_Status_Deactivated'), // Content script has been loaded, but is deactivated
-        DISABLED: Symbol.for('Alpheios_Status_Disabled') // Content script has been loaded, but it is disabled
+        DISABLED: Symbol.for('Alpheios_Status_Disabled') // Content script has been disabled on a page and cannot be activated (due to incompatibility with a page content)
       },
       panel: {
         OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
@@ -344,13 +344,17 @@ export default class TabScript extends UIStateAPI {
     let tabScript = new TabScript(tabObj)
 
     for (let prop of TabScript.symbolProps) {
-      if (jsonObject.hasOwnProperty(prop)) {
+      // Do not read empty or missing values
+      if (jsonObject[prop]) {
         tabScript[prop] = Symbol.for(jsonObject[prop])
       }
     }
 
     for (let prop of TabScript.stringProps) {
-      if (jsonObject.hasOwnProperty(prop)) { tabScript[prop] = jsonObject[prop] }
+      // Do not read empty or missing values
+      if (jsonObject[prop]) {
+        tabScript[prop] = jsonObject[prop]
+      }
     }
 
     for (let prop of TabScript.booleanProps) {
