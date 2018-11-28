@@ -8013,6 +8013,8 @@ div.alpheios-checkbox-block {
     font-size: 10.8px; }
   .auk.alpheios-font_medium_class .alpheios-inflections__title {
     font-size: 20px; }
+  .auk.alpheios-font_medium_class .alpheios-ib__title,
+  .auk.alpheios-font_medium_class div.alpheios-ib div.alpheios-ib__title,
   .auk.alpheios-font_medium_class .alpheios-ib .alpheios-inflections__title {
     font-size: 16px; }
   .auk.alpheios-font_medium_class .alpheios-inflections__additional_title {
@@ -8138,6 +8140,8 @@ div.alpheios-checkbox-block {
     font-size: 8.1px; }
   .auk.alpheios-font_small_class .alpheios-inflections__title {
     font-size: 15px; }
+  .auk.alpheios-font_small_class .alpheios-ib__title,
+  .auk.alpheios-font_small_class div.alpheios-ib div.alpheios-ib__title,
   .auk.alpheios-font_small_class .alpheios-ib .alpheios-inflections__title {
     font-size: 12px; }
   .auk.alpheios-font_small_class .alpheios-inflections__additional_title {
@@ -8263,6 +8267,8 @@ div.alpheios-checkbox-block {
     font-size: 13.5px; }
   .auk.alpheios-font_large_class .alpheios-inflections__title {
     font-size: 25px; }
+  .auk.alpheios-font_large_class .alpheios-ib__title,
+  .auk.alpheios-font_large_class div.alpheios-ib div.alpheios-ib__title,
   .auk.alpheios-font_large_class .alpheios-ib .alpheios-inflections__title {
     font-size: 20px; }
   .auk.alpheios-font_large_class .alpheios-inflections__additional_title {
