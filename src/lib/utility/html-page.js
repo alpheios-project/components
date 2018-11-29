@@ -8,7 +8,6 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
-    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
@@ -17,7 +16,6 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get isFrame () {
-    console.log(`isFrame = ${window.self !== window.top}`, window.self, window.top)
     return (window.self !== window.top)
   }
 
@@ -48,6 +46,7 @@ export default class HTMLPage {
       return false
     }
 
+    // TODO: This will need to be changed when a mobile support be added
     if (window.document.body.clientWidth < HTMLPage.targetRequirements.minWidth) {
       return false
     }
@@ -114,6 +113,7 @@ HTMLPage.targetRequirements = {
   minCharCount: 1, // A minimal number of characters in a browsing context
   excludedURLs: [
     'about:blank',
-    'grammars.alpheios.net'
+    'grammars.alpheios.net',
+    'alpheios.net/alpheios-treebanks'
   ]
 }
