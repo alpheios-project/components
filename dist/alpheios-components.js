@@ -34569,6 +34569,7 @@ class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
+    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
@@ -34577,6 +34578,7 @@ class HTMLPage {
    * @returns {boolean}
    */
   static get isFrame () {
+    console.log(`isFrame = ${window.self !== window.top}`, window.self, window.top)
     return (window.self !== window.top)
   }
 
@@ -34586,6 +34588,40 @@ class HTMLPage {
    */
   static get isAtTop () {
     return (window.self === window.top)
+  }
+
+  /**
+   * Checks wither the current browsing content (represented by window object)
+   * is a valid target for a UI controller activation.
+   * The browsing context could be either the topmost window within a browser tab
+   * or a window within a frame that is part of the topmost or any other window.
+   * @returns {boolean} - True if the browsing content is valid, false otherwise.
+   */
+  static get isValidTarget () {
+    // Check if page URL is not excluded
+    for (const url of HTMLPage.targetRequirements.excludedURLs) {
+      if (window.document.URL.search(url) !== -1) {
+        return false
+      }
+    }
+
+    if (!window.document.body) {
+      return false
+    }
+
+    if (window.document.body.clientWidth < HTMLPage.targetRequirements.minWidth) {
+      return false
+    }
+
+    if (window.document.body.clientHeight < HTMLPage.targetRequirements.minHeight) {
+      return false
+    }
+
+    if (window.document.body.innerText.length < HTMLPage.targetRequirements.minCharCount) {
+      return false
+    }
+
+    return true
   }
 
   /**
@@ -34631,6 +34667,16 @@ class HTMLPage {
     }
     return zIndexMax
   }
+}
+
+HTMLPage.targetRequirements = {
+  minWidth: 500, // A minimal width for a browsing context to qualify for showing a desktop UI
+  minHeight: 400, // A minimal height for a browsing context to qualify for showing a desktop UI
+  minCharCount: 1, // A minimal number of characters in a browsing context
+  excludedURLs: [
+    'about:blank',
+    'grammars.alpheios.net'
+  ]
 }
 
 
