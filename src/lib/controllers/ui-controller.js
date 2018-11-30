@@ -60,6 +60,16 @@ export default class UIController {
     this.resourceOptions = new Options(LanguageOptionDefaults, this.options.storageAdapter)
     this.uiOptions = new Options(UIOptionDefaults, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
+    this.tabState = {
+      definitions: false,
+      inflections: false,
+      inflectionsbrowser: false,
+      status: false,
+      options: false,
+      info: false,
+      treebank: false
+    }
+    this.tabStateDefault = 'info'
 
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.isInitialized = false
@@ -216,6 +226,15 @@ export default class UIController {
       ? TabScript.statuses.panel.OPEN
       : TabScript.statuses.panel.CLOSED
 
+    // Set default tab (this will be used in panel's data)
+    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
+      // If state has a valid state name
+      this.tabState[this.state.tab] = true
+    } else {
+      // Set a default value
+      this.tabState[this.tabStateDefault] = true
+    }
+
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -225,15 +244,7 @@ export default class UIController {
       data: {
         panelData: {
           isOpen: false,
-          tabs: {
-            definitions: false,
-            inflections: false,
-            inflectionsbrowser: false,
-            status: false,
-            options: false,
-            info: true,
-            treebank: false
-          },
+          tabs: this.tabState,
           verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           currentLanguageID: null,
           grammarAvailable: false,
@@ -339,11 +350,16 @@ export default class UIController {
         },
 
         changeTab (name) {
-          for (let key of Object.keys(this.panelData.tabs)) {
-            if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
+          if (this.panelData.tabs.hasOwnProperty(name)) {
+            // If this is a valid tab name
+            for (let key of Object.keys(this.panelData.tabs)) {
+              if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
+            }
+            this.panelData.tabs[name] = true
+            this.state.changeTab(name) // Reflect a tab change in a state
+          } else {
+            console.warn(`Cannot switch to an unknown tab ${name}`)
           }
-          this.panelData.tabs[name] = true
-          this.state.changeTab(name) // Reflect a tab change in a state
           return this
         },
 
@@ -1279,5 +1295,11 @@ export default class UIController {
         siteOptions: this.siteOptions
       }).getData()
     }
+  }
+
+  changeTab (name) {
+    if (this.panel) {
+      this.panel.changeTab(name)
+    } else { console.warn(`Cannot switch tab because panel does not exist`) }
   }
 }
