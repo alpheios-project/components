@@ -350,16 +350,29 @@ export default class UIController {
         },
 
         changeTab (name) {
-          if (this.panelData.tabs.hasOwnProperty(name)) {
-            // If this is a valid tab name
-            for (let key of Object.keys(this.panelData.tabs)) {
-              if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
-            }
-            this.panelData.tabs[name] = true
-            this.state.changeTab(name) // Reflect a tab change in a state
-          } else {
-            console.warn(`Cannot switch to an unknown tab ${name}`)
+          for (let key of Object.keys(this.panelData.tabs)) {
+            if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
           }
+
+          const inflectionsAvailable = Boolean(this.panelData && this.panelData.inflectionComponentData && this.panelData.inflectionComponentData.inflDataReady)
+          const grammarAvailable = Boolean(this.panelData && this.panelData.grammarAvailable)
+          const statusAvailable = Boolean(this.panelData && this.panelData.verboseMode)
+
+          // TODO: With state refactoring, eliminate similar code in `panel.vue`
+          const treebankTabAvaliable = Boolean(this.panelData && this.panelData.treebankComponentData && this.panelData.treebankComponentData.data &&
+          ((this.panelData.treebankComponentData.data.page && this.panelData.treebankComponentData.data.page.src) ||
+            (this.panelData.treebankComponentData.data.word && this.panelData.treebankComponentData.data.word.src)))
+          // If tab is disabled, switch to a default one
+          if (
+            (!inflectionsAvailable && name === 'inflections') ||
+            (!grammarAvailable && name === 'grammar') ||
+            (!treebankTabAvaliable && name === 'treebank') ||
+            (!statusAvailable && name === 'status')
+          ) {
+            name = this.uiController.tabStateDefault
+          }
+          this.panelData.tabs[name] = true
+          this.state.changeTab(name) // Reflect a tab change in a state
           return this
         },
 

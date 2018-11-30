@@ -8,6 +8,7 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
+    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
@@ -16,6 +17,7 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get isFrame () {
+    console.log(`isFrame = ${window.self !== window.top}`, window.self, window.top)
     return (window.self !== window.top)
   }
 
@@ -38,24 +40,33 @@ export default class HTMLPage {
     // Check if page URL is not excluded
     for (const url of HTMLPage.targetRequirements.excludedURLs) {
       if (window.document.URL.search(url) !== -1) {
+        console.warn(`Not valid, URL is in the excluded list (${window.document.URL})`)
         return false
       }
     }
 
     if (!window.document.body) {
+      console.warn(`Not valid, has no body (${window.document.URL})`)
       return false
     }
 
     // TODO: This will need to be changed when a mobile support be added
     if (window.document.body.clientWidth < HTMLPage.targetRequirements.minWidth) {
+      console.warn(`Not valid, min width is too small (${window.document.URL})`)
       return false
     }
 
     if (window.document.body.clientHeight < HTMLPage.targetRequirements.minHeight) {
+      if (this.isAtTop && !this.hasFrames) {
+        // We could still allow no height for top level documents that have no frames
+        return true
+      }
+      console.warn(`Not valid, min height is too small (${window.document.URL})`)
       return false
     }
 
     if (window.document.body.innerText.length < HTMLPage.targetRequirements.minCharCount) {
+      console.warn(`Not valid, has too little characters (${window.document.URL})`)
       return false
     }
 
