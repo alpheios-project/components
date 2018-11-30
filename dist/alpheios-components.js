@@ -8815,6 +8815,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12800,6 +12810,36 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
+              form: "malo",
+              title: "Malo (malle, malui)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "nolo",
+              title: "Nolo (nolle, nolui)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
               form: "volo",
               title: "Volo (velle, volui)"
             }),
@@ -12817,6 +12857,96 @@ var render = function() {
               viewID: "latin_verb_irregular_view",
               form: "eo",
               title: "Eo (ire, ivi(ii), itus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "absum",
+              title: "Absum (abesse, afui, afuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "adsum",
+              title: "Adsum (adesse, adfui, adfuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "dēsum",
+              title: "Dēsum (dēesse, dēfui, dēfuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "insum",
+              title: "Insum (inesse, infui, infuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "intersum",
+              title: "Intersum (interesse, interfui, interfuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "obsum",
+              title: "Obsum (obesse, obfui, obfuturus)"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
@@ -12860,8 +12990,38 @@ var render = function() {
           attrs: {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
-              form: "absum",
-              title: "Absum (abesse, afui, afuturus)"
+              form: "praesum",
+              title: "Praesum (praeesse, praeui, praefuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "subsum",
+              title: "Subsum (subesse, subfui, subfuturus)"
+            }),
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            collapsed: _vm.inflBrowserTablesCollapsed
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "supersum",
+              title: "Supersum (superesse, superfui, superfuturus)"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
