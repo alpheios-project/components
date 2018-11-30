@@ -60,6 +60,16 @@ export default class UIController {
     this.resourceOptions = new Options(LanguageOptionDefaults, this.options.storageAdapter)
     this.uiOptions = new Options(UIOptionDefaults, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
+    this.tabState = {
+      definitions: false,
+      inflections: false,
+      inflectionsbrowser: false,
+      status: false,
+      options: false,
+      info: false,
+      treebank: false
+    }
+    this.tabStateDefault = 'info'
 
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.isInitialized = false
@@ -216,6 +226,15 @@ export default class UIController {
       ? TabScript.statuses.panel.OPEN
       : TabScript.statuses.panel.CLOSED
 
+    // Set default tab (this will be used in panel's data)
+    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
+      // If state has a valid state name
+      this.tabState[this.state.tab] = true
+    } else {
+      // Set a default value
+      this.tabState[this.tabStateDefault] = true
+    }
+
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -225,15 +244,7 @@ export default class UIController {
       data: {
         panelData: {
           isOpen: false,
-          tabs: {
-            definitions: false,
-            inflections: false,
-            inflectionsbrowser: false,
-            status: false,
-            options: false,
-            info: true,
-            treebank: false
-          },
+          tabs: this.tabState,
           verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           currentLanguageID: null,
           grammarAvailable: false,
@@ -341,6 +352,24 @@ export default class UIController {
         changeTab (name) {
           for (let key of Object.keys(this.panelData.tabs)) {
             if (this.panelData.tabs[key]) { this.panelData.tabs[key] = false }
+          }
+
+          const inflectionsAvailable = Boolean(this.panelData && this.panelData.inflectionComponentData && this.panelData.inflectionComponentData.inflDataReady)
+          const grammarAvailable = Boolean(this.panelData && this.panelData.grammarAvailable)
+          const statusAvailable = Boolean(this.panelData && this.panelData.verboseMode)
+
+          // TODO: With state refactoring, eliminate similar code in `panel.vue`
+          const treebankTabAvaliable = Boolean(this.panelData && this.panelData.treebankComponentData && this.panelData.treebankComponentData.data &&
+          ((this.panelData.treebankComponentData.data.page && this.panelData.treebankComponentData.data.page.src) ||
+            (this.panelData.treebankComponentData.data.word && this.panelData.treebankComponentData.data.word.src)))
+          // If tab is disabled, switch to a default one
+          if (
+            (!inflectionsAvailable && name === 'inflections') ||
+            (!grammarAvailable && name === 'grammar') ||
+            (!treebankTabAvaliable && name === 'treebank') ||
+            (!statusAvailable && name === 'status')
+          ) {
+            name = this.uiController.tabStateDefault
           }
           this.panelData.tabs[name] = true
           this.state.changeTab(name) // Reflect a tab change in a state
@@ -1279,5 +1308,11 @@ export default class UIController {
         siteOptions: this.siteOptions
       }).getData()
     }
+  }
+
+  changeTab (name) {
+    if (this.panel) {
+      this.panel.changeTab(name)
+    } else { console.warn(`Cannot switch tab because panel does not exist`) }
   }
 }
