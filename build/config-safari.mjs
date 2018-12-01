@@ -22,9 +22,6 @@ const webpack = {
       'alpheios-inflection-tables': 'alpheios-inflection-tables',
       'alpheios-experience': 'alpheios-experience',
       'alpheios-res-client': 'alpheios-res-client',
-      'alpheios-lemma-client': 'alpheios-lemma-client',
-      'alpheios-lexicon-client': 'alpheios-lexicon-client',
-      'alpheios-morph-client': 'alpheios-morph-client',
       'intl-messageformat': 'intl-messageformat',
       'uuid': 'uuid'
     },

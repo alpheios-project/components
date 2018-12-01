@@ -7,10 +7,7 @@ export default class LexicalQuery extends Query {
     super(name)
     this.selector = selector
     this.htmlSelector = options.htmlSelector
-    // this.maAdapter = options.maAdapter
-    // this.tbAdapter = options.tbAdapter
     this.langData = options.langData
-    // this.lexicons = options.lexicons
     this.langOpts = options.langOpts || []
     this.resourceOptions = options.resourceOptions || []
     this.siteOptions = options.siteOptions || []
@@ -138,15 +135,18 @@ export default class LexicalQuery extends Query {
         homonym: this.homonym
       }
     })
+
     if (adapterLexiconRes.errors.length > 0) {
       adapterLexiconRes.errors.forEach(error => console.error(error))
     }
     if (adapterLexiconRes.result) {
       LexicalQuery.evt.DEFS_READY.pub({
+        requestType: 'shortDefs',
         homonym: this.homonym
       })
     } else {
       LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        requestType: 'shortDefs',
         homonym: this.homonym
       })
     }
@@ -165,10 +165,12 @@ export default class LexicalQuery extends Query {
 
     if (adapterLexiconRes.result) {
       LexicalQuery.evt.DEFS_READY.pub({
+        requestType: 'fullDefs',
         homonym: this.homonym
       })
     } else {
       LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        requestType: 'fullDefs',
         homonym: this.homonym
       })
     }

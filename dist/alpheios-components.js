@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-lemma-client"), require("alpheios-lexicon-client"), require("alpheios-morph-client"), require("alpheios-res-client"), require("intl-messageformat"));
+		module.exports = factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat"));
 	else if(typeof define === 'function' && define.amd)
-		define(["alpheios-client-adapters", "alpheios-data-models", "alpheios-inflection-tables", "alpheios-lemma-client", "alpheios-lexicon-client", "alpheios-morph-client", "alpheios-res-client", "intl-messageformat"], factory);
+		define(["alpheios-client-adapters", "alpheios-data-models", "alpheios-inflection-tables", "alpheios-res-client", "intl-messageformat"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-lemma-client"), require("alpheios-lexicon-client"), require("alpheios-morph-client"), require("alpheios-res-client"), require("intl-messageformat")) : factory(root["alpheios-client-adapters"], root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-lemma-client"], root["alpheios-lexicon-client"], root["alpheios-morph-client"], root["alpheios-res-client"], root["intl-messageformat"]);
+		var a = typeof exports === 'object' ? factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat")) : factory(root["alpheios-client-adapters"], root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"], root["intl-messageformat"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_client_adapters__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_lemma_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_lexicon_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_morph_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_client_adapters__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -29636,51 +29636,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UIController; });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_morph_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-morph-client */ "alpheios-morph-client");
-/* harmony import */ var alpheios_morph_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_morph_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-lexicon-client */ "alpheios-lexicon-client");
-/* harmony import */ var alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
-/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-lemma-client */ "alpheios-lemma-client");
-/* harmony import */ var alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
-/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue-components/panel.vue */ "./vue-components/panel.vue");
-/* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue-components/popup.vue */ "./vue-components/popup.vue");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json");
-var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
-var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
-/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-res-client */ "alpheios-res-client");
+/* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
+/* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue-components/panel.vue */ "./vue-components/panel.vue");
+/* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue-components/popup.vue */ "./vue-components/popup.vue");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json");
+var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
+var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_14___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_15___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
 /* global Event */
-
-
-
 
 
 
@@ -29738,9 +29729,9 @@ class UIController {
   constructor (state, options = {}) {
     this.state = state
     this.options = UIController.setOptions(options, UIController.optionsDefaults)
-    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
-    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__, this.options.storageAdapter)
-    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
+    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_23__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_15__, this.options.storageAdapter)
+    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_23__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
+    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_23__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
 
     this.options.openPanel = this.uiOptions.items.panelOnActivate.currentValue
@@ -29768,42 +29759,42 @@ class UIController {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
-    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__["default"]()
+    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_25__["default"]()
     switch (uiController.options.textQueryTrigger) {
       case 'dblClick':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_20__["default"])
         break
       case 'longTap':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_21__["default"])
         break
       default:
         eventController.registerListener(
-          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], uiController.options.textQueryTrigger
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_22__["default"], uiController.options.textQueryTrigger
         )
     }
 
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'Alpheios_Page_Load')
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_22__["default"], 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_22__["default"], 'Alpheios_Page_Load')
 
     // Attaches an event controller to a UIController instance
     uiController.evc = eventController
 
     // Subscribe to LexicalQuery events
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.TREEBANK_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.TREEBANK_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.TREEBANK_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.TREEBANK_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
     // Subscribe to ResourceQuery events
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
 
     // Subscribe to AnnotationQuery events
-    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     return uiController
   }
@@ -29840,7 +29831,7 @@ class UIController {
         name: 'name',
         version: 'version'
       },
-      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__["default"],
+      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_24__["default"],
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
@@ -29850,7 +29841,7 @@ class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       template: {
-        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13___default.a,
+        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_10___default.a,
         panelId: 'alpheios-panel',
         defaultPanelComponent: 'panel',
         popupId: 'alpheios-popup',
@@ -29894,15 +29885,14 @@ class UIController {
     let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     this.siteOptions = this.loadSiteOptions()
 
-    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__["default"].getZIndexMax()
+    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_18__["default"].getZIndexMax()
 
-    this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_9__["default"]()
-      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__["default"].en_GB)
-      .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_10__["default"].en_US)
+    this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
+      .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_7__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_7__["default"].en_GB)
+      .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_7__["default"].en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
-    this.maAdapter = new alpheios_morph_client__WEBPACK_IMPORTED_MODULE_1__["AlpheiosTuftsAdapter"]() // Morphological analyzer adapter, with default arguments
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
@@ -29914,10 +29904,10 @@ class UIController {
     // All options shall be loaded at this point. Can initialize Vue components that will use them
 
     // Initialize components
-    this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
+    this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_3___default.a({
       el: `#${this.options.template.panelId}`,
       components: {
-        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
       },
       data: {
         panelData: {
@@ -30134,8 +30124,8 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create(feature, {
-            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_3__["Grammars"]
+          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].create(feature, {
+            grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]
           }).getData()
           //, {
           // experience: 'Get resource',
@@ -30212,10 +30202,10 @@ class UIController {
     })
 
     // Create a Vue instance for a popup
-    this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
+    this.popup = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_3___default.a({
       el: `#${this.options.template.popupId}`,
       components: {
-        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+        popup: _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
       },
       data: {
         messages: [],
@@ -30544,9 +30534,9 @@ class UIController {
    */
   loadSiteOptions () {
     let allSiteOptions = []
-    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__) {
+    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_14__) {
       for (let domain of site.options) {
-        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](domain, this.options.storageAdapter)
+        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_23__["default"](domain, this.options.storageAdapter)
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -30630,7 +30620,7 @@ class UIController {
 
   newLexicalRequest (languageID) {
     this.popup.newLexicalRequest()
-    this.panel.panelData.inflectionsEnabled = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSetFactory"].hasInflectionsEnabled(languageID)
+    this.panel.panelData.inflectionsEnabled = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__["ViewSetFactory"].hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
     this.panel.panelData.grammarAvailable = false
     this.clear().open().changeTab('definitions')
@@ -30762,7 +30752,7 @@ class UIController {
     this.panel.panelData.currentLanguageID = currentLanguageID
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_3___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
@@ -30786,7 +30776,7 @@ class UIController {
   }
 
   updateInflections (homonym) {
-    this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_5__["ViewSetFactory"].create(homonym, this.contentOptions.items.locale.currentValue)
+    this.inflectionsViewSet = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__["ViewSetFactory"].create(homonym, this.contentOptions.items.locale.currentValue)
 
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
@@ -30909,7 +30899,7 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_17__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
       let textSelector = htmlSelector.createTextSelector()
 
       if (!textSelector.isEmpty()) {
@@ -30934,13 +30924,11 @@ class UIController {
           })
           .getData() */
 
-        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(textSelector, {
+        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
-          maAdapter: this.maAdapter,
-          lexicons: alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_2__["Lexicons"],
           resourceOptions: this.resourceOptions,
           siteOptions: [],
-          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__["LemmaTranslations"], locale: this.contentOptions.items.locale.currentValue } : null,
+          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
           langOpts: { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
 
@@ -30983,7 +30971,7 @@ class UIController {
    */
   updateAnnotations () {
     if (this.state.isActive() && this.state.uiIsActive()) {
-      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].create({
+      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].create({
         document: document,
         siteOptions: this.siteOptions
       }).getData()
@@ -30992,13 +30980,13 @@ class UIController {
 
   onLexicalQueryComplete (data) {
     switch (data.resultStatus) {
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].resultStatus.SUCCEEDED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].resultStatus.SUCCEEDED:
         this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
         this.lexicalRequestComplete()
         break
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].resultStatus.FAILED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].resultStatus.FAILED:
         this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
@@ -32816,18 +32804,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lexical-query.js */ "./lib/queries/lexical-query.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_morph_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-morph-client */ "alpheios-morph-client");
-/* harmony import */ var alpheios_morph_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_morph_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! alpheios-lexicon-client */ "alpheios-lexicon-client");
-/* harmony import */ var alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-lemma-client */ "alpheios-lemma-client");
-/* harmony import */ var alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../selection/media/html-selector */ "./lib/selection/media/html-selector.js");
-
-
-
-// import {LemmaTranslations} from 'alpheios-lemma-client'
-
+/* harmony import */ var _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../selection/media/html-selector */ "./lib/selection/media/html-selector.js");
 
 
 
@@ -32851,12 +32828,10 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
     // Experimental
     let lemmaTranslations
     if (textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_LATIN && lemmaTranslationLang) {
-      lemmaTranslations = { adapter: alpheios_lemma_client__WEBPACK_IMPORTED_MODULE_4__["LemmaTranslations"], locale: lemmaTranslationLang }
+      lemmaTranslations = { locale: lemmaTranslationLang }
     }
     let options = {
-      htmlSelector: _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_5__["default"].getDumpHTMLSelector(),
-      maAdapter: new alpheios_morph_client__WEBPACK_IMPORTED_MODULE_2__["AlpheiosTuftsAdapter"](),
-      lexicons: alpheios_lexicon_client__WEBPACK_IMPORTED_MODULE_3__["Lexicons"],
+      htmlSelector: _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_2__["default"].getDumpHTMLSelector(),
 
       lemmaTranslations: lemmaTranslations,
 
@@ -32894,10 +32869,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     super(name)
     this.selector = selector
     this.htmlSelector = options.htmlSelector
-    // this.maAdapter = options.maAdapter
-    // this.tbAdapter = options.tbAdapter
     this.langData = options.langData
-    // this.lexicons = options.lexicons
     this.langOpts = options.langOpts || []
     this.resourceOptions = options.resourceOptions || []
     this.siteOptions = options.siteOptions || []
@@ -33025,15 +32997,18 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
         homonym: this.homonym
       }
     })
+
     if (adapterLexiconRes.errors.length > 0) {
       adapterLexiconRes.errors.forEach(error => console.error(error))
     }
     if (adapterLexiconRes.result) {
       LexicalQuery.evt.DEFS_READY.pub({
+        requestType: 'shortDefs',
         homonym: this.homonym
       })
     } else {
       LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        requestType: 'shortDefs',
         homonym: this.homonym
       })
     }
@@ -33052,10 +33027,12 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     if (adapterLexiconRes.result) {
       LexicalQuery.evt.DEFS_READY.pub({
+        requestType: 'fullDefs',
         homonym: this.homonym
       })
     } else {
       LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        requestType: 'fullDefs',
         homonym: this.homonym
       })
     }
@@ -37228,39 +37205,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__;
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__;
-
-/***/ }),
-
-/***/ "alpheios-lemma-client":
-/*!****************************************!*\
-  !*** external "alpheios-lemma-client" ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_lemma_client__;
-
-/***/ }),
-
-/***/ "alpheios-lexicon-client":
-/*!******************************************!*\
-  !*** external "alpheios-lexicon-client" ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_lexicon_client__;
-
-/***/ }),
-
-/***/ "alpheios-morph-client":
-/*!****************************************!*\
-  !*** external "alpheios-morph-client" ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_morph_client__;
 
 /***/ }),
 

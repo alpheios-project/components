@@ -1,9 +1,6 @@
 /* global Event */
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
-import { AlpheiosTuftsAdapter } from 'alpheios-morph-client'
-import { Lexicons } from 'alpheios-lexicon-client'
 import { Grammars } from 'alpheios-res-client'
-import { LemmaTranslations } from 'alpheios-lemma-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
@@ -223,7 +220,6 @@ export default class UIController {
       .setLocale(Locales.en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
-    this.maAdapter = new AlpheiosTuftsAdapter() // Morphological analyzer adapter, with default arguments
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
@@ -1257,11 +1253,9 @@ export default class UIController {
 
         let lexQuery = LexicalQuery.create(textSelector, {
           htmlSelector: htmlSelector,
-          maAdapter: this.maAdapter,
-          lexicons: Lexicons,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
-          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.contentOptions.items.locale.currentValue } : null,
+          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
           langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
 
