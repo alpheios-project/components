@@ -1,15 +1,16 @@
 import { LanguageModelFactory as LMF, Lexeme, Lemma, Homonym, PsEvent } from 'alpheios-data-models'
 import Query from './query.js'
+import { ClientAdapters } from 'alpheios-client-adapters'
 
 export default class LexicalQuery extends Query {
   constructor (name, selector, options) {
     super(name)
     this.selector = selector
     this.htmlSelector = options.htmlSelector
-    this.maAdapter = options.maAdapter
-    this.tbAdapter = options.tbAdapter
+    // this.maAdapter = options.maAdapter
+    // this.tbAdapter = options.tbAdapter
     this.langData = options.langData
-    this.lexicons = options.lexicons
+    // this.lexicons = options.lexicons
     this.langOpts = options.langOpts || []
     this.resourceOptions = options.resourceOptions || []
     this.siteOptions = options.siteOptions || []
@@ -47,13 +48,38 @@ export default class LexicalQuery extends Query {
 
   * iterations () {
     let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageID), [])
-    if (this.tbAdapter && this.selector.data.treebank && this.selector.data.treebank.word) {
-      this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
+    if (this.selector.data.treebank && this.selector.data.treebank.word) {
+      // this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
+
+      let adapterTreebankRes = yield ClientAdapters.morphology.alpheiosTreebank({
+        method: 'getHomonym',
+        params: {
+          languageID: this.selector.languageID,
+          wordref: this.selector.data.treebank.word.ref
+        }
+      })
+      if (adapterTreebankRes.errors.length > 0) {
+        adapterTreebankRes.errors.forEach(error => console.error(error))
+      }
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
-      this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
-      if (this.homonym) {
+      // this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
+      let adapterTuftsRes = yield ClientAdapters.morphology.tufts({
+        method: 'getHomonym',
+        params: {
+          languageID: this.selector.languageID,
+          word: this.selector.normalizedText
+        }
+      })
+
+      if (adapterTuftsRes.errors.length > 0) {
+        adapterTuftsRes.errors.forEach(error => console.error(error))
+      }
+
+      if (adapterTuftsRes.result) {
+        this.homonym = adapterTuftsRes.result
+
         if (this.annotatedHomonym) {
           this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
         }
@@ -86,84 +112,65 @@ export default class LexicalQuery extends Query {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
-    let definitionRequests = []
-
-    let lemmaList = []
-
-    for (let lexeme of this.homonym.lexemes) {
-      // Short definition requests
-      let requests = this.lexicons.fetchShortDefs(lexeme.lemma, lexiconShortOpts)
-      definitionRequests = definitionRequests.concat(requests.map(request => {
-        return {
-          request: request,
-          type: 'Short definition',
-          lexeme: lexeme,
-          appendFunction: 'appendShortDefs',
-          complete: false
-        }
-      }))
-      // Full definition requests
-      requests = this.lexicons.fetchFullDefs(lexeme.lemma, lexiconFullOpts)
-      definitionRequests = definitionRequests.concat(requests.map(request => {
-        return {
-          request: request,
-          type: 'Full definition',
-          lexeme: lexeme,
-          appendFunction: 'appendFullDefs',
-          complete: false
-        }
-      }))
-
-      lemmaList.push(lexeme.lemma)
-    }
-
     if (this.lemmaTranslations) {
-      const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
-      yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
+      // const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
+      // yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
+      let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({
+        method: 'fetchTranslations',
+        params: {
+          homonym: this.homonym,
+          browserLang: this.lemmaTranslations.locale
+        }
+      })
+      if (adapterTranslationRes.errors.length > 0) {
+        adapterTranslationRes.errors.forEach(error => console.error(error))
+      }
+
       LexicalQuery.evt.LEMMA_TRANSL_READY.pub(this.homonym)
     }
 
     yield 'Retrieval of lemma translations completed'
 
-    // Handle definition responses
-    if (definitionRequests.length > 0) {
-      for (let definitionRequest of definitionRequests) {
-        definitionRequest.request.then(
-          definition => {
-            console.log(`${definitionRequest.type}(s) received:`, definition)
-            definitionRequest.lexeme.meaning[definitionRequest.appendFunction](definition)
-            definitionRequest.complete = true
-            if (this.active) {
-              LexicalQuery.evt.DEFS_READY.pub({
-                requestType: definitionRequest.type,
-                word: definitionRequest.lexeme.lemma.word,
-                homonym: this.homonym
-              })
-            }
-            if (definitionRequests.every(request => request.complete)) {
-              this.finalize('Success')
-            }
-          },
-          error => {
-            console.error(`${definitionRequest.type}(s) request failed: ${error}`)
-            definitionRequest.complete = true
-            if (this.active) {
-              LexicalQuery.evt.DEFS_NOT_FOUND.pub({
-                requestType: definitionRequest.type,
-                word: definitionRequest.lexeme.lemma.word
-              })
-            }
-            if (definitionRequests.every(request => request.complete)) {
-              this.finalize(error)
-            }
-          }
-        )
+    let adapterLexiconRes = yield ClientAdapters.lexicon.alpheios({
+      method: 'fetchShortDefs',
+      params: {
+        opts: lexiconShortOpts,
+        homonym: this.homonym
       }
-      yield 'Retrieval of short and full definitions complete'
+    })
+    if (adapterLexiconRes.errors.length > 0) {
+      adapterLexiconRes.errors.forEach(error => console.error(error))
+    }
+    if (adapterLexiconRes.result) {
+      LexicalQuery.evt.DEFS_READY.pub({
+        homonym: this.homonym
+      })
     } else {
-      // need to finalize if there weren't any definition requests
-      this.finalize('Success-NoDefs')
-      yield 'No definitions to retrieve'
+      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        homonym: this.homonym
+      })
+    }
+
+    adapterLexiconRes = yield ClientAdapters.lexicon.alpheios({
+      method: 'fetchFullDefs',
+      params: {
+        opts: lexiconFullOpts,
+        homonym: this.homonym
+      }
+    })
+
+    if (adapterLexiconRes.errors.length > 0) {
+      adapterLexiconRes.errors.forEach(error => console.error(error))
+    }
+
+    if (adapterLexiconRes.result) {
+      LexicalQuery.evt.DEFS_READY.pub({
+        homonym: this.homonym
+      })
+    } else {
+      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
+        homonym: this.homonym
+      })
     }
   }
 
