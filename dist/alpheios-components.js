@@ -32908,8 +32908,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
   * iterations () {
     let formLexeme = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"](new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lemma"](this.selector.normalizedText, this.selector.languageID), [])
     if (this.selector.data.treebank && this.selector.data.treebank.word) {
-      // this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
-
       let adapterTreebankRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].morphology.alpheiosTreebank({
         method: 'getHomonym',
         params: {
@@ -32923,7 +32921,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
-      // this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       let adapterTuftsRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].morphology.tufts({
         method: 'getHomonym',
         params: {
@@ -32972,8 +32969,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
     if (this.lemmaTranslations) {
-      // const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
-      // yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
         method: 'fetchTranslations',
         params: {
@@ -32990,7 +32985,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     yield 'Retrieval of lemma translations completed'
 
-    let adapterLexiconRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
+    let adapterLexiconResShort = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
       method: 'fetchShortDefs',
       params: {
         opts: lexiconShortOpts,
@@ -32998,10 +32993,10 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       }
     })
 
-    if (adapterLexiconRes.errors.length > 0) {
-      adapterLexiconRes.errors.forEach(error => console.error(error))
+    if (adapterLexiconResShort.errors.length > 0) {
+      adapterLexiconResShort.errors.forEach(error => console.error(error))
     }
-    if (adapterLexiconRes.result) {
+    if (adapterLexiconResShort.result) {
       LexicalQuery.evt.DEFS_READY.pub({
         requestType: 'shortDefs',
         homonym: this.homonym
@@ -33013,7 +33008,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       })
     }
 
-    adapterLexiconRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
+    let adapterLexiconResFull = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
       method: 'fetchFullDefs',
       params: {
         opts: lexiconFullOpts,
@@ -33021,11 +33016,11 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       }
     })
 
-    if (adapterLexiconRes.errors.length > 0) {
-      adapterLexiconRes.errors.forEach(error => console.error(error))
+    if (adapterLexiconResFull.errors.length > 0) {
+      adapterLexiconResFull.errors.forEach(error => console.error(error))
     }
 
-    if (adapterLexiconRes.result) {
+    if (adapterLexiconResFull.result) {
       LexicalQuery.evt.DEFS_READY.pub({
         requestType: 'fullDefs',
         homonym: this.homonym
@@ -33035,6 +33030,10 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
         requestType: 'fullDefs',
         homonym: this.homonym
       })
+    }
+
+    if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
+      this.finalize('Success')
     }
   }
 

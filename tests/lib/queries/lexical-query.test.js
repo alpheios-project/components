@@ -14,23 +14,13 @@ import SiteOptions from './fixtures/site-options-shortlex.json'
 
 import { Constants, LanguageModelFactory as LMF } from 'alpheios-data-models'
 
+import { ClientAdapters } from 'alpheios-client-adapters'
+
 describe('lexical-query.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
   // console.info = function () {}
-
-  beforeEach(() => {
-    jest.spyOn(console, 'error')
-    jest.spyOn(console, 'log')
-    jest.spyOn(console, 'warn')
-  })
-  afterEach(() => {
-    jest.resetModules()
-  })
-  afterAll(() => {
-    jest.clearAllMocks()
-  })
 
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
@@ -87,12 +77,37 @@ describe('lexical-query.test.js', () => {
 
   }
 
-  let testTbAdapter = {
-    getHomonym: function () { return new Promise((resolve, reject) => { resolve(testHomonym) }) }
-  }
-  let testMaAdapter = {
-    getHomonym: function () { return new Promise((resolve, reject) => { resolve(testHomonym) }) }
-  }
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'warn')
+
+    const mockStaticMorphology = jest.fn()
+    mockStaticMorphology.mockReturnValue({
+      tufts: jest.fn(() => { return { result: testHomonym, errors: [] } }),
+      alpheiosTreebank: jest.fn(() => { return { result: testHomonym, errors: [] } }),
+    })
+    const mockStaticEmpty = jest.fn()
+    mockStaticEmpty.mockReturnValue({
+      alpheios: jest.fn(() => { return { result: true, errors: [] } })
+    })
+  
+    Object.defineProperty( ClientAdapters, 'morphology', {
+      get: mockStaticMorphology
+    })
+    Object.defineProperty( ClientAdapters, 'lexicon', {
+      get: mockStaticEmpty
+    })
+    Object.defineProperty( ClientAdapters, 'lemmatranslation', {
+      get: mockStaticEmpty
+    })
+  })
+  afterEach(() => {
+    jest.resetModules()
+  })
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
   let testLexicalData = {
     foo: 'bar'
@@ -105,53 +120,6 @@ describe('lexical-query.test.js', () => {
     getInflectionData: function () { return new Promise((resolve, reject) => { reject(new Error('testLDFAdapterFailed error')) }) }
   }
 
-  let testDefinition = {
-
-  }
-  let testLexiconAdapter = {
-    fetchFullDefs: function () {
-      return [
-        new Promise((resolve, reject) => { resolve(testDefinition) })
-      ]
-    },
-    fetchShortDefs: function () {
-      return [
-        new Promise((resolve, reject) => { resolve(testDefinition) })
-      ]
-    }
-  }
-
-  let testLexiconAdapterPromiseReject = {
-    fetchFullDefs: function () {
-      return [
-        new Promise((resolve, reject) => { reject(new Error('testLexiconAdapterPromiseReject error')) })
-      ]
-    },
-    fetchShortDefs: function () {
-      return [
-        new Promise((resolve, reject) => { resolve(testDefinition) })
-      ]
-    }
-  }
-
-  let testLexiconAdapterNoRequests = {
-    fetchFullDefs: function () {
-      return [ ]
-    },
-    fetchShortDefs: function () {
-      return [ ]
-    }
-  }
-
-  let testLexiconAdapterFailed = {
-    fetchFullDefs: function () { throw new Error('testLexiconAdapterFailed error') },
-    fetchShortDefs: function () { throw new Error('testLexiconAdapterFailed error') }
-  }
-
-  let testLemmaTranslations = {
-    fetchTranslations: function () { }
-  }
-
   it('1 LexicalQuery - create function returns a new LexicalQuery with params', () => {
     let query = LexicalQuery.create('foo selector', {})
 
@@ -162,12 +130,11 @@ describe('lexical-query.test.js', () => {
   })
 
   // TODO: Probably removal of iteration of `getInflectionData()` broke it. Need to fix
-  it.skip('3 LexicalQuery - getData could make another iterations circle if canReset = true', async () => {
+  it('3 LexicalQuery - getData could make another iterations circle if canReset = true', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: testMaAdapter
+      htmlSelector: testHtmlSelector
     })
     let languageID = LMF.getLanguageIdFromCode(testTextSelector.languageCode)
     query.active = true
@@ -188,47 +155,31 @@ describe('lexical-query.test.js', () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter)
+      htmlSelector: testHtmlSelector
     })
     query.canReset = false
     query.getLexiconOptions = function () { return { allow: false } }
 
     query.LDFAdapter = testLDFAdapterFailed
-    jest.spyOn(query.maAdapter, 'getHomonym')
     jest.spyOn(LexicalQuery.evt.HOMONYM_READY, 'pub')
 
     await query.getData()
 
-    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(testTextSelector.languageID, testTextSelector.normalizedText)
+    expect(ClientAdapters.morphology.tufts).toHaveBeenCalledWith({
+      method: 'getHomonym',
+      params: {
+        languageID: testTextSelector.languageID,
+        word: testTextSelector.normalizedText
+      }
+    })
     expect(LexicalQuery.evt.HOMONYM_READY.pub).toHaveBeenCalledWith(testHomonym)
   })
 
-  it('6 LexicalQuery - If GetData couldn\'t finalize the full Lexical Request it throws error to console with LexicalQuery failed:', async () => {
+  it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs ', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapterFailed)
-    })
-    query.canReset = false
-    query.getLexiconOptions = function () { return { allow: false } }
-
-    query.LDFAdapter = Object.assign({}, testLDFAdapter)
-
-    await query.getData()
-
-    expect(console.error).toHaveBeenCalledWith('LexicalQuery failed: testLexiconAdapterFailed error')
-  })
-
-  it('7 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and on each request it executes updateDefinitions', async () => {
-    let curUI = Object.assign({}, testUI)
-    let query = LexicalQuery.create(testTextSelector, {
-      uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapterPromiseReject)
+      htmlSelector: testHtmlSelector
     })
 
     query.canReset = false
@@ -236,50 +187,35 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    jest.spyOn(console, 'error')
-    jest.spyOn(LexicalQuery.evt.DEFS_NOT_FOUND, 'pub')
-
-    await query.getData()
-
-    expect(console.error).toHaveBeenCalled()
-    expect(LexicalQuery.evt.DEFS_NOT_FOUND.pub).toHaveBeenCalled()
-  })
-
-  it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs and if request is rejected than ', async () => {
-    let curUI = Object.assign({}, testUI)
-    let query = LexicalQuery.create(testTextSelector, {
-      uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapter)
-    })
-
-    query.canReset = false
-    query.getLexiconOptions = function () { return { allow: false } }
-
-    query.LDFAdapter = Object.assign({}, testLDFAdapter)
-
-    jest.spyOn(query.lexicons, 'fetchShortDefs')
-    jest.spyOn(query.lexicons, 'fetchFullDefs')
     jest.spyOn(LexicalQuery.evt.HOMONYM_READY, 'pub')
 
     await query.getData()
 
-    expect(query.lexicons.fetchShortDefs).toHaveBeenCalledWith({ word: 'foo lemma' }, { allow: false })
-    expect(query.lexicons.fetchFullDefs).toHaveBeenCalledWith({ word: 'foo lemma' }, { allow: false })
+    expect(ClientAdapters.lexicon.alpheios).toHaveBeenCalledWith({
+      method: 'fetchShortDefs',
+      params: {
+        opts: { allow: false },
+        homonym: testHomonym
+      }
+    })
+    expect(ClientAdapters.lexicon.alpheios).toHaveBeenCalledWith({
+      method: 'fetchFullDefs',
+      params: {
+        opts: { allow: false },
+        homonym: testHomonym
+      }
+    })
     expect(LexicalQuery.evt.HOMONYM_READY.pub).toHaveBeenCalledWith(testHomonym)
   })
 
   it('9 LexicalQuery - getData executes fetchTranslations and it executes updateTranslations', async () => {
     let curUI = Object.assign({}, testUI)
-    let mockLemmaTranslations = Object.assign({}, testLemmaTranslations)
+
     let userLang = 'fr'
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
       htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapter),
-      lemmaTranslations: { adapter: mockLemmaTranslations, locale: userLang }
+      lemmaTranslations: { locale: userLang }
     })
 
     query.canReset = false
@@ -287,13 +223,19 @@ describe('lexical-query.test.js', () => {
 
     query.LDFAdapter = Object.assign({}, testLDFAdapter)
 
-    jest.spyOn(query.lemmaTranslations.adapter, 'fetchTranslations')
     jest.spyOn(LexicalQuery.evt.LEMMA_TRANSL_READY, 'pub')
 
     await query.getData()
 
     const langCode = LMF.getLanguageCodeFromId(testTextSelector.languageID)
-    expect(query.lemmaTranslations.adapter.fetchTranslations).toHaveBeenCalledWith([{ word: 'foo lemma' }], langCode, userLang)
+    expect(ClientAdapters.lemmatranslation.alpheios).toHaveBeenCalledWith({
+      method: 'fetchTranslations',
+      params: {
+        homonym: testHomonym,
+        browserLang: userLang
+      }
+    })
+
     expect(LexicalQuery.evt.LEMMA_TRANSL_READY.pub).toHaveBeenCalledWith(testHomonym)
   })
 
@@ -354,15 +296,26 @@ describe('lexical-query.test.js', () => {
       resourceOptions: languageOptions,
       htmlSelector: testHtmlSelector,
       siteOptions: [],
-      langOpts: {},
-      maAdapter: testMaAdapter,
-      tbAdapter: Object.assign({}, testTbAdapter)
+      langOpts: {}
     })
-    jest.spyOn(query.tbAdapter, 'getHomonym')
-    jest.spyOn(query.maAdapter, 'getHomonym')
+
     await query.getData()
-    expect(query.tbAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.data.treebank.word.ref)
-    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.normalizedText)
+
+    expect(ClientAdapters.morphology.alpheiosTreebank).toHaveBeenCalledWith({
+      method: 'getHomonym',
+      params: {
+        languageID: mockSelector.languageID,
+        wordref: mockSelector.data.treebank.word.ref
+      }
+    })
+
+    expect(ClientAdapters.morphology.tufts).toHaveBeenCalledWith({
+      method: 'getHomonym',
+      params: {
+        languageID: mockSelector.languageID,
+        word: mockSelector.normalizedText
+      }
+    })
   })
 
   it('13 LexicalQuery - does not call tbAdapter if treebank data is not present in selector', async () => {
@@ -379,43 +332,25 @@ describe('lexical-query.test.js', () => {
       resourceOptions: languageOptions,
       htmlSelector: testHtmlSelector,
       siteOptions: [],
-      langOpts: {},
-      maAdapter: testMaAdapter,
-      tbAdapter: Object.assign({}, testTbAdapter)
-    })
-    jest.spyOn(query.tbAdapter, 'getHomonym')
-    await query.getData()
-    expect(query.tbAdapter.getHomonym).not.toHaveBeenCalled()
-    expect(query.maAdapter.getHomonym).toHaveBeenCalledWith(mockSelector.languageID, mockSelector.normalizedText)
-  })
-
-  it('14 LexicalQuery - it finalizes if no definition requests are made', async () => {
-    let curUI = Object.assign({}, testUI)
-    let query = LexicalQuery.create(testTextSelector, {
-      uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapterNoRequests)
+      langOpts: {}
     })
 
-    query.canReset = false
-    query.getLexiconOptions = function () { return { allow: false } }
-
-    query.LDFAdapter = Object.assign({}, testLDFAdapter)
-
-    jest.spyOn(query, 'finalize')
-
     await query.getData()
-    expect(query.finalize).toHaveBeenCalledWith('Success-NoDefs')
+    expect(ClientAdapters.morphology.alpheiosTreebank).not.toHaveBeenCalled()
+    expect(ClientAdapters.morphology.tufts).toHaveBeenCalledWith({
+      method: 'getHomonym',
+      params: {
+        languageID: mockSelector.languageID,
+        word: mockSelector.normalizedText
+      }
+    })
   })
 
   it('14 LexicalQuery - it finalizes if definition requests are made', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
-      htmlSelector: testHtmlSelector,
-      maAdapter: Object.assign({}, testMaAdapter),
-      lexicons: Object.assign({}, testLexiconAdapter)
+      htmlSelector: testHtmlSelector
     })
 
     query.canReset = false

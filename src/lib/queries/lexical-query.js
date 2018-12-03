@@ -46,8 +46,6 @@ export default class LexicalQuery extends Query {
   * iterations () {
     let formLexeme = new Lexeme(new Lemma(this.selector.normalizedText, this.selector.languageID), [])
     if (this.selector.data.treebank && this.selector.data.treebank.word) {
-      // this.annotatedHomonym = yield this.tbAdapter.getHomonym(this.selector.languageID, this.selector.data.treebank.word.ref)
-
       let adapterTreebankRes = yield ClientAdapters.morphology.alpheiosTreebank({
         method: 'getHomonym',
         params: {
@@ -61,7 +59,6 @@ export default class LexicalQuery extends Query {
     }
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
-      // this.homonym = yield this.maAdapter.getHomonym(this.selector.languageID, this.selector.normalizedText)
       let adapterTuftsRes = yield ClientAdapters.morphology.tufts({
         method: 'getHomonym',
         params: {
@@ -110,8 +107,6 @@ export default class LexicalQuery extends Query {
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
     if (this.lemmaTranslations) {
-      // const languageCode = LMF.getLanguageCodeFromId(this.selector.languageID)
-      // yield this.lemmaTranslations.adapter.fetchTranslations(lemmaList, languageCode, this.lemmaTranslations.locale)
       let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({
         method: 'fetchTranslations',
         params: {
@@ -128,7 +123,7 @@ export default class LexicalQuery extends Query {
 
     yield 'Retrieval of lemma translations completed'
 
-    let adapterLexiconRes = yield ClientAdapters.lexicon.alpheios({
+    let adapterLexiconResShort = yield ClientAdapters.lexicon.alpheios({
       method: 'fetchShortDefs',
       params: {
         opts: lexiconShortOpts,
@@ -136,10 +131,10 @@ export default class LexicalQuery extends Query {
       }
     })
 
-    if (adapterLexiconRes.errors.length > 0) {
-      adapterLexiconRes.errors.forEach(error => console.error(error))
+    if (adapterLexiconResShort.errors.length > 0) {
+      adapterLexiconResShort.errors.forEach(error => console.error(error))
     }
-    if (adapterLexiconRes.result) {
+    if (adapterLexiconResShort.result) {
       LexicalQuery.evt.DEFS_READY.pub({
         requestType: 'shortDefs',
         homonym: this.homonym
@@ -151,7 +146,7 @@ export default class LexicalQuery extends Query {
       })
     }
 
-    adapterLexiconRes = yield ClientAdapters.lexicon.alpheios({
+    let adapterLexiconResFull = yield ClientAdapters.lexicon.alpheios({
       method: 'fetchFullDefs',
       params: {
         opts: lexiconFullOpts,
@@ -159,11 +154,11 @@ export default class LexicalQuery extends Query {
       }
     })
 
-    if (adapterLexiconRes.errors.length > 0) {
-      adapterLexiconRes.errors.forEach(error => console.error(error))
+    if (adapterLexiconResFull.errors.length > 0) {
+      adapterLexiconResFull.errors.forEach(error => console.error(error))
     }
 
-    if (adapterLexiconRes.result) {
+    if (adapterLexiconResFull.result) {
       LexicalQuery.evt.DEFS_READY.pub({
         requestType: 'fullDefs',
         homonym: this.homonym
@@ -173,6 +168,10 @@ export default class LexicalQuery extends Query {
         requestType: 'fullDefs',
         homonym: this.homonym
       })
+    }
+
+    if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
+      this.finalize('Success')
     }
   }
 
