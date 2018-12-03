@@ -196,6 +196,22 @@ export default class UIController {
     return result
   }
 
+  setDefaultPanelState () {
+    if (!this.panel) { return this }
+    if (this.uiOptions.items.panelOnActivate.currentValue) {
+      // If option value of panelOnActivate is true
+      this.panel.open()
+    } else {
+      this.panel.close()
+    }
+    return this
+  }
+
+  setDefaultTabState () {
+    this.changeTab(this.tabStateDefault)
+    return this
+  }
+
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
@@ -220,21 +236,6 @@ export default class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-
-    // Set default panel status based on user preferences
-    this.state.panelStatus = this.uiOptions.items.panelOnActivate.currentValue
-      ? TabScript.statuses.panel.OPEN
-      : TabScript.statuses.panel.CLOSED
-
-    // Set default tab (this will be used in panel's data)
-    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
-      // If state has a valid state name
-      this.tabState[this.state.tab] = true
-    } else {
-      // Set a default value
-      this.tabState[this.tabStateDefault] = true
-    }
-
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -805,6 +806,18 @@ export default class UIController {
 
     // Set initial values of components
     this.setRootComponentClasses()
+
+    // Set default panel status based on user preferences
+    this.setDefaultPanelState()
+
+    // Set default tab (this will be used in panel's data)
+    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
+      // If state has a valid state name
+      this.changeTab(this.state.tab)
+    } else {
+      // Set a default value
+      this.setDefaultTabState()
+    }
 
     const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
     this.contentOptions.items.lookupLangOverride.setValue(false)

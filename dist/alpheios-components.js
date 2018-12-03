@@ -29876,6 +29876,22 @@ class UIController {
     return result
   }
 
+  setDefaultPanelState () {
+    if (!this.panel) { return this }
+    if (this.uiOptions.items.panelOnActivate.currentValue) {
+      // If option value of panelOnActivate is true
+      this.panel.open()
+    } else {
+      this.panel.close()
+    }
+    return this
+  }
+
+  setDefaultTabState () {
+    this.changeTab(this.tabStateDefault)
+    return this
+  }
+
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
@@ -29900,21 +29916,6 @@ class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-
-    // Set default panel status based on user preferences
-    this.state.panelStatus = this.uiOptions.items.panelOnActivate.currentValue
-      ? _lib_state_tab_script_js__WEBPACK_IMPORTED_MODULE_14__["default"].statuses.panel.OPEN
-      : _lib_state_tab_script_js__WEBPACK_IMPORTED_MODULE_14__["default"].statuses.panel.CLOSED
-
-    // Set default tab (this will be used in panel's data)
-    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
-      // If state has a valid state name
-      this.tabState[this.state.tab] = true
-    } else {
-      // Set a default value
-      this.tabState[this.tabStateDefault] = true
-    }
-
     // Initialize components
     this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
       el: `#${this.options.template.panelId}`,
@@ -30485,6 +30486,18 @@ class UIController {
 
     // Set initial values of components
     this.setRootComponentClasses()
+
+    // Set default panel status based on user preferences
+    this.setDefaultPanelState()
+
+    // Set default tab (this will be used in panel's data)
+    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
+      // If state has a valid state name
+      this.changeTab(this.state.tab)
+    } else {
+      // Set a default value
+      this.setDefaultTabState()
+    }
 
     const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
     this.contentOptions.items.lookupLangOverride.setValue(false)
@@ -34222,6 +34235,10 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
 
   isDisabled () {
     return this.status === TabScript.statuses.script.DISABLED
+  }
+
+  isPending () {
+    return this.status === TabScript.statuses.script.PENDING
   }
 
   uiIsActive () {

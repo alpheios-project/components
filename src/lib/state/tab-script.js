@@ -206,6 +206,10 @@ export default class TabScript extends UIStateAPI {
     return this.status === TabScript.statuses.script.DISABLED
   }
 
+  isPending () {
+    return this.status === TabScript.statuses.script.PENDING
+  }
+
   uiIsActive () {
     return this[TabScript.props.uiActive.name]
   }
