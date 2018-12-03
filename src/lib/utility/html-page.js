@@ -8,7 +8,6 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
-    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
