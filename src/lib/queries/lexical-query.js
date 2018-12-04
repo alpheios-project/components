@@ -53,10 +53,16 @@ export default class LexicalQuery extends Query {
           wordref: this.selector.data.treebank.word.ref
         }
       })
+      this.annotatedHomonym = adapterTreebankRes.result
+      LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
       }
+    } else {
+      LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
     }
+
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
       let adapterTuftsRes = yield ClientAdapters.morphology.tufts({
@@ -73,16 +79,13 @@ export default class LexicalQuery extends Query {
 
       if (adapterTuftsRes.result) {
         this.homonym = adapterTuftsRes.result
-
         if (this.annotatedHomonym) {
           this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
         }
-        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
       } else {
         if (this.annotatedHomonym) {
           this.homonym = this.annotatedHomonym
         } else {
-          LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
           this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
         }
       }
@@ -172,6 +175,8 @@ export default class LexicalQuery extends Query {
 
     if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
       this.finalize('Success')
+    } else {
+      this.finalize('Success-NoDefs')
     }
   }
 

@@ -32915,10 +32915,16 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
           wordref: this.selector.data.treebank.word.ref
         }
       })
+      this.annotatedHomonym = adapterTreebankRes.result
+      LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
       }
+    } else {
+      LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
     }
+
     if (!this.canReset) {
       // if we can't reset, proceed with full lookup sequence
       let adapterTuftsRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].morphology.tufts({
@@ -32935,16 +32941,13 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
       if (adapterTuftsRes.result) {
         this.homonym = adapterTuftsRes.result
-
         if (this.annotatedHomonym) {
           this.homonym = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"].disambiguate(this.homonym, [this.annotatedHomonym])
         }
-        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
       } else {
         if (this.annotatedHomonym) {
           this.homonym = this.annotatedHomonym
         } else {
-          LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
           this.homonym = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"]([formLexeme], this.selector.normalizedText)
         }
       }
@@ -33034,6 +33037,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
       this.finalize('Success')
+    } else {
+      this.finalize('Success-NoDefs')
     }
   }
 
