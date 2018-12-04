@@ -53,8 +53,12 @@ export default class LexicalQuery extends Query {
           wordref: this.selector.data.treebank.word.ref
         }
       })
-      this.annotatedHomonym = adapterTreebankRes.result
-      LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+      if (adapterTreebankRes.result) {
+        this.annotatedHomonym = adapterTreebankRes.result
+        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+      } else {
+        LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
+      }
 
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
@@ -173,9 +177,10 @@ export default class LexicalQuery extends Query {
       })
     }
 
-    if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
+    if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
-    } else {
+    }
+    if (!adapterLexiconResShort.result && !adapterLexiconResFull.result) {
       this.finalize('Success-NoDefs')
     }
   }

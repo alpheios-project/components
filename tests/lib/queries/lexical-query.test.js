@@ -12,7 +12,7 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 import SiteOptions from './fixtures/site-options-shortlex.json'
 
-import { Constants, LanguageModelFactory as LMF } from 'alpheios-data-models'
+import { Constants, LanguageModelFactory as LMF, Homonym } from 'alpheios-data-models'
 
 import { ClientAdapters } from 'alpheios-client-adapters'
 
@@ -77,10 +77,13 @@ describe('lexical-query.test.js', () => {
 
   }
 
+  let resultForMock = true
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
+
+    resultForMock = true
 
     const mockStaticMorphology = jest.fn()
     mockStaticMorphology.mockReturnValue({
@@ -89,7 +92,7 @@ describe('lexical-query.test.js', () => {
     })
     const mockStaticEmpty = jest.fn()
     mockStaticEmpty.mockReturnValue({
-      alpheios: jest.fn(() => { return { result: true, errors: [] } })
+      alpheios: jest.fn(() => { return { result: resultForMock, errors: [] } })
     })
   
     Object.defineProperty( ClientAdapters, 'morphology', {
@@ -299,6 +302,7 @@ describe('lexical-query.test.js', () => {
       langOpts: {}
     })
 
+    Homonym.disambiguate = jest.fn(() => testHomonym)
     await query.getData()
 
     expect(ClientAdapters.morphology.alpheiosTreebank).toHaveBeenCalledWith({
@@ -346,7 +350,26 @@ describe('lexical-query.test.js', () => {
     })
   })
 
-  it('14 LexicalQuery - it finalizes if definition requests are made', async () => {
+  it('14 LexicalQuery - it finalizes if no definition requests are made', async () => {
+    let curUI = Object.assign({}, testUI)
+    let query = LexicalQuery.create(testTextSelector, {
+      uiController: curUI,
+      htmlSelector: testHtmlSelector
+    })
+
+    query.canReset = false
+    query.getLexiconOptions = function () { return { allow: false } }
+
+    query.LDFAdapter = Object.assign({}, testLDFAdapter)
+
+    resultForMock = false
+    jest.spyOn(query, 'finalize')
+
+    await query.getData()
+    expect(query.finalize).toHaveBeenCalledWith('Success-NoDefs')
+  })
+
+  it('15 LexicalQuery - it finalizes if definition requests are made', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
       uiController: curUI,
@@ -365,4 +388,5 @@ describe('lexical-query.test.js', () => {
     expect(LexicalQuery.evt.DEFS_READY.pub).toHaveBeenCalled()
     expect(query.finalize).toHaveBeenCalledWith('Success')
   })
+
 })

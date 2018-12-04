@@ -32915,8 +32915,12 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
           wordref: this.selector.data.treebank.word.ref
         }
       })
-      this.annotatedHomonym = adapterTreebankRes.result
-      LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+      if (adapterTreebankRes.result) {
+        this.annotatedHomonym = adapterTreebankRes.result
+        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
+      } else {
+        LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
+      }
 
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
@@ -33035,9 +33039,10 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       })
     }
 
-    if (adapterLexiconResShort.result && adapterLexiconResFull.result) {
+    if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
-    } else {
+    }
+    if (!adapterLexiconResShort.result && !adapterLexiconResFull.result) {
       this.finalize('Success-NoDefs')
     }
   }
