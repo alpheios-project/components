@@ -32890,16 +32890,14 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     while (true) {
       if (!this.active) { this.finalize() }
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
-        // try {
-        let resolvedValue = await result.value
-        result = iterator.next(resolvedValue)
-        /*
+        try {
+          let resolvedValue = await result.value
+          result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
           this.finalize(error)
           break
         }
-        */
       } else {
         result = iterator.next(result.value)
       }
