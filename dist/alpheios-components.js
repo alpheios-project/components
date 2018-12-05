@@ -29781,8 +29781,8 @@ class UIController {
 
     // Subscribe to LexicalQuery events
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.TREEBANK_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.TREEBANK_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
@@ -32890,14 +32890,16 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     while (true) {
       if (!this.active) { this.finalize() }
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
-        try {
-          let resolvedValue = await result.value
-          result = iterator.next(resolvedValue)
+        // try {
+        let resolvedValue = await result.value
+        result = iterator.next(resolvedValue)
+        /*
         } catch (error) {
           iterator.return()
           this.finalize(error)
           break
         }
+        */
       } else {
         result = iterator.next(result.value)
       }
@@ -32917,16 +32919,11 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       })
       if (adapterTreebankRes.result) {
         this.annotatedHomonym = adapterTreebankRes.result
-        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
-      } else {
-        LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
       }
 
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
       }
-    } else {
-      LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
     }
 
     if (!this.canReset) {
@@ -32948,19 +32945,24 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
         if (this.annotatedHomonym) {
           this.homonym = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"].disambiguate(this.homonym, [this.annotatedHomonym])
         }
+        LexicalQuery.evt.MORPH_DATA_READY.pub()
       } else {
         if (this.annotatedHomonym) {
           this.homonym = this.annotatedHomonym
+          LexicalQuery.evt.MORPH_DATA_READY.pub()
         } else {
           this.homonym = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"]([formLexeme], this.selector.normalizedText)
+          LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
         }
       }
     } else {
       // if we can reset then start with definitions of the unanalyzed form
       if (this.annotatedHomonym) {
         this.homonym = this.annotatedHomonym
+        LexicalQuery.evt.MORPH_DATA_READY.pub()
       } else {
         this.homonym = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Homonym"]([formLexeme], this.selector.normalizedText)
+        LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
       }
     }
 
@@ -32996,47 +32998,28 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       method: 'fetchShortDefs',
       params: {
         opts: lexiconShortOpts,
-        homonym: this.homonym
+        homonym: this.homonym,
+        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
       }
     })
 
     if (adapterLexiconResShort.errors.length > 0) {
       adapterLexiconResShort.errors.forEach(error => console.error(error))
     }
-    if (adapterLexiconResShort.result) {
-      LexicalQuery.evt.DEFS_READY.pub({
-        requestType: 'shortDefs',
-        homonym: this.homonym
-      })
-    } else {
-      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
-        requestType: 'shortDefs',
-        homonym: this.homonym
-      })
-    }
 
     let adapterLexiconResFull = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
       method: 'fetchFullDefs',
       params: {
         opts: lexiconFullOpts,
-        homonym: this.homonym
+        homonym: this.homonym,
+        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
       }
     })
 
     if (adapterLexiconResFull.errors.length > 0) {
       adapterLexiconResFull.errors.forEach(error => console.error(error))
-    }
-
-    if (adapterLexiconResFull.result) {
-      LexicalQuery.evt.DEFS_READY.pub({
-        requestType: 'fullDefs',
-        homonym: this.homonym
-      })
-    } else {
-      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
-        requestType: 'fullDefs',
-        homonym: this.homonym
-      })
     }
 
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
@@ -33116,13 +33099,13 @@ LexicalQuery.evt = {
    * Published when morphological data becomes available.
    * Data: an empty object.
    */
-  TREEBANK_DATA_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Morph Data Ready`, LexicalQuery),
+  MORPH_DATA_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Morph Data Ready`, LexicalQuery),
 
   /**
    * Published when no morphological data has been found.
    * Data: an empty object.
    */
-  TREEBANK_DATA_NOTAVAILABLE: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Morph Data Not Found`, LexicalQuery),
+  MORPH_DATA_NOTAVAILABLE: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Morph Data Not Found`, LexicalQuery),
 
   /**
    * Published when no morphological data has been found.

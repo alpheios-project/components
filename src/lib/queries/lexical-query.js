@@ -28,14 +28,16 @@ export default class LexicalQuery extends Query {
     while (true) {
       if (!this.active) { this.finalize() }
       if (Query.isPromise(result.value)) {
-        try {
-          let resolvedValue = await result.value
-          result = iterator.next(resolvedValue)
+        // try {
+        let resolvedValue = await result.value
+        result = iterator.next(resolvedValue)
+        /*
         } catch (error) {
           iterator.return()
           this.finalize(error)
           break
         }
+        */
       } else {
         result = iterator.next(result.value)
       }
@@ -55,16 +57,11 @@ export default class LexicalQuery extends Query {
       })
       if (adapterTreebankRes.result) {
         this.annotatedHomonym = adapterTreebankRes.result
-        LexicalQuery.evt.TREEBANK_DATA_READY.pub()
-      } else {
-        LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
       }
 
       if (adapterTreebankRes.errors.length > 0) {
         adapterTreebankRes.errors.forEach(error => console.error(error))
       }
-    } else {
-      LexicalQuery.evt.TREEBANK_DATA_NOTAVAILABLE.pub()
     }
 
     if (!this.canReset) {
@@ -86,19 +83,24 @@ export default class LexicalQuery extends Query {
         if (this.annotatedHomonym) {
           this.homonym = Homonym.disambiguate(this.homonym, [this.annotatedHomonym])
         }
+        LexicalQuery.evt.MORPH_DATA_READY.pub()
       } else {
         if (this.annotatedHomonym) {
           this.homonym = this.annotatedHomonym
+          LexicalQuery.evt.MORPH_DATA_READY.pub()
         } else {
           this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+          LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
         }
       }
     } else {
       // if we can reset then start with definitions of the unanalyzed form
       if (this.annotatedHomonym) {
         this.homonym = this.annotatedHomonym
+        LexicalQuery.evt.MORPH_DATA_READY.pub()
       } else {
         this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
+        LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
       }
     }
 
@@ -134,47 +136,28 @@ export default class LexicalQuery extends Query {
       method: 'fetchShortDefs',
       params: {
         opts: lexiconShortOpts,
-        homonym: this.homonym
+        homonym: this.homonym,
+        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
       }
     })
 
     if (adapterLexiconResShort.errors.length > 0) {
       adapterLexiconResShort.errors.forEach(error => console.error(error))
     }
-    if (adapterLexiconResShort.result) {
-      LexicalQuery.evt.DEFS_READY.pub({
-        requestType: 'shortDefs',
-        homonym: this.homonym
-      })
-    } else {
-      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
-        requestType: 'shortDefs',
-        homonym: this.homonym
-      })
-    }
 
     let adapterLexiconResFull = yield ClientAdapters.lexicon.alpheios({
       method: 'fetchFullDefs',
       params: {
         opts: lexiconFullOpts,
-        homonym: this.homonym
+        homonym: this.homonym,
+        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
       }
     })
 
     if (adapterLexiconResFull.errors.length > 0) {
       adapterLexiconResFull.errors.forEach(error => console.error(error))
-    }
-
-    if (adapterLexiconResFull.result) {
-      LexicalQuery.evt.DEFS_READY.pub({
-        requestType: 'fullDefs',
-        homonym: this.homonym
-      })
-    } else {
-      LexicalQuery.evt.DEFS_NOT_FOUND.pub({
-        requestType: 'fullDefs',
-        homonym: this.homonym
-      })
     }
 
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
@@ -254,13 +237,13 @@ LexicalQuery.evt = {
    * Published when morphological data becomes available.
    * Data: an empty object.
    */
-  TREEBANK_DATA_READY: new PsEvent(`Morph Data Ready`, LexicalQuery),
+  MORPH_DATA_READY: new PsEvent(`Morph Data Ready`, LexicalQuery),
 
   /**
    * Published when no morphological data has been found.
    * Data: an empty object.
    */
-  TREEBANK_DATA_NOTAVAILABLE: new PsEvent(`Morph Data Not Found`, LexicalQuery),
+  MORPH_DATA_NOTAVAILABLE: new PsEvent(`Morph Data Not Found`, LexicalQuery),
 
   /**
    * Published when no morphological data has been found.
