@@ -71,7 +71,6 @@ export default class LexicalQuery extends Query {
       // if we can't reset, proceed with full lookup sequence
       let adapterTuftsRes = yield ClientAdapters.morphology.tufts({
         method: 'getHomonym',
-        sync: false,
         params: {
           languageID: this.selector.languageID,
           word: this.selector.normalizedText

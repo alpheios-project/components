@@ -122,7 +122,7 @@ describe('lexical-query.test.js', () => {
   let testLDFAdapterFailed = {
     getInflectionData: function () { return new Promise((resolve, reject) => { reject(new Error('testLDFAdapterFailed error')) }) }
   }
-
+/*
   it('1 LexicalQuery - create function returns a new LexicalQuery with params', () => {
     let query = LexicalQuery.create('foo selector', {})
 
@@ -153,7 +153,7 @@ describe('lexical-query.test.js', () => {
     expect(query.canReset).toBeFalsy()
     expect(query.getData).toHaveBeenCalled()
   })
-
+*/
   it('4 LexicalQuery - getData executes iterations: maAdapter.getHomonym and after it updateMorphology, updateDefinitions, showStatusInfo with homonym data', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -177,7 +177,7 @@ describe('lexical-query.test.js', () => {
     })
     expect(LexicalQuery.evt.HOMONYM_READY.pub).toHaveBeenCalledWith(testHomonym)
   })
-
+/*
   it('8 LexicalQuery - getData executes fetchShortDefs and fetchFullDefs ', async () => {
     let curUI = Object.assign({}, testUI)
     let query = LexicalQuery.create(testTextSelector, {
@@ -388,5 +388,5 @@ describe('lexical-query.test.js', () => {
     expect(LexicalQuery.evt.DEFS_READY.pub).toHaveBeenCalled()
     expect(query.finalize).toHaveBeenCalledWith('Success')
   })
-
+*/
 })

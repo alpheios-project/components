@@ -35,7 +35,7 @@
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-node-build": "github:alpheios-project/node-build",
     "alpheios-res-client": "github:alpheios-project/res-client",
-    "autoprefixer": "^9.4.1",
+    "autoprefixer": "^9.4.2",
     "bytes": "^3.0.0",
     "chalk": "^2.4.1",
     "coveralls": "^3.0.2",

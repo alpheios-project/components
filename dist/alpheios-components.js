@@ -32933,7 +32933,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       // if we can't reset, proceed with full lookup sequence
       let adapterTuftsRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].morphology.tufts({
         method: 'getHomonym',
-        sync: false,
         params: {
           languageID: this.selector.languageID,
           word: this.selector.normalizedText
