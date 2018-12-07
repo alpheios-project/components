@@ -47,6 +47,7 @@ export default class ResourceQuery extends Query {
     }
     ))
     if (grammarRequests.length === 0) {
+      console.log(`RQ: update grammar (empty)`)
       this.ui.updateGrammar([])
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
       this.finalize()
@@ -56,10 +57,12 @@ export default class ResourceQuery extends Query {
         url => {
           q.complete = true
           if (this.active) {
+            console.log(`RQ: update grammar (url)`)
             this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
             this.ui.updateGrammar(url)
           }
           if (grammarRequests.every(request => request.complete)) {
+            console.log(`RQ: update grammar complete`)
             if (this.active) { this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE) }
             this.finalize()
           }

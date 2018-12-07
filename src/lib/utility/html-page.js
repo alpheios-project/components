@@ -115,6 +115,15 @@ export default class HTMLPage {
     }
     return zIndexMax
   }
+
+  /**
+   * Detects an Alpheios embedded library by the presence of its tag.
+   * @returns {boolean} True if the library is present, false otherwise.
+   */
+  static get isEmbedLibActive () {
+    const attrValue = window.document.body.getAttribute('alpheios-embed-lib-status')
+    return attrValue === 'active'
+  }
 }
 
 HTMLPage.targetRequirements = {

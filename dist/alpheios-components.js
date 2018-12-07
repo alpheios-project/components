@@ -29880,15 +29880,10 @@ class UIController {
     if (!this.panel) { return this }
     if (this.uiOptions.items.panelOnActivate.currentValue) {
       // If option value of panelOnActivate is true
-      this.panel.open()
+      this.state.setPanelOpen()
     } else {
-      this.panel.close()
+      this.state.setPanelClosed()
     }
-    return this
-  }
-
-  setDefaultTabState () {
-    this.changeTab(this.tabStateDefault)
     return this
   }
 
@@ -30009,11 +30004,10 @@ class UIController {
           return this
         },
 
-        close: function () {
-          if (!this.state.isPanelClosed()) {
-            this.panelData.isOpen = false
-            this.state.setPanelClosed()
-          }
+        // `updateState == false` is used to close a panel without updating state
+        close: function (updateState = true) {
+          this.panelData.isOpen = false
+          if (updateState) { this.state.setPanelClosed() }
           return this
         },
 
@@ -30487,18 +30481,6 @@ class UIController {
     // Set initial values of components
     this.setRootComponentClasses()
 
-    // Set default panel status based on user preferences
-    this.setDefaultPanelState()
-
-    // Set default tab (this will be used in panel's data)
-    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
-      // If state has a valid state name
-      this.changeTab(this.state.tab)
-    } else {
-      // Set a default value
-      this.setDefaultTabState()
-    }
-
     const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
     this.contentOptions.items.lookupLangOverride.setValue(false)
     this.updateLanguage(currentLanguageID)
@@ -30528,6 +30510,9 @@ class UIController {
 
     this.state.activateUI()
 
+    if (this.state.isPanelStateDefault() || !this.state.isPanelStateValid()) {
+      this.setDefaultPanelState()
+    }
     // If panel should be opened according to the state, open it
     if (this.state.isPanelOpen()) {
       /**
@@ -30535,8 +30520,13 @@ class UIController {
        * Probably this is a matter of timing between state updates.
        * Shall be solved during state refactoring.
        */
-      setTimeout(() => this.panel.open(true), 0) // TODO: Figure out if we really need a timeout now
+      this.panel.open(true)
     }
+
+    if (this.state.tab) {
+      this.changeTab(this.state.tab)
+    }
+
     this.isActivated = true
     this.isDeactivated = false
     this.state.activate()
@@ -30556,7 +30546,7 @@ class UIController {
     if (this.evc) { this.evc.deactivateListeners() }
 
     this.popup.close()
-    this.panel.close()
+    this.panel.close(false) // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
     this.state.deactivate()
@@ -30644,7 +30634,15 @@ class UIController {
   }
 
   changeTab (tabName) {
-    this.panel.changeTab(tabName)
+    if (this.panel) {
+      if (!this.tabState.hasOwnProperty(tabName)) {
+        // Set tab to a default one if it is an unknown tab name
+        tabName = this.tabStateDefault
+      }
+      this.panel.changeTab(tabName)
+    } else {
+      console.warn(`Cannot switch tab because panel does not exist`)
+    }
     return this
   }
 
@@ -31001,12 +30999,6 @@ class UIController {
         siteOptions: this.siteOptions
       }).getData()
     }
-  }
-
-  changeTab (name) {
-    if (this.panel) {
-      this.panel.changeTab(name)
-    } else { console.warn(`Cannot switch tab because panel does not exist`) }
   }
 }
 
@@ -33215,6 +33207,7 @@ class ResourceQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
     ))
     if (grammarRequests.length === 0) {
+      console.log(`RQ: update grammar (empty)`)
       this.ui.updateGrammar([])
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
       this.finalize()
@@ -33224,10 +33217,12 @@ class ResourceQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
         url => {
           q.complete = true
           if (this.active) {
+            console.log(`RQ: update grammar (url)`)
             this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
             this.ui.updateGrammar(url)
           }
           if (grammarRequests.every(request => request.complete)) {
+            console.log(`RQ: update grammar complete`)
             if (this.active) { this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE) }
             this.finalize()
           }
@@ -34045,7 +34040,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
     this.status = undefined
     this.panelStatus = undefined
     this.tab = undefined
-    this.savedStatus = undefined
+    this.embedLibStatus = undefined // Whether an Alpheios embedded lib is active within a tab
     this.uiActive = false
 
     this.watchers = new Map()
@@ -34090,16 +34085,19 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         },
         defaultValueIndex: 0
       },
-      savedStatus: {
-        name: 'savedStatus',
-        valueType: Boolean
+      embedLibStatus: {
+        name: 'embedLibStatus',
+        valueType: TabScript.propTypes.SYMBOL,
+        values: this.statuses.embedLib,
+        defaultValueIndex: 1
       },
       panelStatus: {
         name: 'panelStatus',
         valueType: TabScript.propTypes.SYMBOL,
         values: {
           OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-          CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+          CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+          DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
         },
         defaultValueIndex: 1
       },
@@ -34107,7 +34105,8 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         name: 'tab',
         valueType: TabScript.propTypes.STRING,
         values: {
-          INFO: 'info'
+          INFO: 'info',
+          DEFAULT: 'default' // A tab should be set according to default values
         },
         defaultValueIndex: 0
       },
@@ -34119,7 +34118,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
   }
 
   static get symbolProps () {
-    return [TabScript.props.status.name, TabScript.props.panelStatus.name]
+    return [TabScript.props.status.name, TabScript.props.embedLibStatus.name, TabScript.props.panelStatus.name]
   }
 
   static get stringProps () {
@@ -34127,7 +34126,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
   }
 
   static get booleanProps () {
-    return [TabScript.props.savedStatus.name]
+    return []
   }
 
   /**
@@ -34168,9 +34167,14 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         DEACTIVATED: Symbol.for('Alpheios_Status_Deactivated'), // Content script has been loaded, but is deactivated
         DISABLED: Symbol.for('Alpheios_Status_Disabled') // Content script has been disabled on a page and cannot be activated (due to incompatibility with a page content)
       },
+      embedLib: {
+        ACTIVE: Symbol.for('Embedded_Lib_Status_Active'), // Embedded Lib is present on a page and is activated
+        INACTIVE: Symbol.for('Embedded_Lib_Status_Inactive') // Embedded Lib not loaded or is inactive
+      },
       panel: {
         OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-        CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+        CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+        DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
       }
     }
   }
@@ -34203,6 +34207,28 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
     return this
   }
 
+  isEmbedLibActive () {
+    return this.embedLibStatus === TabScript.statuses.embedLib.ACTIVE
+  }
+
+  setEmbedLibActiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    return this
+  }
+
+  setEmbedLibInactiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    return this
+  }
+
+  setEmbedLibStatus (isActive) {
+    if (isActive) {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    } else {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    }
+  }
+
   isPanelOpen () {
     return this.panelStatus === TabScript.statuses.panel.OPEN
   }
@@ -34219,6 +34245,31 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
   setPanelClosed () {
     this.setItem('panelStatus', TabScript.statuses.panel.CLOSED)
     return this
+  }
+
+  setPanelDefault () {
+    this.setItem('panelStatus', TabScript.statuses.panel.DEFAULT)
+    return this
+  }
+
+  isPanelStateDefault () {
+    return this.panelStatus === TabScript.statuses.panel.DEFAULT
+  }
+
+  isPanelStateValid () {
+    return (
+      this.panelStatus === TabScript.statuses.panel.OPEN ||
+      this.panelStatus === TabScript.statuses.panel.CLOSED
+    )
+  }
+
+  setTabDefault () {
+    this.setItem('tab', TabScript.props.tab.values.DEFAULT)
+    return this
+  }
+
+  isTabStateDefult () {
+    return this.tab === TabScript.props.tab.values.DEFAULT
   }
 
   hasSameID (tabID) {
@@ -34257,19 +34308,6 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
 
   disable () {
     this.status = TabScript.statuses.script.DISABLED
-    return this
-  }
-
-  save () {
-    this.savedStatus = this.status
-    return this
-  }
-
-  restore () {
-    if (this.savedStatus) {
-      this.status = this.savedStatus
-      this.savedStatus = undefined
-    }
     return this
   }
 
@@ -34738,6 +34776,15 @@ class HTMLPage {
       }
     }
     return zIndexMax
+  }
+
+  /**
+   * Detects an Alpheios embedded library by the presence of its tag.
+   * @returns {boolean} True if the library is present, false otherwise.
+   */
+  static get isEmbedLibActive () {
+    const attrValue = window.document.body.getAttribute('alpheios-embed-lib-status')
+    return attrValue === 'active'
   }
 }
 
