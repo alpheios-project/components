@@ -11466,10 +11466,10 @@ __webpack_require__.r(__webpack_exports__);
       return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
     },
     hasMorphData: function () {
-      if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && 
-           (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0 
-            || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0) 
-         ) 
+      if (Array.isArray(this.lexemes) && this.lexemes.length > 0 &&
+           (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0
+            || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0)
+         )
       {
         return true
       }
@@ -12103,7 +12103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ShortDef',
-  props: ['definition'],
+  props: ['definition','languageCode'],
   methods: {},
   mounted () {
     //console.log('ShortDef is mounted')
@@ -15679,6 +15679,9 @@ var render = function() {
                             {
                               staticClass: "alpheios-morph__formtext",
                               attrs: {
+                                lang: _vm.languageCode(
+                                  _vm.lex.lemma.languageID
+                                ),
                                 "data-grouplevel": "1",
                                 "data-feature": "prefix"
                               }
@@ -15692,6 +15695,7 @@ var render = function() {
                         {
                           staticClass: "alpheios-morph__formtext",
                           attrs: {
+                            lang: _vm.languageCode(_vm.lex.lemma.languageID),
                             "data-grouplevel": "1",
                             "data-feature": "stem"
                           }
@@ -15705,6 +15709,9 @@ var render = function() {
                             {
                               staticClass: "alpheios-morph__formtext",
                               attrs: {
+                                lang: _vm.languageCode(
+                                  _vm.lex.lemma.languageID
+                                ),
                                 "data-grouplevel": "1",
                                 "data-feature": "suffix"
                               }
@@ -16534,7 +16541,14 @@ var render = function() {
                   return _c(
                     "div",
                     { staticClass: "alpheios-panel__contentitem" },
-                    [_c("shortdef", { attrs: { definition: definition } })],
+                    [
+                      _c("shortdef", {
+                        attrs: {
+                          definition: definition,
+                          languageCode: _vm.data.status.languageCode
+                        }
+                      })
+                    ],
                     1
                   )
                 }),
@@ -17360,7 +17374,8 @@ var render = function() {
                       expression: "data.status.selectedText"
                     }
                   ],
-                  staticClass: "alpheios-popup__header-selection"
+                  staticClass: "alpheios-popup__header-selection",
+                  attrs: { lang: _vm.data.status.languageCode }
                 },
                 [_vm._v(_vm._s(_vm.data.status.selectedText))]
               ),
@@ -18184,7 +18199,10 @@ var render = function() {
   return _c("div", { staticClass: "alpheios-definition__short" }, [
     _c(
       "span",
-      { staticClass: "alpheios-definition__lemma alpheios-text__medium" },
+      {
+        staticClass: "alpheios-definition__lemma alpheios-text__medium",
+        attrs: { lang: _vm.languageCode }
+      },
       [_vm._v(_vm._s(_vm.definition.lemmaText) + ":")]
     ),
     _vm._v(" "),
@@ -30117,7 +30135,7 @@ class UIController {
           },
           infoComponentData: {
             appInfo: this.options.app,
-            languageName: UIController.getLanguageName(this.state.currentLanguage)
+            languageName: UIController.getLanguageName(this.state.currentLanguage).name
           },
           messages: [],
           notification: {
@@ -30128,7 +30146,8 @@ class UIController {
           },
           status: {
             selectedText: '',
-            languageName: ''
+            languageName: '',
+            languageCode: ''
           },
           settings: this.contentOptions.items,
           treebankComponentData: {
@@ -30254,7 +30273,7 @@ class UIController {
           this.panelData.notification.visible = true
           let languageName
           if (homonym) {
-            languageName = UIController.getLanguageName(homonym.languageID)
+            languageName = UIController.getLanguageName(homonym.languageID).name
           } else if (this.panelData.infoComponentData.languageName) {
             languageName = this.panelData.infoComponentData.languageName
           } else {
@@ -30272,7 +30291,9 @@ class UIController {
         },
 
         showStatusInfo: function (selectionText, languageID) {
-          this.panelData.status.languageName = UIController.getLanguageName(languageID)
+          let langDetails = UIController.getLanguageName(languageID)
+          this.panelData.status.languageName = langDetails.name
+          this.panelData.status.languageCode = langDetails.code
           this.panelData.status.selectedText = selectionText
         },
 
@@ -30292,6 +30313,7 @@ class UIController {
 
         clearStatus: function () {
           this.panelData.status.languageName = ''
+          this.panelData.status.languageCode = ''
           this.panelData.status.selectedText = ''
         },
 
@@ -30452,7 +30474,8 @@ class UIController {
           providers: [],
           status: {
             selectedText: '',
-            languageName: ''
+            languageName: '',
+            languageCode: ''
           },
           currentLanguage: null,
           resourceSettings: this.resourceOptions.items,
@@ -30504,7 +30527,7 @@ class UIController {
           this.popupData.notification.visible = true
           let languageName
           if (homonym) {
-            languageName = UIController.getLanguageName(homonym.languageID)
+            languageName = UIController.getLanguageName(homonym.languageID).name
           } else if (this.popupData.currentLanguageName) {
             languageName = this.popupData.currentLanguageName
           } else {
@@ -30521,7 +30544,9 @@ class UIController {
         },
 
         showStatusInfo: function (selectionText, languageID) {
-          this.popupData.status.languageName = UIController.getLanguageName(languageID)
+          let langDetails = UIController.getLanguageName(languageID)
+          this.popupData.status.languageName = langDetails.name
+          this.popupData.status.languageCode = langDetails.code
           this.popupData.status.selectedText = selectionText
         },
 
@@ -30565,6 +30590,7 @@ class UIController {
 
         clearStatus: function () {
           this.popupData.status.languageName = ''
+          this.popupData.status.languageCode = ''
           this.popupData.status.selectedText = ''
         },
 
@@ -30755,7 +30781,7 @@ class UIController {
   }
 
   /**
-   * Gets language name by either language ID (a symbol) or language code (string)
+   * Gets language name details by either language ID (a symbol) or language code (string)
    * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
    * @return {string} A language name
    */
@@ -30764,7 +30790,7 @@ class UIController {
     let langCode // eslint-disable-line
     // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
     ;({ languageID: langID, languageCode: langCode } = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageAttrs(language))
-    return languageNames.has(langID) ? languageNames.get(langID) : ''
+    return { name: languageNames.has(langID) ? languageNames.get(langID) : '', code: langCode }
   }
 
   showLanguageInfo (homonym) {
@@ -30927,9 +30953,9 @@ class UIController {
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
     this.panel.panelData.currentLanguageID = currentLanguageID
-    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID).name
 
-    vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
+    vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID).name)
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 

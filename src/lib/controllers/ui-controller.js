@@ -277,7 +277,7 @@ export default class UIController {
           },
           infoComponentData: {
             appInfo: this.options.app,
-            languageName: UIController.getLanguageName(this.state.currentLanguage)
+            languageName: UIController.getLanguageName(this.state.currentLanguage).name
           },
           messages: [],
           notification: {
@@ -288,7 +288,8 @@ export default class UIController {
           },
           status: {
             selectedText: '',
-            languageName: ''
+            languageName: '',
+            languageCode: ''
           },
           settings: this.contentOptions.items,
           treebankComponentData: {
@@ -414,7 +415,7 @@ export default class UIController {
           this.panelData.notification.visible = true
           let languageName
           if (homonym) {
-            languageName = UIController.getLanguageName(homonym.languageID)
+            languageName = UIController.getLanguageName(homonym.languageID).name
           } else if (this.panelData.infoComponentData.languageName) {
             languageName = this.panelData.infoComponentData.languageName
           } else {
@@ -432,7 +433,9 @@ export default class UIController {
         },
 
         showStatusInfo: function (selectionText, languageID) {
-          this.panelData.status.languageName = UIController.getLanguageName(languageID)
+          let langDetails = UIController.getLanguageName(languageID)
+          this.panelData.status.languageName = langDetails.name
+          this.panelData.status.languageCode = langDetails.code
           this.panelData.status.selectedText = selectionText
         },
 
@@ -452,6 +455,7 @@ export default class UIController {
 
         clearStatus: function () {
           this.panelData.status.languageName = ''
+          this.panelData.status.languageCode = ''
           this.panelData.status.selectedText = ''
         },
 
@@ -612,7 +616,8 @@ export default class UIController {
           providers: [],
           status: {
             selectedText: '',
-            languageName: ''
+            languageName: '',
+            languageCode: ''
           },
           currentLanguage: null,
           resourceSettings: this.resourceOptions.items,
@@ -664,7 +669,7 @@ export default class UIController {
           this.popupData.notification.visible = true
           let languageName
           if (homonym) {
-            languageName = UIController.getLanguageName(homonym.languageID)
+            languageName = UIController.getLanguageName(homonym.languageID).name
           } else if (this.popupData.currentLanguageName) {
             languageName = this.popupData.currentLanguageName
           } else {
@@ -681,7 +686,9 @@ export default class UIController {
         },
 
         showStatusInfo: function (selectionText, languageID) {
-          this.popupData.status.languageName = UIController.getLanguageName(languageID)
+          let langDetails = UIController.getLanguageName(languageID)
+          this.popupData.status.languageName = langDetails.name
+          this.popupData.status.languageCode = langDetails.code
           this.popupData.status.selectedText = selectionText
         },
 
@@ -725,6 +732,7 @@ export default class UIController {
 
         clearStatus: function () {
           this.popupData.status.languageName = ''
+          this.popupData.status.languageCode = ''
           this.popupData.status.selectedText = ''
         },
 
@@ -915,7 +923,7 @@ export default class UIController {
   }
 
   /**
-   * Gets language name by either language ID (a symbol) or language code (string)
+   * Gets language name details by either language ID (a symbol) or language code (string)
    * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
    * @return {string} A language name
    */
@@ -924,7 +932,7 @@ export default class UIController {
     let langCode // eslint-disable-line
     // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
     ;({ languageID: langID, languageCode: langCode } = LanguageModelFactory.getLanguageAttrs(language))
-    return languageNames.has(langID) ? languageNames.get(langID) : ''
+    return { name: languageNames.has(langID) ? languageNames.get(langID) : '', code: langCode }
   }
 
   showLanguageInfo (homonym) {
@@ -1087,9 +1095,9 @@ export default class UIController {
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
     this.panel.panelData.currentLanguageID = currentLanguageID
-    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
+    this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID).name
 
-    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
+    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID).name)
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 

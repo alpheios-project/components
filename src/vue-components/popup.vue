@@ -11,7 +11,7 @@
          </alph-tooltip>
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status">
-                <span v-show="data.status.selectedText" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
+                <span v-show="data.status.selectedText" :lang="data.status.languageCode" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
                 <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word">({{data.status.languageName}})</span>
             </div>
 
@@ -218,10 +218,10 @@
         return (this.data && this.data.translationsDataReady) ? this.data.translationsDataReady : false
       },
       hasMorphData: function () {
-        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 && 
-             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0 
-              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0) 
-           ) 
+        if (Array.isArray(this.lexemes) && this.lexemes.length > 0 &&
+             (this.lexemes[0].lemma.principalParts.length > 0 || this.lexemes[0].inflections.length > 0 || this.lexemes[0].inflections.length > 0
+              || this.lexemes[0].meaning.fullDefs.length > 0 || this.lexemes[0].meaning.shortDefs.length > 0)
+           )
         {
           return true
         }

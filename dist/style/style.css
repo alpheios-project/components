@@ -1,3 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
+@import url(https://fonts.googleapis.com/css?family=Amiri);
 @charset "UTF-8";
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8340,6 +8362,15 @@ div.alpheios-checkbox-block {
     margin-right: 10px;
     margin-left: 10px; }
 
+.auk.alpheios-font_medium_class *[lang='ara'] {
+  font-family: Amiri, serif; }
+
+.auk.alpheios-font_small_class *[lang='ara'] {
+  font-family: Amiri, serif; }
+
+.auk.alpheios-font_large_class *[lang='ara'] {
+  font-family: Amiri, serif; }
+
 div.alpheios-color_schema_light_class {
   background: #ffffff;
   color: #333333; }
@@ -8470,6 +8501,7 @@ body {
   -ms-user-select: auto;
   user-select: auto; }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -8480,11 +8512,13 @@ body {
   font-weight: bold;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8500,6 +8534,7 @@ body {
 p.alpheios-lemma__translations-value {
   margin-bottom: 5px;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8676,6 +8711,7 @@ div.alpheios-morph__block {
     display: inline-block;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -8830,6 +8866,7 @@ fieldset[disabled] .multiselect{pointer-events:none
 to{transform:rotate(2turn)
 }
 }
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -8842,11 +8879,13 @@ to{transform:rotate(2turn)
   vertical-align: middle;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8898,6 +8937,7 @@ a.alpheios-lookup__settings-link {
 .alpheios-override-lang__label {
   padding-bottom: 10px;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8983,6 +9023,7 @@ a.alpheios-lookup__settings-link {
     width: 100%;
 }
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9149,6 +9190,7 @@ img.alpheios-popup__logo {
   padding-top: 25px;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9177,6 +9219,7 @@ img.alpheios-popup__logo {
   background-color: #F6D918;
   font-weight: 700;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9234,6 +9277,7 @@ img.alpheios-popup__logo {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9444,6 +9488,7 @@ div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-c
   font-weight: 700;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9496,6 +9541,7 @@ a.infl-supp-tbl__reflink {
 .alpheios-inflections__forms-cont {
       padding-right: 30px;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9670,6 +9716,7 @@ h3.alpheios-inflections__credits-title {
 }
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9706,6 +9753,7 @@ h3.alpheios-inflections__credits-title {
   overflow: scroll;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9718,6 +9766,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-treebank__frame {
   flex: 1 1 100vh;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9745,6 +9794,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-info__helptext {
   margin-top: 1em;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -9793,6 +9843,7 @@ ul.alpheios-skin_properties {
   background: #7E8897;
 }
 
+
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
 /*********** Font styles ***********************/
@@ -9840,6 +9891,7 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   font-size: 1rem;
   margin: 0 0 0.2rem 3rem;
 }
+
 
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
