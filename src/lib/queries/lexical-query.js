@@ -159,9 +159,11 @@ export default class LexicalQuery extends Query {
     }
 
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
+      console.info('***********************finalize success')
       this.finalize('Success')
     }
     if (!adapterLexiconResShort.result && !adapterLexiconResFull.result) {
+      console.info('***********************finalize failed')
       this.finalize('Success-NoDefs')
     }
   }
