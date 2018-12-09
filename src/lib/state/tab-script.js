@@ -242,7 +242,7 @@ export default class TabScript extends UIStateAPI {
     return this
   }
 
-  isTabStateDefult () {
+  isTabStateDefault () {
     return this.tab === TabScript.props.tab.values.DEFAULT
   }
 
