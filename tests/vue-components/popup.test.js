@@ -714,4 +714,23 @@ describe('popup.test.js', () => {
     expect(cmp.vm.positionLeftDm).toEqual('0px')
     expect(cmp.vm.positionTopDm).toEqual('0px')
   })
+
+  it('14 Popup - header selection has language code', () => {
+    let cmp = mount(Popup, {
+      propsData: {
+        data: {
+          status: { languageName: 'latin', languageCode: 'lat'}
+        },
+        messages: [],
+        lexemes: [],
+        definitions: {},
+        linkedfeatures: [],
+        visible: false,
+        translations: {}
+      }
+    })
+    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.find('.alpheios-popup__header-selection').attributes()['lang']).toEqual('lat')
+  })
 })
+
