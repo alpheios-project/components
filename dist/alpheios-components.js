@@ -30673,11 +30673,6 @@ class UIController {
     }
     // If panel should be opened according to the state, open it
     if (this.state.isPanelOpen()) {
-      /**
-       * Without this, the panel will close immediately after opening.
-       * Probably this is a matter of timing between state updates.
-       * Shall be solved during state refactoring.
-       */
       this.panel.open(true)
     }
 
@@ -33365,7 +33360,6 @@ class ResourceQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
     ))
     if (grammarRequests.length === 0) {
-      console.log(`RQ: update grammar (empty)`)
       this.ui.updateGrammar([])
       this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
       this.finalize()
@@ -33375,12 +33369,10 @@ class ResourceQuery extends _query_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
         url => {
           q.complete = true
           if (this.active) {
-            console.log(`RQ: update grammar (url)`)
             this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
             this.ui.updateGrammar(url)
           }
           if (grammarRequests.every(request => request.complete)) {
-            console.log(`RQ: update grammar complete`)
             if (this.active) { this.ui.addMessage(this.ui.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE) }
             this.finalize()
           }

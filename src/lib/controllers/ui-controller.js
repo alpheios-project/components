@@ -834,11 +834,6 @@ export default class UIController {
     }
     // If panel should be opened according to the state, open it
     if (this.state.isPanelOpen()) {
-      /**
-       * Without this, the panel will close immediately after opening.
-       * Probably this is a matter of timing between state updates.
-       * Shall be solved during state refactoring.
-       */
       this.panel.open(true)
     }
 
