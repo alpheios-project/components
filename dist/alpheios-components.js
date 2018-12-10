@@ -33021,11 +33021,9 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
 
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
-      console.info('***********************finalize success')
       this.finalize('Success')
     }
     if (!adapterLexiconResShort.result && !adapterLexiconResFull.result) {
-      console.info('***********************finalize failed')
       this.finalize('Success-NoDefs')
     }
   }
