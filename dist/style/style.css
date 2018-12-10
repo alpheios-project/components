@@ -9033,6 +9033,10 @@ a.alpheios-lookup__settings-link {
   align-items: flex-start;
   padding: 7px 20px 0 0;
 }
+.alpheios-popup__header-text[lang='ara'] {
+  padding: 0px 20px 0px 20px;
+  /* the arabic amiri font does not like the top padding */
+}
 .alpheios-popup__header-selection {
   font-size: 16px;
   font-weight: 700;

@@ -17362,41 +17362,50 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-popup__header" }, [
         _vm.data && _vm.data.status
-          ? _c("div", { staticClass: "alpheios-popup__header-text" }, [
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.data.status.selectedText,
-                      expression: "data.status.selectedText"
-                    }
-                  ],
-                  staticClass: "alpheios-popup__header-selection",
-                  attrs: { lang: _vm.data.status.languageCode }
-                },
-                [_vm._v(_vm._s(_vm.data.status.selectedText))]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value:
-                        _vm.data.status.languageName && _vm.data.verboseMode,
-                      expression: "data.status.languageName && data.verboseMode"
-                    }
-                  ],
-                  staticClass: "alpheios-popup__header-word"
-                },
-                [_vm._v("(" + _vm._s(_vm.data.status.languageName) + ")")]
-              )
-            ])
+          ? _c(
+              "div",
+              {
+                staticClass: "alpheios-popup__header-text",
+                attrs: { lang: _vm.data.status.languageCode }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.data.status.selectedText,
+                        expression: "data.status.selectedText"
+                      }
+                    ],
+                    staticClass: "alpheios-popup__header-selection",
+                    attrs: { lang: _vm.data.status.languageCode }
+                  },
+                  [_vm._v(_vm._s(_vm.data.status.selectedText))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.data.status.languageName && _vm.data.verboseMode,
+                        expression:
+                          "data.status.languageName && data.verboseMode"
+                      }
+                    ],
+                    staticClass: "alpheios-popup__header-word",
+                    attrs: { lang: _vm.en }
+                  },
+                  [_vm._v("(" + _vm._s(_vm.data.status.languageName) + ")")]
+                )
+              ]
+            )
           : _vm._e(),
         _vm._v(" "),
         _vm.data

@@ -730,6 +730,7 @@ describe('popup.test.js', () => {
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.find('.alpheios-popup__header-text').attributes()['lang']).toEqual('lat')
     expect(cmp.find('.alpheios-popup__header-selection').attributes()['lang']).toEqual('lat')
   })
 })
