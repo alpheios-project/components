@@ -29845,26 +29845,25 @@ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__
 var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
 /* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
 /* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _lib_state_tab_script_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/state/tab-script.js */ "./lib/state/tab-script.js");
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
-var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
-/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
+var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
 /* global Event */
 
 
@@ -29878,7 +29877,6 @@ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23___names
 // A panel component
 
 // A popup component
-
 
 
 
@@ -29923,9 +29921,9 @@ class UIController {
   constructor (state, options = {}) {
     this.state = state
     this.options = UIController.setOptions(options, UIController.optionsDefaults)
-    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
-    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23__, this.options.storageAdapter)
-    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__, this.options.storageAdapter)
+    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
+    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__, this.options.storageAdapter)
+    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
     this.tabState = {
       definitions: false,
@@ -29961,22 +29959,22 @@ class UIController {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
-    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_29__["default"]()
+    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__["default"]()
     switch (uiController.options.textQueryTrigger) {
       case 'dblClick':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"])
         break
       case 'longTap':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"])
         break
       default:
         eventController.registerListener(
-          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], uiController.options.textQueryTrigger
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], uiController.options.textQueryTrigger
         )
     }
 
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], 'Alpheios_Page_Load')
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'Alpheios_Page_Load')
 
     // Attaches an event controller to a UIController instance
     uiController.evc = eventController
@@ -30015,7 +30013,7 @@ class UIController {
         name: 'name',
         version: 'version'
       },
-      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_28__["default"],
+      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__["default"],
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
@@ -30063,13 +30061,24 @@ class UIController {
     return result
   }
 
+  setDefaultPanelState () {
+    if (!this.panel) { return this }
+    if (this.uiOptions.items.panelOnActivate.currentValue) {
+      // If option value of panelOnActivate is true
+      this.state.setPanelOpen()
+    } else {
+      this.state.setPanelClosed()
+    }
+    return this
+  }
+
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
     let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     this.siteOptions = this.loadSiteOptions()
 
-    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_22__["default"].getZIndexMax()
+    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__["default"].getZIndexMax()
 
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_9__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__["default"].en_US)
@@ -30087,21 +30096,6 @@ class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-
-    // Set default panel status based on user preferences
-    this.state.panelStatus = this.uiOptions.items.panelOnActivate.currentValue
-      ? _lib_state_tab_script_js__WEBPACK_IMPORTED_MODULE_14__["default"].statuses.panel.OPEN
-      : _lib_state_tab_script_js__WEBPACK_IMPORTED_MODULE_14__["default"].statuses.panel.CLOSED
-
-    // Set default tab (this will be used in panel's data)
-    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
-      // If state has a valid state name
-      this.tabState[this.state.tab] = true
-    } else {
-      // Set a default value
-      this.tabState[this.tabStateDefault] = true
-    }
-
     // Initialize components
     this.panel = new vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default.a({
       el: `#${this.options.template.panelId}`,
@@ -30196,11 +30190,10 @@ class UIController {
           return this
         },
 
-        close: function () {
-          if (!this.state.isPanelClosed()) {
-            this.panelData.isOpen = false
-            this.state.setPanelClosed()
-          }
+        // `updateState == false` is used to close a panel without updating state
+        close: function (updateState = true) {
+          this.panelData.isOpen = false
+          if (updateState) { this.state.setPanelClosed() }
           return this
         },
 
@@ -30337,7 +30330,7 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].create(feature, {
+          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create(feature, {
             uiController: this.uiController,
             grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_3__["Grammars"]
           }).getData()
@@ -30710,15 +30703,18 @@ class UIController {
 
     this.state.activateUI()
 
+    if (this.state.isPanelStateDefault() || !this.state.isPanelStateValid()) {
+      this.setDefaultPanelState()
+    }
     // If panel should be opened according to the state, open it
     if (this.state.isPanelOpen()) {
-      /**
-       * Without this, the panel will close immediately after opening.
-       * Probably this is a matter of timing between state updates.
-       * Shall be solved during state refactoring.
-       */
-      setTimeout(() => this.panel.open(true), 0) // TODO: Figure out if we really need a timeout now
+      this.panel.open(true)
     }
+
+    if (this.state.tab) {
+      this.changeTab(this.state.tab)
+    }
+
     this.isActivated = true
     this.isDeactivated = false
     this.state.activate()
@@ -30738,7 +30734,7 @@ class UIController {
     if (this.evc) { this.evc.deactivateListeners() }
 
     this.popup.close()
-    this.panel.close()
+    this.panel.close(false) // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
     this.state.deactivate()
@@ -30751,9 +30747,9 @@ class UIController {
    */
   loadSiteOptions () {
     let allSiteOptions = []
-    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18__) {
+    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__) {
       for (let domain of site.options) {
-        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](domain, this.options.storageAdapter)
+        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](domain, this.options.storageAdapter)
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -30826,7 +30822,15 @@ class UIController {
   }
 
   changeTab (tabName) {
-    this.panel.changeTab(tabName)
+    if (this.panel) {
+      if (!this.tabState.hasOwnProperty(tabName)) {
+        // Set tab to a default one if it is an unknown tab name
+        tabName = this.tabStateDefault
+      }
+      this.panel.changeTab(tabName)
+    } else {
+      console.warn(`Cannot switch tab because panel does not exist`)
+    }
     return this
   }
 
@@ -31111,7 +31115,7 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_21__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
       let textSelector = htmlSelector.createTextSelector()
 
       if (!textSelector.isEmpty()) {
@@ -31136,7 +31140,7 @@ class UIController {
           })
           .getData() */
 
-        _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create(textSelector, {
+        _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
           uiController: this,
           maAdapter: this.maAdapter,
@@ -31177,18 +31181,12 @@ class UIController {
    */
   updateAnnotations (event, nativeEvent) {
     if (this.state.isActive() && this.state.uiIsActive()) {
-      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__["default"].create({
+      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].create({
         uiController: this,
         document: document,
         siteOptions: this.siteOptions
       }).getData()
     }
-  }
-
-  changeTab (name) {
-    if (this.panel) {
-      this.panel.changeTab(name)
-    } else { console.warn(`Cannot switch tab because panel does not exist`) }
   }
 }
 
@@ -34227,7 +34225,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
     this.status = undefined
     this.panelStatus = undefined
     this.tab = undefined
-    this.savedStatus = undefined
+    this.embedLibStatus = undefined // Whether an Alpheios embedded lib is active within a tab
     this.uiActive = false
 
     this.watchers = new Map()
@@ -34272,16 +34270,19 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         },
         defaultValueIndex: 0
       },
-      savedStatus: {
-        name: 'savedStatus',
-        valueType: Boolean
+      embedLibStatus: {
+        name: 'embedLibStatus',
+        valueType: TabScript.propTypes.SYMBOL,
+        values: this.statuses.embedLib,
+        defaultValueIndex: 1
       },
       panelStatus: {
         name: 'panelStatus',
         valueType: TabScript.propTypes.SYMBOL,
         values: {
           OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-          CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+          CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+          DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
         },
         defaultValueIndex: 1
       },
@@ -34289,7 +34290,8 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         name: 'tab',
         valueType: TabScript.propTypes.STRING,
         values: {
-          INFO: 'info'
+          INFO: 'info',
+          DEFAULT: 'default' // A tab should be set according to default values
         },
         defaultValueIndex: 0
       },
@@ -34301,7 +34303,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
   }
 
   static get symbolProps () {
-    return [TabScript.props.status.name, TabScript.props.panelStatus.name]
+    return [TabScript.props.status.name, TabScript.props.embedLibStatus.name, TabScript.props.panelStatus.name]
   }
 
   static get stringProps () {
@@ -34309,7 +34311,7 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
   }
 
   static get booleanProps () {
-    return [TabScript.props.savedStatus.name]
+    return []
   }
 
   /**
@@ -34350,9 +34352,14 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
         DEACTIVATED: Symbol.for('Alpheios_Status_Deactivated'), // Content script has been loaded, but is deactivated
         DISABLED: Symbol.for('Alpheios_Status_Disabled') // Content script has been disabled on a page and cannot be activated (due to incompatibility with a page content)
       },
+      embedLib: {
+        ACTIVE: Symbol.for('Embedded_Lib_Status_Active'), // Embedded Lib is present on a page and is activated
+        INACTIVE: Symbol.for('Embedded_Lib_Status_Inactive') // Embedded Lib not loaded or is inactive
+      },
       panel: {
         OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-        CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+        CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+        DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
       }
     }
   }
@@ -34385,6 +34392,28 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
     return this
   }
 
+  isEmbedLibActive () {
+    return this.embedLibStatus === TabScript.statuses.embedLib.ACTIVE
+  }
+
+  setEmbedLibActiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    return this
+  }
+
+  setEmbedLibInactiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    return this
+  }
+
+  setEmbedLibStatus (isActive) {
+    if (isActive) {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    } else {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    }
+  }
+
   isPanelOpen () {
     return this.panelStatus === TabScript.statuses.panel.OPEN
   }
@@ -34403,6 +34432,31 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
     return this
   }
 
+  setPanelDefault () {
+    this.setItem('panelStatus', TabScript.statuses.panel.DEFAULT)
+    return this
+  }
+
+  isPanelStateDefault () {
+    return this.panelStatus === TabScript.statuses.panel.DEFAULT
+  }
+
+  isPanelStateValid () {
+    return (
+      this.panelStatus === TabScript.statuses.panel.OPEN ||
+      this.panelStatus === TabScript.statuses.panel.CLOSED
+    )
+  }
+
+  setTabDefault () {
+    this.setItem('tab', TabScript.props.tab.values.DEFAULT)
+    return this
+  }
+
+  isTabStateDefault () {
+    return this.tab === TabScript.props.tab.values.DEFAULT
+  }
+
   hasSameID (tabID) {
     return Symbol.keyFor(this.tabID) === Symbol.keyFor(tabID)
   }
@@ -34417,6 +34471,10 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
 
   isDisabled () {
     return this.status === TabScript.statuses.script.DISABLED
+  }
+
+  isPending () {
+    return this.status === TabScript.statuses.script.PENDING
   }
 
   uiIsActive () {
@@ -34435,19 +34493,6 @@ class TabScript extends _lib_state_ui_state_api_js__WEBPACK_IMPORTED_MODULE_0__[
 
   disable () {
     this.status = TabScript.statuses.script.DISABLED
-    return this
-  }
-
-  save () {
-    this.savedStatus = this.status
-    return this
-  }
-
-  restore () {
-    if (this.savedStatus) {
-      this.status = this.savedStatus
-      this.savedStatus = undefined
-    }
     return this
   }
 
@@ -34810,7 +34855,6 @@ class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
-    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
@@ -34917,6 +34961,15 @@ class HTMLPage {
       }
     }
     return zIndexMax
+  }
+
+  /**
+   * Detects an Alpheios embedded library by the presence of its tag.
+   * @returns {boolean} True if the library is present, false otherwise.
+   */
+  static get isEmbedLibActive () {
+    const attrValue = window.document.body.getAttribute('alpheios-embed-lib-status')
+    return attrValue === 'active'
   }
 }
 

@@ -8,7 +8,6 @@ export default class HTMLPage {
    * @returns {boolean}
    */
   static get hasFrames () {
-    console.log(`hasFrames = ${window.frames.length}`, window.frames)
     return (window.frames.length > 0)
   }
 
@@ -115,6 +114,15 @@ export default class HTMLPage {
       }
     }
     return zIndexMax
+  }
+
+  /**
+   * Detects an Alpheios embedded library by the presence of its tag.
+   * @returns {boolean} True if the library is present, false otherwise.
+   */
+  static get isEmbedLibActive () {
+    const attrValue = window.document.body.getAttribute('alpheios-embed-lib-status')
+    return attrValue === 'active'
   }
 }
 

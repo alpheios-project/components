@@ -18,7 +18,6 @@ import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
 import Template from '@/templates/template.htmlf'
-import TabScript from '@/lib/state/tab-script.js'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
 import ResourceQuery from '@/lib/queries/resource-query.js'
 import AnnotationQuery from '@/lib/queries/annotation-query.js'
@@ -196,6 +195,17 @@ export default class UIController {
     return result
   }
 
+  setDefaultPanelState () {
+    if (!this.panel) { return this }
+    if (this.uiOptions.items.panelOnActivate.currentValue) {
+      // If option value of panelOnActivate is true
+      this.state.setPanelOpen()
+    } else {
+      this.state.setPanelClosed()
+    }
+    return this
+  }
+
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
@@ -220,21 +230,6 @@ export default class UIController {
 
     await Promise.all(optionLoadPromises)
     // All options shall be loaded at this point. Can initialize Vue components that will use them
-
-    // Set default panel status based on user preferences
-    this.state.panelStatus = this.uiOptions.items.panelOnActivate.currentValue
-      ? TabScript.statuses.panel.OPEN
-      : TabScript.statuses.panel.CLOSED
-
-    // Set default tab (this will be used in panel's data)
-    if (this.state.tab && this.tabState.hasOwnProperty(this.state.tab)) {
-      // If state has a valid state name
-      this.tabState[this.state.tab] = true
-    } else {
-      // Set a default value
-      this.tabState[this.tabStateDefault] = true
-    }
-
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
@@ -329,11 +324,10 @@ export default class UIController {
           return this
         },
 
-        close: function () {
-          if (!this.state.isPanelClosed()) {
-            this.panelData.isOpen = false
-            this.state.setPanelClosed()
-          }
+        // `updateState == false` is used to close a panel without updating state
+        close: function (updateState = true) {
+          this.panelData.isOpen = false
+          if (updateState) { this.state.setPanelClosed() }
           return this
         },
 
@@ -843,15 +837,18 @@ export default class UIController {
 
     this.state.activateUI()
 
+    if (this.state.isPanelStateDefault() || !this.state.isPanelStateValid()) {
+      this.setDefaultPanelState()
+    }
     // If panel should be opened according to the state, open it
     if (this.state.isPanelOpen()) {
-      /**
-       * Without this, the panel will close immediately after opening.
-       * Probably this is a matter of timing between state updates.
-       * Shall be solved during state refactoring.
-       */
-      setTimeout(() => this.panel.open(true), 0) // TODO: Figure out if we really need a timeout now
+      this.panel.open(true)
     }
+
+    if (this.state.tab) {
+      this.changeTab(this.state.tab)
+    }
+
     this.isActivated = true
     this.isDeactivated = false
     this.state.activate()
@@ -871,7 +868,7 @@ export default class UIController {
     if (this.evc) { this.evc.deactivateListeners() }
 
     this.popup.close()
-    this.panel.close()
+    this.panel.close(false) // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
     this.state.deactivate()
@@ -959,7 +956,15 @@ export default class UIController {
   }
 
   changeTab (tabName) {
-    this.panel.changeTab(tabName)
+    if (this.panel) {
+      if (!this.tabState.hasOwnProperty(tabName)) {
+        // Set tab to a default one if it is an unknown tab name
+        tabName = this.tabStateDefault
+      }
+      this.panel.changeTab(tabName)
+    } else {
+      console.warn(`Cannot switch tab because panel does not exist`)
+    }
     return this
   }
 
@@ -1316,11 +1321,5 @@ export default class UIController {
         siteOptions: this.siteOptions
       }).getData()
     }
-  }
-
-  changeTab (name) {
-    if (this.panel) {
-      this.panel.changeTab(name)
-    } else { console.warn(`Cannot switch tab because panel does not exist`) }
   }
 }

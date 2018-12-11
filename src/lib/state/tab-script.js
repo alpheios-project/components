@@ -14,7 +14,7 @@ export default class TabScript extends UIStateAPI {
     this.status = undefined
     this.panelStatus = undefined
     this.tab = undefined
-    this.savedStatus = undefined
+    this.embedLibStatus = undefined // Whether an Alpheios embedded lib is active within a tab
     this.uiActive = false
 
     this.watchers = new Map()
@@ -59,16 +59,19 @@ export default class TabScript extends UIStateAPI {
         },
         defaultValueIndex: 0
       },
-      savedStatus: {
-        name: 'savedStatus',
-        valueType: Boolean
+      embedLibStatus: {
+        name: 'embedLibStatus',
+        valueType: TabScript.propTypes.SYMBOL,
+        values: this.statuses.embedLib,
+        defaultValueIndex: 1
       },
       panelStatus: {
         name: 'panelStatus',
         valueType: TabScript.propTypes.SYMBOL,
         values: {
           OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-          CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+          CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+          DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
         },
         defaultValueIndex: 1
       },
@@ -76,7 +79,8 @@ export default class TabScript extends UIStateAPI {
         name: 'tab',
         valueType: TabScript.propTypes.STRING,
         values: {
-          INFO: 'info'
+          INFO: 'info',
+          DEFAULT: 'default' // A tab should be set according to default values
         },
         defaultValueIndex: 0
       },
@@ -88,7 +92,7 @@ export default class TabScript extends UIStateAPI {
   }
 
   static get symbolProps () {
-    return [TabScript.props.status.name, TabScript.props.panelStatus.name]
+    return [TabScript.props.status.name, TabScript.props.embedLibStatus.name, TabScript.props.panelStatus.name]
   }
 
   static get stringProps () {
@@ -96,7 +100,7 @@ export default class TabScript extends UIStateAPI {
   }
 
   static get booleanProps () {
-    return [TabScript.props.savedStatus.name]
+    return []
   }
 
   /**
@@ -137,9 +141,14 @@ export default class TabScript extends UIStateAPI {
         DEACTIVATED: Symbol.for('Alpheios_Status_Deactivated'), // Content script has been loaded, but is deactivated
         DISABLED: Symbol.for('Alpheios_Status_Disabled') // Content script has been disabled on a page and cannot be activated (due to incompatibility with a page content)
       },
+      embedLib: {
+        ACTIVE: Symbol.for('Embedded_Lib_Status_Active'), // Embedded Lib is present on a page and is activated
+        INACTIVE: Symbol.for('Embedded_Lib_Status_Inactive') // Embedded Lib not loaded or is inactive
+      },
       panel: {
         OPEN: Symbol.for('Alpheios_Status_PanelOpen'), // Panel is open
-        CLOSED: Symbol.for('Alpheios_Status_PanelClosed') // Panel is closed
+        CLOSED: Symbol.for('Alpheios_Status_PanelClosed'), // Panel is closed
+        DEFAULT: Symbol.for('Alpheios_Status_PanelDefault') // Panel should set its state according to default values
       }
     }
   }
@@ -172,6 +181,28 @@ export default class TabScript extends UIStateAPI {
     return this
   }
 
+  isEmbedLibActive () {
+    return this.embedLibStatus === TabScript.statuses.embedLib.ACTIVE
+  }
+
+  setEmbedLibActiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    return this
+  }
+
+  setEmbedLibInactiveStatus () {
+    this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    return this
+  }
+
+  setEmbedLibStatus (isActive) {
+    if (isActive) {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.ACTIVE)
+    } else {
+      this.setItem('embedLibStatus', TabScript.statuses.embedLib.INACTIVE)
+    }
+  }
+
   isPanelOpen () {
     return this.panelStatus === TabScript.statuses.panel.OPEN
   }
@@ -190,6 +221,31 @@ export default class TabScript extends UIStateAPI {
     return this
   }
 
+  setPanelDefault () {
+    this.setItem('panelStatus', TabScript.statuses.panel.DEFAULT)
+    return this
+  }
+
+  isPanelStateDefault () {
+    return this.panelStatus === TabScript.statuses.panel.DEFAULT
+  }
+
+  isPanelStateValid () {
+    return (
+      this.panelStatus === TabScript.statuses.panel.OPEN ||
+      this.panelStatus === TabScript.statuses.panel.CLOSED
+    )
+  }
+
+  setTabDefault () {
+    this.setItem('tab', TabScript.props.tab.values.DEFAULT)
+    return this
+  }
+
+  isTabStateDefault () {
+    return this.tab === TabScript.props.tab.values.DEFAULT
+  }
+
   hasSameID (tabID) {
     return Symbol.keyFor(this.tabID) === Symbol.keyFor(tabID)
   }
@@ -204,6 +260,10 @@ export default class TabScript extends UIStateAPI {
 
   isDisabled () {
     return this.status === TabScript.statuses.script.DISABLED
+  }
+
+  isPending () {
+    return this.status === TabScript.statuses.script.PENDING
   }
 
   uiIsActive () {
@@ -222,19 +282,6 @@ export default class TabScript extends UIStateAPI {
 
   disable () {
     this.status = TabScript.statuses.script.DISABLED
-    return this
-  }
-
-  save () {
-    this.savedStatus = this.status
-    return this
-  }
-
-  restore () {
-    if (this.savedStatus) {
-      this.status = this.savedStatus
-      this.savedStatus = undefined
-    }
     return this
   }
 
