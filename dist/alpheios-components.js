@@ -17400,7 +17400,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "alpheios-popup__header-word",
-                    attrs: { lang: _vm.en }
+                    attrs: { lang: "en" }
                   },
                   [_vm._v("(" + _vm._s(_vm.data.status.languageName) + ")")]
                 )

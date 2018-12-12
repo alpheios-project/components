@@ -12,7 +12,7 @@
         <div class="alpheios-popup__header">
             <div class="alpheios-popup__header-text" v-if="data && data.status" :lang="data.status.languageCode">
                 <span v-show="data.status.selectedText" :lang="data.status.languageCode" class="alpheios-popup__header-selection">{{data.status.selectedText}}</span>
-                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word" :lang="en">({{data.status.languageName}})</span>
+                <span v-show="data.status.languageName && data.verboseMode" class="alpheios-popup__header-word" lang="en">({{data.status.languageName}})</span>
             </div>
 
             <div class="alpheios-popup__button-area" v-if="data">
