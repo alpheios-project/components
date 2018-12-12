@@ -13,6 +13,8 @@ import Panel from '@/vue-components/panel.vue'
 // A popup component
 import Popup from '@/vue-components/popup.vue'
 
+import EmbedLibWarning from '@/vue-components/embed-lib-warning.vue'
+
 import L10n from '@/lib/l10n/l10n.js'
 import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
@@ -877,6 +879,23 @@ export default class UIController {
   }
 
   /**
+   * Returns an unmounted Vue instance of a warning panel.
+   * This panel is displayed when UI controller is disabled
+   * due to embedded lib presence.
+   * @param {string} message - A message to display within a panel
+   */
+  static getEmbedLibWarning (message) {
+    if (!UIController.embedLibWarningInstance) {
+      let EmbedLibWarningClass = Vue.extend(EmbedLibWarning)
+        UIController.embedLibWarningInstance = new EmbedLibWarningClass({
+        propsData: {text: message}
+      })
+      UIController.embedLibWarningInstance.$mount() // Render off-document to append afterwards
+    }
+    return UIController.embedLibWarningInstance
+  }
+
+  /**
    * Load site-specific settings
    */
   loadSiteOptions () {
@@ -1323,3 +1342,10 @@ export default class UIController {
     }
   }
 }
+
+/**
+ * An instance of a warning panel that is shown when UI controller is disabled
+ * because an Alpheios embedded lib is active on a page
+ * @type {Vue | null}
+ */
+UIController.embedLibWarningInstance = null

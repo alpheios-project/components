@@ -10112,5 +10112,34 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   width: 100%;
 }
 
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-embed-lib-warning {
+  background: #73CDDE;
+  color: #333333;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 5px 30px 5px 20px;
+  z-index: 1000000;
+}
+.alpheios-embed-lib-warning__close {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
+  line-height: normal;
+  stroke-width: 2;
+  stroke: #666666;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
 
 /*# sourceMappingURL=style.css.map*/

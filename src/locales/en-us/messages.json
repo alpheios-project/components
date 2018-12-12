@@ -424,5 +424,10 @@
     "message": "Source",
     "description": "A link pointing to the source of a lemma or inflection",
     "component": "InflAttribute"
+  },
+  "EMBED_LIB_WARNING_TEXT": {
+    "message": "An Alpheios extension is disabled because an Alpheios embedded library is activated on this page",
+    "description": "A message that is shown when an Alpheios extension is disabled due to embedded library presence",
+    "component": "EmbedLibWarning"
   }
 }
