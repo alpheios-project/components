@@ -1,11 +1,6 @@
 import LexicalQuery from './lexical-query.js'
 import { Constants } from 'alpheios-data-models'
 
-// import {LemmaTranslations} from 'alpheios-lemma-client'
-import { AlpheiosTuftsAdapter } from 'alpheios-morph-client'
-import { Lexicons } from 'alpheios-lexicon-client'
-import { LemmaTranslations } from 'alpheios-lemma-client'
-
 import HTMLSelector from '../selection/media/html-selector'
 
 /**
@@ -17,25 +12,19 @@ export default class LexicalQueryLookup extends LexicalQuery {
   /**
    * @createForLookup - it is used for rendering popup/panel with data for the current text
    * @param {TextSelector} textSelector - text selector containg the word for getting data from adapters and showing in the popup/panel
-   * @param {UIController} uiController - ui controller for re-rendering popup/panel (passed fro current rendered popup)
+   * @param resourceOptions
+   * @param lemmaTranslationLang
    */
 
-  static create (textSelector, uiController, resourceOptions) {
-    if (resourceOptions === undefined) {
-      resourceOptions = uiController.resourceOptions
-    }
-
+  static create (textSelector, resourceOptions, lemmaTranslationLang) {
     // Check to see if Lemma Translations should be enabled for a query
     // Experimental
     let lemmaTranslations
-    if (textSelector.languageID === Constants.LANG_LATIN && uiController.state.lemmaTranslationLang) {
-      lemmaTranslations = { adapter: LemmaTranslations, locale: uiController.state.lemmaTranslationLang }
+    if (textSelector.languageID === Constants.LANG_LATIN && lemmaTranslationLang) {
+      lemmaTranslations = { locale: lemmaTranslationLang }
     }
     let options = {
       htmlSelector: HTMLSelector.getDumpHTMLSelector(),
-      uiController: uiController,
-      maAdapter: new AlpheiosTuftsAdapter(),
-      lexicons: Lexicons,
 
       lemmaTranslations: lemmaTranslations,
 

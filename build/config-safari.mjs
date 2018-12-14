@@ -1,29 +1,8 @@
-import VueLoaderPlugin from '../node_modules/vue-loader/lib/plugin.js'
+import VueLoaderPlugin from 'vue-loader/lib/plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import path from 'path'
 const projectRoot = process.cwd()
-
-const sass = {
-  tasks: [
-    { source: `src/skins/blue/style.scss`,
-      target: `dist/skins/blue/style.css`,
-      style: 'compressed',
-      sourceMap: false
-    },
-    {
-      source: `src/skins/green/style.scss`,
-      target: `dist/skins/green/style.css`,
-      style: 'compressed',
-      sourceMap: false
-    }
-  ]
-}
-
-const imagemin = {
-  tasks: [
-    {source: 'src/images', target: 'dist/images', extensions: ['jpg', 'png', 'svg'], excludedDirs: ['inline-icons']}
-  ]
-}
 
 const webpack = {
   common: {
@@ -33,14 +12,13 @@ const webpack = {
       alias: {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-data-models/dist/alpheios-data-models.js'),
-        'alpheios-inflection-games': path.join(projectRoot, 'node_modules/alpheios-inflection-games/dist/alpheios-inflection-games.js'),
+        'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
         '@': path.join(projectRoot, 'src')
       }
     },
     externals: {
       'alpheios-client-adapters': 'alpheios-client-adapters',
       'alpheios-data-models': 'alpheios-data-models',
-      'alpheios-inflection-games': 'alpheios-inflection-games',
       'alpheios-inflection-tables': 'alpheios-inflection-tables',
       'alpheios-experience': 'alpheios-experience',
       'alpheios-res-client': 'alpheios-res-client',
@@ -54,13 +32,23 @@ const webpack = {
 
   production: {
     mode: 'production',
-    output: {filename: 'alpheios-components.min.js'}
+    output: { filename: 'alpheios-components.min.js' },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'style/style-safari.min.css'
+      })
+    ]
   },
 
   development: {
     mode: 'development',
-    output: {filename: 'alpheios-components.js'}
+    output: { filename: 'alpheios-components.js' },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'style/style-safari.css'
+      })
+    ]
   }
 }
 
-export { webpack, imagemin, sass }
+export { webpack }

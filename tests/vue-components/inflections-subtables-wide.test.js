@@ -5,7 +5,7 @@ import { shallowMount, mount } from '@vue/test-utils'
 import WideInflectionsSubTables from '@/vue-components/inflections-subtables-wide.vue'
 
 import { ViewSetFactory, LanguageDatasetFactory } from 'alpheios-inflection-tables'
-import { AlpheiosTuftsAdapter } from 'alpheios-morph-client'
+import { ClientAdapters } from 'alpheios-client-adapters'
 import { Constants, Feature } from 'alpheios-data-models'
 
 import VerbTestInflectionTable from './inflectionsTables/verbTestInflectionTable.js'
@@ -18,8 +18,16 @@ describe('inflections-subtables-wide.test.js', () => {
   let testView
 
   beforeAll(async () => {
-    let maAdapter = new AlpheiosTuftsAdapter()
-    let testHomonym = await maAdapter.getHomonym(Constants.LANG_GREEK, 'συνδέει')
+    let adapterTuftsRes = await ClientAdapters.morphology.tufts({
+      method: 'getHomonym',
+      params: {
+        languageID: Constants.LANG_GREEK,
+        word: 'συνδέει'
+      }
+    })
+
+    let testHomonym = adapterTuftsRes.result
+
     let testInflectionData = await LanguageDatasetFactory.getInflectionData(testHomonym)
 
     let inflectionViewSet = ViewSetFactory.create(testHomonym, 'en-US')
@@ -45,7 +53,7 @@ describe('inflections-subtables-wide.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 WideInflectionsSubTables - cellClasses method  returns classes depending on cell features', () => {
+  it.skip('2 WideInflectionsSubTables - cellClasses method  returns classes depending on cell features', () => {
     let cmp = mount(WideInflectionsSubTables, {
       propsData: {
         view: testView
@@ -56,7 +64,7 @@ describe('inflections-subtables-wide.test.js', () => {
     expect(cmp.vm.cellClasses(cellLabel)).toEqual('infl-prdgm-tbl__cell--label')
 
     let cellData = { role: 'data' }
-    expect(cmp.vm.cellClasses(cellData)).toEqual('infl-prdgm-tbl__cell--data')
+    expect(cmp.vm.cellClasses(cellData)).toContain('infl-prdgm-tbl__cell--data')
   })
 
   it('3 WideInflectionsSubTables - refColors method  returns color depending on paradigm and view properties', () => {

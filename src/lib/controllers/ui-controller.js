@@ -1,9 +1,6 @@
 /* global Event */
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
-import { AlpheiosTuftsAdapter } from 'alpheios-morph-client'
-import { Lexicons } from 'alpheios-lexicon-client'
 import { Grammars } from 'alpheios-res-client'
-import { LemmaTranslations } from 'alpheios-lemma-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
@@ -33,6 +30,7 @@ import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
 import Options from '@/lib/options/options.js'
 import LocalStorage from '@/lib/options/local-storage-area.js'
 import { GamesController } from 'alpheios-inflection-games'
+import UIEventController from '@/lib/controllers/ui-event-controller.js'
 
 const languageNames = new Map([
   [Constants.LANG_LATIN, 'Latin'],
@@ -45,6 +43,10 @@ const languageNames = new Map([
 export default class UIController {
   /**
    * @constructor
+   * The best way to create a configured instance of a UIController is to use its `create` method.
+   * It configures and attaches all UIController's modules.
+   * If you need a custom configuration of a UIController, replace its `create` method with your own.
+   *
    * @param {UIStateAPI} state - An object to store a UI state.
    * @param {Object} options - UI controller options object.
    * See `optionsDefaults` getter for detailed parameter description: @see {@link optionsDefaults}
@@ -67,7 +69,62 @@ export default class UIController {
     this.isActivated = false
     this.isDeactivated = false
 
+    /**
+     * If an event controller be used with an instance of a UI Controller,
+     * this prop will hold an event controller instance. It is usually initialized within a `build` method.
+     * @type {UIEventController}
+     */
+    this.evc = null
+
     this.inflectionsViewSet = null // Holds inflection tables ViewSet
+  }
+
+  /**
+   * Creates an instance of a UI controller with default options. Provide your own implementation of this method
+   * if you want to create a different configuration of a UI controller.
+   */
+  static create (state, options) {
+    let uiController = new UIController(state, options)
+
+    // Creates on configures an event listener
+    let eventController = new UIEventController()
+    switch (uiController.options.textQueryTrigger) {
+      case 'dblClick':
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), MouseDblClick)
+        break
+      case 'longTap':
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), LongTap)
+        break
+      default:
+        eventController.registerListener(
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), GenericEvt, uiController.options.textQueryTrigger
+        )
+    }
+
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), GenericEvt, 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), GenericEvt, 'Alpheios_Page_Load')
+
+    // Attaches an event controller to a UIController instance
+    uiController.evc = eventController
+
+    // Subscribe to LexicalQuery events
+    LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
+    LexicalQuery.evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    LexicalQuery.evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
+    LexicalQuery.evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
+    LexicalQuery.evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
+    LexicalQuery.evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+
+    // Subscribe to ResourceQuery events
+    ResourceQuery.evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
+    ResourceQuery.evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
+    ResourceQuery.evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
+
+    // Subscribe to AnnotationQuery events
+    AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+
+    return uiController
   }
 
   /**
@@ -164,7 +221,6 @@ export default class UIController {
       .setLocale(Locales.en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
-    this.maAdapter = new AlpheiosTuftsAdapter() // Morphological analyzer adapter, with default arguments
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
@@ -191,24 +247,29 @@ export default class UIController {
           tabs: {
             definitions: false,
             inflections: false,
+            inflectionsbrowser: false,
             status: false,
             options: false,
             info: true,
             treebank: false
           },
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
+          currentLanguageID: null,
           grammarAvailable: false,
           grammarRes: {},
           lexemes: [],
           inflectionComponentData: {
             visible: false,
-            inflectionViewSet: null
+            inflectionViewSet: null,
+            inflDataReady: false
+          },
+          inflectionBrowserData: {
+            visible: false
           },
           inflectionsWaitState: false,
           inflectionsEnabled: false,
           // Whether inflection browser is enabled for a language. We always show an inflection browser for now.
           inflectionBrowserEnabled: false,
-          // Whether all table in an inflection browser should be collapsed
           inflBrowserTablesCollapsed: null, // Null means that state is not set
           shortDefinitions: [],
           fullDefinitions: '',
@@ -396,7 +457,6 @@ export default class UIController {
         requestGrammar: function (feature) {
           // ExpObjMon.track(
           ResourceQuery.create(feature, {
-            uiController: this.uiController,
             grammars: Grammars
           }).getData()
           //, {
@@ -406,6 +466,7 @@ export default class UIController {
           //    { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
           // ]
           // }).getData()
+          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS)
         },
 
         settingChange: function (name, value) {
@@ -520,7 +581,7 @@ export default class UIController {
            */
           requestStartTime: 0,
           settings: this.contentOptions.items,
-          verboseMode: this.options.verboseMode,
+          verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           defDataReady: false,
           hasTreebank: false,
           inflDataReady: this.inflDataReady,
@@ -623,6 +684,7 @@ export default class UIController {
 
         newLexicalRequest: function () {
           this.popupData.requestStartTime = new Date().getTime()
+          this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
         },
 
         clearContent: function () {
@@ -759,9 +821,7 @@ export default class UIController {
     if (!this.isInitialized) { await this.init() }
 
     // Activate listeners
-    if (this.options.textQueryTrigger !== 'none') { this.addTextQueryListener(this.options.textQueryTrigger, this.options.textQuerySelector) }
-    document.addEventListener('keydown', this.handleEscapeKey.bind(this))
-    document.body.addEventListener('Alpheios_Page_Load', this.updateAnnotations.bind(this))
+    if (this.evc) { this.evc.activateListeners() }
 
     this.state.activateUI()
 
@@ -781,16 +841,6 @@ export default class UIController {
     return this
   }
 
-  addTextQueryListener (trigger, selector = 'body') {
-    if (trigger === 'dblClick') {
-      MouseDblClick.listen(selector, evt => this.getSelectedText(evt))
-    } else if (trigger === 'longTap') {
-      LongTap.listen(selector, evt => this.getSelectedText(evt))
-    } else {
-      GenericEvt.listen(selector, (evt) => this.getSelectedText(evt), trigger)
-    }
-  }
-
   /**
    * Deactivates a UI controller. May unload some resources to preserve memory.
    * In this case an `activate()` method will be responsible for restoring them.
@@ -799,7 +849,8 @@ export default class UIController {
   async deactivate () {
     if (this.isDeactivated) { return `Already deactivated` }
 
-    // TODO: probably need to remove event listeners here
+    // Deactivate event listeners
+    if (this.evc) { this.evc.deactivateListeners() }
 
     this.popup.close()
     this.panel.close()
@@ -904,7 +955,6 @@ export default class UIController {
     this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
     this.panel.panelData.grammarAvailable = false
-    this.panel.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -945,7 +995,12 @@ export default class UIController {
     this.popup.popupData.providers = Array.from(providers.keys())
   }
 
-  updateGrammar (urls) {
+  /**
+   * Updates grammar data with URLs supplied.
+   * If no URLS are provided, will reset grammar data.
+   * @param {Array} urls
+   */
+  updateGrammar (urls = []) {
     if (urls.length > 0) {
       this.panel.panelData.grammarRes = urls[0]
       this.panel.panelData.grammarAvailable = true
@@ -1021,11 +1076,17 @@ export default class UIController {
   }
 
   updateLanguage (currentLanguageID) {
+    // the code which follows assumes we have been passed a languageID symbol
+    // we can try to recover gracefully if we accidentally get passed a string value
+    if (typeof currentLanguageID !== 'symbol') {
+      console.warn('updateLanguage was called with a string value')
+      currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguageID)
+    }
     this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
 
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     this.popup.popupData.inflDataReady = this.inflDataReady
-
+    this.panel.panelData.currentLanguageID = currentLanguageID
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID)
 
     Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID))
@@ -1034,8 +1095,9 @@ export default class UIController {
 
   updateVerboseMode () {
     this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-    this.panel.panelData.verboseMode = this.options.verboseMode
-    this.popup.popupData.verboseMode = this.options.verboseMode
+
+    this.panel.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.popup.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
   }
 
   updateLemmaTranslations () {
@@ -1058,12 +1120,13 @@ export default class UIController {
       this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
     }
     this.panel.panelData.inflectionsWaitState = false
+    this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
     this.popup.popupData.inflDataReady = this.inflDataReady
   }
 
   lexicalRequestComplete () {
-    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
     this.popup.popupData.morphDataReady = true
+    this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
   }
 
   lexicalRequestSucceeded () {
@@ -1198,16 +1261,22 @@ export default class UIController {
           })
           .getData() */
 
-        LexicalQuery.create(textSelector, {
+        let lexQuery = LexicalQuery.create(textSelector, {
           htmlSelector: htmlSelector,
-          uiController: this,
-          maAdapter: this.maAdapter,
-          lexicons: Lexicons,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
-          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.contentOptions.items.locale.currentValue } : null,
+          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
           langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
-        }).getData()
+        })
+
+        this.setTargetRect(htmlSelector.targetRect)
+        this.newLexicalRequest(textSelector.languageID)
+        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+        this.showStatusInfo(textSelector.normalizedText, textSelector.languageID)
+        this.updateLanguage(textSelector.languageID)
+        this.updateWordAnnotationData(textSelector.data)
+
+        lexQuery.getData()
       }
     }
   }
@@ -1222,10 +1291,10 @@ export default class UIController {
       !this.contentOptions.items.locale.currentValue.match(/^en-/)
   }
 
-  handleEscapeKey (event) {
+  handleEscapeKey (event, nativeEvent) {
     // TODO: Move to keypress as keyCode is deprecated
     // TODO: Why does it not work on initial panel opening?
-    if (event.keyCode === 27 && this.state.isActive()) {
+    if (nativeEvent.keyCode === 27 && this.state.isActive()) {
       if (this.state.isPanelOpen()) {
         this.panel.close()
       } else if (this.popup.visible) {
@@ -1240,10 +1309,80 @@ export default class UIController {
   updateAnnotations () {
     if (this.state.isActive() && this.state.uiIsActive()) {
       AnnotationQuery.create({
-        uiController: this,
         document: document,
         siteOptions: this.siteOptions
       }).getData()
     }
+  }
+
+  onLexicalQueryComplete (data) {
+    switch (data.resultStatus) {
+      case LexicalQuery.resultStatus.SUCCEEDED:
+        this.lexicalRequestSucceeded()
+        this.showLanguageInfo(data.homonym)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.lexicalRequestComplete()
+        break
+      case LexicalQuery.resultStatus.FAILED:
+        this.lexicalRequestFailed()
+        this.showLanguageInfo(data.homonym)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.lexicalRequestComplete()
+        break
+      default:
+        // Request was probably cancelled
+        this.lexicalRequestComplete()
+    }
+  }
+
+  onMorphDataReady () {
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
+  }
+
+  onMorphDataNotFound () {
+    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+    // Need to notify a UI controller that there is no morph data on this word in an analyzer
+    // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
+    if (this.morphologyDataNotFound) { this.morphologyDataNotFound(true) }
+  }
+
+  onHomonymReady (homonym) {
+    this.updateMorphology(homonym)
+    this.updateDefinitions(homonym)
+    // Update status info with data from a morphological analyzer
+    this.showStatusInfo(homonym.targetWord, homonym.languageID)
+    this.updateInflections(homonym)
+  }
+
+  onLemmaTranslationsReady (homonym) {
+    this.updateTranslations(homonym)
+  }
+
+  onDefinitionsReady (data) {
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(data.requestType, data.word))
+    this.updateDefinitions(data.homonym)
+  }
+
+  onDefinitionsNotFound (data) {
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_NOTFOUND.get(data.requestType, data.word))
+  }
+
+  onResourceQueryComplete () {
+    // We don't check result status for now. We always output the same message.
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE)
+  }
+
+  onGrammarAvailable (data) {
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
+    this.updateGrammar(data.url)
+  }
+
+  onGrammarNotFound () {
+    this.updateGrammar()
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
+  }
+
+  onAnnotationsAvailable (data) {
+    this.updatePageAnnotationData(data.annotations)
   }
 }
