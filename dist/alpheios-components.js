@@ -13094,7 +13094,7 @@ var render = function() {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
               form: "praesum",
-              title: "Praesum (praeesse, praeui, praefuturus)"
+              title: "Praesum (praeesse, praefui, praefuturus)"
             }),
             "infl-browser-table": true,
             messages: _vm.messages,
