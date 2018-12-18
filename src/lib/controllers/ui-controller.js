@@ -2,6 +2,7 @@
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
 import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
+import { WordlistController } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
@@ -123,6 +124,9 @@ export default class UIController {
     // Subscribe to AnnotationQuery events
     AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
+    let testUserID = 'userIDTest'
+    uiController.wordlistC = new WordlistController(testUserID)
+    console.info('*********************created wordlistController', uiController.wordlistC)
     return uiController
   }
 
