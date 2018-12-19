@@ -1,3 +1,33 @@
+/***************** panel settings **********************/
+
+/***************** panel settings **********************/
+.alpheios-wordlist-language {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.alpheios-wordlist-language__title {
+  font-weight: bold;
+  font-size: 110%;
+  border-bottom: 1px solid #4E6476;
+}
+.alpheios-wordlist-language__worditem {
+  border-bottom: 1px solid #ddd;
+  padding: 2px 0;
+}
+.alpheios-wordlist-language__worditem__data {
+  display: inline-block;
+  vertical-align: middle;
+}
+.alpheios-wordlist-language__worditem__targetWord {
+  font-weight: bold;
+  width: 30%;
+}
+.alpheios-wordlist-language__worditem__lemmasList {
+  width: 68%;
+}
+
+
+/*# sourceMappingURL=style.css.map*/
 @charset "UTF-8";
 /************ UIKit vars ************************/
 /************ Multiselect vars ************************/
@@ -8000,7 +8030,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
     width: 20px !important;
     height: 20px !important;
-    margin: 9px 14px !important; }
+    margin: 9px 10px !important; }
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8125,7 +8155,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
     width: 15px !important;
     height: 15px !important;
-    margin: 13px 14px !important; }
+    margin: 13px 10px !important; }
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8250,7 +8280,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     width: 25px !important;
     height: 25px !important;
-    margin: 5px 14px !important; }
+    margin: 5px 10px !important; }
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
