@@ -10543,7 +10543,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../images/inline-icons/info.svg */ "./images/inline-icons/info.svg");
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue-components/inflections-browser.vue");
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
+/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
+/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(alpheios_wordlist__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../directives/clickaway.js */ "./directives/clickaway.js");
+//
 //
 //
 //
@@ -10759,6 +10762,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Panel',
   components: {
@@ -10783,10 +10788,11 @@ __webpack_require__.r(__webpack_exports__);
     treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_21___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+    reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+    wordListPanel: alpheios_wordlist__WEBPACK_IMPORTED_MODULE_24__["WordListPanel"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_24__["directive"],
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_25__["directive"],
   },
   data: function () {
     return {
@@ -16361,6 +16367,13 @@ var render = function() {
                   "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
               },
               [
+                _c("word-list-panel", {
+                  attrs: {
+                    wordLists: _vm.data.wordLists,
+                    updated: _vm.data.wordListUpdated
+                  }
+                }),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "alpheios-lookup__panel" },
@@ -29936,10 +29949,9 @@ class UIController {
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
-    console.info('****************uiController.wordlistC', uiController.wordlistC)
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
 
-    console.info('*********************created wordlistController', uiController.wordlistC)
     return uiController
   }
 
@@ -30126,7 +30138,9 @@ class UIController {
             zIndex: this.zIndex
           },
           minWidth: 400,
-          l10n: this.l10n
+          l10n: this.l10n,
+          wordLists: this.wordlistC.wordLists,
+          wordListUpdated: 0
         },
         state: this.state,
         options: this.contentOptions,
@@ -31159,6 +31173,11 @@ class UIController {
     // Update status info with data from a morphological analyzer
     this.showStatusInfo(homonym.targetWord, homonym.languageID)
     this.updateInflections(homonym)
+  }
+
+  onWordListUpdated (wordLists) {
+    this.panel.panelData.wordLists = wordLists
+    this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
   }
 
   onLemmaTranslationsReady (homonym) {

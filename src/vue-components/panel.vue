@@ -94,6 +94,7 @@
         <div class="alpheios-panel__content" v-if="data && data.tabs">
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
+                <word-list-panel :wordLists="data.wordLists" :updated="data.wordListUpdated"></word-list-panel>
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
@@ -211,6 +212,8 @@
   import InfoIcon from '../images/inline-icons/info.svg';
   import InflectionBrowser from './inflections-browser.vue'
 
+  import { WordListPanel } from 'alpheios-wordlist'
+
   import { directive as onClickaway } from '../directives/clickaway.js';
 
   export default {
@@ -237,7 +240,8 @@
       treebankIcon: TreebankIcon,
       alphTooltip: Tooltip,
       lookup: Lookup,
-      reskinFontColor: ReskinFontColor
+      reskinFontColor: ReskinFontColor,
+      wordListPanel: WordListPanel
     },
     directives: {
       onClickaway: onClickaway,

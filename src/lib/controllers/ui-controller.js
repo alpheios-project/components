@@ -126,10 +126,9 @@ export default class UIController {
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new WordlistController(testUserID)
-    console.info('****************uiController.wordlistC', uiController.wordlistC)
     LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
 
-    console.info('*********************created wordlistController', uiController.wordlistC)
     return uiController
   }
 
@@ -316,7 +315,9 @@ export default class UIController {
             zIndex: this.zIndex
           },
           minWidth: 400,
-          l10n: this.l10n
+          l10n: this.l10n,
+          wordLists: this.wordlistC.wordLists,
+          wordListUpdated: 0
         },
         state: this.state,
         options: this.contentOptions,
@@ -1349,6 +1350,11 @@ export default class UIController {
     // Update status info with data from a morphological analyzer
     this.showStatusInfo(homonym.targetWord, homonym.languageID)
     this.updateInflections(homonym)
+  }
+
+  onWordListUpdated (wordLists) {
+    this.panel.panelData.wordLists = wordLists
+    this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
   }
 
   onLemmaTranslationsReady (homonym) {
