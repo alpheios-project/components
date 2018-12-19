@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("alpheios-wordlist"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat"));
+		module.exports = factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("alpheios-wordlist"), require("intl-messageformat"));
 	else if(typeof define === 'function' && define.amd)
-		define(["alpheios-wordlist", "alpheios-data-models", "alpheios-inflection-tables", "alpheios-res-client", "intl-messageformat"], factory);
+		define(["alpheios-client-adapters", "alpheios-data-models", "alpheios-inflection-tables", "alpheios-res-client", "alpheios-wordlist", "intl-messageformat"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("alpheios-wordlist"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("intl-messageformat")) : factory(root["alpheios-wordlist"], root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"], root["intl-messageformat"]);
+		var a = typeof exports === 'object' ? factory(require("alpheios-client-adapters"), require("alpheios-data-models"), require("alpheios-inflection-tables"), require("alpheios-res-client"), require("alpheios-wordlist"), require("intl-messageformat")) : factory(root["alpheios-client-adapters"], root["alpheios-data-models"], root["alpheios-inflection-tables"], root["alpheios-res-client"], root["alpheios-wordlist"], root["intl-messageformat"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_client_adapters__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_alpheios_client_adapters__, __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__, __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__, __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__, __WEBPACK_EXTERNAL_MODULE_alpheios_wordlist__, __WEBPACK_EXTERNAL_MODULE_intl_messageformat__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -95,17 +95,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "../node_modules/alpheios-wordlist/dist/alpheios-wordlist.min.js":
-/*!***********************************************************************!*\
-  !*** ../node_modules/alpheios-wordlist/dist/alpheios-wordlist.min.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(t,r){if(true)module.exports=r();else { var o, e; }}(window,function(){return function(t){var r={};function e(o){if(r[o])return r[o].exports;var n=r[o]={i:o,l:!1,exports:{}};return t[o].call(n.exports,n,n.exports,e),n.l=!0,n.exports}return e.m=t,e.c=r,e.d=function(t,r,o){e.o(t,r)||Object.defineProperty(t,r,{enumerable:!0,get:o})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,r){if(1&r&&(t=e(t)),8&r)return t;if(4&r&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(e.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&r&&"string"!=typeof t)for(var n in t)e.d(o,n,function(r){return t[r]}.bind(null,n));return o},e.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(r,"a",r),r},e.o=function(t,r){return Object.prototype.hasOwnProperty.call(t,r)},e.p="",e(e.s=4)}([function(t,r,e){},function(t,r,e){var o=e(2),n=e(3);t.exports=function(t,r,e){var i=r&&e||0;"string"==typeof t&&(r="binary"===t?new Array(16):null,t=null);var s=(t=t||{}).random||(t.rng||o)();if(s[6]=15&s[6]|64,s[8]=63&s[8]|128,r)for(var a=0;a<16;++a)r[i+a]=s[a];return r||n(s)}},function(t,r){var e="undefined"!=typeof crypto&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&&"function"==typeof window.msCrypto.getRandomValues&&msCrypto.getRandomValues.bind(msCrypto);if(e){var o=new Uint8Array(16);t.exports=function(){return e(o),o}}else{var n=new Array(16);t.exports=function(){for(var t,r=0;r<16;r++)0==(3&r)&&(t=4294967296*Math.random()),n[r]=t>>>((3&r)<<3)&255;return n}}},function(t,r){for(var e=[],o=0;o<256;++o)e[o]=(o+256).toString(16).substr(1);t.exports=function(t,r){var o=r||0,n=e;return[n[t[o++]],n[t[o++]],n[t[o++]],n[t[o++]],"-",n[t[o++]],n[t[o++]],"-",n[t[o++]],n[t[o++]],"-",n[t[o++]],n[t[o++]],"-",n[t[o++]],n[t[o++]],n[t[o++]],n[t[o++]],n[t[o++]],n[t[o++]]].join("")}},function(t,r,e){"use strict";e.r(r);var o=e(0),n=e.n(o);class WordList{constructor(t,r){this.userID=t,this.languageID=r,this.items={}}get values(){return Object.values(this.items)}push(t){this.languageID!==t.languageID||this.contains(t)||(this.items[t.ID]=t)}contains(t){return this.values.map(t=>t.targetWord).includes(t.targetWord)}makeAllImportant(){this.values.forEach(t=>{t.makeImportant()})}removeAllImportant(){this.values.forEach(t=>{t.removeImportant()})}}var i=e(1),s=e.n(i);class word_item_WordItem{constructor(t){this.targetWord=t.targetWord,this.languageID=t.languageID,this.homonym=t,this.important=!1,this.ID=s()()}makeImportant(){this.important=!0}removeImportant(){this.important=!1}}class wordlist_controller_WordlistController{constructor(t){this.userID=t,this.wordLists=new Map}createWordList(t){this.wordLists.set(t,new WordList(this.userID,t))}updateWordList(t){let r=t.languageID;this.wordLists.has(r)||this.createWordList(r),this.wordLists.get(r).push(new word_item_WordItem(t))}}e.d(r,"Style",function(){return n.a}),e.d(r,"WordlistController",function(){return wordlist_controller_WordlistController})}])});
-
-/***/ }),
 
 /***/ "../node_modules/element-closest/element-closest.js":
 /*!**********************************************************!*\
@@ -29786,7 +29775,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_res_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-inflection-tables */ "alpheios-inflection-tables");
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! alpheios-wordlist */ "../node_modules/alpheios-wordlist/dist/alpheios-wordlist.min.js");
+/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
 /* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_4__);
@@ -29947,6 +29936,9 @@ class UIController {
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
+    console.info('****************uiController.wordlistC', uiController.wordlistC)
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+
     console.info('*********************created wordlistController', uiController.wordlistC)
     return uiController
   }
@@ -37318,9 +37310,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "alpheios-client-adapters":
-/*!************************************!*\
-  !*** external "alpheios-wordlist" ***!
-  \************************************/
+/*!*******************************************!*\
+  !*** external "alpheios-client-adapters" ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -37358,6 +37350,17 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_inflection_tables__;
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_res_client__;
+
+/***/ }),
+
+/***/ "alpheios-wordlist":
+/*!************************************!*\
+  !*** external "alpheios-wordlist" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_wordlist__;
 
 /***/ }),
 

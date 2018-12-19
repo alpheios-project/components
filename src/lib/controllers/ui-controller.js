@@ -126,6 +126,9 @@ export default class UIController {
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new WordlistController(testUserID)
+    console.info('****************uiController.wordlistC', uiController.wordlistC)
+    LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+
     console.info('*********************created wordlistController', uiController.wordlistC)
     return uiController
   }
