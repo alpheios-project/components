@@ -66,7 +66,7 @@
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_WORDLIST')">
-                <span v-show="data.wordLists.size > 0" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
+                <span v-show="data.wordLists && data.wordLists.size > 0" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
                   class="alpheios-panel__header-nav-btn">
                   <wordlist-icon class="alpheios-icon"></wordlist-icon>
                 </span>
