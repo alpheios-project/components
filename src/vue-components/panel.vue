@@ -64,6 +64,13 @@
                   <status-icon class="alpheios-icon"></status-icon>
                 </span>
               </alph-tooltip>
+
+              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_WORDLIST')">
+                <span v-show="data.wordLists.size > 0" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
+                  class="alpheios-panel__header-nav-btn">
+                  <wordlist-icon class="alpheios-icon"></wordlist-icon>
+                </span>
+              </alph-tooltip>
             </span>
             <span class="alpheios-panel__header-btn-group--end">
 
@@ -94,7 +101,6 @@
         <div class="alpheios-panel__content" v-if="data && data.tabs">
 
             <div v-show="data.tabs.definitions" class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions">
-                <word-list-panel :wordLists="data.wordLists" :updated="data.wordListUpdated"></word-list-panel>
                 <div class="alpheios-lookup__panel">
                   <lookup :uiController="uiController" :parentLanguage="lookupParentLanguage" :clearLookupText="clearLookupText"></lookup>
                 </div>
@@ -170,6 +176,9 @@
                 </div>
                 <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.infoComponentData && data.l10n"></info>
             </div>
+            <div v-show="data.tabs.wordlist" class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist">
+              <word-list-panel :wordLists="data.wordLists" :updated="data.wordListUpdated"></word-list-panel>
+            </div>
         </div>
         <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
           v-show="data.notification.important" v-if="data && data.notification">
@@ -210,6 +219,7 @@
   import GrammarIcon from '../images/inline-icons/resources.svg';
   import TreebankIcon from '../images/inline-icons/sitemap.svg';
   import InfoIcon from '../images/inline-icons/info.svg';
+  import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg';
   import InflectionBrowser from './inflections-browser.vue'
 
   import { WordListPanel } from 'alpheios-wordlist'
@@ -238,6 +248,7 @@
       infoIcon: InfoIcon,
       grammarIcon: GrammarIcon,
       treebankIcon: TreebankIcon,
+      wordlistIcon: WordlistIcon,
       alphTooltip: Tooltip,
       lookup: Lookup,
       reskinFontColor: ReskinFontColor,

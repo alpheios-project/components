@@ -252,7 +252,8 @@ export default class UIController {
             status: false,
             options: false,
             info: true,
-            treebank: false
+            treebank: false,
+            wordlist: false
           },
           verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
           currentLanguageID: null,

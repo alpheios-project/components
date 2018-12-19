@@ -65,7 +65,11 @@
     "description": "tooltip for status tab",
     "component": "Panel"
   },
-
+  "TOOLTIP_WORDLIST": {
+    "message": "User word list",
+    "description": "tooltip for user word list tab",
+    "component": "Panel"
+  },
   "TOOLTIP_SHOW_INFLECTIONS": {
     "message": "Show inflections",
     "description": "tooltip for button inflections",
