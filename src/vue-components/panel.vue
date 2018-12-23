@@ -66,7 +66,7 @@
               </alph-tooltip>
 
               <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="ln10Messages('TOOLTIP_WORDLIST')">
-                <span v-show="data.wordLists && data.wordLists.size > 0" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
+                <span v-show="showWordList" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
                   class="alpheios-panel__header-nav-btn">
                   <wordlist-icon class="alpheios-icon"></wordlist-icon>
                 </span>
@@ -177,7 +177,7 @@
                 <info :data="data.infoComponentData" :messages="data.l10n.messages" v-if="data.infoComponentData && data.l10n"></info>
             </div>
             <div v-show="data.tabs.wordlist" class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist">
-              <word-list-panel :wordLists="data.wordLists" :updated="data.wordListUpdated"></word-list-panel>
+              <word-list-panel :wordlistC="data.wordlistC" :updated="data.wordListUpdated"></word-list-panel>
             </div>
         </div>
         <div class="alpheios-panel__notifications uk-text-small" :class="notificationClasses"
@@ -290,6 +290,9 @@
     computed: {
       divClasses () {
         return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
+      },
+      showWordList () {
+        return this.data.wordListUpdated && this.data.wordlistC && Object.keys(this.data.wordlistC.wordLists) && Object.keys(this.data.wordlistC.wordLists).length > 0
       },
       clearLookupText: function () {
         // always true to clear panels lookup

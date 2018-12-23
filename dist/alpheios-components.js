@@ -10841,6 +10841,9 @@ __webpack_require__.r(__webpack_exports__);
     divClasses () {
       return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
     },
+    showWordList () {
+      return this.data.wordListUpdated && this.data.wordlistC && Object.keys(this.data.wordlistC.wordLists) && Object.keys(this.data.wordlistC.wordLists).length > 0
+    },
     clearLookupText: function () {
       // always true to clear panels lookup
       return true
@@ -16261,8 +16264,8 @@ var render = function() {
                           {
                             name: "show",
                             rawName: "v-show",
-                            value: _vm.data.wordLists.size > 0,
-                            expression: "data.wordLists.size > 0"
+                            value: _vm.showWordList,
+                            expression: "showWordList"
                           }
                         ],
                         staticClass: "alpheios-panel__header-nav-btn",
@@ -16807,7 +16810,7 @@ var render = function() {
               [
                 _c("word-list-panel", {
                   attrs: {
-                    wordLists: _vm.data.wordLists,
+                    wordlistC: _vm.data.wordlistC,
                     updated: _vm.data.wordListUpdated
                   }
                 })
@@ -30216,7 +30219,7 @@ class UIController {
           },
           minWidth: 400,
           l10n: this.l10n,
-          wordLists: this.wordlistC.wordLists,
+          wordlistC: this.wordlistC,
           wordListUpdated: 0
         },
         state: this.state,
@@ -34062,6 +34065,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       ro = selection.anchorOffset
     }
 
+    if (!anchorText) {
+      return undefined
+    }
     // clean string:
     //   convert punctuation to spaces
     anchorText = anchorText.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')

@@ -196,6 +196,9 @@ export default class HTMLSelector extends MediaSelector {
       ro = selection.anchorOffset
     }
 
+    if (!anchorText) {
+      return undefined
+    }
     // clean string:
     //   convert punctuation to spaces
     anchorText = anchorText.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')

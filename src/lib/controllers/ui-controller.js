@@ -317,7 +317,7 @@ export default class UIController {
           },
           minWidth: 400,
           l10n: this.l10n,
-          wordLists: this.wordlistC ? this.wordlistC.wordLists : new Map(),
+          wordlistC: this.wordlistC,
           wordListUpdated: 0
         },
         state: this.state,
