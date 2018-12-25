@@ -126,6 +126,7 @@ export default class UIController {
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new WordlistController(testUserID)
+
     LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
 
@@ -806,6 +807,8 @@ export default class UIController {
     this.updateVerboseMode()
     this.updateLemmaTranslations()
     this.notifyInflectionBrowser()
+
+    this.wordlistC.initLists()
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 

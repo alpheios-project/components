@@ -292,6 +292,10 @@
         return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
       },
       showWordList () {
+        console.info('*******************showWordList 1', this.data.wordListUpdated)
+        console.info('*******************showWordList 2', this.data.wordlistC)
+        console.info('*******************showWordList 3', Object.keys(this.data.wordlistC.wordLists))
+        console.info('*******************showWordList 4', Object.keys(this.data.wordlistC.wordLists).length > 0)
         return this.data.wordListUpdated && this.data.wordlistC && Object.keys(this.data.wordlistC.wordLists) && Object.keys(this.data.wordlistC.wordLists).length > 0
       },
       clearLookupText: function () {
