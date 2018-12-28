@@ -30763,7 +30763,8 @@ class UIController {
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
 
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    // LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
 
     return uiController
@@ -32057,6 +32058,7 @@ class UIController {
   }
 
   onDefinitionsReady (data) {
+    console.info('************************update definitions')
     this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(data.requestType, data.word))
     this.updateDefinitions(data.homonym)
   }
@@ -33931,9 +33933,11 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
+      console.info('**********************result.value', result.value)
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
+          console.info('**********************resolvedValue', resolvedValue)
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
@@ -34062,6 +34066,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       adapterLexiconResFull.errors.forEach(error => console.error(error))
     }
 
+    yield 'Finalizing'
+    console.info('*********************Finalizing')
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
     }

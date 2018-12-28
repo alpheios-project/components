@@ -140,7 +140,8 @@ export default class UIController {
     let testUserID = 'userIDTest'
     uiController.wordlistC = new WordlistController(testUserID)
 
-    LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    // LexicalQuery.evt.HOMONYM_READY.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
 
     return uiController
@@ -1434,6 +1435,7 @@ export default class UIController {
   }
 
   onDefinitionsReady (data) {
+    console.info('************************update definitions')
     this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(data.requestType, data.word))
     this.updateDefinitions(data.homonym)
   }
