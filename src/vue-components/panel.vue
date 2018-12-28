@@ -274,7 +274,6 @@
       inflectionBrowser: InflectionBrowser,
       setting: Setting,
       shortdef: ShortDef,
-      morph: Morph,
       info: Info,
       grammar: Grammar,
       treebank: Treebank,

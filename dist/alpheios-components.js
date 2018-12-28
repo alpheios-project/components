@@ -10906,7 +10906,6 @@ __webpack_require__.r(__webpack_exports__);
       inflectionBrowser: _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
       setting: _setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       shortdef: _shortdef_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-      morph: Morph,
       info: _info_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
       grammar: _grammar_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
       treebank: _treebank_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
