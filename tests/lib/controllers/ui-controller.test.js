@@ -236,10 +236,10 @@ describe('ui-controller.test.js', () => {
   })
 
   it('10 UIController - changeTab methods', () => {
-    uiC.changeTab('inflection')
+    uiC.changeTab('options')
 
     for (let tab in uiC.panel.panelData.tabs) {
-      if (tab === 'inflection') {
+      if (tab === 'options') {
         expect(uiC.panel.panelData.tabs[tab]).toBeTruthy()
       } else {
         expect(uiC.panel.panelData.tabs[tab]).toBeFalsy()
@@ -828,4 +828,5 @@ describe('ui-controller.test.js', () => {
     expect(uiC.popup.currentPopupComponent).toEqual('popup')
     expect(uiC.popup.open).toHaveBeenCalled()
   })
+
 })

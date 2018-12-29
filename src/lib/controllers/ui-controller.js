@@ -849,7 +849,7 @@ export default class UIController {
     this.updateLemmaTranslations()
     this.notifyInflectionBrowser()
 
-    this.wordlistC.initLists()
+    if (this.wordlistC) { this.wordlistC.initLists() }
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
