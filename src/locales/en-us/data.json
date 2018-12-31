@@ -1,624 +1,591 @@
 {
  "adjective":{
     "message":"adjective",
-    "abbr":"",
+    "abbr":""
   },
  "adverb":{
     "message":"adverb",
-    "abbr":"",
+    "abbr":""
   },
   "adverbial":{
     "message":"adverbial",
-    "abbrev":"",
+    "abbr":""
   },
   "article":{
-    "message":"article",
+    "message":"article"
   },
   "conjunction":{
-      "message":"conjunction",
+      "message":"conjunction"
   },
   "exclamation":{
-    "message":"exclamation",
+    "message":"exclamation"
   },
   "interjection":{
-    "message":"interjection",
+    "message":"interjection"
   },
   "noun":{
-    "message":"noun",
+    "message":"noun"
   },
   "noun_proper":{
-    "message":"proper noun",
+    "message":"proper noun"
   },
   "numeral":{
-    "message":"numeral",
+    "message":"numeral"
   },
   "particle":{
-    "message":"particle",
+    "message":"particle"
   },
   "prefix":{
-    "message":"prefix",
+    "message":"prefix"
   },
   "preposition":{
-    "message":"preposition",
+    "message":"preposition"
   } ,
   "pronoun":{
-    "message":"pronoun",
+    "message":"pronoun"
   },
   "suffix":{
-    "message":"suffix",
+    "message":"suffix"
   },
   "gerundive":{
-    "message":"gerundive",
-  },
-  "supine":{
-    "message":"supine",
+    "message":"gerundive"
   },
   "verb":{
-    "message":"verb",
+    "message":"verb"
   },
   "verb_participle":{
-    "messages":"verb participle",
+    "message":"verb participle"
   },
   "masculine":{
-    "messages":"masculine",
+    "message":"masculine",
     "abbr":"m."
   },
   "feminine":{
-    "messages":"feminine",
+    "message":"feminine",
     "abbr": "f."
   },
   "neuter":{
-    "messages":"neuter",
+    "message":"neuter",
     "abbr":"n."
   },
   "common":{
-    "messages":"common"
+    "message":"common"
   },
   "animate":{
-    "messages":"animate"
+    "message":"animate"
   },
   "inanimate":{
-    "messages":"inanimate"
+    "message":"inanimate"
   },
   "personal_masculine":{
-    "messages":"personal masculine"
+    "message":"personal masculine"
   },
   "animate_masculine":{
-    "messages":"animate masculine"
+    "message":"animate masculine"
   },
   "inanimate_masculine":{
-    "messages":"inanimate masculine"
+    "message":"inanimate masculine"
   },
   "positive":{
-    "messages":"positive",
+    "message":"positive",
     "abbr":"pos."
   },
   "comparitive":{
-    "messages":"comparative",
+    "message":"comparative",
     "abbr":"comp"
   },
   "superlative":{
-    "messages":"superlative",
+    "message":"superlative",
     "abbr":"super."
   },
   "abessive":{
-    "messages":"abessive"
+    "message":"abessive"
   },
   "ablative":{
-    "messages":"ablative",
+    "message":"ablative",
     "abbr":"abl."
 
   },
   "absolutive":{
-    "messages":"absolutive"
+    "message":"absolutive"
   },
   "accusative":{
-    "messages":"accusative",
+    "message":"accusative",
     "abbr":"acc."
   },
   "addirective":{
-    "messages":"addirective"
+    "message":"addirective"
   },
   "adelative":{
-    "messages":"adelative"
+    "message":"adelative"
   },
   "adessive":{
-    "messages":"adessive"
-  },
-  "adverbial":{
-    "messages":"adverbial"
+    "message":"adessive"
   },
   "allative":{
-    "messages":"allative"
+    "message":"allative"
   },
     "antessive":{
-      "messages":"antessive"
+      "message":"antessive"
   },
   "apudessive":{
-    "messages":"apudessive"
+    "message":"apudessive"
   },
   "aversive":{
-    "messages":"aversive"
+    "message":"aversive"
   },
   "benefactive":{
-    "messages":"benefactive"
+    "message":"benefactive"
   },
   "caritive":{
-    "messages":"caritive"
+    "message":"caritive"
   },
   "causal":{
-    "messages":"causal"
+    "message":"causal"
   },
   "causal_final":{
-    "messages":"causal-final"
+    "message":"causal-final"
   },
   "comitative":{
-    "messages":"comitative"
+    "message":"comitative"
   },
   "dative":{
-    "messages":"dative",
+    "message":"dative",
     "abbr":"dat."
   },
   "delative":{
-    "messages":"delative"
+    "message":"delative"
   },
   "direct":{
-    "messages":"direct"
+    "message":"direct"
   },
   "distributive":{
-    "messages":"distributive"
+    "message":"distributive"
   },
   "distributive_temporal":{
-    "messages":"distributive-temporal"
+    "message":"distributive-temporal"
   },
   "elative":{
-    "messages":"elative"
+    "message":"elative"
   },
   "ergative":{
-    "messages":"ergative"
+    "message":"ergative"
   },
   "essive":{
-    "messages":"essive"
+    "message":"essive"
   },
   "essive_formal":{
-    "messages":"essive-formal"
+    "message":"essive-formal"
   },
   "essive_modal":{
-    "messages":"essive-modal"
+    "message":"essive-modal"
   },
   "equative":{
-    "messages":"equative"
+    "message":"equative"
   },
   "evitative":{
-    "messages":"evitative"
+    "message":"evitative"
   },
   "exessive":{
-    "messages":"exessive"
+    "message":"exessive"
   },
   "final":{
-    "messages":"final"
+    "message":"final"
   },
   "formal":{
-    "messages":"formal"
+    "message":"formal"
   },
   "genitive":{
-    "messages":"genitive",
+    "message":"genitive",
     "abbr":"gen."
   },
   "illative":{
-    "messages":"illative"
+    "message":"illative"
   },
   "inelative":{
-    "messages":"inelative"
+    "message":"inelative"
   },
   "inessive":{
-    "messages":"inessive"
+    "message":"inessive"
   },
   "instructive":{
-    "messages":"instructive"
+    "message":"instructive"
   },
   "instrumental":{
-    "messages":"instrumental"
+    "message":"instrumental"
   },
   "instrumental_comitative":{
-    "messages":"instrumental-comitative"
+    "message":"instrumental-comitative"
   },
   "intransitive":{
-    "messages":"intransitive"
+    "message":"intransitive"
   },
   "lative":{
-    "messages":"lative"
+    "message":"lative"
   },
   "locative":{
-    "messages":"locative",
+    "message":"locative",
     "abbr":"loc."
   },
   "modal":{
-    "messages":"modal"
+    "message":"modal"
   },
   "multiplicative":{
-    "messages":"multiplicative"
+    "message":"multiplicative"
   },
   "nominative":{
-    "messages":"nominative",
+    "message":"nominative",
     "abbr":"nom."
   },
   "partitive":{
-    "messages":"partitive"
+    "message":"partitive"
   },
   "pegative":{
-    "messages":"pegative"
+    "message":"pegative"
   },
   "perlative":{
-    "messages":"perlative"
+    "message":"perlative"
   },
   "possessive":{
-    "messages":"possessive"
+    "message":"possessive"
   },
   "postelative":{
-    "messages":"postelative"
+    "message":"postelative"
   },
   "postdirective":{
-    "messages":"postdirective"
+    "message":"postdirective"
   },
   "postessive":{
-    "messages":"postessive"
+    "message":"postessive"
   },
   "postpositional":{
-    "messages":"postpositional"
+    "message":"postpositional"
   },
   "prepositional":{
-    "messages":"prepositional"
+    "message":"prepositional"
   },
   "privative":{
-    "messages":"privative"
+    "message":"privative"
   },
   "prolative":{
-    "messages":"prolative"
+    "message":"prolative"
   },
   "prosecutive":{
-    "messages":"prosecutive"
+    "message":"prosecutive"
   },
   "proximative":{
-    "messages":"proximative"
+    "message":"proximative"
   },
   "separative":{
-    "messages":"separative"
+    "message":"separative"
   },
   "sociative":{
-    "messages":"sociative"
+    "message":"sociative"
   },
   "subdirective":{
-    "messages":"subdirective"
+    "message":"subdirective"
   },
   "subessive":{
-    "messages":"subessive"
+    "message":"subessive"
   },
   "subelative":{
-    "messages":"subelative"
+    "message":"subelative"
   },
     "sublative":{
-    "messages":"sublative"
+    "message":"sublative"
   },
   "superdirective":{
-    "messages":"superdirective"
+    "message":"superdirective"
   },
   "superessive":{
-    "messages":"superessive"
-  },
-  "superlative":{
-    "messages":"superlative"
+    "message":"superessive"
   },
   "suppressive":{
-    "messages":"suppressive"
+    "message":"suppressive"
   },
   "temporal":{
-    "messages":"temporal"
+    "message":"temporal"
   },
   "terminative":{
-    "messages":"terminative"
+    "message":"terminative"
   },
   "translative":{
-    "messages":"translative"
+    "message":"translative"
   },
   "vialis":{
-    "messages":"vialis"
+    "message":"vialis"
   },
   "vocative":{
-    "messages":"vocative",
+    "message":"vocative",
     "abbr":"voc."
   },
   "admirative":{
-    "messages":"admirative"
+    "message":"admirative"
   },
   "cohortative":{
-    "messages":"cohortative"
+    "message":"cohortative"
   },
   "conditional":{
-    "messages":"conditional"
+    "message":"conditional"
   },
   "declarative":{
-    "messages":"declarative"
+    "message":"declarative"
   },
   "dubitative":{
-    "messages":"dubitative"
+    "message":"dubitative"
   },
   "energetic":{
-    "messages":"energetic"
+    "message":"energetic"
   },
   "eventive":{
-    "messages":"eventive"
+    "message":"eventive"
   },
   "generic":{
-    "messages":"generic"
-  },
-  "gerundive":{
-    "messages":"gerundive"
+    "message":"generic"
   },
   "hypothetical":{
-    "messages":"hypothetical"
+    "message":"hypothetical"
   },
   "imperative":{
-    "messages":"imperative",
+    "message":"imperative",
     "abbr":"imp."
   },
   "indicative":{
-    "messages":"indicative",
+    "message":"indicative",
     "abbr":"ind."
   },
   "inferential":{
-    "messages":"inferential"
+    "message":"inferential"
   },
   "infinitive":{
-    "messages":"infinitive",
+    "message":"infinitive",
     "abbr":"infin."
   },
   "interrogative":{
-    "messages":"interrogative"
+    "message":"interrogative"
   },
   "jussive":{
-    "messages":"jussive"
+    "message":"jussive"
   },
   "negative":{
-    "messages":"negative"
+    "message":"negative"
   },
   "optative":{
-    "messages":"optative",
+    "message":"optative",
     "abbr":"opt."
   },
   "participle":{
-    "messages":"participle",
+    "message":"participle",
     "abbr":"part,"
   },
   "presumptive":{
-    "messages":"presumptive"
+    "message":"presumptive"
   },
   "renarrative":{
-    "messages":"renarrative"
+    "message":"renarrative"
   },
   "subjunctive":{
-    "messages":"subjunctive",
+    "message":"subjunctive",
     "abbr":"sub."
   },
   "supine":{
-    "messages":"supine",
+    "message":"supine",
     "abbr":"sup."
   },
   "singular":{
-    "messages":"singular",
+    "message":"singular",
     "abbr":"sing."
   },
   "plural":{
-    "messages":"plural",
+    "message":"plural",
     "abbr":"plur."
   },
   "dual":{
-    "messages":"dual",
+    "message":"dual",
     "abbr":"dl."
   },
   "trial":{
-    "messages":"trial"
+    "message":"trial"
   },
     "paucal":{
-    "messages":"paucal"
+    "message":"paucal"
   },
   "singulative":{
-    "messages":"singulative"
+    "message":"singulative"
   },
   "collective":{
-    "messages":"collective"
+    "message":"collective"
   },
   "distributive_plural":{
-    "messages":"distributive plural"
+    "message":"distributive plural"
   },
   "cardinal":{
-    "messages":"cardinal"
+    "message":"cardinal"
   },
   "ordinal":{
-    "messages":"ordinal"
-  },
-  "distributive":{
-    "messages":"distributive"
+    "message":"ordinal"
   },
   "numeral_adverb":{
-    "messages":"numeral adverb"
+    "message":"numeral adverb"
   },
   "1st":{
-    "messages":"1st"
+    "message":"1st"
   },
   "2nd":{
-    "messages":"2nd"
+    "message":"2nd"
   },
   "3rd":{
-    "messages":"3rd"
+    "message":"3rd"
   },
   "4th":{
-    "messages":"4th"
+    "message":"4th"
   },
   "5th":{
-    "messages":"5th"
+    "message":"5th"
   },
   "6th":{
-    "messages":"6th"
+    "message":"6th"
   },
   "7th":{
-    "messages":"7th"
+    "message":"7th"
   },
   "8th":{
-    "messages":"8th"
+    "message":"8th"
   },
   "9th":{
-    "messages":"9th"
+    "message":"9th"
   },
   "aorist":{
-    "messages":"aorist",
+    "message":"aorist",
     "abbr":"aor."
   },
   "future":{
-    "messages":"future",
+    "message":"future",
     "abbr":"fut."
   },
   "future_perfect":{
-    "messages":"future perfect",
+    "message":"future perfect",
     "abbr":"fut. perf."
   },
   "imperfect":{
-    "messages":"imperfect",
+    "message":"imperfect",
     "abbr":"impf."
   },
   "past_absolute":{
-    "messages":"past absolute"
+    "message":"past absolute"
   },
   "perfect":{
-    "messages":"perfect",
+    "message":"perfect",
     "abbr": "perf."
   },
   "pluperfect":{
-    "messages":"pluperfect",
+    "message":"pluperfect",
     "abbr": "plup."
   },
   "plusquamperfect":{
-    "messages": "plusquamperfect",
+    "message": "plusquamperfect",
     "abbr": "pqpf."
   },
   "present":{
-    "messages":"present",
+    "message":"present",
     "abbr":"pres."
   },
   "to_be":{
-    "messages":"to be"
+    "message":"to be"
   },
   "compounds_of_to_be":{
-    "messages":"compounds of to be"
+    "message":"compounds of to be"
   },
   "taking_ablative":{
-    "messages":"taking ablative"
+    "message":"taking ablative"
   },
   "taking_dative":{
-    "messages":"taking dative"
+    "message":"taking dative"
   },
   "taking_genitive":{
-    "messages":"taking genitive"
+    "message":"taking genitive"
   },
   "transitive":{
-    "messages":"transitive"
-  },
-  "intransitive":{
-    "messages":"intransitive"
+    "message":"transitive"
   },
   "impersonal":{
-    "messages":"impersonal"
+    "message":"impersonal"
   },
   "deponent":{
-    "messages":"deponent"
+    "message":"deponent"
   },
   "semideponent":{
-    "messages":"semideponent"
+    "message":"semideponent"
   },
   "perfect_definite":{
-    "messages":"perfect definite"
+    "message":"perfect definite"
   },
   "active":{
-    "messages":"active",
+    "message":"active",
     "abbr":"act."
   },
   "passive":{
-    "messages":"passive",
+    "message":"passive",
     "abbr":"pass."
   },
   "mediopassive":{
-    "messages":"mediopassive",
+    "message":"mediopassive",
     "abbr": "mp."
   },
   "impersonal_passive":{
-    "messages":"impersonal passive"
+    "message":"impersonal passive"
   },
   "middle":{
-    "messages":"middle",
+    "message":"middle",
     "abbr":"mid."
   },
   "antipassive":{
-    "messages":"antipassive"
+    "message":"antipassive"
   },
   "reflexive":{
-    "messages":"reflexive"
+    "message":"reflexive"
   },
   "reciprocal":{
-    "messages":"reciprocal"
+    "message":"reciprocal"
   },
   "causative":{
-    "messages":"causative"
+    "message":"causative"
   },
   "adjutative":{
-    "messages":"adjutative"
+    "message":"adjutative"
   },
   "applicative":{
-    "messages":"applicative"
+    "message":"applicative"
   },
   "circumstantial":{
-    "messages":"circumstantial"
-  },
-  "deponent":{
-    "messages":"deponent"
+    "message":"circumstantial"
   },
   "deponens":{
-    "messages":"deponen",
+    "message":"deponen",
     "abbr":"dep."
   },
   "irregular":{
-    "messages":"irregular"
+    "message":"irregular"
   },
   "regular":{
-    "messages":"regular"
+    "message":"regular"
   },
   "personal":{
-    "messages":"personal"
-  },
-  "reflexive":{
-    "messages":"reflexive"
-  },
-  "possessive":{
-    "messages":"possessive"
+    "message":"personal"
   },
   "demonstrative":{
-    "messages":"demonstrative"
+    "message":"demonstrative"
   },
   "relative":{
-    "messages":"relative"
-  },
-  "interrogative":{
-    "messages":"interrogative"
+    "message":"relative"
   },
   "general_relative":{
-    "messages":"general relative"
+    "message":"general relative"
   },
   "indefinite":{
-    "messages":"indefinite"
+    "message":"indefinite"
   },
   "intensive":{
-    "messages":"intensive"
-  },
-  "reciprocal":{
-    "messages":"reciprocal"
+    "message":"intensive"
   }
 }

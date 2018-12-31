@@ -15,6 +15,7 @@ import EmbedLibWarning from '@/vue-components/embed-lib-warning.vue'
 import L10n from '@/lib/l10n/l10n.js'
 import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
+import enUSData from '@/locales/en-us/data.json'
 import enGB from '@/locales/en-gb/messages.json'
 import Template from '@/templates/template.htmlf'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
@@ -237,6 +238,7 @@ export default class UIController {
 
     this.l10n = new L10n()
       .addMessages(enUS, Locales.en_US)
+      .addMessages(enUSData, Locales.en_US)
       .addMessages(enGB, Locales.en_GB)
       .setLocale(Locales.en_US)
 

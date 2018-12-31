@@ -35,7 +35,7 @@ export default class MessageBundle {
    * @param {string} messagesJSON - A JSON string
    */
   appendFromJSON (messagesJSON) {
-    let messages = JSON.parse(messagesJSON)
+    let messages = (typeof messagesJSON === 'string') ? JSON.parse(messagesJSON) : messagesJSON
     this.append(messages)
   }
 

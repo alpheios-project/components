@@ -8506,14 +8506,25 @@ __webpack_require__.r(__webpack_exports__);
       return classList.join(' ')
     },
     decorate(data,type) {
-      let decorated = typeof(data[type]) === 'string' ? data[type] : data[type].value
-      if (this.decorators.includes('abbreviate') && data[type].value) {
-        decorated = data[type].toLocaleStringAbbr()
+      let baseValues = []
+      let decoratedValues = []
+      if (typeof(data[type]) === 'string') {
+        baseValues = [data[type]]
+      } else {
+        baseValues = data[type].values
       }
-      if (this.decorators.includes('link') && data[type].value && data[type].value.match(/^http/)) {
-        let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`] : type
-        decorated = `<a class="alpheios-morph__linkedattr" target="_blank" href="${data[type].value}">${linkText}</a>`
+      for (let v of baseValues) {
+        let decorated = v
+        if (this.decorators.includes('abbreviate') && this.messages && this.messages[v]) {
+          decorated = this.messages[v].abbr()
+        }
+        if (this.decorators.includes('link') && decorated.match(/^http/)) {
+          let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`].get() : type
+          decorated = `<a class="alpheios-morph__linkedattr" target="_blank" href="${decorated}">${linkText}</a>`
+        }
+        decoratedValues.push(decorated)
       }
+      let decorated = decoratedValues.join(' ')
       if (this.decorators.includes('appendtype')) {
         decorated = `${decorated} ${type}`
       }
@@ -9593,6 +9604,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.collapsed !== null) {
         this.state.collapsed = state
       }
+    },
+
+    ln10Messages: function (value, defaultValue = 'unknown') {
+      if (this.messages && this.messages[value]) {
+        return this.messages[value].get()
+      }
+      return defaultValue
     }
   },
 
@@ -10213,7 +10231,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'uknown') {
       if (this.uiController && this.uiController.l10n && this.uiController.l10n.messages && this.uiController.l10n.messages[value]) {
-        return this.uiController.l10n.messages[value]
+        return this.uiController.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -10407,6 +10425,10 @@ __webpack_require__.r(__webpack_exports__);
       morphDataReady: {
         type: Boolean,
         required: true
+      },
+      messages: {
+        type: Object,
+        required: false
       }
   },
   data: function () {
@@ -10477,7 +10499,7 @@ __webpack_require__.r(__webpack_exports__);
       let list = features.map(i => lemma.features[i] ? lemma.features[i]: null).filter(i => i)
       list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
       let returnObj = {}
-      returnObj[name] = { value: list }
+      returnObj[name] = { value: list, values: [list] }
       return returnObj
     },
     languageCode (languageID) {
@@ -10499,6 +10521,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _morph_inner_v1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./morph-inner-v1.vue */ "./vue-components/morph-inner-v1.vue");
+//
 //
 //
 //
@@ -10547,6 +10570,10 @@ __webpack_require__.r(__webpack_exports__);
       morphDataReady: {
         type: Boolean,
         required: true
+      },
+      messages: {
+        type: Object,
+        required: false
       }
   },
   methods: {
@@ -11103,7 +11130,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'unknown') {
       if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
-        return this.data.l10n.messages[value]
+        return this.data.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -11877,7 +11904,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'unknown') {
       if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
-        return this.data.l10n.messages[value]
+        return this.data.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -14564,7 +14591,9 @@ var render = function() {
                   [
                     _vm._v(
                       "\n            " +
-                        _vm._s(_vm.messages.INFLECT_MSG_TABLE_NOT_IMPLEMENTED) +
+                        _vm._s(
+                          _vm.ln10Messages("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")
+                        ) +
                         "\n        "
                     )
                   ]
@@ -14604,8 +14633,9 @@ var render = function() {
                                     {
                                       attrs: {
                                         tooltipDirection: "bottom-right",
-                                        tooltipText:
-                                          _vm.messages.TOOLTIP_INFLECT_SHOWFULL
+                                        tooltipText: _vm.ln10Messages(
+                                          "TOOLTIP_INFLECT_SHOWFULL"
+                                        )
                                       }
                                     },
                                     [
@@ -14620,8 +14650,9 @@ var render = function() {
                                           _vm._v(
                                             "\n                            " +
                                               _vm._s(
-                                                _vm.messages
-                                                  .LABEL_INFLECT_SHOWFULL
+                                                _vm.ln10Messages(
+                                                  "LABEL_INFLECT_SHOWFULL"
+                                                )
                                               ) +
                                               "\n                        "
                                           )
@@ -14656,8 +14687,9 @@ var render = function() {
                                     {
                                       attrs: {
                                         tooltipDirection: "bottom-right",
-                                        tooltipText:
-                                          _vm.messages.TOOLTIP_INFLECT_COLLAPSE
+                                        tooltipText: _vm.ln10Messages(
+                                          "TOOLTIP_INFLECT_COLLAPSE"
+                                        )
                                       }
                                     },
                                     [
@@ -14672,8 +14704,9 @@ var render = function() {
                                           _vm._v(
                                             "\n                            " +
                                               _vm._s(
-                                                _vm.messages
-                                                  .LABEL_INFLECT_COLLAPSE
+                                                _vm.ln10Messages(
+                                                  "LABEL_INFLECT_COLLAPSE"
+                                                )
                                               ) +
                                               "\n                        "
                                           )
@@ -14859,7 +14892,7 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(
-                              _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS
+                              _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS.get()
                             ) +
                             "\n                    "
                         )
@@ -14890,7 +14923,7 @@ var render = function() {
                 },
                 [
                   _c("label", { staticClass: "uk-form-label" }, [
-                    _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS))
+                    _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS.get()))
                   ]),
                   _vm._v(" "),
                   _c(
@@ -15101,8 +15134,7 @@ var render = function() {
                           [
                             _vm._v(
                               _vm._s(
-                                _vm.messages
-                                  .INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER
+                                _vm.messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER.get()
                               )
                             )
                           ]
@@ -15148,7 +15180,11 @@ var render = function() {
                   _c(
                     "h3",
                     { staticClass: "alpheios-inflections__credits-title" },
-                    [_vm._v(_vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE))]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE.get())
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("div", {
@@ -15165,7 +15201,7 @@ var render = function() {
         : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
             _vm._v(
               "\n        " +
-                _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) +
+                _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE.get()) +
                 "\n    "
             )
           ])
@@ -15213,7 +15249,7 @@ var render = function() {
       { staticClass: "alpheios-info__currentlanguage alpheios-text__smallest" },
       [
         _vm._v(
-          _vm._s(_vm.messages.LABEL_INFO_CURRENTLANGUAGE) +
+          _vm._s(_vm.messages.LABEL_INFO_CURRENTLANGUAGE.get()) +
             " " +
             _vm._s(_vm.data.languageName)
         )
@@ -15221,34 +15257,34 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "alpheios-info__helptext" }, [
-      _c("h3", [_vm._v(_vm._s(_vm.messages.TEXT_INFO_GETTINGSTARTED))]),
+      _c("h3", [_vm._v(_vm._s(_vm.messages.TEXT_INFO_GETTINGSTARTED.get()))]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ACTIVATE))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ACTIVATE.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_CLICK))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_CLICK.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_LANGDETECT))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_LANGDETECT.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_SETTINGS))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_SETTINGS.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ARROW))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ARROW.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_REOPEN))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_REOPEN.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_DEACTIVATE))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_DEACTIVATE.get()))
       ])
     ])
   ])
@@ -15577,7 +15613,8 @@ var render = function() {
                       data: lemma.features,
                       type: _vm.types.pronunciation,
                       linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["brackets"]
+                      decorators: ["brackets"],
+                      messages: _vm.messages
                     }
                   }),
                   _vm._v(" "),
@@ -15597,7 +15634,8 @@ var render = function() {
                                 ["age", "area", "geo", "frequency"],
                                 "extras"
                               ),
-                              type: "extras"
+                              type: "extras",
+                              messages: _vm.messages
                             },
                             on: { sendfeature: _vm.sendFeature }
                           })
@@ -15616,7 +15654,8 @@ var render = function() {
                               data: lemma.features,
                               type: _vm.types.source,
                               linkedfeatures: _vm.linkedfeatures,
-                              decorators: ["link", "brackets"]
+                              decorators: ["link", "brackets"],
+                              messages: _vm.messages
                             },
                             on: { sendfeature: _vm.sendFeature }
                           })
@@ -15642,7 +15681,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.grmCase,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         }),
@@ -15651,7 +15691,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.gender,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         }),
@@ -15660,7 +15701,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.part,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         })
@@ -15673,7 +15715,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.kind,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["parenthesize"]
+                        decorators: ["parenthesize"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15683,7 +15726,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.declension,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["appendtype"]
+                        decorators: ["appendtype"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15693,7 +15737,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.conjugation,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["appendtype"]
+                        decorators: ["appendtype"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15703,7 +15748,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.note,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["brackets"]
+                        decorators: ["brackets"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     })
@@ -15836,7 +15882,8 @@ var render = function() {
                                   data: inflset.groupingKey,
                                   type: _vm.types.part,
                                   linkedfeatures: _vm.linkedfeatures,
-                                  grouplevel: 1
+                                  grouplevel: 1,
+                                  messages: _vm.messages
                                 },
                                 on: { sendfeature: _vm.sendFeature }
                               })
@@ -15853,7 +15900,8 @@ var render = function() {
                                   type: _vm.types.declension,
                                   linkedfeatures: _vm.linkedfeatures,
                                   grouplevel: 1,
-                                  decorators: ["appendtype"]
+                                  decorators: ["appendtype"],
+                                  messages: _vm.messages
                                 },
                                 on: { sendfeature: _vm.sendFeature }
                               })
@@ -15877,7 +15925,8 @@ var render = function() {
                                         type: _vm.types.number,
                                         linkedfeatures: _vm.linkedfeatures,
                                         grouplevel: 2,
-                                        decorators: ["abbreviate"]
+                                        decorators: ["abbreviate"],
+                                        messages: _vm.messages
                                       },
                                       on: { sendfeature: _vm.sendFeature }
                                     }),
@@ -15888,7 +15937,8 @@ var render = function() {
                                         type: _vm.types.tense,
                                         linkedfeatures: _vm.linkedfeatures,
                                         grouplevel: 2,
-                                        decorators: ["abbreviate"]
+                                        decorators: ["abbreviate"],
+                                        messages: _vm.messages
                                       },
                                       on: { sendfeature: _vm.sendFeature }
                                     })
@@ -15913,7 +15963,8 @@ var render = function() {
                                               linkedfeatures:
                                                 _vm.linkedfeatures,
                                               grouplevel: 3,
-                                              decorators: ["abbreviate"]
+                                              decorators: ["abbreviate"],
+                                              messages: _vm.messages
                                             },
                                             on: { sendfeature: _vm.sendFeature }
                                           }),
@@ -15925,7 +15976,8 @@ var render = function() {
                                               linkedfeatures:
                                                 _vm.linkedfeatures,
                                               grouplevel: 3,
-                                              decorators: ["abbreviate"]
+                                              decorators: ["abbreviate"],
+                                              messages: _vm.messages
                                             },
                                             on: { sendfeature: _vm.sendFeature }
                                           })
@@ -15945,7 +15997,8 @@ var render = function() {
                                             type: _vm.types.grmCase,
                                             grouplevel: 4,
                                             data: infl.groupingKey,
-                                            decorators: ["abbreviate"]
+                                            decorators: ["abbreviate"],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -15966,7 +16019,8 @@ var render = function() {
                                                 decorators: [
                                                   "parenthesize",
                                                   "abbreviate"
-                                                ]
+                                                ],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -15980,7 +16034,8 @@ var render = function() {
                                             type: _vm.types.comparison,
                                             grouplevel: 4,
                                             data: infl.groupingKey,
-                                            decorators: ["abbreviate"]
+                                            decorators: ["abbreviate"],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -15994,7 +16049,8 @@ var render = function() {
                                             decorators: [
                                               "appendtype",
                                               "abbreviate"
-                                            ]
+                                            ],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -16007,7 +16063,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16023,7 +16080,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16039,7 +16097,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16055,7 +16114,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16075,7 +16135,8 @@ var render = function() {
                                                   type: "dialect",
                                                   linkedfeatures:
                                                     _vm.linkedfeatures,
-                                                  decorators: ["parenthesize"]
+                                                  decorators: ["parenthesize"],
+                                                  messages: _vm.messages
                                                 },
                                                 on: {
                                                   sendfeature: _vm.sendFeature
@@ -16087,7 +16148,8 @@ var render = function() {
                                                   data: item,
                                                   type: "example",
                                                   linkedfeatures:
-                                                    _vm.linkedfeatures
+                                                    _vm.linkedfeatures,
+                                                  messages: _vm.messages
                                                 },
                                                 on: {
                                                   sendfeature: _vm.sendFeature
@@ -16165,7 +16227,8 @@ var render = function() {
               ? _vm.definitions[lex.lemma.ID]
               : [],
             linkedfeatures: _vm.linkedfeatures,
-            translations: _vm.translations
+            translations: _vm.translations,
+            messages: _vm.messages
           },
           on: { sendfeature: _vm.sendFeature }
         })
@@ -17116,7 +17179,7 @@ var render = function() {
         "span",
         {
           staticClass: "alpheios-popup__close-btn",
-          attrs: { title: _vm.data.l10n.messages.TOOLTIP_POPUP_CLOSE },
+          attrs: { title: _vm.data.l10n.messages.TOOLTIP_POPUP_CLOSE.get() },
           on: { click: _vm.closePopup }
         },
         [_c("close-icon")],
@@ -17184,7 +17247,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_INFLECT) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_INFLECT.get()) +
                     "\n            "
                 )
               ]
@@ -17211,7 +17274,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_DEFINE) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_DEFINE.get()) +
                     "\n            "
                 )
               ]
@@ -17230,7 +17293,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_OPTIONS) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_OPTIONS.get()) +
                     "\n            "
                 )
               ]
@@ -17256,7 +17319,7 @@ var render = function() {
         [
           _vm._v(
             "\n        " +
-              _vm._s(_vm.data.l10n.messages.PLACEHOLDER_POPUP_DATA) +
+              _vm._s(_vm.data.l10n.messages.PLACEHOLDER_POPUP_DATA.get()) +
               "\n    "
           )
         ]
@@ -17297,7 +17360,11 @@ var render = function() {
                     {
                       staticClass: "alpheios-popup__morph-cont-providers-header"
                     },
-                    [_vm._v(_vm._s(_vm.data.l10n.messages.LABEL_POPUP_CREDITS))]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.data.l10n.messages.LABEL_POPUP_CREDITS.get())
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _vm._l(_vm.data.providers, function(p) {
@@ -17779,6 +17846,7 @@ var render = function() {
               lexemes: _vm.lexemes,
               definitions: _vm.definitions,
               translations: _vm.translations,
+              messages: _vm.data.l10n.messages,
               linkedfeatures: _vm.linkedfeatures,
               morphDataReady: _vm.morphDataReady && _vm.hasMorphData
             },
@@ -17992,7 +18060,7 @@ var render = function() {
           ],
           staticClass: "uk-form-label alpheios-setting__label"
         },
-        [_vm._v(_vm._s(_vm.messages.LABEL_RESKIN_SETTINGS) + ":")]
+        [_vm._v(_vm._s(_vm.messages.LABEL_RESKIN_SETTINGS.get()) + ":")]
       ),
       _vm._v(" "),
       _c(
@@ -18004,7 +18072,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_SMALLFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_SMALLFONT.get()
               }
             },
             [
@@ -18029,7 +18097,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_MEDIUMFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_MEDIUMFONT.get()
               }
             },
             [
@@ -18054,7 +18122,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_LARGEFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_LARGEFONT.get()
               }
             },
             [
@@ -18079,7 +18147,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_LIGHTBG
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_LIGHTBG.get()
               }
             },
             [
@@ -18105,7 +18173,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_DARKBG
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_DARKBG.get()
               }
             },
             [
@@ -29939,29 +30007,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 /* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json");
 var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
-var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_15___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
-/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
+/* harmony import */ var _locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/data.json */ "./locales/en-us/data.json");
+var _locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/data.json */ "./locales/en-us/data.json", 1);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
+var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
 /* global Event */
 
 
@@ -29972,6 +30042,7 @@ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___names
 // A panel component
 
 // A popup component
+
 
 
 
@@ -30022,9 +30093,9 @@ class UIController {
   constructor (state, options = {}) {
     this.state = state
     this.options = UIController.setOptions(options, UIController.optionsDefaults)
-    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_16__, this.options.storageAdapter)
-    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__, this.options.storageAdapter)
-    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__, this.options.storageAdapter)
+    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__, this.options.storageAdapter)
+    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__, this.options.storageAdapter)
+    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
     this.tabState = {
       definitions: false,
@@ -30060,42 +30131,42 @@ class UIController {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
-    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_26__["default"]()
+    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__["default"]()
     switch (uiController.options.textQueryTrigger) {
       case 'dblClick':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_21__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__["default"])
         break
       case 'longTap':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_22__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__["default"])
         break
       default:
         eventController.registerListener(
-          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_23__["default"], uiController.options.textQueryTrigger
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], uiController.options.textQueryTrigger
         )
     }
 
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_23__["default"], 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_23__["default"], 'Alpheios_Page_Load')
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'Alpheios_Page_Load')
 
     // Attaches an event controller to a UIController instance
     uiController.evc = eventController
 
     // Subscribe to LexicalQuery events
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
     // Subscribe to ResourceQuery events
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
 
     // Subscribe to AnnotationQuery events
-    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     return uiController
   }
@@ -30132,7 +30203,7 @@ class UIController {
         name: 'name',
         version: 'version'
       },
-      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_25__["default"],
+      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__["default"],
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
@@ -30142,7 +30213,7 @@ class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       template: {
-        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_11___default.a,
+        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default.a,
         panelId: 'alpheios-panel',
         defaultPanelComponent: 'panel',
         popupId: 'alpheios-popup',
@@ -30197,11 +30268,12 @@ class UIController {
     let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     this.siteOptions = this.loadSiteOptions()
 
-    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_19__["default"].getZIndexMax()
+    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__["default"].getZIndexMax()
 
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_7__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
+      .addMessages(_locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
       .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
@@ -30397,7 +30469,7 @@ class UIController {
           } else if (this.panelData.infoComponentData.languageName) {
             languageName = this.panelData.infoComponentData.languageName
           } else {
-            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.panelData.notification.important = true
@@ -30448,7 +30520,7 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].create(feature, {
+          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(feature, {
             grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]
           }).getData()
           //, {
@@ -30458,7 +30530,7 @@ class UIController {
           //    { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
           // ]
           // }).getData()
-          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS)
+          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS.get())
         },
 
         settingChange: function (name, value) {
@@ -30651,7 +30723,7 @@ class UIController {
           } else if (this.popupData.currentLanguageName) {
             languageName = this.popupData.currentLanguageName
           } else {
-            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.popupData.notification.important = true
@@ -30882,9 +30954,9 @@ class UIController {
    */
   loadSiteOptions () {
     let allSiteOptions = []
-    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_15__) {
+    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__) {
       for (let domain of site.options) {
-        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"](domain, this.options.storageAdapter)
+        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](domain, this.options.storageAdapter)
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -31026,7 +31098,7 @@ class UIController {
       this.panel.panelData.grammarRes = urls[0]
       this.panel.panelData.grammarAvailable = true
     } else {
-      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
+      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get() }
     }
     // todo show TOC or not found
   }
@@ -31136,7 +31208,7 @@ class UIController {
 
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
-      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY.get())
     }
     this.panel.panelData.inflectionsWaitState = false
     this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
@@ -31255,7 +31327,7 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_18__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
       let textSelector = htmlSelector.createTextSelector()
 
       if (!textSelector.isEmpty()) {
@@ -31280,7 +31352,7 @@ class UIController {
           })
           .getData() */
 
-        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].create(textSelector, {
+        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
@@ -31290,7 +31362,7 @@ class UIController {
 
         this.setTargetRect(htmlSelector.targetRect)
         this.newLexicalRequest(textSelector.languageID)
-        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS.get())
         this.showStatusInfo(textSelector.normalizedText, textSelector.languageID)
         this.updateLanguage(textSelector.languageID)
         this.updateWordAnnotationData(textSelector.data)
@@ -31327,7 +31399,7 @@ class UIController {
    */
   updateAnnotations () {
     if (this.state.isActive() && this.state.uiIsActive()) {
-      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create({
+      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create({
         document: document,
         siteOptions: this.siteOptions
       }).getData()
@@ -31336,16 +31408,16 @@ class UIController {
 
   onLexicalQueryComplete (data) {
     switch (data.resultStatus) {
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].resultStatus.SUCCEEDED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.SUCCEEDED:
         this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].resultStatus.FAILED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.FAILED:
         this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
       default:
@@ -31355,11 +31427,11 @@ class UIController {
   }
 
   onMorphDataReady () {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY.get())
   }
 
   onMorphDataNotFound () {
-    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND.get())
     // Need to notify a UI controller that there is no morph data on this word in an analyzer
     // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
     if (this.morphologyDataNotFound) { this.morphologyDataNotFound(true) }
@@ -31388,17 +31460,17 @@ class UIController {
 
   onResourceQueryComplete () {
     // We don't check result status for now. We always output the same message.
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE.get())
   }
 
   onGrammarAvailable (data) {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY.get())
     this.updateGrammar(data.url)
   }
 
   onGrammarNotFound () {
     this.updateGrammar()
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get())
   }
 
   onAnnotationsAvailable (data) {
@@ -32222,7 +32294,7 @@ class MessageBundle {
    * @param {string} messagesJSON - A JSON string
    */
   appendFromJSON (messagesJSON) {
-    let messages = JSON.parse(messagesJSON)
+    let messages = (typeof messagesJSON === 'string') ? JSON.parse(messagesJSON) : messagesJSON
     this.append(messages)
   }
 
@@ -32254,17 +32326,22 @@ class MessageBundle {
    * @returns {string} A formatted message. If message not found, returns a message that contains an error text.
    */
   get (messageID, options = undefined) {
-    if (this[messageID]) {
-      if (typeof this[messageID].format === 'function') {
-        return this[messageID].format(options)
+    if (this.messages[messageID]) {
+      if (typeof this.messages[messageID].format === 'function') {
+        return this.messages[messageID].format(options)
       } else {
-        return this[messageID]
+        return this.messages[messageID].get()
       }
     } else {
       // If message with the ID provided is not in translation data, generate a warning.
       return `Not in translation data: "${messageID}"`
     }
   }
+
+  abbr (messageID, options = undefined) {
+    return this.messages[messageID].abbr(options)
+  }
+
 
   /**
    * Returns a locale of a current message bundle.
@@ -32315,6 +32392,8 @@ class Message {
     }
 
     this.formatFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(message.message, this.locale)
+    this.abbrFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(message.abbr || message.message, this.locale)
+
   }
 
   /**
@@ -32349,16 +32428,25 @@ class Message {
             params[param] = options[index]
           }
           return self.formatFunc.format(params)
+        },
+        abbr (...options) {
+          let params = {}
+          // TODO: Add checks
+          for (let [index, param] of self.params.entries()) {
+            params[param] = options[index]
+          }
+          return self.abbrFunc.format(params)
         }
       }
     } else {
-      Object.defineProperty(messages, key, {
+      messages[key] = {
         get () {
           return self.formatFunc.format()
         },
-        enumerable: true,
-        configurable: true // So it can be deleted
-      })
+        abbr () {
+          return self.abbrFunc.format()
+        }
+      }
     }
   }
 }
@@ -35303,6 +35391,17 @@ HTMLPage.targetRequirements = {
 /***/ (function(module) {
 
 module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a biscuit.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no queues} =1 {is one queue} other {are # queues}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]}};
+
+/***/ }),
+
+/***/ "./locales/en-us/data.json":
+/*!*********************************!*\
+  !*** ./locales/en-us/data.json ***!
+  \*********************************/
+/*! exports provided: adjective, adverb, adverbial, article, conjunction, exclamation, interjection, noun, noun_proper, numeral, particle, prefix, preposition, pronoun, suffix, gerundive, verb, verb_participle, masculine, feminine, neuter, common, animate, inanimate, personal_masculine, animate_masculine, inanimate_masculine, positive, comparitive, superlative, abessive, ablative, absolutive, accusative, addirective, adelative, adessive, allative, antessive, apudessive, aversive, benefactive, caritive, causal, causal_final, comitative, dative, delative, direct, distributive, distributive_temporal, elative, ergative, essive, essive_formal, essive_modal, equative, evitative, exessive, final, formal, genitive, illative, inelative, inessive, instructive, instrumental, instrumental_comitative, intransitive, lative, locative, modal, multiplicative, nominative, partitive, pegative, perlative, possessive, postelative, postdirective, postessive, postpositional, prepositional, privative, prolative, prosecutive, proximative, separative, sociative, subdirective, subessive, subelative, sublative, superdirective, superessive, suppressive, temporal, terminative, translative, vialis, vocative, admirative, cohortative, conditional, declarative, dubitative, energetic, eventive, generic, hypothetical, imperative, indicative, inferential, infinitive, interrogative, jussive, negative, optative, participle, presumptive, renarrative, subjunctive, supine, singular, plural, dual, trial, paucal, singulative, collective, distributive_plural, cardinal, ordinal, numeral_adverb, 1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, aorist, future, future_perfect, imperfect, past_absolute, perfect, pluperfect, plusquamperfect, present, to_be, compounds_of_to_be, taking_ablative, taking_dative, taking_genitive, transitive, impersonal, deponent, semideponent, perfect_definite, active, passive, mediopassive, impersonal_passive, middle, antipassive, reflexive, reciprocal, causative, adjutative, applicative, circumstantial, deponens, irregular, regular, personal, demonstrative, relative, general_relative, indefinite, intensive, default */
+/***/ (function(module) {
+
+module.exports = {"adjective":{"message":"adjective","abbr":""},"adverb":{"message":"adverb","abbr":""},"adverbial":{"message":"adverbial","abbr":""},"article":{"message":"article"},"conjunction":{"message":"conjunction"},"exclamation":{"message":"exclamation"},"interjection":{"message":"interjection"},"noun":{"message":"noun"},"noun_proper":{"message":"proper noun"},"numeral":{"message":"numeral"},"particle":{"message":"particle"},"prefix":{"message":"prefix"},"preposition":{"message":"preposition"},"pronoun":{"message":"pronoun"},"suffix":{"message":"suffix"},"gerundive":{"message":"gerundive"},"verb":{"message":"verb"},"verb_participle":{"message":"verb participle"},"masculine":{"message":"masculine","abbr":"m."},"feminine":{"message":"feminine","abbr":"f."},"neuter":{"message":"neuter","abbr":"n."},"common":{"message":"common"},"animate":{"message":"animate"},"inanimate":{"message":"inanimate"},"personal_masculine":{"message":"personal masculine"},"animate_masculine":{"message":"animate masculine"},"inanimate_masculine":{"message":"inanimate masculine"},"positive":{"message":"positive","abbr":"pos."},"comparitive":{"message":"comparative","abbr":"comp"},"superlative":{"message":"superlative","abbr":"super."},"abessive":{"message":"abessive"},"ablative":{"message":"ablative","abbr":"abl."},"absolutive":{"message":"absolutive"},"accusative":{"message":"accusative","abbr":"acc."},"addirective":{"message":"addirective"},"adelative":{"message":"adelative"},"adessive":{"message":"adessive"},"allative":{"message":"allative"},"antessive":{"message":"antessive"},"apudessive":{"message":"apudessive"},"aversive":{"message":"aversive"},"benefactive":{"message":"benefactive"},"caritive":{"message":"caritive"},"causal":{"message":"causal"},"causal_final":{"message":"causal-final"},"comitative":{"message":"comitative"},"dative":{"message":"dative","abbr":"dat."},"delative":{"message":"delative"},"direct":{"message":"direct"},"distributive":{"message":"distributive"},"distributive_temporal":{"message":"distributive-temporal"},"elative":{"message":"elative"},"ergative":{"message":"ergative"},"essive":{"message":"essive"},"essive_formal":{"message":"essive-formal"},"essive_modal":{"message":"essive-modal"},"equative":{"message":"equative"},"evitative":{"message":"evitative"},"exessive":{"message":"exessive"},"final":{"message":"final"},"formal":{"message":"formal"},"genitive":{"message":"genitive","abbr":"gen."},"illative":{"message":"illative"},"inelative":{"message":"inelative"},"inessive":{"message":"inessive"},"instructive":{"message":"instructive"},"instrumental":{"message":"instrumental"},"instrumental_comitative":{"message":"instrumental-comitative"},"intransitive":{"message":"intransitive"},"lative":{"message":"lative"},"locative":{"message":"locative","abbr":"loc."},"modal":{"message":"modal"},"multiplicative":{"message":"multiplicative"},"nominative":{"message":"nominative","abbr":"nom."},"partitive":{"message":"partitive"},"pegative":{"message":"pegative"},"perlative":{"message":"perlative"},"possessive":{"message":"possessive"},"postelative":{"message":"postelative"},"postdirective":{"message":"postdirective"},"postessive":{"message":"postessive"},"postpositional":{"message":"postpositional"},"prepositional":{"message":"prepositional"},"privative":{"message":"privative"},"prolative":{"message":"prolative"},"prosecutive":{"message":"prosecutive"},"proximative":{"message":"proximative"},"separative":{"message":"separative"},"sociative":{"message":"sociative"},"subdirective":{"message":"subdirective"},"subessive":{"message":"subessive"},"subelative":{"message":"subelative"},"sublative":{"message":"sublative"},"superdirective":{"message":"superdirective"},"superessive":{"message":"superessive"},"suppressive":{"message":"suppressive"},"temporal":{"message":"temporal"},"terminative":{"message":"terminative"},"translative":{"message":"translative"},"vialis":{"message":"vialis"},"vocative":{"message":"vocative","abbr":"voc."},"admirative":{"message":"admirative"},"cohortative":{"message":"cohortative"},"conditional":{"message":"conditional"},"declarative":{"message":"declarative"},"dubitative":{"message":"dubitative"},"energetic":{"message":"energetic"},"eventive":{"message":"eventive"},"generic":{"message":"generic"},"hypothetical":{"message":"hypothetical"},"imperative":{"message":"imperative","abbr":"imp."},"indicative":{"message":"indicative","abbr":"ind."},"inferential":{"message":"inferential"},"infinitive":{"message":"infinitive","abbr":"infin."},"interrogative":{"message":"interrogative"},"jussive":{"message":"jussive"},"negative":{"message":"negative"},"optative":{"message":"optative","abbr":"opt."},"participle":{"message":"participle","abbr":"part,"},"presumptive":{"message":"presumptive"},"renarrative":{"message":"renarrative"},"subjunctive":{"message":"subjunctive","abbr":"sub."},"supine":{"message":"supine","abbr":"sup."},"singular":{"message":"singular","abbr":"sing."},"plural":{"message":"plural","abbr":"plur."},"dual":{"message":"dual","abbr":"dl."},"trial":{"message":"trial"},"paucal":{"message":"paucal"},"singulative":{"message":"singulative"},"collective":{"message":"collective"},"distributive_plural":{"message":"distributive plural"},"cardinal":{"message":"cardinal"},"ordinal":{"message":"ordinal"},"numeral_adverb":{"message":"numeral adverb"},"1st":{"message":"1st"},"2nd":{"message":"2nd"},"3rd":{"message":"3rd"},"4th":{"message":"4th"},"5th":{"message":"5th"},"6th":{"message":"6th"},"7th":{"message":"7th"},"8th":{"message":"8th"},"9th":{"message":"9th"},"aorist":{"message":"aorist","abbr":"aor."},"future":{"message":"future","abbr":"fut."},"future_perfect":{"message":"future perfect","abbr":"fut. perf."},"imperfect":{"message":"imperfect","abbr":"impf."},"past_absolute":{"message":"past absolute"},"perfect":{"message":"perfect","abbr":"perf."},"pluperfect":{"message":"pluperfect","abbr":"plup."},"plusquamperfect":{"message":"plusquamperfect","abbr":"pqpf."},"present":{"message":"present","abbr":"pres."},"to_be":{"message":"to be"},"compounds_of_to_be":{"message":"compounds of to be"},"taking_ablative":{"message":"taking ablative"},"taking_dative":{"message":"taking dative"},"taking_genitive":{"message":"taking genitive"},"transitive":{"message":"transitive"},"impersonal":{"message":"impersonal"},"deponent":{"message":"deponent"},"semideponent":{"message":"semideponent"},"perfect_definite":{"message":"perfect definite"},"active":{"message":"active","abbr":"act."},"passive":{"message":"passive","abbr":"pass."},"mediopassive":{"message":"mediopassive","abbr":"mp."},"impersonal_passive":{"message":"impersonal passive"},"middle":{"message":"middle","abbr":"mid."},"antipassive":{"message":"antipassive"},"reflexive":{"message":"reflexive"},"reciprocal":{"message":"reciprocal"},"causative":{"message":"causative"},"adjutative":{"message":"adjutative"},"applicative":{"message":"applicative"},"circumstantial":{"message":"circumstantial"},"deponens":{"message":"deponen","abbr":"dep."},"irregular":{"message":"irregular"},"regular":{"message":"regular"},"personal":{"message":"personal"},"demonstrative":{"message":"demonstrative"},"relative":{"message":"relative"},"general_relative":{"message":"general relative"},"indefinite":{"message":"indefinite"},"intensive":{"message":"intensive"}};
 
 /***/ }),
 

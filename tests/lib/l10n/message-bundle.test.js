@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import MessageBundle from '@/lib/l10n/message-bundle'
 import enUS from '@/locales/en-us/messages.json'
+import enUSData from '@/locales/en-us/data.json'
 import Locales from '@/locales/locales'
 
 describe('message-bundle.test.js', () => {
@@ -48,5 +49,10 @@ describe('message-bundle.test.js', () => {
     let mb = new MessageBundle(mockMessage, Locales.en_US)
     expect(mb.get('MOCK_MESSAGE')).toEqual('testfull')
     expect(mb.abbr('MOCK_MESSAGE')).toEqual('tf.')
+  })
+
+  it('4 MessageBundle - parses data messages', () => {
+      let l = new MessageBundle(enUSData, Locales.en_US)
+      expect(l.get('noun')).toEqual('noun')
   })
 })

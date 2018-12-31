@@ -43,6 +43,7 @@ describe('popup.test.js', () => {
   it('1 Popup - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(Popup, {
       propsData: {
+        data: { l10n: {}},
         messages: [],
         lexemes: [],
         definitions: {},
@@ -54,16 +55,16 @@ describe('popup.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
 
     expect(cmp.vm.classesChanged).toEqual(0)
-    expect(cmp.vm.requestStartTime).toBeNull()
+    expect(cmp.vm.requestStartTime).toBeUndefined()
     expect(cmp.vm.inflDataReady).toBeFalsy()
     expect(cmp.vm.defDataReady).toBeFalsy()
     expect(cmp.vm.translationsDataReady).toBeFalsy()
     expect(cmp.vm.morphDataReady).toBeFalsy()
-    expect(cmp.vm.noLanguage).toBeFalsy()
-    expect(cmp.vm.currentLanguageName).toBeNull()
-    expect(cmp.vm.providersLinkText).toEqual('')
-    expect(cmp.vm.showProviders).toBeNull()
-    expect(cmp.vm.updates).toBeNull()
+    expect(cmp.vm.noLanguage).toBeTruthy()
+    expect(cmp.vm.currentLanguageName).toBeUndefined()
+    expect(cmp.vm.providersLinkText).toEqual('unknown')
+    expect(cmp.vm.showProviders).toBeUndefined()
+    expect(cmp.vm.updates).toBeUndefined()
   })
 
   it('2 Popup - render with children components (min requirements)', async () => {
@@ -72,7 +73,7 @@ describe('popup.test.js', () => {
 
     let cmp = mount(Popup, {
       propsData: {
-        data: {},
+        data: { l10n: {}},
         messages: [],
         lexemes: [],
         definitions: {},
@@ -697,7 +698,7 @@ describe('popup.test.js', () => {
 
   it('13 Popup - if popup invisible then positionLeftDm === 0px', async () => {
     let curProps = {
-      data: {},
+      data: { l10n: {}},
       messages: [],
       lexemes: [],
       definitions: {},
@@ -719,6 +720,7 @@ describe('popup.test.js', () => {
     let cmp = mount(Popup, {
       propsData: {
         data: {
+          l10n: {},
           status: { languageName: 'latin', languageCode: 'lat'}
         },
         messages: [],
