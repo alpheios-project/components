@@ -50,7 +50,7 @@
           decorated = data[type].toLocaleStringAbbr()
         }
         if (this.decorators.includes('link') && data[type].value && data[type].value.match(/^http/)) {
-          let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`] : type
+          let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`].get() : type
           decorated = `<a class="alpheios-morph__linkedattr" target="_blank" href="${data[type].value}">${linkText}</a>`
         }
         if (this.decorators.includes('appendtype')) {

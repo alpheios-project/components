@@ -6,7 +6,7 @@
                     <div class="alpheios-inflections__progress-whitespace">
                         <div class="alpheios-inflections__progress-line"></div>
                         <div class="alpheios-inflections__progress-text">
-                            {{messages.PLACEHOLDER_INFLECT_IN_PROGRESS}}
+                            {{messages.PLACEHOLDER_INFLECT_IN_PROGRESS.get()}}
                         </div>
                     </div>
                 </div>
@@ -14,7 +14,7 @@
         </div>
         <div v-else-if="inflectionsEnabled && hasMatchingViews" class="alpheios-inflections__content">
             <div v-show="partsOfSpeech.length > 1">
-                <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS}}</label>
+                <label class="uk-form-label">{{messages.LABEL_INFLECT_SELECT_POFS.get()}}</label>
                 <select v-model="partOfSpeechSelector" class="uk-select alpheios-inflections__view-selector alpheios-text__smallest">
                     <option v-for="partOfSpeech in partsOfSpeech">{{partOfSpeech}}</option>
                 </select>
@@ -60,7 +60,7 @@
                 <sub-tables-wide :view="selectedView" @navigate="navigate" :collapsed="false"></sub-tables-wide>
 
                 <div v-show="selectedView.hasSuppParadigms" class="alpheios-inflections__supp-tables">
-                    <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER}}</h3>
+                    <h3 class="alpheios-inflections__title">{{messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER.get()}}</h3>
                     <template v-for="paradigm of selectedView.suppParadigms">
                         <supp-tables-wide :data="paradigm"
                                           :bg-color="selectedView.hlSuppParadigms ? selectedView.suppHlColors.get(paradigm.paradigmID) : 'transparent'"
@@ -70,12 +70,12 @@
             </template>
 
             <div v-show="selectedView.hasCredits" class="alpheios-inflections__credits-cont">
-                <h3 class="alpheios-inflections__credits-title">{{messages.INFLECTIONS_CREDITS_TITLE}}</h3>
+                <h3 class="alpheios-inflections__credits-title">{{messages.INFLECTIONS_CREDITS_TITLE.get()}}</h3>
                 <div v-html="selectedView.creditsText" class="alpheios-inflections__credits-text"></div>
             </div>
         </div>
         <div v-else class="alpheios-inflections__placeholder">
-            {{messages.PLACEHOLDER_INFLECT_UNAVAILABLE}}
+            {{messages.PLACEHOLDER_INFLECT_UNAVAILABLE.get()}}
         </div>
     </div>
 </template>

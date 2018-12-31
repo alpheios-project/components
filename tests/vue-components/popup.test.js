@@ -137,7 +137,7 @@ describe('popup.test.js', () => {
       propsData: curProps
     })
 
-    expect(cmp.find('.alpheios-popup__more-btn-treebank').text()).toEqual(l10n.messages.LABEL_POPUP_TREEBANK)
+    expect(cmp.find('.alpheios-popup__more-btn-treebank').text()).toEqual(l10n.messages.LABEL_POPUP_TREEBANK.get())
 
     let tooltipsHeader = cmp.find('.alpheios-popup__header').findAll(Tooltip)
     let k = 0
@@ -145,9 +145,9 @@ describe('popup.test.js', () => {
     for (let i = 0; i < tooltipsHeader.length; i++) {
       let checkText = tooltipsHeader.at(i).find('button').text()
 
-      if (checkText === l10n.messages.LABEL_POPUP_TREEBANK) {
-        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_TREEBANK)
-        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_TREEBANK)
+      if (checkText === l10n.messages.LABEL_POPUP_TREEBANK.get()) {
+        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_TREEBANK.get())
+        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_TREEBANK.get())
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
@@ -155,9 +155,9 @@ describe('popup.test.js', () => {
         k++
       }
 
-      if (checkText === l10n.messages.LABEL_POPUP_INFLECT) {
-        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_INFLECTIONS)
-        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_INFLECTIONS)
+      if (checkText === l10n.messages.LABEL_POPUP_INFLECT.get()) {
+        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_INFLECTIONS.get())
+        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_INFLECTIONS.get())
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
@@ -165,9 +165,9 @@ describe('popup.test.js', () => {
         k++
       }
 
-      if (checkText === l10n.messages.LABEL_POPUP_DEFINE) {
-        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_DEFINITIONS)
-        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_DEFINITIONS)
+      if (checkText === l10n.messages.LABEL_POPUP_DEFINE.get()) {
+        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_DEFINITIONS.get())
+        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_DEFINITIONS.get())
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
@@ -175,9 +175,9 @@ describe('popup.test.js', () => {
         k++
       }
 
-      if (checkText === l10n.messages.LABEL_POPUP_OPTIONS) {
-        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_OPTIONS)
-        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_OPTIONS)
+      if (checkText === l10n.messages.LABEL_POPUP_OPTIONS.get()) {
+        expect(tooltipsHeader.at(i).vm.tooltipText).toEqual(l10n.messages.TOOLTIP_SHOW_OPTIONS.get())
+        expect(tooltipsHeader.at(i).find('.tooltiptext').text()).toEqual(l10n.messages.TOOLTIP_SHOW_OPTIONS.get())
         tooltipsHeader.at(i).find('button').trigger('click')
 
         await Vue.nextTick()
@@ -210,7 +210,7 @@ describe('popup.test.js', () => {
     expect(cmp.find('.alpheios-popup__morph-cont-ready').exists()).toBeTruthy()
     expect(cmp.find('.alpheios-popup__morph-cont-providers').exists()).toBeFalsy()
 
-    expect(cmp.vm.providersLinkText).toEqual(l10n.messages.LABEL_POPUP_SHOWCREDITS)
+    expect(cmp.vm.providersLinkText).toEqual(l10n.messages.LABEL_POPUP_SHOWCREDITS.get())
   })
 
   it('4.2 Popup - check showProviders functions', async () => {
@@ -236,7 +236,7 @@ describe('popup.test.js', () => {
     expect(cmp.vm.data.showProviders).toBeTruthy()
     expect(cmp.find('.alpheios-popup__morph-cont-providers').exists()).toBeTruthy()
 
-    expect(cmp.vm.providersLinkText).toEqual(l10n.messages.LABEL_POPUP_HIDECREDITS)
+    expect(cmp.vm.providersLinkText).toEqual(l10n.messages.LABEL_POPUP_HIDECREDITS.get())
 
     expect(cmp.findAll('.alpheios-popup__morph-cont-providers .alpheios-popup__morph-cont-providers-source').at(0).text()).toEqual('Provider1')
     expect(cmp.findAll('.alpheios-popup__morph-cont-providers .alpheios-popup__morph-cont-providers-source').at(1).text()).toEqual('Provider2')
@@ -313,7 +313,7 @@ describe('popup.test.js', () => {
       propsData: curProps
     })
 
-    let placeholder1 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_POPUP_DATA)
+    let placeholder1 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_POPUP_DATA.get())
 
     expect(placeholder1.exists()).toBeTruthy()
     expect(placeholder1.at(0).element.style.display).not.toEqual('none')
@@ -366,7 +366,7 @@ describe('popup.test.js', () => {
     let cmp = mount(Popup, {
       propsData: curProps
     })
-    let placeholder2 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA)
+    let placeholder2 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_LANGUAGE_POPUP_DATA.get())
     expect(placeholder2.exists()).toBeTruthy()
     expect(placeholder2.at(0).element.style.display).not.toEqual('none')
     expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
@@ -392,7 +392,7 @@ describe('popup.test.js', () => {
     let cmp = mount(Popup, {
       propsData: curProps
     })
-    let placeholder3 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_DATA_POPUP_DATA)
+    let placeholder3 = cmp.findAll('.alpheios-popup__definitions--placeholder').filter(elm => elm.text() === l10n.messages.PLACEHOLDER_NO_DATA_POPUP_DATA.get())
     expect(placeholder3.exists()).toBeTruthy()
     expect(placeholder3.at(0).element.style.display).not.toEqual('none')
     expect(cmp.find('.alpheios-popup__morph-cont-ready').element.style.display).toEqual('none')
@@ -649,7 +649,7 @@ describe('popup.test.js', () => {
     expect(res).toEqual('foounknown')
 
     res = cmp.vm.ln10Messages('TOOLTIP_POPUP_CLOSE')
-    expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE)
+    expect(res).toEqual(l10n.messages.TOOLTIP_POPUP_CLOSE.get())
   })
 
   //  it('11 Popup - check required props', () => {

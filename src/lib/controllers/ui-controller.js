@@ -433,7 +433,7 @@ export default class UIController {
           } else if (this.panelData.infoComponentData.languageName) {
             languageName = this.panelData.infoComponentData.languageName
           } else {
-            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.panelData.notification.important = true
@@ -494,7 +494,7 @@ export default class UIController {
           //    { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
           // ]
           // }).getData()
-          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS)
+          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS.get())
         },
 
         settingChange: function (name, value) {
@@ -687,7 +687,7 @@ export default class UIController {
           } else if (this.popupData.currentLanguageName) {
             languageName = this.popupData.currentLanguageName
           } else {
-            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.popupData.notification.important = true
@@ -1062,7 +1062,7 @@ export default class UIController {
       this.panel.panelData.grammarRes = urls[0]
       this.panel.panelData.grammarAvailable = true
     } else {
-      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
+      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get() }
     }
     // todo show TOC or not found
   }
@@ -1172,7 +1172,7 @@ export default class UIController {
 
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
-      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY.get())
     }
     this.panel.panelData.inflectionsWaitState = false
     this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
@@ -1326,7 +1326,7 @@ export default class UIController {
 
         this.setTargetRect(htmlSelector.targetRect)
         this.newLexicalRequest(textSelector.languageID)
-        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS.get())
         this.showStatusInfo(textSelector.normalizedText, textSelector.languageID)
         this.updateLanguage(textSelector.languageID)
         this.updateWordAnnotationData(textSelector.data)
@@ -1375,13 +1375,13 @@ export default class UIController {
       case LexicalQuery.resultStatus.SUCCEEDED:
         this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
       case LexicalQuery.resultStatus.FAILED:
         this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
       default:
@@ -1391,11 +1391,11 @@ export default class UIController {
   }
 
   onMorphDataReady () {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY.get())
   }
 
   onMorphDataNotFound () {
-    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND.get())
     // Need to notify a UI controller that there is no morph data on this word in an analyzer
     // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
     if (this.morphologyDataNotFound) { this.morphologyDataNotFound(true) }
@@ -1424,17 +1424,17 @@ export default class UIController {
 
   onResourceQueryComplete () {
     // We don't check result status for now. We always output the same message.
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE.get())
   }
 
   onGrammarAvailable (data) {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY.get())
     this.updateGrammar(data.url)
   }
 
   onGrammarNotFound () {
     this.updateGrammar()
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get())
   }
 
   onAnnotationsAvailable (data) {

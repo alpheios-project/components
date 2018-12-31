@@ -79,6 +79,11 @@ export default class MessageBundle {
     }
   }
 
+  abbr (messageID, options = undefined) {
+    return this[messageID].abbr(options)
+  }
+
+
   /**
    * Returns a locale of a current message bundle.
    * @return {string} A locale of this message bundle.

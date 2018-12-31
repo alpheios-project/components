@@ -239,6 +239,7 @@ describe('ui-controller.test.js', () => {
     uiC.changeTab('inflection')
 
     for (let tab in uiC.panel.panelData.tabs) {
+      console.info("Test tab",tab)
       if (tab === 'inflection') {
         expect(uiC.panel.panelData.tabs[tab]).toBeTruthy()
       } else {
@@ -349,7 +350,7 @@ describe('ui-controller.test.js', () => {
   it('14 UIController - updateGrammar methods', () => {
     uiC.updateGrammar([])
 
-    let message = l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND
+    let message = l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get()
 
     expect(uiC.panel.panelData.grammarRes).toEqual({ provider: message })
 
