@@ -34,12 +34,19 @@ describe('message-bundle.test.js', () => {
   })
 
   it('2 MessageBundle - get method returns message by id', () => {
-    let mb = new MessageBundle(enUS, Locales.en_US)
-    expect(mb.get('COOKIE_TEST_MESSAGE')).toEqual(mb['COOKIE_TEST_MESSAGE'])
-
+    let mockMessage = { MOCK_MESSAGE : { message:"testfull",abbr:"tf."} }
+    let mb = new MessageBundle(mockMessage, Locales.en_US)
+    expect(mb.get('MOCK_MESSAGE')).toEqual('testfull')
     expect(mb.get('FOO_BAR_TEST')).toEqual(`Not in translation data: "FOO_BAR_TEST"`)
 
     // console.info('*****************mb.get(TEXT_NOTICE_DEFSDATA_READY)', mb.get('TEXT_NOTICE_DEFSDATA_READY'))
     // console.info('*****************mb.messages[TEXT_NOTICE_DEFSDATA_READY]', mb.messages['TEXT_NOTICE_DEFSDATA_READY'])
+  })
+
+  it('3 MessageBundle - abbr method returns abbreviated messabe by id', () => {
+    let mockMessage = { MOCK_MESSAGE : { message:"testfull",abbr:"tf."} }
+    let mb = new MessageBundle(mockMessage, Locales.en_US)
+    expect(mb.get('MOCK_MESSAGE')).toEqual('testfull')
+    expect(mb.abbr('MOCK_MESSAGE')).toEqual('tf.')
   })
 })

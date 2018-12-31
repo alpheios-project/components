@@ -67,11 +67,11 @@ export default class MessageBundle {
    * @returns {string} A formatted message. If message not found, returns a message that contains an error text.
    */
   get (messageID, options = undefined) {
-    if (this[messageID]) {
-      if (typeof this[messageID].format === 'function') {
-        return this[messageID].format(options)
+    if (this.messages[messageID]) {
+      if (typeof this.messages[messageID].format === 'function') {
+        return this.messages[messageID].format(options)
       } else {
-        return this[messageID]
+        return this.messages[messageID].get()
       }
     } else {
       // If message with the ID provided is not in translation data, generate a warning.
@@ -80,7 +80,7 @@ export default class MessageBundle {
   }
 
   abbr (messageID, options = undefined) {
-    return this[messageID].abbr(options)
+    return this.messages[messageID].abbr(options)
   }
 
 
