@@ -9591,6 +9591,13 @@ __webpack_require__.r(__webpack_exports__);
       if (cell.isDataCell) {
         cell.clearRowAndColumnHighlighting()
       }
+    },
+
+    ln10Messages: function (value, defaultValue = 'unknown') {
+      if (this.messages && this.messages[value]) {
+        return this.messages[value].get()
+      }
+      return defaultValue
     }
   },
 
@@ -9604,13 +9611,6 @@ __webpack_require__.r(__webpack_exports__);
       if (this.collapsed !== null) {
         this.state.collapsed = state
       }
-    },
-
-    ln10Messages: function (value, defaultValue = 'unknown') {
-      if (this.messages && this.messages[value]) {
-        return this.messages[value].get()
-      }
-      return defaultValue
     }
   },
 
@@ -30007,8 +30007,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 /* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json");
 var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
-/* harmony import */ var _locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/data.json */ "./locales/en-us/data.json");
-var _locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/data.json */ "./locales/en-us/data.json", 1);
+/* harmony import */ var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json");
+var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json", 1);
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
 /* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
@@ -30272,7 +30272,7 @@ class UIController {
 
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_7__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
-      .addMessages(_locales_en_us_data_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
+      .addMessages(_locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
       .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
       .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
 
@@ -35394,10 +35394,10 @@ module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about
 
 /***/ }),
 
-/***/ "./locales/en-us/data.json":
-/*!*********************************!*\
-  !*** ./locales/en-us/data.json ***!
-  \*********************************/
+/***/ "./locales/en-us/messages-data.json":
+/*!******************************************!*\
+  !*** ./locales/en-us/messages-data.json ***!
+  \******************************************/
 /*! exports provided: adjective, adverb, adverbial, article, conjunction, exclamation, interjection, noun, noun_proper, numeral, particle, prefix, preposition, pronoun, suffix, gerundive, verb, verb_participle, masculine, feminine, neuter, common, animate, inanimate, personal_masculine, animate_masculine, inanimate_masculine, positive, comparitive, superlative, abessive, ablative, absolutive, accusative, addirective, adelative, adessive, allative, antessive, apudessive, aversive, benefactive, caritive, causal, causal_final, comitative, dative, delative, direct, distributive, distributive_temporal, elative, ergative, essive, essive_formal, essive_modal, equative, evitative, exessive, final, formal, genitive, illative, inelative, inessive, instructive, instrumental, instrumental_comitative, intransitive, lative, locative, modal, multiplicative, nominative, partitive, pegative, perlative, possessive, postelative, postdirective, postessive, postpositional, prepositional, privative, prolative, prosecutive, proximative, separative, sociative, subdirective, subessive, subelative, sublative, superdirective, superessive, suppressive, temporal, terminative, translative, vialis, vocative, admirative, cohortative, conditional, declarative, dubitative, energetic, eventive, generic, hypothetical, imperative, indicative, inferential, infinitive, interrogative, jussive, negative, optative, participle, presumptive, renarrative, subjunctive, supine, singular, plural, dual, trial, paucal, singulative, collective, distributive_plural, cardinal, ordinal, numeral_adverb, 1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, aorist, future, future_perfect, imperfect, past_absolute, perfect, pluperfect, plusquamperfect, present, to_be, compounds_of_to_be, taking_ablative, taking_dative, taking_genitive, transitive, impersonal, deponent, semideponent, perfect_definite, active, passive, mediopassive, impersonal_passive, middle, antipassive, reflexive, reciprocal, causative, adjutative, applicative, circumstantial, deponens, irregular, regular, personal, demonstrative, relative, general_relative, indefinite, intensive, default */
 /***/ (function(module) {
 

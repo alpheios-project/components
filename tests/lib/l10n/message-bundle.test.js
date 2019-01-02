@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import MessageBundle from '@/lib/l10n/message-bundle'
 import enUS from '@/locales/en-us/messages.json'
-import enUSData from '@/locales/en-us/data.json'
+import enUSData from '@/locales/en-us/messages-data.json'
 import Locales from '@/locales/locales'
 
 describe('message-bundle.test.js', () => {

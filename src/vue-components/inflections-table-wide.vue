@@ -217,6 +217,13 @@
         if (cell.isDataCell) {
           cell.clearRowAndColumnHighlighting()
         }
+      },
+
+      ln10Messages: function (value, defaultValue = 'unknown') {
+        if (this.messages && this.messages[value]) {
+          return this.messages[value].get()
+        }
+        return defaultValue
       }
     },
 
@@ -230,13 +237,6 @@
         if (this.collapsed !== null) {
           this.state.collapsed = state
         }
-      },
-
-      ln10Messages: function (value, defaultValue = 'unknown') {
-        if (this.messages && this.messages[value]) {
-          return this.messages[value].get()
-        }
-        return defaultValue
       }
     },
 

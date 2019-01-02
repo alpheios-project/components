@@ -236,11 +236,10 @@ describe('ui-controller.test.js', () => {
   })
 
   it('10 UIController - changeTab methods', () => {
-    uiC.changeTab('inflection')
+    uiC.changeTab('options')
 
     for (let tab in uiC.panel.panelData.tabs) {
-      console.info("Test tab",tab)
-      if (tab === 'inflection') {
+      if (tab === 'options') {
         expect(uiC.panel.panelData.tabs[tab]).toBeTruthy()
       } else {
         expect(uiC.panel.panelData.tabs[tab]).toBeFalsy()
