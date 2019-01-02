@@ -1,35 +1,35 @@
 {
-  "INFLECTIONS_HEADER_Number": {
+  "Number": {
     "message": "Number"
   },
-  "INFLECTIONS_HEADER_Case": {
+  "Case": {
     "message": "Case"
   },
-  "INFLECTIONS_HEADER_Declension": {
+  "Declension": {
     "message": "Declension"
   },
-  "INFLECTIONS_HEADER_Declension Stem": {
+  "Declension Stem": {
     "message": "Declension Stem"
   },
-  "INFLECTIONS_HEADER_Gender": {
+  "Gender": {
      "message" : "Gender"
   },
-  "INFLECTIONS_HEADER_Type": {
+  "Type": {
     "message": "Type"
   },
-  "INFLECTIONS_HEADER_Voice": {
+  "Voice": {
     "message": "Voice"
   },
-  "INFLECTIONS_HEADER_Conjugation Stem": {
+  "Conjugation Stem": {
     "message": "Conjugation Stem"
   },
-  "INFLECTIONS_HEADER_Mood": {
+  "Mood": {
     "message": "Mood"
   },
-  "INFLECTIONS_HEADER_Person": {
+  "Person": {
     "message": "Person"
   },
-  "INFLECTIONS_HEADER_Lemma": {
+  "Lemma": {
     "message": "Lemma"
   }
 }

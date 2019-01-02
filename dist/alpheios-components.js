@@ -30264,6 +30264,7 @@ class UIController {
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_7__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
       .addMessages(_locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
+      .addMessages(_locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
       .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
       .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
 
@@ -35400,10 +35401,10 @@ module.exports = {"adjective":{"message":"adjective","abbr":""},"adverb":{"messa
 /*!*************************************************!*\
   !*** ./locales/en-us/messages-inflections.json ***!
   \*************************************************/
-/*! exports provided: INFLECTIONS_HEADER_Number, INFLECTIONS_HEADER_Case, INFLECTIONS_HEADER_Declension, INFLECTIONS_HEADER_Declension Stem, INFLECTIONS_HEADER_Gender, INFLECTIONS_HEADER_Type, INFLECTIONS_HEADER_Voice, INFLECTIONS_HEADER_Conjugation Stem, INFLECTIONS_HEADER_Mood, INFLECTIONS_HEADER_Person, INFLECTIONS_HEADER_Lemma, default */
+/*! exports provided: Number, Case, Declension, Declension Stem, Gender, Type, Voice, Conjugation Stem, Mood, Person, Lemma, default */
 /***/ (function(module) {
 
-module.exports = {"INFLECTIONS_HEADER_Number":{"message":"Number"},"INFLECTIONS_HEADER_Case":{"message":"Case"},"INFLECTIONS_HEADER_Declension":{"message":"Declension"},"INFLECTIONS_HEADER_Declension Stem":{"message":"Declension Stem"},"INFLECTIONS_HEADER_Gender":{"message":"Gender"},"INFLECTIONS_HEADER_Type":{"message":"Type"},"INFLECTIONS_HEADER_Voice":{"message":"Voice"},"INFLECTIONS_HEADER_Conjugation Stem":{"message":"Conjugation Stem"},"INFLECTIONS_HEADER_Mood":{"message":"Mood"},"INFLECTIONS_HEADER_Person":{"message":"Person"},"INFLECTIONS_HEADER_Lemma":{"message":"Lemma"}};
+module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Declension":{"message":"Declension"},"Declension Stem":{"message":"Declension Stem"},"Gender":{"message":"Gender"},"Type":{"message":"Type"},"Voice":{"message":"Voice"},"Conjugation Stem":{"message":"Conjugation Stem"},"Mood":{"message":"Mood"},"Person":{"message":"Person"},"Lemma":{"message":"Lemma"}};
 
 /***/ }),
 

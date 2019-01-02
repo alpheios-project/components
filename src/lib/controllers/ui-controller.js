@@ -240,6 +240,7 @@ export default class UIController {
     this.l10n = new L10n()
       .addMessages(enUS, Locales.en_US)
       .addMessages(enUSData, Locales.en_US)
+      .addMessages(enUSInfl, Locales.en_US)
       .addMessages(enGB, Locales.en_GB)
       .setLocale(Locales.en_US)
 
