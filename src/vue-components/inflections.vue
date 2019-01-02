@@ -118,10 +118,6 @@
         type: Object,
         required: true
       },
-      locale: {
-        type: String,
-        required: true
-      },
       messages: {
         type: Object,
         required: true
@@ -237,15 +233,6 @@
           this.updateWidth()
           // Scroll to top if panel is reopened
           this.navigate('top')
-        }
-      },
-      locale: function () {
-        if (this.data.inflectionData) {
-          this.data.inflectionViewSet.setLocale(this.locale)
-          if (this.selectedView.isRenderable) {
-            // Rendering is not required for component-enabled views
-            this.selectedView.render() // Re-render inflections for a different locale
-          }
         }
       }
     },

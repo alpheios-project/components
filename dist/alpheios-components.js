@@ -8991,14 +8991,13 @@ __webpack_require__.r(__webpack_exports__);
      * @return {View}
      */
     inflView: function (languageID, options) {
-      const locale = 'en-US'
       /*
       Vue rendering algorithm may call this method more then once. To avoid unnecessary re-rendering,
       which might sometimes trigger an infinite loop, rendered views are cached with `options` as a key.
        */
       const key = _lib_utility_comparable_js__WEBPACK_IMPORTED_MODULE_2__["default"].key(options)
       if (!this.views.has(key)) {
-        let view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].getStandardForm(languageID, options, locale)
+        let view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].getStandardForm(languageID, options)
         this.views.set(key, view)
       }
       return this.views.get(key)
@@ -9597,7 +9596,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.messages && this.messages[value]) {
         return this.messages[value].get()
       }
-      return defaultValue
+      return `${defaultValue}-${value}`
     }
   },
 
@@ -9770,10 +9769,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    locale: {
-      type: String,
-      required: true
-    },
     messages: {
       type: Object,
       required: true
@@ -9889,15 +9884,6 @@ __webpack_require__.r(__webpack_exports__);
         this.updateWidth()
         // Scroll to top if panel is reopened
         this.navigate('top')
-      }
-    },
-    locale: function () {
-      if (this.data.inflectionData) {
-        this.data.inflectionViewSet.setLocale(this.locale)
-        if (this.selectedView.isRenderable) {
-          // Rendering is not required for component-enabled views
-          this.selectedView.render() // Re-render inflections for a different locale
-        }
       }
     }
   },
@@ -14797,7 +14783,9 @@ var render = function() {
                                             ]
                                           : _c("span", {
                                               domProps: {
-                                                innerHTML: _vm._s(cell.value)
+                                                innerHTML: _vm._s(
+                                                  _vm.ln10Messages(cell.value)
+                                                )
                                               }
                                             })
                                       ],
@@ -30009,29 +29997,31 @@ __webpack_require__.r(__webpack_exports__);
 var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
 /* harmony import */ var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json");
 var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json", 1);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
-var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
-/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
+/* harmony import */ var _locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-us/messages-inflections.json */ "./locales/en-us/messages-inflections.json");
+var _locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages-inflections.json */ "./locales/en-us/messages-inflections.json", 1);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
+var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
 /* global Event */
 
 
@@ -30042,6 +30032,7 @@ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21___names
 // A panel component
 
 // A popup component
+
 
 
 
@@ -30093,9 +30084,9 @@ class UIController {
   constructor (state, options = {}) {
     this.state = state
     this.options = UIController.setOptions(options, UIController.optionsDefaults)
-    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__, this.options.storageAdapter)
-    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__, this.options.storageAdapter)
-    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
+    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
+    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_22__, this.options.storageAdapter)
+    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
     this.tabState = {
       definitions: false,
@@ -30131,42 +30122,42 @@ class UIController {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
-    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__["default"]()
+    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_28__["default"]()
     switch (uiController.options.textQueryTrigger) {
       case 'dblClick':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"])
         break
       case 'longTap':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"])
         break
       default:
         eventController.registerListener(
-          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], uiController.options.textQueryTrigger
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], uiController.options.textQueryTrigger
         )
     }
 
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'Alpheios_Page_Load')
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], 'Alpheios_Page_Load')
 
     // Attaches an event controller to a UIController instance
     uiController.evc = eventController
 
     // Subscribe to LexicalQuery events
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
     // Subscribe to ResourceQuery events
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
 
     // Subscribe to AnnotationQuery events
-    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     return uiController
   }
@@ -30203,7 +30194,7 @@ class UIController {
         name: 'name',
         version: 'version'
       },
-      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__["default"],
+      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__["default"],
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
@@ -30213,7 +30204,7 @@ class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       template: {
-        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default.a,
+        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_13___default.a,
         panelId: 'alpheios-panel',
         defaultPanelComponent: 'panel',
         popupId: 'alpheios-popup',
@@ -30268,12 +30259,12 @@ class UIController {
     let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     this.siteOptions = this.loadSiteOptions()
 
-    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__["default"].getZIndexMax()
+    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_21__["default"].getZIndexMax()
 
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_7__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
       .addMessages(_locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_GB)
       .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_8__["default"].en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
@@ -30520,7 +30511,7 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(feature, {
+          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create(feature, {
             grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]
           }).getData()
           //, {
@@ -30954,9 +30945,9 @@ class UIController {
    */
   loadSiteOptions () {
     let allSiteOptions = []
-    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__) {
+    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_17__) {
       for (let domain of site.options) {
-        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](domain, this.options.storageAdapter)
+        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_26__["default"](domain, this.options.storageAdapter)
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -31327,7 +31318,7 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_20__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
       let textSelector = htmlSelector.createTextSelector()
 
       if (!textSelector.isEmpty()) {
@@ -31352,7 +31343,7 @@ class UIController {
           })
           .getData() */
 
-        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].create(textSelector, {
+        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
@@ -31399,7 +31390,7 @@ class UIController {
    */
   updateAnnotations () {
     if (this.state.isActive() && this.state.uiIsActive()) {
-      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create({
+      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].create({
         document: document,
         siteOptions: this.siteOptions
       }).getData()
@@ -31408,13 +31399,13 @@ class UIController {
 
   onLexicalQueryComplete (data) {
     switch (data.resultStatus) {
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.SUCCEEDED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].resultStatus.SUCCEEDED:
         this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.FAILED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].resultStatus.FAILED:
         this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
@@ -35402,6 +35393,17 @@ module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about
 /***/ (function(module) {
 
 module.exports = {"adjective":{"message":"adjective","abbr":""},"adverb":{"message":"adverb","abbr":""},"adverbial":{"message":"adverbial","abbr":""},"article":{"message":"article"},"conjunction":{"message":"conjunction"},"exclamation":{"message":"exclamation"},"interjection":{"message":"interjection"},"noun":{"message":"noun"},"noun_proper":{"message":"proper noun"},"numeral":{"message":"numeral"},"particle":{"message":"particle"},"prefix":{"message":"prefix"},"preposition":{"message":"preposition"},"pronoun":{"message":"pronoun"},"suffix":{"message":"suffix"},"gerundive":{"message":"gerundive"},"verb":{"message":"verb"},"verb_participle":{"message":"verb participle"},"masculine":{"message":"masculine","abbr":"m."},"feminine":{"message":"feminine","abbr":"f."},"neuter":{"message":"neuter","abbr":"n."},"common":{"message":"common"},"animate":{"message":"animate"},"inanimate":{"message":"inanimate"},"personal_masculine":{"message":"personal masculine"},"animate_masculine":{"message":"animate masculine"},"inanimate_masculine":{"message":"inanimate masculine"},"positive":{"message":"positive","abbr":"pos."},"comparitive":{"message":"comparative","abbr":"comp"},"superlative":{"message":"superlative","abbr":"super."},"abessive":{"message":"abessive"},"ablative":{"message":"ablative","abbr":"abl."},"absolutive":{"message":"absolutive"},"accusative":{"message":"accusative","abbr":"acc."},"addirective":{"message":"addirective"},"adelative":{"message":"adelative"},"adessive":{"message":"adessive"},"allative":{"message":"allative"},"antessive":{"message":"antessive"},"apudessive":{"message":"apudessive"},"aversive":{"message":"aversive"},"benefactive":{"message":"benefactive"},"caritive":{"message":"caritive"},"causal":{"message":"causal"},"causal_final":{"message":"causal-final"},"comitative":{"message":"comitative"},"dative":{"message":"dative","abbr":"dat."},"delative":{"message":"delative"},"direct":{"message":"direct"},"distributive":{"message":"distributive"},"distributive_temporal":{"message":"distributive-temporal"},"elative":{"message":"elative"},"ergative":{"message":"ergative"},"essive":{"message":"essive"},"essive_formal":{"message":"essive-formal"},"essive_modal":{"message":"essive-modal"},"equative":{"message":"equative"},"evitative":{"message":"evitative"},"exessive":{"message":"exessive"},"final":{"message":"final"},"formal":{"message":"formal"},"genitive":{"message":"genitive","abbr":"gen."},"illative":{"message":"illative"},"inelative":{"message":"inelative"},"inessive":{"message":"inessive"},"instructive":{"message":"instructive"},"instrumental":{"message":"instrumental"},"instrumental_comitative":{"message":"instrumental-comitative"},"intransitive":{"message":"intransitive"},"lative":{"message":"lative"},"locative":{"message":"locative","abbr":"loc."},"modal":{"message":"modal"},"multiplicative":{"message":"multiplicative"},"nominative":{"message":"nominative","abbr":"nom."},"partitive":{"message":"partitive"},"pegative":{"message":"pegative"},"perlative":{"message":"perlative"},"possessive":{"message":"possessive"},"postelative":{"message":"postelative"},"postdirective":{"message":"postdirective"},"postessive":{"message":"postessive"},"postpositional":{"message":"postpositional"},"prepositional":{"message":"prepositional"},"privative":{"message":"privative"},"prolative":{"message":"prolative"},"prosecutive":{"message":"prosecutive"},"proximative":{"message":"proximative"},"separative":{"message":"separative"},"sociative":{"message":"sociative"},"subdirective":{"message":"subdirective"},"subessive":{"message":"subessive"},"subelative":{"message":"subelative"},"sublative":{"message":"sublative"},"superdirective":{"message":"superdirective"},"superessive":{"message":"superessive"},"suppressive":{"message":"suppressive"},"temporal":{"message":"temporal"},"terminative":{"message":"terminative"},"translative":{"message":"translative"},"vialis":{"message":"vialis"},"vocative":{"message":"vocative","abbr":"voc."},"admirative":{"message":"admirative"},"cohortative":{"message":"cohortative"},"conditional":{"message":"conditional"},"declarative":{"message":"declarative"},"dubitative":{"message":"dubitative"},"energetic":{"message":"energetic"},"eventive":{"message":"eventive"},"generic":{"message":"generic"},"hypothetical":{"message":"hypothetical"},"imperative":{"message":"imperative","abbr":"imp."},"indicative":{"message":"indicative","abbr":"ind."},"inferential":{"message":"inferential"},"infinitive":{"message":"infinitive","abbr":"infin."},"interrogative":{"message":"interrogative"},"jussive":{"message":"jussive"},"negative":{"message":"negative"},"optative":{"message":"optative","abbr":"opt."},"participle":{"message":"participle","abbr":"part,"},"presumptive":{"message":"presumptive"},"renarrative":{"message":"renarrative"},"subjunctive":{"message":"subjunctive","abbr":"sub."},"supine":{"message":"supine","abbr":"sup."},"singular":{"message":"singular","abbr":"sing."},"plural":{"message":"plural","abbr":"plur."},"dual":{"message":"dual","abbr":"dl."},"trial":{"message":"trial"},"paucal":{"message":"paucal"},"singulative":{"message":"singulative"},"collective":{"message":"collective"},"distributive_plural":{"message":"distributive plural"},"cardinal":{"message":"cardinal"},"ordinal":{"message":"ordinal"},"numeral_adverb":{"message":"numeral adverb"},"1st":{"message":"1st"},"2nd":{"message":"2nd"},"3rd":{"message":"3rd"},"4th":{"message":"4th"},"5th":{"message":"5th"},"6th":{"message":"6th"},"7th":{"message":"7th"},"8th":{"message":"8th"},"9th":{"message":"9th"},"aorist":{"message":"aorist","abbr":"aor."},"future":{"message":"future","abbr":"fut."},"future_perfect":{"message":"future perfect","abbr":"fut. perf."},"imperfect":{"message":"imperfect","abbr":"impf."},"past_absolute":{"message":"past absolute"},"perfect":{"message":"perfect","abbr":"perf."},"pluperfect":{"message":"pluperfect","abbr":"plup."},"plusquamperfect":{"message":"plusquamperfect","abbr":"pqpf."},"present":{"message":"present","abbr":"pres."},"to_be":{"message":"to be"},"compounds_of_to_be":{"message":"compounds of to be"},"taking_ablative":{"message":"taking ablative"},"taking_dative":{"message":"taking dative"},"taking_genitive":{"message":"taking genitive"},"transitive":{"message":"transitive"},"impersonal":{"message":"impersonal"},"deponent":{"message":"deponent"},"semideponent":{"message":"semideponent"},"perfect_definite":{"message":"perfect definite"},"active":{"message":"active","abbr":"act."},"passive":{"message":"passive","abbr":"pass."},"mediopassive":{"message":"mediopassive","abbr":"mp."},"impersonal_passive":{"message":"impersonal passive"},"middle":{"message":"middle","abbr":"mid."},"antipassive":{"message":"antipassive"},"reflexive":{"message":"reflexive"},"reciprocal":{"message":"reciprocal"},"causative":{"message":"causative"},"adjutative":{"message":"adjutative"},"applicative":{"message":"applicative"},"circumstantial":{"message":"circumstantial"},"deponens":{"message":"deponen","abbr":"dep."},"irregular":{"message":"irregular"},"regular":{"message":"regular"},"personal":{"message":"personal"},"demonstrative":{"message":"demonstrative"},"relative":{"message":"relative"},"general_relative":{"message":"general relative"},"indefinite":{"message":"indefinite"},"intensive":{"message":"intensive"}};
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-inflections.json":
+/*!*************************************************!*\
+  !*** ./locales/en-us/messages-inflections.json ***!
+  \*************************************************/
+/*! exports provided: INFLECTIONS_HEADER_Number, INFLECTIONS_HEADER_Case, INFLECTIONS_HEADER_Declension, INFLECTIONS_HEADER_Declension Stem, INFLECTIONS_HEADER_Gender, INFLECTIONS_HEADER_Type, INFLECTIONS_HEADER_Voice, INFLECTIONS_HEADER_Conjugation Stem, INFLECTIONS_HEADER_Mood, INFLECTIONS_HEADER_Person, INFLECTIONS_HEADER_Lemma, default */
+/***/ (function(module) {
+
+module.exports = {"INFLECTIONS_HEADER_Number":{"message":"Number"},"INFLECTIONS_HEADER_Case":{"message":"Case"},"INFLECTIONS_HEADER_Declension":{"message":"Declension"},"INFLECTIONS_HEADER_Declension Stem":{"message":"Declension Stem"},"INFLECTIONS_HEADER_Gender":{"message":"Gender"},"INFLECTIONS_HEADER_Type":{"message":"Type"},"INFLECTIONS_HEADER_Voice":{"message":"Voice"},"INFLECTIONS_HEADER_Conjugation Stem":{"message":"Conjugation Stem"},"INFLECTIONS_HEADER_Mood":{"message":"Mood"},"INFLECTIONS_HEADER_Person":{"message":"Person"},"INFLECTIONS_HEADER_Lemma":{"message":"Lemma"}};
 
 /***/ }),
 

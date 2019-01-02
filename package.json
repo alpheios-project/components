@@ -32,7 +32,7 @@
     "alpheios-client-adapters": "github:alpheios-project/client-adapters",
     "alpheios-data-models": "github:alpheios-project/data-models#i18n",
     "alpheios-experience": "github:alpheios-project/experience",
-    "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
+    "alpheios-inflection-tables": "github:alpheios-project/inflection-tables#i18n",
     "alpheios-node-build": "github:alpheios-project/node-build",
     "alpheios-res-client": "github:alpheios-project/res-client",
     "autoprefixer": "^9.4.2",
