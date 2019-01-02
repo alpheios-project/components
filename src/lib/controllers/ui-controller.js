@@ -143,6 +143,7 @@ export default class UIController {
     LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
+    WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onHomonymReady.bind(uiController))
 
     return uiController
   }
@@ -1418,6 +1419,7 @@ export default class UIController {
   }
 
   onHomonymReady (homonym) {
+    console.info('*********************onHomonymReady', homonym)
     this.updateMorphology(homonym)
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer

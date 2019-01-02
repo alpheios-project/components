@@ -30766,6 +30766,7 @@ class UIController {
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
+    alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onHomonymReady.bind(uiController))
 
     return uiController
   }
@@ -31472,7 +31473,7 @@ class UIController {
     this.updateLemmaTranslations()
     this.notifyInflectionBrowser()
 
-    this.wordlistC.initLists()
+    if (this.wordlistC) { this.wordlistC.initLists() }
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
@@ -32041,6 +32042,7 @@ class UIController {
   }
 
   onHomonymReady (homonym) {
+    console.info('*********************onHomonymReady', homonym)
     this.updateMorphology(homonym)
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer
@@ -33933,11 +33935,11 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
-      console.info('**********************result.value', result.value)
+      // console.info('**********************result.value', result.value)
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
-          console.info('**********************resolvedValue', resolvedValue)
+          // console.info('**********************resolvedValue', resolvedValue)
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
@@ -34067,7 +34069,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
 
     yield 'Finalizing'
-    console.info('*********************Finalizing')
+    // console.info('*********************Finalizing')
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
     }

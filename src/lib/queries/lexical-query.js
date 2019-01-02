@@ -27,11 +27,11 @@ export default class LexicalQuery extends Query {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
-      console.info('**********************result.value', result.value)
+      // console.info('**********************result.value', result.value)
       if (Query.isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
-          console.info('**********************resolvedValue', resolvedValue)
+          // console.info('**********************resolvedValue', resolvedValue)
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
@@ -161,7 +161,7 @@ export default class LexicalQuery extends Query {
     }
 
     yield 'Finalizing'
-    console.info('*********************Finalizing')
+    // console.info('*********************Finalizing')
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
     }
