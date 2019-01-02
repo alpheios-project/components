@@ -14391,7 +14391,11 @@ var render = function() {
               staticClass: "infl-supp-tbl__reflink",
               on: { click: _vm.navigate }
             },
-            [_vm._v(_vm._s(_vm.messages.INFLECTIONS_MAIN_TABLE_LINK_TEXT))]
+            [
+              _vm._v(
+                _vm._s(_vm.messages.get(_vm.INFLECTIONS_MAIN_TABLE_LINK_TEXT))
+              )
+            ]
           )
         ])
       ])
