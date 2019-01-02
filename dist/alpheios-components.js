@@ -14393,7 +14393,7 @@ var render = function() {
             },
             [
               _vm._v(
-                _vm._s(_vm.messages.get(_vm.INFLECTIONS_MAIN_TABLE_LINK_TEXT))
+                _vm._s(_vm.messages.INFLECTIONS_MAIN_TABLE_LINK_TEXT.get())
               )
             ]
           )
