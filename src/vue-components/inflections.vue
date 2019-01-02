@@ -60,7 +60,6 @@
                 <sub-tables-wide :view="selectedView" @navigate="navigate" :collapsed="false"></sub-tables-wide>
 
                 <div v-show="selectedView.hasSuppParadigms" class="alpheios-inflections__supp-tables">
-                    <h3 class="alpheios-inflections__title">{{ln10Messages('INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER')}}</h3>
                     <template v-for="paradigm of selectedView.suppParadigms">
                         <supp-tables-wide :data="paradigm"
                                           :bg-color="selectedView.hlSuppParadigms ? selectedView.suppHlColors.get(paradigm.paradigmID) : 'transparent'"

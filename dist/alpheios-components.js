@@ -9729,7 +9729,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 // Subcomponents
 
@@ -15130,20 +15129,6 @@ var render = function() {
                         staticClass: "alpheios-inflections__supp-tables"
                       },
                       [
-                        _c(
-                          "h3",
-                          { staticClass: "alpheios-inflections__title" },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                _vm.ln10Messages(
-                                  "INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER"
-                                )
-                              )
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
                         _vm._l(_vm.selectedView.suppParadigms, function(
                           paradigm
                         ) {
