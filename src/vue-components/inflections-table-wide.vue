@@ -51,7 +51,7 @@
                                         <template v-if="index < cell.morphemes.length-1">, </template>
                                     </template>
                                 </template>
-                                <span v-else v-html="ln10Messages(cell.value)"></span>
+                                <span v-else v-html="ln10Messages(cell.value,cell.value)"></span>
                             </div>
                         </template>
                     </div>
@@ -223,7 +223,7 @@
         if (this.messages && this.messages[value]) {
           return this.messages[value].get()
         }
-        return `${defaultValue}-${value}`
+        return defaultValue
       }
     },
 

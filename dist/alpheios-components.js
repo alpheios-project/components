@@ -9596,7 +9596,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.messages && this.messages[value]) {
         return this.messages[value].get()
       }
-      return `${defaultValue}-${value}`
+      return defaultValue
     }
   },
 
@@ -9939,6 +9939,13 @@ __webpack_require__.r(__webpack_exports__);
           console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
         }
       }
+    },
+
+    ln10Messages: function (value, defaultValue = 'unknown') {
+      if (this.messages && this.messages[value]) {
+        return this.messages[value].get()
+      }
+      return defaultValue
     }
   },
 
@@ -14784,7 +14791,10 @@ var render = function() {
                                           : _c("span", {
                                               domProps: {
                                                 innerHTML: _vm._s(
-                                                  _vm.ln10Messages(cell.value)
+                                                  _vm.ln10Messages(
+                                                    cell.value,
+                                                    cell.value
+                                                  )
                                                 )
                                               }
                                             })
@@ -14880,7 +14890,9 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(
-                              _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS.get()
+                              _vm.ln10Messages(
+                                "PLACEHOLDER_INFLECT_IN_PROGRESS"
+                              )
                             ) +
                             "\n                    "
                         )
@@ -14911,7 +14923,9 @@ var render = function() {
                 },
                 [
                   _c("label", { staticClass: "uk-form-label" }, [
-                    _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS.get()))
+                    _vm._v(
+                      _vm._s(_vm.ln10Messages("LABEL_INFLECT_SELECT_POFS"))
+                    )
                   ]),
                   _vm._v(" "),
                   _c(
@@ -15122,7 +15136,9 @@ var render = function() {
                           [
                             _vm._v(
                               _vm._s(
-                                _vm.messages.INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER.get()
+                                _vm.ln10Messages(
+                                  "INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER"
+                                )
                               )
                             )
                           ]
@@ -15170,7 +15186,7 @@ var render = function() {
                     { staticClass: "alpheios-inflections__credits-title" },
                     [
                       _vm._v(
-                        _vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE.get())
+                        _vm._s(_vm.ln10Messages("INFLECTIONS_CREDITS_TITLE"))
                       )
                     ]
                   ),
@@ -15189,7 +15205,7 @@ var render = function() {
         : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
             _vm._v(
               "\n        " +
-                _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE.get()) +
+                _vm._s(_vm.ln10Messages("PLACEHOLDER_INFLECT_UNAVAILABLE")) +
                 "\n    "
             )
           ])
