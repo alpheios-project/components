@@ -79,8 +79,23 @@ export default class MessageBundle {
     }
   }
 
+  /**
+   * Returns an abbreviated version of a message for a message ID provided.
+   * @param messageID - An ID of a message.
+   * @param options - Options that can be used for message formatting in the following format:
+   * {
+   *     paramOneName: paramOneValue,
+   *     paramTwoName: paramTwoValue
+   * }.
+   * @returns {string} An abbreviated, and possibly formatted, message. If message not found, returns a message that contains an error text.
+   */
   abbr (messageID, options = undefined) {
-    return this.messages[messageID].abbr(options)
+    if (this.messages[messageID]) {
+      return this.messages[messageID].abbr(options)
+    } else {
+      // If message with the ID provided is not in translation data, generate a warning.
+      return `Not in translation data: "${messageID}"`
+    }
   }
 
 

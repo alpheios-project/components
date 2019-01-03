@@ -44,7 +44,7 @@ describe('message-bundle.test.js', () => {
     // console.info('*****************mb.messages[TEXT_NOTICE_DEFSDATA_READY]', mb.messages['TEXT_NOTICE_DEFSDATA_READY'])
   })
 
-  it('3 MessageBundle - abbr method returns abbreviated messabe by id', () => {
+  it('3 MessageBundle - abbr method returns abbreviated message by id', () => {
     let mockMessage = { MOCK_MESSAGE : { message:"testfull",abbr:"tf."} }
     let mb = new MessageBundle(mockMessage, Locales.en_US)
     expect(mb.get('MOCK_MESSAGE')).toEqual('testfull')
@@ -54,5 +54,11 @@ describe('message-bundle.test.js', () => {
   it('4 MessageBundle - parses data messages', () => {
       let l = new MessageBundle(enUSData, Locales.en_US)
       expect(l.get('noun')).toEqual('noun')
+  })
+
+  it('5 MessageBundle - abbr method handles abbreviated message request missing id', () => {
+    let mockMessage = { MOCK_MESSAGE : { message:"testfull",abbr:"tf."} }
+    let mb = new MessageBundle(mockMessage, Locales.en_US)
+    expect(mb.abbr('MISSING_MESSAGE')).toEqual('Not in translation data: "MISSING_MESSAGE"')
   })
 })
