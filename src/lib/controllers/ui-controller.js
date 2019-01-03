@@ -143,7 +143,7 @@ export default class UIController {
     LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
-    WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onHomonymReady.bind(uiController))
+    WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
     return uiController
   }
@@ -1437,7 +1437,6 @@ export default class UIController {
   }
 
   onDefinitionsReady (data) {
-    console.info('************************update definitions')
     this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(data.requestType, data.word))
     this.updateDefinitions(data.homonym)
   }
@@ -1463,6 +1462,18 @@ export default class UIController {
 
   onAnnotationsAvailable (data) {
     this.updatePageAnnotationData(data.annotations)
+  }
+
+  onWordItemSelected (homonym) {
+    let languageID = homonym.lexemes[0].lemma.languageID
+
+    this.newLexicalRequest(languageID)
+    this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+    this.showStatusInfo(homonym.targetWord, languageID)
+    this.updateLanguage(languageID)
+    this.updateWordAnnotationData()
+
+    this.onHomonymReady(homonym)
   }
 }
 

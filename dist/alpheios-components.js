@@ -8478,6 +8478,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'InflectionAttribute',
@@ -10489,9 +10493,10 @@ __webpack_require__.r(__webpack_exports__);
       let letters = "abcdefghijklmnopqrstuvwxyz"
       return letters.substr(index, 1) + '.'
     },
-    featureList(lemma,features,name) {
+    featureList(lemma, features, name) {       
       let list = features.map(i => lemma.features[i] ? lemma.features[i]: null).filter(i => i)
       list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
+
       let returnObj = {}
       returnObj[name] = { value: list }
       return returnObj
@@ -30766,7 +30771,7 @@ class UIController {
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
-    alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onHomonymReady.bind(uiController))
+    alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
     return uiController
   }
@@ -32060,7 +32065,6 @@ class UIController {
   }
 
   onDefinitionsReady (data) {
-    console.info('************************update definitions')
     this.addMessage(this.l10n.messages.TEXT_NOTICE_DEFSDATA_READY.get(data.requestType, data.word))
     this.updateDefinitions(data.homonym)
   }
@@ -32086,6 +32090,18 @@ class UIController {
 
   onAnnotationsAvailable (data) {
     this.updatePageAnnotationData(data.annotations)
+  }
+
+  onWordItemSelected (homonym) {
+    let languageID = homonym.lexemes[0].lemma.languageID
+
+    this.newLexicalRequest(languageID)
+    this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+    this.showStatusInfo(homonym.targetWord, languageID)
+    this.updateLanguage(languageID)
+    this.updateWordAnnotationData()
+
+    this.onHomonymReady(homonym)
   }
 }
 

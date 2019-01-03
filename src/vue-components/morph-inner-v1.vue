@@ -216,9 +216,10 @@
         let letters = "abcdefghijklmnopqrstuvwxyz"
         return letters.substr(index, 1) + '.'
       },
-      featureList(lemma,features,name) {
+      featureList(lemma, features, name) {       
         let list = features.map(i => lemma.features[i] ? lemma.features[i]: null).filter(i => i)
         list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
+
         let returnObj = {}
         returnObj[name] = { value: list }
         return returnObj
