@@ -32287,8 +32287,8 @@ class MessageBundle {
   }
 
   /**
-   * Appends a series of messages from a JSON string
-   * @param {string} messagesJSON - A JSON string
+   * Appends a series of messages to the bundle
+   * @param {string} messagesJSON - Messages as a JSON string or as a parsed JSON object
    */
   appendFromJSON (messagesJSON) {
     let messages = (typeof messagesJSON === 'string') ? JSON.parse(messagesJSON) : messagesJSON
@@ -32335,8 +32335,23 @@ class MessageBundle {
     }
   }
 
+  /**
+   * Returns an abbreviated version of a message for a message ID provided.
+   * @param messageID - An ID of a message.
+   * @param options - Options that can be used for message formatting in the following format:
+   * {
+   *     paramOneName: paramOneValue,
+   *     paramTwoName: paramTwoValue
+   * }.
+   * @returns {string} An abbreviated, and possibly formatted, message. If message not found, returns a message that contains an error text.
+   */
   abbr (messageID, options = undefined) {
-    return this.messages[messageID].abbr(options)
+    if (this.messages[messageID]) {
+      return this.messages[messageID].abbr(options)
+    } else {
+      // If message with the ID provided is not in translation data, generate a warning.
+      return `Not in translation data: "${messageID}"`
+    }
   }
 
 
