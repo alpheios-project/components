@@ -745,7 +745,7 @@
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
         stroke: $alpheios-link-color-dark-bg;
-        margin: 10px 15px;
+        margin: 10px 10px;
 
         svg {
             width: 20px;

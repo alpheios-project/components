@@ -112,6 +112,7 @@ export default class HTMLSelector extends MediaSelector {
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
+    console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 

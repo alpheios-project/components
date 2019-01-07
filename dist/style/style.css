@@ -524,7 +524,8 @@
   /* Small
  ========================================================================== */
   /*
- * Reset child height, caused by `inline-block`
+ * Fix height of `hr` element not being expanded by child border width.
+ * `height` also needed to reset the child `line-height` caused by `inline-block`
  */
   /* Vertical
  ========================================================================== */
@@ -1047,6 +1048,21 @@
  */
   /* Size modifier
  ========================================================================== */
+  /* Expand modifier
+ ========================================================================== */
+  /*
+ * Expand one side only
+ */
+  /* Phone landscape and bigger */
+  /* Tablet landscape and bigger */
+  /* Item
+ ========================================================================== */
+  /*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+  /* Phone landscape and bigger */
+  /* Tablet landscape and bigger */
   /* ========================================================================
    Component: Grid
  ========================================================================== */
@@ -2750,8 +2766,7 @@
  ========================================================================== */
   /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
- * 2. Fix text wrapping for Firefox
+ * 1. Fix text wrapping if content is larger than 50% of the container.
  */
   /* Vertical */
   /* Horizontal */
@@ -3085,10 +3100,10 @@
   .auk .uk-breakpoint-xl::before {
     content: "1600px"; }
   .auk :root {
-    --uk-breakpoint-s: $breakpoint-small;
-    --uk-breakpoint-m: $breakpoint-medium;
-    --uk-breakpoint-l: $breakpoint-large;
-    --uk-breakpoint-xl: $breakpoint-xlarge; }
+    --uk-breakpoint-s: 640px;
+    --uk-breakpoint-m: 960px;
+    --uk-breakpoint-l: 1200px;
+    --uk-breakpoint-xl: 1600px; }
   .auk a.uk-link-muted,
   .auk .uk-link-muted a {
     color: #999; }
@@ -3200,7 +3215,7 @@
     left: calc(50% + (50px / 2));
     width: 100%; }
   .auk .uk-divider-small {
-    line-height: 0; }
+    height: 1px; }
   .auk .uk-divider-small::after {
     content: "";
     display: inline-block;
@@ -4049,8 +4064,8 @@
   .auk .uk-section-secondary {
     background: #222; }
   .auk .uk-container {
-    box-sizing: content-box;
     /* 1 */
+    box-sizing: content-box;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -4083,6 +4098,53 @@
     max-width: 1600px; }
   .auk .uk-container-expand {
     max-width: none; }
+  .auk .uk-container-expand-left {
+    margin-left: 0; }
+  .auk .uk-container-expand-right {
+    margin-right: 0; }
+  @media (min-width: 640px) {
+    .auk .uk-container-expand-left.uk-container-xsmall,
+    .auk .uk-container-expand-right.uk-container-xsmall {
+      max-width: calc(50% + (750px / 2) - 30px); }
+    .auk .uk-container-expand-left.uk-container-small,
+    .auk .uk-container-expand-right.uk-container-small {
+      max-width: calc(50% + (900px / 2) - 30px); } }
+  @media (min-width: 960px) {
+    .auk .uk-container-expand-left,
+    .auk .uk-container-expand-right {
+      max-width: calc(50% + (1200px / 2) - 40px); }
+    .auk .uk-container-expand-left.uk-container-xsmall,
+    .auk .uk-container-expand-right.uk-container-xsmall {
+      max-width: calc(50% + (750px / 2) - 40px); }
+    .auk .uk-container-expand-left.uk-container-small,
+    .auk .uk-container-expand-right.uk-container-small {
+      max-width: calc(50% + (900px / 2) - 40px); }
+    .auk .uk-container-expand-left.uk-container-large,
+    .auk .uk-container-expand-right.uk-container-large {
+      max-width: calc(50% + (1600px / 2) - 40px); } }
+  .auk .uk-container-item-padding-remove-left,
+  .auk .uk-container-item-padding-remove-right {
+    width: calc(100% + 15px); }
+  .auk .uk-container-item-padding-remove-left {
+    margin-left: -15px; }
+  .auk .uk-container-item-padding-remove-right {
+    margin-right: -15px; }
+  @media (min-width: 640px) {
+    .auk .uk-container-item-padding-remove-left,
+    .auk .uk-container-item-padding-remove-right {
+      width: calc(100% + 30px); }
+    .auk .uk-container-item-padding-remove-left {
+      margin-left: -30px; }
+    .auk .uk-container-item-padding-remove-right {
+      margin-right: -30px; } }
+  @media (min-width: 960px) {
+    .auk .uk-container-item-padding-remove-left,
+    .auk .uk-container-item-padding-remove-right {
+      width: calc(100% + 40px); }
+    .auk .uk-container-item-padding-remove-left {
+      margin-left: -40px; }
+    .auk .uk-container-item-padding-remove-right {
+      margin-right: -40px; } }
   .auk .uk-grid {
     display: flex;
     /* 1 */
@@ -5849,13 +5911,14 @@
       margin: 0; } }
   .auk .uk-notification-message {
     position: relative;
-    margin-bottom: 10px;
     padding: 15px;
     background: #f8f8f8;
     color: #666666;
     font-size: 1.25rem;
     line-height: 1.4;
     cursor: pointer; }
+  .auk * + .uk-notification-message {
+    margin-top: 10px; }
   .auk .uk-notification-close {
     display: none;
     position: absolute;
@@ -7377,9 +7440,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content;
+    width: max-content;
     max-width: 100%;
     box-sizing: border-box; }
   .auk [class*='uk-position-center-left'],
@@ -7392,18 +7454,19 @@
     right: 0; }
   .auk .uk-position-center-left-out {
     right: 100%;
+    width: -moz-max-content;
     width: max-content; }
   .auk .uk-position-center-right-out {
     left: 100%;
+    width: -moz-max-content;
     width: max-content; }
   .auk .uk-position-top-center,
   .auk .uk-position-bottom-center {
     left: 50%;
     transform: translateX(-50%);
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content;
+    width: max-content;
     max-width: 100%;
     box-sizing: border-box; }
   .auk .uk-position-top-center {
@@ -7425,6 +7488,7 @@
   .auk .uk-position-z-index {
     z-index: 1; }
   .auk .uk-position-small {
+    max-width: calc(100% - (15px * 2));
     margin: 15px; }
   .auk .uk-position-small.uk-position-center {
     transform: translate(-50%, -50%) translate(-15px, -15px); }
@@ -7435,6 +7499,7 @@
   .auk .uk-position-small.uk-position-bottom-center {
     transform: translateX(-50%) translateX(-15px); }
   .auk .uk-position-medium {
+    max-width: calc(100% - (30px * 2));
     margin: 30px; }
   .auk .uk-position-medium.uk-position-center {
     transform: translate(-50%, -50%) translate(-30px, -30px); }
@@ -7445,6 +7510,7 @@
   .auk .uk-position-medium.uk-position-bottom-center {
     transform: translateX(-50%) translateX(-30px); }
   .auk .uk-position-large {
+    max-width: calc(100% - (30px * 2));
     margin: 30px; }
   .auk .uk-position-large.uk-position-center {
     transform: translate(-50%, -50%) translate(-30px, -30px); }
@@ -7456,6 +7522,7 @@
     transform: translateX(-50%) translateX(-30px); }
   @media (min-width: 1200px) {
     .auk .uk-position-large {
+      max-width: calc(100% - (50px * 2));
       margin: 50px; }
     .auk .uk-position-large.uk-position-center {
       transform: translate(-50%, -50%) translate(-50px, -50px); }
@@ -10058,7 +10125,7 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   cursor: pointer;
   fill: #D1D1D0;
   stroke: #D1D1D0;
-  margin: 10px 15px;
+  margin: 10px 10px;
 }
 .alpheios-panel__header-action-btn svg,
   .alpheios-panel__header-action-btn.active:hover svg,
