@@ -890,7 +890,7 @@
         cursor: pointer;
         background: transparent no-repeat center center;
         background-size: contain;
-        margin: 10px 15px;
+        margin: 10px 10px;
 
         svg {
             width: 20px;

@@ -174,7 +174,9 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
+    console.info('***********doSpaceSeparatedWordSelection this.target', this.target)
     let selection = HTMLSelector.getSelection(this.target)
+    console.info('***********doSpaceSeparatedWordSelection selection', selection)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     let focus = selection.focusNode // A node where the end of a selection
@@ -228,7 +230,9 @@ export default class HTMLSelector extends MediaSelector {
 
     // extract word
     let word = anchorText.substring(wordStart, wordEnd).trim()
-
+    console.info('***********************doSpaceSeparatedWordSelection wordStart', wordStart)
+    console.info('***********************doSpaceSeparatedWordSelection wordEnd', wordEnd)
+    console.info('***********************doSpaceSeparatedWordSelection word', word)
     /* Identify the words preceeding and following the focus word
     * TODO - query the type of node in the selection to see if we are
     * dealing with something other than text nodes

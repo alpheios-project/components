@@ -8294,7 +8294,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
     width: 20px;
     height: 20px;
-    margin: 9px 5px; }
+    margin: 9px 10px; }
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8421,7 +8421,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
     width: 15px;
     height: 15px;
-    margin: 13px 5px; }
+    margin: 13px 10px; }
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8548,7 +8548,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     width: 25px;
     height: 25px;
-    margin: 5px 5px; }
+    margin: 5px 10px; }
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -10248,7 +10248,7 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   cursor: pointer;
   background: transparent no-repeat center center;
   background-size: contain;
-  margin: 10px 15px;
+  margin: 10px 10px;
 }
 .alpheios-panel__header-nav-btn svg {
     width: 20px;
