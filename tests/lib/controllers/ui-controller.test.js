@@ -349,7 +349,7 @@ describe('ui-controller.test.js', () => {
   it('14 UIController - updateGrammar methods', () => {
     uiC.updateGrammar([])
 
-    let message = l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND
+    let message = l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get()
 
     expect(uiC.panel.panelData.grammarRes).toEqual({ provider: message })
 

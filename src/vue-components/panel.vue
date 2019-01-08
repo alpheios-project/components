@@ -552,7 +552,7 @@
 
     ln10Messages: function (value, defaultValue = 'unknown') {
       if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
-        return this.data.l10n.messages[value]
+        return this.data.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -745,7 +745,7 @@
         cursor: pointer;
         fill: $alpheios-link-color-dark-bg;
         stroke: $alpheios-link-color-dark-bg;
-        margin: 10px 15px;
+        margin: 10px 10px;
 
         svg {
             width: 20px;
@@ -890,7 +890,7 @@
         cursor: pointer;
         background: transparent no-repeat center center;
         background-size: contain;
-        margin: 10px 15px;
+        margin: 10px 10px;
 
         svg {
             width: 20px;

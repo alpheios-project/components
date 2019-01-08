@@ -8526,14 +8526,25 @@ __webpack_require__.r(__webpack_exports__);
       return classList.join(' ')
     },
     decorate(data,type) {
-      let decorated = typeof(data[type]) === 'string' ? data[type] : data[type].value
-      if (this.decorators.includes('abbreviate') && data[type].value) {
-        decorated = data[type].toLocaleStringAbbr()
+      let baseValues = []
+      let decoratedValues = []
+      if (typeof(data[type]) === 'string') {
+        baseValues = [data[type]]
+      } else {
+        baseValues = data[type].values
       }
-      if (this.decorators.includes('link') && data[type].value && data[type].value.match(/^http/)) {
-        let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`] : type
-        decorated = `<a class="alpheios-morph__linkedattr" target="_blank" href="${data[type].value}">${linkText}</a>`
+      for (let v of baseValues) {
+        let decorated = v
+        if (this.decorators.includes('abbreviate') && this.messages && this.messages[v]) {
+          decorated = this.messages[v].abbr()
+        }
+        if (this.decorators.includes('link') && decorated.match(/^http/)) {
+          let linkText = this.messages ? this.messages[`INFL_ATTRIBUTE_LINK_TEXT_TYPE`].get() : type
+          decorated = `<a class="alpheios-morph__linkedattr" target="_blank" href="${decorated}">${linkText}</a>`
+        }
+        decoratedValues.push(decorated)
       }
+      let decorated = decoratedValues.join(' ')
       if (this.decorators.includes('appendtype')) {
         decorated = `${decorated} ${type}`
       }
@@ -9000,14 +9011,13 @@ __webpack_require__.r(__webpack_exports__);
      * @return {View}
      */
     inflView: function (languageID, options) {
-      const locale = 'en-US'
       /*
       Vue rendering algorithm may call this method more then once. To avoid unnecessary re-rendering,
       which might sometimes trigger an infinite loop, rendered views are cached with `options` as a key.
        */
       const key = _lib_utility_comparable_js__WEBPACK_IMPORTED_MODULE_2__["default"].key(options)
       if (!this.views.has(key)) {
-        let view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].getStandardForm(languageID, options, locale)
+        let view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_1__["ViewSetFactory"].getStandardForm(languageID, options)
         this.views.set(key, view)
       }
       return this.views.get(key)
@@ -9600,6 +9610,13 @@ __webpack_require__.r(__webpack_exports__);
       if (cell.isDataCell) {
         cell.clearRowAndColumnHighlighting()
       }
+    },
+
+    ln10Messages: function (value, defaultValue = 'unknown') {
+      if (this.messages && this.messages[value]) {
+        return this.messages[value].get()
+      }
+      return defaultValue
     }
   },
 
@@ -9732,7 +9749,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 // Subcomponents
 
@@ -9770,10 +9786,6 @@ __webpack_require__.r(__webpack_exports__);
 
     data: {
       type: Object,
-      required: true
-    },
-    locale: {
-      type: String,
       required: true
     },
     messages: {
@@ -9892,15 +9904,6 @@ __webpack_require__.r(__webpack_exports__);
         // Scroll to top if panel is reopened
         this.navigate('top')
       }
-    },
-    locale: function () {
-      if (this.data.inflectionData) {
-        this.data.inflectionViewSet.setLocale(this.locale)
-        if (this.selectedView.isRenderable) {
-          // Rendering is not required for component-enabled views
-          this.selectedView.render() // Re-render inflections for a different locale
-        }
-      }
     }
   },
 
@@ -9955,6 +9958,13 @@ __webpack_require__.r(__webpack_exports__);
           console.warn(`Cannot find #${reflink} element. Navigation cancelled`)
         }
       }
+    },
+
+    ln10Messages: function (value, defaultValue = 'unknown') {
+      if (this.messages && this.messages[value]) {
+        return this.messages[value].get()
+      }
+      return defaultValue
     }
   },
 
@@ -10233,7 +10243,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'uknown') {
       if (this.uiController && this.uiController.l10n && this.uiController.l10n.messages && this.uiController.l10n.messages[value]) {
-        return this.uiController.l10n.messages[value]
+        return this.uiController.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -10427,6 +10437,10 @@ __webpack_require__.r(__webpack_exports__);
       morphDataReady: {
         type: Boolean,
         required: true
+      },
+      messages: {
+        type: Object,
+        required: false
       }
   },
   data: function () {
@@ -10501,7 +10515,7 @@ __webpack_require__.r(__webpack_exports__);
       list = list.length > 0 ? `(${list.map((f)=>f).join(', ')})` : ''
 
       let returnObj = {}
-      returnObj[name] = { value: list }
+      returnObj[name] = { value: list, values: [list] }
       return returnObj
     },
     languageCode (languageID) {
@@ -10523,6 +10537,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _morph_inner_v1_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./morph-inner-v1.vue */ "./vue-components/morph-inner-v1.vue");
+//
 //
 //
 //
@@ -10571,6 +10586,10 @@ __webpack_require__.r(__webpack_exports__);
       morphDataReady: {
         type: Boolean,
         required: true
+      },
+      messages: {
+        type: Object,
+        required: false
       }
   },
   methods: {
@@ -11192,7 +11211,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'unknown') {
       if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
-        return this.data.l10n.messages[value]
+        return this.data.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -11966,7 +11985,7 @@ __webpack_require__.r(__webpack_exports__);
 
     ln10Messages: function (value, defaultValue = 'unknown') {
       if (this.data && this.data.l10n && this.data.l10n.messages && this.data.l10n.messages[value]) {
-        return this.data.l10n.messages[value]
+        return this.data.l10n.messages[value].get()
       }
       return defaultValue
     },
@@ -14587,7 +14606,11 @@ var render = function() {
               staticClass: "infl-supp-tbl__reflink",
               on: { click: _vm.navigate }
             },
-            [_vm._v(_vm._s(_vm.messages.INFLECTIONS_MAIN_TABLE_LINK_TEXT))]
+            [
+              _vm._v(
+                _vm._s(_vm.messages.INFLECTIONS_MAIN_TABLE_LINK_TEXT.get())
+              )
+            ]
           )
         ])
       ])
@@ -14781,7 +14804,9 @@ var render = function() {
                   [
                     _vm._v(
                       "\n            " +
-                        _vm._s(_vm.messages.INFLECT_MSG_TABLE_NOT_IMPLEMENTED) +
+                        _vm._s(
+                          _vm.ln10Messages("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")
+                        ) +
                         "\n        "
                     )
                   ]
@@ -14821,8 +14846,9 @@ var render = function() {
                                     {
                                       attrs: {
                                         tooltipDirection: "bottom-right",
-                                        tooltipText:
-                                          _vm.messages.TOOLTIP_INFLECT_SHOWFULL
+                                        tooltipText: _vm.ln10Messages(
+                                          "TOOLTIP_INFLECT_SHOWFULL"
+                                        )
                                       }
                                     },
                                     [
@@ -14837,8 +14863,9 @@ var render = function() {
                                           _vm._v(
                                             "\n                            " +
                                               _vm._s(
-                                                _vm.messages
-                                                  .LABEL_INFLECT_SHOWFULL
+                                                _vm.ln10Messages(
+                                                  "LABEL_INFLECT_SHOWFULL"
+                                                )
                                               ) +
                                               "\n                        "
                                           )
@@ -14873,8 +14900,9 @@ var render = function() {
                                     {
                                       attrs: {
                                         tooltipDirection: "bottom-right",
-                                        tooltipText:
-                                          _vm.messages.TOOLTIP_INFLECT_COLLAPSE
+                                        tooltipText: _vm.ln10Messages(
+                                          "TOOLTIP_INFLECT_COLLAPSE"
+                                        )
                                       }
                                     },
                                     [
@@ -14889,8 +14917,9 @@ var render = function() {
                                           _vm._v(
                                             "\n                            " +
                                               _vm._s(
-                                                _vm.messages
-                                                  .LABEL_INFLECT_COLLAPSE
+                                                _vm.ln10Messages(
+                                                  "LABEL_INFLECT_COLLAPSE"
+                                                )
                                               ) +
                                               "\n                        "
                                           )
@@ -14981,7 +15010,12 @@ var render = function() {
                                             ]
                                           : _c("span", {
                                               domProps: {
-                                                innerHTML: _vm._s(cell.value)
+                                                innerHTML: _vm._s(
+                                                  _vm.ln10Messages(
+                                                    cell.value,
+                                                    cell.value
+                                                  )
+                                                )
                                               }
                                             })
                                       ],
@@ -15078,7 +15112,9 @@ var render = function() {
                         _vm._v(
                           "\n                        " +
                             _vm._s(
-                              _vm.messages.PLACEHOLDER_INFLECT_IN_PROGRESS
+                              _vm.ln10Messages(
+                                "PLACEHOLDER_INFLECT_IN_PROGRESS"
+                              )
                             ) +
                             "\n                    "
                         )
@@ -15109,7 +15145,9 @@ var render = function() {
                 },
                 [
                   _c("label", { staticClass: "uk-form-label" }, [
-                    _vm._v(_vm._s(_vm.messages.LABEL_INFLECT_SELECT_POFS))
+                    _vm._v(
+                      _vm._s(_vm.ln10Messages("LABEL_INFLECT_SELECT_POFS"))
+                    )
                   ]),
                   _vm._v(" "),
                   _c(
@@ -15316,19 +15354,6 @@ var render = function() {
                         staticClass: "alpheios-inflections__supp-tables"
                       },
                       [
-                        _c(
-                          "h3",
-                          { staticClass: "alpheios-inflections__title" },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                _vm.messages
-                                  .INFLECTIONS_SUPPLEMENTAL_SECTION_HEADER
-                              )
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
                         _vm._l(_vm.selectedView.suppParadigms, function(
                           paradigm
                         ) {
@@ -15369,7 +15394,11 @@ var render = function() {
                   _c(
                     "h3",
                     { staticClass: "alpheios-inflections__credits-title" },
-                    [_vm._v(_vm._s(_vm.messages.INFLECTIONS_CREDITS_TITLE))]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.ln10Messages("INFLECTIONS_CREDITS_TITLE"))
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("div", {
@@ -15386,7 +15415,7 @@ var render = function() {
         : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
             _vm._v(
               "\n        " +
-                _vm._s(_vm.messages.PLACEHOLDER_INFLECT_UNAVAILABLE) +
+                _vm._s(_vm.ln10Messages("PLACEHOLDER_INFLECT_UNAVAILABLE")) +
                 "\n    "
             )
           ])
@@ -15434,7 +15463,7 @@ var render = function() {
       { staticClass: "alpheios-info__currentlanguage alpheios-text__smallest" },
       [
         _vm._v(
-          _vm._s(_vm.messages.LABEL_INFO_CURRENTLANGUAGE) +
+          _vm._s(_vm.messages.LABEL_INFO_CURRENTLANGUAGE.get()) +
             " " +
             _vm._s(_vm.data.languageName)
         )
@@ -15442,34 +15471,34 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "alpheios-info__helptext" }, [
-      _c("h3", [_vm._v(_vm._s(_vm.messages.TEXT_INFO_GETTINGSTARTED))]),
+      _c("h3", [_vm._v(_vm._s(_vm.messages.TEXT_INFO_GETTINGSTARTED.get()))]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ACTIVATE))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ACTIVATE.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_CLICK))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_CLICK.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_LANGDETECT))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_LANGDETECT.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_SETTINGS))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_SETTINGS.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ARROW))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_ARROW.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_REOPEN))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_REOPEN.get()))
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios-text__small" }, [
-        _vm._v(_vm._s(_vm.messages.TEXT_INFO_DEACTIVATE))
+        _vm._v(_vm._s(_vm.messages.TEXT_INFO_DEACTIVATE.get()))
       ])
     ])
   ])
@@ -15800,7 +15829,8 @@ var render = function() {
                       data: lemma.features,
                       type: _vm.types.pronunciation,
                       linkedfeatures: _vm.linkedfeatures,
-                      decorators: ["brackets"]
+                      decorators: ["brackets"],
+                      messages: _vm.messages
                     }
                   }),
                   _vm._v(" "),
@@ -15820,7 +15850,8 @@ var render = function() {
                                 ["age", "area", "geo", "frequency"],
                                 "extras"
                               ),
-                              type: "extras"
+                              type: "extras",
+                              messages: _vm.messages
                             },
                             on: { sendfeature: _vm.sendFeature }
                           })
@@ -15839,7 +15870,8 @@ var render = function() {
                               data: lemma.features,
                               type: _vm.types.source,
                               linkedfeatures: _vm.linkedfeatures,
-                              decorators: ["link", "brackets"]
+                              decorators: ["link", "brackets"],
+                              messages: _vm.messages
                             },
                             on: { sendfeature: _vm.sendFeature }
                           })
@@ -15865,7 +15897,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.grmCase,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         }),
@@ -15874,7 +15907,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.gender,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         }),
@@ -15883,7 +15917,8 @@ var render = function() {
                           attrs: {
                             data: _vm.lex.lemma.features,
                             type: _vm.types.part,
-                            linkedfeatures: _vm.linkedfeatures
+                            linkedfeatures: _vm.linkedfeatures,
+                            messages: _vm.messages
                           },
                           on: { sendfeature: _vm.sendFeature }
                         })
@@ -15896,7 +15931,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.kind,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["parenthesize"]
+                        decorators: ["parenthesize"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15906,7 +15942,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.declension,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["appendtype"]
+                        decorators: ["appendtype"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15916,7 +15953,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.conjugation,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["appendtype"]
+                        decorators: ["appendtype"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     }),
@@ -15926,7 +15964,8 @@ var render = function() {
                         data: _vm.lex.lemma.features,
                         type: _vm.types.note,
                         linkedfeatures: _vm.linkedfeatures,
-                        decorators: ["brackets"]
+                        decorators: ["brackets"],
+                        messages: _vm.messages
                       },
                       on: { sendfeature: _vm.sendFeature }
                     })
@@ -16057,7 +16096,8 @@ var render = function() {
                                   data: inflset.groupingKey,
                                   type: _vm.types.part,
                                   linkedfeatures: _vm.linkedfeatures,
-                                  grouplevel: 1
+                                  grouplevel: 1,
+                                  messages: _vm.messages
                                 },
                                 on: { sendfeature: _vm.sendFeature }
                               })
@@ -16074,7 +16114,8 @@ var render = function() {
                                   type: _vm.types.declension,
                                   linkedfeatures: _vm.linkedfeatures,
                                   grouplevel: 1,
-                                  decorators: ["appendtype"]
+                                  decorators: ["appendtype"],
+                                  messages: _vm.messages
                                 },
                                 on: { sendfeature: _vm.sendFeature }
                               })
@@ -16098,7 +16139,8 @@ var render = function() {
                                         type: _vm.types.number,
                                         linkedfeatures: _vm.linkedfeatures,
                                         grouplevel: 2,
-                                        decorators: ["abbreviate"]
+                                        decorators: ["abbreviate"],
+                                        messages: _vm.messages
                                       },
                                       on: { sendfeature: _vm.sendFeature }
                                     }),
@@ -16109,7 +16151,8 @@ var render = function() {
                                         type: _vm.types.tense,
                                         linkedfeatures: _vm.linkedfeatures,
                                         grouplevel: 2,
-                                        decorators: ["abbreviate"]
+                                        decorators: ["abbreviate"],
+                                        messages: _vm.messages
                                       },
                                       on: { sendfeature: _vm.sendFeature }
                                     })
@@ -16134,7 +16177,8 @@ var render = function() {
                                               linkedfeatures:
                                                 _vm.linkedfeatures,
                                               grouplevel: 3,
-                                              decorators: ["abbreviate"]
+                                              decorators: ["abbreviate"],
+                                              messages: _vm.messages
                                             },
                                             on: { sendfeature: _vm.sendFeature }
                                           }),
@@ -16146,7 +16190,8 @@ var render = function() {
                                               linkedfeatures:
                                                 _vm.linkedfeatures,
                                               grouplevel: 3,
-                                              decorators: ["abbreviate"]
+                                              decorators: ["abbreviate"],
+                                              messages: _vm.messages
                                             },
                                             on: { sendfeature: _vm.sendFeature }
                                           })
@@ -16166,7 +16211,8 @@ var render = function() {
                                             type: _vm.types.grmCase,
                                             grouplevel: 4,
                                             data: infl.groupingKey,
-                                            decorators: ["abbreviate"]
+                                            decorators: ["abbreviate"],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -16187,7 +16233,8 @@ var render = function() {
                                                 decorators: [
                                                   "parenthesize",
                                                   "abbreviate"
-                                                ]
+                                                ],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16201,7 +16248,8 @@ var render = function() {
                                             type: _vm.types.comparison,
                                             grouplevel: 4,
                                             data: infl.groupingKey,
-                                            decorators: ["abbreviate"]
+                                            decorators: ["abbreviate"],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -16215,7 +16263,8 @@ var render = function() {
                                             decorators: [
                                               "appendtype",
                                               "abbreviate"
-                                            ]
+                                            ],
+                                            messages: _vm.messages
                                           },
                                           on: { sendfeature: _vm.sendFeature }
                                         }),
@@ -16228,7 +16277,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16244,7 +16294,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16260,7 +16311,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16276,7 +16328,8 @@ var render = function() {
                                                 linkedfeatures:
                                                   _vm.linkedfeatures,
                                                 grouplevel: 4,
-                                                decorators: ["abbreviate"]
+                                                decorators: ["abbreviate"],
+                                                messages: _vm.messages
                                               },
                                               on: {
                                                 sendfeature: _vm.sendFeature
@@ -16296,7 +16349,8 @@ var render = function() {
                                                   type: "dialect",
                                                   linkedfeatures:
                                                     _vm.linkedfeatures,
-                                                  decorators: ["parenthesize"]
+                                                  decorators: ["parenthesize"],
+                                                  messages: _vm.messages
                                                 },
                                                 on: {
                                                   sendfeature: _vm.sendFeature
@@ -16308,7 +16362,8 @@ var render = function() {
                                                   data: item,
                                                   type: "example",
                                                   linkedfeatures:
-                                                    _vm.linkedfeatures
+                                                    _vm.linkedfeatures,
+                                                  messages: _vm.messages
                                                 },
                                                 on: {
                                                   sendfeature: _vm.sendFeature
@@ -16387,7 +16442,8 @@ var render = function() {
               ? _vm.definitions[lex.lemma.ID]
               : [],
             linkedfeatures: _vm.linkedfeatures,
-            translations: _vm.translations
+            translations: _vm.translations,
+            messages: _vm.messages
           },
           on: { sendfeature: _vm.sendFeature }
         })
@@ -17450,7 +17506,7 @@ var render = function() {
         "span",
         {
           staticClass: "alpheios-popup__close-btn",
-          attrs: { title: _vm.data.l10n.messages.TOOLTIP_POPUP_CLOSE },
+          attrs: { title: _vm.data.l10n.messages.TOOLTIP_POPUP_CLOSE.get() },
           on: { click: _vm.closePopup }
         },
         [_c("close-icon")],
@@ -17518,7 +17574,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_INFLECT) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_INFLECT.get()) +
                     "\n            "
                 )
               ]
@@ -17545,7 +17601,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_DEFINE) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_DEFINE.get()) +
                     "\n            "
                 )
               ]
@@ -17564,7 +17620,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_OPTIONS) +
+                  _vm._s(_vm.data.l10n.messages.LABEL_POPUP_OPTIONS.get()) +
                     "\n            "
                 )
               ]
@@ -17590,7 +17646,7 @@ var render = function() {
         [
           _vm._v(
             "\n        " +
-              _vm._s(_vm.data.l10n.messages.PLACEHOLDER_POPUP_DATA) +
+              _vm._s(_vm.data.l10n.messages.PLACEHOLDER_POPUP_DATA.get()) +
               "\n    "
           )
         ]
@@ -17631,7 +17687,11 @@ var render = function() {
                     {
                       staticClass: "alpheios-popup__morph-cont-providers-header"
                     },
-                    [_vm._v(_vm._s(_vm.data.l10n.messages.LABEL_POPUP_CREDITS))]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.data.l10n.messages.LABEL_POPUP_CREDITS.get())
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _vm._l(_vm.data.providers, function(p) {
@@ -18113,6 +18173,7 @@ var render = function() {
               lexemes: _vm.lexemes,
               definitions: _vm.definitions,
               translations: _vm.translations,
+              messages: _vm.data.l10n.messages,
               linkedfeatures: _vm.linkedfeatures,
               morphDataReady: _vm.morphDataReady && _vm.hasMorphData
             },
@@ -18326,7 +18387,7 @@ var render = function() {
           ],
           staticClass: "uk-form-label alpheios-setting__label"
         },
-        [_vm._v(_vm._s(_vm.messages.LABEL_RESKIN_SETTINGS) + ":")]
+        [_vm._v(_vm._s(_vm.messages.LABEL_RESKIN_SETTINGS.get()) + ":")]
       ),
       _vm._v(" "),
       _c(
@@ -18338,7 +18399,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_SMALLFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_SMALLFONT.get()
               }
             },
             [
@@ -18363,7 +18424,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_MEDIUMFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_MEDIUMFONT.get()
               }
             },
             [
@@ -18388,7 +18449,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_LARGEFONT
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_LARGEFONT.get()
               }
             },
             [
@@ -18413,7 +18474,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_LIGHTBG
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_LIGHTBG.get()
               }
             },
             [
@@ -18439,7 +18500,7 @@ var render = function() {
             {
               attrs: {
                 tooltipDirection: "top-left",
-                tooltipText: _vm.messages.TOOLTIP_RESKIN_DARKBG
+                tooltipText: _vm.messages.TOOLTIP_RESKIN_DARKBG.get()
               }
             },
             [
@@ -30354,7 +30415,7 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAArCAYAAADL
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\attach-left.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\attach-left.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30365,7 +30426,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\attach-right.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\attach-right.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30376,7 +30437,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\black-brush.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\black-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30387,7 +30448,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\close.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\close.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30398,7 +30459,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\definitions.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\definitions.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30409,7 +30470,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\inflections-browser.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\inflections-browser.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30420,7 +30481,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\inflections.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\inflections.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30431,7 +30492,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\info.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\info.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30442,7 +30503,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\options.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\options.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30453,7 +30514,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\resources.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\resources.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30464,7 +30525,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\sitemap.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\sitemap.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30475,7 +30536,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\status.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\status.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30486,7 +30547,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\user.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\user.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30497,7 +30558,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\white-brush.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\white-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30508,7 +30569,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 285.102 285.102"}},[_c('path',{attrs:{"d":"M220.741 46.137h-30.188v-5.785c0-7.444-6.056-13.5-13.5-13.5h-1.667C172.294 11.554 158.747 0 142.552 0c-16.195 0-29.742 11.554-32.835 26.852h-1.669c-7.444 0-13.5 6.056-13.5 13.5v5.785H64.36c-12.406 0-22.5 10.094-22.5 22.5v193.965c0 12.406 10.094 22.5 22.5 22.5h156.381c12.406 0 22.5-10.094 22.5-22.5V68.637c0-12.407-10.094-22.5-22.5-22.5zm-111.193-4.285h66.006v24.571h-66.006V41.852zM142.552 15c7.856 0 14.566 4.931 17.244 11.852h-34.488C127.986 19.931 134.696 15 142.552 15zm85.689 247.602c0 4.136-3.364 7.5-7.5 7.5H64.36c-4.136 0-7.5-3.364-7.5-7.5V68.637c0-4.136 3.364-7.5 7.5-7.5h30.188v6.786c0 7.444 6.056 13.5 13.5 13.5h69.006c7.444 0 13.5-6.056 13.5-13.5v-6.786h30.188c4.136 0 7.5 3.364 7.5 7.5v193.965z"}}),_c('path',{attrs:{"d":"M153.883 107.931H91.891a7.499 7.499 0 0 0-7.5 7.5 7.5 7.5 0 0 0 7.5 7.5h61.992a7.5 7.5 0 0 0 7.5-7.5 7.5 7.5 0 0 0-7.5-7.5zM153.883 146.484H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992a7.5 7.5 0 0 0 0-15zM153.883 185.041H91.891c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5zM153.883 223.597H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5a7.5 7.5 0 0 0-7.5-7.5zM182.081 120.222a10.753 10.753 0 0 0 7.955 2.803 10.756 10.756 0 0 0 7.55-3.758l10.421-12.118a5 5 0 1 0-7.582-6.52l-10.421 12.118a.819.819 0 0 1-1.197.074l-6.561-5.965a4.998 4.998 0 0 0-7.063.336 4.999 4.999 0 0 0 .336 7.063l6.562 5.967zM200.425 140.659l-10.421 12.117a.824.824 0 0 1-.584.297.815.815 0 0 1-.613-.224l-6.561-5.964a5.003 5.003 0 0 0-7.064.337 5.002 5.002 0 0 0 .337 7.064l6.56 5.963a10.746 10.746 0 0 0 7.953 2.806 10.768 10.768 0 0 0 7.554-3.759l10.421-12.116a5.001 5.001 0 0 0-7.582-6.521zM200.425 216.718l-10.421 12.117a.818.818 0 0 1-1.197.073l-6.561-5.964a5 5 0 0 0-6.727 7.4l6.561 5.963a10.746 10.746 0 0 0 7.955 2.805 10.762 10.762 0 0 0 7.552-3.759l10.421-12.117a5 5 0 1 0-7.583-6.518zM179.529 203.302c.976.977 2.256 1.465 3.535 1.465s2.56-.488 3.535-1.465l4.948-4.948 4.949 4.949a4.981 4.981 0 0 0 3.535 1.465 4.98 4.98 0 0 0 3.535-1.465 4.998 4.998 0 0 0 0-7.07l-4.949-4.949 4.95-4.949a4.997 4.997 0 0 0 0-7.069 4.996 4.996 0 0 0-7.07 0l-4.949 4.948-4.949-4.948a4.996 4.996 0 0 0-7.07 0 4.997 4.997 0 0 0 0 7.069l4.948 4.949-4.948 4.948a4.998 4.998 0 0 0 0 7.07z"}})])};var toString = function () {return "C:\\_Irina\\_clients\\_Alpheios Project\\git\\components\\src\\images\\inline-icons\\wordlist-icon.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 285.102 285.102"}},[_c('path',{attrs:{"d":"M220.741 46.137h-30.188v-5.785c0-7.444-6.056-13.5-13.5-13.5h-1.667C172.294 11.554 158.747 0 142.552 0c-16.195 0-29.742 11.554-32.835 26.852h-1.669c-7.444 0-13.5 6.056-13.5 13.5v5.785H64.36c-12.406 0-22.5 10.094-22.5 22.5v193.965c0 12.406 10.094 22.5 22.5 22.5h156.381c12.406 0 22.5-10.094 22.5-22.5V68.637c0-12.407-10.094-22.5-22.5-22.5zm-111.193-4.285h66.006v24.571h-66.006V41.852zM142.552 15c7.856 0 14.566 4.931 17.244 11.852h-34.488C127.986 19.931 134.696 15 142.552 15zm85.689 247.602c0 4.136-3.364 7.5-7.5 7.5H64.36c-4.136 0-7.5-3.364-7.5-7.5V68.637c0-4.136 3.364-7.5 7.5-7.5h30.188v6.786c0 7.444 6.056 13.5 13.5 13.5h69.006c7.444 0 13.5-6.056 13.5-13.5v-6.786h30.188c4.136 0 7.5 3.364 7.5 7.5v193.965z"}}),_c('path',{attrs:{"d":"M153.883 107.931H91.891a7.499 7.499 0 0 0-7.5 7.5 7.5 7.5 0 0 0 7.5 7.5h61.992a7.5 7.5 0 0 0 7.5-7.5 7.5 7.5 0 0 0-7.5-7.5zM153.883 146.484H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992a7.5 7.5 0 0 0 0-15zM153.883 185.041H91.891c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5zM153.883 223.597H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5a7.5 7.5 0 0 0-7.5-7.5zM182.081 120.222a10.753 10.753 0 0 0 7.955 2.803 10.756 10.756 0 0 0 7.55-3.758l10.421-12.118a5 5 0 1 0-7.582-6.52l-10.421 12.118a.819.819 0 0 1-1.197.074l-6.561-5.965a4.998 4.998 0 0 0-7.063.336 4.999 4.999 0 0 0 .336 7.063l6.562 5.967zM200.425 140.659l-10.421 12.117a.824.824 0 0 1-.584.297.815.815 0 0 1-.613-.224l-6.561-5.964a5.003 5.003 0 0 0-7.064.337 5.002 5.002 0 0 0 .337 7.064l6.56 5.963a10.746 10.746 0 0 0 7.953 2.806 10.768 10.768 0 0 0 7.554-3.759l10.421-12.116a5.001 5.001 0 0 0-7.582-6.521zM200.425 216.718l-10.421 12.117a.818.818 0 0 1-1.197.073l-6.561-5.964a5 5 0 0 0-6.727 7.4l6.561 5.963a10.746 10.746 0 0 0 7.955 2.805 10.762 10.762 0 0 0 7.552-3.759l10.421-12.117a5 5 0 1 0-7.583-6.518zM179.529 203.302c.976.977 2.256 1.465 3.535 1.465s2.56-.488 3.535-1.465l4.948-4.948 4.949 4.949a4.981 4.981 0 0 0 3.535 1.465 4.98 4.98 0 0 0 3.535-1.465 4.998 4.998 0 0 0 0-7.07l-4.949-4.949 4.95-4.949a4.997 4.997 0 0 0 0-7.069 4.996 4.996 0 0 0-7.07 0l-4.949 4.948-4.949-4.948a4.996 4.996 0 0 0-7.07 0 4.997 4.997 0 0 0 0 7.069l4.948 4.949-4.948 4.948a4.998 4.998 0 0 0 0 7.07z"}})])};var toString = function () {return "C:\\_alpheios\\components\\src\\images\\inline-icons\\wordlist-icon.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -30603,29 +30664,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 /* harmony import */ var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json");
 var _locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages.json */ "./locales/en-us/messages.json", 1);
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
-/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
-/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
-/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
-/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
-var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
-/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
-var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
-/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
-var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
-/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
-var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
-/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
-/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
-/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
-/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
-/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
-/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
+/* harmony import */ var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json");
+var _locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages-data.json */ "./locales/en-us/messages-data.json", 1);
+/* harmony import */ var _locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-us/messages-inflections.json */ "./locales/en-us/messages-inflections.json");
+var _locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_12___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-us/messages-inflections.json */ "./locales/en-us/messages-inflections.json", 1);
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_13___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/templates/template.htmlf */ "./templates/template.htmlf");
+/* harmony import */ var _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_templates_template_htmlf__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/queries/lexical-query.js */ "./lib/queries/lexical-query.js");
+/* harmony import */ var _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/lib/queries/resource-query.js */ "./lib/queries/resource-query.js");
+/* harmony import */ var _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/lib/queries/annotation-query.js */ "./lib/queries/annotation-query.js");
+/* harmony import */ var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/settings/site-options.json */ "./settings/site-options.json");
+var _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/site-options.json */ "./settings/site-options.json", 1);
+/* harmony import */ var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json");
+var _settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/content-options-defaults.json */ "./settings/content-options-defaults.json", 1);
+/* harmony import */ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json");
+var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/ui-options-defaults.json */ "./settings/ui-options-defaults.json", 1);
+/* harmony import */ var _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/lib/selection/media/html-selector.js */ "./lib/selection/media/html-selector.js");
+/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json");
+var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23___namespace = /*#__PURE__*/__webpack_require__.t(/*! @/settings/language-options-defaults.json */ "./settings/language-options-defaults.json", 1);
+/* harmony import */ var _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/lib/custom-pointer-events/mouse-dbl-click.js */ "./lib/custom-pointer-events/mouse-dbl-click.js");
+/* harmony import */ var _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/lib/custom-pointer-events/long-tap.js */ "./lib/custom-pointer-events/long-tap.js");
+/* harmony import */ var _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt.js */ "./lib/custom-pointer-events/generic-evt.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @/lib/options/local-storage-area.js */ "./lib/options/local-storage-area.js");
+/* harmony import */ var _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @/lib/controllers/ui-event-controller.js */ "./lib/controllers/ui-event-controller.js");
 /* global Event */
 
 
@@ -30637,6 +30702,8 @@ var _settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21___names
 // A panel component
 
 // A popup component
+
+
 
 
 
@@ -30687,9 +30754,9 @@ class UIController {
   constructor (state, options = {}) {
     this.state = state
     this.options = UIController.setOptions(options, UIController.optionsDefaults)
-    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_17__, this.options.storageAdapter)
-    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_21__, this.options.storageAdapter)
-    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_18__, this.options.storageAdapter)
+    this.contentOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_content_options_defaults_json__WEBPACK_IMPORTED_MODULE_19__, this.options.storageAdapter)
+    this.resourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_language_options_defaults_json__WEBPACK_IMPORTED_MODULE_23__, this.options.storageAdapter)
+    this.uiOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](_settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20__, this.options.storageAdapter)
     this.siteOptions = null // Will be set during an `init` phase
     this.tabState = {
       definitions: false,
@@ -30728,49 +30795,54 @@ class UIController {
     let uiController = new UIController(state, options)
 
     // Creates on configures an event listener
-    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_27__["default"]()
+    let eventController = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_29__["default"]()
     switch (uiController.options.textQueryTrigger) {
       case 'dblClick':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_22__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_24__["default"])
         break
       case 'longTap':
-        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_23__["default"])
+        eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_25__["default"])
         break
       default:
         eventController.registerListener(
-          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], uiController.options.textQueryTrigger
+          'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], uiController.options.textQueryTrigger
         )
     }
 
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_24__["default"], 'Alpheios_Page_Load')
+    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], 'keydown')
+    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_26__["default"], 'Alpheios_Page_Load')
 
     // Attaches an event controller to a UIController instance
     uiController.evc = eventController
 
     // Subscribe to LexicalQuery events
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.MORPH_DATA_READY.sub(uiController.onMorphDataReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.onLemmaTranslationsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
     // Subscribe to ResourceQuery events
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
-    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].evt.GRAMMAR_AVAILABLE.sub(uiController.onGrammarAvailable.bind(uiController))
+    _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].evt.GRAMMAR_NOT_FOUND.sub(uiController.onGrammarNotFound.bind(uiController))
 
     // Subscribe to AnnotationQuery events
-    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+    _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
 
+<<<<<<< HEAD
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
+=======
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+>>>>>>> 474c1f6f762a664fb601ac1eb694a23a2707c62f
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -30809,7 +30881,7 @@ class UIController {
         name: 'name',
         version: 'version'
       },
-      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_26__["default"],
+      storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_28__["default"],
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
@@ -30819,7 +30891,7 @@ class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       template: {
-        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_12___default.a,
+        html: _templates_template_htmlf__WEBPACK_IMPORTED_MODULE_14___default.a,
         panelId: 'alpheios-panel',
         defaultPanelComponent: 'panel',
         popupId: 'alpheios-popup',
@@ -30874,11 +30946,13 @@ class UIController {
     let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     this.siteOptions = this.loadSiteOptions()
 
-    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_20__["default"].getZIndexMax()
+    this.zIndex = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_22__["default"].getZIndexMax()
 
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_8__["default"]()
       .addMessages(_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_US)
-      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_GB)
+      .addMessages(_locales_en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_US)
+      .addMessages(_locales_en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_US)
+      .addMessages(_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_13__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_GB)
       .setLocale(_locales_locales_js__WEBPACK_IMPORTED_MODULE_9__["default"].en_US)
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
@@ -31077,7 +31151,7 @@ class UIController {
           } else if (this.panelData.infoComponentData.languageName) {
             languageName = this.panelData.infoComponentData.languageName
           } else {
-            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.panelData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.panelData.notification.important = true
@@ -31128,7 +31202,7 @@ class UIController {
 
         requestGrammar: function (feature) {
           // ExpObjMon.track(
-          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].create(feature, {
+          _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_16__["default"].create(feature, {
             grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]
           }).getData()
           //, {
@@ -31138,7 +31212,7 @@ class UIController {
           //    { name: 'finalize', action: ExpObjMon.actions.STOP, event: ExpObjMon.events.GET }
           // ]
           // }).getData()
-          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS)
+          this.uiController.message(this.panelData.l10n.messages.TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS.get())
         },
 
         settingChange: function (name, value) {
@@ -31331,7 +31405,7 @@ class UIController {
           } else if (this.popupData.currentLanguageName) {
             languageName = this.popupData.currentLanguageName
           } else {
-            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
+            languageName = this.popupData.l10n.messages.TEXT_NOTICE_LANGUAGE_UNKNOWN.get() // TODO this wil be unnecessary when the morphological adapter returns a consistent response for erors
           }
           if (notFound) {
             this.popupData.notification.important = true
@@ -31564,9 +31638,9 @@ class UIController {
    */
   loadSiteOptions () {
     let allSiteOptions = []
-    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_16__) {
+    for (let site of _settings_site_options_json__WEBPACK_IMPORTED_MODULE_18__) {
       for (let domain of site.options) {
-        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_25__["default"](domain, this.options.storageAdapter)
+        let siteOpts = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_27__["default"](domain, this.options.storageAdapter)
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -31708,7 +31782,7 @@ class UIController {
       this.panel.panelData.grammarRes = urls[0]
       this.panel.panelData.grammarAvailable = true
     } else {
-      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND }
+      this.panel.panelData.grammarRes = { provider: this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get() }
     }
     // todo show TOC or not found
   }
@@ -31818,7 +31892,7 @@ class UIController {
 
     this.panel.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet
     if (this.inflectionsViewSet.hasMatchingViews) {
-      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY)
+      this.addMessage(this.l10n.messages.TEXT_NOTICE_INFLDATA_READY.get())
     }
     this.panel.panelData.inflectionsWaitState = false
     this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
@@ -31937,7 +32011,7 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_21__["default"](event, this.contentOptions.items.preferredLanguage.currentValue)
       let textSelector = htmlSelector.createTextSelector()
 
       if (!textSelector.isEmpty()) {
@@ -31962,7 +32036,7 @@ class UIController {
           })
           .getData() */
 
-        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].create(textSelector, {
+        let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
@@ -31972,7 +32046,7 @@ class UIController {
 
         this.setTargetRect(htmlSelector.targetRect)
         this.newLexicalRequest(textSelector.languageID)
-        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+        this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS.get())
         this.showStatusInfo(textSelector.normalizedText, textSelector.languageID)
         this.updateLanguage(textSelector.languageID)
         this.updateWordAnnotationData(textSelector.data)
@@ -32009,7 +32083,7 @@ class UIController {
    */
   updateAnnotations () {
     if (this.state.isActive() && this.state.uiIsActive()) {
-      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].create({
+      _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__["default"].create({
         document: document,
         siteOptions: this.siteOptions
       }).getData()
@@ -32018,16 +32092,16 @@ class UIController {
 
   onLexicalQueryComplete (data) {
     switch (data.resultStatus) {
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.SUCCEEDED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].resultStatus.SUCCEEDED:
         this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
-      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].resultStatus.FAILED:
+      case _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].resultStatus.FAILED:
         this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
-        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE)
+        this.addMessage(this.l10n.messages.TEXT_NOTICE_LEXQUERY_COMPLETE.get())
         this.lexicalRequestComplete()
         break
       default:
@@ -32037,11 +32111,11 @@ class UIController {
   }
 
   onMorphDataReady () {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_READY.get())
   }
 
   onMorphDataNotFound () {
-    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND)
+    this.addImportantMessage(this.l10n.messages.TEXT_NOTICE_MORPHDATA_NOTFOUND.get())
     // Need to notify a UI controller that there is no morph data on this word in an analyzer
     // However, controller may not have `morphologyDataNotFound()` implemented, so need to check first
     if (this.morphologyDataNotFound) { this.morphologyDataNotFound(true) }
@@ -32077,17 +32151,17 @@ class UIController {
 
   onResourceQueryComplete () {
     // We don't check result status for now. We always output the same message.
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_COMPLETE.get())
   }
 
   onGrammarAvailable (data) {
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_READY.get())
     this.updateGrammar(data.url)
   }
 
   onGrammarNotFound () {
     this.updateGrammar()
-    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND)
+    this.addMessage(this.l10n.messages.TEXT_NOTICE_GRAMMAR_NOTFOUND.get())
   }
 
   onAnnotationsAvailable (data) {
@@ -32921,11 +32995,11 @@ class MessageBundle {
   }
 
   /**
-   * Appends a series of messages from a JSON string
-   * @param {string} messagesJSON - A JSON string
+   * Appends a series of messages to the bundle
+   * @param {string} messagesJSON - Messages as a JSON string or as a parsed JSON object
    */
   appendFromJSON (messagesJSON) {
-    let messages = JSON.parse(messagesJSON)
+    let messages = (typeof messagesJSON === 'string') ? JSON.parse(messagesJSON) : messagesJSON
     this.append(messages)
   }
 
@@ -32957,12 +33031,31 @@ class MessageBundle {
    * @returns {string} A formatted message. If message not found, returns a message that contains an error text.
    */
   get (messageID, options = undefined) {
-    if (this[messageID]) {
-      if (typeof this[messageID].format === 'function') {
-        return this[messageID].format(options)
+    if (this.messages[messageID]) {
+      if (typeof this.messages[messageID].format === 'function') {
+        return this.messages[messageID].format(options)
       } else {
-        return this[messageID]
+        return this.messages[messageID].get()
       }
+    } else {
+      // If message with the ID provided is not in translation data, generate a warning.
+      return `Not in translation data: "${messageID}"`
+    }
+  }
+
+  /**
+   * Returns an abbreviated version of a message for a message ID provided.
+   * @param messageID - An ID of a message.
+   * @param options - Options that can be used for message formatting in the following format:
+   * {
+   *     paramOneName: paramOneValue,
+   *     paramTwoName: paramTwoValue
+   * }.
+   * @returns {string} An abbreviated, and possibly formatted, message. If message not found, returns a message that contains an error text.
+   */
+  abbr (messageID, options = undefined) {
+    if (this.messages[messageID]) {
+      return this.messages[messageID].abbr(options)
     } else {
       // If message with the ID provided is not in translation data, generate a warning.
       return `Not in translation data: "${messageID}"`
@@ -33018,6 +33111,7 @@ class Message {
     }
 
     this.formatFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(message.message, this.locale)
+    this.abbrFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(message.abbr || message.message, this.locale)
   }
 
   /**
@@ -33052,16 +33146,25 @@ class Message {
             params[param] = options[index]
           }
           return self.formatFunc.format(params)
+        },
+        abbr (...options) {
+          let params = {}
+          // TODO: Add checks
+          for (let [index, param] of self.params.entries()) {
+            params[param] = options[index]
+          }
+          return self.abbrFunc.format(params)
         }
       }
     } else {
-      Object.defineProperty(messages, key, {
+      messages[key] = {
         get () {
           return self.formatFunc.format()
         },
-        enumerable: true,
-        configurable: true // So it can be deleted
-      })
+        abbr () {
+          return self.abbrFunc.format()
+        }
+      }
     }
   }
 }
@@ -33986,7 +34089,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       }
 
       if (adapterTreebankRes.errors.length > 0) {
-        adapterTreebankRes.errors.forEach(error => console.error(error))
+        adapterTreebankRes.errors.forEach(error => console.error(error.message))
       }
     }
 
@@ -34001,7 +34104,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       })
 
       if (adapterTuftsRes.errors.length > 0) {
-        adapterTuftsRes.errors.forEach(error => console.error(error))
+        adapterTuftsRes.errors.forEach(error => console.error(error.message))
       }
 
       if (adapterTuftsRes.result) {
@@ -34051,7 +34154,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
         }
       })
       if (adapterTranslationRes.errors.length > 0) {
-        adapterTranslationRes.errors.forEach(error => console.error(error))
+        adapterTranslationRes.errors.forEach(error => console.error(error.messag4e))
       }
 
       LexicalQuery.evt.LEMMA_TRANSL_READY.pub(this.homonym)
@@ -34070,7 +34173,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     })
 
     if (adapterLexiconResShort.errors.length > 0) {
-      adapterLexiconResShort.errors.forEach(error => console.error(error))
+      adapterLexiconResShort.errors.forEach(error => console.error(error.message))
     }
 
     let adapterLexiconResFull = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lexicon.alpheios({
@@ -34806,6 +34909,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
+    console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 
@@ -34867,7 +34971,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
+    console.info('***********doSpaceSeparatedWordSelection this.target', this.target)
     let selection = HTMLSelector.getSelection(this.target)
+    console.info('***********doSpaceSeparatedWordSelection selection', selection)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     let focus = selection.focusNode // A node where the end of a selection
@@ -34921,7 +35027,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
 
     // extract word
     let word = anchorText.substring(wordStart, wordEnd).trim()
-
+    console.info('***********************doSpaceSeparatedWordSelection wordStart', wordStart)
+    console.info('***********************doSpaceSeparatedWordSelection wordEnd', wordEnd)
+    console.info('***********************doSpaceSeparatedWordSelection word', word)
     /* Identify the words preceeding and following the focus word
     * TODO - query the type of node in the selection to see if we are
     * dealing with something other than text nodes
@@ -36011,6 +36119,28 @@ HTMLPage.targetRequirements = {
 /***/ (function(module) {
 
 module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a biscuit.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no queues} =1 {is one queue} other {are # queues}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]}};
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-data.json":
+/*!******************************************!*\
+  !*** ./locales/en-us/messages-data.json ***!
+  \******************************************/
+/*! exports provided: adjective, adverb, adverbial, article, conjunction, exclamation, interjection, noun, noun_proper, numeral, particle, prefix, preposition, pronoun, suffix, gerundive, verb, verb_participle, masculine, feminine, neuter, common, animate, inanimate, personal_masculine, animate_masculine, inanimate_masculine, positive, comparitive, superlative, abessive, ablative, absolutive, accusative, addirective, adelative, adessive, allative, antessive, apudessive, aversive, benefactive, caritive, causal, causal_final, comitative, dative, delative, direct, distributive, distributive_temporal, elative, ergative, essive, essive_formal, essive_modal, equative, evitative, exessive, final, formal, genitive, illative, inelative, inessive, instructive, instrumental, instrumental_comitative, intransitive, lative, locative, modal, multiplicative, nominative, partitive, pegative, perlative, possessive, postelative, postdirective, postessive, postpositional, prepositional, privative, prolative, prosecutive, proximative, separative, sociative, subdirective, subessive, subelative, sublative, superdirective, superessive, suppressive, temporal, terminative, translative, vialis, vocative, admirative, cohortative, conditional, declarative, dubitative, energetic, eventive, generic, hypothetical, imperative, indicative, inferential, infinitive, interrogative, jussive, negative, optative, participle, presumptive, renarrative, subjunctive, supine, singular, plural, dual, trial, paucal, singulative, collective, distributive_plural, cardinal, ordinal, numeral_adverb, 1st, 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, 9th, aorist, future, future_perfect, imperfect, past_absolute, perfect, pluperfect, plusquamperfect, present, to_be, compounds_of_to_be, taking_ablative, taking_dative, taking_genitive, transitive, impersonal, deponent, semideponent, perfect_definite, active, passive, mediopassive, impersonal_passive, middle, antipassive, reflexive, reciprocal, causative, adjutative, applicative, circumstantial, deponens, irregular, regular, personal, demonstrative, relative, general_relative, indefinite, intensive, default */
+/***/ (function(module) {
+
+module.exports = {"adjective":{"message":"adjective","abbr":""},"adverb":{"message":"adverb","abbr":""},"adverbial":{"message":"adverbial","abbr":""},"article":{"message":"article"},"conjunction":{"message":"conjunction"},"exclamation":{"message":"exclamation"},"interjection":{"message":"interjection"},"noun":{"message":"noun"},"noun_proper":{"message":"proper noun"},"numeral":{"message":"numeral"},"particle":{"message":"particle"},"prefix":{"message":"prefix"},"preposition":{"message":"preposition"},"pronoun":{"message":"pronoun"},"suffix":{"message":"suffix"},"gerundive":{"message":"gerundive"},"verb":{"message":"verb"},"verb_participle":{"message":"verb participle"},"masculine":{"message":"masculine","abbr":"m."},"feminine":{"message":"feminine","abbr":"f."},"neuter":{"message":"neuter","abbr":"n."},"common":{"message":"common"},"animate":{"message":"animate"},"inanimate":{"message":"inanimate"},"personal_masculine":{"message":"personal masculine"},"animate_masculine":{"message":"animate masculine"},"inanimate_masculine":{"message":"inanimate masculine"},"positive":{"message":"positive","abbr":"pos."},"comparitive":{"message":"comparative","abbr":"comp"},"superlative":{"message":"superlative","abbr":"super."},"abessive":{"message":"abessive"},"ablative":{"message":"ablative","abbr":"abl."},"absolutive":{"message":"absolutive"},"accusative":{"message":"accusative","abbr":"acc."},"addirective":{"message":"addirective"},"adelative":{"message":"adelative"},"adessive":{"message":"adessive"},"allative":{"message":"allative"},"antessive":{"message":"antessive"},"apudessive":{"message":"apudessive"},"aversive":{"message":"aversive"},"benefactive":{"message":"benefactive"},"caritive":{"message":"caritive"},"causal":{"message":"causal"},"causal_final":{"message":"causal-final"},"comitative":{"message":"comitative"},"dative":{"message":"dative","abbr":"dat."},"delative":{"message":"delative"},"direct":{"message":"direct"},"distributive":{"message":"distributive"},"distributive_temporal":{"message":"distributive-temporal"},"elative":{"message":"elative"},"ergative":{"message":"ergative"},"essive":{"message":"essive"},"essive_formal":{"message":"essive-formal"},"essive_modal":{"message":"essive-modal"},"equative":{"message":"equative"},"evitative":{"message":"evitative"},"exessive":{"message":"exessive"},"final":{"message":"final"},"formal":{"message":"formal"},"genitive":{"message":"genitive","abbr":"gen."},"illative":{"message":"illative"},"inelative":{"message":"inelative"},"inessive":{"message":"inessive"},"instructive":{"message":"instructive"},"instrumental":{"message":"instrumental"},"instrumental_comitative":{"message":"instrumental-comitative"},"intransitive":{"message":"intransitive"},"lative":{"message":"lative"},"locative":{"message":"locative","abbr":"loc."},"modal":{"message":"modal"},"multiplicative":{"message":"multiplicative"},"nominative":{"message":"nominative","abbr":"nom."},"partitive":{"message":"partitive"},"pegative":{"message":"pegative"},"perlative":{"message":"perlative"},"possessive":{"message":"possessive"},"postelative":{"message":"postelative"},"postdirective":{"message":"postdirective"},"postessive":{"message":"postessive"},"postpositional":{"message":"postpositional"},"prepositional":{"message":"prepositional"},"privative":{"message":"privative"},"prolative":{"message":"prolative"},"prosecutive":{"message":"prosecutive"},"proximative":{"message":"proximative"},"separative":{"message":"separative"},"sociative":{"message":"sociative"},"subdirective":{"message":"subdirective"},"subessive":{"message":"subessive"},"subelative":{"message":"subelative"},"sublative":{"message":"sublative"},"superdirective":{"message":"superdirective"},"superessive":{"message":"superessive"},"suppressive":{"message":"suppressive"},"temporal":{"message":"temporal"},"terminative":{"message":"terminative"},"translative":{"message":"translative"},"vialis":{"message":"vialis"},"vocative":{"message":"vocative","abbr":"voc."},"admirative":{"message":"admirative"},"cohortative":{"message":"cohortative"},"conditional":{"message":"conditional"},"declarative":{"message":"declarative"},"dubitative":{"message":"dubitative"},"energetic":{"message":"energetic"},"eventive":{"message":"eventive"},"generic":{"message":"generic"},"hypothetical":{"message":"hypothetical"},"imperative":{"message":"imperative","abbr":"imp."},"indicative":{"message":"indicative","abbr":"ind."},"inferential":{"message":"inferential"},"infinitive":{"message":"infinitive","abbr":"infin."},"interrogative":{"message":"interrogative"},"jussive":{"message":"jussive"},"negative":{"message":"negative"},"optative":{"message":"optative","abbr":"opt."},"participle":{"message":"participle","abbr":"part,"},"presumptive":{"message":"presumptive"},"renarrative":{"message":"renarrative"},"subjunctive":{"message":"subjunctive","abbr":"sub."},"supine":{"message":"supine","abbr":"sup."},"singular":{"message":"singular","abbr":"sing."},"plural":{"message":"plural","abbr":"plur."},"dual":{"message":"dual","abbr":"dl."},"trial":{"message":"trial"},"paucal":{"message":"paucal"},"singulative":{"message":"singulative"},"collective":{"message":"collective"},"distributive_plural":{"message":"distributive plural"},"cardinal":{"message":"cardinal"},"ordinal":{"message":"ordinal"},"numeral_adverb":{"message":"numeral adverb"},"1st":{"message":"1st"},"2nd":{"message":"2nd"},"3rd":{"message":"3rd"},"4th":{"message":"4th"},"5th":{"message":"5th"},"6th":{"message":"6th"},"7th":{"message":"7th"},"8th":{"message":"8th"},"9th":{"message":"9th"},"aorist":{"message":"aorist","abbr":"aor."},"future":{"message":"future","abbr":"fut."},"future_perfect":{"message":"future perfect","abbr":"fut. perf."},"imperfect":{"message":"imperfect","abbr":"impf."},"past_absolute":{"message":"past absolute"},"perfect":{"message":"perfect","abbr":"perf."},"pluperfect":{"message":"pluperfect","abbr":"plup."},"plusquamperfect":{"message":"plusquamperfect","abbr":"pqpf."},"present":{"message":"present","abbr":"pres."},"to_be":{"message":"to be"},"compounds_of_to_be":{"message":"compounds of to be"},"taking_ablative":{"message":"taking ablative"},"taking_dative":{"message":"taking dative"},"taking_genitive":{"message":"taking genitive"},"transitive":{"message":"transitive"},"impersonal":{"message":"impersonal"},"deponent":{"message":"deponent"},"semideponent":{"message":"semideponent"},"perfect_definite":{"message":"perfect definite"},"active":{"message":"active","abbr":"act."},"passive":{"message":"passive","abbr":"pass."},"mediopassive":{"message":"mediopassive","abbr":"mp."},"impersonal_passive":{"message":"impersonal passive"},"middle":{"message":"middle","abbr":"mid."},"antipassive":{"message":"antipassive"},"reflexive":{"message":"reflexive"},"reciprocal":{"message":"reciprocal"},"causative":{"message":"causative"},"adjutative":{"message":"adjutative"},"applicative":{"message":"applicative"},"circumstantial":{"message":"circumstantial"},"deponens":{"message":"deponen","abbr":"dep."},"irregular":{"message":"irregular"},"regular":{"message":"regular"},"personal":{"message":"personal"},"demonstrative":{"message":"demonstrative"},"relative":{"message":"relative"},"general_relative":{"message":"general relative"},"indefinite":{"message":"indefinite"},"intensive":{"message":"intensive"}};
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-inflections.json":
+/*!*************************************************!*\
+  !*** ./locales/en-us/messages-inflections.json ***!
+  \*************************************************/
+/*! exports provided: Number, Case, Declension, Declension Stem, Gender, Type, Voice, Conjugation Stem, Mood, Person, Lemma, default */
+/***/ (function(module) {
+
+module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Declension":{"message":"Declension"},"Declension Stem":{"message":"Declension Stem"},"Gender":{"message":"Gender"},"Type":{"message":"Type"},"Voice":{"message":"Voice"},"Conjugation Stem":{"message":"Conjugation Stem"},"Mood":{"message":"Mood"},"Person":{"message":"Person"},"Lemma":{"message":"Lemma"}};
 
 /***/ }),
 

@@ -541,7 +541,8 @@
   /* Small
  ========================================================================== */
   /*
- * Reset child height, caused by `inline-block`
+ * Fix height of `hr` element not being expanded by child border width.
+ * `height` also needed to reset the child `line-height` caused by `inline-block`
  */
   /* Vertical
  ========================================================================== */
@@ -1064,6 +1065,21 @@
  */
   /* Size modifier
  ========================================================================== */
+  /* Expand modifier
+ ========================================================================== */
+  /*
+ * Expand one side only
+ */
+  /* Phone landscape and bigger */
+  /* Tablet landscape and bigger */
+  /* Item
+ ========================================================================== */
+  /*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+  /* Phone landscape and bigger */
+  /* Tablet landscape and bigger */
   /* ========================================================================
    Component: Grid
  ========================================================================== */
@@ -2767,8 +2783,7 @@
  ========================================================================== */
   /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
- * 2. Fix text wrapping for Firefox
+ * 1. Fix text wrapping if content is larger than 50% of the container.
  */
   /* Vertical */
   /* Horizontal */
@@ -3102,10 +3117,10 @@
   .auk .uk-breakpoint-xl::before {
     content: "1600px" !important; }
   .auk :root {
-    --uk-breakpoint-s: $breakpoint-small !important;
-    --uk-breakpoint-m: $breakpoint-medium !important;
-    --uk-breakpoint-l: $breakpoint-large !important;
-    --uk-breakpoint-xl: $breakpoint-xlarge !important; }
+    --uk-breakpoint-s: 640px !important;
+    --uk-breakpoint-m: 960px !important;
+    --uk-breakpoint-l: 1200px !important;
+    --uk-breakpoint-xl: 1600px !important; }
   .auk a.uk-link-muted,
   .auk .uk-link-muted a {
     color: #999 !important; }
@@ -3217,7 +3232,7 @@
     left: calc(50% + (50px / 2)) !important;
     width: 100% !important; }
   .auk .uk-divider-small {
-    line-height: 0 !important; }
+    height: 1px !important; }
   .auk .uk-divider-small::after {
     content: "" !important;
     display: inline-block;
@@ -4066,8 +4081,8 @@
   .auk .uk-section-secondary {
     background: #222 !important; }
   .auk .uk-container {
-    box-sizing: content-box !important;
     /* 1 */
+    box-sizing: content-box !important;
     max-width: 1200px !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -4100,6 +4115,53 @@
     max-width: 1600px !important; }
   .auk .uk-container-expand {
     max-width: none !important; }
+  .auk .uk-container-expand-left {
+    margin-left: 0 !important; }
+  .auk .uk-container-expand-right {
+    margin-right: 0 !important; }
+  @media (min-width: 640px) {
+    .auk .uk-container-expand-left.uk-container-xsmall,
+    .auk .uk-container-expand-right.uk-container-xsmall {
+      max-width: calc(50% + (750px / 2) - 30px) !important; }
+    .auk .uk-container-expand-left.uk-container-small,
+    .auk .uk-container-expand-right.uk-container-small {
+      max-width: calc(50% + (900px / 2) - 30px) !important; } }
+  @media (min-width: 960px) {
+    .auk .uk-container-expand-left,
+    .auk .uk-container-expand-right {
+      max-width: calc(50% + (1200px / 2) - 40px) !important; }
+    .auk .uk-container-expand-left.uk-container-xsmall,
+    .auk .uk-container-expand-right.uk-container-xsmall {
+      max-width: calc(50% + (750px / 2) - 40px) !important; }
+    .auk .uk-container-expand-left.uk-container-small,
+    .auk .uk-container-expand-right.uk-container-small {
+      max-width: calc(50% + (900px / 2) - 40px) !important; }
+    .auk .uk-container-expand-left.uk-container-large,
+    .auk .uk-container-expand-right.uk-container-large {
+      max-width: calc(50% + (1600px / 2) - 40px) !important; } }
+  .auk .uk-container-item-padding-remove-left,
+  .auk .uk-container-item-padding-remove-right {
+    width: calc(100% + 15px) !important; }
+  .auk .uk-container-item-padding-remove-left {
+    margin-left: -15px !important; }
+  .auk .uk-container-item-padding-remove-right {
+    margin-right: -15px !important; }
+  @media (min-width: 640px) {
+    .auk .uk-container-item-padding-remove-left,
+    .auk .uk-container-item-padding-remove-right {
+      width: calc(100% + 30px) !important; }
+    .auk .uk-container-item-padding-remove-left {
+      margin-left: -30px !important; }
+    .auk .uk-container-item-padding-remove-right {
+      margin-right: -30px !important; } }
+  @media (min-width: 960px) {
+    .auk .uk-container-item-padding-remove-left,
+    .auk .uk-container-item-padding-remove-right {
+      width: calc(100% + 40px) !important; }
+    .auk .uk-container-item-padding-remove-left {
+      margin-left: -40px !important; }
+    .auk .uk-container-item-padding-remove-right {
+      margin-right: -40px !important; } }
   .auk .uk-grid {
     display: flex;
     /* 1 */
@@ -5866,13 +5928,14 @@
       margin: 0 !important; } }
   .auk .uk-notification-message {
     position: relative !important;
-    margin-bottom: 10px !important;
     padding: 15px !important;
     background: #f8f8f8 !important;
     color: #666666 !important;
     font-size: 1.25rem !important;
     line-height: 1.4 !important;
     cursor: pointer !important; }
+  .auk * + .uk-notification-message {
+    margin-top: 10px !important; }
   .auk .uk-notification-close {
     display: none;
     position: absolute !important;
@@ -7394,9 +7457,8 @@
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content !important;
+    width: max-content !important;
     max-width: 100% !important;
     box-sizing: border-box !important; }
   .auk [class*='uk-position-center-left'],
@@ -7409,18 +7471,19 @@
     right: 0 !important; }
   .auk .uk-position-center-left-out {
     right: 100% !important;
+    width: -moz-max-content !important;
     width: max-content !important; }
   .auk .uk-position-center-right-out {
     left: 100% !important;
+    width: -moz-max-content !important;
     width: max-content !important; }
   .auk .uk-position-top-center,
   .auk .uk-position-bottom-center {
     left: 50% !important;
     transform: translateX(-50%) !important;
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content !important;
+    width: max-content !important;
     max-width: 100% !important;
     box-sizing: border-box !important; }
   .auk .uk-position-top-center {
@@ -7442,6 +7505,7 @@
   .auk .uk-position-z-index {
     z-index: 1 !important; }
   .auk .uk-position-small {
+    max-width: calc(100% - (15px * 2)) !important;
     margin: 15px !important; }
   .auk .uk-position-small.uk-position-center {
     transform: translate(-50%, -50%) translate(-15px, -15px) !important; }
@@ -7452,6 +7516,7 @@
   .auk .uk-position-small.uk-position-bottom-center {
     transform: translateX(-50%) translateX(-15px) !important; }
   .auk .uk-position-medium {
+    max-width: calc(100% - (30px * 2)) !important;
     margin: 30px !important; }
   .auk .uk-position-medium.uk-position-center {
     transform: translate(-50%, -50%) translate(-30px, -30px) !important; }
@@ -7462,6 +7527,7 @@
   .auk .uk-position-medium.uk-position-bottom-center {
     transform: translateX(-50%) translateX(-30px) !important; }
   .auk .uk-position-large {
+    max-width: calc(100% - (30px * 2)) !important;
     margin: 30px !important; }
   .auk .uk-position-large.uk-position-center {
     transform: translate(-50%, -50%) translate(-30px, -30px) !important; }
@@ -7473,6 +7539,7 @@
     transform: translateX(-50%) translateX(-30px) !important; }
   @media (min-width: 1200px) {
     .auk .uk-position-large {
+      max-width: calc(100% - (50px * 2)) !important;
       margin: 50px !important; }
     .auk .uk-position-large.uk-position-center {
       transform: translate(-50%, -50%) translate(-50px, -50px) !important; }
@@ -10074,7 +10141,7 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   cursor: pointer !important;
   fill: #D1D1D0 !important;
   stroke: #D1D1D0 !important;
-  margin: 10px 15px !important;
+  margin: 10px 10px !important;
 }
 .alpheios-panel__header-action-btn svg,
   .alpheios-panel__header-action-btn.active:hover svg,
@@ -10197,7 +10264,7 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
   cursor: pointer !important;
   background: transparent no-repeat center center !important;
   background-size: contain !important;
-  margin: 10px 15px !important;
+  margin: 10px 10px !important;
 }
 .alpheios-panel__header-nav-btn svg {
     width: 20px !important;
