@@ -30835,14 +30835,9 @@ class UIController {
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
 
-<<<<<<< HEAD
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
-=======
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
->>>>>>> 474c1f6f762a664fb601ac1eb694a23a2707c62f
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
