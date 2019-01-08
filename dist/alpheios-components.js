@@ -18720,7 +18720,9 @@ var render = function() {
       },
       [
         _vm._v(
-          "\n        " + _vm._s(_vm.messages.AUTH_LOG_IN_BTN_LABEL) + "\n    "
+          "\n        " +
+            _vm._s(_vm.messages.AUTH_LOG_IN_BTN_LABEL.get()) +
+            "\n    "
         )
       ]
     ),
@@ -18741,7 +18743,9 @@ var render = function() {
       },
       [
         _vm._v(
-          "\n        " + _vm._s(_vm.messages.AUTH_LOG_OUT_BTN_LABEL) + "\n    "
+          "\n        " +
+            _vm._s(_vm.messages.AUTH_LOG_OUT_BTN_LABEL.get()) +
+            "\n    "
         )
       ]
     ),
@@ -18762,7 +18766,7 @@ var render = function() {
       [
         _vm._v(
           "\n        " +
-            _vm._s(_vm.messages.AUTH_LOG_IN_PROGRESS_MSG) +
+            _vm._s(_vm.messages.AUTH_LOG_IN_PROGRESS_MSG.get()) +
             "\n    "
         )
       ]
@@ -18783,7 +18787,9 @@ var render = function() {
       },
       [
         _vm._v(
-          "\n        " + _vm._s(_vm.messages.AUTH_LOG_IN_SUCCESS_MSG) + "\n    "
+          "\n        " +
+            _vm._s(_vm.messages.AUTH_LOG_IN_SUCCESS_MSG.get()) +
+            "\n    "
         )
       ]
     ),
@@ -18804,7 +18810,7 @@ var render = function() {
       [
         _vm._v(
           "\n        " +
-            _vm._s(_vm.messages.AUTH_LOG_IN_AUTH_FAILURE_MSG) +
+            _vm._s(_vm.messages.AUTH_LOG_IN_AUTH_FAILURE_MSG.get()) +
             "\n    "
         )
       ]
@@ -18819,7 +18825,7 @@ var render = function() {
               [
                 _vm._v(
                   "\n                " +
-                    _vm._s(_vm.messages.AUTH_PROFILE_NICKNAME_LABEL) +
+                    _vm._s(_vm.messages.AUTH_PROFILE_NICKNAME_LABEL.get()) +
                     "\n            "
                 )
               ]
@@ -18847,7 +18853,7 @@ var render = function() {
               [
                 _vm._v(
                   "\n                " +
-                    _vm._s(_vm.messages.AUTH_PROFILE_NAME_LABEL) +
+                    _vm._s(_vm.messages.AUTH_PROFILE_NAME_LABEL.get()) +
                     "\n            "
                 )
               ]

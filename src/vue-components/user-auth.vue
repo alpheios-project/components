@@ -1,24 +1,24 @@
 <template>
     <div>
         <button v-show="!isLoggedIn" class="uk-button uk-button-primary" @click="logIn">
-            {{ messages.AUTH_LOG_IN_BTN_LABEL }}
+            {{ messages.AUTH_LOG_IN_BTN_LABEL.get() }}
         </button>
         <button v-show="isLoggedIn" class="uk-button uk-button-primary" @click="logOut">
-            {{ messages.AUTH_LOG_OUT_BTN_LABEL }}
+            {{ messages.AUTH_LOG_OUT_BTN_LABEL.get() }}
         </button>
         <div v-show="logInProgress" class="alpheios-user-auth__message-box">
-            {{ messages.AUTH_LOG_IN_PROGRESS_MSG }}
+            {{ messages.AUTH_LOG_IN_PROGRESS_MSG.get() }}
         </div>
         <div v-show="isLoggedIn" class="alpheios-user-auth__message-box">
-            {{ messages.AUTH_LOG_IN_SUCCESS_MSG }}
+            {{ messages.AUTH_LOG_IN_SUCCESS_MSG.get() }}
         </div>
         <div v-show="authenticationFailed" class="alpheios-user-auth__message-box">
-            {{ messages.AUTH_LOG_IN_AUTH_FAILURE_MSG }}
+            {{ messages.AUTH_LOG_IN_AUTH_FAILURE_MSG.get() }}
         </div>
         <div v-if="isLoggedIn && hasUserInfo" class="alpheios-user-auth__user-info-box">
             <div class="alpheios-user-auth__user-info-item-box">
                 <div class="alpheios-user-auth__user-info-item-name">
-                    {{ messages.AUTH_PROFILE_NICKNAME_LABEL }}
+                    {{ messages.AUTH_PROFILE_NICKNAME_LABEL.get() }}
                 </div>
                 <div class="alpheios-user-auth__user-info-item-value">
                     {{ userInfo.nickname ? userInfo.nickname: `&mdash;` }}
@@ -26,7 +26,7 @@
             </div>
             <div class="alpheios-user-auth__user-info-item-box">
                 <div class="alpheios-user-auth__user-info-item-name">
-                    {{ messages.AUTH_PROFILE_NAME_LABEL }}
+                    {{ messages.AUTH_PROFILE_NAME_LABEL.get() }}
                 </div>
                 <div class="alpheios-user-auth__user-info-item-value">
                     {{ userInfo.name ? userInfo.name: `&mdash;` }}
