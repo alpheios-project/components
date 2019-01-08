@@ -73,7 +73,7 @@ describe('setting.test.js', () => {
   it('4 Setting - check required props', () => {
     let cmp = mount(Setting)
 
-    expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('Missing required prop'))
   })
 
   it('5 Setting - classes', () => {
@@ -83,9 +83,14 @@ describe('setting.test.js', () => {
       }
     })
 
+<<<<<<< HEAD
     expect(console.error).toBeCalledWith(expect.stringContaining('[Vue warn]: Missing required prop: "data"'))
     expect(console.error).toBeCalledWith(expect.stringContaining('Invalid prop: type check failed for prop "classes". Expected Array, got String'))
     // expect(console.error).toBeCalledWith(expect.stringContaining('Invalid prop: type check failed for prop "classes". Expected Array, got String with value "foovalue".'))
+=======
+    expect(console.error).toBeCalledWith(expect.stringContaining('Missing required prop'))
+    expect(console.error).toBeCalledWith(expect.stringContaining('Expected Array, got String'))
+>>>>>>> b8bb9c4a148e9d3a9bfd50153dfd73ebe14cbc40
   })
 
   it('7 Setting - checkbox', () => {
