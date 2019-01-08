@@ -27,11 +27,9 @@ export default class LexicalQuery extends Query {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
-      // console.info('**********************result.value', result.value)
       if (Query.isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
-          // console.info('**********************resolvedValue', resolvedValue)
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
@@ -115,6 +113,7 @@ export default class LexicalQuery extends Query {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
+    console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({
         method: 'fetchTranslations',

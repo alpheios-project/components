@@ -142,6 +142,7 @@ export default class UIController {
 
     LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    LexicalQuery.evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -1430,6 +1431,7 @@ export default class UIController {
   onWordListUpdated (wordLists) {
     this.panel.panelData.wordLists = wordLists
     this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
+    console.info('*************onWordListUpdated', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {
@@ -1474,6 +1476,8 @@ export default class UIController {
     this.updateWordAnnotationData()
 
     this.onHomonymReady(homonym)
+    this.updateDefinitions(homonym)
+    this.updateTranslations(homonym)
   }
 }
 

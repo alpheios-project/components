@@ -10467,6 +10467,9 @@ __webpack_require__.r(__webpack_exports__);
       get: function() {
         return (this.morphDataReady && this.lex.getGroupedInflections) ? this.lex.getGroupedInflections() : []
       }
+    },
+    showTranslations () {
+      return Boolean(this.translations && this.translations[this.lex.lemma.ID] && this.translations[this.lex.lemma.ID].glosses && this.translations[this.lex.lemma.ID].glosses.length > 0)
     }
   },
   methods: {
@@ -15962,10 +15965,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.translations &&
-        _vm.translations[_vm.lex.lemma.ID] &&
-        _vm.translations[_vm.lex.lemma.ID].glosses &&
-        _vm.translations[_vm.lex.lemma.ID].glosses.length > 0
+        _vm.showTranslations
           ? _c(
               "div",
               { staticClass: "alpheios-morph__translation_list" },
@@ -30770,6 +30770,7 @@ class UIController {
 
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_13__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -32058,6 +32059,7 @@ class UIController {
   onWordListUpdated (wordLists) {
     this.panel.panelData.wordLists = wordLists
     this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
+    console.info('*************onWordListUpdated', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {
@@ -32102,6 +32104,8 @@ class UIController {
     this.updateWordAnnotationData()
 
     this.onHomonymReady(homonym)
+    this.updateDefinitions(homonym)
+    this.updateTranslations(homonym)
   }
 }
 
@@ -33951,11 +33955,9 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     let result = iterator.next()
     while (true) {
       if (!this.active) { this.finalize() }
-      // console.info('**********************result.value', result.value)
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
         try {
           let resolvedValue = await result.value
-          // console.info('**********************resolvedValue', resolvedValue)
           result = iterator.next(resolvedValue)
         } catch (error) {
           iterator.return()
@@ -34039,6 +34041,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
+    console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
         method: 'fetchTranslations',

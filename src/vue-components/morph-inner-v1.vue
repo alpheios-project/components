@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div v-if="translations && translations[lex.lemma.ID] && translations[lex.lemma.ID].glosses && translations[lex.lemma.ID].glosses.length > 0" class="alpheios-morph__translation_list">
+    <div v-if="showTranslations" class="alpheios-morph__translation_list">
       <!-- <p class="block_title">translations ({{ translations[lex.lemma.ID].languageCode}})</p> -->
       <lemmatranslation :translations="translations" :lemmakey="lex.lemma.ID"></lemmatranslation>
     </div>
@@ -190,6 +190,9 @@
         get: function() {
           return (this.morphDataReady && this.lex.getGroupedInflections) ? this.lex.getGroupedInflections() : []
         }
+      },
+      showTranslations () {
+        return Boolean(this.translations && this.translations[this.lex.lemma.ID] && this.translations[this.lex.lemma.ID].glosses && this.translations[this.lex.lemma.ID].glosses.length > 0)
       }
     },
     methods: {
