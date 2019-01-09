@@ -3,6 +3,8 @@ import { Constants, LanguageModelFactory } from 'alpheios-data-models'
 import TextSelector from '../text-selector'
 import MediaSelector from './media-selector'
 
+// import TextQuoteSelector from '@/lib/selection/w3c/text-quote-selector'
+
 export default class HTMLSelector extends MediaSelector {
   /**
    * @param {PointerEvt} event - Event object with information about text selection.
@@ -112,7 +114,7 @@ export default class HTMLSelector extends MediaSelector {
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
-    console.info('*******************createSelectionFromPoint range', range)
+    // console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 
@@ -174,9 +176,7 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
-    console.info('***********doSpaceSeparatedWordSelection this.target', this.target)
     let selection = HTMLSelector.getSelection(this.target)
-    console.info('***********doSpaceSeparatedWordSelection selection', selection)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     let focus = selection.focusNode // A node where the end of a selection
@@ -210,6 +210,8 @@ export default class HTMLSelector extends MediaSelector {
     let wordStart = anchorText.lastIndexOf(' ', ro) + 1 // Try to find a space char before a beginning of a selection
     let wordEnd = anchorText.indexOf(' ', wordStart + 1) // Try to find a space char after a beginning of a selection
 
+    // console.info('***********************wordStart', wordStart)
+    // console.info('***********************wordEnd', wordEnd)
     if (wordStart === -1) {
       // if we don't have any spaces in the text and the browser identified
       // an invalid anchor node (i.e. one which doesn't contain the focus node text)
@@ -230,9 +232,6 @@ export default class HTMLSelector extends MediaSelector {
 
     // extract word
     let word = anchorText.substring(wordStart, wordEnd).trim()
-    console.info('***********************doSpaceSeparatedWordSelection wordStart', wordStart)
-    console.info('***********************doSpaceSeparatedWordSelection wordEnd', wordEnd)
-    console.info('***********************doSpaceSeparatedWordSelection word', word)
     /* Identify the words preceeding and following the focus word
     * TODO - query the type of node in the selection to see if we are
     * dealing with something other than text nodes
@@ -243,7 +242,10 @@ export default class HTMLSelector extends MediaSelector {
     let contextStr = null
     let contextPos = 0
 
-    if (textSelector.model.contextForward || textSelector.model.contextBackward) {
+    let contextForward = textSelector.model.contextForward
+    let contextBackward = textSelector.model.contextBackward
+
+    if (contextForward || contextBackward) {
       let startstr = anchorText.substring(0, wordEnd)
       let endstr = anchorText.substring(wordEnd + 1, anchorText.length)
       let preWordlist = startstr.split(/\s+/)
@@ -287,6 +289,7 @@ export default class HTMLSelector extends MediaSelector {
         selection.setBaseAndExtent(anchor, wordStart, focus, wordEnd)
       }
     }
+    textSelector.createTextQuoteSelector(this)
     return textSelector
   }
 

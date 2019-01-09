@@ -1354,6 +1354,8 @@ export default class UIController {
         this.updateWordAnnotationData(textSelector.data)
 
         lexQuery.getData()
+
+        console.info('*************************uiController getSelectedText lexquery get')
       }
     }
   }
@@ -1435,7 +1437,7 @@ export default class UIController {
   onWordListUpdated (wordLists) {
     this.panel.panelData.wordLists = wordLists
     this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
-    console.info('*************onWordListUpdated', wordLists)
+    // console.info('*************onWordListUpdated', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {

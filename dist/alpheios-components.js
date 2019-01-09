@@ -32047,6 +32047,8 @@ class UIController {
         this.updateWordAnnotationData(textSelector.data)
 
         lexQuery.getData()
+
+        console.info('*************************uiController getSelectedText lexquery get')
       }
     }
   }
@@ -32128,7 +32130,7 @@ class UIController {
   onWordListUpdated (wordLists) {
     this.panel.panelData.wordLists = wordLists
     this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
-    console.info('*************onWordListUpdated', wordLists)
+    // console.info('*************onWordListUpdated', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {
@@ -34220,7 +34222,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.pub({
       resultStatus: resultStatus,
-      homonym: this.homonym
+      homonym: this.homonym,
+      textSelector: this.selector
     })
     _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].destroy(this)
     return result
@@ -34795,6 +34798,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import TextQuoteSelector from '@/lib/selection/w3c/text-quote-selector'
+
 class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default"] {
   /**
    * @param {PointerEvt} event - Event object with information about text selection.
@@ -34904,7 +34909,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
-    console.info('*******************createSelectionFromPoint range', range)
+    // console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 
@@ -34966,9 +34971,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
-    console.info('***********doSpaceSeparatedWordSelection this.target', this.target)
     let selection = HTMLSelector.getSelection(this.target)
-    console.info('***********doSpaceSeparatedWordSelection selection', selection)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     let focus = selection.focusNode // A node where the end of a selection
@@ -35002,6 +35005,8 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     let wordStart = anchorText.lastIndexOf(' ', ro) + 1 // Try to find a space char before a beginning of a selection
     let wordEnd = anchorText.indexOf(' ', wordStart + 1) // Try to find a space char after a beginning of a selection
 
+    // console.info('***********************wordStart', wordStart)
+    // console.info('***********************wordEnd', wordEnd)
     if (wordStart === -1) {
       // if we don't have any spaces in the text and the browser identified
       // an invalid anchor node (i.e. one which doesn't contain the focus node text)
@@ -35022,9 +35027,6 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
 
     // extract word
     let word = anchorText.substring(wordStart, wordEnd).trim()
-    console.info('***********************doSpaceSeparatedWordSelection wordStart', wordStart)
-    console.info('***********************doSpaceSeparatedWordSelection wordEnd', wordEnd)
-    console.info('***********************doSpaceSeparatedWordSelection word', word)
     /* Identify the words preceeding and following the focus word
     * TODO - query the type of node in the selection to see if we are
     * dealing with something other than text nodes
@@ -35035,7 +35037,10 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     let contextStr = null
     let contextPos = 0
 
-    if (textSelector.model.contextForward || textSelector.model.contextBackward) {
+    let contextForward = textSelector.model.contextForward
+    let contextBackward = textSelector.model.contextBackward
+
+    if (contextForward || contextBackward) {
       let startstr = anchorText.substring(0, wordEnd)
       let endstr = anchorText.substring(wordEnd + 1, anchorText.length)
       let preWordlist = startstr.split(/\s+/)
@@ -35079,6 +35084,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
         selection.setBaseAndExtent(anchor, wordStart, focus, wordEnd)
       }
     }
+    textSelector.createTextQuoteSelector(this)
     return textSelector
   }
 
@@ -35289,8 +35295,9 @@ class TextSelector {
     return Models.LanguageModelFactory.getLanguageForCode(languageCode)
   } */
 
-  get textQuoteSelector () {
-    return new _w3c_text_quote_selector__WEBPACK_IMPORTED_MODULE_0__["default"]()
+  createTextQuoteSelector (htmlSelector) {
+    this.textQuoteSelector = new _w3c_text_quote_selector__WEBPACK_IMPORTED_MODULE_0__["default"](this.languageCode, this.normalizedText)
+    this.textQuoteSelector.createContext(htmlSelector, this)
   }
 }
 
@@ -35307,10 +35314,27 @@ class TextSelector {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextQuoteSelector; });
+/* harmony import */ var _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/selection/media/html-selector */ "./lib/selection/media/html-selector.js");
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
+
+
 class TextQuoteSelector {
+  constructor (languageCode, normalizedText) {
+    this.languageCode = languageCode
+    this.normalizedText = normalizedText
+    this.contextForward = 6
+    this.contextBackward = 6
+  }
+
+  createContext (htmlSelector, textSelector) {
+    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_0__["default"].getSelection(htmlSelector.target)
+    this.prefix = selection.anchorNode.data.substr(0, textSelector.start)
+    this.suffix = selection.anchorNode.data.substr(textSelector.end)
+    this.text = textSelector.text
+    this.contextHTML = `${this.prefix}<span class="alpheios_worditem_incontext">${this.text}</span>${this.suffix}`
+  }
 }
 
 

@@ -194,7 +194,8 @@ export default class LexicalQuery extends Query {
     }
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.pub({
       resultStatus: resultStatus,
-      homonym: this.homonym
+      homonym: this.homonym,
+      textSelector: this.selector
     })
     Query.destroy(this)
     return result

@@ -90,7 +90,8 @@ export default class TextSelector {
     return Models.LanguageModelFactory.getLanguageForCode(languageCode)
   } */
 
-  get textQuoteSelector () {
-    return new TextQuoteSelector()
+  createTextQuoteSelector (htmlSelector) {
+    this.textQuoteSelector = new TextQuoteSelector(this.languageCode, this.normalizedText)
+    this.textQuoteSelector.createContext(htmlSelector, this)
   }
 }
