@@ -14,6 +14,10 @@ export default class LexicalQuery extends Query {
     this.lemmaTranslations = options.lemmaTranslations
     const langID = this.selector.languageID
     this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
+
+    if (this.selector.textQuoteSelector) {
+      LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED.pub(this.selector.textQuoteSelector)
+    }
   }
 
   static create (selector, options) {
@@ -113,7 +117,7 @@ export default class LexicalQuery extends Query {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
-    console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
+    // console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({
         method: 'fetchTranslations',
@@ -194,8 +198,7 @@ export default class LexicalQuery extends Query {
     }
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.pub({
       resultStatus: resultStatus,
-      homonym: this.homonym,
-      textSelector: this.selector
+      homonym: this.homonym
     })
     Query.destroy(this)
     return result
@@ -276,5 +279,13 @@ LexicalQuery.evt = {
    *   word: definitionRequest.lexeme.lemma.word
    * }
    */
-  DEFS_NOT_FOUND: new PsEvent(`Definitions Data Not Found`, LexicalQuery)
+  DEFS_NOT_FOUND: new PsEvent(`Definitions Data Not Found`, LexicalQuery),
+
+  /**
+   * Published when Lexical Query is created and TextQuoteSelector is passed inside TextSelector.
+   * Data: {
+   *    textQuoteSelector
+   * }
+   */
+  TEXT_QUOTE_SELECTOR_RECEIVED: new PsEvent(`TextQuoteSelector recieved for the target word`, LexicalQuery)
 }

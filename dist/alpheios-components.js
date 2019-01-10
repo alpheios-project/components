@@ -10159,7 +10159,7 @@ __webpack_require__.r(__webpack_exports__);
         this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
       }
       this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
-      console.log(`at creation current language is ${this.currentLanguage}`)
+      // console.log(`at creation current language is ${this.currentLanguage}`)
     }
   },
   computed: {
@@ -10172,7 +10172,7 @@ __webpack_require__.r(__webpack_exports__);
       return settingName
     },
     lexiconsFiltered: function () {
-      console.log(`Lexicons filtered`)
+      // console.log(`Lexicons filtered`)
       return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
     },
     lookupLanguage: function () {
@@ -30835,9 +30835,12 @@ class UIController {
     let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](testUserID)
 
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.TEXT_QUOTE_SELECTOR_RECEIVED.sub(uiController.wordlistC.onTextQuoteSelectorRecieved.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
+
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -32119,7 +32122,7 @@ class UIController {
   }
 
   onHomonymReady (homonym) {
-    console.info('*********************onHomonymReady', homonym)
+    // console.info('*********************onHomonymReady', homonym)
     this.updateMorphology(homonym)
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer
@@ -33615,7 +33618,7 @@ class OptionItem {
     this.storageAdapter.set(option).then(
       () => {
         // Options storage succeeded
-        console.log(`Value "${this.currentValue}" of "${this.name}" option value was stored successfully`)
+        // console.log(`Value "${this.currentValue}" of "${this.name}" option value was stored successfully`)
       },
       (errorMessage) => {
         console.error(`Storage of an option value failed: ${errorMessage}`)
@@ -34042,6 +34045,10 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     this.lemmaTranslations = options.lemmaTranslations
     const langID = this.selector.languageID
     this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
+
+    if (this.selector.textQuoteSelector) {
+      LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED.pub(this.selector.textQuoteSelector)
+    }
   }
 
   static create (selector, options) {
@@ -34141,7 +34148,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
-    console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
+    // console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
         method: 'fetchTranslations',
@@ -34222,8 +34229,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.pub({
       resultStatus: resultStatus,
-      homonym: this.homonym,
-      textSelector: this.selector
+      homonym: this.homonym
     })
     _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].destroy(this)
     return result
@@ -34304,7 +34310,15 @@ LexicalQuery.evt = {
    *   word: definitionRequest.lexeme.lemma.word
    * }
    */
-  DEFS_NOT_FOUND: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Definitions Data Not Found`, LexicalQuery)
+  DEFS_NOT_FOUND: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Definitions Data Not Found`, LexicalQuery),
+
+  /**
+   * Published when Lexical Query is created and TextQuoteSelector is passed inside TextSelector.
+   * Data: {
+   *    textQuoteSelector
+   * }
+   */
+  TEXT_QUOTE_SELECTOR_RECEIVED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`TextQuoteSelector recieved for the target word`, LexicalQuery)
 }
 
 
@@ -34362,7 +34376,7 @@ class Query {
 
     let query = new constructor(constructor.name, selector, options)
     queries[query.name].set(query.ID, query)
-    console.log(`An instance of ${query.name} has been created`)
+    // console.log(`An instance of ${query.name} has been created`)
     return query
   }
 
@@ -34371,7 +34385,7 @@ class Query {
    * @param {Query} query - A query to be destroyed.
    */
   static destroy (query) {
-    console.log(`Destroying a ${query.name} instance`)
+    // console.log(`Destroying a ${query.name} instance`)
     queries[query.name].delete(query.ID)
   }
 

@@ -142,9 +142,12 @@ export default class UIController {
     let testUserID = 'userIDTest'
     uiController.wordlistC = new WordlistController(testUserID)
 
-    LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
+    LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED.sub(uiController.wordlistC.onTextQuoteSelectorRecieved.bind(uiController.wordlistC))
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
+
+    LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
     LexicalQuery.evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
+
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -1426,7 +1429,7 @@ export default class UIController {
   }
 
   onHomonymReady (homonym) {
-    console.info('*********************onHomonymReady', homonym)
+    // console.info('*********************onHomonymReady', homonym)
     this.updateMorphology(homonym)
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer

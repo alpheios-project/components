@@ -82,7 +82,7 @@
           this.currentLanguage = this.options.items.preferredLanguage.currentTextValue()
         }
         this.options.items.lookupLanguage.setTextValue(this.currentLanguage)
-        console.log(`at creation current language is ${this.currentLanguage}`)
+        // console.log(`at creation current language is ${this.currentLanguage}`)
       }
     },
     computed: {
@@ -95,7 +95,7 @@
         return settingName
       },
       lexiconsFiltered: function () {
-        console.log(`Lexicons filtered`)
+        // console.log(`Lexicons filtered`)
         return this.resourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
       },
       lookupLanguage: function () {
