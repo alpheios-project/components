@@ -4,13 +4,18 @@ import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
+import Vuex from 'vuex'
 
 // A panel component
-import Panel from '@/vue-components/panel.vue'
+import Panel from '@/vue/components/panel.vue'
 // A popup component
-import Popup from '@/vue-components/popup.vue'
+// import Popup from '@/vue/components/popup.vue'
 
-import EmbedLibWarning from '@/vue-components/embed-lib-warning.vue'
+// Modules
+import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
+import PopupModule from '@/vue/vuex-modules/ui/popup-module.js'
+
+import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
 
 import L10n from '@/lib/l10n/l10n.js'
 import Locales from '@/locales/locales.js'
@@ -42,6 +47,9 @@ const languageNames = new Map([
   [Constants.LANG_PERSIAN, 'Persian'],
   [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
 ])
+
+// Enable Vuex
+Vue.use(Vuex)
 
 export default class UIController {
   /**
@@ -80,6 +88,9 @@ export default class UIController {
     this.isActivated = false
     this.isDeactivated = false
 
+    this.store = new Vuex.Store() // Vuex store. A public API for data and UI module interactions.
+    this.registeredDataModules = new Map() // Data modules that are registered to be included into the store.
+
     /**
      * If an event controller be used with an instance of a UI Controller,
      * this prop will hold an event controller instance. It is usually initialized within a `build` method.
@@ -98,6 +109,9 @@ export default class UIController {
    */
   static create (state, options) {
     let uiController = new UIController(state, options)
+
+    // Register modules
+    uiController.registerDataModule(L10nModule)
 
     // Creates on configures an event listener
     let eventController = new UIEventController()
@@ -231,6 +245,19 @@ export default class UIController {
     return this
   }
 
+  /**
+   * Registers a data module for use by UI controller and other modules.
+   * It instantiates each module and adds them to the registered modules store.
+   * @param {DataModule} Module - A data module class (i.e. the constructor function).
+   * @param options - Arbitrary number of values that will be passed to the module constructor.
+   * @return {UIController} - A self reference for chaining.
+   */
+  registerDataModule (Module, ...options) {
+    const module = new Module(...options)
+    this.registeredDataModules.set(module.name, module)
+    return this
+  }
+
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
@@ -255,10 +282,18 @@ export default class UIController {
     container.outerHTML = this.options.template.html
 
     await Promise.all(optionLoadPromises)
+
     // All options shall be loaded at this point. Can initialize Vue components that will use them
+    // Mount all registered modules into the store
+    this.registeredDataModules.forEach((module) => this.store.registerModule(module.name, module.store))
+    // Expose public API of all modules with `provide`
+    this.api = Object.assign({}, ...Array.from(this.registeredDataModules.values()).map(module => ({ [module.name]: module.api(this.store) })))
+
     // Initialize components
     this.panel = new Vue({
       el: `#${this.options.template.panelId}`,
+      store: this.store, // Install store into the panel
+      provide: this.api, // Public API of the modules
       components: {
         panel: Panel
       },
@@ -567,9 +602,10 @@ export default class UIController {
         this.panelData.inflections.tableBody = document.querySelector(`#${this.panelData.inflectionIDs.tableBody}`)
       }
     })
+    console.log(`Panel's store is`, this.panel.$store)
 
     // Create a Vue instance for a popup
-    this.popup = new Vue({
+    /* this.popup = new Vue({
       el: `#${this.options.template.popupId}`,
       components: {
         popup: Popup
@@ -594,11 +630,11 @@ export default class UIController {
           // Default popup dimensions, in pixels, without units. These values will override CSS rules.
           // Can be scaled down on small screens automatically.
           width: 210,
-          /*
+          /!*
           `fixedElementsHeight` is a sum of heights of all elements of a popup, including a top bar, a button area,
           and a bottom bar. A height of all variable elements (i.e. morphological data container) will be
           a height of a popup less this value.
-           */
+           *!/
           fixedElementsHeight: 120,
           heightMin: 150, // Initially, popup height will be set to this value
           heightMax: 400, // If a morphological content height is greater than `contentHeightLimit`, a popup height will be increased to this value
@@ -610,10 +646,10 @@ export default class UIController {
           // A position of a word selection
           targetRect: {},
 
-          /*
+          /!*
           A date and time when a new request was started, in milliseconds since 1970-01-01. It is used within a
           component to identify a new request coming in and to distinguish it from data updates of the current request.
-           */
+           *!/
           requestStartTime: 0,
           settings: this.contentOptions.items,
           verboseMode: this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode,
@@ -830,7 +866,8 @@ export default class UIController {
           }
         }
       }
-    })
+    }) */
+    this.popup = new PopupModule(this.store, this)
 
     // Set initial values of components
     this.setRootComponentClasses()
@@ -894,7 +931,7 @@ export default class UIController {
     // Deactivate event listeners
     if (this.evc) { this.evc.deactivateListeners() }
 
-    this.popup.close()
+    this.popup.vi.close()
     this.panel.close(false) // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
@@ -958,9 +995,9 @@ export default class UIController {
 
   addImportantMessage (message) {
     this.panel.appendMessage(message)
-    this.popup.appendMessage(message)
+    this.popup.vi.appendMessage(message)
     this.panel.showImportantNotification(message)
-    this.popup.showImportantNotification(message)
+    this.popup.vi.showImportantNotification(message)
   }
 
   /**
@@ -982,12 +1019,12 @@ export default class UIController {
       homonym.lexemes.length < 1 ||
       homonym.lexemes.filter((l) => l.isPopulated()).length < 1
     this.panel.showLanguageNotification(homonym, notFound)
-    this.popup.showLanguageNotification(homonym, notFound)
+    this.popup.vi.showLanguageNotification(homonym, notFound)
   }
 
   showStatusInfo (selectionText, languageID) {
     this.panel.showStatusInfo(selectionText, languageID)
-    this.popup.showStatusInfo(selectionText, languageID)
+    this.popup.vi.showStatusInfo(selectionText, languageID)
   }
 
   showErrorInfo (errorText) {
@@ -996,7 +1033,7 @@ export default class UIController {
 
   showImportantNotification (message) {
     this.panel.showImportantNotification(message)
-    this.popup.showImportantNotification(message)
+    this.popup.vi.showImportantNotification(message)
   }
 
   changeTab (tabName) {
@@ -1013,12 +1050,12 @@ export default class UIController {
   }
 
   setTargetRect (targetRect) {
-    this.popup.setTargetRect(targetRect)
+    this.popup.vi.setTargetRect(targetRect)
     return this
   }
 
   newLexicalRequest (languageID) {
-    this.popup.newLexicalRequest()
+    this.popup.vi.newLexicalRequest()
     this.panel.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
     this.panel.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
     this.panel.panelData.grammarAvailable = false
@@ -1028,14 +1065,14 @@ export default class UIController {
 
   updateMorphology (homonym) {
     homonym.lexemes.sort(Lexeme.getSortByTwoLemmaFeatures(Feature.types.frequency, Feature.types.part))
-    this.popup.lexemes = homonym.lexemes
+    this.popup.vi.lexemes = homonym.lexemes
     if (homonym.lexemes.length > 0) {
       // TODO we could really move this into the morph component and have it be calculated for each lemma in case languages are multiple
-      this.popup.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.lexemes[0].lemma.languageID).grammarFeatures()
+      this.popup.vi.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.lexemes[0].lemma.languageID).grammarFeatures()
     }
-    this.popup.popupData.morphDataReady = true
+    this.popup.vi.popupData.morphDataReady = true
     this.panel.panelData.lexemes = homonym.lexemes
-    this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.popup.vi.popupData.updates = this.popup.vi.popupData.updates + 1
     this.updateProviders(homonym)
   }
 
@@ -1056,7 +1093,7 @@ export default class UIController {
         providers.set(l.lemma.translation.provider, 1)
       }
     })
-    this.popup.popupData.providers = Array.from(providers.keys())
+    this.popup.vi.popupData.providers = Array.from(providers.keys())
   }
 
   /**
@@ -1105,9 +1142,9 @@ export default class UIController {
     }
 
     // Populate a popup
-    this.popup.definitions = definitions
-    this.popup.popupData.defDataReady = hasFullDefs
-    this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.popup.vi.definitions = definitions
+    this.popup.vi.popupData.defDataReady = hasFullDefs
+    this.popup.vi.popupData.updates = this.popup.vi.popupData.updates + 1
   }
 
   updateTranslations (homonym) {
@@ -1117,23 +1154,24 @@ export default class UIController {
         translations[lexeme.lemma.ID] = lexeme.lemma.translation
       }
     }
-    this.popup.translations = translations
-    this.popup.popupData.translationsDataReady = true
-    this.popup.popupData.updates = this.popup.popupData.updates + 1
+    this.popup.vi.translations = translations
+    this.popup.vi.popupData.translationsDataReady = true
+    this.popup.vi.popupData.updates = this.popup.vi.popupData.updates + 1
     this.updateProviders(homonym)
   }
 
   updatePageAnnotationData (data) {
+    console.log(`Update page annotations`)
     this.panel.panelData.treebankComponentData.data.page = data.treebank.page || {}
   }
 
   updateWordAnnotationData (data) {
     if (data && data.treebank) {
       this.panel.panelData.treebankComponentData.data.word = data.treebank.word || {}
-      this.popup.popupData.hasTreebank = data.treebank.word
+      this.popup.vi.popupData.hasTreebank = data.treebank.word
     } else {
       this.panel.panelData.treebankComponentData.data.word = {}
-      this.popup.popupData.hasTreebank = false
+      this.popup.vi.popupData.hasTreebank = false
     }
   }
 
@@ -1147,11 +1185,11 @@ export default class UIController {
     this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
 
     this.panel.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
-    this.popup.popupData.inflDataReady = this.inflDataReady
+    this.popup.vi.popupData.inflDataReady = this.inflDataReady
     this.panel.panelData.currentLanguageID = currentLanguageID
     this.panel.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID).name
 
-    Vue.set(this.popup.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID).name)
+    Vue.set(this.popup.vi.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID).name)
     console.log(`Current language is ${this.state.currentLanguage}`)
   }
 
@@ -1159,7 +1197,7 @@ export default class UIController {
     this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
 
     this.panel.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-    this.popup.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
+    this.popup.vi.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
   }
 
   updateLemmaTranslations () {
@@ -1183,11 +1221,11 @@ export default class UIController {
     }
     this.panel.panelData.inflectionsWaitState = false
     this.panel.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
-    this.popup.popupData.inflDataReady = this.inflDataReady
+    this.popup.vi.popupData.inflDataReady = this.inflDataReady
   }
 
   lexicalRequestComplete () {
-    this.popup.popupData.morphDataReady = true
+    this.popup.vi.popupData.morphDataReady = true
     this.panel.panelData.inflBrowserTablesCollapsed = null // Reset inflection browser tables state
   }
 
@@ -1205,7 +1243,7 @@ export default class UIController {
 
   clear () {
     this.panel.clearContent()
-    this.popup.clearContent()
+    this.popup.vi.clearContent()
     return this
   }
 
@@ -1214,7 +1252,7 @@ export default class UIController {
       this.panel.open()
     } else {
       if (this.panel.isOpen) { this.panel.close() }
-      this.popup.open()
+      this.popup.vi.open()
     }
     return this
   }
@@ -1241,17 +1279,17 @@ export default class UIController {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.defaultValue}_class`)
     }
 
-    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
-    this.panel.panelData.classes.splice(0, this.popup.popupData.classes.length)
+    this.popup.vi.popupData.classes.splice(0, this.popup.vi.popupData.classes.length)
+    this.panel.panelData.classes.splice(0, this.popup.vi.popupData.classes.length)
 
     classes.forEach(classItem => {
-      this.popup.popupData.classes.push(classItem)
+      this.popup.vi.popupData.classes.push(classItem)
       this.panel.panelData.classes.push(classItem)
     })
   }
 
   updateStyleClass (prefix, type) {
-    let popupClasses = this.popup.popupData.classes.slice(0)
+    let popupClasses = this.popup.vi.popupData.classes.slice(0)
 
     popupClasses.forEach(function (item, index) {
       if (item.indexOf(prefix) === 0) {
@@ -1259,9 +1297,9 @@ export default class UIController {
       }
     })
 
-    this.popup.popupData.classes.splice(0, this.popup.popupData.classes.length)
+    this.popup.vi.popupData.classes.splice(0, this.popup.vi.popupData.classes.length)
     popupClasses.forEach(classItem => {
-      this.popup.popupData.classes.push(classItem)
+      this.popup.vi.popupData.classes.push(classItem)
     })
 
     let panelClasses = this.panel.panelData.classes.slice(0)
@@ -1359,8 +1397,8 @@ export default class UIController {
     if (nativeEvent.keyCode === 27 && this.state.isActive()) {
       if (this.state.isPanelOpen()) {
         this.panel.close()
-      } else if (this.popup.visible) {
-        this.popup.close()
+      } else if (this.popup.vi.visible) {
+        this.popup.vi.close()
       }
     }
     return true
@@ -1369,6 +1407,7 @@ export default class UIController {
    * Issues an AnnotationQuery to find and apply annotations for the currently loaded document
    */
   updateAnnotations () {
+    console.log(`Update annotations called`)
     if (this.state.isActive() && this.state.uiIsActive()) {
       AnnotationQuery.create({
         document: document,
@@ -1445,6 +1484,7 @@ export default class UIController {
   }
 
   onAnnotationsAvailable (data) {
+    console.log(`Annotations becomes available`)
     this.updatePageAnnotationData(data.annotations)
   }
 }
