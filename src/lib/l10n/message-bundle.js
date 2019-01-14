@@ -78,7 +78,7 @@ export default class MessageBundle {
       }
     } else {
       // If message with the ID provided is not in translation data, generate a warning.
-      return `Not in translation data: "${messageID}"`
+      return this._missingTranslationMsgFn(messageID, this._locale)
     }
   }
 
