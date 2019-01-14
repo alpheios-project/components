@@ -10491,6 +10491,9 @@ __webpack_require__.r(__webpack_exports__);
       _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, resourceOptions, lemmaTranslationLang)
         .getData()
+      // A fix for the lookup, when started from a panel, not opening a popup with lookup results
+      this.uiController.popup.vi.open()
+      this.uiController.panel.close()
     },
 
     'switchLookupSettings': function () {
@@ -32360,9 +32363,9 @@ class UIController {
               this.uiController.changeSkin(this.uiController.uiOptions.items[name].currentValue)
               break
             case 'popup':
-              this.uiController.popup.close() // Close an old popup
+              this.uiController.popup.vi.close() // Close an old popup
               this.uiController.popup.currentPopupComponent = this.uiController.uiOptions.items[name].currentValue
-              this.uiController.popup.open() // Will trigger an initialisation of popup dimensions
+              this.uiController.popup.vi.open() // Will trigger an initialisation of popup dimensions
               break
             case 'fontSize':
               this.uiController.updateFontSizeClass(value)
