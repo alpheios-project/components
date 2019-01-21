@@ -70,6 +70,13 @@
                 </span>
               </alph-tooltip>
 
+              <alph-tooltip :tooltipText="ln10Messages('TOOLTIP_WORD_USAGE')" tooltipDirection="bottom-narrow">
+                <span @click="changeTab('word-usage')" class="alpheios-panel__header-nav-btn"
+                      v-bind:class="{ active: data.tabs.wordUsage }">
+                  <user-icon class="alpheios-icon"></user-icon>
+                </span>
+              </alph-tooltip>
+
               <alph-tooltip :tooltipText="ln10Messages('TOOLTIP_STATUS')" tooltipDirection="bottom-narrow">
                 <span @click="changeTab('status')" class="alpheios-panel__header-nav-btn" v-bind:class="{ active: data.tabs.status }"
                       v-show="data.verboseMode">
@@ -244,6 +251,8 @@ import OptionsIcon from '../../images/inline-icons/options.svg'
 import GrammarIcon from '../../images/inline-icons/resources.svg'
 import TreebankIcon from '../../images/inline-icons/sitemap.svg'
 import InfoIcon from '../../images/inline-icons/info.svg'
+
+import WordUsageIcon from '../../images/inline-icons/books-stack.svg'
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
 // JS imports
@@ -272,6 +281,7 @@ export default {
     infoIcon: InfoIcon,
     grammarIcon: GrammarIcon,
     treebankIcon: TreebankIcon,
+    wordUsageIcon: WordUsageIcon,
     alphTooltip: Tooltip,
     lookup: Lookup,
     reskinFontColor: ReskinFontColor
