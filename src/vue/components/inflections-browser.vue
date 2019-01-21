@@ -124,6 +124,26 @@
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
           :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'supersum', title: 'Supersum (superesse, superfui, superfuturus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+      <wide-table
+          :collapsed="inflBrowserTablesCollapsed"
+          :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
+          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'queo', title: 'Queo (quire, quivi(ii), quitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+      <wide-table
+          :collapsed="inflBrowserTablesCollapsed"
+          :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
+          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'nequeo', title: 'Nequeo (nequire, nequivi(ii), nequitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+      <wide-table
+          :collapsed="inflBrowserTablesCollapsed"
+          :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
+          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'adeo', title: 'adeo (adire, adivi(ii), aditus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+      <wide-table
+          :collapsed="inflBrowserTablesCollapsed"
+          :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
+          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'ineo', title: 'ineo (inire, inivi(ii), initus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+      <wide-table
+          :collapsed="inflBrowserTablesCollapsed"
+          :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
+          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'veneo', title: 'veneo (venire, venivi(ii), venitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
     </div>
 
     <div @click="collapseLanguage(constants.LANG_GREEK)" class="alpheios-ib__title alpheios-clickable">
