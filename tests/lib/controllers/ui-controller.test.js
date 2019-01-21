@@ -718,7 +718,7 @@ describe('ui-controller.test.js', () => {
     expect(uiC.panel.resourceOptions.items.lexicons.filter((f) => f.name === testName)[0].currentValue).toEqual(checkValues.map(f => f.value))
   })
 
-  it('28 UIController - panel methods - uiOptionChange', () => {
+  it.skip('28 UIController - panel methods - uiOptionChange', () => {
     uiC.updateFontSizeClass = jest.fn(() => { })
     uiC.updateColorSchemaClass = jest.fn(() => { })
     uiC.changeSkin = jest.fn(() => { })
