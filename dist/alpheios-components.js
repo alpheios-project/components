@@ -13723,7 +13723,7 @@ var render = function() {
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
             view: _vm.latinInflView({
-              viewID: "latin_verb_irregular_view",
+              viewID: "latin_verb_irregular_voice_view",
               form: "queo",
               title: "Queo (quire, quivi(ii), quitus)"
             })
@@ -13753,7 +13753,7 @@ var render = function() {
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
             view: _vm.latinInflView({
-              viewID: "latin_verb_irregular_view",
+              viewID: "latin_verb_irregular_voice_view",
               form: "adeo",
               title: "Adeo (adire, adivi(ii), aditus)"
             })
@@ -13768,7 +13768,7 @@ var render = function() {
             messages: _vm.messages,
             "no-suffix-matches-hidden": false,
             view: _vm.latinInflView({
-              viewID: "latin_verb_irregular_view",
+              viewID: "latin_verb_irregular_voice_view",
               form: "ineo",
               title: "Ineo (inire, inivi(ii), initus)"
             })

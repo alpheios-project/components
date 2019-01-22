@@ -127,7 +127,7 @@
       <wide-table
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
-          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'queo', title: 'Queo (quire, quivi(ii), quitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+          :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'queo', title: 'Queo (quire, quivi(ii), quitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
       <wide-table
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
@@ -135,11 +135,11 @@
       <wide-table
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
-          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'adeo', title: 'Adeo (adire, adivi(ii), aditus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+          :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'adeo', title: 'Adeo (adire, adivi(ii), aditus)' })" @widthchange="inflTableWidthUpd"></wide-table>
       <wide-table
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
-          :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'ineo', title: 'Ineo (inire, inivi(ii), initus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+          :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'ineo', title: 'Ineo (inire, inivi(ii), initus)' })" @widthchange="inflTableWidthUpd"></wide-table>
       <wide-table
           :collapsed="inflBrowserTablesCollapsed"
           :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false"
