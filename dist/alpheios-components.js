@@ -13755,7 +13755,7 @@ var render = function() {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
               form: "adeo",
-              title: "adeo (adire, adivi(ii), aditus)"
+              title: "Adeo (adire, adivi(ii), aditus)"
             })
           },
           on: { widthchange: _vm.inflTableWidthUpd }
@@ -13770,7 +13770,7 @@ var render = function() {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
               form: "ineo",
-              title: "ineo (inire, inivi(ii), initus)"
+              title: "Ineo (inire, inivi(ii), initus)"
             })
           },
           on: { widthchange: _vm.inflTableWidthUpd }
@@ -13785,7 +13785,7 @@ var render = function() {
             view: _vm.latinInflView({
               viewID: "latin_verb_irregular_view",
               form: "veneo",
-              title: "veneo (venire, venivi(ii), venitus)"
+              title: "Veneo (venire, venivi(ii), venitus)"
             })
           },
           on: { widthchange: _vm.inflTableWidthUpd }
