@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="alpheios_word_usage_list_title">{{ targetWord }} ({{ language }})</div>
-    <div class="alpheios_word_usage_list_mainblock">
+    <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <word-usage-example-item 
           v-for="wordUsageItem in wordUsageList"
           v-bind:key="wordUsageItem.ID"
@@ -29,6 +29,11 @@
       language: {
         type: String,
         required: true
+      }
+    },
+    computed: {
+      showWordUsageExampleItems () {
+        return this.wordUsageList && this.wordUsageList.length > 0
       }
     }
   }
