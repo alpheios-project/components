@@ -1232,7 +1232,6 @@ export default class UIController {
 
   updateWordUsageExamples (wordUsageExamplesData) {
     this.panel.panelData.wordUsageExamplesData = wordUsageExamplesData
-    console.info('************************updateWordUsageExamples', wordUsageExamplesData)
   }
 
   lexicalRequestComplete () {

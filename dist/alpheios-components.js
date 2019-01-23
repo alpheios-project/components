@@ -11456,7 +11456,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     wordUsageExamplesData () {
-      console.info('*******************Inside Panel', this.data.wordUsageExamplesData)
       return this.data.wordUsageExamplesData
     }
   },
@@ -19540,7 +19539,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("span", { staticClass: "alpheios_word_usage_list_item__source_cit" }, [
-        _vm._v(_vm._s(_vm.wordUsageItem.cit))
+        _vm._v(_vm._s(_vm.wordUsageItem.fullCit))
       ])
     ]),
     _vm._v(" "),
@@ -33431,7 +33430,6 @@ class UIController {
 
   updateWordUsageExamples (wordUsageExamplesData) {
     this.panel.panelData.wordUsageExamplesData = wordUsageExamplesData
-    console.info('************************updateWordUsageExamples', wordUsageExamplesData)
   }
 
   lexicalRequestComplete () {
@@ -35577,8 +35575,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     this.wordUsageExamples = options.wordUsageExamples
     const langID = this.selector.languageID
     this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
-
-    console.info('***********************************LQ options', options)
   }
 
   static create (selector, options) {

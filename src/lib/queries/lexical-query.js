@@ -15,8 +15,6 @@ export default class LexicalQuery extends Query {
     this.wordUsageExamples = options.wordUsageExamples
     const langID = this.selector.languageID
     this.canReset = (this.langOpts[langID] && this.langOpts[langID].lookupMorphLast)
-
-    console.info('***********************************LQ options', options)
   }
 
   static create (selector, options) {

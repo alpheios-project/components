@@ -464,7 +464,6 @@ export default {
     },
 
     wordUsageExamplesData () {
-      console.info('*******************Inside Panel', this.data.wordUsageExamplesData)
       return this.data.wordUsageExamplesData
     }
   },

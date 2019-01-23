@@ -5,7 +5,7 @@
             :href="wordUsageItem.source" 
             target="_blank"
             class = "alpheios_word_usage_list_item__source_link"
-            >{{ wordUsageItem.source }}</a> <span class="alpheios_word_usage_list_item__source_cit">{{ wordUsageItem.cit }}</span>
+            >{{ wordUsageItem.source }}</a> <span class="alpheios_word_usage_list_item__source_cit">{{ wordUsageItem.fullCit }}</span>
         </div>
       <div class="alpheios_word_usage_list_item__text" v-html="wordUsageItem.htmlExample"></div>
   </div>
