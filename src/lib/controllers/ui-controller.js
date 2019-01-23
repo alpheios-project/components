@@ -550,8 +550,6 @@ export default class UIController {
           } else {
             this.options.items[name].setTextValue(value)
           }
-          console.info('*********************settingChange', name, value, this.options.items[name])
-
           switch (name) {
             case 'locale':
               if (this.uiController.presenter) {
