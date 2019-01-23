@@ -3,7 +3,7 @@
 import 'whatwg-fetch'
 import { mount } from '@vue/test-utils'
 
-import { Constants, Author, TextWork, WordUsageExample } from 'alpheios-data-models'
+import { Constants, Author, TextWork } from 'alpheios-data-models'
 import { ClientAdapters } from 'alpheios-client-adapters'
 
 import wordUsageExampleItem from '@/vue/components/word-usage-example-item.vue'
