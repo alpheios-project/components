@@ -70,10 +70,10 @@
                 </span>
               </alph-tooltip>
 
-              <alph-tooltip :tooltipText="ln10Messages('TOOLTIP_WORD_USAGE')" tooltipDirection="bottom-narrow">
-                <span @click="changeTab('word-usage')" class="alpheios-panel__header-nav-btn"
+              <alph-tooltip :tooltipText="ln10Messages('TOOLTIP_WORD_USAGE')" tooltipDirection="bottom-narrow" v-show="wordUsageExamplesData">
+                <span @click="changeTab('wordUsage')" class="alpheios-panel__header-nav-btn"
                       v-bind:class="{ active: data.tabs.wordUsage }">
-                  <user-icon class="alpheios-icon"></user-icon>
+                  <word-usage-icon class="alpheios-icon"></word-usage-icon>
                 </span>
               </alph-tooltip>
 
@@ -168,6 +168,13 @@
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="data.tabs.user">
         <user-auth :auth="data.auth" :messages="data.l10n.messages"></user-auth>
       </div>
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage" v-show="data.tabs.wordUsage" v-if="wordUsageExamplesData">
+        <word-usage-examples-block 
+            :wordUsageList = "wordUsageExamplesData.wordUsageExamples" 
+            :targetWord = "wordUsageExamplesData.targetWord"
+            :language = "wordUsageExamplesData.language"
+        ></word-usage-examples-block>
+      </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="data.tabs.options">
         <reskin-font-color :messages="data.l10n.messages" v-if="data.l10n"></reskin-font-color>
         <setting :classes="['alpheios-panel__options-item']" :data="data.settings.preferredLanguage" @change="settingChanged"
@@ -197,8 +204,16 @@
                  :key="languageSetting.name"
                  @change="resourceSettingChanged"
                  v-for="languageSetting in resourceSettingsLexiconsShort"></setting>
+
+        <setting :classes="['alpheios-panel__options-item']" :data="data.settings.enableWordUsageExamples" @change="settingChanged"
+                 v-if="data.settings"></setting>
+
+        <setting :classes="['alpheios-panel__options-item']" :data="data.settings.wordUsageExamplesMax" @change="settingChanged"
+                 v-if="data.settings"></setting>
+
         <setting :classes="['alpheios-panel__options-item']" :data="data.settings.enableLemmaTranslations" @change="settingChanged"
                  v-if="data.settings"></setting>
+                 
         <setting :classes="['alpheios-panel__options-item']" :data="data.settings.locale" @change="settingChanged"
                  v-if="data.settings"></setting>
       </div>
@@ -238,6 +253,8 @@ import Tooltip from './tooltip.vue'
 import Lookup from './lookup.vue'
 import ReskinFontColor from './reskin-font-color.vue'
 import UserAuth from './user-auth.vue'
+import WordUsageExamplesBlock from '@/vue/components/word-usage-examples-block.vue'
+
 // Embeddable SVG icons
 import AttachLeftIcon from '../../images/inline-icons/attach-left.svg'
 import AttachRightIcon from '../../images/inline-icons/attach-right.svg'
@@ -284,7 +301,8 @@ export default {
     wordUsageIcon: WordUsageIcon,
     alphTooltip: Tooltip,
     lookup: Lookup,
-    reskinFontColor: ReskinFontColor
+    reskinFontColor: ReskinFontColor,
+    wordUsageExamplesBlock: WordUsageExamplesBlock
   },
   directives: {
     onClickaway: onClickaway
@@ -443,6 +461,11 @@ export default {
         return this.positionClassVariants[this.data.settings.panelPosition.currentValue]
       }
       return null
+    },
+
+    wordUsageExamplesData () {
+      console.info('*******************Inside Panel', this.data.wordUsageExamplesData)
+      return this.data.wordUsageExamplesData
     }
   },
   methods: {
@@ -732,7 +755,7 @@ export default {
     cursor: pointer;
     fill: $alpheios-link-color-dark-bg;
     stroke: $alpheios-link-color-dark-bg;
-    margin: 10px 15px;
+    margin: 10px 9px;
 
     svg {
       width: 20px;

@@ -8120,7 +8120,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_medium_class .alpheios-panel__header-nav-btn {
     width: 20px !important;
     height: 20px !important;
-    margin: 9px 14px !important; }
+    margin: 9px 9px !important; }
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_medium_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8247,7 +8247,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_small_class .alpheios-panel__header-nav-btn {
     width: 15px !important;
     height: 15px !important;
-    margin: 13px 14px !important; }
+    margin: 13px 9px !important; }
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_small_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -8374,7 +8374,7 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_large_class .alpheios-panel__header-nav-btn {
     width: 25px !important;
     height: 25px !important;
-    margin: 5px 14px !important; }
+    margin: 5px 9px !important; }
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover svg,
     .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus svg,
@@ -9872,6 +9872,41 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios_word_usage_list_item {
+  margin-bottom: 15px !important;
+}
+.alpheios_word_usage_list_item__source {
+  font-weight: bold !important;
+}
+.alpheios_word_usage_list_item__source a.alpheios_word_usage_list_item__source_link {
+  color: #3E8D9C !important;
+  font-size: 90% !important;
+}
+.alpheios_word_usage_list_item__text {
+  margin-top: 3px !important;
+}
+.alpheios_word_usage_list_item__text span.alpheios_word_usage_list_item__text_targetword {
+    color: #E49A0D !important;
+    font-weight: bold !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios_word_usage_list_title {
+  font-weight: bold !important;
+  padding-bottom: 5px !important;
+  border-bottom: 1px solid #7E8897 !important;
+  margin-bottom: 10px !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-panel {
   overflow: auto !important;
   height: 100vh !important;
@@ -9950,7 +9985,7 @@ ul.alpheios-skin_properties {
   cursor: pointer !important;
   fill: #D1D1D0 !important;
   stroke: #D1D1D0 !important;
-  margin: 10px 15px !important;
+  margin: 10px 9px !important;
 }
 .alpheios-panel__header-action-btn svg,
   .alpheios-panel__header-action-btn.active:hover svg,
