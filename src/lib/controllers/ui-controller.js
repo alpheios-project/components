@@ -1404,7 +1404,7 @@ export default class UIController {
 
   enableWordUsageExamples (textSelector) {
     return textSelector.languageID === Constants.LANG_LATIN &&
-      this.options.items.enableWordUsageExamples.currentValue
+      this.contentOptions.items.enableWordUsageExamples.currentValue
   }
 
   handleEscapeKey (event, nativeEvent) {
