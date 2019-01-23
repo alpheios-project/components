@@ -29,8 +29,8 @@
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.28",
     "acorn": "^6.0.5",
-    "alpheios-client-adapters": "github:alpheios-project/client-adapters#feat-4-concordance",
-    "alpheios-data-models": "github:alpheios-project/data-models#feat-4-concordance",
+    "alpheios-client-adapters": "github:alpheios-project/client-adapters",
+    "alpheios-data-models": "github:alpheios-project/data-models",
     "alpheios-experience": "github:alpheios-project/experience",
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-node-build": "github:alpheios-project/node-build",

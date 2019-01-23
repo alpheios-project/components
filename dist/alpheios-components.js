@@ -9188,6 +9188,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13846,6 +13866,81 @@ var render = function() {
               viewID: "latin_verb_irregular_view",
               form: "supersum",
               title: "Supersum (superesse, superfui, superfuturus)"
+            })
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            collapsed: _vm.inflBrowserTablesCollapsed,
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_voice_view",
+              form: "queo",
+              title: "Queo (quire, quivi(ii), quitus)"
+            })
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            collapsed: _vm.inflBrowserTablesCollapsed,
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "nequeo",
+              title: "Nequeo (nequire, nequivi(ii), nequitus)"
+            })
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            collapsed: _vm.inflBrowserTablesCollapsed,
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_voice_view",
+              form: "adeo",
+              title: "Adeo (adire, adivi(ii), aditus)"
+            })
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            collapsed: _vm.inflBrowserTablesCollapsed,
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_voice_view",
+              form: "ineo",
+              title: "Ineo (inire, inivi(ii), initus)"
+            })
+          },
+          on: { widthchange: _vm.inflTableWidthUpd }
+        }),
+        _vm._v(" "),
+        _c("wide-table", {
+          attrs: {
+            collapsed: _vm.inflBrowserTablesCollapsed,
+            "infl-browser-table": true,
+            messages: _vm.messages,
+            "no-suffix-matches-hidden": false,
+            view: _vm.latinInflView({
+              viewID: "latin_verb_irregular_view",
+              form: "veneo",
+              title: "Veneo (venire, venivi(ii), venitus)"
             })
           },
           on: { widthchange: _vm.inflTableWidthUpd }
