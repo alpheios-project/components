@@ -9881,6 +9881,10 @@ ul.alpheios-skin_properties {
 .alpheios_word_usage_list_item__source a.alpheios_word_usage_list_item__source_link {
   color: #3E8D9C;
   font-size: 90%;
+  display: block;
+}
+.alpheios_word_usage_list_item__source p.alpheios_word_usage_list_item__source_cit {
+  margin: 0;
 }
 .alpheios_word_usage_list_item__text {
   margin-top: 3px;

@@ -12966,6 +12966,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
@@ -19538,7 +19539,7 @@ var render = function() {
         [_vm._v(_vm._s(_vm.wordUsageItem.source))]
       ),
       _vm._v(" "),
-      _c("span", { staticClass: "alpheios_word_usage_list_item__source_cit" }, [
+      _c("p", { staticClass: "alpheios_word_usage_list_item__source_cit" }, [
         _vm._v(_vm._s(_vm.wordUsageItem.fullCit))
       ])
     ]),
