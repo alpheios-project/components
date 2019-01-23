@@ -44,7 +44,6 @@ describe('word-usage-examples-block.test.js', () => {
       params: { homonym: adapterTuftsRes.result, filters: filterOptions, pagination: paginationOptions }
     })
 
-    console.info('***********************WordUsageExamplesBlock', adapterConcordanceRes)
     testWordUsageList = adapterConcordanceRes.result
   })
 
@@ -60,7 +59,7 @@ describe('word-usage-examples-block.test.js', () => {
     jest.clearAllMocks()
   })
   
-  it.skip('1 WordUsageExamplesBlock - checks if component mounts properly', async () => {
+  it('1 WordUsageExamplesBlock - checks if component mounts properly', async () => {
     let cmp = mount(WordUsageExamplesBlock, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,

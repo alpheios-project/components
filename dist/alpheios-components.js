@@ -12611,7 +12611,6 @@ __webpack_require__.r(__webpack_exports__);
         return rv
       },
       set: function (newValue) {
-        console.info('***************setting', this.data.name, newValue)
         this.$emit('change', this.data.name, newValue)
       }
     },
@@ -12619,7 +12618,6 @@ __webpack_require__.r(__webpack_exports__);
       return this.data && !this.data.number && this.data.textValues ? this.data.textValues() : []
     },
     checkboxLabel: function () {
-      console.info('******************this.data', this.data.name, this.data)
       if (this.data && this.data.textValues) {
         return this.data.textValues()[0].text
       }
@@ -13024,6 +13022,11 @@ __webpack_require__.r(__webpack_exports__);
     language: {
       type: String,
       required: true
+    }
+  },
+  computed: {
+    showWordUsageExampleItems () {
+      return this.wordUsageList && this.wordUsageList.length > 0
     }
   }
 });
@@ -19574,17 +19577,19 @@ var render = function() {
       _vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "alpheios_word_usage_list_mainblock" },
-      _vm._l(_vm.wordUsageList, function(wordUsageItem) {
-        return _c("word-usage-example-item", {
-          key: wordUsageItem.ID,
-          attrs: { wordUsageItem: wordUsageItem }
-        })
-      }),
-      1
-    )
+    _vm.showWordUsageExampleItems
+      ? _c(
+          "div",
+          { staticClass: "alpheios_word_usage_list_mainblock" },
+          _vm._l(_vm.wordUsageList, function(wordUsageItem) {
+            return _c("word-usage-example-item", {
+              key: wordUsageItem.ID,
+              attrs: { wordUsageItem: wordUsageItem }
+            })
+          }),
+          1
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

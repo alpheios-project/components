@@ -58,7 +58,7 @@ describe('word-usage-example-item.test.js', () => {
     jest.clearAllMocks()
   })
   
-  it.skip('1 wordUsageExampleItem - checks if component mounts properly', () => {
+  it('1 wordUsageExampleItem - checks if component mounts properly', () => {
     let cmp = mount(wordUsageExampleItem, {
       propsData: {
         wordUsageItem: testWordUsageList.wordUsageExamples[0]
