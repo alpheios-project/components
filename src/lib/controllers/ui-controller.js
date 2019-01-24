@@ -857,7 +857,7 @@ export default class UIController {
       // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
       // that operates on an in-memory user until such time the user authenticates
       // see issue 317
-      this.userDataManager = new UserDataManager('testUserID',WordListController.evt)
+      this.userDataManager = new UserDataManager('testUserID',WordlistController.evt)
       this.wordlistC.initLists(this.userDataManager)
     }
 

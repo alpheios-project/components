@@ -31543,7 +31543,7 @@ class UIController {
       // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
       // that operates on an in-memory user until such time the user authenticates
       // see issue 317
-      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID',WordListController.evt)
+      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID',alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
       this.wordlistC.initLists(this.userDataManager)
     }
 
