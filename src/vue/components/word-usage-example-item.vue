@@ -6,7 +6,7 @@
             target="_blank"
             class = "alpheios_word_usage_list_item__source_link"
             >{{ wordUsageItem.source }}</a> 
-          <p class="alpheios_word_usage_list_item__source_cit">{{ wordUsageItem.fullCit }}</p>
+          <p class="alpheios_word_usage_list_item__source_cit">{{ wordUsageItem.fullCit() }}</p>
         </div>
       <div class="alpheios_word_usage_list_item__text" v-html="wordUsageItem.htmlExample"></div>
   </div>

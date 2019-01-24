@@ -18,7 +18,9 @@ describe('word-usage-examples-block.test.js', () => {
 
   beforeAll(async () => {
     let testAuthor = new Author('urn:cts:latinLit:phi0690', { "eng": "Virgil" })
+    testAuthor.ID = 690
     let testTextWork = new TextWork(testAuthor, 'urn:cts:latinLit:phi0690.phi003', { "eng": "Aeneid" })
+    testTextWork.ID = 3
     testWord1 = 'submersasque'
 
     let adapterTuftsRes = await ClientAdapters.morphology.tufts({

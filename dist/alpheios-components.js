@@ -19635,7 +19635,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("p", { staticClass: "alpheios_word_usage_list_item__source_cit" }, [
-        _vm._v(_vm._s(_vm.wordUsageItem.fullCit))
+        _vm._v(_vm._s(_vm.wordUsageItem.fullCit()))
       ])
     ]),
     _vm._v(" "),
@@ -35683,14 +35683,14 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     while (true) {
       if (!this.active) { this.finalize() }
       if (_query_js__WEBPACK_IMPORTED_MODULE_1__["default"].isPromise(result.value)) {
-        // try {
-        let resolvedValue = await result.value
-        result = iterator.next(resolvedValue)
-        // } catch (error) {
-        //   iterator.return()
-        //   this.finalize(error)
-        //   break
-        // }
+        try {
+          let resolvedValue = await result.value
+          result = iterator.next(resolvedValue)
+        } catch (error) {
+          iterator.return()
+          this.finalize(error)
+          break
+        }
       } else {
         result = iterator.next(result.value)
       }
