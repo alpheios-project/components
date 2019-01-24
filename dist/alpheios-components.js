@@ -30827,13 +30827,7 @@ class UIController {
     _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_17__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     let testUserID = 'userIDTest'
-    let wordlistEvents = [
-      _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.TEXT_QUOTE_SELECTOR_RECEIVED,
-      _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEXICAL_QUERY_COMPLETE,
-      _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY,
-      _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEMMA_TRANSL_READY
-    ]
-    uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].availableLanguages(),wordlistEvents)
+    uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].availableLanguages(),_lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt)
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -31549,7 +31543,7 @@ class UIController {
       // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
       // that operates on an in-memory user until such time the user authenticates
       // see issue 317
-      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID')
+      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID',WordListController.evt)
       this.wordlistC.initLists(this.userDataManager)
     }
 

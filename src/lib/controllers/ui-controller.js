@@ -141,13 +141,7 @@ export default class UIController {
     AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     let testUserID = 'userIDTest'
-    let wordlistEvents = [
-      LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED,
-      LexicalQuery.evt.LEXICAL_QUERY_COMPLETE,
-      LexicalQuery.evt.DEFS_READY,
-      LexicalQuery.evt.LEMMA_TRANSL_READY
-    ]
-    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(),wordlistEvents)
+    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(),LexicalQuery.evt)
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -863,7 +857,7 @@ export default class UIController {
       // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
       // that operates on an in-memory user until such time the user authenticates
       // see issue 317
-      this.userDataManager = new UserDataManager('testUserID')
+      this.userDataManager = new UserDataManager('testUserID',WordListController.evt)
       this.wordlistC.initLists(this.userDataManager)
     }
 
