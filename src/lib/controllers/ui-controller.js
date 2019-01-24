@@ -147,7 +147,7 @@ export default class UIController {
       LexicalQuery.evt.DEFS_READY,
       LexicalQuery.evt.LEMMA_TRANSL_READY
     ]
-    uiController.wordlistC = new WordlistController(LMV.availableLanguages(),events)
+    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(),events)
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 

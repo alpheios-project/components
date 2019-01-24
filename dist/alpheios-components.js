@@ -30833,7 +30833,7 @@ class UIController {
       _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.DEFS_READY,
       _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_15__["default"].evt.LEMMA_TRANSL_READY
     ]
-    uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](LMV.availableLanguages(),events)
+    uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].availableLanguages(),events)
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
