@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title">{{ targetWord }} ({{ language }})</div>
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <word-usage-example-item 
@@ -8,6 +8,7 @@
           :wordUsageItem="wordUsageItem"
       ></word-usage-example-item>
     </div>
+    <div class="alpheios-word_usage_list__provider" v-if="provider">{{ provider.toString() }}</div>
   </div>
 </template>
 <script>
@@ -29,6 +30,10 @@
       language: {
         type: String,
         required: true
+      },
+      provider: {
+        type: String,
+        required: false
       }
     },
     computed: {
@@ -39,12 +44,33 @@
   }
 </script>
 <style lang="scss">
-    @import "../../styles/alpheios";
+  @import "../../styles/alpheios";
 
-    .alpheios_word_usage_list_title {
+  .alpheios-word-usage {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    div.alpheios_word_usage_list_title {
+      flex: none;
       font-weight: bold;
       padding-bottom: 5px;
       border-bottom: 1px solid $alpheios-toolbar-active-color;
       margin-bottom: 10px;
     }
+
+    div.alpheios_word_usage_list_mainblock {
+      flex: 1 1 auto;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+      overflow-y: auto;
+    }
+    div.alpheios-word_usage_list__provider {
+      flex: none;
+      font-weight: normal;
+
+      padding: 10px 0;
+      font-size: 80%;
+    }
+  }
 </style>

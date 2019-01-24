@@ -9899,11 +9899,29 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios_word_usage_list_title {
-  font-weight: bold;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #7E8897;
-  margin-bottom: 10px;
+.alpheios-word-usage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.alpheios-word-usage div.alpheios_word_usage_list_title {
+    flex: none;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #7E8897;
+    margin-bottom: 10px;
+}
+.alpheios-word-usage div.alpheios_word_usage_list_mainblock {
+    flex: 1 1 auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+.alpheios-word-usage div.alpheios-word_usage_list__provider {
+    flex: none;
+    font-weight: normal;
+    padding: 10px 0;
+    font-size: 80%;
 }
 
 /************ UIKit vars ************************/

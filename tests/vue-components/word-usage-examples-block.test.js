@@ -66,7 +66,8 @@ describe('word-usage-examples-block.test.js', () => {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
         targetWord: testWord1,
-        language: 'lat'
+        language: 'lat',
+        provider: 'fooProvider'
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
@@ -77,7 +78,8 @@ describe('word-usage-examples-block.test.js', () => {
       propsData: {
         wordUsageList: [],
         targetWord: testWord1,
-        language: 'lat'
+        language: 'lat',
+        provider: 'fooProvider'
       }
     })
     expect(cmp.vm.showWordUsageExampleItems).toBeFalsy()
@@ -89,10 +91,25 @@ describe('word-usage-examples-block.test.js', () => {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
         targetWord: testWord1,
-        language: 'lat'
+        language: 'lat',
+        provider: 'fooProvider'
       }
     })
     expect(cmp.vm.showWordUsageExampleItems).toBeTruthy()
     expect(cmp.findAll(wordUsageExampleItem).length).toEqual(testWordUsageList.wordUsageExamples.length)
+  })
+
+  it('4 WordUsageExamplesBlock - renders provider data if exists', async () => {
+    let cmp = mount(WordUsageExamplesBlock, {
+      propsData: {
+        wordUsageList: testWordUsageList.wordUsageExamples,
+        targetWord: testWord1,
+        language: 'lat',
+        provider: 'fooProvider'
+      }
+    })
+    expect(cmp.vm.showWordUsageExampleItems).toBeTruthy()
+    expect(cmp.find('.alpheios-word_usage_list__provider')).toBeTruthy()
+    expect(cmp.find('.alpheios-word_usage_list__provider').text()).toEqual('fooProvider')
   })
 })

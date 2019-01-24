@@ -11252,6 +11252,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Vue components
 
@@ -13023,6 +13024,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -13042,6 +13044,10 @@ __webpack_require__.r(__webpack_exports__);
     language: {
       type: String,
       required: true
+    },
+    provider: {
+      type: String,
+      required: false
     }
   },
   computed: {
@@ -17767,7 +17773,8 @@ var render = function() {
                         wordUsageList:
                           _vm.wordUsageExamplesData.wordUsageExamples,
                         targetWord: _vm.wordUsageExamplesData.targetWord,
-                        language: _vm.wordUsageExamplesData.language
+                        language: _vm.wordUsageExamplesData.language,
+                        provider: _vm.wordUsageExamplesData.provider
                       }
                     })
                   ],
@@ -19667,7 +19674,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "alpheios-word-usage" }, [
     _c("div", { staticClass: "alpheios_word_usage_list_title" }, [
       _vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")
     ]),
@@ -19684,6 +19691,12 @@ var render = function() {
           }),
           1
         )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.provider
+      ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
+          _vm._v(_vm._s(_vm.provider.toString()))
+        ])
       : _vm._e()
   ])
 }

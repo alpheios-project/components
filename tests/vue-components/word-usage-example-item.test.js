@@ -79,7 +79,7 @@ describe('word-usage-example-item.test.js', () => {
     })
 
     let textContent = cmp.element.textContent
-    expect(textContent.includes(testWordUsageItem.fullCit)).toBeTruthy()
+    expect(textContent.includes(testWordUsageItem.fullCit())).toBeTruthy()
     expect(textContent.includes(testWordUsageItem.source)).toBeTruthy()
     expect(textContent.includes(testWordUsageItem.prefix)).toBeTruthy()
     expect(textContent.includes(testWordUsageItem.suffix)).toBeTruthy()

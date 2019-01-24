@@ -173,6 +173,7 @@
             :wordUsageList = "wordUsageExamplesData.wordUsageExamples" 
             :targetWord = "wordUsageExamplesData.targetWord"
             :language = "wordUsageExamplesData.language"
+            :provider = "wordUsageExamplesData.provider"
         ></word-usage-examples-block>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="data.tabs.options">
