@@ -3,6 +3,7 @@ import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'al
 import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 import { WordlistController } from 'alpheios-wordlist'
+import { UserDataManager } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
@@ -140,14 +141,13 @@ export default class UIController {
     AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
     let testUserID = 'userIDTest'
-    uiController.wordlistC = new WordlistController(testUserID)
-
-    LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED.sub(uiController.wordlistC.onTextQuoteSelectorRecieved.bind(uiController.wordlistC))
-    LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.wordlistC.onHomonymReady.bind(uiController.wordlistC))
-
-    LexicalQuery.evt.DEFS_READY.sub(uiController.wordlistC.onDefinitionsReady.bind(uiController.wordlistC))
-    LexicalQuery.evt.LEMMA_TRANSL_READY.sub(uiController.wordlistC.onLemmaTranslationsReady.bind(uiController.wordlistC))
-
+    let wordlistEvents = [
+      LexicalQuery.evt.TEXT_QUOTE_SELECTOR_RECEIVED,
+      LexicalQuery.evt.LEXICAL_QUERY_COMPLETE,
+      LexicalQuery.evt.DEFS_READY,
+      LexicalQuery.evt.LEMMA_TRANSL_READY
+    ]
+    uiController.wordlistC = new WordlistController(LMV.availableLanguages(),events)
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -858,7 +858,14 @@ export default class UIController {
     this.updateLemmaTranslations()
     this.notifyInflectionBrowser()
 
-    if (this.wordlistC) { this.wordlistC.initLists() }
+    if (this.wordlistC) {
+      // TODO we need to integrate this with auth functionality, postponing both the initialization of the wordlists
+      // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
+      // that operates on an in-memory user until such time the user authenticates
+      // see issue 317
+      this.userDataManager = new UserDataManager('testUserID')
+      this.wordlistC.initLists(this.userDataManager)
+    }
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
