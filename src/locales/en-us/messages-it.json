@@ -1,0 +1,968 @@
+{
+
+  "COOKIE_TEST_MESSAGE": {
+
+    "message": "This is a test message about a cookie.",
+
+    "description": "A test message that is shown in a panel",
+
+    "component": "Panel"
+
+  },
+
+  "NUM_LINES_TEST_MESSAGE": {
+
+    "message": "There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.",
+
+    "description": "A test message that is shown in a panel",
+
+    "component": "Panel",
+
+    "params": ["numLines"]
+
+  },
+
+  "TOOLTIP_MOVE_PANEL_LEFT": {
+
+    "message": "Sposta Pannello a sinistra",
+
+    "description": "tooltip for moving the panel to the left",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_MOVE_PANEL_RIGHT": {
+
+    "message": "Sposta Pannello a destra",
+
+    "description": "tooltip for moving the panel to the right",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_CLOSE_PANEL": {
+
+    "message": "Chiudi Pannello",
+
+    "description": "tooltip for closing the panel",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_HELP": {
+
+    "message": "Guida",
+
+    "description": "tooltip for help tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_INFLECT": {
+
+    "message": "Declinatore/Coniugatore",
+
+    "description": "tooltip for inflections tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_INFLECT_BROWSER": {
+
+    "message": "Sfoglia le tabelle delle declinazioni e delle coniugazioni",
+
+    "description": "tooltip for inflections browser tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_DEFINITIONS": {
+
+    "message": "Definizioni",
+
+    "description": "tooltip for definitions tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_GRAMMAR": {
+
+    "message": "Grammatica",
+
+    "description": "tooltip for grammar tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_TREEBANK": {
+
+    "message": "Diagramma",
+
+    "description": "tooltip for treebank tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_OPTIONS": {
+
+    "message": "Opzioni",
+
+    "description": "tooltip for options tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_STATUS": {
+
+    "message": "Messaggi di stato",
+
+    "description": "tooltip for status tab",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_USER": {
+
+    "message": "Informazioni Utente",
+
+    "description": "tooltip for a user info tab",
+
+    "component": "Panel"
+
+  },
+
+
+
+  "TOOLTIP_SHOW_INFLECTIONS": {
+
+    "message": "Mostra Declinatore/Coniugatore",
+
+    "description": "tooltip for button inflections",
+
+    "component": "Popup"
+
+  },
+
+  "TOOLTIP_SHOW_DEFINITIONS": {
+
+    "message": "Mostra Definizioni",
+
+    "description": "tooltip for button definitions",
+
+    "component": "Popup"
+
+  },
+
+  "TOOLTIP_SHOW_OPTIONS": {
+
+    "message": "Mostra Opzioni",
+
+    "description": "tooltip for button options",
+
+    "component": "Popup"
+
+  },
+
+
+
+  "PLACEHOLDER_DEFINITIONS":  {
+
+    "message": "Cerca una parola per vedere definizioni...",
+
+    "description": "placeholder for definitions panel",
+
+    "component": "Panel"
+
+  },
+
+  "PLACEHOLDER_INFLECT_IN_PROGRESS":  {
+
+    "message": "Cerca una parola per vedere la declinazione o coniugazione...",
+
+    "description": "placeholder for inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "PLACEHOLDER_INFLECT_UNAVAILABLE":  {
+
+    "message": "Dati declinatore/coniugatore non disponibili",
+
+    "description": "placeholder for inflections panel if unavailable",
+
+    "component": "Panel"
+
+  },
+
+  "LABEL_INFLECT_SELECT_POFS":  {
+
+    "message": "Parti del discorso:",
+
+    "description": "label for part of speech selector on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "LABEL_INFLECT_SHOWFULL": {
+
+    "message": "Allarga",
+
+    "description": "label for expand button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "LABEL_INFLECT_COLLAPSE": {
+
+    "message": "Riduci",
+
+    "description": "label for collapse table button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+
+
+  "TOOLTIP_INFLECT_SHOWFULL": {
+
+    "message": "Questa tabella è stata ridotta per mostrare solo le colonne con corrispondenti desinenze. Clicca 'Allarga' per vedere la tabella completa",
+
+    "description": "tooltip for show full table button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_INFLECT_COLLAPSE": {
+
+    "message": "Questa tabella mostra tutte le colonne. Clicca 'Riduci' per vedere solo quelle con le corrispondenti desinenze",
+
+    "description": "tooltip for collapse table button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+
+
+  "LABEL_INFLECT_HIDEEMPTY": {
+
+    "message": "Nascondi le colonne vuote",
+
+    "description": "label for hide empty columns button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "LABEL_INFLECT_SHOWEMPTY": {
+
+    "message": "Mostra le colonne vuote",
+
+    "description": "label for show empty columns button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+
+
+  "TOOLTIP_INFLECT_HIDEEMPTY": {
+
+    "message": "Mostra tabella senza colonne vuote",
+
+    "description": "tooltip for hide empty columns button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_INFLECT_SHOWEMPTY": {
+
+    "message": "Mostra tabella con colonne vuote",
+
+    "description": "tooltip for show empty columns button on inflections panel",
+
+    "component": "Panel"
+
+  },
+
+  "INFLECT_MSG_TABLE_NOT_IMPLEMENTED": {
+
+    "message": "Questa tabella non è stata ancora realizzata",
+
+    "description": "tooltip to show instead of inflection table if the latter is not implemented",
+
+    "component": "Panel"
+
+  },
+
+
+
+  "TEXT_INFO_GETTINGSTARTED": {
+
+    "message": "Guida Introduttiva",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_ACTIVATE": {
+
+    "message": "Attivo su una pagina con testo in Latino, Greco Antico, Arabo o Persiano.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_CLICK": {
+
+    "message": "Fare doppio clic su una parola per vedere la morfologia e le definizioni brevi.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_LANGDETECT": {
+
+    "message": "Alpheios cercherà di individuare la lingua della parola sulla base della marcatura della pagina. Nel caso non fosse possibile, si utilizzerà la lingua predefinita.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "LABEL_INFO_CURRENTLANGUAGE": {
+
+    "message": "Lingua attualmente usata:",
+
+    "description": "label for current language in info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_SETTINGS": {
+
+    "message": "Clicca sulla ruota Opzioni per cambiare la lingua predefinita, i vocabolari predefiniti o per disattivare la finestra a comparsa (selezionare 'panel' nel campo UI Type).",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_ARROW": {
+
+    "message": "Usare la freccia posta sul pannello in alto per muoversi da destra a sinistra nella finestra del browser.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_REOPEN": {
+
+    "message": "Questo pannello può essere riaperto in qualsiasi momento selezionando 'Informazioni' dall'opzione Strumenti di lettura Alpheios nel menu contestuale del browser.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TEXT_INFO_DEACTIVATE": {
+
+    "message": "Alpheios può essere disattivato cliccando sull'icona nella barra degli strumenti oppure selezionando 'Disattiva' dall'opzione Strumenti di lettura Alpheios nel menu contestuale del browser.",
+
+    "description": "info text",
+
+    "component": "Panel"
+
+  },
+
+  "TOOLTIP_POPUP_CLOSE": {
+
+    "message": "Chiudi popup",
+
+    "description": "tooltip for closing the popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_TREEBANK": {
+
+    "message": "Diagramma",
+
+    "description": "label for treebank button on popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_INFLECT": {
+
+    "message": "Declina/Coniuga",
+
+    "description": "label for inflect button on popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_OPTIONS": {
+
+    "message": "Opzioni",
+",
+
+    "description": "label for options button on popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_DEFINE": {
+
+    "message": "Definizioni",
+
+    "description": "label for define button on popup",
+
+    "component": "Popup"
+
+  },
+
+  "PLACEHOLDER_POPUP_DATA": {
+
+    "message": "Caricamento dati lessicali in corso",
+
+    "description": "placeholder text for popup data",
+
+    "component": "Popup"
+
+  },
+
+  "PLACEHOLDER_NO_LANGUAGE_POPUP_DATA": {
+
+    "message": "Non è stato possibile caricare i dati lessicali perchè la lingua della pagina non è specificata",
+
+    "description": "placeholder text for popup data when language is not defined",
+
+    "component": "Popup"
+
+  },
+
+  "PLACEHOLDER_NO_DATA_POPUP_DATA": {
+
+    "message": "La richiesta di dati lessicali non ha prodotto alcun risultato",
+
+    "description": "placeholder text for popup data",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_CREDITS": {
+
+    "message": "Ringraziamenti:",
+
+    "description": "label for credits on popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_SHOWCREDITS": {
+
+    "message": "Ringraziamenti",
+
+    "description": "label for show credits link on popup",
+
+    "component": "Popup"
+
+  },
+
+  "LABEL_POPUP_HIDECREDITS": {
+
+    "message": "Nascondi Ringraziamenti",
+
+    "description": "label for hide credits link on popup",
+
+    "component": "Popup"
+
+  },
+
+  "TEXT_NOTICE_CHANGE_LANGUAGE": {
+
+    "message": "Lingua: {languageName}<br>Errata? Cambia con??????:",
+
+    "description": "language notification",
+
+    "component": "UI",
+
+    "params": ["languageName"]
+
+  },
+
+  "TEXT_NOTICE_LANGUAGE_UNKNOWN": {
+
+    "message": "sconosciuta",
+
+    "description": "unknown language notification",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_GRAMMAR_NOTFOUND": {
+
+    "message": "La grammatica richiesta non è attualmente disponibile",
+
+    "description": "grammar not found notification",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_MORPHDATA_READY": {
+
+    "message": "I risultati dell'analisi morfologica sono disponibili",
+
+    "description": "morph data ready notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_MORPHDATA_NOTFOUND": {
+
+    "message": "Dati morfologici non trovati. Richiesta di definizione in attesa.",
+
+    "description": "morph data not found notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_INFLDATA_READY": {
+
+    "message": "I dati del Declinatore/Coniugatore sono disponibili",
+
+    "description": "inflection data ready notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_DEFSDATA_READY": {
+
+    "message":"{requestType} richiesta completata con successo. Lemma: \"{lemma}\"",
+
+    "description": "definition request success notice",
+
+    "component": "UI",
+
+    "params": ["requestType","lemma"]
+
+  },
+
+  "TEXT_NOTICE_DEFSDATA_NOTFOUND": {
+
+    "message":"{requestType} richiesta fallita. Non trovato lemma per: \"{word}\"",
+
+    "description": "definition request success notice",
+
+    "component": "UI",
+
+    "params": ["requestType","word"]
+
+  },
+
+  "TEXT_NOTICE_LEXQUERY_COMPLETE": {
+
+    "message": "Completate tutte le richieste lessicali.",
+
+    "description": "lexical queries complete notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_GRAMMAR_READY": {
+
+    "message": "Recuperate le risorse grammaticali",
+
+    "description": "grammar retrieved notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_GRAMMAR_COMPLETE": {
+
+    "message": "Recuperati tutti i dati delle risorse grammaticali",
+
+    "description": "grammar retrieved notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_RESQUERY_COMPLETE": {
+
+    "message": "Recuperati tutti i dati delle risorse",
+
+    "description": "resource query complete notice",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS": {
+
+    "message": "I dati stanno per essere recuperati. Attendere...",
+
+    "description": "Data retrieval is in progress",
+
+    "component": "UI"
+
+  },
+
+  "TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS": {
+
+    "message": "Le risorse stanno per essere recuperate. Attendere...",
+
+    "description": "Resource retrieval is in progress",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_BROWSERACTION_DEACTIVATE": {
+
+    "message": "Disattiva Alpheios",
+
+    "description": "Deactivate browser action title",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_BROWSERACTION_ACTIVATE": {
+
+    "message": "Attiva Alpheios",
+
+    "description": "Activate browser action title",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_BROWSERACTION_DISABLED": {
+
+    "message": "(Estensione Alpheios disattivata nella pagina)",
+
+    "description": "Disabled browser action title",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_DEACTIVATE": {
+
+    "message": "Disattiva",
+
+    "description": "Deactivate context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_ACTIVATE": {
+
+    "message": "Attiva",
+
+    "description": "Activate context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_DISABLED": {
+
+    "message": "(Disattivato)",
+
+    "description": "Disabled context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_OPENPANEL": {
+
+    "message": "Apri Pannello",
+
+    "description": "Open Panel context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_INFO": {
+
+    "message": "Guida",
+
+    "description": "Info context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_CTXTMENU_SENDEXP": {
+
+    "message": "Invia esperienze al server remoto ",
+
+    "description": "send exp data context menu label",
+
+    "component": "UI"
+
+  },
+
+  "LABEL_LOOKUP_BUTTON": {
+
+    "message": "Cerca",
+
+    "description": "lookup button in lookup.vue",
+
+    "component": "Popup"
+
+  },
+
+  "TOOLTIP_LOOKUP_BUTTON": {
+
+    "message": "Cerca parola",
+
+    "description": "Tooltip for the lookup button in lookup.vue",
+
+    "component": "Lookup"
+
+  },
+
+  "LABEL_LOOKUP_SETTINGS": {
+
+    "message": "Lingua usata...",
+
+    "description": "Settings link-label in the lookup block in lookup.vue",
+
+    "component": "Lookup"
+
+  },
+
+  "LABEL_RESKIN_SETTINGS": {
+
+    "message": "Opzioni Reskin",
+
+    "description": "Label for Reskin component",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "TOOLTIP_RESKIN_SMALLFONT": {
+
+    "message": "Carattere piccolo",
+
+    "description": "Tooltip for small font icon",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "TOOLTIP_RESKIN_MEDIUMFONT": {
+
+    "message": "Carattere medio",
+
+    "description": "Tooltip for medium font icon",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "TOOLTIP_RESKIN_LARGEFONT": {
+
+    "message": "Carattere grande",
+
+    "description": "Tooltip for large font icon",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "TOOLTIP_RESKIN_LIGHTBG": {
+
+    "message": "Sfondo chiaro",
+
+    "description": "Tooltip for light colors schema icon",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "TOOLTIP_RESKIN_DARKBG": {
+
+    "message": "Sfondo scuro",
+
+    "description": "Tooltip for dark colors schema icon",
+
+    "component": "ReskinFontColor"
+
+  },
+
+  "INFLECTIONS_CREDITS_TITLE": {
+
+    "message": "Ringraziamenti",
+
+    "description": "Title of credits section on inflection tables panel",
+
+    "component": "InflectionTables"
+
+  },
+
+  "INFLECTIONS_PARADIGMS_EXPLANATORY_HINT": {
+
+    "message": "La seguente tabella mostra coniugazioni di verbi simili a <span>{word}</span>",
+
+    "description": "A hint that indicates that the current table is representative pattern for verbs similar to the one chosen",
+
+    "component": "InflectionTables",
+
+    "params": ["word"]
+
+  },
+
+  "INFLECTIONS_MAIN_TABLE_LINK_TEXT": {
+
+    "message": "Ritorna alla principale",
+
+    "description": "A link pointing to a main inflection table",
+
+    "component": "InflectionTables"
+
+  },
+
+  "INFL_ATTRIBUTE_LINK_TEXT_SOURCE": {
+
+    "message": "Origine",
+
+    "description": "A link pointing to the source of a lemma or inflection",
+
+    "component": "InflAttribute"
+
+  },
+
+  "EMBED_LIB_WARNING_TEXT": {
+
+    "message": "Alpheios è incorporato direttamente in questa pagina. L'estensione di Alpheios nel browser è disattivata per questa pagina e verrà riattivata navigando su altre pagine."
+
+    "description": "A message that is shown when an Alpheios extension is disabled due to embedded library presence",
+
+    "component": "EmbedLibWarning"
+
+  },
+
+
+
+  "AUTH_LOG_IN_BTN_LABEL": {
+
+    "message": "Accedi",
+
+    "description": "A message shown on a log in button",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_LOG_OUT_BTN_LABEL": {
+
+    "message": "Esci",
+
+    "description": "A message shown on a log out button",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_LOG_IN_PROGRESS_MSG": {
+
+    "message": "Registrazione in corso. Attendere...",
+
+    "description": "A message shown to the user while he or she is waiting for an authentication to complete",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_LOG_IN_SUCCESS_MSG": {
+
+    "message": "Registrazione effettuata con successo",
+
+    "description": "A message shown to the user if he or she logged in successfully",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_LOG_IN_AUTH_FAILURE_MSG": {
+
+    "message": "Autenticazione fallita",
+
+    "description": "A message shown to the user if his or her authentication failed",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_PROFILE_NICKNAME_LABEL": {
+
+    "message": "Nickname",
+
+    "description": "A user's profile nickname filed label",
+
+    "component": "UserAuth Vue Component"
+
+  },
+
+  "AUTH_PROFILE_NAME_LABEL": {
+
+    "message": "Nome",
+
+    "description": "A user's profile name filed label",
+
+    "component": "UserAuth Vue Component"
+
+  }
+
+}
