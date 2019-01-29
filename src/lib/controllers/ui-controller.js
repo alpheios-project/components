@@ -2,8 +2,7 @@
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
 import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
-import { WordlistController } from 'alpheios-wordlist'
-import { UserDataManager } from 'alpheios-wordlist'
+import { WordlistController, UserDataManager } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
@@ -140,8 +139,8 @@ export default class UIController {
     // Subscribe to AnnotationQuery events
     AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
-    let testUserID = 'userIDTest'
-    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(),LexicalQuery.evt)
+    // let testUserID = 'userIDTest'
+    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(), LexicalQuery.evt)
     WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
@@ -857,7 +856,7 @@ export default class UIController {
       // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
       // that operates on an in-memory user until such time the user authenticates
       // see issue 317
-      this.userDataManager = new UserDataManager('testUserID',WordlistController.evt)
+      this.userDataManager = new UserDataManager('testUserID', WordlistController.evt)
       this.wordlistC.initLists(this.userDataManager)
     }
 
@@ -1441,7 +1440,7 @@ export default class UIController {
   onWordListUpdated (wordLists) {
     this.panel.panelData.wordLists = wordLists
     this.panel.panelData.wordListUpdated = this.panel.panelData.wordListUpdated + 1
-    // console.info('*************onWordListUpdated', wordLists)
+    console.info('*************onWordListUpdated', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {
