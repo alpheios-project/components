@@ -6,4 +6,5 @@ notifications:
   slack: alpheiosproject:9WEA6UNyLr3U0bWIJctp1rqS
 jobs:
   include:
-    - script: npm run test
+    - script: npm run test-lib
+    - script: npm run test-components
