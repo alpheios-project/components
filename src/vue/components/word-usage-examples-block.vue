@@ -32,7 +32,7 @@
         required: true
       },
       provider: {
-        type: String,
+        type: Object,
         required: false
       }
     },
