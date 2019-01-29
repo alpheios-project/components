@@ -70,6 +70,7 @@ export default class PopupModule {
           morphDataReady: false,
 
           translationsDataReady: false,
+          wordUsageExamplesDataReady: false,
 
           showProviders: false,
           updates: 0,
@@ -184,6 +185,7 @@ export default class PopupModule {
           this.popupData.morphDataReady = false
 
           this.popupData.translationsDataReady = false
+          this.popupData.wordUsageExamplesDataReady = false
 
           this.popupData.showProviders = false
           this.popupData.hasTreebank = false
