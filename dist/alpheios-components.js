@@ -12944,6 +12944,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12965,13 +12969,19 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
     provider: {
-      type: String,
+      type: Object,
       required: false
     }
   },
   computed: {
     showWordUsageExampleItems () {
       return this.wordUsageList && this.wordUsageList.length > 0
+    },
+
+    providerRights () {
+      return (this.provider && this.provider.rights)
+        ? Array.from(this.provider.rights.entries()).map(([key, value]) => { return { key, value } })
+        : []
     }
   }
 });
@@ -19487,9 +19497,16 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.provider
-      ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
-          _vm._v(_vm._s(_vm.provider.toString()))
-        ])
+      ? _c(
+          "div",
+          { staticClass: "alpheios-word_usage_list__provider" },
+          _vm._l(_vm.providerRights, function(rightsItem) {
+            return _c("div", { key: rightsItem.key }, [
+              _vm._v("\n      " + _vm._s(rightsItem.value) + "\n    ")
+            ])
+          }),
+          0
+        )
       : _vm._e()
   ])
 }
