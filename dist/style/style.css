@@ -193,6 +193,9 @@
 .alpheios-worditem__lemmasList {
   width: 38%;
 }
+.alpheios_no_tq {
+  visibility: hidden;
+}
 
 /***************** panel settings **********************/
 .alpheios-wordlist-commands {
@@ -2879,6 +2882,10 @@
   /* Show */
   /*
  * Slide
+ */
+  /* Show */
+  /*
+ * Stroke
  */
   /* Show */
   /* Opacity modifier
@@ -7646,9 +7653,10 @@
     outline: none; }
   .auk .uk-transition-fade,
   .auk [class*='uk-transition-scale'],
-  .auk [class*='uk-transition-slide'] {
+  .auk [class*='uk-transition-slide'],
+  .auk .uk-transition-stroke {
     transition: 0.3s ease-out;
-    transition-property: opacity, transform, filter;
+    transition-property: opacity, transform, filter, stroke-dashoffset;
     opacity: 0; }
   .auk .uk-transition-toggle:hover .uk-transition-fade,
   .auk .uk-transition-toggle:focus .uk-transition-fade,
@@ -7697,6 +7705,13 @@
   .auk .uk-transition-active.uk-active [class*='uk-transition-slide'] {
     opacity: 1;
     transform: translate(0, 0); }
+  .auk .uk-transition-stroke {
+    transition-duration: 3s; }
+  .auk .uk-transition-stroke:hover,
+  .auk .uk-transition-stroke:focus,
+  .auk .uk-transition-stroke.uk-transition-active {
+    opacity: 1;
+    stroke-dashoffset: 0 !important; }
   .auk .uk-transition-opaque {
     opacity: 1; }
   .auk .uk-transition-slow {

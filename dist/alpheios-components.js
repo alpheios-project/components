@@ -14812,255 +14812,254 @@ var render = function() {
                   ]
                 )
               : _vm.view.wideView
-                ? _c(
-                    "div",
-                    [
-                      !_vm.view.hasPrerenderedTables && !_vm.inflBrowserTable
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "alpheios-inflections__table-ctrl-cont"
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value:
-                                        _vm.view.canCollapse &&
-                                        _vm.state.noSuffixGroupsHidden,
-                                      expression:
-                                        "view.canCollapse && state.noSuffixGroupsHidden"
-                                    }
-                                  ],
-                                  staticClass:
-                                    "alpheios-inflections__table-ctrl-cell--btn"
-                                },
-                                [
-                                  _c(
-                                    "alph-tooltip",
-                                    {
-                                      attrs: {
-                                        tooltipDirection: "bottom-right",
-                                        tooltipText: _vm.ln10Messages(
-                                          "TOOLTIP_INFLECT_SHOWFULL"
-                                        )
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
-                                          on: { click: _vm.showNoSuffixGroups }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                            " +
-                                              _vm._s(
-                                                _vm.ln10Messages(
-                                                  "LABEL_INFLECT_SHOWFULL"
-                                                )
-                                              ) +
-                                              "\n                        "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value:
-                                        _vm.view.canCollapse &&
-                                        !_vm.state.noSuffixGroupsHidden,
-                                      expression:
-                                        "view.canCollapse && !state.noSuffixGroupsHidden"
-                                    }
-                                  ],
-                                  staticClass:
-                                    "alpheios-inflections__table-ctrl-cell--btn"
-                                },
-                                [
-                                  _c(
-                                    "alph-tooltip",
-                                    {
-                                      attrs: {
-                                        tooltipDirection: "bottom-right",
-                                        tooltipText: _vm.ln10Messages(
-                                          "TOOLTIP_INFLECT_COLLAPSE"
-                                        )
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
-                                          on: { click: _vm.hideNoSuffixGroups }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                            " +
-                                              _vm._s(
-                                                _vm.ln10Messages(
-                                                  "LABEL_INFLECT_COLLAPSE"
-                                                )
-                                              ) +
-                                              "\n                        "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      !_vm.view.hasPrerenderedTables
-                        ? [
+              ? _c(
+                  "div",
+                  [
+                    !_vm.view.hasPrerenderedTables && !_vm.inflBrowserTable
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "alpheios-inflections__table-ctrl-cont"
+                          },
+                          [
                             _c(
                               "div",
                               {
-                                staticClass: "infl-table infl-table--wide",
-                                style: _vm.tableStyles,
-                                attrs: { id: "alpheios-wide-vue-table" }
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      _vm.view.canCollapse &&
+                                      _vm.state.noSuffixGroupsHidden,
+                                    expression:
+                                      "view.canCollapse && state.noSuffixGroupsHidden"
+                                  }
+                                ],
+                                staticClass:
+                                  "alpheios-inflections__table-ctrl-cell--btn"
                               },
                               [
-                                _vm._l(_vm.view.wideView.rows, function(row) {
-                                  return _vm._l(row.cells, function(cell) {
-                                    return _c(
-                                      "div",
+                                _c(
+                                  "alph-tooltip",
+                                  {
+                                    attrs: {
+                                      tooltipDirection: "bottom-right",
+                                      tooltipText: _vm.ln10Messages(
+                                        "TOOLTIP_INFLECT_SHOWFULL"
+                                      )
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "button",
                                       {
-                                        class: _vm.cellClasses(cell),
-                                        on: {
-                                          mouseover: function($event) {
-                                            $event.stopPropagation()
-                                            $event.preventDefault()
-                                            _vm.cellMouseOver(cell)
-                                          },
-                                          mouseleave: function($event) {
-                                            $event.stopPropagation()
-                                            $event.preventDefault()
-                                            _vm.cellMouseLeave(cell)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        cell.isDataCell
-                                          ? [
-                                              _vm._l(cell.morphemes, function(
-                                                morpheme,
-                                                index
-                                              ) {
-                                                return [
-                                                  _c(
-                                                    "span",
-                                                    {
-                                                      class: _vm.morphemeClasses(
-                                                        morpheme
-                                                      )
-                                                    },
-                                                    [
-                                                      morpheme.value
-                                                        ? [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                morpheme.value
-                                                              )
-                                                            )
-                                                          ]
-                                                        : [_vm._v("-")]
-                                                    ],
-                                                    2
-                                                  ),
-                                                  _vm._v(" "),
-                                                  morpheme.hasFootnotes
-                                                    ? _c("infl-footnote", {
-                                                        attrs: {
-                                                          footnotes:
-                                                            morpheme.footnotes
-                                                        }
-                                                      })
-                                                    : _vm._e(),
-                                                  _vm._v(" "),
-                                                  index <
-                                                  cell.morphemes.length - 1
-                                                    ? [_vm._v(", ")]
-                                                    : _vm._e()
-                                                ]
-                                              })
-                                            ]
-                                          : _c("span", {
-                                              domProps: {
-                                                innerHTML: _vm._s(
-                                                  _vm.ln10Messages(
-                                                    cell.value,
-                                                    cell.value
-                                                  )
-                                                )
-                                              }
-                                            })
-                                      ],
-                                      2
-                                    )
-                                  })
-                                })
-                              ],
-                              2
-                            )
-                          ]
-                        : [
-                            _c(
-                              "div",
-                              { staticClass: "infl-prdgm-tbl" },
-                              _vm._l(_vm.view.wideTable.rows, function(row) {
-                                return _c(
-                                  "div",
-                                  { staticClass: "infl-prdgm-tbl__row" },
-                                  _vm._l(row.cells, function(cell) {
-                                    return _c(
-                                      "div",
-                                      {
-                                        staticClass: "infl-prdgm-tbl__cell",
-                                        class: _vm.prerenderedCellClasses(cell)
+                                        staticClass:
+                                          "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
+                                        on: { click: _vm.showNoSuffixGroups }
                                       },
                                       [
                                         _vm._v(
                                           "\n                            " +
-                                            _vm._s(cell.value) +
+                                            _vm._s(
+                                              _vm.ln10Messages(
+                                                "LABEL_INFLECT_SHOWFULL"
+                                              )
+                                            ) +
                                             "\n                        "
                                         )
                                       ]
                                     )
-                                  }),
-                                  0
+                                  ]
                                 )
-                              }),
-                              0
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value:
+                                      _vm.view.canCollapse &&
+                                      !_vm.state.noSuffixGroupsHidden,
+                                    expression:
+                                      "view.canCollapse && !state.noSuffixGroupsHidden"
+                                  }
+                                ],
+                                staticClass:
+                                  "alpheios-inflections__table-ctrl-cell--btn"
+                              },
+                              [
+                                _c(
+                                  "alph-tooltip",
+                                  {
+                                    attrs: {
+                                      tooltipDirection: "bottom-right",
+                                      tooltipText: _vm.ln10Messages(
+                                        "TOOLTIP_INFLECT_COLLAPSE"
+                                      )
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "uk-button uk-button-primary uk-button-small alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
+                                        on: { click: _vm.hideNoSuffixGroups }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(
+                                              _vm.ln10Messages(
+                                                "LABEL_INFLECT_COLLAPSE"
+                                              )
+                                            ) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
                             )
                           ]
-                    ],
-                    2
-                  )
-                : _vm._e()
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.view.hasPrerenderedTables
+                      ? [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "infl-table infl-table--wide",
+                              style: _vm.tableStyles,
+                              attrs: { id: "alpheios-wide-vue-table" }
+                            },
+                            [
+                              _vm._l(_vm.view.wideView.rows, function(row) {
+                                return _vm._l(row.cells, function(cell) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      class: _vm.cellClasses(cell),
+                                      on: {
+                                        mouseover: function($event) {
+                                          $event.stopPropagation()
+                                          $event.preventDefault()
+                                          _vm.cellMouseOver(cell)
+                                        },
+                                        mouseleave: function($event) {
+                                          $event.stopPropagation()
+                                          $event.preventDefault()
+                                          _vm.cellMouseLeave(cell)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      cell.isDataCell
+                                        ? [
+                                            _vm._l(cell.morphemes, function(
+                                              morpheme,
+                                              index
+                                            ) {
+                                              return [
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    class: _vm.morphemeClasses(
+                                                      morpheme
+                                                    )
+                                                  },
+                                                  [
+                                                    morpheme.value
+                                                      ? [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              morpheme.value
+                                                            )
+                                                          )
+                                                        ]
+                                                      : [_vm._v("-")]
+                                                  ],
+                                                  2
+                                                ),
+                                                _vm._v(" "),
+                                                morpheme.hasFootnotes
+                                                  ? _c("infl-footnote", {
+                                                      attrs: {
+                                                        footnotes:
+                                                          morpheme.footnotes
+                                                      }
+                                                    })
+                                                  : _vm._e(),
+                                                _vm._v(" "),
+                                                index <
+                                                cell.morphemes.length - 1
+                                                  ? [_vm._v(", ")]
+                                                  : _vm._e()
+                                              ]
+                                            })
+                                          ]
+                                        : _c("span", {
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.ln10Messages(
+                                                  cell.value,
+                                                  cell.value
+                                                )
+                                              )
+                                            }
+                                          })
+                                    ],
+                                    2
+                                  )
+                                })
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      : [
+                          _c(
+                            "div",
+                            { staticClass: "infl-prdgm-tbl" },
+                            _vm._l(_vm.view.wideTable.rows, function(row) {
+                              return _c(
+                                "div",
+                                { staticClass: "infl-prdgm-tbl__row" },
+                                _vm._l(row.cells, function(cell) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass: "infl-prdgm-tbl__cell",
+                                      class: _vm.prerenderedCellClasses(cell)
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(cell.value) +
+                                          "\n                        "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                  ],
+                  2
+                )
+              : _vm._e()
           ]
         : _vm._e()
     ],
@@ -15127,80 +15126,212 @@ var render = function() {
           ])
         ])
       : _vm.inflectionsEnabled && _vm.hasMatchingViews
-        ? _c(
-            "div",
-            { staticClass: "alpheios-inflections__content" },
-            [
-              _c(
-                "div",
-                {
+      ? _c(
+          "div",
+          { staticClass: "alpheios-inflections__content" },
+          [
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.partsOfSpeech.length > 1,
+                    expression: "partsOfSpeech.length > 1"
+                  }
+                ]
+              },
+              [
+                _c("label", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.ln10Messages("LABEL_INFLECT_SELECT_POFS")))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.partOfSpeechSelector,
+                        expression: "partOfSpeechSelector"
+                      }
+                    ],
+                    staticClass:
+                      "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.partOfSpeechSelector = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  _vm._l(_vm.partsOfSpeech, function(partOfSpeech) {
+                    return _c("option", [_vm._v(_vm._s(partOfSpeech))])
+                  }),
+                  0
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "alpheios-inflections__actions" },
+              [
+                _vm.selectedView && _vm.selectedView.homonym
+                  ? _c("word-forms", {
+                      attrs: {
+                        partOfSpeech:
+                          _vm.selectedView.constructor.mainPartOfSpeech,
+                        targetWord: _vm.selectedView.homonym.targetWord,
+                        lexemes: _vm.selectedView.homonym.lexemes
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.views.length > 1,
+                        expression: "views.length > 1"
+                      }
+                    ]
+                  },
+                  [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.viewSelector,
+                            expression: "viewSelector"
+                          }
+                        ],
+                        staticClass:
+                          "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.viewSelector = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      _vm._l(_vm.views, function(view) {
+                        return _c("option", { domProps: { value: view.id } }, [
+                          _vm._v(_vm._s(view.name))
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.data.inflectionData
+              ? _c("div", {
                   directives: [
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.partsOfSpeech.length > 1,
-                      expression: "partsOfSpeech.length > 1"
+                      value: _vm.showExplanatoryHint,
+                      expression: "showExplanatoryHint"
                     }
-                  ]
-                },
-                [
-                  _c("label", { staticClass: "uk-form-label" }, [
-                    _vm._v(
-                      _vm._s(_vm.ln10Messages("LABEL_INFLECT_SELECT_POFS"))
+                  ],
+                  staticClass: "alpheios-inflections__paradigms-expl",
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(
+                        _vm.data.inflectionData.targetWord
+                      )
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.partOfSpeechSelector,
-                          expression: "partOfSpeechSelector"
-                        }
-                      ],
-                      staticClass:
-                        "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.partOfSpeechSelector = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    _vm._l(_vm.partsOfSpeech, function(partOfSpeech) {
-                      return _c("option", [_vm._v(_vm._s(partOfSpeech))])
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.selectedView.hasPrerenderedTables
+              ? _c(
+                  "div",
+                  [
+                    _c("main-table-wide-vue", {
+                      attrs: {
+                        view: _vm.selectedView,
+                        messages: _vm.messages,
+                        collapsed: false
+                      },
+                      on: { widthchange: _vm.updateWidth }
                     }),
-                    0
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "alpheios-inflections__actions" },
-                [
-                  _vm.selectedView && _vm.selectedView.homonym
-                    ? _c("word-forms", {
-                        attrs: {
-                          partOfSpeech:
-                            _vm.selectedView.constructor.mainPartOfSpeech,
-                          targetWord: _vm.selectedView.homonym.targetWord,
-                          lexemes: _vm.selectedView.homonym.lexemes
-                        }
-                      })
-                    : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.selectedView.linkedViews, function(linkedView) {
+                      return _vm.selectedView.linkedViews
+                        ? [
+                            _c("main-table-wide-vue", {
+                              attrs: {
+                                view: linkedView,
+                                messages: _vm.messages,
+                                collapsed: false
+                              },
+                              on: { widthchange: _vm.updateWidth }
+                            })
+                          ]
+                        : _vm._e()
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "alpheios-inflections__footnotes",
+                        attrs: { id: _vm.elementIDs.footnotes }
+                      },
+                      [
+                        _vm._l(_vm.footnotes, function(footnote) {
+                          return [
+                            _c("dt", [_vm._v(_vm._s(footnote.index))]),
+                            _vm._v(" "),
+                            _c("dd", [_vm._v(_vm._s(footnote.text))])
+                          ]
+                        })
+                      ],
+                      2
+                    )
+                  ],
+                  2
+                )
+              : [
+                  _c("prerendered-table-wide", {
+                    attrs: { view: _vm.selectedView, collapsed: false }
+                  }),
+                  _vm._v(" "),
+                  _c("sub-tables-wide", {
+                    attrs: { view: _vm.selectedView, collapsed: false },
+                    on: { navigate: _vm.navigate }
+                  }),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -15209,216 +15340,76 @@ var render = function() {
                         {
                           name: "show",
                           rawName: "v-show",
-                          value: _vm.views.length > 1,
-                          expression: "views.length > 1"
+                          value: _vm.selectedView.hasSuppParadigms,
+                          expression: "selectedView.hasSuppParadigms"
                         }
-                      ]
+                      ],
+                      staticClass: "alpheios-inflections__supp-tables"
                     },
                     [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.viewSelector,
-                              expression: "viewSelector"
-                            }
-                          ],
-                          staticClass:
-                            "uk-select alpheios-inflections__view-selector alpheios-text__smallest",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.viewSelector = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        _vm._l(_vm.views, function(view) {
-                          return _c(
-                            "option",
-                            { domProps: { value: view.id } },
-                            [_vm._v(_vm._s(view.name))]
-                          )
-                        }),
-                        0
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.data.inflectionData
-                ? _c("div", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.showExplanatoryHint,
-                        expression: "showExplanatoryHint"
-                      }
-                    ],
-                    staticClass: "alpheios-inflections__paradigms-expl",
-                    domProps: {
-                      innerHTML: _vm._s(
-                        _vm.messages.INFLECTIONS_PARADIGMS_EXPLANATORY_HINT.get(
-                          _vm.data.inflectionData.targetWord
-                        )
-                      )
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.selectedView.hasPrerenderedTables
-                ? _c(
-                    "div",
-                    [
-                      _c("main-table-wide-vue", {
-                        attrs: {
-                          view: _vm.selectedView,
-                          messages: _vm.messages,
-                          collapsed: false
-                        },
-                        on: { widthchange: _vm.updateWidth }
-                      }),
-                      _vm._v(" "),
-                      _vm._l(_vm.selectedView.linkedViews, function(
-                        linkedView
+                      _vm._l(_vm.selectedView.suppParadigms, function(
+                        paradigm
                       ) {
-                        return _vm.selectedView.linkedViews
-                          ? [
-                              _c("main-table-wide-vue", {
-                                attrs: {
-                                  view: linkedView,
-                                  messages: _vm.messages,
-                                  collapsed: false
-                                },
-                                on: { widthchange: _vm.updateWidth }
-                              })
-                            ]
-                          : _vm._e()
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "alpheios-inflections__footnotes",
-                          attrs: { id: _vm.elementIDs.footnotes }
-                        },
-                        [
-                          _vm._l(_vm.footnotes, function(footnote) {
-                            return [
-                              _c("dt", [_vm._v(_vm._s(footnote.index))]),
-                              _vm._v(" "),
-                              _c("dd", [_vm._v(_vm._s(footnote.text))])
-                            ]
+                        return [
+                          _c("supp-tables-wide", {
+                            attrs: {
+                              data: paradigm,
+                              "bg-color": _vm.selectedView.hlSuppParadigms
+                                ? _vm.selectedView.suppHlColors.get(
+                                    paradigm.paradigmID
+                                  )
+                                : "transparent",
+                              messages: _vm.messages
+                            },
+                            on: { navigate: _vm.navigate }
                           })
-                        ],
-                        2
-                      )
+                        ]
+                      })
                     ],
                     2
                   )
-                : [
-                    _c("prerendered-table-wide", {
-                      attrs: { view: _vm.selectedView, collapsed: false }
-                    }),
-                    _vm._v(" "),
-                    _c("sub-tables-wide", {
-                      attrs: { view: _vm.selectedView, collapsed: false },
-                      on: { navigate: _vm.navigate }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.selectedView.hasSuppParadigms,
-                            expression: "selectedView.hasSuppParadigms"
-                          }
-                        ],
-                        staticClass: "alpheios-inflections__supp-tables"
-                      },
-                      [
-                        _vm._l(_vm.selectedView.suppParadigms, function(
-                          paradigm
-                        ) {
-                          return [
-                            _c("supp-tables-wide", {
-                              attrs: {
-                                data: paradigm,
-                                "bg-color": _vm.selectedView.hlSuppParadigms
-                                  ? _vm.selectedView.suppHlColors.get(
-                                      paradigm.paradigmID
-                                    )
-                                  : "transparent",
-                                messages: _vm.messages
-                              },
-                              on: { navigate: _vm.navigate }
-                            })
-                          ]
-                        })
-                      ],
-                      2
+                ],
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.selectedView.hasCredits,
+                    expression: "selectedView.hasCredits"
+                  }
+                ],
+                staticClass: "alpheios-inflections__credits-cont"
+              },
+              [
+                _c(
+                  "h3",
+                  { staticClass: "alpheios-inflections__credits-title" },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.ln10Messages("INFLECTIONS_CREDITS_TITLE"))
                     )
-                  ],
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.selectedView.hasCredits,
-                      expression: "selectedView.hasCredits"
-                    }
-                  ],
-                  staticClass: "alpheios-inflections__credits-cont"
-                },
-                [
-                  _c(
-                    "h3",
-                    { staticClass: "alpheios-inflections__credits-title" },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.ln10Messages("INFLECTIONS_CREDITS_TITLE"))
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", {
-                    staticClass: "alpheios-inflections__credits-text",
-                    domProps: {
-                      innerHTML: _vm._s(_vm.selectedView.creditsText)
-                    }
-                  })
-                ]
-              )
-            ],
-            2
-          )
-        : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.ln10Messages("PLACEHOLDER_INFLECT_UNAVAILABLE")) +
-                "\n    "
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "alpheios-inflections__credits-text",
+                  domProps: { innerHTML: _vm._s(_vm.selectedView.creditsText) }
+                })
+              ]
             )
-          ])
+          ],
+          2
+        )
+      : _c("div", { staticClass: "alpheios-inflections__placeholder" }, [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.ln10Messages("PLACEHOLDER_INFLECT_UNAVAILABLE")) +
+              "\n    "
+          )
+        ])
   ])
 }
 var staticRenderFns = []
@@ -15790,8 +15781,8 @@ var render = function() {
                         _vm._v(_vm._s(_vm.index + 1))
                       ])
                     : lemmaIndex > 0 && _vm.count > 1
-                      ? _c("span", { staticClass: "lemma_index_spacer" })
-                      : _vm._e(),
+                    ? _c("span", { staticClass: "lemma_index_spacer" })
+                    : _vm._e(),
                   _vm._v(" "),
                   !lemma.principalParts.includes(lemma.word)
                     ? _c(
@@ -35207,9 +35198,11 @@ class MediaSelector {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextSelector; });
-/* harmony import */ var _w3c_text_quote_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./w3c/text-quote-selector */ "./lib/selection/w3c/text-quote-selector.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/selection/media/html-selector */ "./lib/selection/media/html-selector.js");
+// import TextQuoteSelector from './w3c/text-quote-selector'
+
 
 
 /**
@@ -35266,7 +35259,7 @@ class TextSelector {
   // languageCodes
 
   static readObject (jsonObject) {
-    let textSelector = new TextSelector(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageIdFromCode(jsonObject.languageCode))
+    let textSelector = new TextSelector(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(jsonObject.languageCode))
     textSelector.text = jsonObject.text
     // textSelector.language = TextSelector.getLanguage(textSelector.languageCode)
     return textSelector
@@ -35276,13 +35269,13 @@ class TextSelector {
     let textSelector = new TextSelector(languageID)
     textSelector.text = text
 
-    textSelector.model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageModel(textSelector.languageID)
+    textSelector.model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(textSelector.languageID)
     return textSelector
   }
 
   get languageCode () {
     console.warn(`Deprecated. Please use "languageID" instead of "languageCode"`)
-    return (this.languageID) ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(this.languageID) : ''
+    return (this.languageID) ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(this.languageID) : ''
   }
 
   isEmpty () {
@@ -35303,44 +35296,9 @@ class TextSelector {
   } */
 
   createTextQuoteSelector (htmlSelector) {
-    this.textQuoteSelector = new _w3c_text_quote_selector__WEBPACK_IMPORTED_MODULE_0__["default"](this.languageCode, this.normalizedText)
-    this.textQuoteSelector.createContext(htmlSelector, this)
-  }
-}
-
-
-/***/ }),
-
-/***/ "./lib/selection/w3c/text-quote-selector.js":
-/*!**************************************************!*\
-  !*** ./lib/selection/w3c/text-quote-selector.js ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextQuoteSelector; });
-/* harmony import */ var _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/selection/media/html-selector */ "./lib/selection/media/html-selector.js");
-/**
- * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
- */
-
-
-class TextQuoteSelector {
-  constructor (languageCode, normalizedText) {
-    this.languageCode = languageCode
-    this.normalizedText = normalizedText
-    this.contextForward = 6
-    this.contextBackward = 6
-  }
-
-  createContext (htmlSelector, textSelector) {
-    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_0__["default"].getSelection(htmlSelector.target)
-    this.prefix = selection.anchorNode.data.substr(0, textSelector.start)
-    this.suffix = selection.anchorNode.data.substr(textSelector.end)
-    this.text = textSelector.text
-    this.contextHTML = `${this.prefix}<span class="alpheios_worditem_incontext">${this.text}</span>${this.suffix}`
+    this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText)
+    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(htmlSelector.target)
+    this.textQuoteSelector.createContext(selection, this)
   }
 }
 
