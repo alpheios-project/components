@@ -33251,7 +33251,6 @@ class UIController {
   }
 
   onHomonymReady (homonym) {
-    // console.info('*********************onHomonymReady', homonym)
     this.updateMorphology(homonym)
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer
