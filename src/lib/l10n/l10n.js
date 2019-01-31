@@ -15,16 +15,21 @@ export default class L10n {
    * This method is chainable.
    * @param {string} messageJSON - Messages in a JSON string
    * @param {string} locale - A locale of the messages
+   * @param {Function} missingTranslationMsgFn - A placeholder message that will be shown if translation is not found.
    * @return {L10n} - Self reference (for chaining)
    */
-  addMessages (messageJSON, locale) {
+  addMessages (messageJSON, locale, missingTranslationMsgFn) {
     let messageBundle
     if (this.bundles.has(locale)) {
       messageBundle = this.bundles.get(locale)
       messageBundle.appendFromJSON(messageJSON)
     } else {
-      messageBundle = new MessageBundle(messageJSON, locale)
+      messageBundle = new MessageBundle(messageJSON, locale, missingTranslationMsgFn)
       this.addMessageBundle(messageBundle)
+      if (!this.selectedLocale) {
+        // If locale is not defined, set it to the value of the current (and the only one) message bundle
+        this.setLocale(locale)
+      }
     }
     return this
   }
@@ -36,9 +41,15 @@ export default class L10n {
    * @return {L10n} - Returns self for chaining.
    */
   addMessageBundle (messageBundle) {
-    this.bundles.set(messageBundle.locale, messageBundle)
-    if (!this.selectedLocale) {
-      this.setLocale(messageBundle.locale)
+    const locale = messageBundle.locale
+    if (this.bundles.has(locale)) {
+      this.bundles.get(locale).appendFromBundle(messageBundle)
+    } else {
+      this.bundles.set(messageBundle.locale, messageBundle)
+      if (!this.selectedLocale) {
+        // If locale is not defined, set it to the value of the current (and the only one) message bundle
+        this.setLocale(messageBundle.locale)
+      }
     }
     return this
   }
@@ -60,12 +71,11 @@ export default class L10n {
   }
 
   /**
-   *
-   * @return {Object} - An object containing message objects as property values.
-   * The name of the property is a message key.
+   * Returns a message from a bundle for a current locale.
+   * A wrapper for {@link MessageBundle#getMsg}
    */
-  get messages () {
-    return this.bundles.has(this.selectedLocale) ? this.bundles.get(this.selectedLocale).messages : {}
+  getMsg (...params) {
+    return this.bundles.has(this.selectedLocale) ? this.bundles.get(this.selectedLocale).getMsg(...params) : {}
   }
 
   /**

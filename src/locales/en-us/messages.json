@@ -91,7 +91,11 @@
     "description": "tooltip for button options",
     "component": "Popup"
   },
-
+  "TOOLTIP_SHOW_USAGEEXAMPLES": {
+    "message": "Show example usages of this word",
+    "description": "tooltop for word usage examples button",
+    "component": "Popup"
+  },
   "PLACEHOLDER_DEFINITIONS":  {
     "message": "Lookup a word to show definitions...",
     "description": "placeholder for definitions panel",
@@ -229,6 +233,11 @@
   "LABEL_POPUP_DEFINE": {
     "message": "Define",
     "description": "label for define button on popup",
+    "component": "Popup"
+  },
+  "LABEL_POPUP_USAGEEXAMPLES": {
+    "message": "Examples",
+    "description": "label for usage examples button on popup",
     "component": "Popup"
   },
   "PLACEHOLDER_POPUP_DATA": {
@@ -477,13 +486,23 @@
     "component": "UserAuth Vue Component"
   },
   "AUTH_PROFILE_NICKNAME_LABEL": {
-    "message": "Nickname:",
+    "message": "Nickname",
     "description": "A user's profile nickname filed label",
     "component": "UserAuth Vue Component"
   },
   "AUTH_PROFILE_NAME_LABEL": {
-    "message": "Name:",
+    "message": "Name",
     "description": "A user's profile name filed label",
     "component": "UserAuth Vue Component"
+  },
+  "TEXT_NOTICE_WORDUSAGE_READY": {
+    "message": "Word Usage Examples are recieved",
+    "description": "Word Usage Examples recieved flag",
+    "component": "UIController onWordUsageExamplesReady"
+  },
+  "TOOLTIP_WORD_USAGE": {
+    "message": "Word Usage Examples",
+    "description": "Word Usage Examples tooltip",
+    "component": "Panel"
   }
 }
