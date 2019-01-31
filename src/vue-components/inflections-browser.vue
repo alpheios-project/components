@@ -43,6 +43,26 @@
             <wide-table :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'praesum', title: 'Praesum (praeesse, praefui, praefuturus)' })" :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false" :collapsed="inflBrowserTablesCollapsed" @widthchange="inflTableWidthUpd" ></wide-table>
             <wide-table :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'subsum', title: 'Subsum (subesse, subfui, subfuturus)' })" :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false" :collapsed="inflBrowserTablesCollapsed" @widthchange="inflTableWidthUpd" ></wide-table>
             <wide-table :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'supersum', title: 'Supersum (superesse, superfui, superfuturus)' })" :infl-browser-table="true" :messages="messages" :no-suffix-matches-hidden="false" :collapsed="inflBrowserTablesCollapsed" @widthchange="inflTableWidthUpd" ></wide-table>
+            <wide-table
+                :collapsed="inflBrowserTablesCollapsed"
+                :infl-browser-table="true" :no-suffix-matches-hidden="false"
+                :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'queo', title: 'Queo (quire, quivi(ii), quitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+            <wide-table
+                :collapsed="inflBrowserTablesCollapsed"
+                :infl-browser-table="true" :no-suffix-matches-hidden="false"
+                :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'nequeo', title: 'Nequeo (nequire, nequivi(ii), nequitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+            <wide-table
+                :collapsed="inflBrowserTablesCollapsed"
+                :infl-browser-table="true" :no-suffix-matches-hidden="false"
+                :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'adeo', title: 'Adeo (adire, adivi(ii), aditus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+            <wide-table
+                :collapsed="inflBrowserTablesCollapsed"
+                :infl-browser-table="true" :no-suffix-matches-hidden="false"
+                :view="latinInflView({ viewID: 'latin_verb_irregular_voice_view', form: 'ineo', title: 'Ineo (inire, inivi(ii), initus)' })" @widthchange="inflTableWidthUpd"></wide-table>
+            <wide-table
+                :collapsed="inflBrowserTablesCollapsed"
+                :infl-browser-table="true" :no-suffix-matches-hidden="false"
+                :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'veneo', title: 'Veneo (venire, venivi(ii), venitus)' })" @widthchange="inflTableWidthUpd"></wide-table>
         </div>
 
 
