@@ -35398,7 +35398,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
 
     yield 'Finalizing'
-    // console.info('*********************Finalizing')
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
     }

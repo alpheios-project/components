@@ -177,7 +177,6 @@ export default class LexicalQuery extends Query {
     }
 
     yield 'Finalizing'
-    // console.info('*********************Finalizing')
     if (adapterLexiconResShort.result || adapterLexiconResFull.result) {
       this.finalize('Success')
     }
