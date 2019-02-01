@@ -36423,7 +36423,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/selection/media/html-selector */ "./lib/selection/media/html-selector.js");
-// import TextQuoteSelector from './w3c/text-quote-selector'
 
 
 

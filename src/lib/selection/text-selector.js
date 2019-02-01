@@ -1,4 +1,3 @@
-// import TextQuoteSelector from './w3c/text-quote-selector'
 import { LanguageModelFactory, TextQuoteSelector } from 'alpheios-data-models'
 
 import HTMLSelector from '@/lib/selection/media/html-selector'
