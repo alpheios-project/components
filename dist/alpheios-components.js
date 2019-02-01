@@ -32373,7 +32373,6 @@ class UIController {
     // Subscribe to AnnotationQuery events
     _lib_queries_annotation_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
 
-    // let testUserID = 'userIDTest'
     uiController.wordlistC = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"](alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].availableLanguages(), _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt)
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
     alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
@@ -35340,7 +35339,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
-    // console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
         method: 'fetchTranslations',
@@ -36018,8 +36016,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import TextQuoteSelector from '@/lib/selection/w3c/text-quote-selector'
-
 class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default"] {
   /**
    * @param {PointerEvt} event - Event object with information about text selection.
@@ -36129,7 +36125,6 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
-    // console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 
@@ -36225,8 +36220,6 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     let wordStart = anchorText.lastIndexOf(' ', ro) + 1 // Try to find a space char before a beginning of a selection
     let wordEnd = anchorText.indexOf(' ', wordStart + 1) // Try to find a space char after a beginning of a selection
 
-    // console.info('***********************wordStart', wordStart)
-    // console.info('***********************wordEnd', wordEnd)
     if (wordStart === -1) {
       // if we don't have any spaces in the text and the browser identified
       // an invalid anchor node (i.e. one which doesn't contain the focus node text)

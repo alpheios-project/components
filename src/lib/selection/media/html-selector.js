@@ -3,8 +3,6 @@ import { Constants, LanguageModelFactory } from 'alpheios-data-models'
 import TextSelector from '../text-selector'
 import MediaSelector from './media-selector'
 
-// import TextQuoteSelector from '@/lib/selection/w3c/text-quote-selector'
-
 export default class HTMLSelector extends MediaSelector {
   /**
    * @param {PointerEvt} event - Event object with information about text selection.
@@ -114,7 +112,6 @@ export default class HTMLSelector extends MediaSelector {
     } else {
       console.warn(`Cannot make a selection as neither getSelection() nor createTextRange() are supported`)
     }
-    // console.info('*******************createSelectionFromPoint range', range)
     return range
   }
 
@@ -210,8 +207,6 @@ export default class HTMLSelector extends MediaSelector {
     let wordStart = anchorText.lastIndexOf(' ', ro) + 1 // Try to find a space char before a beginning of a selection
     let wordEnd = anchorText.indexOf(' ', wordStart + 1) // Try to find a space char after a beginning of a selection
 
-    // console.info('***********************wordStart', wordStart)
-    // console.info('***********************wordEnd', wordEnd)
     if (wordStart === -1) {
       // if we don't have any spaces in the text and the browser identified
       // an invalid anchor node (i.e. one which doesn't contain the focus node text)

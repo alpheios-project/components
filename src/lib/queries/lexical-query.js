@@ -118,7 +118,6 @@ export default class LexicalQuery extends Query {
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
-    // console.info('**************************this.lemmaTranslations', this.lemmaTranslations)
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({
         method: 'fetchTranslations',
