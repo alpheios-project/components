@@ -128,7 +128,7 @@ export default class LexicalQuery extends Query {
         }
       })
       if (adapterTranslationRes.errors.length > 0) {
-        adapterTranslationRes.errors.forEach(error => console.error(error.messag4e))
+        adapterTranslationRes.errors.forEach(error => console.error(error.message))
       }
 
       LexicalQuery.evt.LEMMA_TRANSL_READY.pub(this.homonym)
