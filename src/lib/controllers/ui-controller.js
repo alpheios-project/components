@@ -2,6 +2,7 @@
 import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
 import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
+import { WordlistController, UserDataManager } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Vuex from 'vuex'
@@ -85,6 +86,7 @@ export default class UIController {
       options: false,
       info: false,
       treebank: false,
+      wordlist: false,
       wordUsage: false
     }
     this.tabStateDefault = 'info'
@@ -175,6 +177,10 @@ export default class UIController {
 
     // Subscribe to AnnotationQuery events
     AnnotationQuery.evt.ANNOTATIONS_AVAILABLE.sub(uiController.onAnnotationsAvailable.bind(uiController))
+
+    uiController.wordlistC = new WordlistController(LanguageModelFactory.availableLanguages(), LexicalQuery.evt)
+    WordlistController.evt.WORDLIST_UPDATED.sub(uiController.onWordListUpdated.bind(uiController))
+    WordlistController.evt.WORDITEM_SELECTED.sub(uiController.onWordItemSelected.bind(uiController))
 
     return uiController
   }
@@ -359,6 +365,15 @@ export default class UIController {
     this.updateVerboseMode()
     this.updateLemmaTranslations()
     this.notifyInflectionBrowser()
+
+    if (this.wordlistC) {
+      // TODO we need to integrate this with auth functionality, postponing both the initialization of the wordlists
+      // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
+      // that operates on an in-memory user until such time the user authenticates
+      // see issue 317
+      this.userDataManager = new UserDataManager('testUserID', WordlistController.evt)
+      this.wordlistC.initLists(this.userDataManager)
+    }
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
@@ -1047,6 +1062,22 @@ export default class UIController {
     this.updateInflections(homonym)
   }
 
+  updateWordLists (wordLists) {
+    if (this.hasUiModule('panel')) {
+      const panel = this.getUiModule('panel')
+      panel.vi.panelData.wordLists = wordLists
+      panel.vi.panelData.wordListUpdated = panel.vi.panelData.wordListUpdated + 1
+    }
+  }
+
+  onWordListUpdated (wordLists) {
+    this.updateWordLists(wordLists)
+  }
+
+  onLemmaTranslationsReady (homonym) {
+    this.updateTranslations(homonym)
+  }
+
   onDefinitionsReady (data) {
     this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_DEFSDATA_READY', { requestType: data.requestType, lemma: data.word }))
     this.updateDefinitions(data.homonym)
@@ -1078,6 +1109,20 @@ export default class UIController {
 
   onAnnotationsAvailable (data) {
     this.updatePageAnnotationData(data.annotations)
+  }
+
+  onWordItemSelected (homonym) {
+    let languageID = homonym.lexemes[0].lemma.languageID
+
+    this.newLexicalRequest(languageID)
+    this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+    this.showStatusInfo(homonym.targetWord, languageID)
+    this.updateLanguage(languageID)
+    this.updateWordAnnotationData()
+
+    this.onHomonymReady(homonym)
+    this.updateDefinitions(homonym)
+    this.updateTranslations(homonym)
   }
 }
 

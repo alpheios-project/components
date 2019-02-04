@@ -77,6 +77,13 @@
                 </span>
               </alph-tooltip>
 
+              <alph-tooltip tooltipDirection="bottom-narrow" :tooltipText="l10n.getText('TOOLTIP_WORDLIST')">
+                <span v-show="showWordList" v-bind:class="{ active: data.tabs.wordlist }" @click="changeTab('wordlist')"
+                  class="alpheios-panel__header-nav-btn">
+                  <wordlist-icon class="alpheios-icon"></wordlist-icon>
+                </span>
+              </alph-tooltip>
+
               <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_STATUS')" tooltipDirection="bottom-narrow">
                 <span @click="changeTab('status')" class="alpheios-panel__header-nav-btn" v-bind:class="{ active: data.tabs.status }"
                       v-show="data.verboseMode">
@@ -221,6 +228,10 @@
         </div>
         <info :data="data.infoComponentData" v-if="data.infoComponentData"></info>
       </div>
+
+      <div v-show="data.tabs.wordlist" class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist">
+        <word-list-panel :wordlistC="data.wordlistC" :updated="data.wordListUpdated"></word-list-panel>
+      </div>
     </div>
     <div :class="notificationClasses" class="alpheios-panel__notifications uk-text-small"
          v-if="data && data.notification" v-show="data.notification.important">
@@ -264,7 +275,11 @@ import GrammarIcon from '../../images/inline-icons/resources.svg'
 import TreebankIcon from '../../images/inline-icons/sitemap.svg'
 import InfoIcon from '../../images/inline-icons/info.svg'
 
+import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg';
 import WordUsageIcon from '../../images/inline-icons/books-stack.svg'
+
+import { WordListPanel } from 'alpheios-wordlist'
+
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
 // JS imports
@@ -299,7 +314,9 @@ export default {
     alphTooltip: Tooltip,
     lookup: Lookup,
     reskinFontColor: ReskinFontColor,
-    wordUsageExamplesBlock: WordUsageExamplesBlock
+    wordUsageExamplesBlock: WordUsageExamplesBlock,
+    wordlistIcon: WordlistIcon,
+    wordListPanel: WordListPanel
   },
   directives: {
     onClickaway: onClickaway
@@ -337,6 +354,9 @@ export default {
   computed: {
     divClasses () {
       return (this.data && this.data.classes ? this.data.classes.join(' ') : '') + ' ' + this.positionClasses
+    },
+    showWordList () {
+      return this.data.wordListUpdated && this.data.wordlistC && Object.keys(this.data.wordlistC.wordLists) && Object.keys(this.data.wordlistC.wordLists).length > 0
     },
     clearLookupText: function () {
       // always true to clear panels lookup

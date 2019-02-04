@@ -102,7 +102,9 @@ export default class PanelModule {
           },
           minWidth: 400,
           auth: uiController.auth,
-          wordUsageExamplesData: null
+          wordUsageExamplesData: null,
+          wordlistC: uiController.wordlistC,
+          wordListUpdated: 0
         },
         state: uiController.state,
         options: uiController.contentOptions,
