@@ -1,12 +1,11 @@
 <template>
   <div class="alpheios_word_usage_list_item">
       <div class="alpheios_word_usage_list_item__source">
-          <a 
-            :href="wordUsageItem.source" 
+          <a
+            :href="wordUsageItem.source"
             target="_blank"
             class = "alpheios_word_usage_list_item__source_link"
-            >{{ wordUsageItem.source }}</a> 
-          <p class="alpheios_word_usage_list_item__source_cit">{{ wordUsageItem.fullCit() }}</p>
+            >{{ wordUsageItem.fullCit() }}</a>
         </div>
       <div class="alpheios_word_usage_list_item__text" v-html="wordUsageItem.htmlExample"></div>
   </div>
@@ -27,6 +26,10 @@
 
     .alpheios_word_usage_list_item {
       margin-bottom: 15px;
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: minmax(50px,1fr) minmax(200px, 4fr);
+
     }
 
     .alpheios_word_usage_list_item__source {

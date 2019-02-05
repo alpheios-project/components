@@ -10171,6 +10171,9 @@ ul.alpheios-skin_properties {
 /********** Dark Schema ***********************/
 .alpheios_word_usage_list_item {
   margin-bottom: 15px !important;
+  display: grid;
+  grid-gap: 10px !important;
+  grid-template-columns: minmax(50px, 1fr) minmax(200px, 4fr);
 }
 .alpheios_word_usage_list_item__source {
   font-weight: bold !important;
