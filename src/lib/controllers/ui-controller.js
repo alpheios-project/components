@@ -953,7 +953,10 @@ export default class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector) ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue } : null,
+          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+            ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+                perAuthorMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+            : null,
           langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
 

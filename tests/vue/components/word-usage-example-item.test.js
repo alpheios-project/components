@@ -59,7 +59,7 @@ describe('word-usage-example-item.test.js', () => {
   afterAll(() => {
     jest.clearAllMocks()
   })
-  
+
   it('1 wordUsageExampleItem - checks if component mounts properly', () => {
     let cmp = mount(wordUsageExampleItem, {
       propsData: {
@@ -80,7 +80,6 @@ describe('word-usage-example-item.test.js', () => {
 
     let textContent = cmp.element.textContent
     expect(textContent.includes(testWordUsageItem.fullCit())).toBeTruthy()
-    expect(textContent.includes(testWordUsageItem.source)).toBeTruthy()
     expect(textContent.includes(testWordUsageItem.prefix)).toBeTruthy()
     expect(textContent.includes(testWordUsageItem.suffix)).toBeTruthy()
     expect(textContent.includes(testWord1)).toBeTruthy()
