@@ -33818,7 +33818,10 @@ class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector) ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue } : null,
+          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+            ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+                perAuthorMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+            : null,
           langOpts: { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
 
@@ -36027,7 +36030,12 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     if (this.wordUsageExamples) {
       let adapterConcordanceRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
         method: 'getWordUsageExamples',
-        params: { homonym: this.homonym, pagination: { property: 'max', value: this.wordUsageExamples.paginationMax } }
+        params: { homonym: this.homonym,
+                  pagination: {
+                    property: 'authmax',
+                    value: this.wordUsageExamples.paginationAuthMax
+                  }
+                }
       })
 
       if (adapterConcordanceRes.errors.length > 0) {
@@ -38296,7 +38304,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesMax":{"defaultValue":50,"labelText":"Word Usage Examples - max results","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"lookupLangOverride":{"defaultValue":false,"labelText":"Override language at lookup panel","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"lookupLangOverride":{"defaultValue":false,"labelText":"Override language at lookup panel","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}};
 
 /***/ }),
 
