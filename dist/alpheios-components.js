@@ -11205,6 +11205,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 // Vue components
 
@@ -17733,6 +17736,16 @@ var render = function() {
                       attrs: {
                         classes: ["alpheios-panel__options-item"],
                         data: _vm.data.settings.enableWordUsageExamples
+                      },
+                      on: { change: _vm.settingChanged }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.data.settings
+                  ? _c("setting", {
+                      attrs: {
+                        classes: ["alpheios-panel__options-item"],
+                        data: _vm.data.settings.wordUsageExamplesAuthMax
                       },
                       on: { change: _vm.settingChanged }
                     })

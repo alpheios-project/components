@@ -211,6 +211,9 @@
         <setting :classes="['alpheios-panel__options-item']" :data="data.settings.enableWordUsageExamples" @change="settingChanged"
                  v-if="data.settings"></setting>
 
+        <setting :classes="['alpheios-panel__options-item']" :data="data.settings.wordUsageExamplesAuthMax" @change="settingChanged"
+                 v-if="data.settings"></setting>
+
         <setting :classes="['alpheios-panel__options-item']" :data="data.settings.wordUsageExamplesMax" @change="settingChanged"
                  v-if="data.settings"></setting>
 
