@@ -8,9 +8,9 @@
             >{{ wordUsageItem.fullCit() }}</a>
         </div>
       <div class="alpheios_word_usage_list_item__text">
-        <div class="alpheios_word_usage_list_item_text_prefix" v-html="wordUsageItem.prefix"></div>
+        <div class="alpheios_word_usage_list_item__text_prefix" v-html="prefixHtml"></div>
         <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
-        <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.suffix"></div>
+        <div class="alpheios_word_usage_list_item__text_suffix" v-html="suffixHtml"></div>
       </div>
   </div>
 </template>
@@ -21,6 +21,22 @@
       wordUsageItem: {
         type: Object,
         required: true
+      }
+    },
+    computed: {
+      prefixHtml: function() {
+        if (this.wordUsageItem.prefix) {
+          return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
+        } else {
+          return this.wordUsageItem.prefix
+        }
+      },
+      suffixHtml: function() {
+        if (this.wordUsageItem.suffix) {
+          return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
+        } else {
+          return this.wordUsageItem.suffix
+        }
       }
     }
   }
@@ -54,6 +70,7 @@
       display: flex;
       flex-flow: row-wrap;
       justify-content: center;
+      align-items: center;
 
       .alpheios_word_usage_list_item__text_targetword {
         color: $alpheios-highlight-dark-color;

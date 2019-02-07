@@ -12945,6 +12945,22 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     }
+  },
+  computed: {
+    prefixHtml: function() {
+      if (this.wordUsageItem.prefix) {
+        return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
+      } else {
+        return this.wordUsageItem.prefix
+      }
+    },
+    suffixHtml: function() {
+      if (this.wordUsageItem.suffix) {
+        return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
+      } else {
+        return this.wordUsageItem.suffix
+      }
+    }
   }
 });
 
@@ -19564,8 +19580,8 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
       _c("div", {
-        staticClass: "alpheios_word_usage_list_item_text_prefix",
-        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.prefix) }
+        staticClass: "alpheios_word_usage_list_item__text_prefix",
+        domProps: { innerHTML: _vm._s(_vm.prefixHtml) }
       }),
       _vm._v(" "),
       _c("div", {
@@ -19574,8 +19590,8 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", {
-        staticClass: "alpheios_word_usage_list_item__text_targetword",
-        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.suffix) }
+        staticClass: "alpheios_word_usage_list_item__text_suffix",
+        domProps: { innerHTML: _vm._s(_vm.suffixHtml) }
       })
     ])
   ])
