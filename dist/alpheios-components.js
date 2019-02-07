@@ -33833,7 +33833,7 @@ class UIController {
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.enableWordUsageExamples(textSelector)
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
-                perAuthorMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+                paginationAutMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
           langOpts: { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
