@@ -12933,6 +12933,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
@@ -19558,10 +19562,22 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", {
-      staticClass: "alpheios_word_usage_list_item__text",
-      domProps: { innerHTML: _vm._s(_vm.wordUsageItem.htmlExample) }
-    })
+    _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item_text_prefix",
+        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.prefix) }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_targetword",
+        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.normalizedText) }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_targetword",
+        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.suffix) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

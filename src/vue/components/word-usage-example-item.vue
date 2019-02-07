@@ -7,7 +7,11 @@
             class = "alpheios_word_usage_list_item__source_link"
             >{{ wordUsageItem.fullCit() }}</a>
         </div>
-      <div class="alpheios_word_usage_list_item__text" v-html="wordUsageItem.htmlExample"></div>
+      <div class="alpheios_word_usage_list_item__text">
+        <div class="alpheios_word_usage_list_item_text_prefix" v-html="wordUsageItem.prefix"></div>
+        <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
+        <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.suffix"></div>
+      </div>
   </div>
 </template>
 <script>
@@ -28,7 +32,7 @@
       margin-bottom: 15px;
       display: grid;
       grid-gap: 10px;
-      grid-template-columns: minmax(50px,1fr) minmax(200px, 4fr);
+      grid-template-columns: minmax(50px,1fr) minmax(600px, 4fr);
 
     }
 
@@ -47,8 +51,11 @@
 
     .alpheios_word_usage_list_item__text {
       margin-top: 3px;
+      display: flex;
+      flex-flow: row-wrap;
+      justify-content: center;
 
-      span.alpheios_word_usage_list_item__text_targetword {
+      .alpheios_word_usage_list_item__text_targetword {
         color: $alpheios-highlight-dark-color;
         font-weight:bold;
       }
