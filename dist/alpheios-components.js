@@ -12998,6 +12998,24 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    wordUsageListSorted() {
+      // TODO support key and order
+      if (this.wordUsageList) {
+        return this.wordUsageList.sort((a,b) => {
+          let aU = a.fullCit().toUpperCase()
+          let bU = b.fullCit().toUpperCase()
+          if (aU < bU) {
+            return -1
+          }
+          if (aU > bU) {
+            return 1
+          }
+          return 0
+        })
+      }
+
+    },
+
     showWordUsageExampleItems () {
       return this.wordUsageList && this.wordUsageList.length > 0
     },
@@ -19577,7 +19595,7 @@ var render = function() {
       ? _c(
           "div",
           { staticClass: "alpheios_word_usage_list_mainblock" },
-          _vm._l(_vm.wordUsageList, function(wordUsageItem) {
+          _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
             return _c("word-usage-example-item", {
               key: wordUsageItem.ID,
               attrs: { wordUsageItem: wordUsageItem }
