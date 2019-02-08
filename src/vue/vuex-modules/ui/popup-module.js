@@ -66,7 +66,6 @@ export default class PopupModule {
 
           showProviders: false,
           updates: 0,
-          classes: [], // Will be set later by `setRootComponentClasses()`
           notification: {
             visible: false,
             important: false,
@@ -155,7 +154,7 @@ export default class PopupModule {
         },
 
         newLexicalRequest: function () {
-          this.popupData.requestStartTime = new Date().getTime()
+          this.popupData.requestStartTime = Date.now()
           if (this.$options.api.ui.hasModule('panel')) {
             this.$options.api.ui.getModule('panel').vi.panelData.inflBrowserTablesCollapsed = true // Collapse all inflection tables in a browser
           }

@@ -1,5 +1,5 @@
 <template>
-  <div :class="divClasses" :data-notification-visible="data && data.notification && data.notification.important"
+  <div :class="rootClasses" :data-notification-visible="data && data.notification && data.notification.important"
        :style="mainstyles" class="alpheios-panel auk"
        data-component="alpheios-panel"
        data-resizable="true" id="alpheios-panel-inner" v-on-clickaway="attachTrackingClick"
@@ -300,7 +300,7 @@ export default {
     settings: 'settings',
     auth: { from: 'auth', default: null } // This module is options
   },
-  storeModules: ['app', 'panel'], // Store modules that are required by this component
+  storeModules: ['app', 'ui', 'panel'], // Store modules that are required by this component
   mixins: [DependencyCheck],
   components: {
     inflections: Inflections,
@@ -360,8 +360,8 @@ export default {
   },
 
   computed: {
-    divClasses () {
-      return this.data.classes.concat([this.$options.positionClassVariants[this.panelPosition]])
+    rootClasses () {
+      return this.$store.state.ui.rootClasses.concat([this.$options.positionClassVariants[this.panelPosition]])
     },
     clearLookupText: function () {
       // always true to clear panels lookup
