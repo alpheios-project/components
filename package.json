@@ -35,7 +35,7 @@
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-node-build": "github:alpheios-project/node-build",
     "alpheios-res-client": "github:alpheios-project/res-client",
-    "alpheios-wordlist": "github:alpheios-project/wordlist",
+    "alpheios-wordlist": "github:alpheios-project/wordlist#fix-upload-messages-l10n",
     "autoprefixer": "^9.4.7",
     "bytes": "^3.1.0",
     "chalk": "^2.4.2",
@@ -69,7 +69,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "uikit": "^3.0.3",
-    "vue": "^2.6.4",
+    "vue": "^2.6.5",
     "whatwg-fetch": "^3.0.0",
     "wrap-range-text": "*"
   },
