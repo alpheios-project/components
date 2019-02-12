@@ -1,10 +1,9 @@
 <template>
   <div class="alpheios-info uk-margin">
-    <div class="alpheios-info__versiontext alpheios-text__smallest" v-if="data.appInfo">{{ data.appInfo.name }} {{
-      data.appInfo.version }}
+    <div class="alpheios-info__versiontext alpheios-text__smallest">{{ app.name }} {{ app.version }}
     </div>
     <div class="alpheios-info__currentlanguage alpheios-text__smallest">{{ l10n.getMsg('LABEL_INFO_CURRENTLANGUAGE') }}
-      {{ data.languageName }}
+      {{ $store.state.app.currentLanguageName }}
     </div>
     <div class="alpheios-info__helptext">
       <h3>{{ l10n.getMsg('TEXT_INFO_GETTINGSTARTED') }}</h3>
@@ -19,15 +18,13 @@
   </div>
 </template>
 <script>
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 export default {
   name: 'Info',
-  inject: ['l10n'],
-  props: {
-    data: {
-      type: Object,
-      required: true
-    }
-  }
+  inject: ['app', 'l10n'],
+  storeModules: ['app'],
+  mixins: [DependencyCheck]
 }
 </script>
 <style lang="scss">

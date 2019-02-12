@@ -26,11 +26,14 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
+import TempStorageArea from '@/lib/options/temp-storage-area.js'
 
 describe('panel.test.js', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
   let store
+  let contentOptions
+  let resourceOptions
   const l10nModule = new L10nModule(Locales.en_US, Locales.bundleArr([
     [enUS, Locales.en_US],
     [enUSData, Locales.en_US],
@@ -50,6 +53,9 @@ describe('panel.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
+    contentOptions = new Options(ContentOptionDefaults, TempStorageArea)
+    resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
+
     store = new Vuex.Store({
       modules: {
         panel: {
@@ -58,6 +64,28 @@ describe('panel.test.js', () => {
           },
           actions: {},
           getters: {}
+        },
+        app: {
+          namespaced: true,
+          state: {
+            tabState: {
+              definitions: false,
+              inflections: false,
+              inflectionsbrowser: false,
+              grammar: false,
+              status: false,
+              options: false,
+              info: true,
+              treebank: false,
+              wordUsage: false
+            },
+            wordListUpdated: 0
+          }
+        },
+        ui: {
+          state: {
+            rootClasses: []
+          }
         }
       }
     })
@@ -72,19 +100,29 @@ describe('panel.test.js', () => {
   it('1 Panel - renders a vue instance (min requirements)', () => {
     localVue.use(Vuex)
     let cmp = shallowMount(Panel, {
-      propsData: {},
+      propsData: {
+        data: {
+          wordUsageExamplesData: null
+        }
+      },
       store,
       localVue,
       mocks: {
+        app: {
+          wordlistC: {}
+        },
         l10n: l10nModule.api(l10nModule.store),
-        ui: uiAPI
+        ui: uiAPI,
+        settings: {
+          contentOptions,
+          resourceOptions
+        }
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
-    expect(cmp.vm.uiController).toBeNull()
     expect(cmp.vm.attachToLeftVisible).toBeFalsy()
     expect(cmp.vm.attachToRightVisible).toBeTruthy()
-    expect(cmp.vm.positionClasses).toBeNull()
+    expect(cmp.vm.panelPosition).toBe('left')
   })
 
   it.skip('2 Panel - render with children components (min requirements)', () => {

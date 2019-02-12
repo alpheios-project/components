@@ -20,11 +20,14 @@ import Options from '@/lib/options/options.js'
 import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
+import TempStorageArea from '@/lib/options/temp-storage-area.js'
 
 describe('popup.test.js', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
   let store
+  let contentOptions
+  let resourceOptions
   const l10nModule = new L10nModule(Locales.en_US, Locales.bundleArr([
     [enUS, Locales.en_US],
     [enUSData, Locales.en_US],
@@ -44,6 +47,9 @@ describe('popup.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
+    contentOptions = new Options(ContentOptionDefaults, TempStorageArea)
+    resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
+
     store = new Vuex.Store({
       modules: {
         popup: {
@@ -52,6 +58,12 @@ describe('popup.test.js', () => {
           },
           actions: {},
           getters: {}
+        },
+        app: {
+
+        },
+        ui: {
+          rootClasses: []
         }
       }
     })
@@ -77,7 +89,11 @@ describe('popup.test.js', () => {
       localVue,
       mocks: {
         l10n: l10nModule.api(l10nModule.store),
-        ui: uiAPI
+        ui: uiAPI,
+        settings: {
+          contentOptions,
+          resourceOptions
+        }
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()

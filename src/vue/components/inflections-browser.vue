@@ -443,29 +443,16 @@ import Comparable from '@/lib/utility/comparable.js'
 import WideTable from './inflections-table-wide.vue'
 import Vue from 'vue/dist/vue'
 
+// Modules support
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 export default {
   name: 'InflectionStandardForms',
   components: {
     wideTable: WideTable
   },
-
-  props: {
-    languageId: {
-      type: Symbol,
-      required: false
-    },
-
-    inflBrowserTablesCollapsed: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-
-    data: {
-      type: Object,
-      required: true
-    }
-  },
+  storeModules: ['app'], // Store modules that are required by this component
+  mixins: [DependencyCheck],
 
   data: function () {
     return {
@@ -482,16 +469,10 @@ export default {
       },
       htmlElements: {
         content: undefined
-      }
+      },
+      languageId: this.$store.state.app.currentLanguageID,
+      inflBrowserTablesCollapsed: true
     }
-  },
-
-  computed: {
-    // Need this for a watcher that will monitor a parent container visibility state
-    isVisible: function () {
-      return this.data.visible
-    }
-
   },
 
   watch: {
@@ -502,21 +483,6 @@ export default {
       if (newValue) {
         this.languageId = newValue
         this.collapsed[newValue.toString()] = false
-      }
-    },
-    /*
-        An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
-        use this information to adjust a width of a container that displays an inflection component. However, a width
-        of an inflection table within an invisible parent container will always be zero. Because of that, we can determine
-        an inflection table width and notify a parent component only when a parent container is visible.
-        A parent component will notify us of that by setting a `visible` property. A change of that property state
-        will be monitored here with the help of a `isVisible` computed property. Computed property alone will not work
-        as it won't be used by anything and thus will not be calculated by Vue.
-         */
-    isVisible: function (visibility) {
-      if (visibility && this.htmlElements.content) {
-        // If container is become visible, update parent with its width
-        this.inflTableWidthUpd()
       }
     }
   },
@@ -562,8 +528,8 @@ export default {
 
     collapseLanguage: function (languageID) {
       const language = languageID.toString()
-      if (this.collapsed.hasOwnProperty(language)) {
-        this.collapsed[language] = !this.collapsed[language]
+      for (const lang of Object.keys(this.collapsed)) {
+        this.collapsed[lang] = (lang === language) ? !this.collapsed[language] : true
       }
     },
 

@@ -1,17 +1,13 @@
-/* global Event */
-import { Lexeme, Feature, Definition, LanguageModelFactory, Constants } from 'alpheios-data-models'
+import { Constants, Definition, Feature, LanguageModelFactory, Lexeme } from 'alpheios-data-models'
 import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 import { WordlistController, UserDataManager } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Vuex from 'vuex'
-
 // Modules and their support dependencies
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
 import Locales from '@/locales/locales.js'
-import PanelModule from '@/vue/vuex-modules/ui/panel-module.js'
-import PopupModule from '@/vue/vuex-modules/ui/popup-module.js'
 
 import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
 
@@ -78,17 +74,6 @@ export default class UIController {
     this.resourceOptions = null
     this.uiOptions = null
     this.siteOptions = null // Will be set during an `init` phase
-    this.tabState = {
-      definitions: false,
-      inflections: false,
-      inflectionsbrowser: false,
-      status: false,
-      options: false,
-      info: false,
-      treebank: false,
-      wordlist: false,
-      wordUsage: false
-    }
     this.tabStateDefault = 'info'
 
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
@@ -108,9 +93,9 @@ export default class UIController {
      */
     this.evc = null
 
-    this.inflectionsViewSet = null // Holds inflection tables ViewSet
+    this.wordlistC = {} // This is a word list controller
 
-    this.auth = null // An object used for user's authorization
+    this.inflectionsViewSet = null // Holds inflection tables ViewSet
   }
 
   /**
@@ -127,17 +112,29 @@ export default class UIController {
 
     // Register data modules
     uiController.registerDataModule(L10nModule, Locales.en_US, Locales.bundleArr())
+    /* It should have an app or background authenticator as a second parameter or it will not work,
+     * This registration shall be done in the code that creates a UI controller because
+     * it is the owner of
+     *  */
 
-    // Register UI modules
-    uiController.registerUiModule(PanelModule, {
-      mountPoint: '#alpheios-panel',
-      tabs: uiController.tabState, // TODO: should be accessed via a public API, not via a direct link. This is a temporary solutions
-      uiController: uiController // Some child UI components require direct link to a uiController. TODO: remove during refactoring
+    /*
+    The second parameter of an AuthModule is environment specific.
+    For webexetension it, for example, can be a messaging service.
+    Some environments may not register an Auth module at all.
+    That's why this registration shall be made not here,
+    but from within an environment that creates a UI controller
+    (after a call to `create()` function, usually).
+     */
+    // uiController.registerDataModule(AuthModule, undefined)
+
+    // Register UI modules. This is environment specific and thus shall be done after a `create()` call.
+    /* uiController.registerUiModule(PanelModule, {
+      mountPoint: '#alpheios-panel', // To what element a panel will be mounted
+      panelComponent: 'panel' // A Vue component that will represent a panel
     })
     uiController.registerUiModule(PopupModule, {
-      mountPoint: '#alpheios-popup',
-      uiController: uiController // Some child UI components require direct link to a uiController. TODO: remove during refactoring
-    })
+      mountPoint: '#alpheios-popup'
+    }) */
 
     // Creates on configures an event listener
     let eventController = new UIEventController()
@@ -166,7 +163,7 @@ export default class UIController {
     LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.sub(uiController.onMorphDataNotFound.bind(uiController))
     LexicalQuery.evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
     LexicalQuery.evt.LEMMA_TRANSL_READY.sub(uiController.updateTranslations.bind(uiController))
-    LexicalQuery.evt.WORD_USAGE_EXAMPLES_READY.sub(uiController.onWordUsageExamplesReady.bind(uiController))
+    LexicalQuery.evt.WORD_USAGE_EXAMPLES_READY.sub(uiController.updateWordUsageExamples.bind(uiController))
     LexicalQuery.evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
     LexicalQuery.evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
@@ -208,8 +205,6 @@ export default class UIController {
    *     a standard CSS selector. Default value: 'body'.
    *     {Object} template - object w ith the following properties:
    *         html: HTML string for the container of the Alpheios components
-   *         panelId: the id of the wrapper for the panel component,
-   *         popupId: the id of the wrapper for the popup component
    */
   static get optionsDefaults () {
     return {
@@ -221,17 +216,10 @@ export default class UIController {
       openPanel: true,
       textQueryTrigger: 'dblClick',
       textQuerySelector: 'body',
-      uiTypePanel: 'panel',
-      uiTypePopup: 'popup',
-      verboseMode: 'verbose',
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       template: {
-        html: Template,
-        defaultPanelComponent: 'panel',
-        defaultPopupComponent: 'popup',
-        draggable: true,
-        resizable: true
+        html: Template
       }
     }
   }
@@ -333,9 +321,160 @@ export default class UIController {
     this.api = Object.assign(this.api, ...Array.from(this.dataModules.values()).map(m => ({ [m.instance.publicName]: m.instance.api(this.store) })))
 
     /**
-     * This is a public API of a UI controller. All objects should use this public API only.
+     * This is a settings API. It exposes different options to modules and UI components.
+     */
+    this.api.settings = {
+      contentOptions: this.contentOptions,
+      resourceOptions: this.resourceOptions,
+      uiOptions: this.uiOptions,
+      siteOptions: this.siteOptions
+    }
+
+    this.api.app = {
+      name: this.options.app.name, // A name of an application
+      version: this.options.app.version, // An application's version
+      defaultTab: this.tabStateDefault, // A name of a default tab (a string)
+      state: this.state, // An app-level state
+      wordlistC: this.wordlistC, // A word list controller
+
+      // TODO: Some of the functions below should probably belong to other API groups.
+      contentOptionChange: this.contentOptionChange.bind(this),
+      updateLanguage: this.updateLanguage.bind(this),
+      getLanguageName: UIController.getLanguageName,
+      startResourceQuery: this.startResourceQuery.bind(this),
+      changeTab: this.changeTab.bind(this)
+    }
+
+    this.store.registerModule('app', {
+      // All stores of modules are namespaced
+      namespaced: true,
+
+      state: {
+        currentLanguageID: undefined,
+        currentLanguageName: undefined,
+        inflectionsWaitState: false, // Whether there is a lexical query in progress
+        inflectionsViewSet: null,
+        grammarRes: null,
+        treebankData: {
+          word: {},
+          page: {}
+        },
+        wordUsageExamplesData: null,
+        wordLists: null,
+        wordListUpdated: 0, // To notify word list panel about data update. TODO: Can we monitor data instead?
+        tabState: {
+          definitions: false,
+          inflections: false,
+          inflectionsbrowser: false,
+          grammar: false,
+          status: false,
+          options: false,
+          info: true,
+          user: false,
+          treebank: false,
+          wordlist: false,
+          wordUsage: false
+        }
+      },
+
+      getters: {
+        hasInflData (state) {
+          return Boolean(state.inflectionsViewSet && state.inflectionsViewSet.hasMatchingViews)
+        },
+
+        /**
+         * Identifies wither grammar resource(s) are available for the current state.
+         * @param state - A local state.
+         * @return {boolean} True if grammar resource(s) are available, false otherwise.
+         */
+        hasGrammarRes (state) {
+          return state.grammarRes !== null
+        },
+
+        hasTreebankData (state) {
+          // Treebank data is available if we have it for the word or the page
+          return Boolean((state.treebankData.page && state.treebankData.page.src) ||
+            (state.treebankData.word && state.treebankData.word.src))
+        },
+
+        hasWordUsageExamplesData (state) {
+          return Boolean(state.wordUsageExamplesData)
+        }
+      },
+
+      mutations: {
+        setLanguage (state, languageCodeOrID) {
+          let name
+          let id
+          ({ id, name } = UIController.getLanguageName(languageCodeOrID))
+          state.currentLanguageID = id
+          state.currentLanguageName = name
+        },
+
+        lexicalRequestStarted (state) {
+          state.inflectionsWaitState = true
+          state.wordUsageExamplesData = null
+        },
+
+        lexicalRequestFinished (state) {
+          state.inflectionsWaitState = false
+        },
+
+        setInflData (state, inflectionsViewSet = null) {
+          state.inflectionsWaitState = false
+          state.inflectionsViewSet = (inflectionsViewSet && inflectionsViewSet.hasMatchingViews) ? inflectionsViewSet : false
+        },
+
+        resetInflData (state) {
+          state.inflectionsWaitState = false
+          state.inflDataReady = false
+          state.inflectionsViewSet = false
+        },
+
+        setGrammarRes (state, grammarRes) {
+          state.grammarRes = grammarRes
+        },
+
+        resetGrammarRes (state) {
+          state.grammarRes = null
+        },
+
+        setPageAnnotationData (state, pageData) {
+          state.treebankData.page = pageData
+        },
+
+        setWordAnnotationData (state, wordData) {
+          state.treebankData.word = wordData
+        },
+
+        resetTreebankData (state) {
+          state.treebankData.page = {}
+          state.treebankData.word = {}
+        },
+
+        setWordUsageExamplesData (state, data) {
+          state.wordUsageExamplesData = data
+        },
+
+        setWordLists (state, wordLists) {
+          state.wordLists = wordLists
+          state.wordListUpdated++
+        },
+
+        setTab (state, tabName) {
+          for (let key of Object.keys(state.tabState)) {
+            state.tabState[key] = (key === tabName)
+          }
+        }
+      }
+    })
+
+    /**
+     * This is a UI-level public API of a UI controller. All objects should use this public API only.
      */
     this.api.ui = {
+      zIndex: this.zIndex, // A z-index of Alpheios UI elements
+
       // Modules
       hasModule: this.hasUiModule.bind(this), // Checks if a UI module is available
       getModule: this.getUiModule.bind(this), // Gets direct access to module.
@@ -344,8 +483,30 @@ export default class UIController {
       openPanel: this.openPanel.bind(this),
       closePanel: this.closePanel.bind(this),
       openPopup: this.openPopup.bind(this),
-      closePopup: this.closePopup.bind(this)
+      closePopup: this.closePopup.bind(this),
+      switchPopup: this.switchPopup.bind(this), // Switches between different types of popups
+
+      optionChange: this.uiOptionChange.bind(this) // Handle a change of UI options
     }
+
+    this.api.language = {
+      resourceSettingChange: this.resourceSettingChange.bind(this)
+    }
+
+    this.store.registerModule('ui', {
+      // All stores of modules are namespaced
+      namespaced: true,
+
+      state: {
+        rootClasses: []
+      },
+
+      mutations: {
+        setRootClasses (state, classes) {
+          state.rootClasses = classes
+        }
+      }
+    })
 
     // Create all registered UI modules. First two parameters of their constructors are Vuex store and API refs.
     // This must be done after creation of data modules.
@@ -362,9 +523,7 @@ export default class UIController {
     const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
     this.contentOptions.items.lookupLangOverride.setValue(false)
     this.updateLanguage(currentLanguageID)
-    this.updateVerboseMode()
     this.updateLemmaTranslations()
-    this.notifyInflectionBrowser()
 
     if (this.wordlistC) {
       // TODO we need to integrate this with auth functionality, postponing both the initialization of the wordlists
@@ -395,6 +554,10 @@ export default class UIController {
     // Activate listeners
     if (this.evc) { this.evc.activateListeners() }
 
+    this.isActivated = true
+    this.isDeactivated = false
+    // Activate an app first, then activate the UI
+    this.state.activate()
     this.state.activateUI()
 
     if (this.state.isPanelStateDefault() || !this.state.isPanelStateValid()) {
@@ -408,10 +571,6 @@ export default class UIController {
     if (this.state.tab) {
       this.changeTab(this.state.tab)
     }
-
-    this.isActivated = true
-    this.isDeactivated = false
-    this.state.activate()
 
     return this
   }
@@ -511,9 +670,9 @@ export default class UIController {
   static getLanguageName (language) {
     let langID
     let langCode // eslint-disable-line
-    // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
+      // Compatibility code in case method be called with languageCode instead of ID. Remove when not needed
     ;({ languageID: langID, languageCode: langCode } = LanguageModelFactory.getLanguageAttrs(language))
-    return { name: languageNames.has(langID) ? languageNames.get(langID) : '', code: langCode }
+    return { name: languageNames.has(langID) ? languageNames.get(langID) : '', code: langCode, id: langID }
   }
 
   showLanguageInfo (homonym) {
@@ -540,15 +699,18 @@ export default class UIController {
   }
 
   changeTab (tabName) {
-    if (this.hasUiModule('panel')) {
-      if (!this.tabState.hasOwnProperty(tabName)) {
-        // Set tab to a default one if it is an unknown tab name
-        tabName = this.tabStateDefault
-      }
-      this.getUiModule('panel').vi.changeTab(tabName)
-    } else {
-      console.warn(`Cannot switch tab because panel does not exist`)
+    const statusAvailable = Boolean(this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose')
+    // If tab is disabled, switch to a default one
+    if (
+      (!this.store.state.app.tabState.hasOwnProperty(tabName)) ||
+      (!this.store.getters[`app/hasInflData`] && name === 'inflections') ||
+      (!this.store.getters['app/hasGrammarRes'] && name === 'grammar') ||
+      (!this.store.getters['app/hasTreebankData'] && name === 'treebank') ||
+      (!statusAvailable && name === 'status')
+    ) {
+      tabName = this.tabStateDefault
     }
+    this.store.commit('app/setTab', tabName) // Reflect a tab change in a state
     return this
   }
 
@@ -558,14 +720,10 @@ export default class UIController {
   }
 
   newLexicalRequest (languageID) {
+    this.store.commit('app/lexicalRequestStarted')
+    this.store.commit('app/resetGrammarRes')
+    this.store.commit('app/resetInflData')
     if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.newLexicalRequest() }
-    if (this.hasUiModule('panel')) {
-      const panel = this.api.ui.getModule('panel')
-      panel.vi.panelData.inflectionsEnabled = ViewSetFactory.hasInflectionsEnabled(languageID)
-      panel.vi.panelData.inflectionsWaitState = true // Homonym is retrieved and inflection data is calculated
-      panel.vi.panelData.grammarAvailable = false
-      panel.vi.panelData.wordUsageExamplesData = null
-    }
     this.clear().open().changeTab('definitions')
     return this
   }
@@ -612,16 +770,11 @@ export default class UIController {
    * @param {Array} urls
    */
   updateGrammar (urls = []) {
-    if (this.hasUiModule('panel')) {
-      const panel = this.getUiModule('panel')
-      if (urls.length > 0) {
-        panel.vi.panelData.grammarRes = urls[0]
-        panel.vi.panelData.grammarAvailable = true
-      } else {
-        panel.vi.panelData.grammarRes = { provider: this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_NOTFOUND') }
-      }
+    if (urls.length > 0) {
+      this.store.commit('app/setGrammarRes', urls[0])
+    } else {
+      this.store.commit('app/resetGrammarRes')
     }
-    // todo show TOC or not found
   }
 
   updateDefinitions (homonym) {
@@ -683,16 +836,14 @@ export default class UIController {
   }
 
   updatePageAnnotationData (data) {
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.treebankComponentData.data.page = data.treebank.page || {} }
+    this.store.commit('app/setPageAnnotationData', data.treebank.page)
   }
 
   updateWordAnnotationData (data) {
     if (data && data.treebank) {
-      if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.treebankComponentData.data.word = data.treebank.word || {} }
-      if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.hasTreebank = data.treebank.word }
+      this.store.commit('app/setWordAnnotationData', data.treebank.word)
     } else {
-      if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.treebankComponentData.data.word = {} }
-      if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.hasTreebank = false }
+      this.store.commit('app/resetTreebankData')
     }
   }
 
@@ -703,28 +854,11 @@ export default class UIController {
       console.warn('updateLanguage was called with a string value')
       currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(currentLanguageID)
     }
+    this.store.commit('app/setLanguage', currentLanguageID)
     this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(currentLanguageID))
+    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
 
-    if (this.hasUiModule('panel')) {
-      const panel = this.getUiModule('panel')
-      panel.vi.requestGrammar({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
-      panel.vi.panelData.currentLanguageID = currentLanguageID
-      panel.vi.panelData.infoComponentData.languageName = UIController.getLanguageName(currentLanguageID).name
-    }
-
-    if (this.hasUiModule('popup')) {
-      const popup = this.getUiModule('popup')
-      popup.vi.popupData.inflDataReady = this.inflDataReady
-      Vue.set(popup.vi.popupData, 'currentLanguageName', UIController.getLanguageName(currentLanguageID).name)
-    }
-    console.log(`Current language is ${this.state.currentLanguage}`)
-  }
-
-  updateVerboseMode () {
-    this.state.setItem('verboseMode', this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode)
-
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode) }
-    if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.verboseMode = (this.contentOptions.items.verboseMode.currentValue === this.options.verboseMode) }
+    this.store.commit('app/resetInflData')
   }
 
   updateLemmaTranslations () {
@@ -735,50 +869,14 @@ export default class UIController {
     }
   }
 
-  notifyInflectionBrowser () {
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.inflectionBrowserEnabled = true }
-  }
-
-  updateInflections (homonym) {
-    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.contentOptions.items.locale.currentValue)
-
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.inflectionComponentData.inflectionViewSet = this.inflectionsViewSet }
-    if (this.inflectionsViewSet.hasMatchingViews) {
-      this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
-    }
-    if (this.hasUiModule('panel')) {
-      const panel = this.getUiModule('panel')
-      panel.vi.panelData.inflectionsWaitState = false
-      panel.vi.panelData.inflectionComponentData.inflDataReady = this.inflDataReady
-    }
-    if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.inflDataReady = this.inflDataReady }
-  }
-
   updateWordUsageExamples (wordUsageExamplesData) {
-    if (this.hasUiModule('panel')) {
-      this.getUiModule('panel').vi.panelData.wordUsageExamplesData = wordUsageExamplesData
-    }
-    if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.wordUsageExamplesDataReady = true }
-  }
-
-  lexicalRequestComplete () {
-    if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.morphDataReady = true }
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.inflBrowserTablesCollapsed = null } // Reset inflection browser tables state
-  }
-
-  lexicalRequestSucceeded () {
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.inflectionsWaitState = false }
-  }
-
-  lexicalRequestFailed () {
-    if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.panelData.inflectionsWaitState = false }
-  }
-
-  get inflDataReady () {
-    return this.inflectionsViewSet && this.inflectionsViewSet.hasMatchingViews
+    this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
+    this.store.commit('app/setWordUsageExamplesData', wordUsageExamplesData)
   }
 
   clear () {
+    this.store.commit(`app/resetInflData`)
+    this.store.commit(`app/resetTreebankData`)
     if (this.hasUiModule('panel')) { this.getUiModule('panel').vi.clearContent() }
     if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.clearContent() }
     return this
@@ -827,6 +925,10 @@ export default class UIController {
       this.store.commit('popup/close')
     }
   }
+
+  /**
+   * Populates a list of classes that will be used for root HTML elements of UI module's components.
+   */
   setRootComponentClasses () {
     let classes = []
 
@@ -837,36 +939,19 @@ export default class UIController {
       classes.push(`auk--${this.uiOptions.items.skin.currentValue}`)
     }
 
-    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.value !== undefined) {
+    if (this.uiOptions.items.fontSize !== undefined && this.uiOptions.items.fontSize.currentValue !== undefined) {
       classes.push(`alpheios-font_${this.uiOptions.items.fontSize.currentValue}_class`)
     } else {
       classes.push(`alpheios-font_${this.uiOptions.items.fontSize.defaultValue}_class`)
     }
 
-    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.value !== undefined) {
+    if (this.uiOptions.items.colorSchema !== undefined && this.uiOptions.items.colorSchema.currentValue !== undefined) {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.currentValue}_class`)
     } else {
       classes.push(`alpheios-color_schema_${this.uiOptions.items.colorSchema.defaultValue}_class`)
     }
 
-    let classesLength = 0
-    if (this.hasUiModule('popup')) {
-      const popup = this.getUiModule('popup')
-      const classesLength = popup.vi.popupData.classes.length
-      popup.vi.popupData.classes.splice(0, classesLength)
-      classes.forEach(classItem => {
-        popup.vi.popupData.classes.push(classItem)
-      })
-    }
-
-    if (this.hasUiModule('panel')) {
-      const panel = this.getUiModule('panel')
-      panel.vi.panelData.classes.splice(0, classesLength)
-
-      classes.forEach(classItem => {
-        panel.vi.panelData.classes.push(classItem)
-      })
-    }
+    this.store.commit(`ui/setRootClasses`, classes)
   }
 
   updateStyleClass (prefix, type) {
@@ -901,19 +986,6 @@ export default class UIController {
         panel.vi.panelData.classes.push(classItem)
       })
     }
-  }
-
-  updateFontSizeClass (type) {
-    this.updateStyleClass('alpheios-font_', type)
-  }
-
-  updateColorSchemaClass (type) {
-    this.updateStyleClass('alpheios-color_schema_', type)
-  }
-
-  changeSkin () {
-    // Update skin name in classes
-    this.setRootComponentClasses()
   }
 
   getSelectedText (event) {
@@ -1029,21 +1101,15 @@ export default class UIController {
   onLexicalQueryComplete (data) {
     switch (data.resultStatus) {
       case LexicalQuery.resultStatus.SUCCEEDED:
-        this.lexicalRequestSucceeded()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_LEXQUERY_COMPLETE'))
-        this.lexicalRequestComplete()
         break
       case LexicalQuery.resultStatus.FAILED:
-        this.lexicalRequestFailed()
         this.showLanguageInfo(data.homonym)
         this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_LEXQUERY_COMPLETE'))
-        this.lexicalRequestComplete()
-        break
-      default:
-        // Request was probably cancelled
-        this.lexicalRequestComplete()
     }
+    this.store.commit('app/lexicalRequestFinished')
+    if (this.hasUiModule('popup')) { this.getUiModule('popup').vi.popupData.morphDataReady = true }
   }
 
   onMorphDataReady () {
@@ -1062,19 +1128,17 @@ export default class UIController {
     this.updateDefinitions(homonym)
     // Update status info with data from a morphological analyzer
     this.showStatusInfo(homonym.targetWord, homonym.languageID)
-    this.updateInflections(homonym)
-  }
 
-  updateWordLists (wordLists) {
-    if (this.hasUiModule('panel')) {
-      const panel = this.getUiModule('panel')
-      panel.vi.panelData.wordLists = wordLists
-      panel.vi.panelData.wordListUpdated = panel.vi.panelData.wordListUpdated + 1
+    // Update inflections data
+    this.inflectionsViewSet = ViewSetFactory.create(homonym, this.contentOptions.items.locale.currentValue)
+    if (this.inflectionsViewSet.hasMatchingViews) {
+      this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
+    this.store.commit('app/setInflData', this.inflectionsViewSet)
   }
 
   onWordListUpdated (wordLists) {
-    this.updateWordLists(wordLists)
+    this.store.commit('app/setWordLists', wordLists)
   }
 
   onLemmaTranslationsReady (homonym) {
@@ -1084,11 +1148,6 @@ export default class UIController {
   onDefinitionsReady (data) {
     this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_DEFSDATA_READY', { requestType: data.requestType, lemma: data.word }))
     this.updateDefinitions(data.homonym)
-  }
-
-  onWordUsageExamplesReady (wordUsageExamplesData) {
-    this.addMessage(this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
-    this.updateWordUsageExamples(wordUsageExamplesData)
   }
 
   onDefinitionsNotFound (data) {
@@ -1115,10 +1174,11 @@ export default class UIController {
   }
 
   onWordItemSelected (homonym) {
+    console.log(`On word item selected`)
     let languageID = homonym.lexemes[0].lemma.languageID
 
     this.newLexicalRequest(languageID)
-    this.message(this.l10n.messages.TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS)
+    this.message(this.api.l10n.getMsg('TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS'))
     this.showStatusInfo(homonym.targetWord, languageID)
     this.updateLanguage(languageID)
     this.updateWordAnnotationData()
@@ -1126,6 +1186,84 @@ export default class UIController {
     this.onHomonymReady(homonym)
     this.updateDefinitions(homonym)
     this.updateTranslations(homonym)
+  }
+
+  /**
+   * This is to support a switch between different popup types.
+   * It is not used now as the only type of popup is available currently.
+   */
+  switchPopup () {
+    if (this.api.ui.hasModule('popup')) {
+      const popup = this.api.ui.getModule('popup')
+      popup.close() // Close an old popup
+      popup.currentPopupComponent = this.api.settings.uiOptions.items[name].currentValue
+      popup.open() // Will trigger an initialisation of popup dimensions
+    }
+  }
+
+  contentOptionChange (name, value) {
+    // TODO we need to refactor handling of boolean options
+    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax') {
+      this.api.settings.contentOptions.items[name].setValue(value)
+    } else {
+      this.api.settings.contentOptions.items[name].setTextValue(value)
+    }
+    switch (name) {
+      case 'locale':
+        // TODO: It seems that presenter is never defined. Do we need it?
+        if (this.presenter) {
+          this.presenter.setLocale(this.api.settings.contentOptions.items.locale.currentValue)
+        }
+        this.updateLemmaTranslations()
+        break
+      case 'preferredLanguage':
+        this.updateLanguage(this.api.settings.contentOptions.items.preferredLanguage.currentValue)
+        break
+      case 'enableLemmaTranslations':
+        this.updateLemmaTranslations()
+        break
+    }
+  }
+
+  /**
+   * Handles a UI options in settings.
+   * @param {string} name - A name of an option.
+   * @param {string | value} value - A new value of an options.
+   */
+  uiOptionChange (name, value) {
+    // TODO this should really be handled within OptionsItem
+    // the difference between value and textValues is a little confusing
+    // see issue #73
+    if (name === 'fontSize' || name === 'colorSchema' || name === 'panelOnActivate') {
+      this.api.settings.uiOptions.items[name].setValue(value)
+    } else {
+      this.api.settings.uiOptions.items[name].setTextValue(value)
+    }
+
+    switch (name) {
+      case 'skin':
+        this.setRootComponentClasses()
+        break
+      case 'popup':
+        if (this.api.ui.hasModule('popup')) {
+          const popup = this.api.ui.getModule('popup')
+          popup.close() // Close an old popup
+          popup.currentPopupComponent = this.api.settings.uiOptions.items[name].currentValue
+          popup.open() // Will trigger an initialisation of popup dimensions
+        }
+        break
+      case 'fontSize':
+        this.setRootComponentClasses()
+        break
+      case 'colorSchema':
+        this.setRootComponentClasses()
+        break
+    }
+  }
+
+  resourceSettingChange (name, value) {
+    let keyinfo = this.api.settings.resourceOptions.parseKey(name)
+    this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 }
 

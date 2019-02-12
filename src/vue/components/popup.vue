@@ -1,6 +1,6 @@
 <template>
   <div :data-notification-visible="data && data.notification && data.notification.visible" :style="mainstyles" class="alpheios-popup auk" id="alpheios-popup-inner" ref="popup"
-       v-bind:class="divClasses" v-on-clickaway="attachTrackingClick"
+       :class="rootClasses" v-on-clickaway="attachTrackingClick"
        v-show="this.$store.state.popup.visible">
     <alph-tooltip
         :additionalStyles="additionalStylesTootipCloseIcon"
@@ -14,7 +14,7 @@
       <div :lang="data.status.languageCode" class="alpheios-popup__header-text" v-if="data && data.status">
         <span :lang="data.status.languageCode" class="alpheios-popup__header-selection"
               v-show="data.status.selectedText">{{data.status.selectedText}}</span>
-        <span class="alpheios-popup__header-word" lang="en" v-show="data.status.languageName && data.verboseMode">({{data.status.languageName}})</span>
+        <span class="alpheios-popup__header-word" lang="en" v-show="data.status.languageName && verboseMode">({{data.status.languageName}})</span>
       </div>
 
       <div class="alpheios-popup__button-area" v-if="data">
@@ -27,26 +27,25 @@
         </alph-tooltip>
 
         <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_INFLECTIONS')" tooltipDirection="bottom-wide"
-                      v-show="data.inflDataReady">
-          <button @click="showPanelTab('inflections')" class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections"
-                  v-show="data.inflDataReady">
+                      v-show="$store.getters[`app/hasInflData`]">
+          <button @click="showPanelTab('inflections')"
+                  class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections">
             {{ l10n.getText('LABEL_POPUP_INFLECT') }}
           </button>
         </alph-tooltip>
 
         <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_USAGEEXAMPLES')" tooltipDirection="bottom-wide"
-                      v-show="data.wordUsageExamplesDataReady">
-          <button @click="showPanelTab('wordUsage')" class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections"
-                  v-show="data.wordUsageExamplesDataReady">
+                      v-show="$store.getters['app/hasWordUsageExamplesData']">
+          <button class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-inflections"
+                  @click="showPanelTab('wordUsage')">
             {{ l10n.getText('LABEL_POPUP_USAGEEXAMPLES') }}
           </button>
         </alph-tooltip>
 
-
         <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_TREEBANK')" tooltipDirection="bottom-wide"
-                      v-show="data.hasTreebank">
-          <button @click="showPanelTab('treebank')" class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank"
-                  v-show="data.hasTreebank">
+                      v-show="$store.getters['app/hasTreebankData']">
+          <button @click="showPanelTab('treebank')"
+                  class="uk-button uk-button-primary uk-button-small alpheios-popup__more-btn alpheios-popup__more-btn-treebank">
             {{ l10n.getText('LABEL_POPUP_TREEBANK') }}
           </button>
 
@@ -100,12 +99,11 @@
               </span>
 
       <span v-html="data.notification.text"></span>
-      <setting :classes="['alpheios-popup__notifications--lang-switcher']" :data="data.settings.preferredLanguage"
-               :show-title="false" @change="settingChanged"
+      <setting :classes="['alpheios-popup__notifications--lang-switcher']" :data="settings.contentOptions.items.preferredLanguage"
+               :show-title="false" @change="contentOptionChanged"
                v-show="data.notification.showLanguageSwitcher"></setting>
     </div>
-    <lookup :clearLookupText="hasMorphData && morphDataReady" :parentLanguage="currentLanguageName"
-            :uiController="uiController"></lookup>
+    <lookup :clearLookupText="hasMorphData && morphDataReady" :parentLanguage="currentLanguageName"></lookup>
   </div>
 </template>
 <script>
@@ -122,9 +120,14 @@ import CloseIcon from '../../images/inline-icons/close.svg'
 
 import { directive as onClickaway } from '../directives/clickaway.js'
 
+// Modules support
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 export default {
   name: 'Popup',
-  inject: ['ui', 'l10n'],
+  inject: ['app', 'ui', 'l10n', 'settings'],
+  storeModules: ['app', 'ui', 'popup'],
+  mixins: [DependencyCheck],
   components: {
     morph: Morph,
     setting: Setting,
@@ -199,39 +202,25 @@ export default {
     this.$on('updatePopupDimensions', function () {
       vm.updatePopupDimensions()
     })
-    this.$on('changeStyleClass', function (name, type) {
-      vm.uiOptionChanged(name, type)
-    })
   },
   computed: {
-    divClasses () {
-      return this.data && this.data.classes ? this.data.classes.join(' ') : ''
-    },
-    uiController: function () {
-      return (this.$parent && this.$parent.uiController) ? this.$parent.uiController : null
+    rootClasses () {
+      return this.$store.state.ui.rootClasses
     },
     mainstyles: function () {
-      return Object.assign({
+      return {
         left: this.positionLeftDm,
         top: this.positionTopDm,
         width: this.widthDm,
-        height: this.heightDm
-      }, this.data ? this.data.styles : {})
+        height: this.heightDm,
+        zIndex: this.ui.zIndex
+      }
     },
     logger: function () {
-      let verbMode = false
-      if (this.data) {
-        console.log(`Verbose = ${this.data.verboseMode}`)
-        verbMode = this.data.verboseMode
-      }
-      return Logger.getLogger(verbMode)
+      return Logger.getLogger(this.verboseMode)
     },
     requestStartTime: function () {
       return (this.data) ? this.data.requestStartTime : null
-    },
-
-    inflDataReady: function () {
-      return (this.data && this.data.inflDataReady) ? this.data.inflDataReady : false
     },
     defDataReady: function () {
       return (this.data && this.data.defDataReady) ? this.data.defDataReady : false
@@ -252,10 +241,10 @@ export default {
       return (this.data && this.data.morphDataReady) ? this.data.morphDataReady : false
     },
     noLanguage: function () {
-      return (this.data) ? this.data.currentLanguageName === undefined : false
+      return (this.data) ? this.$store.state.app.currentLanguageName === undefined : false
     },
     currentLanguageName: function () {
-      return (this.data) ? this.data.currentLanguageName : null
+      return (this.data) ? this.$store.state.app.currentLanguageName : null
     },
     notificationClasses: function () {
       return {
@@ -278,7 +267,7 @@ export default {
         return '0px'
       }
 
-      if (this.data.settings && this.data.settings.popupPosition.currentValue === 'fixed') {
+      if (this.settings.contentOptions.items && this.settings.contentOptions.items.popupPosition.currentValue === 'fixed') {
         return this.data.left
       }
 
@@ -312,7 +301,7 @@ export default {
         return '0px'
       }
 
-      if (this.data.settings && this.data.settings.popupPosition.currentValue === 'fixed') {
+      if (this.settings.contentOptions.items && this.settings.contentOptions.items.popupPosition.currentValue === 'fixed') {
         return this.data.top
       }
 
@@ -400,14 +389,14 @@ export default {
         top: '2px',
         right: '50px'
       }
+    },
+
+    verboseMode () {
+      return this.settings.contentOptions.items.verboseMode.currentValue === `verbose`
     }
   },
 
   methods: {
-    uiOptionChanged: function (name, value) {
-      this.$emit('ui-option-change', name, value)
-    },
-
     clearMessages () {
       while (this.messages.length > 0) {
         this.messages.pop()
@@ -422,8 +411,8 @@ export default {
       this.$emit('showpaneltab', tabName)
     },
 
-    settingChanged: function (name, value) {
-      this.$emit('settingchange', name, value) // Re-emit for a Vue instance
+    contentOptionChanged: function (name, value) {
+      this.app.contentOptionChange(name, value)
     },
 
     switchProviders: function () {
@@ -639,7 +628,7 @@ export default {
   watch: {
     requestStartTime () {
       this.logger.log(`Request start time has been updated`)
-      this.logger.log(`Popup position is ${this.data.settings.popupPosition.currentValue}`)
+      this.logger.log(`Popup position is ${this.settings.contentOptions.items.popupPosition.currentValue}`)
       // There is a new request coming in, reset popup dimensions
       this.resetPopupDimensions()
     },
