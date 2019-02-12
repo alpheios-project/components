@@ -134,6 +134,11 @@ export default class LexicalQuery extends Query {
     }
 
     if (this.wordUsageExamples) {
+      // the default query for usage examples should be to request all examples
+      // for all authors, with user pagination preference for max number of examples
+      // per author applied. Total max across all authors will be enforced on the
+      // client adapter side. Different pagination options may apply when working
+      // directly with the usage examples display
       let adapterConcordanceRes = yield ClientAdapters.wordusageExamples.concordance({
         method: 'getWordUsageExamples',
         params: { homonym: this.homonym,

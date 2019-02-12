@@ -26,6 +26,8 @@
     computed: {
       prefixHtml: function() {
         if (this.wordUsageItem.prefix) {
+          // If the character before the exact word is a space, we need to preserve that as-is for HTML display
+          // so make sure it's an &nbsp;
           return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
         } else {
           return this.wordUsageItem.prefix
@@ -33,6 +35,8 @@
       },
       suffixHtml: function() {
         if (this.wordUsageItem.suffix) {
+          // If the character after the exact word is a space, we need to preserve that as-is for HTML display
+          // so make sure it's an &nbsp;
           return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
         } else {
           return this.wordUsageItem.suffix

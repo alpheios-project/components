@@ -279,7 +279,7 @@ import TreebankIcon from '../../images/inline-icons/sitemap.svg'
 import InfoIcon from '../../images/inline-icons/info.svg'
 
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg';
-import WordUsageIcon from '../../images/inline-icons/books-stack.svg'
+import WordUsageIcon from '../../images/inline-icons/usage-examples-icon1.svg'
 
 import { WordListPanel } from 'alpheios-wordlist'
 

@@ -10950,8 +10950,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../images/inline-icons/books-stack.svg */ "./images/inline-icons/books-stack.svg");
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../images/inline-icons/usage-examples-icon1.svg */ "./images/inline-icons/usage-examples-icon1.svg");
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_25__);
 /* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
 /* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(alpheios_wordlist__WEBPACK_IMPORTED_MODULE_26__);
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
@@ -11272,7 +11272,7 @@ __webpack_require__.r(__webpack_exports__);
     infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_23___default.a,
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_21___default.a,
     treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_22___default.a,
-    wordUsageIcon: _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_25___default.a,
+    wordUsageIcon: _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_25___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
@@ -12949,6 +12949,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     prefixHtml: function() {
       if (this.wordUsageItem.prefix) {
+        // If the character before the exact word is a space, we need to preserve that as-is for HTML display
+        // so make sure it's an &nbsp;
         return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
       } else {
         return this.wordUsageItem.prefix
@@ -12956,6 +12958,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     suffixHtml: function() {
       if (this.wordUsageItem.suffix) {
+        // If the character after the exact word is a space, we need to preserve that as-is for HTML display
+        // so make sure it's an &nbsp;
         return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
       } else {
         return this.wordUsageItem.suffix
@@ -13019,7 +13023,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     wordUsageListSorted() {
-      // TODO support key and order
+      // TODO support user-selected sort key and order
+      // eventually sorting should also take language into account but
+      // for now we will probably only show Latin author and work names anyway
       if (this.wordUsageList) {
         return this.wordUsageList.sort((a,b) => {
           let aU = a.fullCit().toUpperCase()
@@ -32672,17 +32678,6 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 
 /***/ }),
 
-/***/ "./images/inline-icons/books-stack.svg":
-/*!*********************************************!*\
-  !*** ./images/inline-icons/books-stack.svg ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 335.08 335.08"}},[_c('path',{attrs:{"d":"M311.18 115.78c-1.355-10.186-1.546-27.73 7.915-33.621.169-.108.295-.264.443-.398 7.735-2.474 13.088-5.946 8.886-10.618l-114.1-34.38L29.564 62.45S8.407 65.474 10.297 98.344c1.026 17.89 6.637 26.676 11.544 31L6.68 133.913c-4.208 4.672 1.144 8.145 8.88 10.615.147.138.271.293.443.401 9.455 5.896 9.273 23.438 7.913 33.626-33.967 9.645-21.774 12.788-21.774 12.788l7.451 1.803c-5.241 4.736-10.446 13.717-9.471 30.75 1.891 32.864 19.269 35.132 19.269 35.132l120.9 39.298 182.49-44.202s12.197-3.148-21.779-12.794c-1.366-10.172-1.556-27.712 7.921-33.623.174-.105.301-.264.442-.396 7.736-2.474 13.084-5.943 8.881-10.615l-7.932-2.395c5.29-3.19 13.236-11.527 14.481-33.183.859-14.896-3.027-23.62-7.525-28.756l15.678-3.794c.001.006 12.198-3.142-21.773-12.788zm-152.64-.421l30.688-6.307 103.71-21.312 15.451-3.178c-4.937 9.036-4.73 21.402-3.913 29.35.179 1.798.385 3.44.585 4.688l-16.912 4.205-130.9 32.563 1.29-40.009zM26.72 147.342l15.449 3.178 99.597 20.474 8.701 1.782 26.093 5.363 1.287 40.01-134.53-33.471-13.263-3.296c.195-1.25.401-2.89.588-4.693.812-7.942 1.023-20.311-3.918-29.347zm-6.002-50.58c-.187-8.743 1.371-15.066 4.52-18.28 2.004-2.052 4.369-2.479 5.991-2.479.857 0 1.474.119 1.516.119l79.607 25.953 39.717 12.949-1.303 40.289-111.42-31.238-5.88-1.647a3.56 3.56 0 0 0-.735-.113c-.459-.033-11.475-1.047-12.011-25.553zm119.87 184.11l-117.3-32.886a3.489 3.489 0 0 0-.733-.116c-.467-.031-11.488-1.044-12.021-25.544-.19-8.754 1.376-15.071 4.519-18.288 2.009-2.052 4.375-2.479 5.994-2.479.859 0 1.474.115 1.519.115 0 0 .005 0 0 0l119.32 38.908-1.295 40.29zm153.7-41.407c.185 1.804.391 3.443.591 4.693l-147.81 36.771 1.292-40.01 31.601-6.497 4.667 1.129 17.492-5.685 80.631-16.569 15.457-3.18c-4.942 9.035-4.737 21.406-3.919 29.348zm8.142-54.375a2.84 2.84 0 0 0-.791.122l-11.148 3.121-106.15 29.764-1.298-40.289 34.826-11.359 84.327-27.501c.011-.005 4.436-.988 7.684 2.315 3.144 3.214 4.704 9.537 4.52 18.28-.55 24.498-11.571 25.516-11.972 25.547z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/books-stack.svg"};module.exports = { render: render, toString: toString };
-
-/***/ }),
-
 /***/ "./images/inline-icons/close.svg":
 /*!***************************************!*\
   !*** ./images/inline-icons/close.svg ***!
@@ -32782,6 +32777,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 
 /***/ }),
 
+/***/ "./images/inline-icons/usage-examples-icon1.svg":
+/*!******************************************************!*\
+  !*** ./images/inline-icons/usage-examples-icon1.svg ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 760 514","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill-rule":"evenodd","clip-rule":"evenodd","d":"M624.288 0H136.257v142.624h488.031V0zM330.909 9.724h-184.92V132.9h184.92V9.724zM760 185.688H0v142.624h760V185.688zm-68.984 8.8h-184.92v123.175h184.92V194.488zM624.016 371.376H135.984V514h488.032V371.376zm-156.851 11.117H279.002v123.175h188.163V382.493z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/usage-examples-icon1.svg"};module.exports = { render: render, toString: toString };
+
+/***/ }),
+
 /***/ "./images/inline-icons/user.svg":
 /*!**************************************!*\
   !*** ./images/inline-icons/user.svg ***!
@@ -32811,7 +32817,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 285.102 285.102"}},[_c('path',{attrs:{"d":"M220.741 46.137h-30.188v-5.785c0-7.444-6.056-13.5-13.5-13.5h-1.667C172.294 11.554 158.747 0 142.552 0c-16.195 0-29.742 11.554-32.835 26.852h-1.669c-7.444 0-13.5 6.056-13.5 13.5v5.785H64.36c-12.406 0-22.5 10.094-22.5 22.5v193.965c0 12.406 10.094 22.5 22.5 22.5h156.381c12.406 0 22.5-10.094 22.5-22.5V68.637c0-12.407-10.094-22.5-22.5-22.5zm-111.193-4.285h66.006v24.571h-66.006V41.852zM142.552 15c7.856 0 14.566 4.931 17.244 11.852h-34.488C127.986 19.931 134.696 15 142.552 15zm85.689 247.602c0 4.136-3.364 7.5-7.5 7.5H64.36c-4.136 0-7.5-3.364-7.5-7.5V68.637c0-4.136 3.364-7.5 7.5-7.5h30.188v6.786c0 7.444 6.056 13.5 13.5 13.5h69.006c7.444 0 13.5-6.056 13.5-13.5v-6.786h30.188c4.136 0 7.5 3.364 7.5 7.5v193.965z"}}),_c('path',{attrs:{"d":"M153.883 107.931H91.891a7.499 7.499 0 0 0-7.5 7.5 7.5 7.5 0 0 0 7.5 7.5h61.992a7.5 7.5 0 0 0 7.5-7.5 7.5 7.5 0 0 0-7.5-7.5zM153.883 146.484H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992a7.5 7.5 0 0 0 0-15zM153.883 185.041H91.891c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5zM153.883 223.597H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5a7.5 7.5 0 0 0-7.5-7.5zM182.081 120.222a10.753 10.753 0 0 0 7.955 2.803 10.756 10.756 0 0 0 7.55-3.758l10.421-12.118a5 5 0 1 0-7.582-6.52l-10.421 12.118a.819.819 0 0 1-1.197.074l-6.561-5.965a4.998 4.998 0 0 0-7.063.336 4.999 4.999 0 0 0 .336 7.063l6.562 5.967zM200.425 140.659l-10.421 12.117a.824.824 0 0 1-.584.297.815.815 0 0 1-.613-.224l-6.561-5.964a5.003 5.003 0 0 0-7.064.337 5.002 5.002 0 0 0 .337 7.064l6.56 5.963a10.746 10.746 0 0 0 7.953 2.806 10.768 10.768 0 0 0 7.554-3.759l10.421-12.116a5.001 5.001 0 0 0-7.582-6.521zM200.425 216.718l-10.421 12.117a.818.818 0 0 1-1.197.073l-6.561-5.964a5 5 0 0 0-6.727 7.4l6.561 5.963a10.746 10.746 0 0 0 7.955 2.805 10.762 10.762 0 0 0 7.552-3.759l10.421-12.117a5 5 0 1 0-7.583-6.518zM179.529 203.302c.976.977 2.256 1.465 3.535 1.465s2.56-.488 3.535-1.465l4.948-4.948 4.949 4.949a4.981 4.981 0 0 0 3.535 1.465 4.98 4.98 0 0 0 3.535-1.465 4.998 4.998 0 0 0 0-7.07l-4.949-4.949 4.95-4.949a4.997 4.997 0 0 0 0-7.069 4.996 4.996 0 0 0-7.07 0l-4.949 4.948-4.949-4.948a4.996 4.996 0 0 0-7.07 0 4.997 4.997 0 0 0 0 7.069l4.948 4.949-4.948 4.948a4.998 4.998 0 0 0 0 7.07z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/wordlist-icon.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 156 141","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M8.573 17.146A8.573 8.573 0 1 0 8.573 0a8.573 8.573 0 0 0 0 17.146zM29.148 2.363a6.21 6.21 0 0 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 69.728a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM8.573 140.027a8.573 8.573 0 1 0 0-17.146 8.573 8.573 0 1 0 0 17.146zM17.146 100.591A8.574 8.574 0 1 1 0 100.59a8.574 8.574 0 0 1 17.147.001zM29.148 32.655a6.21 6.21 0 1 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 38.865a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM90 130.823c0-1.885.154-3.752.451-5.58H29.148a6.21 6.21 0 0 0 0 12.421H90v-6.841zM106.79 102.066a26.672 26.672 0 0 1-5.803-7.438l-71.839.752c-3.43.036-6.21 2.846-6.21 6.276 0 3.43 2.78 6.181 6.21 6.145l70.552-.739c2.088-2.027 4.466-3.725 7.09-4.996zM98.834 75.938c1.245-4.797 3.824-9.072 7.327-12.42H29.148a6.21 6.21 0 0 0 0 12.42h69.686z"}}),_c('path',{attrs:{"d":"M135.143 102.561c7.3-3.769 12.29-11.385 12.29-20.166 0-12.527-10.155-22.682-22.682-22.682-12.526 0-22.681 10.155-22.681 22.682 0 8.745 4.949 16.335 12.2 20.12-11.819 4.251-20.27 15.56-20.27 28.842v8.397h61.285v-8.397c0-13.234-8.39-24.509-20.142-28.796z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/wordlist-icon.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -36091,6 +36097,11 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
 
     if (this.wordUsageExamples) {
+      // the default query for usage examples should be to request all examples
+      // for all authors, with user pagination preference for max number of examples
+      // per author applied. Total max across all authors will be enforced on the
+      // client adapter side. Different pagination options may apply when working
+      // directly with the usage examples display
       let adapterConcordanceRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
         method: 'getWordUsageExamples',
         params: { homonym: this.homonym,

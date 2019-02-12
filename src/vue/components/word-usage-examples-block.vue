@@ -40,7 +40,9 @@ export default {
   },
   computed: {
     wordUsageListSorted() {
-      // TODO support key and order
+      // TODO support user-selected sort key and order
+      // eventually sorting should also take language into account but
+      // for now we will probably only show Latin author and work names anyway
       if (this.wordUsageList) {
         return this.wordUsageList.sort((a,b) => {
           let aU = a.fullCit().toUpperCase()
