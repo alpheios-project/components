@@ -1203,7 +1203,7 @@ export default class UIController {
 
   contentOptionChange (name, value) {
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax') {
+    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name == 'wordUsageExamplesAuthMax') {
       this.api.settings.contentOptions.items[name].setValue(value)
     } else {
       this.api.settings.contentOptions.items[name].setTextValue(value)
