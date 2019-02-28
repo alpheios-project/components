@@ -10909,8 +10909,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_24__);
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../images/inline-icons/books-stack.svg */ "./images/inline-icons/books-stack.svg");
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../images/inline-icons/usage-examples-icon1.svg */ "./images/inline-icons/usage-examples-icon1.svg");
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_26__);
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_28__);
@@ -11251,7 +11251,7 @@ This is a mobile version of a panel
     infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_24___default.a,
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_22___default.a,
     treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_23___default.a,
-    wordUsageIcon: _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_26___default.a,
+    wordUsageIcon: _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_26___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
@@ -11529,6 +11529,10 @@ This is a mobile version of a panel
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -13098,6 +13102,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
@@ -13105,6 +13112,26 @@ __webpack_require__.r(__webpack_exports__);
     wordUsageItem: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    prefixHtml: function() {
+      if (this.wordUsageItem.prefix) {
+        // If the character before the exact word is a space, we need to preserve that as-is for HTML display
+        // so make sure it's an &nbsp;
+        return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
+      } else {
+        return this.wordUsageItem.prefix
+      }
+    },
+    suffixHtml: function() {
+      if (this.wordUsageItem.suffix) {
+        // If the character after the exact word is a space, we need to preserve that as-is for HTML display
+        // so make sure it's an &nbsp;
+        return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
+      } else {
+        return this.wordUsageItem.suffix
+      }
     }
   }
 });
@@ -13164,6 +13191,26 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    wordUsageListSorted() {
+      // TODO support user-selected sort key and order
+      // eventually sorting should also take language into account but
+      // for now we will probably only show Latin author and work names anyway
+      if (this.wordUsageList) {
+        return this.wordUsageList.sort((a,b) => {
+          let aU = a.fullCit().toUpperCase()
+          let bU = b.fullCit().toUpperCase()
+          if (aU < bU) {
+            return -1
+          }
+          if (aU > bU) {
+            return 1
+          }
+          return 0
+        })
+      }
+
+    },
+
     showWordUsageExampleItems () {
       return this.wordUsageList && this.wordUsageList.length > 0
     },
@@ -16163,7 +16210,7 @@ var render = function() {
         on: {
           keyup: function($event) {
             if (
-              "keyCode" in $event &&
+              !$event.type.indexOf("key") &&
               _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
             ) {
               return null
@@ -18997,6 +19044,18 @@ var render = function() {
                       attrs: {
                         classes: ["alpheios-panel__options-item"],
                         data:
+                          _vm.settings.contentOptions.items
+                            .wordUsageExamplesAuthMax
+                      },
+                      on: { change: _vm.contentOptionChanged }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.settings.contentOptions.items
+                  ? _c("setting", {
+                      attrs: {
+                        classes: ["alpheios-panel__options-item"],
+                        data:
                           _vm.settings.contentOptions.items.wordUsageExamplesMax
                       },
                       on: { change: _vm.contentOptionChanged }
@@ -20752,18 +20811,26 @@ var render = function() {
           staticClass: "alpheios_word_usage_list_item__source_link",
           attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
         },
-        [_vm._v(_vm._s(_vm.wordUsageItem.source))]
-      ),
-      _vm._v(" "),
-      _c("p", { staticClass: "alpheios_word_usage_list_item__source_cit" }, [
-        _vm._v(_vm._s(_vm.wordUsageItem.fullCit()))
-      ])
+        [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
+      )
     ]),
     _vm._v(" "),
-    _c("div", {
-      staticClass: "alpheios_word_usage_list_item__text",
-      domProps: { innerHTML: _vm._s(_vm.wordUsageItem.htmlExample) }
-    })
+    _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_prefix",
+        domProps: { innerHTML: _vm._s(_vm.prefixHtml) }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_targetword",
+        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.normalizedText) }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_suffix",
+        domProps: { innerHTML: _vm._s(_vm.suffixHtml) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -20797,7 +20864,7 @@ var render = function() {
       ? _c(
           "div",
           { staticClass: "alpheios_word_usage_list_mainblock" },
-          _vm._l(_vm.wordUsageList, function(wordUsageItem) {
+          _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
             return _c("word-usage-example-item", {
               key: wordUsageItem.ID,
               attrs: { wordUsageItem: wordUsageItem }
@@ -21017,7 +21084,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.4
+ * Vue.js v2.6.7
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -22842,23 +22909,30 @@ __webpack_require__.r(__webpack_exports__);
   /*  */
 
   function handleError (err, vm, info) {
-    if (vm) {
-      var cur = vm;
-      while ((cur = cur.$parent)) {
-        var hooks = cur.$options.errorCaptured;
-        if (hooks) {
-          for (var i = 0; i < hooks.length; i++) {
-            try {
-              var capture = hooks[i].call(cur, err, vm, info) === false;
-              if (capture) { return }
-            } catch (e) {
-              globalHandleError(e, cur, 'errorCaptured hook');
+    // Deactivate deps tracking while processing error handler to avoid possible infinite rendering.
+    // See: https://github.com/vuejs/vuex/issues/1505
+    pushTarget();
+    try {
+      if (vm) {
+        var cur = vm;
+        while ((cur = cur.$parent)) {
+          var hooks = cur.$options.errorCaptured;
+          if (hooks) {
+            for (var i = 0; i < hooks.length; i++) {
+              try {
+                var capture = hooks[i].call(cur, err, vm, info) === false;
+                if (capture) { return }
+              } catch (e) {
+                globalHandleError(e, cur, 'errorCaptured hook');
+              }
             }
           }
         }
       }
+      globalHandleError(err, vm, info);
+    } finally {
+      popTarget();
     }
-    globalHandleError(err, vm, info);
   }
 
   function invokeWithErrorHandling (
@@ -22872,7 +22946,9 @@ __webpack_require__.r(__webpack_exports__);
     try {
       res = args ? handler.apply(context, args) : handler.call(context);
       if (res && !res._isVue && isPromise(res)) {
-        res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
+        // issue #9511
+        // reassign to res to avoid catch triggering multiple times when nested calls
+        res = res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
       }
     } catch (e) {
       handleError(e, vm, info);
@@ -23555,26 +23631,35 @@ __webpack_require__.r(__webpack_exports__);
     prevSlots
   ) {
     var res;
+    var isStable = slots ? !!slots.$stable : true;
+    var key = slots && slots.$key;
     if (!slots) {
       res = {};
     } else if (slots._normalized) {
       // fast path 1: child component re-render only, parent did not change
       return slots._normalized
-    } else if (slots.$stable && prevSlots && prevSlots !== emptyObject) {
-      // fast path 2: stable scoped slots, only need to normalize once
+    } else if (
+      isStable &&
+      prevSlots &&
+      prevSlots !== emptyObject &&
+      key === prevSlots.$key &&
+      Object.keys(normalSlots).length === 0
+    ) {
+      // fast path 2: stable scoped slots w/ no normal slots to proxy,
+      // only need to normalize once
       return prevSlots
     } else {
       res = {};
-      for (var key in slots) {
-        if (slots[key] && key[0] !== '$') {
-          res[key] = normalizeScopedSlot(normalSlots, key, slots[key]);
+      for (var key$1 in slots) {
+        if (slots[key$1] && key$1[0] !== '$') {
+          res[key$1] = normalizeScopedSlot(normalSlots, key$1, slots[key$1]);
         }
       }
     }
     // expose normal slots on scopedSlots
-    for (var key$1 in normalSlots) {
-      if (!(key$1 in res)) {
-        res[key$1] = proxyNormalSlot(normalSlots, key$1);
+    for (var key$2 in normalSlots) {
+      if (!(key$2 in res)) {
+        res[key$2] = proxyNormalSlot(normalSlots, key$2);
       }
     }
     // avoriaz seems to mock a non-extensible $scopedSlots object
@@ -23582,13 +23667,14 @@ __webpack_require__.r(__webpack_exports__);
     if (slots && Object.isExtensible(slots)) {
       (slots)._normalized = res;
     }
-    def(res, '$stable', slots ? !!slots.$stable : true);
+    def(res, '$stable', isStable);
+    def(res, '$key', key);
     return res
   }
 
   function normalizeScopedSlot(normalSlots, key, fn) {
-    var normalized = function (scope) {
-      var res = fn(scope || {});
+    var normalized = function () {
+      var res = arguments.length ? fn.apply(null, arguments) : fn({});
       res = res && typeof res === 'object' && !Array.isArray(res)
         ? [res] // single vnode
         : normalizeChildren(res);
@@ -23877,14 +23963,16 @@ __webpack_require__.r(__webpack_exports__);
 
   function resolveScopedSlots (
     fns, // see flow/vnode
+    res,
+    // the following are added in 2.6
     hasDynamicKeys,
-    res
+    contentHashKey
   ) {
     res = res || { $stable: !hasDynamicKeys };
     for (var i = 0; i < fns.length; i++) {
       var slot = fns[i];
       if (Array.isArray(slot)) {
-        resolveScopedSlots(slot, hasDynamicKeys, res);
+        resolveScopedSlots(slot, res, hasDynamicKeys);
       } else if (slot) {
         // marker for reverse proxying v-slot without scope on this.$slots
         if (slot.proxy) {
@@ -23892,6 +23980,9 @@ __webpack_require__.r(__webpack_exports__);
         }
         res[slot.key] = slot.fn;
       }
+    }
+    if (contentHashKey) {
+      (res).$key = contentHashKey;
     }
     return res
   }
@@ -25070,9 +25161,12 @@ __webpack_require__.r(__webpack_exports__);
     // check if there are dynamic scopedSlots (hand-written or compiled but with
     // dynamic slot names). Static scoped slots compiled from template has the
     // "$stable" marker.
+    var newScopedSlots = parentVnode.data.scopedSlots;
+    var oldScopedSlots = vm.$scopedSlots;
     var hasDynamicScopedSlot = !!(
-      (parentVnode.data.scopedSlots && !parentVnode.data.scopedSlots.$stable) ||
-      (vm.$scopedSlots !== emptyObject && !vm.$scopedSlots.$stable)
+      (newScopedSlots && !newScopedSlots.$stable) ||
+      (oldScopedSlots !== emptyObject && !oldScopedSlots.$stable) ||
+      (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key)
     );
 
     // Any static slot children from the parent may have changed during parent's
@@ -26394,7 +26488,7 @@ __webpack_require__.r(__webpack_exports__);
     value: FunctionalRenderContext
   });
 
-  Vue.version = '2.6.4';
+  Vue.version = '2.6.7';
 
   /*  */
 
@@ -28480,9 +28574,17 @@ __webpack_require__.r(__webpack_exports__);
       var original = handler;
       handler = original._wrapper = function (e) {
         if (
+          // no bubbling, should always fire.
+          // this is just a safety net in case event.timeStamp is unreliable in
+          // certain weird environments...
+          e.target === e.currentTarget ||
+          // event is fired after handler attachment
           e.timeStamp >= attachedTimestamp ||
+          // #9462 bail for iOS 9 bug: event.timeStamp is 0 after history.pushState
+          e.timeStamp === 0 ||
           // #9448 bail if event is fired in another document in a multi-page
-          // electron/nw.js app
+          // electron/nw.js app, since event.timeStamp will be using a different
+          // starting reference
           e.target.ownerDocument !== document
         ) {
           return original.apply(this, arguments)
@@ -28565,15 +28667,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      // skip the update if old and new VDOM state is the same.
-      // the only exception is `value` where the DOM value may be temporarily
-      // out of sync with VDOM state due to focus, composition and modifiers.
-      // This also covers #4521 by skipping the unnecesarry `checked` update.
-      if (key !== 'value' && cur === oldProps[key]) {
-        continue
-      }
-
-      if (key === 'value') {
+      if (key === 'value' && elm.tagName !== 'PROGRESS') {
         // store value as _value as well since
         // non-string values will be stringified
         elm._value = cur;
@@ -28593,8 +28687,18 @@ __webpack_require__.r(__webpack_exports__);
         while (svg.firstChild) {
           elm.appendChild(svg.firstChild);
         }
-      } else {
-        elm[key] = cur;
+      } else if (
+        // skip the update if old and new VDOM state is the same.
+        // `value` is handled separately because the DOM value may be temporarily
+        // out of sync with VDOM state due to focus, composition and modifiers.
+        // This  #4521 by skipping the unnecesarry `checked` update.
+        cur !== oldProps[key]
+      ) {
+        // some property updates can throw
+        // e.g. `value` on <progress> w/ non-finite value
+        try {
+          elm[key] = cur;
+        } catch (e) {}
       }
     }
   }
@@ -31798,7 +31902,13 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   function genKeyFilter (keys) {
-    return ("if(('keyCode' in $event)&&" + (keys.map(genFilterCode).join('&&')) + ")return null;")
+    return (
+      // make sure the key filters only apply to KeyboardEvents
+      // #9441: can't use 'keyCode' in $event because Chrome autofill fires fake
+      // key events that do not have keyCode property...
+      "if(!$event.type.indexOf('key')&&" +
+      (keys.map(genFilterCode).join('&&')) + ")return null;"
+    )
   }
 
   function genFilterCode (key) {
@@ -32161,24 +32271,66 @@ __webpack_require__.r(__webpack_exports__);
     // for example if the slot contains dynamic names, has v-if or v-for on them...
     var needsForceUpdate = Object.keys(slots).some(function (key) {
       var slot = slots[key];
-      return slot.slotTargetDynamic || slot.if || slot.for
+      return (
+        slot.slotTargetDynamic ||
+        slot.if ||
+        slot.for ||
+        containsSlotChild(slot) // is passing down slot from parent which may be dynamic
+      )
     });
-    // OR when it is inside another scoped slot (the reactivity is disconnected)
-    // #9438
+
+    // #9534: if a component with scoped slots is inside a conditional branch,
+    // it's possible for the same component to be reused but with different
+    // compiled slot content. To avoid that, we generate a unique key based on
+    // the generated code of all the slot contents.
+    var needsKey = !!el.if;
+
+    // OR when it is inside another scoped slot or v-for (the reactivity may be
+    // disconnected due to the intermediate scope variable)
+    // #9438, #9506
+    // TODO: this can be further optimized by properly analyzing in-scope bindings
+    // and skip force updating ones that do not actually use scope variables.
     if (!needsForceUpdate) {
       var parent = el.parent;
       while (parent) {
-        if (parent.slotScope && parent.slotScope !== emptySlotScopeToken) {
+        if (
+          (parent.slotScope && parent.slotScope !== emptySlotScopeToken) ||
+          parent.for
+        ) {
           needsForceUpdate = true;
           break
+        }
+        if (parent.if) {
+          needsKey = true;
         }
         parent = parent.parent;
       }
     }
 
-    return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) {
-        return genScopedSlot(slots[key], state)
-      }).join(',')) + "]" + (needsForceUpdate ? ",true" : "") + ")")
+    var generatedSlots = Object.keys(slots)
+      .map(function (key) { return genScopedSlot(slots[key], state); })
+      .join(',');
+
+    return ("scopedSlots:_u([" + generatedSlots + "]" + (needsForceUpdate ? ",null,true" : "") + (!needsForceUpdate && needsKey ? (",null,false," + (hash(generatedSlots))) : "") + ")")
+  }
+
+  function hash(str) {
+    var hash = 5381;
+    var i = str.length;
+    while(i) {
+      hash = (hash * 33) ^ str.charCodeAt(--i);
+    }
+    return hash >>> 0
+  }
+
+  function containsSlotChild (el) {
+    if (el.type === 1) {
+      if (el.tag === 'slot') {
+        return true
+      }
+      return el.children.some(containsSlotChild)
+    }
+    return false
   }
 
   function genScopedSlot (
@@ -32503,11 +32655,13 @@ __webpack_require__.r(__webpack_exports__);
 
   function repeat$1 (str, n) {
     var result = '';
-    while (true) { // eslint-disable-line
-      if (n & 1) { result += str; }
-      n >>>= 1;
-      if (n <= 0) { break }
-      str += str;
+    if (n > 0) {
+      while (true) { // eslint-disable-line
+        if (n & 1) { result += str; }
+        n >>>= 1;
+        if (n <= 0) { break }
+        str += str;
+      }
     }
     return result
   }
@@ -33908,7 +34062,7 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAArCAYAAADL
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\attach-left.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/attach-left.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33919,7 +34073,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\attach-right.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/attach-right.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33930,18 +34084,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\black-brush.svg"};module.exports = { render: render, toString: toString };
-
-/***/ }),
-
-/***/ "./images/inline-icons/books-stack.svg":
-/*!*********************************************!*\
-  !*** ./images/inline-icons/books-stack.svg ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 335.08 335.08"}},[_c('path',{attrs:{"d":"M311.18 115.78c-1.355-10.186-1.546-27.73 7.915-33.621.169-.108.295-.264.443-.398 7.735-2.474 13.088-5.946 8.886-10.618l-114.1-34.38L29.564 62.45S8.407 65.474 10.297 98.344c1.026 17.89 6.637 26.676 11.544 31L6.68 133.913c-4.208 4.672 1.144 8.145 8.88 10.615.147.138.271.293.443.401 9.455 5.896 9.273 23.438 7.913 33.626-33.967 9.645-21.774 12.788-21.774 12.788l7.451 1.803c-5.241 4.736-10.446 13.717-9.471 30.75 1.891 32.864 19.269 35.132 19.269 35.132l120.9 39.298 182.49-44.202s12.197-3.148-21.779-12.794c-1.366-10.172-1.556-27.712 7.921-33.623.174-.105.301-.264.442-.396 7.736-2.474 13.084-5.943 8.881-10.615l-7.932-2.395c5.29-3.19 13.236-11.527 14.481-33.183.859-14.896-3.027-23.62-7.525-28.756l15.678-3.794c.001.006 12.198-3.142-21.773-12.788zm-152.64-.421l30.688-6.307 103.71-21.312 15.451-3.178c-4.937 9.036-4.73 21.402-3.913 29.35.179 1.798.385 3.44.585 4.688l-16.912 4.205-130.9 32.563 1.29-40.009zM26.72 147.342l15.449 3.178 99.597 20.474 8.701 1.782 26.093 5.363 1.287 40.01-134.53-33.471-13.263-3.296c.195-1.25.401-2.89.588-4.693.812-7.942 1.023-20.311-3.918-29.347zm-6.002-50.58c-.187-8.743 1.371-15.066 4.52-18.28 2.004-2.052 4.369-2.479 5.991-2.479.857 0 1.474.119 1.516.119l79.607 25.953 39.717 12.949-1.303 40.289-111.42-31.238-5.88-1.647a3.56 3.56 0 0 0-.735-.113c-.459-.033-11.475-1.047-12.011-25.553zm119.87 184.11l-117.3-32.886a3.489 3.489 0 0 0-.733-.116c-.467-.031-11.488-1.044-12.021-25.544-.19-8.754 1.376-15.071 4.519-18.288 2.009-2.052 4.375-2.479 5.994-2.479.859 0 1.474.115 1.519.115 0 0 .005 0 0 0l119.32 38.908-1.295 40.29zm153.7-41.407c.185 1.804.391 3.443.591 4.693l-147.81 36.771 1.292-40.01 31.601-6.497 4.667 1.129 17.492-5.685 80.631-16.569 15.457-3.18c-4.942 9.035-4.737 21.406-3.919 29.348zm8.142-54.375a2.84 2.84 0 0 0-.791.122l-11.148 3.121-106.15 29.764-1.298-40.289 34.826-11.359 84.327-27.501c.011-.005 4.436-.988 7.684 2.315 3.144 3.214 4.704 9.537 4.52 18.28-.55 24.498-11.571 25.516-11.972 25.547z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\books-stack.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/black-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33952,7 +34095,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\close.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/close.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33963,7 +34106,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\definitions.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/definitions.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33974,7 +34117,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\inflections-browser.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/inflections-browser.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33985,7 +34128,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\inflections.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/inflections.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -33996,7 +34139,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\info.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/info.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34007,7 +34150,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\options.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/options.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34018,7 +34161,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\resources.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/resources.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34029,7 +34172,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\sitemap.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/sitemap.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34040,7 +34183,18 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\status.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/status.svg"};module.exports = { render: render, toString: toString };
+
+/***/ }),
+
+/***/ "./images/inline-icons/usage-examples-icon1.svg":
+/*!******************************************************!*\
+  !*** ./images/inline-icons/usage-examples-icon1.svg ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 760 514","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill-rule":"evenodd","clip-rule":"evenodd","d":"M624.288 0H136.257v142.624h488.031V0zM330.909 9.724h-184.92V132.9h184.92V9.724zM760 185.688H0v142.624h760V185.688zm-68.984 8.8h-184.92v123.175h184.92V194.488zM624.016 371.376H135.984V514h488.032V371.376zm-156.851 11.117H279.002v123.175h188.163V382.493z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/usage-examples-icon1.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34051,7 +34205,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\user.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/user.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34062,7 +34216,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\white-brush.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/white-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -34073,7 +34227,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 285.102 285.102"}},[_c('path',{attrs:{"d":"M220.741 46.137h-30.188v-5.785c0-7.444-6.056-13.5-13.5-13.5h-1.667C172.294 11.554 158.747 0 142.552 0c-16.195 0-29.742 11.554-32.835 26.852h-1.669c-7.444 0-13.5 6.056-13.5 13.5v5.785H64.36c-12.406 0-22.5 10.094-22.5 22.5v193.965c0 12.406 10.094 22.5 22.5 22.5h156.381c12.406 0 22.5-10.094 22.5-22.5V68.637c0-12.407-10.094-22.5-22.5-22.5zm-111.193-4.285h66.006v24.571h-66.006V41.852zM142.552 15c7.856 0 14.566 4.931 17.244 11.852h-34.488C127.986 19.931 134.696 15 142.552 15zm85.689 247.602c0 4.136-3.364 7.5-7.5 7.5H64.36c-4.136 0-7.5-3.364-7.5-7.5V68.637c0-4.136 3.364-7.5 7.5-7.5h30.188v6.786c0 7.444 6.056 13.5 13.5 13.5h69.006c7.444 0 13.5-6.056 13.5-13.5v-6.786h30.188c4.136 0 7.5 3.364 7.5 7.5v193.965z"}}),_c('path',{attrs:{"d":"M153.883 107.931H91.891a7.499 7.499 0 0 0-7.5 7.5 7.5 7.5 0 0 0 7.5 7.5h61.992a7.5 7.5 0 0 0 7.5-7.5 7.5 7.5 0 0 0-7.5-7.5zM153.883 146.484H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992a7.5 7.5 0 0 0 0-15zM153.883 185.041H91.891c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5zM153.883 223.597H91.891a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h61.992c4.143 0 7.5-3.357 7.5-7.5a7.5 7.5 0 0 0-7.5-7.5zM182.081 120.222a10.753 10.753 0 0 0 7.955 2.803 10.756 10.756 0 0 0 7.55-3.758l10.421-12.118a5 5 0 1 0-7.582-6.52l-10.421 12.118a.819.819 0 0 1-1.197.074l-6.561-5.965a4.998 4.998 0 0 0-7.063.336 4.999 4.999 0 0 0 .336 7.063l6.562 5.967zM200.425 140.659l-10.421 12.117a.824.824 0 0 1-.584.297.815.815 0 0 1-.613-.224l-6.561-5.964a5.003 5.003 0 0 0-7.064.337 5.002 5.002 0 0 0 .337 7.064l6.56 5.963a10.746 10.746 0 0 0 7.953 2.806 10.768 10.768 0 0 0 7.554-3.759l10.421-12.116a5.001 5.001 0 0 0-7.582-6.521zM200.425 216.718l-10.421 12.117a.818.818 0 0 1-1.197.073l-6.561-5.964a5 5 0 0 0-6.727 7.4l6.561 5.963a10.746 10.746 0 0 0 7.955 2.805 10.762 10.762 0 0 0 7.552-3.759l10.421-12.117a5 5 0 1 0-7.583-6.518zM179.529 203.302c.976.977 2.256 1.465 3.535 1.465s2.56-.488 3.535-1.465l4.948-4.948 4.949 4.949a4.981 4.981 0 0 0 3.535 1.465 4.98 4.98 0 0 0 3.535-1.465 4.998 4.998 0 0 0 0-7.07l-4.949-4.949 4.95-4.949a4.997 4.997 0 0 0 0-7.069 4.996 4.996 0 0 0-7.07 0l-4.949 4.948-4.949-4.948a4.996 4.996 0 0 0-7.07 0 4.997 4.997 0 0 0 0 7.069l4.948 4.949-4.948 4.948a4.998 4.998 0 0 0 0 7.07z"}})])};var toString = function () {return "C:\\uds\\projects\\alpheios\\components\\src\\images\\inline-icons\\wordlist-icon.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 156 141","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M8.573 17.146A8.573 8.573 0 1 0 8.573 0a8.573 8.573 0 0 0 0 17.146zM29.148 2.363a6.21 6.21 0 0 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 69.728a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM8.573 140.027a8.573 8.573 0 1 0 0-17.146 8.573 8.573 0 1 0 0 17.146zM17.146 100.591A8.574 8.574 0 1 1 0 100.59a8.574 8.574 0 0 1 17.147.001zM29.148 32.655a6.21 6.21 0 1 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 38.865a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM90 130.823c0-1.885.154-3.752.451-5.58H29.148a6.21 6.21 0 0 0 0 12.421H90v-6.841zM106.79 102.066a26.672 26.672 0 0 1-5.803-7.438l-71.839.752c-3.43.036-6.21 2.846-6.21 6.276 0 3.43 2.78 6.181 6.21 6.145l70.552-.739c2.088-2.027 4.466-3.725 7.09-4.996zM98.834 75.938c1.245-4.797 3.824-9.072 7.327-12.42H29.148a6.21 6.21 0 0 0 0 12.42h69.686z"}}),_c('path',{attrs:{"d":"M135.143 102.561c7.3-3.769 12.29-11.385 12.29-20.166 0-12.527-10.155-22.682-22.682-22.682-12.526 0-22.681 10.155-22.681 22.682 0 8.745 4.949 16.335 12.2 20.12-11.819 4.251-20.27 15.56-20.27 28.842v8.397h61.285v-8.397c0-13.234-8.39-24.509-20.142-28.796z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/wordlist-icon.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35213,7 +35367,10 @@ class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector) ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue } : null,
+          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+            ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+                paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+            : null,
           langOpts: { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
 
@@ -35388,7 +35545,7 @@ class UIController {
 
   contentOptionChange (name, value) {
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax') {
+    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name == 'wordUsageExamplesAuthMax') {
       this.api.settings.contentOptions.items[name].setValue(value)
     } else {
       this.api.settings.contentOptions.items[name].setTextValue(value)
@@ -37486,9 +37643,19 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     }
 
     if (this.wordUsageExamples) {
+      // the default query for usage examples should be to request all examples
+      // for all authors, with user pagination preference for max number of examples
+      // per author applied. Total max across all authors will be enforced on the
+      // client adapter side. Different pagination options may apply when working
+      // directly with the usage examples display
       let adapterConcordanceRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
         method: 'getWordUsageExamples',
-        params: { homonym: this.homonym, pagination: { property: 'max', value: this.wordUsageExamples.paginationMax } }
+        params: { homonym: this.homonym,
+                  pagination: {
+                    property: 'authmax',
+                    value: this.wordUsageExamples.paginationAuthMax
+                  }
+                }
       })
 
       if (adapterConcordanceRes.errors.length > 0) {
@@ -39730,7 +39897,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesMax":{"defaultValue":50,"labelText":"Word Usage Examples - max results","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"lookupLangOverride":{"defaultValue":false,"labelText":"Override language at lookup panel","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"lookupLangOverride":{"defaultValue":false,"labelText":"Override language at lookup panel","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}};
 
 /***/ }),
 
@@ -39785,7 +39952,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :lexemes=\"lexemes\" :translations=\"translations\"\r\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\r\n           :data=\"popupData\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\r\n           @sendfeature=\"sendFeature\">\r\n    </component>\r\n</div>\r\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @closenotifications=\"clearNotifications\">\r\n    </component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n    <component v-bind:is=\"currentPopupComponent\" :messages=\"messages\" :definitions=\"definitions\" :lexemes=\"lexemes\" :translations=\"translations\"\n    \t   :linkedfeatures=\"linkedFeatures\" :classes-changed=\"classesChanged\"\n           :data=\"popupData\" @closepopupnotifications=\"clearNotifications\" @showpaneltab=\"showPanelTab\"\n           @sendfeature=\"sendFeature\">\n    </component>\n</div>\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\n    <component v-bind:is=\"currentPanelComponent\" :data=\"panelData\" @closenotifications=\"clearNotifications\">\n    </component>\n</div>\n";
 
 /***/ }),
 
