@@ -1027,7 +1027,7 @@ export default class UIController {
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.enableWordUsageExamples(textSelector)
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
-                paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+              paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
           langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
@@ -1203,7 +1203,7 @@ export default class UIController {
 
   contentOptionChange (name, value) {
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name == 'wordUsageExamplesAuthMax') {
+    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name === 'wordUsageExamplesAuthMax') {
       this.api.settings.contentOptions.items[name].setValue(value)
     } else {
       this.api.settings.contentOptions.items[name].setTextValue(value)

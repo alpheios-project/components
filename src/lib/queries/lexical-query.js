@@ -142,11 +142,11 @@ export default class LexicalQuery extends Query {
       let adapterConcordanceRes = yield ClientAdapters.wordusageExamples.concordance({
         method: 'getWordUsageExamples',
         params: { homonym: this.homonym,
-                  pagination: {
-                    property: 'authmax',
-                    value: this.wordUsageExamples.paginationAuthMax
-                  }
-                }
+          pagination: {
+            property: 'authmax',
+            value: this.wordUsageExamples.paginationAuthMax
+          }
+        }
       })
 
       if (adapterConcordanceRes.errors.length > 0) {
