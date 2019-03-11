@@ -10,16 +10,70 @@ export default class AuthModule extends Module {
     super(store, api, config)
     this._auth = this.config.auth
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
-    api[this.constructor.moduleName] = this.constructor.api(this)
+    api[this.constructor.moduleName] = this.constructor.api(this, store)
   }
 }
 
-AuthModule.api = (moduleInstance) => {
+AuthModule.store = (moduleInstance) => {
   return {
-    authenticate: moduleInstance._auth.authenticate.bind(moduleInstance._auth),
-    getProfileData: moduleInstance._auth.getProfileData.bind(moduleInstance._auth),
-    getUserData: moduleInstance._auth.getUserData.bind(moduleInstance._auth),
-    logout: moduleInstance._auth.logout.bind(moduleInstance._auth)
+    // All stores of modules are namespaced
+    namespaced: true,
+
+    state: {
+      userName: '',
+      userNickName: '',
+      isAuthenticated: false,
+      message: ''
+    },
+    mutations: {
+      setMessage: (state, message) => {
+        state.message = message
+      },
+      setIsAuthenticated: (state, profile) => {
+        state.isAuthenticated = true
+        state.userName = profile.name
+        state.userNickName = profile.nickname
+        state.message = 'AUTH_LOG_IN_SUCCESS_MSG'
+      },
+      setIsNotAuthenticated: (state,message) => {
+        state.isAuthenticated = false
+        state.userName = ''
+        state.userNickName = ''
+        state.message =  message
+      }
+    }
+  }
+}
+
+AuthModule.api = (moduleInstance,store) => {
+  return {
+    authenticate: () => {
+      store.commit('auth/setMessage', 'AUTH_LOG_IN_PROGRESS_MSG')
+      moduleInstance._auth.authenticate().then(() => {
+        moduleInstance._auth.getProfileData().then((data) => {
+          store.commit('auth/setIsAuthenticated', data)
+        }).catch((error) => {
+
+        })
+      }).catch((error) => {
+        return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_IN_AUTH_FAILURE_MSG')
+      })
+    },
+    logout: () => {
+      moduleInstance._auth.logout().then(() => {
+        return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_OUT_SUCCESS_MSG')
+      }).catch((error) => {
+        // TODO Not really sure what to do here
+      })
+    },
+    getMsg: () => {
+      let message = store.state.auth.message
+      setTimeout(() => {
+        store.commit('auth/setMessage','')
+      },10000)
+      return message
+    },
+    getAccessToken: () => {}
   }
 }
 

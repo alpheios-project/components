@@ -1322,6 +1322,7 @@ export default class UIController {
     let keyinfo = this.api.settings.resourceOptions.parseKey(name)
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
+
 }
 
 /**

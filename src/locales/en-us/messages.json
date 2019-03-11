@@ -486,7 +486,7 @@
     "component": "UserAuth Vue Component"
   },
   "AUTH_LOG_IN_SUCCESS_MSG": {
-    "message": "Congratulations! Your logged in successfully",
+    "message": "Congratulations! You are logged in successfully.",
     "description": "A message shown to the user if he or she logged in successfully",
     "component": "UserAuth Vue Component"
   },
@@ -503,6 +503,11 @@
   "AUTH_PROFILE_NAME_LABEL": {
     "message": "Name",
     "description": "A user's profile name filed label",
+    "component": "UserAuth Vue Component"
+  },
+  "AUTH_LOG_OUT_SUCCESS_MSG": {
+    "message": "You have been logged out.",
+    "description": "A message shown to the user if he or she logged out successfully",
     "component": "UserAuth Vue Component"
   },
   "TEXT_NOTICE_WORDUSAGE_READY": {
