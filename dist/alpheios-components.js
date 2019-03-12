@@ -13603,6 +13603,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/source.svg */ "./images/inline-icons/source.svg");
+/* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13620,12 +13627,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
+  components: {
+    sourceIcon: _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   props: {
     wordUsageItem: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      showDataSource: false
     }
   },
   computed: {
@@ -13646,6 +13662,11 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return this.wordUsageItem.suffix
       }
+    }
+  },
+  methods: {
+    changeShowDataSource () {
+      this.showDataSource = !this.showDataSource
     }
   }
 });
@@ -21976,18 +21997,27 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios_word_usage_list_item" }, [
-    _c("div", { staticClass: "alpheios_word_usage_list_item__source" }, [
-      _c(
-        "a",
-        {
-          staticClass: "alpheios_word_usage_list_item__source_link",
-          attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
-        },
-        [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
-      )
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
+      _c("div", { staticClass: "alpheios_word_usage_list_item__source" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios_word_usage_list_item__source-link",
+            on: {
+              click: function($event) {
+                return _vm.changeShowDataSource()
+              }
+            }
+          },
+          [
+            _c("source-icon", {
+              staticClass: "alpheios_word_usage_list_item__source-link-svg"
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
       _c("div", {
         staticClass: "alpheios_word_usage_list_item__text_prefix",
         domProps: { innerHTML: _vm._s(_vm.prefixHtml) }
@@ -22002,7 +22032,24 @@ var render = function() {
         staticClass: "alpheios_word_usage_list_item__text_suffix",
         domProps: { innerHTML: _vm._s(_vm.suffixHtml) }
       })
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.showDataSource
+      ? _c(
+          "div",
+          { staticClass: "alpheios_word_usage_list_item__source-data" },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "alpheios_word_usage_list_item__source_link",
+                attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
+              },
+              [_vm._v(_vm._s(_vm.wordUsageItem.fullCit("eng")))]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -35405,6 +35452,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /***/ (function(module, exports) {
 
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\sitemap.svg"};module.exports = { render: render, toString: toString };
+
+/***/ }),
+
+/***/ "./images/inline-icons/source.svg":
+/*!****************************************!*\
+  !*** ./images/inline-icons/source.svg ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1000 1000","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M500 10C229.4 10 10 229.4 10 500s219.4 490 490 490 490-219.4 490-490S770.6 10 500 10zm-64.7 733.6c-49.3 49.3-129.6 49.3-179 0-49.3-49.3-49.3-129.6 0-178.9l126.8-126.8c49.3-49.3 129.6-49.3 179 0 1.3 1.3 2.6 2.7 3.9 4.1.7.6 1.5 1.3 2.2 2 2 2 3.6 4.2 5 6.5.2.2.3.4.5.6l-.1.1c6.1 11.5 4.3 26-5.4 35.6-9.7 9.7-24.4 11.5-35.9 5.2-.8.8-8.7-7.1-13-11.3-25.8-25.8-67.3-26-93.1-.2l-127 127c-25.8 25.8-25.8 67.5 0 93.3s67.5 25.8 93.3 0l76.4-76.4c26.5 13 57.7 13.4 84.5 1.1L435.3 743.6zm308.3-308.3L616.9 562.1c-49.3 49.3-129.6 49.3-179 0-1.3-1.3-2.6-2.7-3.9-4.1-.7-.6-1.5-1.3-2.1-2-2-2-3.6-4.2-5-6.5-.2-.2-.3-.4-.5-.6l.1-.1c-6.1-11.5-4.3-26 5.4-35.6 9.7-9.7 24.4-11.4 35.9-5.2.8-.8 8.7 7.1 13 11.3 25.8 25.8 67.3 26 93.1.2l127-127c25.8-25.8 25.8-67.5 0-93.3s-67.5-25.8-93.3 0L531 375.6c-26.4-12.9-57.7-13.4-84.5-1.1l118.1-118.1c49.3-49.3 129.6-49.3 179 0s49.4 129.6 0 178.9z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\source.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 

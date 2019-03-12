@@ -1,26 +1,40 @@
 <template>
   <div class="alpheios_word_usage_list_item">
-      <div class="alpheios_word_usage_list_item__source">
-          <a
-            :href="wordUsageItem.source"
-            target="_blank"
-            class = "alpheios_word_usage_list_item__source_link"
-            >{{ wordUsageItem.fullCit() }}</a>
-        </div>
       <div class="alpheios_word_usage_list_item__text">
+        <div class="alpheios_word_usage_list_item__source">
+          <span class="alpheios_word_usage_list_item__source-link" @click="changeShowDataSource()">
+            <source-icon class="alpheios_word_usage_list_item__source-link-svg"></source-icon>
+          </span>
+        </div>
         <div class="alpheios_word_usage_list_item__text_prefix" v-html="prefixHtml"></div>
         <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
         <div class="alpheios_word_usage_list_item__text_suffix" v-html="suffixHtml"></div>
       </div>
+      <div class="alpheios_word_usage_list_item__source-data" v-show="showDataSource">
+        <a
+            :href="wordUsageItem.source"
+            target="_blank"
+            class = "alpheios_word_usage_list_item__source_link"
+            >{{ wordUsageItem.fullCit() }}</a>
+      </div>
   </div>
 </template>
 <script>
+  import SourceIcon from '@/images/inline-icons/source.svg'
   export default {
     name: 'WordUsageExampleItem',
+    components: {
+      sourceIcon: SourceIcon
+    },
     props: {
       wordUsageItem: {
         type: Object,
         required: true
+      }
+    },
+    data () {
+      return {
+        showDataSource: false
       }
     },
     computed: {
@@ -42,43 +56,87 @@
           return this.wordUsageItem.suffix
         }
       }
+    },
+    methods: {
+      changeShowDataSource () {
+        this.showDataSource = !this.showDataSource
+      }
     }
   }
 </script>
 <style lang="scss">
     @import "../../styles/alpheios";
-
     .alpheios_word_usage_list_item {
-      margin-bottom: 15px;
-      display: grid;
-      grid-gap: 10px;
-      grid-template-columns: minmax(50px,1fr) minmax(600px, 4fr);
-
-    }
-
-    .alpheios_word_usage_list_item__source {
-      font-weight: bold;
-    }
-    .alpheios_word_usage_list_item__source a.alpheios_word_usage_list_item__source_link {
-      color: #3E8D9C;
-      font-size: 90%;
-      display: block;
-    }
-
-    .alpheios_word_usage_list_item__source p.alpheios_word_usage_list_item__source_cit {
-      margin: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        border-bottom: 1px solid $alpheios-base-border-color;
     }
 
     .alpheios_word_usage_list_item__text {
-      margin-top: 3px;
-      display: flex;
-      flex-flow: row-wrap;
-      justify-content: center;
-      align-items: center;
+        display: flex;
+        flex-direction: row;
+        line-height: normal;
+        justify-content: center;
+        align-items: center;
+    }
 
-      .alpheios_word_usage_list_item__text_targetword {
+    .alpheios_word_usage_list_item 
+    .alpheios_word_usage_list_item__text 
+    .alpheios_word_usage_list_item__text_targetword {
         color: $alpheios-highlight-dark-color;
-        font-weight:bold;
+    }
+
+    .alpheios_word_usage_list_item__text_targetword {
+        padding: 0 10px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .alpheios_word_usage_list_item__text_prefix {
+        text-align: center;
+        padding-left: 4px;
+    }
+
+    .alpheios_word_usage_list_item__text_suffix {
+        text-align: center;
+    }
+
+    .alpheios_word_usage_list_item 
+    .alpheios_word_usage_list_item__text  {
+      .alpheios_word_usage_list_item__text_targetword { 
+        font-size: 90%;
+      }
+      .alpheios_word_usage_list_item__text_prefix,
+      .alpheios_word_usage_list_item__text_suffix {
+        font-size: 80%;
+        width: 40%;
       }
     }
+
+    .alpheios_word_usage_list_item__source {
+        position: relative;
+        min-width: 20px;
+        .alpheios_word_usage_list_item__source-link-svg {
+            width: 20px;
+            height: 20px;
+            fill: $alpheios-link-color;
+        }
+    }
+
+    .alpheios_word_usage_list_item__source-data  {
+      width: 100%;
+      padding-top: 10px;
+      a.alpheios_word_usage_list_item__source_link {
+        color: $alpheios-link-color;
+        font-size: 90%;
+        display: block;
+      }
+    }
+
+    .alpheios_word_usage_list_item__source-link {
+      display: inline-block;
+      cursor: pointer;
+    }
+
 </style>

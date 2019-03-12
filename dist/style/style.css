@@ -10256,32 +10256,67 @@ ul.alpheios-skin_properties {
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
 .alpheios_word_usage_list_item {
-  margin-bottom: 15px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: minmax(50px, 1fr) minmax(600px, 4fr);
-}
-.alpheios_word_usage_list_item__source {
-  font-weight: bold;
-}
-.alpheios_word_usage_list_item__source a.alpheios_word_usage_list_item__source_link {
-  color: #3E8D9C;
-  font-size: 90%;
-  display: block;
-}
-.alpheios_word_usage_list_item__source p.alpheios_word_usage_list_item__source_cit {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border-bottom: 1px solid #d3d3d3;
 }
 .alpheios_word_usage_list_item__text {
-  margin-top: 3px;
   display: flex;
-  flex-flow: row-wrap;
+  flex-direction: row;
+  line-height: normal;
   justify-content: center;
   align-items: center;
 }
+.alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text
+.alpheios_word_usage_list_item__text_targetword {
+  color: #E49A0D;
+}
+.alpheios_word_usage_list_item__text_targetword {
+  padding: 0 10px;
+  font-weight: 700;
+  text-align: center;
+}
+.alpheios_word_usage_list_item__text_prefix {
+  text-align: center;
+  padding-left: 4px;
+}
+.alpheios_word_usage_list_item__text_suffix {
+  text-align: center;
+}
+.alpheios_word_usage_list_item
 .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-    color: #E49A0D;
-    font-weight: bold;
+  font-size: 90%;
+}
+.alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
+.alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
+  font-size: 80%;
+  width: 40%;
+}
+.alpheios_word_usage_list_item__source {
+  position: relative;
+  min-width: 20px;
+}
+.alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
+    width: 20px;
+    height: 20px;
+    fill: #3E8D9C;
+}
+.alpheios_word_usage_list_item__source-data {
+  width: 100%;
+  padding-top: 10px;
+}
+.alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
+    color: #3E8D9C;
+    font-size: 90%;
+    display: block;
+}
+.alpheios_word_usage_list_item__source-link {
+  display: inline-block;
+  cursor: pointer;
 }
 
 /************ UIKit vars ************************/
