@@ -10286,23 +10286,19 @@ ul.alpheios-skin_properties {
   text-align: center !important;
 }
 .alpheios_word_usage_list_item
-.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-  font-size: 90% !important;
-}
-.alpheios_word_usage_list_item
 .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
 .alpheios_word_usage_list_item
 .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
-  font-size: 80% !important;
+  font-size: 85% !important;
   width: 40% !important;
 }
 .alpheios_word_usage_list_item__source {
   position: relative !important;
-  min-width: 20px !important;
+  min-width: 25px !important;
 }
 .alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
-    width: 20px !important;
-    height: 20px !important;
+    width: 25px !important;
+    height: 25px !important;
     fill: #3E8D9C !important;
 }
 .alpheios_word_usage_list_item__source-data {
@@ -10311,12 +10307,25 @@ ul.alpheios-skin_properties {
 }
 .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
     color: #3E8D9C !important;
-    font-size: 90% !important;
+    font-size: 95% !important;
     display: block;
 }
 .alpheios_word_usage_list_item__source-link {
   display: inline-block;
   cursor: pointer !important;
+}
+.alpheios-panel--compact .alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
+  font-size: 24px !important;
+}
+.alpheios-panel--compact .alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
+.alpheios-panel--compact .alpheios_word_usage_list_item
+.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
+  font-size: 24px !important;
+}
+.alpheios-panel--compact .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
+  font-size: 24px !important;
 }
 
 /************ UIKit vars ************************/

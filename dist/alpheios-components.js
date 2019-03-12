@@ -22034,22 +22034,30 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm.showDataSource
-      ? _c(
-          "div",
-          { staticClass: "alpheios_word_usage_list_item__source-data" },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "alpheios_word_usage_list_item__source_link",
-                attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
-              },
-              [_vm._v(_vm._s(_vm.wordUsageItem.fullCit("eng")))]
-            )
-          ]
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showDataSource,
+            expression: "showDataSource"
+          }
+        ],
+        staticClass: "alpheios_word_usage_list_item__source-data"
+      },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "alpheios_word_usage_list_item__source_link",
+            attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
+          },
+          [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
         )
-      : _vm._e()
+      ]
+    )
   ])
 }
 var staticRenderFns = []
