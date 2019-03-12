@@ -53,7 +53,7 @@ AuthModule.api = (moduleInstance,store) => {
         moduleInstance._auth.getProfileData().then((data) => {
           store.commit('auth/setIsAuthenticated', data)
         }).catch((error) => {
-
+          // TODO
         })
       }).catch((error) => {
         return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_IN_AUTH_FAILURE_MSG')
@@ -73,7 +73,7 @@ AuthModule.api = (moduleInstance,store) => {
       },10000)
       return message
     },
-    getAccessToken: () => {}
+    getAccessToken: moduleInstance._auth.getUserData.bind(moduleInstance._auth)
   }
 }
 
@@ -83,3 +83,4 @@ AuthModule._configDefaults = {
   _supportedPlatforms: [HTMLPage.platforms.ANY],
   auth: null
 }
+

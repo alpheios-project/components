@@ -35552,6 +35552,7 @@ class UIController {
     this.isInitialized = false
     this.isActivated = false
     this.isDeactivated = false
+    this.userDataManager = null
 
     /**
      * A name of the platform (mobile/desktop) UI controller is running within.
@@ -35559,10 +35560,19 @@ class UIController {
      */
     this.platform = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_17__["default"].getPlatform()
 
+    this.authPlugin = store => {
+      store.subscribe((mutation,state) => {
+        if (mutation.type == 'auth/setIsAuthenticated' || mutation.type == 'auth/setIsNotAuthenticated') {
+            this.userDataManager = this.initUserDataManager()
+        }
+      })
+    }
+
     // Vuex store. A public API for data and UI module interactions.
     this.store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
       // TODO: Remove this for production as it slows things down
-      strict: true
+      strict: true,
+      plugins: [this.authPlugin]
     })
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
@@ -36136,20 +36146,28 @@ class UIController {
     this.updateLanguage(preferredLanguageID)
     this.updateLemmaTranslations()
 
-    if (this.wordlistC) {
-      // TODO we need to integrate this with auth functionality, postponing both the initialization of the wordlists
-      // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
-      // that operates on an in-memory user until such time the user authenticates
-      // see issue 317
-      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID', alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
-      this.wordlistC.initLists(this.userDataManager)
-    }
-
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
 
     return this
+  }
+
+  async initUserDataManager() {
+    if (this.store.state.auth.isAuthenticated) {
+      let accessToken = await this.api.auth.getAccessToken()
+      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](
+        { accessToken: accessToken,
+          userID: this.store.state.auth.userName
+        }, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
+      this.wordlistC.initLists(this.userDataManager)
+    } else {
+      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](
+        { accessToken: "alpheiosMockUserIdlP0DWnmNxe",
+          userName: "testUserID"
+        }, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
+      this.wordlistC.initLists(this.userDataManager)
+    }
   }
 
   /**
@@ -36794,6 +36812,7 @@ class UIController {
     let keyinfo = this.api.settings.resourceOptions.parseKey(name)
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
+
 
 }
 
@@ -44133,7 +44152,7 @@ AuthModule.api = (moduleInstance,store) => {
         moduleInstance._auth.getProfileData().then((data) => {
           store.commit('auth/setIsAuthenticated', data)
         }).catch((error) => {
-
+          // TODO
         })
       }).catch((error) => {
         return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_IN_AUTH_FAILURE_MSG')
@@ -44153,7 +44172,7 @@ AuthModule.api = (moduleInstance,store) => {
       },10000)
       return message
     },
-    getAccessToken: () => {}
+    getAccessToken: moduleInstance._auth.getUserData.bind(moduleInstance._auth)
   }
 }
 
@@ -44163,6 +44182,7 @@ AuthModule._configDefaults = {
   _supportedPlatforms: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].platforms.ANY],
   auth: null
 }
+
 
 
 /***/ }),
