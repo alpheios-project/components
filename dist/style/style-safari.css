@@ -8495,6 +8495,23 @@ div.alpheios-checkbox-block {
     height: 33.6px !important;
     line-height: 33.6px !important;
     border-radius: 33.6px !important; }
+  .auk.alpheios-font_medium_class .alpheios_word_usage_list_item__source {
+    position: relative !important;
+    min-width: 30px !important;
+    padding-right: 5.92px !important; }
+    .auk.alpheios-font_medium_class .alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
+      width: 25.12px !important;
+      height: 25.12px !important;
+      fill: #3E8D9C !important; }
+  .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
+    font-size: 22px !important; }
+  .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
+    font-size: 24px !important; }
+  .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
+  .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
+    font-size: 24px !important; }
+  .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
+    font-size: 24px !important; }
 
 .auk.alpheios-font_small_class {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
@@ -8622,6 +8639,23 @@ div.alpheios-checkbox-block {
     height: 28.8px !important;
     line-height: 28.8px !important;
     border-radius: 28.8px !important; }
+  .auk.alpheios-font_small_class .alpheios_word_usage_list_item__source {
+    position: relative !important;
+    min-width: 22.5px !important;
+    padding-right: 4.44px !important; }
+    .auk.alpheios-font_small_class .alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
+      width: 18.84px !important;
+      height: 18.84px !important;
+      fill: #3E8D9C !important; }
+  .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
+    font-size: 16.5px !important; }
+  .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
+    font-size: 18px !important; }
+  .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
+  .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
+    font-size: 18px !important; }
+  .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
+    font-size: 18px !important; }
 
 .auk.alpheios-font_large_class {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
@@ -8749,6 +8783,23 @@ div.alpheios-checkbox-block {
     height: 38.4px !important;
     line-height: 38.4px !important;
     border-radius: 38.4px !important; }
+  .auk.alpheios-font_large_class .alpheios_word_usage_list_item__source {
+    position: relative !important;
+    min-width: 37.5px !important;
+    padding-right: 7.4px !important; }
+    .auk.alpheios-font_large_class .alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
+      width: 31.4px !important;
+      height: 31.4px !important;
+      fill: #3E8D9C !important; }
+  .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
+    font-size: 27.5px !important; }
+  .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
+    font-size: 30px !important; }
+  .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
+  .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
+    font-size: 30px !important; }
+  .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
+    font-size: 30px !important; }
   .auk.alpheios-font_large_class .alpheios-panel__header-action-btn,
   .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:hover,
   .auk.alpheios-font_large_class .alpheios-panel__header-action-btn.active:focus,
@@ -10292,15 +10343,6 @@ ul.alpheios-skin_properties {
   font-size: 85% !important;
   width: 40% !important;
 }
-.alpheios_word_usage_list_item__source {
-  position: relative !important;
-  min-width: 25px !important;
-}
-.alpheios_word_usage_list_item__source .alpheios_word_usage_list_item__source-link-svg {
-    width: 25px !important;
-    height: 25px !important;
-    fill: #3E8D9C !important;
-}
 .alpheios_word_usage_list_item__source-data {
   width: 100% !important;
   padding-top: 10px !important;
@@ -10313,19 +10355,6 @@ ul.alpheios-skin_properties {
 .alpheios_word_usage_list_item__source-link {
   display: inline-block;
   cursor: pointer !important;
-}
-.alpheios-panel--compact .alpheios_word_usage_list_item
-.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-  font-size: 24px !important;
-}
-.alpheios-panel--compact .alpheios_word_usage_list_item
-.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
-.alpheios-panel--compact .alpheios_word_usage_list_item
-.alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
-  font-size: 24px !important;
-}
-.alpheios-panel--compact .alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
-  font-size: 24px !important;
 }
 
 /************ UIKit vars ************************/

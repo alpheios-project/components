@@ -111,16 +111,6 @@
       }
     }
 
-    .alpheios_word_usage_list_item__source {
-        position: relative;
-        min-width: 25px;
-        .alpheios_word_usage_list_item__source-link-svg {
-            width: 25px;
-            height: 25px;
-            fill: $alpheios-link-color;
-        }
-    }
-
     .alpheios_word_usage_list_item__source-data  {
       width: 100%;
       padding-top: 10px;
@@ -135,24 +125,4 @@
       display: inline-block;
       cursor: pointer;
     }
-
-    .alpheios-panel--compact {
-      .alpheios_word_usage_list_item 
-      .alpheios_word_usage_list_item__text {
-        .alpheios_word_usage_list_item__text_targetword {
-          font-size: 24px;
-        }
-
-        .alpheios_word_usage_list_item__text_prefix,
-        .alpheios_word_usage_list_item__text_suffix {
-          font-size: 24px;
-        }
-      }
-      .alpheios_word_usage_list_item__source-data  {
-        a.alpheios_word_usage_list_item__source_link {
-          font-size: 24px;
-        }
-      }
-    }
-
 </style>
