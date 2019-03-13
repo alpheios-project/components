@@ -48,7 +48,10 @@
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
           v-if="$store.getters['ui/isActiveTab']('definitions')">
         <div class="alpheios-lookup__panel">
-          <lookup :clearLookupText="clearLookupText" :parentLanguage="lookupParentLanguage"></lookup>
+          <lookup
+              :name-base="`panel-defs`"
+              :clear-lookup-text="true"
+          />
         </div>
         <div v-if="$store.getters['app/defDataReady']">
           <div class="alpheios-panel__contentitem"
@@ -161,7 +164,10 @@
       <div class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
            v-show="$store.getters['ui/isActiveTab']('info')">
         <div class="alpheios-lookup__panel">
-          <lookup :clearLookupText="clearLookupText" :parentLanguage="lookupParentLanguage"></lookup>
+          <lookup
+              :name-base="`panel-info`"
+              :clear-lookup-text="true"
+          />
         </div>
         <info></info>
       </div>

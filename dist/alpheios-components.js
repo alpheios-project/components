@@ -10323,6 +10323,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_options_temp_storage_area__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/options/temp-storage-area */ "./lib/options/temp-storage-area.js");
 /* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tooltip.vue */ "./vue/components/tooltip.vue");
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10362,11 +10371,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+// Modules support
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
+  storeModules: ['app'], // Store modules that are required by this component
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_6__["default"]],
   components: {
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -10374,8 +10388,6 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       lookuptext: '',
-      showLanguageSettings: false,
-      initLanguage: null,
       currentLanguage: null,
       instanceContentOptions: {},
       istanceResourceOptions: {},
@@ -10385,28 +10397,29 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   props: {
-    parentLanguage: {
-      type: String,
-      required: false
-    },
+    // When becomes `true`, forces a lookup text to be cleared
     clearLookupText: {
       type: Boolean,
       required: false,
       default: false
+    },
+    showLanguageSettingsGroup: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    nameBase: {
+      type: String,
+      required: true
     }
   },
   created: function () {
     this.instanceContentOptions = this.settings.contentOptions.clone(_lib_options_temp_storage_area__WEBPACK_IMPORTED_MODULE_3__["default"])
     this.instanceResourceOptions = this.settings.resourceOptions.clone(_lib_options_temp_storage_area__WEBPACK_IMPORTED_MODULE_3__["default"])
-    if (this.parentLanguage) {
-      this.initLanguage = this.parentLanguage
-      this.currentLanguage = this.parentLanguage
-    } else {
-      this.currentLanguage = this.instanceContentOptions.items.preferredLanguage.currentTextValue()
-    }
+    this.currentLanguage = this.$store.state.app.preferredLanguageName || this.instanceContentOptions.items.preferredLanguage.currentTextValue()
     this.instanceContentOptions.items.lookupLanguage.setTextValue(this.currentLanguage)
-    console.log(`at creation current language is ${this.currentLanguage}`)
   },
+
   computed: {
     lexiconSettingName: function () {
       let lang = this.instanceContentOptions.items.preferredLanguage.values.filter(v => v.text === this.currentLanguage)
@@ -10418,43 +10431,42 @@ __webpack_require__.r(__webpack_exports__);
     },
     lexiconsFiltered: function () {
       return this.instanceResourceOptions.items.lexiconsShort.filter((item) => item.name === this.lexiconSettingName)
-    },
-    lookupLanguage: function () {
-      // let currentLanguage
-      if (this.overrideLanguage && !this.currentLanguage) {
-        this.initLanguage = this.instanceContentOptions.items.preferredLanguage.currentTextValue()
-        this.currentLanguage = this.initLanguage
-        this.instanceContentOptions.items.lookupLanguage.setTextValue(this.initLanguage)
-      } else if ((this.parentLanguage && this.parentLanguage !== null) && (this.parentLanguage !== this.initLanguage)) {
-        this.initLanguage = this.parentLanguage
-        this.currentLanguage = this.parentLanguage
-        this.instanceContentOptions.items.lookupLanguage.setTextValue(this.parentLanguage)
-      }
-      return this.instanceContentOptions.items.lookupLanguage
     }
   },
+
   watch: {
     clearLookupText: function (value) {
       if (value) {
         this.lookuptext = ''
-        this.showLanguageSettings = this.overrideLanguage
       }
     },
 
     overrideLanguage: function (value) {
       this.overrideLanguage = value
-      this.updateUIbyOverrideLanguage()
+
+      if (value) {
+        // If we start to override language, set an initial lookup language value
+        // to the one selected in the panel options
+        this.instanceContentOptions.items.lookupLanguage.setValue(
+          this.settings.contentOptions.items.preferredLanguage.currentValue
+        )
+      }
     }
   },
+
   methods: {
-    'lookup': function () {
+    lookup: function () {
       if (this.lookuptext.length === 0) {
         return null
       }
 
+      /*
+      If we override the language, then the lookup language must be a current value of our `lookupLanguage` prop,
+      otherwise it must be a value of panel's options `preferredLanguage` options item
+       */
       const languageID = this.overrideLanguage
-        ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.lookupLanguage.currentValue)
-        : alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.instanceContentOptions.items.lookupLanguage.currentValue)
+        ? alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.instanceContentOptions.items.lookupLanguage.currentValue)
+        : alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__["LanguageModelFactory"].getLanguageIdFromCode(this.settings.contentOptions.items.preferredLanguage.currentValue)
 
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, languageID)
 
@@ -10471,13 +10483,6 @@ __webpack_require__.r(__webpack_exports__);
       this.ui.closePanel()
     },
 
-    'switchLookupSettings': function () {
-      this.showLanguageSettings = !this.showLanguageSettings
-      if (this.$parent !== undefined) {
-        this.$parent.$emit('updatePopupDimensions')
-      }
-    },
-
     settingChange: function (name, value) {
       this.instanceContentOptions.items.lookupLanguage.setTextValue(value)
       this.currentLanguage = value
@@ -10486,24 +10491,6 @@ __webpack_require__.r(__webpack_exports__);
     resourceSettingChange: function (name, value) {
       let keyinfo = this.instanceResourceOptions.parseKey(name)
       this.instanceResourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
-    },
-
-    updateUIbyOverrideLanguage: function () {
-      if (this.overrideLanguage !== this.showLanguageSettings) {
-        this.switchLookupSettings()
-      }
-
-      if (!this.overrideLanguage) {
-        this.currentLanguage = this.instanceContentOptions.items.preferredLanguage.currentTextValue()
-        this.instanceContentOptions.items.lookupLanguage.setTextValue(this.currentLanguage)
-      }
-    },
-
-    checkboxClick: function () {
-      this.overrideLanguage = !this.overrideLanguage
-      this.settings.contentOptions.items.lookupLangOverride.setValue(this.overrideLanguage)
-
-      this.updateUIbyOverrideLanguage()
     }
   }
 });
@@ -11401,7 +11388,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/images/inline-icons/expanded.svg */ "./images/inline-icons/expanded.svg");
 /* harmony import */ var _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/images/inline-icons/lookup.svg */ "./images/inline-icons/lookup.svg");
+/* harmony import */ var _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/vue/components/lookup.vue */ "./vue/components/lookup.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11531,6 +11542,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// Vue components
+
 // Modules support
 
 
@@ -11545,8 +11559,9 @@ __webpack_require__.r(__webpack_exports__);
     auth: { from: 'auth', default: null } // This module is options
   },
   storeModules: ['app', 'ui'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_15__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_17__["default"]],
   components: {
+    lookup: _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     definitionsIcon: _images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_2___default.a,
     inflectionsIcon: _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_3___default.a,
@@ -11560,7 +11575,8 @@ __webpack_require__.r(__webpack_exports__);
     wordUsageIcon: _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_12___default.a,
     wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_11___default.a,
     collapsedIcon: _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
-    expandedIcon: _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14___default.a
+    expandedIcon: _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14___default.a,
+    lookupIcon: _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_15___default.a
   },
   interactInstance: null,
   dragTreshold: 100, // Drag distance values above this will be considered abnormal
@@ -11570,6 +11586,7 @@ __webpack_require__.r(__webpack_exports__);
 
   data: function () {
     return {
+      lookupVisible: false,
       contentVisible: false
     }
   },
@@ -11845,6 +11862,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /*
   This is a mobile version of a panel
@@ -11932,17 +11954,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     rootClasses () {
       return this.$store.state.ui.rootClasses
-    },
-    clearLookupText: function () {
-      // always true to clear panels lookup
-      return true
-    },
-    lookupParentLanguage: function () {
-      if (this.$store.state.app.preferredLanguageName) {
-        return this.$store.state.app.preferredLanguageName
-      } else {
-        return this.settings.contentOptions.items.preferredLanguage.currentTextValue()
-      }
     },
     mainstyles: function () {
       this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
@@ -12341,6 +12352,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /*
   This is a desktop version of a panel
@@ -12499,12 +12516,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_log_logger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/log/logger */ "./lib/log/logger.js");
 /* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tooltip.vue */ "./vue/components/tooltip.vue");
-/* harmony import */ var _lookup_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lookup.vue */ "./vue/components/lookup.vue");
-/* harmony import */ var _progress_bar_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./progress-bar.vue */ "./vue/components/progress-bar.vue");
-/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
-/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _progress_bar_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./progress-bar.vue */ "./vue/components/progress-bar.vue");
+/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
+/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -12627,8 +12643,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-
 
 
 
@@ -12649,17 +12663,16 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Popup',
   inject: ['app', 'ui', 'l10n', 'settings'],
   storeModules: ['app', 'ui', 'popup'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_8__["default"]],
   components: {
     morph: _morph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_7___default.a,
+    closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_6___default.a,
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    progressBar: _progress_bar_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    progressBar: _progress_bar_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_8__["directive"]
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_7__["directive"]
   },
   // Custom props to store unwatch functions
   visibleUnwatch: null,
@@ -12740,7 +12753,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       let left = this.positionLeftValue
-      let placementTargetX = this.$store.state.api.selectionTarget.x
+      let placementTargetX = this.$store.state.app.selectionTarget.x
       let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
       let verticalScrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       let leftSide = placementTargetX - this.exactWidth / 2
@@ -12776,7 +12789,7 @@ __webpack_require__.r(__webpack_exports__);
       let time = Date.now()
       this.logger.log(`${time}: position top calculation, offsetHeight is ${this.exactHeight}`)
       let top = this.positionTopValue
-      let placementTargetY = this.$store.state.api.selectionTarget.y
+      let placementTargetY = this.$store.state.app.selectionTarget.y
       let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
       let horizontalScrollbarWidth = window.innerHeight - document.documentElement.clientHeight
       if (this.heightDm !== 'auto') {
@@ -16792,102 +16805,116 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small"
-        },
-        [
-          _c("input", {
-            directives: [
+      _vm.showLanguageSettingsGroup
+        ? [
+            _c(
+              "div",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.overrideLanguage,
-                expression: "overrideLanguage"
-              }
-            ],
-            attrs: { id: "alpheios-checkbox-input", type: "checkbox" },
-            domProps: {
-              checked: Array.isArray(_vm.overrideLanguage)
-                ? _vm._i(_vm.overrideLanguage, null) > -1
-                : _vm.overrideLanguage
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.overrideLanguage,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.overrideLanguage = $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      (_vm.overrideLanguage = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
-                  }
-                } else {
-                  _vm.overrideLanguage = $$c
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "alpheios-override-lang__label",
-              attrs: { for: "checkbox" },
-              on: { click: _vm.checkboxClick }
-            },
-            [_vm._v(_vm._s(_vm.overrideLanguageLabel))]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "alpheios-lookup__settings" }, [
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showLanguageSettings,
-                expression: "showLanguageSettings"
-              }
-            ],
-            staticClass: "alpheios-lookup__settings-items"
-          },
-          [
-            _c("alph-setting", {
-              attrs: {
-                classes: ["alpheios-panel__options-item"],
-                data: _vm.lookupLanguage
+                staticClass:
+                  "alpheios-override-lang alpheios-checkbox-block alpheios-checkbox-small"
               },
-              on: { change: _vm.settingChange }
-            }),
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.overrideLanguage,
+                      expression: "overrideLanguage"
+                    }
+                  ],
+                  attrs: {
+                    id: "alpheios-" + _vm.nameBase + "-checkbox-input",
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.overrideLanguage)
+                      ? _vm._i(_vm.overrideLanguage, null) > -1
+                      : _vm.overrideLanguage
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.overrideLanguage,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.overrideLanguage = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.overrideLanguage = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.overrideLanguage = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "alpheios-override-lang__label",
+                    attrs: {
+                      for: "alpheios-" + _vm.nameBase + "-checkbox-input"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(_vm.overrideLanguageLabel) +
+                        "\n      "
+                    )
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
-            _vm._l(_vm.lexiconsFiltered, function(lexicon) {
-              return _c("alph-setting", {
-                key: lexicon.name,
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: lexicon
+            _c("div", { staticClass: "alpheios-lookup__settings" }, [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.overrideLanguage,
+                      expression: "overrideLanguage"
+                    }
+                  ],
+                  staticClass: "alpheios-lookup__settings-items"
                 },
-                on: { change: _vm.resourceSettingChange }
-              })
-            })
-          ],
-          2
-        )
-      ])
+                [
+                  _c("alph-setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.instanceContentOptions.items.lookupLanguage
+                    },
+                    on: { change: _vm.settingChange }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.lexiconsFiltered, function(lexicon) {
+                    return _c("alph-setting", {
+                      key: lexicon.name,
+                      attrs: {
+                        classes: ["alpheios-panel__options-item"],
+                        data: lexicon
+                      },
+                      on: { change: _vm.resourceSettingChange }
+                    })
+                  })
+                ],
+                2
+              )
+            ])
+          ]
+        : _vm._e()
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -18554,6 +18581,41 @@ var render = function() {
       _c(
         "div",
         {
+          staticClass: "alpheios-overlay-nav__lookup-control",
+          on: {
+            click: function($event) {
+              _vm.lookupVisible = !_vm.lookupVisible
+            }
+          }
+        },
+        [
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getText("LABEL_LOOKUP_CONTROL"),
+                tooltipDirection: "left"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-navbuttons__btn",
+                  class: { active: _vm.lookupVisible }
+                },
+                [_c("lookup-icon")],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
           staticClass: "alpheios-overlay-nav__header",
           class: { expanded: _vm.contentVisible },
           on: {
@@ -18564,6 +18626,30 @@ var render = function() {
         },
         [!_vm.contentVisible ? [_c("collapsed-icon")] : [_c("expanded-icon")]],
         2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.lookupVisible,
+              expression: "lookupVisible"
+            }
+          ],
+          staticClass: "alpheios-overlay-nav__lookup"
+        },
+        [
+          _c("lookup", {
+            attrs: {
+              "name-base": "toolbar",
+              "show-language-settings-group": false
+            }
+          })
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
@@ -19139,14 +19225,7 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "alpheios-lookup__panel" },
-                [
-                  _c("lookup", {
-                    attrs: {
-                      clearLookupText: _vm.clearLookupText,
-                      parentLanguage: _vm.lookupParentLanguage
-                    }
-                  })
-                ],
+                [_c("lookup", { attrs: { clearLookupText: true } })],
                 1
               ),
               _vm._v(" "),
@@ -19560,10 +19639,7 @@ var render = function() {
                 { staticClass: "alpheios-lookup__panel" },
                 [
                   _c("lookup", {
-                    attrs: {
-                      clearLookupText: _vm.clearLookupText,
-                      parentLanguage: _vm.lookupParentLanguage
-                    }
+                    attrs: { "name-base": "panel", "clear-lookup-text": true }
                   })
                 ],
                 1
@@ -19860,8 +19936,8 @@ var render = function() {
                   [
                     _c("lookup", {
                       attrs: {
-                        clearLookupText: _vm.clearLookupText,
-                        parentLanguage: _vm.lookupParentLanguage
+                        "name-base": "panel-defs",
+                        "clear-lookup-text": true
                       }
                     })
                   ],
@@ -20289,8 +20365,8 @@ var render = function() {
               [
                 _c("lookup", {
                   attrs: {
-                    clearLookupText: _vm.clearLookupText,
-                    parentLanguage: _vm.lookupParentLanguage
+                    "name-base": "panel-info",
+                    "clear-lookup-text": true
                   }
                 })
               ],
@@ -21261,15 +21337,7 @@ var render = function() {
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("lookup", {
-        attrs: {
-          clearLookupText:
-            _vm.$store.state.app.morphDataReady && _vm.app.hasMorphData(),
-          parentLanguage: _vm.$store.state.app.preferredLanguageName
-        }
-      })
+        : _vm._e()
     ],
     1
   )
@@ -35441,6 +35509,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 
 /***/ }),
 
+/***/ "./images/inline-icons/lookup.svg":
+/*!****************************************!*\
+  !*** ./images/inline-icons/lookup.svg ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1216 832q0-185-131.5-316.5T768 384 451.5 515.5 320 832t131.5 316.5T768 1280t316.5-131.5T1216 832zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225T64 832t55.5-273.5 150-225 225-150T768 128t273.5 55.5 225 150 150 225T1472 832q0 220-124 399l343 343q37 37 37 90z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\lookup.svg"};module.exports = { render: render, toString: toString };
+
+/***/ }),
+
 /***/ "./images/inline-icons/menu.svg":
 /*!**************************************!*\
   !*** ./images/inline-icons/menu.svg ***!
@@ -36322,7 +36401,6 @@ class UIController {
     this.setRootComponentClasses()
 
     const preferredLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
-    this.contentOptions.items.lookupLangOverride.setValue(false)
     this.updateLanguage(preferredLanguageID)
     this.updateLemmaTranslations()
 
@@ -41049,10 +41127,10 @@ module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Decle
 /*!*************************************!*\
   !*** ./locales/en-us/messages.json ***!
   \*************************************/
-/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOG_IN_BTN_LABEL, AUTH_LOG_OUT_BTN_LABEL, AUTH_LOG_IN_PROGRESS_MSG, AUTH_LOG_IN_SUCCESS_MSG, AUTH_LOG_IN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, default */
+/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_CONTROL, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOG_IN_BTN_LABEL, AUTH_LOG_OUT_BTN_LABEL, AUTH_LOG_IN_PROGRESS_MSG, AUTH_LOG_IN_SUCCESS_MSG, AUTH_LOG_IN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, default */
 /***/ (function(module) {
 
-module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOG_IN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOG_OUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOG_IN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOG_IN_SUCCESS_MSG":{"message":"Congratulations! Your logged in successfully","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOG_IN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"}};
+module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_CONTROL":{"message":"Show/Hide lookup","description":"A tooltip for the button that turns the lookup panel on and off","component":"Toolbar"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOG_IN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOG_OUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOG_IN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOG_IN_SUCCESS_MSG":{"message":"Congratulations! Your logged in successfully","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOG_IN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"}};
 
 /***/ }),
 
@@ -41307,7 +41385,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"lookupLangOverride":{"defaultValue":false,"labelText":"Override language at lookup panel","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
 
 /***/ }),
 

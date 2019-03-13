@@ -38,7 +38,11 @@ describe('lookup.test.js', () => {
     jest.spyOn(console, 'warn')
 
     store = new Vuex.Store({
-      modules: {}
+      modules: {
+        app: {
+          state: {}
+        }
+      }
     })
 
     contentOptions = new Options(ContentOptionDefaults, TempStorageArea)
@@ -70,6 +74,8 @@ describe('lookup.test.js', () => {
 
   it('1 Lookup - renders a vue instance (min requirements)', () => {
     let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
     expect(cmp.isVueInstance()).toBeTruthy()
@@ -84,6 +90,8 @@ describe('lookup.test.js', () => {
     }
 
     let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
 
@@ -91,9 +99,6 @@ describe('lookup.test.js', () => {
     expect(cmp.vm.settings.resourceOptions).toBeDefined()
 
     expect(cmp.vm.currentLanguage).toEqual(contentOptions.items.lookupLanguage.currentTextValue())
-    expect(cmp.vm.initLanguage).toBeNull()
-
-    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.settings.contentOptions.items.lookupLanguage.currentTextValue())
 
     expect(cmp.find('input').exists()).toBeTruthy()
     jest.spyOn(LexicalQueryLookup, 'create')
@@ -119,42 +124,38 @@ describe('lookup.test.js', () => {
       propsData: {
         parentLanguage: 'Latin'
       },
+      store,
+      localVue,
       mocks: api
     })
 
-    expect(cmp.vm.initLanguage).toEqual('Latin')
     expect(cmp.vm.currentLanguage).toEqual('Latin')
     expect(cmp.vm.settings.contentOptions.items.lookupLanguage.currentTextValue()).toEqual('Latin')
 
     expect(cmp.vm.lexiconSettingName).toEqual(`lexiconsShort-lat`)
     expect(cmp.vm.lexiconsFiltered).toEqual(resourceOptions.items.lexiconsShort.filter((item) => item.name === `lexiconsShort-lat`))
-    expect(cmp.vm.lookupLanguage.currentTextValue()).toEqual(cmp.vm.settings.contentOptions.items.lookupLanguage.currentTextValue())
   })
 
   it('4 Lookup - settings block', () => {
     let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
-    expect(cmp.vm.showLanguageSettings).toBeFalsy()
     expect(cmp.find('.alpheios-lookup__settings-items').element.style.display).toEqual('none')
 
     // cmp.find('.alpheios-lookup__settings-link').trigger('click')
 
-    cmp.vm.switchLookupSettings()
-    expect(cmp.vm.showLanguageSettings).toBeTruthy()
+    cmp.vm.overrideLanguage = true
     expect(cmp.find('.alpheios-lookup__settings-items').element.style.display).not.toEqual('none')
 
     expect(cmp.findAll(Setting).length).toEqual(1)
-
-    cmp.vm.switchLookupSettings()
-    expect(cmp.vm.showLanguageSettings).toBeFalsy()
-
-    cmp.vm.switchLookupSettings()
-    expect(cmp.vm.showLanguageSettings).toBeTruthy()
   })
 
   it('5 Lookup - settings block events', () => {
     let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
 
@@ -170,75 +171,25 @@ describe('lookup.test.js', () => {
 
   it('6 Lookup - override language check - not checked by default', () => {
     let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
 
     expect(cmp.vm.overrideLanguage).toBeFalsy()
-    expect(cmp.vm.settings.contentOptions.items.lookupLangOverride.currentValue).toBeFalsy()
-    expect(cmp.vm.showLanguageSettings).toBeFalsy()
   })
 
-  it('7 Lookup - override language check - checkboxClick method changes options (true)', () => {
+  it('7 Lookup - watch clearLookupText - clears lookuptext and restore show language data from override language check', () => {
     let cmp = mount(Lookup, {
-      mocks: api
-    })
-
-    jest.spyOn(cmp.vm, 'updateUIbyOverrideLanguage')
-    jest.spyOn(cmp.vm, 'switchLookupSettings')
-
-    cmp.vm.checkboxClick()
-
-    expect(cmp.vm.overrideLanguage).toBeTruthy()
-    expect(cmp.vm.settings.contentOptions.items.lookupLangOverride.currentValue).toBeTruthy()
-    expect(cmp.vm.updateUIbyOverrideLanguage).toBeCalled()
-    expect(cmp.vm.switchLookupSettings).toBeCalled()
-    expect(cmp.vm.showLanguageSettings).toBeTruthy()
-  })
-
-  it('8 Lookup - override language check - checkboxClick method changes options (false)', () => {
-    let cmp = mount(Lookup, {
-      mocks: api
-    })
-
-    cmp.vm.checkboxClick()
-
-    cmp.vm.checkboxClick()
-    expect(cmp.vm.overrideLanguage).toBeFalsy()
-    expect(cmp.vm.settings.contentOptions.items.lookupLangOverride.currentValue).toBeFalsy()
-    expect(cmp.vm.currentLanguage).toEqual(cmp.vm.instanceContentOptions.items.preferredLanguage.currentTextValue())
-    expect(cmp.vm.instanceContentOptions.items.lookupLanguage.currentValue).toEqual(cmp.vm.instanceContentOptions.items.preferredLanguage.currentValue)
-  })
-
-  it('9 Lookup - watch clearLookupText - clears lookuptext and restore show language data from override language check', () => {
-    let cmp = mount(Lookup, {
+      store,
+      localVue,
       mocks: api
     })
 
     cmp.vm.lookuptext = 'some text'
-    cmp.vm.checkboxClick()
-    cmp.vm.showLanguageSettings = false
-
+    cmp.vm.overrideLanguage = false
     cmp.vm.clearLookupText = true
 
     expect(cmp.vm.lookuptext).toEqual('')
-    expect(cmp.vm.showLanguageSettings).toBeTruthy()
-    expect(cmp.vm.overrideLanguage).toBeTruthy()
-  })
-
-  it('10 Lookup - watch uiController.contentOptions.items.lookupLangOverride.currentValue - syncing overrideLanguage', async () => {
-    let cmp = mount(Lookup, {
-      mocks: api
-    })
-    jest.spyOn(cmp.vm, 'updateUIbyOverrideLanguage')
-
-    expect(cmp.vm.overrideLanguage).toBeFalsy()
-    expect(cmp.vm.settings.contentOptions.items.lookupLangOverride.currentValue).toBeFalsy()
-
-    cmp.vm.settings.contentOptions.items.lookupLangOverride.setValue(true)
-
-    setTimeout(() => {
-      expect(cmp.vm.overrideLanguage).toBeTruthy()
-      expect(cmp.vm.updateUIbyOverrideLanguage).toBeCalled()
-    }, 500)
   })
 })
