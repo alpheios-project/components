@@ -682,20 +682,20 @@ export default class UIController {
   }
 
   async initUserDataManager() {
+    let wordLists
     if (this.store.state.auth.isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
       this.userDataManager = new UserDataManager(
         { accessToken: accessToken,
-          userID: this.store.state.auth.userName
+          userId: this.store.state.auth.userId
         }, WordlistController.evt)
-      this.wordlistC.initLists(this.userDataManager)
+      wordLists = this.wordlistC.initLists(this.userDataManager)
+      this.store.commit('app/setWordLists', wordLists)
     } else {
-      this.userDataManager = new UserDataManager(
-        { accessToken: "alpheiosMockUserIdlP0DWnmNxe",
-          userName: "testUserID"
-        }, WordlistController.evt)
-      this.wordlistC.initLists(this.userDataManager)
+      this.userDataManager = null
+      wordLists = this.wordlistC.initLists()
     }
+    this.store.commit('app/setWordLists', wordLists)
   }
 
   /**

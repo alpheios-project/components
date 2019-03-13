@@ -18,14 +18,6 @@
           {{ this.$store.state.auth.userNickName ? this.$store.state.auth.userNickName: `&mdash;` }}
         </div>
       </div>
-      <div class="alpheios-user-auth__user-info-item-box">
-        <div class="alpheios-user-auth__user-info-item-name">
-          {{ l10n.getMsg(`AUTH_PROFILE_NAME_LABEL`) }}:
-        </div>
-        <div class="alpheios-user-auth__user-info-item-value">
-          {{ this.$store.state.auth.userName ? this.$store.state.auth.userName: `&mdash;` }}
-        </div>
-      </div>
     </div>
   </div>
 </template>

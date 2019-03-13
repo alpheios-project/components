@@ -13503,14 +13503,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21815,36 +21807,6 @@ var render = function() {
                     _vm._s(
                       this.$store.state.auth.userNickName
                         ? this.$store.state.auth.userNickName
-                        : "—"
-                    ) +
-                    "\n      "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "alpheios-user-auth__user-info-item-box" }, [
-            _c(
-              "div",
-              { staticClass: "alpheios-user-auth__user-info-item-name" },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.l10n.getMsg("AUTH_PROFILE_NAME_LABEL")) +
-                    ":\n      "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "alpheios-user-auth__user-info-item-value" },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(
-                      this.$store.state.auth.userName
-                        ? this.$store.state.auth.userName
                         : "—"
                     ) +
                     "\n      "
@@ -36154,20 +36116,20 @@ class UIController {
   }
 
   async initUserDataManager() {
+    let wordLists
     if (this.store.state.auth.isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](
         { accessToken: accessToken,
-          userID: this.store.state.auth.userName
+          userId: this.store.state.auth.userId
         }, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
-      this.wordlistC.initLists(this.userDataManager)
+      wordLists = this.wordlistC.initLists(this.userDataManager)
+      this.store.commit('app/setWordLists', wordLists)
     } else {
-      this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](
-        { accessToken: "alpheiosMockUserIdlP0DWnmNxe",
-          userName: "testUserID"
-        }, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
-      this.wordlistC.initLists(this.userDataManager)
+      this.userDataManager = null
+      wordLists = this.wordlistC.initLists()
     }
+    this.store.commit('app/setWordLists', wordLists)
   }
 
   /**
@@ -44119,7 +44081,7 @@ AuthModule.store = (moduleInstance) => {
     namespaced: true,
 
     state: {
-      userName: '',
+      userId: '',
       userNickName: '',
       isAuthenticated: false,
       message: ''
@@ -44130,13 +44092,13 @@ AuthModule.store = (moduleInstance) => {
       },
       setIsAuthenticated: (state, profile) => {
         state.isAuthenticated = true
-        state.userName = profile.name
+        state.userId = profile.sub
         state.userNickName = profile.nickname
         state.message = 'AUTH_LOG_IN_SUCCESS_MSG'
       },
       setIsNotAuthenticated: (state,message) => {
         state.isAuthenticated = false
-        state.userName = ''
+        state.userId = ''
         state.userNickName = ''
         state.message =  message
       }

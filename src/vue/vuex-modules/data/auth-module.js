@@ -20,7 +20,7 @@ AuthModule.store = (moduleInstance) => {
     namespaced: true,
 
     state: {
-      userName: '',
+      userId: '',
       userNickName: '',
       isAuthenticated: false,
       message: ''
@@ -31,13 +31,13 @@ AuthModule.store = (moduleInstance) => {
       },
       setIsAuthenticated: (state, profile) => {
         state.isAuthenticated = true
-        state.userName = profile.name
+        state.userId = profile.sub
         state.userNickName = profile.nickname
         state.message = 'AUTH_LOG_IN_SUCCESS_MSG'
       },
       setIsNotAuthenticated: (state,message) => {
         state.isAuthenticated = false
-        state.userName = ''
+        state.userId = ''
         state.userNickName = ''
         state.message =  message
       }
