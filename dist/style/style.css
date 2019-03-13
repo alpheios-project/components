@@ -8506,7 +8506,8 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
     font-size: 22px; }
   .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-    font-size: 24px; }
+    font-size: 24px;
+    padding: 12.8px; }
   .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
   .auk.alpheios-font_medium_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
     font-size: 24px; }
@@ -8650,7 +8651,8 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
     font-size: 16.5px; }
   .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-    font-size: 18px; }
+    font-size: 18px;
+    padding: 9.6px; }
   .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
   .auk.alpheios-font_small_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
     font-size: 18px; }
@@ -8794,7 +8796,8 @@ div.alpheios-checkbox-block {
   .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios-word-usage div.alpheios_word_usage_list_title {
     font-size: 27.5px; }
   .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-    font-size: 30px; }
+    font-size: 30px;
+    padding: 16px; }
   .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
   .auk.alpheios-font_large_class.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
     font-size: 30px; }
@@ -10347,14 +10350,33 @@ ul.alpheios-skin_properties {
   width: 100%;
   padding-top: 10px;
 }
-.alpheios_word_usage_list_item__source-data a.alpheios_word_usage_list_item__source_link {
-    color: #3E8D9C;
-    font-size: 95%;
-    display: block;
+.alpheios_word_usage_list_item
+a.alpheios_word_usage_list_item__source_link {
+  color: #3E8D9C;
+  font-size: 95%;
+  display: block;
 }
 .alpheios_word_usage_list_item__source-link {
   display: inline-block;
   cursor: pointer;
+}
+.alpheios_word_usage_list_item .alpheios_word_usage_list_item__source-data-title {
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text
+.alpheios_word_usage_list_item__source {
+  display: none;
+}
+.alpheios-panel--compact
+.alpheios_word_usage_list_item .alpheios_word_usage_list_item__source-data-title {
+  display: none;
+}
+.alpheios-panel--compact
+.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text
+.alpheios_word_usage_list_item__source {
+  display: inline-block;
 }
 
 /************ UIKit vars ************************/

@@ -13626,6 +13626,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21997,6 +22004,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios_word_usage_list_item" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios_word_usage_list_item__source-data-title" },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "alpheios_word_usage_list_item__source_link",
+            attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
+          },
+          [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
+        )
+      ]
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
       _c("div", { staticClass: "alpheios_word_usage_list_item__source" }, [
         _c(

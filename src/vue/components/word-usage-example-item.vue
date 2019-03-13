@@ -1,5 +1,12 @@
 <template>
   <div class="alpheios_word_usage_list_item">
+    <div class="alpheios_word_usage_list_item__source-data-title">
+      <a
+          :href="wordUsageItem.source"
+          target="_blank"
+          class = "alpheios_word_usage_list_item__source_link"
+          >{{ wordUsageItem.fullCit() }}</a>
+    </div>
       <div class="alpheios_word_usage_list_item__text">
         <div class="alpheios_word_usage_list_item__source">
           <span class="alpheios_word_usage_list_item__source-link" @click="changeShowDataSource()">
@@ -114,15 +121,42 @@
     .alpheios_word_usage_list_item__source-data  {
       width: 100%;
       padding-top: 10px;
-      a.alpheios_word_usage_list_item__source_link {
-        color: $alpheios-link-color;
-        font-size: 95%;
-        display: block;
-      }
+    }
+
+    .alpheios_word_usage_list_item 
+    a.alpheios_word_usage_list_item__source_link {
+      color: $alpheios-link-color;
+      font-size: 95%;
+      display: block;
     }
 
     .alpheios_word_usage_list_item__source-link {
       display: inline-block;
       cursor: pointer;
+    }
+
+    .alpheios_word_usage_list_item {
+      .alpheios_word_usage_list_item__source-data-title {
+        display: block;
+        width: 100%;
+        padding-bottom: 5px;
+      }
+      .alpheios_word_usage_list_item__text
+      .alpheios_word_usage_list_item__source
+      {
+        display: none;
+      }
+    }
+
+    .alpheios-panel--compact
+    .alpheios_word_usage_list_item {
+      .alpheios_word_usage_list_item__source-data-title {
+        display: none;
+      }
+      .alpheios_word_usage_list_item__text
+      .alpheios_word_usage_list_item__source
+      {
+        display: inline-block;
+      }
     }
 </style>
