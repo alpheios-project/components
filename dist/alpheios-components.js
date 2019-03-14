@@ -12358,6 +12358,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
   This is a desktop version of a panel
@@ -13618,6 +13631,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/source.svg */ "./images/inline-icons/source.svg");
 /* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_custom_pointer_events_generic_evt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt */ "./lib/custom-pointer-events/generic-evt.js");
 //
 //
 //
@@ -13646,10 +13660,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
+  inject: ['app'],
   components: {
     sourceIcon: _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -13687,6 +13704,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changeShowDataSource () {
       this.showDataSource = !this.showDataSource
+    },
+    selectAWord (event) {
+      let genericEvt = new _lib_custom_pointer_events_generic_evt__WEBPACK_IMPORTED_MODULE_1__["default"](this.$el, this.app.getSelectedText, 'dblclick')
+      genericEvt.eventListener(event)
     }
   }
 });
@@ -19927,7 +19948,8 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
+                  "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions",
+                attrs: { "data-alpheios-ignore": "all" }
               },
               [
                 _c(
@@ -20006,7 +20028,10 @@ var render = function() {
                 ],
                 staticClass:
                   "alpheios-panel__tab-panel alpheios-panel__tab__inflections",
-                attrs: { id: _vm.inflectionsPanelID }
+                attrs: {
+                  id: _vm.inflectionsPanelID,
+                  "data-alpheios-ignore": "all"
+                }
               },
               [
                 _c("inflections", {
@@ -20034,7 +20059,10 @@ var render = function() {
             ],
             staticClass:
               "alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser",
-            attrs: { id: _vm.inflectionsBrowserPanelID }
+            attrs: {
+              id: _vm.inflectionsBrowserPanelID,
+              "data-alpheios-ignore": "all"
+            }
           },
           [
             _c("inflection-browser", {
@@ -20056,7 +20084,8 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__tab__grammar\n          alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw"
+              "alpheios-panel__tab-panel alpheios-panel__tab__grammar\n          alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           [_c("grammar")],
           1
@@ -20075,7 +20104,8 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw"
+                  "alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw",
+                attrs: { "data-alpheios-ignore": "all" }
               },
               [
                 _c("treebank", {
@@ -20097,7 +20127,9 @@ var render = function() {
                 expression: "$store.getters['ui/isActiveTab']('status')"
               }
             ],
-            staticClass: "alpheios-panel__tab-panel alpheios-panel__tab__status"
+            staticClass:
+              "alpheios-panel__tab-panel alpheios-panel__tab__status",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           _vm._l(_vm.$store.state.ui.messages, function(message) {
             return _c("div", [
@@ -20120,7 +20152,9 @@ var render = function() {
                 expression: "$store.getters['ui/isActiveTab']('user')"
               }
             ],
-            staticClass: "alpheios-panel__tab-panel alpheios-panel__tab__status"
+            staticClass:
+              "alpheios-panel__tab-panel alpheios-panel__tab__status",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           [_c("user-auth")],
           1
@@ -20167,7 +20201,8 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__tab__options"
+              "alpheios-panel__tab-panel alpheios-panel__tab__options",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           [
             _c("reskin-font-color"),
@@ -20356,7 +20391,8 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
+              "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           [
             _c(
@@ -20390,7 +20426,8 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
+              "alpheios-panel__tab-panel alpheios-panel__tab__wordlist",
+            attrs: { "data-alpheios-ignore": "all" }
           },
           [
             _c("word-list-panel", {
@@ -22110,7 +22147,8 @@ var render = function() {
       _vm._v(" "),
       _c("div", {
         staticClass: "alpheios_word_usage_list_item__text_prefix",
-        domProps: { innerHTML: _vm._s(_vm.prefixHtml) }
+        domProps: { innerHTML: _vm._s(_vm.prefixHtml) },
+        on: { dblclick: _vm.selectAWord }
       }),
       _vm._v(" "),
       _c("div", {
@@ -22120,7 +22158,8 @@ var render = function() {
       _vm._v(" "),
       _c("div", {
         staticClass: "alpheios_word_usage_list_item__text_suffix",
-        domProps: { innerHTML: _vm._s(_vm.suffixHtml) }
+        domProps: { innerHTML: _vm._s(_vm.suffixHtml) },
+        on: { dblclick: _vm.selectAWord }
       })
     ]),
     _vm._v(" "),
@@ -36121,7 +36160,8 @@ class UIController {
           return true
         }
         return false
-      }
+      },
+      getSelectedText: this.getSelectedText.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -36969,7 +37009,6 @@ class UIController {
 
   async onWordItemSelected (wordItem) {
     let wordItemFull = await this.userDataManager.query({ dataType: 'WordItem', params: { wordItem } }, { type: 'full' })
-    console.info('****************onWordItemSelected', wordItemFull[0].homonym)
     let homonym = wordItemFull[0].homonym
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
 
@@ -37481,6 +37520,7 @@ class MouseDblClick extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["defaul
    * @param {Function} evtHandler
    */
   static listen (selector, evtHandler) {
+    console.info('****************MouseDblClick listen', selector, evtHandler)
     let elements = document.querySelectorAll(selector)
     for (const element of elements) {
       let listener = new this(element, evtHandler)
@@ -41440,7 +41480,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"componentName\" :data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-overlay-nav\">\r\n    <component v-bind:is=\"componentName\"></component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"componentName\" :data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-overlay-nav\">\r\n    <component v-bind:is=\"componentName\"></component>\r\n</div>\r\n";
 
 /***/ }),
 

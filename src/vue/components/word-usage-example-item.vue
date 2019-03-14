@@ -13,9 +13,9 @@
             <source-icon class="alpheios_word_usage_list_item__source-link-svg"></source-icon>
           </span>
         </div>
-        <div class="alpheios_word_usage_list_item__text_prefix" v-html="prefixHtml"></div>
+        <div class="alpheios_word_usage_list_item__text_prefix" v-html="prefixHtml" @dblclick="selectAWord"></div>
         <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
-        <div class="alpheios_word_usage_list_item__text_suffix" v-html="suffixHtml"></div>
+        <div class="alpheios_word_usage_list_item__text_suffix" v-html="suffixHtml" @dblclick="selectAWord"></div>
       </div>
       <div class="alpheios_word_usage_list_item__source-data" v-show="showDataSource">
         <a
@@ -28,8 +28,11 @@
 </template>
 <script>
   import SourceIcon from '@/images/inline-icons/source.svg'
+  import GenericEvt from '@/lib/custom-pointer-events/generic-evt'
+
   export default {
     name: 'WordUsageExampleItem',
+    inject: ['app'],
     components: {
       sourceIcon: SourceIcon
     },
@@ -67,6 +70,10 @@
     methods: {
       changeShowDataSource () {
         this.showDataSource = !this.showDataSource
+      },
+      selectAWord (event) {
+        let genericEvt = new GenericEvt(this.$el, this.app.getSelectedText, 'dblclick')
+        genericEvt.eventListener(event)
       }
     }
   }

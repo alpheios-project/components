@@ -380,7 +380,8 @@ export default class UIController {
           return true
         }
         return false
-      }
+      },
+      getSelectedText: this.getSelectedText.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -1228,7 +1229,6 @@ export default class UIController {
 
   async onWordItemSelected (wordItem) {
     let wordItemFull = await this.userDataManager.query({ dataType: 'WordItem', params: { wordItem } }, { type: 'full' })
-    console.info('****************onWordItemSelected', wordItemFull[0].homonym)
     let homonym = wordItemFull[0].homonym
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
 

@@ -61,6 +61,7 @@ export default class MouseDblClick extends PointerEvt {
    * @param {Function} evtHandler
    */
   static listen (selector, evtHandler) {
+    console.info('****************MouseDblClick listen', selector, evtHandler)
     let elements = document.querySelectorAll(selector)
     for (const element of elements) {
       let listener = new this(element, evtHandler)
