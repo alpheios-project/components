@@ -673,6 +673,10 @@ export default class UIController {
       this.wordlistC.initLists(this.userDataManager)
     }
 
+    // console.info('****uiController', this)
+    // console.info('****uiController panel', document.getElementById('alpheios-panel__tab__definitions'))
+    // console.info('****uiController panel', this.modules.get('panel').instance._vi.$el.childNodes)
+
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
@@ -965,10 +969,16 @@ export default class UIController {
     }
   }
 
-  updateWordUsageExamples (wordUsageExamplesData) {
+  async updateWordUsageExamples (wordUsageExamplesData) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
     this.api.app.wordUsageExamples = wordUsageExamplesData
     this.store.commit('app/setWordUsageExamplesReady')
+
+    await Vue.nextTick()
+    this.evc.registerListener(
+      'GetSelectedTextPanel', '.alpheios_word_usage_list_item__text', this.getSelectedText.bind(this), GenericEvt, 'dblclick'
+    )
+    this.evc.activateListener('GetSelectedTextPanel')
   }
 
   open () {

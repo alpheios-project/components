@@ -13,9 +13,9 @@
             <source-icon class="alpheios_word_usage_list_item__source-link-svg"></source-icon>
           </span>
         </div>
-        <div class="alpheios_word_usage_list_item__text_prefix" v-html="prefixHtml" @dblclick="selectAWord"></div>
+        <div class="alpheios_word_usage_list_item__text_prefix">{{ prefixHtml }}</div>
         <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
-        <div class="alpheios_word_usage_list_item__text_suffix" v-html="suffixHtml" @dblclick="selectAWord"></div>
+        <div class="alpheios_word_usage_list_item__text_suffix">{{ suffixHtml }}</div>
       </div>
       <div class="alpheios_word_usage_list_item__source-data" v-show="showDataSource">
         <a
@@ -49,31 +49,15 @@
     },
     computed: {
       prefixHtml: function() {
-        if (this.wordUsageItem.prefix) {
-          // If the character before the exact word is a space, we need to preserve that as-is for HTML display
-          // so make sure it's an &nbsp;
-          return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
-        } else {
-          return this.wordUsageItem.prefix
-        }
+        return this.wordUsageItem.prefix
       },
       suffixHtml: function() {
-        if (this.wordUsageItem.suffix) {
-          // If the character after the exact word is a space, we need to preserve that as-is for HTML display
-          // so make sure it's an &nbsp;
-          return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
-        } else {
-          return this.wordUsageItem.suffix
-        }
+        return this.wordUsageItem.suffix
       }
     },
     methods: {
       changeShowDataSource () {
         this.showDataSource = !this.showDataSource
-      },
-      selectAWord (event) {
-        let genericEvt = new GenericEvt(this.$el, this.app.getSelectedText, 'dblclick')
-        genericEvt.eventListener(event)
       }
     }
   }

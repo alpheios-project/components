@@ -12371,6 +12371,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /*
   This is a desktop version of a panel
@@ -13683,31 +13686,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     prefixHtml: function() {
-      if (this.wordUsageItem.prefix) {
-        // If the character before the exact word is a space, we need to preserve that as-is for HTML display
-        // so make sure it's an &nbsp;
-        return this.wordUsageItem.prefix.replace(/\s$/, String.fromCharCode(160))
-      } else {
-        return this.wordUsageItem.prefix
-      }
+      return this.wordUsageItem.prefix
     },
     suffixHtml: function() {
-      if (this.wordUsageItem.suffix) {
-        // If the character after the exact word is a space, we need to preserve that as-is for HTML display
-        // so make sure it's an &nbsp;
-        return this.wordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160))
-      } else {
-        return this.wordUsageItem.suffix
-      }
+      return this.wordUsageItem.suffix
     }
   },
   methods: {
     changeShowDataSource () {
       this.showDataSource = !this.showDataSource
-    },
-    selectAWord (event) {
-      let genericEvt = new _lib_custom_pointer_events_generic_evt__WEBPACK_IMPORTED_MODULE_1__["default"](this.$el, this.app.getSelectedText, 'dblclick')
-      genericEvt.eventListener(event)
     }
   }
 });
@@ -19949,7 +19936,10 @@ var render = function() {
               {
                 staticClass:
                   "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions",
-                attrs: { "data-alpheios-ignore": "all" }
+                attrs: {
+                  "data-alpheios-ignore": "all",
+                  id: "alpheios-panel__tab__definitions"
+                }
               },
               [
                 _c(
@@ -22145,22 +22135,18 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", {
-        staticClass: "alpheios_word_usage_list_item__text_prefix",
-        domProps: { innerHTML: _vm._s(_vm.prefixHtml) },
-        on: { dblclick: _vm.selectAWord }
-      }),
+      _c("div", { staticClass: "alpheios_word_usage_list_item__text_prefix" }, [
+        _vm._v(_vm._s(_vm.prefixHtml))
+      ]),
       _vm._v(" "),
       _c("div", {
         staticClass: "alpheios_word_usage_list_item__text_targetword",
         domProps: { innerHTML: _vm._s(_vm.wordUsageItem.normalizedText) }
       }),
       _vm._v(" "),
-      _c("div", {
-        staticClass: "alpheios_word_usage_list_item__text_suffix",
-        domProps: { innerHTML: _vm._s(_vm.suffixHtml) },
-        on: { dblclick: _vm.selectAWord }
-      })
+      _c("div", { staticClass: "alpheios_word_usage_list_item__text_suffix" }, [
+        _vm._v(_vm._s(_vm.suffixHtml))
+      ])
     ]),
     _vm._v(" "),
     _c(
@@ -36453,6 +36439,10 @@ class UIController {
       this.wordlistC.initLists(this.userDataManager)
     }
 
+    // console.info('****uiController', this)
+    // console.info('****uiController panel', document.getElementById('alpheios-panel__tab__definitions'))
+    // console.info('****uiController panel', this.modules.get('panel').instance._vi.$el.childNodes)
+
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
@@ -36745,10 +36735,16 @@ class UIController {
     }
   }
 
-  updateWordUsageExamples (wordUsageExamplesData) {
+  async updateWordUsageExamples (wordUsageExamplesData) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
     this.api.app.wordUsageExamples = wordUsageExamplesData
     this.store.commit('app/setWordUsageExamplesReady')
+
+    await vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick()
+    this.evc.registerListener(
+      'GetSelectedTextPanel', '.alpheios_word_usage_list_item__text', this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_21__["default"], 'dblclick'
+    )
+    this.evc.activateListener('GetSelectedTextPanel')
   }
 
   open () {

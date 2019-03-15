@@ -48,6 +48,7 @@
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
           v-if="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
+          id = "alpheios-panel__tab__definitions"
           >
         <div class="alpheios-lookup__panel">
           <lookup
@@ -103,7 +104,9 @@
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExamplesReady" v-show="$store.getters['ui/isActiveTab']('wordUsage')">
+           v-if="$store.state.app.wordUsageExamplesReady" 
+           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
+        >
         <word-usage-examples-block
             :wordUsageList="app.wordUsageExamples.wordUsageExamples"
             :targetWord="app.wordUsageExamples.targetWord"
