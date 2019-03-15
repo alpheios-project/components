@@ -10551,7 +10551,7 @@ a.alpheios_word_usage_list_item__source_link {
   border-bottom: 1px solid !important;
   margin-bottom: 20px !important;
 }
-.alpheios-panel__notifications {
+.alpheios-panel__notifications, .alpheios-panel_notifications-auth {
   display: none;
   position: relative !important;
   padding: 10px 20px !important;
@@ -10590,6 +10590,9 @@ a.alpheios_word_usage_list_item__source_link {
   background: #73CDDE !important;
 }
 [data-notification-visible="true"] .alpheios-panel__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-panel__notifications-auth {
   display: block;
 }
 .alpheios-panel__tab-panel {

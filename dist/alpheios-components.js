@@ -11701,29 +11701,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_nav_navbuttons_compact_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/nav/navbuttons-compact.vue */ "./vue/components/nav/navbuttons-compact.vue");
 /* harmony import */ var _inflections_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inflections.vue */ "./vue/components/inflections.vue");
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
-/* harmony import */ var _shortdef_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shortdef.vue */ "./vue/components/shortdef.vue");
-/* harmony import */ var _grammar_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./grammar.vue */ "./vue/components/grammar.vue");
-/* harmony import */ var _morph_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./morph.vue */ "./vue/components/morph.vue");
-/* harmony import */ var _treebank_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./treebank.vue */ "./vue/components/treebank.vue");
-/* harmony import */ var _info_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./info.vue */ "./vue/components/info.vue");
-/* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue/components/inflections-browser.vue");
-/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tooltip.vue */ "./vue/components/tooltip.vue");
-/* harmony import */ var _lookup_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lookup.vue */ "./vue/components/lookup.vue");
-/* harmony import */ var _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./reskin-font-color.vue */ "./vue/components/reskin-font-color.vue");
-/* harmony import */ var _user_auth_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./user-auth.vue */ "./vue/components/user-auth.vue");
-/* harmony import */ var _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/vue/components/word-usage-examples-block.vue */ "./vue/components/word-usage-examples-block.vue");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
-/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(alpheios_wordlist__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/images/inline-icons/menu.svg */ "./images/inline-icons/menu.svg");
-/* harmony import */ var _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
-/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
-/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
-/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _login_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login.vue */ "./vue/components/login.vue");
+/* harmony import */ var _shortdef_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shortdef.vue */ "./vue/components/shortdef.vue");
+/* harmony import */ var _grammar_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./grammar.vue */ "./vue/components/grammar.vue");
+/* harmony import */ var _morph_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./morph.vue */ "./vue/components/morph.vue");
+/* harmony import */ var _treebank_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./treebank.vue */ "./vue/components/treebank.vue");
+/* harmony import */ var _info_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./info.vue */ "./vue/components/info.vue");
+/* harmony import */ var _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./inflections-browser.vue */ "./vue/components/inflections-browser.vue");
+/* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tooltip.vue */ "./vue/components/tooltip.vue");
+/* harmony import */ var _lookup_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lookup.vue */ "./vue/components/lookup.vue");
+/* harmony import */ var _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./reskin-font-color.vue */ "./vue/components/reskin-font-color.vue");
+/* harmony import */ var _user_auth_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-auth.vue */ "./vue/components/user-auth.vue");
+/* harmony import */ var _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/vue/components/word-usage-examples-block.vue */ "./vue/components/word-usage-examples-block.vue");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
+/* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/images/inline-icons/menu.svg */ "./images/inline-icons/menu.svg");
+/* harmony import */ var _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../images/inline-icons/close.svg */ "./images/inline-icons/close.svg");
+/* harmony import */ var _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
+/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
+/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11936,6 +11948,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 // Embeddable SVG icons
 
 
@@ -11958,29 +11971,30 @@ __webpack_require__.r(__webpack_exports__);
     auth: { from: 'auth', default: null } // This module is options
   },
   storeModules: ['app', 'ui', 'panel'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_21__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__["default"]],
   components: {
-    menuIcon: _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_17___default.a,
+    menuIcon: _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
     dropDownMenu: _vue_components_nav_drop_down_menu_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     navbuttonsCompact: _vue_components_nav_navbuttons_compact_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     inflections: _inflections_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    inflectionBrowser: _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    inflectionBrowser: _inflections_browser_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    shortdef: _shortdef_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    info: _info_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    grammar: _grammar_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    morph: _morph_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    treebank: _treebank_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    userAuth: _user_auth_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
-    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
-    reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
-    wordListPanel: alpheios_wordlist__WEBPACK_IMPORTED_MODULE_16__["WordListPanel"],
-    wordUsageExamplesBlock: _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    login: _login_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    shortdef: _shortdef_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    info: _info_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    grammar: _grammar_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    morph: _morph_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    treebank: _treebank_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    userAuth: _user_auth_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
+    closeIcon: _images_inline_icons_close_svg__WEBPACK_IMPORTED_MODULE_19___default.a,
+    alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+    lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+    reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
+    wordListPanel: alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17__["WordListPanel"],
+    wordUsageExamplesBlock: _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_19__["directive"]
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_20__["directive"]
   },
   minWidth: 400, // A minimal width of a panel, in pixels
   defaultScrollPadding: 20,
@@ -12044,7 +12058,7 @@ __webpack_require__.r(__webpack_exports__);
           if (lexeme.meaning.shortDefs.length > 0) {
             definitions.push(...lexeme.meaning.shortDefs)
           } else if (Object.entries(lexeme.lemma.features).length > 0) {
-            definitions.push(new alpheios_data_models__WEBPACK_IMPORTED_MODULE_15__["Definition"](this.l10n.getMsg('TEXT_NOTICE_NO_DEFS_FOUND'), 'en-US', 'text/plain', lexeme.lemma.word))
+            definitions.push(new alpheios_data_models__WEBPACK_IMPORTED_MODULE_16__["Definition"](this.l10n.getMsg('TEXT_NOTICE_NO_DEFS_FOUND'), 'en-US', 'text/plain', lexeme.lemma.word))
           }
         }
       }
@@ -12167,7 +12181,7 @@ __webpack_require__.r(__webpack_exports__);
       this.calcWidthPaddings()
 
       // Initialize Interact.js: make panel resizable
-      interactjs__WEBPACK_IMPORTED_MODULE_20___default()(this.$el)
+      interactjs__WEBPACK_IMPORTED_MODULE_21___default()(this.$el)
         .resizable({
           // resize from all edges and corners
           edges: { left: true, right: true, bottom: false, top: false },
@@ -19158,6 +19172,8 @@ var render = function() {
         "data-notification-visible":
           _vm.$store.state.ui.notification.visible &&
           _vm.$store.state.ui.notification.important,
+        "data-notification-auth-visible":
+          _vm.$store.state.auth && _vm.$store.state.auth.notification.visible,
         "data-component": "alpheios-panel",
         "data-resizable": "true",
         id: "alpheios-panel-inner"
@@ -19279,7 +19295,11 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "alpheios-lookup__panel" },
-                [_c("lookup", { attrs: { clearLookupText: true } })],
+                [
+                  _c("lookup", {
+                    attrs: { "name-base": "panel", clearLookupText: true }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
@@ -19791,6 +19811,63 @@ var render = function() {
                   "show-title": false
                 },
                 on: { change: _vm.contentOptionChanged }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.$store.state.auth && _vm.$store.state.auth.notification.text
+        ? _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.$store.state.auth.notification.count === 1 ||
+                    _vm.$store.state.auth.notification.count % 10 == 0,
+                  expression:
+                    "$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0"
+                }
+              ],
+              staticClass:
+                "alpheios-panel__notifications-auth uk-text-small alpheios-panel__notifications--important",
+              attrs: { "data-count": _vm.$store.state.auth.notification.count }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-panel__notifications-close-btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.$store.commit("auth/resetNotification")
+                    }
+                  }
+                },
+                [_c("close-icon")],
+                1
+              ),
+              _vm._v(" "),
+              _c("span", {
+                domProps: {
+                  innerHTML: _vm._s(
+                    _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
+                  )
+                }
+              }),
+              _vm._v(" "),
+              _c("login", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.state.auth.notification.showLogin,
+                    expression: "$store.state.auth.notification.showLogin"
+                  }
+                ]
               })
             ],
             1

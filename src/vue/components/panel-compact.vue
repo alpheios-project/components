@@ -1,6 +1,7 @@
 <template>
   <div :class="rootClasses"
        :data-notification-visible="$store.state.ui.notification.visible && $store.state.ui.notification.important"
+       :data-notification-auth-visible="$store.state.auth && $store.state.auth.notification.visible"
        :style="mainstyles"
        class="alpheios-panel alpheios-panel--compact auk"
        data-component="alpheios-panel"
@@ -51,6 +52,7 @@
           v-show="$store.getters['ui/isActiveTab']('definitions')">
         <div class="alpheios-lookup__panel">
           <lookup
+              :name-base="`panel`"
               :clearLookupText="true"
           />
         </div>
@@ -185,6 +187,15 @@
                @change="contentOptionChanged"
                v-show="$store.state.ui.notification.showLanguageSwitcher"></setting>
     </div>
+    <div class="alpheios-panel__notifications-auth uk-text-small alpheios-panel__notifications--important"
+         :data-count="$store.state.auth.notification.count"
+         v-if="$store.state.auth && $store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
+         <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-panel__notifications-close-btn">
+            <close-icon></close-icon>
+         </span>
+         <span v-html="l10n.getMsg($store.state.auth.notification.text)"></span>
+         <login v-show="$store.state.auth.notification.showLogin"></login>
+    </div>
   </div>
 </template>
 <script>
@@ -197,6 +208,7 @@ import DropDownMenu from '@/vue/components/nav/drop-down-menu.vue'
 import NavbuttonsCompact from '@/vue/components/nav/navbuttons-compact.vue'
 import Inflections from './inflections.vue'
 import Setting from './setting.vue'
+import Login from './login.vue'
 import ShortDef from './shortdef.vue'
 import Grammar from './grammar.vue'
 import Morph from './morph.vue'
@@ -240,6 +252,7 @@ export default {
     inflections: Inflections,
     inflectionBrowser: InflectionBrowser,
     setting: Setting,
+    login: Login,
     shortdef: ShortDef,
     info: Info,
     grammar: Grammar,
@@ -601,7 +614,7 @@ export default {
     margin-bottom: 20px;
   }
 
-  .alpheios-panel__notifications {
+  .alpheios-panel__notifications, .alpheios-panel_notifications-auth {
     display: none;
     position: relative;
     padding: 10px 20px;
@@ -646,6 +659,10 @@ export default {
   }
 
   [data-notification-visible="true"] .alpheios-panel__notifications {
+    display: block;
+  }
+
+  [data-notification-auth-visible="true"] .alpheios-panel__notifications-auth {
     display: block;
   }
 
