@@ -242,7 +242,7 @@ export default {
       }
 
       let left = this.positionLeftValue
-      let placementTargetX = this.$store.state.api.selectionTarget.x
+      let placementTargetX = this.$store.state.app.selectionTarget.x
       let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
       let verticalScrollbarWidth = window.innerWidth - document.documentElement.clientWidth
       let leftSide = placementTargetX - this.exactWidth / 2
@@ -278,7 +278,7 @@ export default {
       let time = Date.now()
       this.logger.log(`${time}: position top calculation, offsetHeight is ${this.exactHeight}`)
       let top = this.positionTopValue
-      let placementTargetY = this.$store.state.api.selectionTarget.y
+      let placementTargetY = this.$store.state.app.selectionTarget.y
       let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
       let horizontalScrollbarWidth = window.innerHeight - document.documentElement.clientHeight
       if (this.heightDm !== 'auto') {
