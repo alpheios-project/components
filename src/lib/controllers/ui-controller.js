@@ -971,16 +971,9 @@ export default class UIController {
 
     await Vue.nextTick()
 
-    let panelContent = this.modules.get('panel').instance._vi.$el.querySelector('.alpheios-panel__content')
-    if (panelContent) {
-      let tabInstances = panelContent.querySelectorAll('.alpheios-panel__tab__word-usage')
-      for (let i = 0; i < tabInstances.length; i++) {
-        this.evc.registerListener(
-          `GetSelectedTextPanel${i}`, tabInstances[i], this.getSelectedText.bind(this), GenericEvt, 'dblclick'
-        )
-        this.evc.activateListener(`GetSelectedTextPanel${i}`)
-      }
-    }
+    this.evc.registerListenerInsideModule(
+      'GetSelectedTextPanel', this.modules.get('panel'), '.alpheios-panel__tab__word-usage', this.getSelectedText.bind(this), GenericEvt, 'dblclick'
+    )
   }
 
   open () {

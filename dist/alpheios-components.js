@@ -36730,16 +36730,21 @@ class UIController {
 
     await vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick()
 
-    let panelContent = this.modules.get('panel').instance._vi.$el.querySelector('.alpheios-panel__content')
+    this.evc.registerListenerInsideModule(
+      'GetSelectedTextPanel', this.modules.get('panel'), '.alpheios-panel__tab__word-usage', this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_21__["default"], 'dblclick'
+    )
+    /*
+    let panelContent = this.modules.get('panel').instance._vi.$el
     if (panelContent) {
       let tabInstances = panelContent.querySelectorAll('.alpheios-panel__tab__word-usage')
       for (let i = 0; i < tabInstances.length; i++) {
         this.evc.registerListener(
-          `GetSelectedTextPanel${i}`, tabInstances[i], this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_21__["default"], 'dblclick'
+          `GetSelectedTextPanel${i}`, tabInstances[i], this.getSelectedText.bind(this), GenericEvt, 'dblclick'
         )
         this.evc.activateListener(`GetSelectedTextPanel${i}`)
       }
     }
+    */
   }
 
   open () {
@@ -37149,6 +37154,20 @@ class UIEventController {
     }
     this.listeners.set(name, events)
     return this
+  }
+
+  registerListenerInsideModule (baseName, module, nodeSelector, eventHandler, EventType, ...eventExtraParams) {
+    let moduleHtmlContent = module.instance._vi.$el
+
+    if (moduleHtmlContent && nodeSelector) {
+      let instances = moduleHtmlContent.querySelectorAll(nodeSelector)
+      for (let i = 0; i < instances.length; i++) {
+        this.registerListener(
+          `${baseName}${i}`, instances[i], eventHandler, EventType, ...eventExtraParams
+        )
+        this.activateListener(`${baseName}${i}`)
+      }
+    }
   }
 
   /**

@@ -35,6 +35,20 @@ export default class UIEventController {
     return this
   }
 
+  registerListenerInsideModule (baseName, module, nodeSelector, eventHandler, EventType, ...eventExtraParams) {
+    let moduleHtmlContent = module.instance._vi.$el
+
+    if (moduleHtmlContent && nodeSelector) {
+      let instances = moduleHtmlContent.querySelectorAll(nodeSelector)
+      for (let i = 0; i < instances.length; i++) {
+        this.registerListener(
+          `${baseName}${i}`, instances[i], eventHandler, EventType, ...eventExtraParams
+        )
+        this.activateListener(`${baseName}${i}`)
+      }
+    }
+  }
+
   /**
    * Unregisters a single listener or a group of listeners registered under a specific name.
    * @param {string} name - A name of the event listener or group of event listeners.
