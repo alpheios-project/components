@@ -975,10 +975,17 @@ export default class UIController {
     this.store.commit('app/setWordUsageExamplesReady')
 
     await Vue.nextTick()
-    this.evc.registerListener(
-      'GetSelectedTextPanel', '.alpheios_word_usage_list_item__text', this.getSelectedText.bind(this), GenericEvt, 'dblclick'
-    )
-    this.evc.activateListener('GetSelectedTextPanel')
+
+    let panelContent = this.modules.get('panel').instance._vi.$el.querySelector('.alpheios-panel__content')
+    if (panelContent) {
+      let tabInstances = panelContent.querySelectorAll('.alpheios-panel__tab__word-usage')
+      for (let i = 0; i < tabInstances.length; i++) {
+        this.evc.registerListener(
+          `GetSelectedTextPanel${i}`, tabInstances[i], this.getSelectedText.bind(this), GenericEvt, 'dblclick'
+        )
+        this.evc.activateListener(`GetSelectedTextPanel${i}`)
+      }
+    }
   }
 
   open () {
