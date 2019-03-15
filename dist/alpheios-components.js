@@ -20800,7 +20800,7 @@ var render = function() {
       attrs: {
         "data-notification-visible": _vm.$store.state.ui.notification.visible,
         "data-notification-auth-visible":
-          _vm.$store.state.auth.notification.visible,
+          _vm.$store.state.auth && _vm.$store.state.auth.notification.visible,
         id: "alpheios-popup-inner"
       }
     },
@@ -21285,7 +21285,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.auth.notification.text
+      _vm.$store.state.auth && _vm.$store.state.auth.notification.text
         ? _c(
             "div",
             {

@@ -1,6 +1,6 @@
 <template>
   <div :data-notification-visible="$store.state.ui.notification.visible"
-       :data-notification-auth-visible="$store.state.auth.notification.visible"
+       :data-notification-auth-visible="$store.state.auth && $store.state.auth.notification.visible"
        :style="mainstyles" class="alpheios-popup auk" id="alpheios-popup-inner" ref="popup"
        :class="rootClasses" v-on-clickaway="attachTrackingClick"
        v-show="this.$store.state.popup.visible">
@@ -121,7 +121,7 @@
     </div>
     <div class="alpheios-popup__notifications-auth uk-text-small alpheios-popup__notifications--important"
          :data-count="$store.state.auth.notification.count"
-         v-if="$store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
+         v-if="$store.state.auth && $store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
          <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-popup__notifications-close-btn">
             <close-icon></close-icon>
          </span>
