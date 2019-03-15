@@ -9129,57 +9129,6 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-lookup__form {
-  margin: 15px 10px 5px;
-  text-align: left;
-}
-.uk-input.alpheios-lookup__input {
-  width: 70%;
-  margin-bottom: 10px;
-  vertical-align: top;
-}
-.uk-input.alpheios-lookup__input:focus {
-    border-color: #5BC8DC;
-}
-.uk-button.alpheios-lookup__button {
-  vertical-align: top;
-  display: block;
-}
-.alpheios-lookup__settings {
-  text-align: left;
-}
-a.alpheios-lookup__settings-link {
-  display: block;
-  padding-top: 5px;
-}
-.alpheios-lookup__button_with_link {
-  width: 29%;
-}
-.alpheios-panel .alpheios-lookup__form {
-  width: 100%;
-  margin: 5px 0;
-}
-.alpheios-panel__options-item {
-  max-width: none;
-}
-.alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
-.alpheios-panel__options-item .uk-select[multiple],
-.alpheios-panel__options-item .uk-select[size],
-.alpheios-panel__options-item .uk-textarea {
-  max-width: 250px;
-}
-.alpheios-override-lang {
-  margin-bottom: 10px;
-}
-.alpheios-override-lang__label {
-  padding-bottom: 10px;
-}
-
-/************ UIKit vars ************************/
-/************ Multiselect vars ************************/
-/*********** Font styles ***********************/
-/********** Light Schema ***********************/
-/********** Dark Schema ***********************/
 .alpheios-popup-lexdataloading__progress-wrapper {
   margin: 0 1rem 2rem;
   box-sizing: border-box;
@@ -9330,7 +9279,7 @@ a.alpheios-lookup__settings-link {
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
-.alpheios-popup__notifications {
+.alpheios-popup__notifications, .alpheios-popup__notifications-auth {
   display: none;
   position: relative;
   padding: 10px 20px;
@@ -9357,6 +9306,9 @@ a.alpheios-lookup__settings-link {
   stroke: #5BC8DC;
 }
 [data-notification-visible="true"] .alpheios-popup__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
   display: block;
 }
 .alpheios-popup__notifications--lang-switcher {
@@ -10176,6 +10128,57 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-lookup__form {
+  margin: 15px 10px 5px;
+  text-align: left;
+}
+.uk-input.alpheios-lookup__input {
+  width: 70%;
+  margin-bottom: 10px;
+  vertical-align: top;
+}
+.uk-input.alpheios-lookup__input:focus {
+    border-color: #5BC8DC;
+}
+.uk-button.alpheios-lookup__button {
+  vertical-align: top;
+  display: block;
+}
+.alpheios-lookup__settings {
+  text-align: left;
+}
+a.alpheios-lookup__settings-link {
+  display: block;
+  padding-top: 5px;
+}
+.alpheios-lookup__button_with_link {
+  width: 29%;
+}
+.alpheios-panel .alpheios-lookup__form {
+  width: 100%;
+  margin: 5px 0;
+}
+.alpheios-panel__options-item {
+  max-width: none;
+}
+.alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+.alpheios-panel__options-item .uk-select[multiple],
+.alpheios-panel__options-item .uk-select[size],
+.alpheios-panel__options-item .uk-textarea {
+  max-width: 250px;
+}
+.alpheios-override-lang {
+  margin-bottom: 10px;
+}
+.alpheios-override-lang__label {
+  padding-bottom: 10px;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 #alpheios-reskin-panel.alpheios-skin_panel {
   display: inline-block;
 }
@@ -10223,11 +10226,6 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-user-auth__message-box {
-  margin-top: 20px;
-  padding: 10px;
-  background: #BCE5F0;
-}
 .alpheios-user-auth__user-info-box {
   margin-top: 20px;
   display: flex;
@@ -10248,6 +10246,35 @@ ul.alpheios-skin_properties {
   flex: 1 1;
   color: #3E8D9C !important;
   text-align: right;
+}
+.alpheios-user-auth__notifications {
+  display: none;
+  position: relative;
+  padding: 10px 20px;
+  background: #73CDDE;
+  flex: 0 0 60px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.alpheios-user-auth__notifications-close-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  fill: #D1D1D0;
+  stroke: #D1D1D0;
+}
+.alpheios-user-auth__notifications-close-btn:hover,
+.alpheios-user-auth__notifications-close-btn:focus {
+  fill: #5BC8DC;
+  stroke: #5BC8DC;
+}
+[data-notification-visible="true"] .alpheios-user-auth__notifications {
+  display: block;
 }
 
 /************ UIKit vars ************************/

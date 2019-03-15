@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <button @click="logIn" class="uk-button uk-button-primary" v-show="! this.$store.state.auth.isAuthenticated">
-      {{ l10n.getMsg(`AUTH_LOG_IN_BTN_LABEL`) }}
-    </button>
-    <button @click="logOut" class="uk-button uk-button-primary" v-show="this.$store.state.auth.isAuthenticated">
-      {{ l10n.getMsg(`AUTH_LOG_OUT_BTN_LABEL`) }}
-    </button>
-    <div class="alpheios-user-auth__message-box" v-show="this.$store.state.auth.message">
-      {{ l10n.getMsg(auth.getMsg()) }}
+  <div :data-notification-visible="$store.state.auth.notification.visible">
+    <login/>
+    <div class="alpheios-user-auth__notifications uk-text-small"
+      v-if="$store.state.auth.notification.text">
+      <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-popup__notifications-close-btn">
+        <close-icon></close-icon>
+      </span>
+      <span v-html="l10n.getMsg($store.state.auth.notification.text)"></span>
     </div>
     <div class="alpheios-user-auth__user-info-box" v-if="this.$store.state.auth.isAuthenticated">
       <div class="alpheios-user-auth__user-info-item-box">
@@ -22,38 +21,22 @@
   </div>
 </template>
 <script>
-
+import Login from './login.vue'
+import CloseIcon from '../../images/inline-icons/close.svg'
 export default {
   name: 'UserAuth',
   inject: {
     l10n: 'l10n',
     auth: { from: 'auth', default: null } // This module is options
   },
-  // inject: ['auth', 'l10n'], // Specify what API modules are we going to use
-  data: function () {
-    return {
-    }
-  },
-
-  methods: {
-    logIn: function () {
-      this.auth.authenticate()
-    },
-
-    logOut: function () {
-      this.auth.logout()
-    }
+  components: {
+    login: Login,
+    closeIcon: CloseIcon
   }
 }
 </script>
 <style lang="scss">
   @import "../../styles/alpheios";
-
-  .alpheios-user-auth__message-box {
-    margin-top: 20px;
-    padding: 10px;
-    background: $alpheios-logo-color;
-  }
 
   .alpheios-user-auth__user-info-box {
     margin-top: 20px;
@@ -79,4 +62,38 @@ export default {
     color: $alpheios-link-color !important;
     text-align: right;
   }
+
+  .alpheios-user-auth__notifications {
+    display: none;
+    position: relative;
+    padding: 10px 20px;
+    background: $alpheios-icon-color;
+    flex: 0 0 60px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .alpheios-user-auth__notifications-close-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    fill: $alpheios-link-color-dark-bg;
+    stroke: $alpheios-link-color-dark-bg;
+  }
+
+  .alpheios-user-auth__notifications-close-btn:hover,
+  .alpheios-user-auth__notifications-close-btn:focus {
+    fill: $alpheios-link-hover-color;
+    stroke: $alpheios-link-hover-color;
+  }
+
+  [data-notification-visible="true"] .alpheios-user-auth__notifications {
+    display: block;
+  }
+
 </style>

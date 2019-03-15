@@ -23,23 +23,35 @@ AuthModule.store = (moduleInstance) => {
       userId: '',
       userNickName: '',
       isAuthenticated: false,
-      message: ''
+      notification: {
+        visible: false,
+        showLogin: false,
+        count: 0,
+        text: null
+      }
     },
     mutations: {
-      setMessage: (state, message) => {
-        state.message = message
-      },
       setIsAuthenticated: (state, profile) => {
         state.isAuthenticated = true
         state.userId = profile.sub
         state.userNickName = profile.nickname
-        state.message = 'AUTH_LOG_IN_SUCCESS_MSG'
       },
-      setIsNotAuthenticated: (state,message) => {
+      setIsNotAuthenticated: (state) => {
         state.isAuthenticated = false
         state.userId = ''
         state.userNickName = ''
-        state.message =  message
+      },
+      setNotification (state, data) {
+        state.notification.visible = true
+        state.notification.showLogin = data.showLogin || false
+        state.notification.count = data.count || 0
+        state.notification.text = data.text || data
+      },
+      resetNotification (state) {
+        state.notification.visible = false
+        state.notification.showLogin = false
+        state.notification.text = null
+        state.notification.count = 0
       }
     }
   }
@@ -48,30 +60,25 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance,store) => {
   return {
     authenticate: () => {
-      store.commit('auth/setMessage', 'AUTH_LOG_IN_PROGRESS_MSG')
+      store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
         moduleInstance._auth.getProfileData().then((data) => {
-          store.commit('auth/setIsAuthenticated', data)
+          store.commit('auth/setIsAuthenticated',data)
+          store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
         }).catch((error) => {
-          // TODO
+          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
         })
       }).catch((error) => {
-        return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_IN_AUTH_FAILURE_MSG')
+          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
     logout: () => {
       moduleInstance._auth.logout().then(() => {
-        return store.commit('auth/setIsNotAuthenticated','AUTH_LOG_OUT_SUCCESS_MSG')
+        store.commit('auth/setIsNotAuthenticated')
+        return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
         // TODO Not really sure what to do here
       })
-    },
-    getMsg: () => {
-      let message = store.state.auth.message
-      setTimeout(() => {
-        store.commit('auth/setMessage','')
-      },10000)
-      return message
     },
     getAccessToken: moduleInstance._auth.getUserData.bind(moduleInstance._auth)
   }

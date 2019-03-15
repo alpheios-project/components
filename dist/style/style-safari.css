@@ -9129,57 +9129,6 @@ fieldset[disabled] .multiselect{pointer-events:none !important}.multiselect__spi
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-lookup__form {
-  margin: 15px 10px 5px !important;
-  text-align: left !important;
-}
-.uk-input.alpheios-lookup__input {
-  width: 70% !important;
-  margin-bottom: 10px !important;
-  vertical-align: top !important;
-}
-.uk-input.alpheios-lookup__input:focus {
-    border-color: #5BC8DC !important;
-}
-.uk-button.alpheios-lookup__button {
-  vertical-align: top !important;
-  display: block;
-}
-.alpheios-lookup__settings {
-  text-align: left !important;
-}
-a.alpheios-lookup__settings-link {
-  display: block;
-  padding-top: 5px !important;
-}
-.alpheios-lookup__button_with_link {
-  width: 29% !important;
-}
-.alpheios-panel .alpheios-lookup__form {
-  width: 100% !important;
-  margin: 5px 0 !important;
-}
-.alpheios-panel__options-item {
-  max-width: none !important;
-}
-.alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
-.alpheios-panel__options-item .uk-select[multiple],
-.alpheios-panel__options-item .uk-select[size],
-.alpheios-panel__options-item .uk-textarea {
-  max-width: 250px !important;
-}
-.alpheios-override-lang {
-  margin-bottom: 10px !important;
-}
-.alpheios-override-lang__label {
-  padding-bottom: 10px !important;
-}
-
-/************ UIKit vars ************************/
-/************ Multiselect vars ************************/
-/*********** Font styles ***********************/
-/********** Light Schema ***********************/
-/********** Dark Schema ***********************/
 .alpheios-popup-lexdataloading__progress-wrapper {
   margin: 0 1rem 2rem !important;
   box-sizing: border-box !important;
@@ -9330,7 +9279,7 @@ a.alpheios-lookup__settings-link {
   fill: #5BC8DC !important;
   stroke: #5BC8DC !important;
 }
-.alpheios-popup__notifications {
+.alpheios-popup__notifications, .alpheios-popup__notifications-auth {
   display: none;
   position: relative !important;
   padding: 10px 20px !important;
@@ -9357,6 +9306,9 @@ a.alpheios-lookup__settings-link {
   stroke: #5BC8DC !important;
 }
 [data-notification-visible="true"] .alpheios-popup__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
   display: block;
 }
 .alpheios-popup__notifications--lang-switcher {
@@ -10176,6 +10128,57 @@ div.alpheios-ib div.alpheios-ib__title .alpheios-ib__title-collapse {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-lookup__form {
+  margin: 15px 10px 5px !important;
+  text-align: left !important;
+}
+.uk-input.alpheios-lookup__input {
+  width: 70% !important;
+  margin-bottom: 10px !important;
+  vertical-align: top !important;
+}
+.uk-input.alpheios-lookup__input:focus {
+    border-color: #5BC8DC !important;
+}
+.uk-button.alpheios-lookup__button {
+  vertical-align: top !important;
+  display: block;
+}
+.alpheios-lookup__settings {
+  text-align: left !important;
+}
+a.alpheios-lookup__settings-link {
+  display: block;
+  padding-top: 5px !important;
+}
+.alpheios-lookup__button_with_link {
+  width: 29% !important;
+}
+.alpheios-panel .alpheios-lookup__form {
+  width: 100% !important;
+  margin: 5px 0 !important;
+}
+.alpheios-panel__options-item {
+  max-width: none !important;
+}
+.alpheios-panel__options-item .uk-select:not([multiple]):not([size]),
+.alpheios-panel__options-item .uk-select[multiple],
+.alpheios-panel__options-item .uk-select[size],
+.alpheios-panel__options-item .uk-textarea {
+  max-width: 250px !important;
+}
+.alpheios-override-lang {
+  margin-bottom: 10px !important;
+}
+.alpheios-override-lang__label {
+  padding-bottom: 10px !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 #alpheios-reskin-panel.alpheios-skin_panel {
   display: inline-block;
 }
@@ -10223,11 +10226,6 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-user-auth__message-box {
-  margin-top: 20px !important;
-  padding: 10px !important;
-  background: #BCE5F0 !important;
-}
 .alpheios-user-auth__user-info-box {
   margin-top: 20px !important;
   display: flex;
@@ -10248,6 +10246,35 @@ ul.alpheios-skin_properties {
   flex: 1 1 !important;
   color: #3E8D9C !important;
   text-align: right !important;
+}
+.alpheios-user-auth__notifications {
+  display: none;
+  position: relative !important;
+  padding: 10px 20px !important;
+  background: #73CDDE !important;
+  flex: 0 0 60px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.alpheios-user-auth__notifications-close-btn {
+  position: absolute !important;
+  right: 5px !important;
+  top: 5px !important;
+  display: block;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  fill: #D1D1D0 !important;
+  stroke: #D1D1D0 !important;
+}
+.alpheios-user-auth__notifications-close-btn:hover,
+.alpheios-user-auth__notifications-close-btn:focus {
+  fill: #5BC8DC !important;
+  stroke: #5BC8DC !important;
+}
+[data-notification-visible="true"] .alpheios-user-auth__notifications {
+  display: block;
 }
 
 /************ UIKit vars ************************/
