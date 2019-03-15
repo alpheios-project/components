@@ -13,9 +13,9 @@
             <source-icon class="alpheios_word_usage_list_item__source-link-svg"></source-icon>
           </span>
         </div>
-        <div class="alpheios_word_usage_list_item__text_prefix">{{ prefixHtml }}</div>
+        <div class="alpheios_word_usage_list_item__text_prefix">{{ prefix }}</div>
         <div class="alpheios_word_usage_list_item__text_targetword" v-html="wordUsageItem.normalizedText"></div>
-        <div class="alpheios_word_usage_list_item__text_suffix">{{ suffixHtml }}</div>
+        <div class="alpheios_word_usage_list_item__text_suffix">{{ suffix }}</div>
       </div>
       <div class="alpheios_word_usage_list_item__source-data" v-show="showDataSource">
         <a
@@ -28,11 +28,9 @@
 </template>
 <script>
   import SourceIcon from '@/images/inline-icons/source.svg'
-  import GenericEvt from '@/lib/custom-pointer-events/generic-evt'
 
   export default {
     name: 'WordUsageExampleItem',
-    inject: ['app'],
     components: {
       sourceIcon: SourceIcon
     },
@@ -48,10 +46,10 @@
       }
     },
     computed: {
-      prefixHtml: function() {
+      prefix: function() {
         return this.wordUsageItem.prefix
       },
-      suffixHtml: function() {
+      suffix: function() {
         return this.wordUsageItem.suffix
       }
     },

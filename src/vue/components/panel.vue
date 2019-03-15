@@ -48,7 +48,6 @@
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
           v-if="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
-          id = "alpheios-panel__tab__definitions"
           >
         <div class="alpheios-lookup__panel">
           <lookup

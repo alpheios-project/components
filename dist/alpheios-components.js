@@ -12373,7 +12373,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /*
   This is a desktop version of a panel
@@ -13634,7 +13633,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/source.svg */ "./images/inline-icons/source.svg");
 /* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_custom_pointer_events_generic_evt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/custom-pointer-events/generic-evt */ "./lib/custom-pointer-events/generic-evt.js");
 //
 //
 //
@@ -13663,13 +13661,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExampleItem',
-  inject: ['app'],
   components: {
     sourceIcon: _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -13685,10 +13681,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    prefixHtml: function() {
+    prefix: function() {
       return this.wordUsageItem.prefix
     },
-    suffixHtml: function() {
+    suffix: function() {
       return this.wordUsageItem.suffix
     }
   },
@@ -19936,10 +19932,7 @@ var render = function() {
               {
                 staticClass:
                   "alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions",
-                attrs: {
-                  "data-alpheios-ignore": "all",
-                  id: "alpheios-panel__tab__definitions"
-                }
+                attrs: { "data-alpheios-ignore": "all" }
               },
               [
                 _c(
@@ -22136,7 +22129,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios_word_usage_list_item__text_prefix" }, [
-        _vm._v(_vm._s(_vm.prefixHtml))
+        _vm._v(_vm._s(_vm.prefix))
       ]),
       _vm._v(" "),
       _c("div", {
@@ -22145,7 +22138,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios_word_usage_list_item__text_suffix" }, [
-        _vm._v(_vm._s(_vm.suffixHtml))
+        _vm._v(_vm._s(_vm.suffix))
       ])
     ]),
     _vm._v(" "),
@@ -36146,8 +36139,7 @@ class UIController {
           return true
         }
         return false
-      },
-      getSelectedText: this.getSelectedText.bind(this)
+      }
     }
 
     this.store.registerModule('app', {
@@ -36438,10 +36430,6 @@ class UIController {
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"]('testUserID', alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
       this.wordlistC.initLists(this.userDataManager)
     }
-
-    // console.info('****uiController', this)
-    // console.info('****uiController panel', document.getElementById('alpheios-panel__tab__definitions'))
-    // console.info('****uiController panel', this.modules.get('panel').instance._vi.$el.childNodes)
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
@@ -37523,7 +37511,6 @@ class MouseDblClick extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["defaul
    * @param {Function} evtHandler
    */
   static listen (selector, evtHandler) {
-    console.info('****************MouseDblClick listen', selector, evtHandler)
     let elements = document.querySelectorAll(selector)
     for (const element of elements) {
       let listener = new this(element, evtHandler)

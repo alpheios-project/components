@@ -380,8 +380,7 @@ export default class UIController {
           return true
         }
         return false
-      },
-      getSelectedText: this.getSelectedText.bind(this)
+      }
     }
 
     this.store.registerModule('app', {
@@ -672,10 +671,6 @@ export default class UIController {
       this.userDataManager = new UserDataManager('testUserID', WordlistController.evt)
       this.wordlistC.initLists(this.userDataManager)
     }
-
-    // console.info('****uiController', this)
-    // console.info('****uiController panel', document.getElementById('alpheios-panel__tab__definitions'))
-    // console.info('****uiController panel', this.modules.get('panel').instance._vi.$el.childNodes)
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
