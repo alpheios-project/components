@@ -46,7 +46,9 @@
 
       <div
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
-          v-if="$store.getters['ui/isActiveTab']('definitions')">
+          v-if="$store.getters['ui/isActiveTab']('definitions')"
+          data-alpheios-ignore="all"
+          >
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-defs`"
@@ -66,36 +68,44 @@
         </div>
       </div>
       <div :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections"
-           v-if="$store.state.app.hasInflData" v-show="$store.getters['ui/isActiveTab']('inflections')">
+           v-if="$store.state.app.hasInflData" v-show="$store.getters['ui/isActiveTab']('inflections')"
+           data-alpheios-ignore="all">
         <inflections @contentwidth="setContentWidth" class="alpheios-panel-inflections"></inflections>
       </div>
       <div :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser"
-           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser')">
+           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser')"
+           data-alpheios-ignore="all">
         <inflection-browser @contentwidth="setContentWidth">
         </inflection-browser>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
             alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw"
+            data-alpheios-ignore="all"
            v-show="$store.getters['ui/isActiveTab']('grammar')">
         <grammar></grammar>
       </div>
       <div
           class="alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding alpheios-panel__tab-panel--fw"
-          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')">
+          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')"
+          data-alpheios-ignore="all">
         <!-- TODO: Instead of this we need to create a universal mechanism for handling panel resizing for every tab's content change -->
         <treebank @treebankcontentwidth="setTreebankContentWidth"></treebank>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('status')">
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('status')"
+           data-alpheios-ignore="all">
         <!-- Messages to be displayed in a status panel -->
         <div v-for="message in $store.state.ui.messages">
           <div class="alpheios-panel__message">{{message}}</div>
         </div>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('user')">
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('user')"
+           data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExamplesReady" v-show="$store.getters['ui/isActiveTab']('wordUsage')">
+           v-if="$store.state.app.wordUsageExamplesReady" 
+           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
+        >
         <word-usage-examples-block
             :wordUsageList="app.wordUsageExamples.wordUsageExamples"
             :targetWord="app.wordUsageExamples.targetWord"
@@ -103,7 +113,9 @@
             :provider="app.wordUsageExamples.provider">
         </word-usage-examples-block>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')">
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')"
+           data-alpheios-ignore="all"
+      >
         <reskin-font-color></reskin-font-color>
         <setting :classes="['alpheios-panel__options-item']" :data="settings.contentOptions.items.preferredLanguage"
                  @change="contentOptionChanged"
@@ -162,7 +174,8 @@
                  v-if="settings.contentOptions.items"></setting>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
-           v-show="$store.getters['ui/isActiveTab']('info')">
+           v-show="$store.getters['ui/isActiveTab']('info')"
+           data-alpheios-ignore="all">
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-info`"
@@ -171,7 +184,9 @@
         </div>
         <info></info>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist" v-show="$store.getters['ui/isActiveTab']('wordlist')">
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist" v-show="$store.getters['ui/isActiveTab']('wordlist')"
+           data-alpheios-ignore="all"
+      >
         <word-list-panel :updated="$store.state.app.wordListUpdateTime" :wordlistC="app.wordlistC"></word-list-panel>
       </div>
     </div>
