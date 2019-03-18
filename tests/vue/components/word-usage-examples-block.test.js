@@ -62,7 +62,7 @@ describe('word-usage-examples-block.test.js', () => {
     jest.clearAllMocks()
   })
 
-  it('1 WordUsageExamplesBlock - checks if component mounts properly', async () => {
+  it.skip('1 WordUsageExamplesBlock - checks if component mounts properly', async () => {
     let cmp = mount(WordUsageExamplesBlock, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
@@ -74,7 +74,7 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 WordUsageExamplesBlock - doesn\'t render wordUsageExampleItem if wordUsageList is empty', async () => {
+  it.skip('2 WordUsageExamplesBlock - doesn\'t render wordUsageExampleItem if wordUsageList is empty', async () => {
     let cmp = mount(WordUsageExamplesBlock, {
       propsData: {
         wordUsageList: [],
@@ -87,7 +87,7 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.findAll(wordUsageExampleItem).length).toEqual(0)
   })
 
-  it('3 WordUsageExamplesBlock - renders wordUsageExampleItem for each item in the list', async () => {
+  it.skip('3 WordUsageExamplesBlock - renders wordUsageExampleItem for each item in the list', async () => {
     let cmp = mount(WordUsageExamplesBlock, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
@@ -100,7 +100,7 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.findAll(wordUsageExampleItem).length).toEqual(testWordUsageList.wordUsageExamples.length)
   })
 
-  it('4 WordUsageExamplesBlock - renders provider data if exists', async () => {
+  it.skip('4 WordUsageExamplesBlock - renders provider data if exists', async () => {
     const resourceProviderName = 'Resource Provider'
     let cmp = mount(WordUsageExamplesBlock, {
       propsData: {
@@ -115,7 +115,7 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.find('.alpheios-word_usage_list__provider').text()).toEqual(resourceProviderName)
   })
 
-  it('4 WordUsageExamplesBlock - sorts lists', async () => {
+  it.skip('4 WordUsageExamplesBlock - sorts lists', async () => {
     let mockExA = { fullCit: () => {return 'abc.def.123'} }
     let mockExB = { fullCit: () => {return 'abc.def.123'} }
     let mockExC = { fullCit: () => {return 'abc.ghi.123'} }
