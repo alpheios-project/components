@@ -1,7 +1,7 @@
 <template>
   <div :class="rootClasses"
        :data-notification-visible="$store.state.ui.notification.visible && $store.state.ui.notification.important"
-       :data-notification-auth-visible="$store.state.auth && $store.state.auth.notification.visible"
+       :data-notification-auth-visible="$store.state.auth.notification.visible"
        :style="mainstyles"
        class="alpheios-panel alpheios-panel--compact auk"
        data-component="alpheios-panel"
@@ -94,7 +94,7 @@
           <div class="alpheios-panel__message">{{message}}</div>
         </div>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('user')">
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-if="auth.isEnabled()" v-show="$store.getters['ui/isActiveTab']('user')">
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
@@ -189,7 +189,7 @@
     </div>
     <div class="alpheios-panel__notifications-auth uk-text-small alpheios-panel__notifications--important"
          :data-count="$store.state.auth.notification.count"
-         v-if="$store.state.auth && $store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
+         v-if="$store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
          <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-panel__notifications-close-btn">
             <close-icon></close-icon>
          </span>
@@ -241,9 +241,9 @@ export default {
     language: 'language',
     l10n: 'l10n',
     settings: 'settings',
-    auth: { from: 'auth', default: null } // This module is options
+    auth: 'auth',
   },
-  storeModules: ['app', 'ui', 'panel'], // Store modules that are required by this component
+  storeModules: ['app', 'ui', 'panel','auth'], // Store modules that are required by this component
   mixins: [DependencyCheck],
   components: {
     menuIcon: MenuIcon,

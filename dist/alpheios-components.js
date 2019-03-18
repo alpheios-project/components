@@ -11970,7 +11970,7 @@ __webpack_require__.r(__webpack_exports__);
     settings: 'settings',
     auth: { from: 'auth', default: null } // This module is options
   },
-  storeModules: ['app', 'ui', 'panel'], // Store modules that are required by this component
+  storeModules: ['app', 'ui', 'panel','auth'], // Store modules that are required by this component
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__["default"]],
   components: {
     menuIcon: _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
@@ -12734,7 +12734,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Popup',
   inject: ['app', 'ui', 'l10n', 'settings'],
-  storeModules: ['app', 'ui', 'popup'],
+  storeModules: ['app', 'ui', 'popup', 'auth'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__["default"]],
   components: {
     morph: _morph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -19173,7 +19173,7 @@ var render = function() {
           _vm.$store.state.ui.notification.visible &&
           _vm.$store.state.ui.notification.important,
         "data-notification-auth-visible":
-          _vm.$store.state.auth && _vm.$store.state.auth.notification.visible,
+          _vm.$store.state.auth.notification.visible,
         "data-component": "alpheios-panel",
         "data-resizable": "true",
         id: "alpheios-panel-inner"
@@ -19464,23 +19464,25 @@ var render = function() {
             0
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
+          _vm.auth.isEnabled()
+            ? _c(
+                "div",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.$store.getters["ui/isActiveTab"]("user"),
-                  expression: "$store.getters['ui/isActiveTab']('user')"
-                }
-              ],
-              staticClass:
-                "alpheios-panel__tab-panel alpheios-panel__tab__status"
-            },
-            [_c("user-auth")],
-            1
-          ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.$store.getters["ui/isActiveTab"]("user"),
+                      expression: "$store.getters['ui/isActiveTab']('user')"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-panel__tab-panel alpheios-panel__tab__status"
+                },
+                [_c("user-auth")],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm.$store.state.app.wordUsageExamplesReady
             ? _c(
@@ -19817,7 +19819,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.auth && _vm.$store.state.auth.notification.text
+      _vm.$store.state.auth.notification.text
         ? _c(
             "div",
             {
@@ -20240,22 +20242,25 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
+        _vm.auth.isEnabled()
+          ? _c(
+              "div",
               {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.$store.getters["ui/isActiveTab"]("user"),
-                expression: "$store.getters['ui/isActiveTab']('user')"
-              }
-            ],
-            staticClass: "alpheios-panel__tab-panel alpheios-panel__tab__status"
-          },
-          [_c("user-auth")],
-          1
-        ),
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.getters["ui/isActiveTab"]("user"),
+                    expression: "$store.getters['ui/isActiveTab']('user')"
+                  }
+                ],
+                staticClass:
+                  "alpheios-panel__tab-panel alpheios-panel__tab__status"
+              },
+              [_c("user-auth")],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.$store.state.app.wordUsageExamplesReady
           ? _c(
@@ -20985,7 +20990,7 @@ var render = function() {
       attrs: {
         "data-notification-visible": _vm.$store.state.ui.notification.visible,
         "data-notification-auth-visible":
-          _vm.$store.state.auth && _vm.$store.state.auth.notification.visible,
+          _vm.$store.state.auth.notification.visible,
         id: "alpheios-popup-inner"
       }
     },
@@ -21470,7 +21475,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.auth && _vm.$store.state.auth.notification.text
+      _vm.$store.state.auth.notification.text
         ? _c(
             "div",
             {
@@ -35927,19 +35932,10 @@ class UIController {
      */
     this.platform = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_17__["default"].getPlatform()
 
-    this.authPlugin = store => {
-      store.subscribe((mutation,state) => {
-        if (mutation.type == 'auth/setIsAuthenticated' || mutation.type == 'auth/setIsNotAuthenticated') {
-            this.userDataManager = this.initUserDataManager()
-        }
-      })
-    }
-
     // Vuex store. A public API for data and UI module interactions.
     this.store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
       // TODO: Remove this for production as it slows things down
       strict: true,
-      plugins: [this.authPlugin]
     })
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
@@ -36519,9 +36515,9 @@ class UIController {
     return this
   }
 
-  async initUserDataManager() {
+  async initUserDataManager(isAuthenticated) {
     let wordLists
-    if (this.store.state.auth.isAuthenticated) {
+    if (isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](
         { accessToken: accessToken,
@@ -36567,6 +36563,9 @@ class UIController {
       this.changeTab(this.state.tab)
     }
 
+    this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
+      this.userDataManager = this.initUserDataManager(newValue)
+    })
     return this
   }
 
@@ -36585,6 +36584,7 @@ class UIController {
     if (this.api.ui.hasModule('panel')) { this.api.ui.closePanel(false) } // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
+    this.authUnwatch()
     this.state.deactivate()
 
     return this
@@ -37049,7 +37049,7 @@ class UIController {
 
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
-    if (! this.store.state.auth.isAuthenticated) {
+    if (this.api.auth.isEnabled() && ! this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
@@ -44596,17 +44596,18 @@ AuthModule.store = (moduleInstance) => {
 
 AuthModule.api = (moduleInstance,store) => {
   return {
+    isEnabled: () => {
+        return moduleInstance._auth ? true : false
+    },
     authenticate: () => {
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
-        moduleInstance._auth.getProfileData().then((data) => {
-          store.commit('auth/setIsAuthenticated',data)
-          store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
-        }).catch((error) => {
-          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
-        })
+        return moduleInstance._auth.getProfileData()
+      }).then((data) => {
+        store.commit('auth/setIsAuthenticated',data)
+        store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
-          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
+        return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
     logout: () => {
@@ -44614,10 +44615,16 @@ AuthModule.api = (moduleInstance,store) => {
         store.commit('auth/setIsNotAuthenticated')
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
-        // TODO Not really sure what to do here
+        console.error("Logout failed",error)
       })
     },
-    getAccessToken: moduleInstance._auth.getUserData.bind(moduleInstance._auth)
+    getAccessToken: () => {
+      if (moduleInstance._auth) {
+        return moduleInstance._auth.getUserData()
+      } else {
+        console.error("Authentication is not enabled")
+      }
+    }
   }
 }
 

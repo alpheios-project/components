@@ -59,17 +59,18 @@ AuthModule.store = (moduleInstance) => {
 
 AuthModule.api = (moduleInstance,store) => {
   return {
+    isEnabled: () => {
+        return moduleInstance._auth ? true : false
+    },
     authenticate: () => {
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
-        moduleInstance._auth.getProfileData().then((data) => {
-          store.commit('auth/setIsAuthenticated',data)
-          store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
-        }).catch((error) => {
-          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
-        })
+        return moduleInstance._auth.getProfileData()
+      }).then((data) => {
+        store.commit('auth/setIsAuthenticated',data)
+        store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
-          return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
+        return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
     logout: () => {
@@ -77,10 +78,16 @@ AuthModule.api = (moduleInstance,store) => {
         store.commit('auth/setIsNotAuthenticated')
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
-        // TODO Not really sure what to do here
+        console.error("Logout failed",error)
       })
     },
-    getAccessToken: moduleInstance._auth.getUserData.bind(moduleInstance._auth)
+    getAccessToken: () => {
+      if (moduleInstance._auth) {
+        return moduleInstance._auth.getUserData()
+      } else {
+        console.error("Authentication is not enabled")
+      }
+    }
   }
 }
 

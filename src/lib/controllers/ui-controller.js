@@ -88,19 +88,10 @@ export default class UIController {
      */
     this.platform = HTMLPage.getPlatform()
 
-    this.authPlugin = store => {
-      store.subscribe((mutation,state) => {
-        if (mutation.type == 'auth/setIsAuthenticated' || mutation.type == 'auth/setIsNotAuthenticated') {
-            this.userDataManager = this.initUserDataManager()
-        }
-      })
-    }
-
     // Vuex store. A public API for data and UI module interactions.
     this.store = new Vuex.Store({
       // TODO: Remove this for production as it slows things down
       strict: true,
-      plugins: [this.authPlugin]
     })
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
@@ -680,9 +671,9 @@ export default class UIController {
     return this
   }
 
-  async initUserDataManager() {
+  async initUserDataManager(isAuthenticated) {
     let wordLists
-    if (this.store.state.auth.isAuthenticated) {
+    if (isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
       this.userDataManager = new UserDataManager(
         { accessToken: accessToken,
@@ -728,6 +719,9 @@ export default class UIController {
       this.changeTab(this.state.tab)
     }
 
+    this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
+      this.userDataManager = this.initUserDataManager(newValue)
+    })
     return this
   }
 
@@ -746,6 +740,7 @@ export default class UIController {
     if (this.api.ui.hasModule('panel')) { this.api.ui.closePanel(false) } // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
+    this.authUnwatch()
     this.state.deactivate()
 
     return this
@@ -1210,7 +1205,7 @@ export default class UIController {
 
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
-    if (! this.store.state.auth.isAuthenticated) {
+    if (this.api.auth.isEnabled() && ! this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
