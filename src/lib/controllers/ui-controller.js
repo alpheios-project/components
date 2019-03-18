@@ -354,6 +354,7 @@ export default class UIController {
       inflectionsViewSet: null,
       wordlistC: this.wordlistC, // A word list controller
       wordUsageExamples: null,
+      wordUsageAuthors: [],
 
       isDevMode: () => {
         return this.options.mode === 'development'
@@ -380,7 +381,8 @@ export default class UIController {
           return true
         }
         return false
-      }
+      },
+      getWordUsageData: this.getWordUsageData.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -417,6 +419,7 @@ export default class UIController {
           page: {}
         },
         wordUsageExamplesReady: false, // Whether word usage examples data is available
+        wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
         providers: [] // A list of resource providers
@@ -539,8 +542,12 @@ export default class UIController {
           state.treebankData.word = {}
         },
 
-        setWordUsageExamplesReady (state) {
-          state.wordUsageExamplesReady = true
+        setWordUsageExamplesReady (state, value = true) {
+          state.wordUsageExamplesReady = value
+        },
+
+        setWordUsageAuthorsReady (state, value = true) {
+          state.wordUsageAuthorsReady = value
         },
 
         setWordLists (state, wordLists) {
@@ -879,6 +886,7 @@ export default class UIController {
     this.updateWordAnnotationData()
     this.store.commit('app/lexicalRequestStarted', targetWord)
     this.open()
+    this.getAuthorsForWordUsage()
     return this
   }
 
@@ -1082,7 +1090,7 @@ export default class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -1092,6 +1100,25 @@ export default class UIController {
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID)
         lexQuery.getData()
       }
+    }
+  }
+
+  async getWordUsageData (homonym, params) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+    let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
+      ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      : null
+
+    await LexicalQuery.getWordUsageData(homonym, wordUsageExamples, params)
+  }
+
+  async getAuthorsForWordUsage () {
+    if (!this.store.state.app.wordUsageAuthorsReady) {
+      let authorsList = await LexicalQuery.getAuthorsForWordUsage()
+
+      this.store.commit('app/setWordUsageAuthorsReady')
+      this.api.app.wordUsageAuthors = authorsList
     }
   }
 
@@ -1105,9 +1132,11 @@ export default class UIController {
       !this.contentOptions.items.locale.currentValue.match(/^en-/)
   }
 
-  enableWordUsageExamples (textSelector) {
+  enableWordUsageExamples (textSelector, requestType) {
+    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === Constants.LANG_LATIN &&
-      this.contentOptions.items.enableWordUsageExamples.currentValue
+      this.contentOptions.items.enableWordUsageExamples.currentValue &&
+      checkType
   }
 
   handleEscapeKey (event, nativeEvent) {

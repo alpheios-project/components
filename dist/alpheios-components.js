@@ -7859,6 +7859,17 @@ var singleton = jumper();
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/process/browser.js":
 /*!******************************************!*\
   !*** ../node_modules/process/browser.js ***!
@@ -11305,6 +11316,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Vue components
 
@@ -12166,6 +12178,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13704,6 +13728,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_example_item_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-example-item.vue */ "./vue/components/word-usage-example-item.vue");
+/* harmony import */ var _vue_components_word_usage_header_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-header-block.vue */ "./vue/components/word-usage-header-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13720,38 +13753,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-// TODO: Update to retrieve usage examples data directly from the Vue store, not from a parent component
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExamplesBlock',
+  inject: ['app'],
   components: {
-    wordUsageExampleItem: _vue_components_word_usage_example_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  props: {
-    wordUsageList: {
-      type: Array,
-      required: true
-    },
-    targetWord: {
-      type: String,
-      required: true
-    },
-    language: {
-      type: String,
-      required: true
-    },
-    provider: {
-      type: Object,
-      required: false
-    }
+    wordUsageExampleItem: _vue_components_word_usage_example_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    wordUsageHeaderBlock: _vue_components_word_usage_header_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: {
+    targetWord () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
+    },
+    language () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
+    },
+    showWordUsageExampleItems () {
+      return this.$store.state.app.wordUsageExamplesReady
+    },
+    wordUsageExamples () {
+      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.wordUsageExamples : []
+    },
+    provider () {
+      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
+    },
+    providerRights () {
+      return (this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+        ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
+        : []
+    },
     wordUsageListSorted() {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.wordUsageList) {
-        return this.wordUsageList.sort((a,b) => {
+      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
+        return this.wordUsageExamples.sort((a,b) => {
           let aU = a.fullCit().toUpperCase()
           let bU = b.fullCit().toUpperCase()
           if (aU < bU) {
@@ -13764,16 +13801,116 @@ __webpack_require__.r(__webpack_exports__);
         })
       }
 
-    },
+    }
 
-    showWordUsageExampleItems () {
-      return this.wordUsageList && this.wordUsageList.length > 0
-    },
+  }
+});
 
-    providerRights () {
-      return (this.provider && this.provider.rights)
-        ? Array.from(this.provider.rights.entries()).map(([key, value]) => { return { key, value } })
-        : []
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-header-block.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-header-block.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WordUsageHeaderBlock',
+  inject: ['app'],
+  data () {
+    return {
+      selectedAuthor: null,
+      selectedWork: null
+    }
+  },
+  computed: {
+    homonymReady () {
+      console.info('**********this.$store.state.app.homonymDataReady', this.$store.state.app.homonymDataReady)
+      if (!this.$store.state.app.homonymDataReady) {
+        this.selectedAuthor = null
+        this.selectedWork = null
+      }
+      return true
+    },
+    homonym () {
+      return this.$store.state.app.homonymDataReady ? this.app.homonym : null
+    },
+    disabledTextWork () {
+      return !this.$store.state.app.wordUsageAuthorsReady || !this.selectedAuthor
+    },
+    authorsList () {
+      if (this.$store.state.app.wordUsageAuthorsReady) {
+        let resultAuthors = this.app.wordUsageAuthors.slice()
+        resultAuthors.sort((a, b) => {
+                if (a.abbreviation() > b.abbreviation()) { return 1 }
+                if (a.abbreviation() < b.abbreviation()) { return -1 }
+                return 0
+            })
+        resultAuthors.unshift({ ID: 0, title: () => '', abbreviation: () => '' })
+        return resultAuthors
+      }
+      return []
+    },
+    worksList () {
+      if (this.$store.state.app.wordUsageAuthorsReady && this.selectedAuthor && this.selectedAuthor.ID !== 0) {
+        let resultTextWorks = this.selectedAuthor.works.slice()
+        resultTextWorks.sort((a, b) => {
+                  if (a.abbreviation() > b.abbreviation()) { return 1 }
+                  if (a.abbreviation() < b.abbreviation()) { return -1 }
+                  return 0
+                })
+        resultTextWorks.unshift({ ID: 0, title: () => '', abbreviation: () => '' })
+
+        return resultTextWorks
+      }
+      return []
+    }
+  },
+  methods: {
+    async getConcordanceResults () {
+      await this.app.getWordUsageData(this.homonym, {
+        author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
+        textWork: this.selectedWork
+      })
+    },
+    calcTitle (item) {
+      if (item) {
+        if ( item.title() && item.abbreviation() ) {
+            return `${item.title()} (${item.abbreviation()})`
+        }
+        if ( item.title() ) {
+            return item.title()
+        }
+        if ( item.abbreviation() ) {
+            return item.abbreviation()
+        }
+      }
+      return ''
     }
   }
 });
@@ -18434,14 +18571,6 @@ var render = function() {
       _c(
         "alph-tooltip",
         {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.app.wordUsageExamplesReady,
-              expression: "$store.state.app.wordUsageExamplesReady"
-            }
-          ],
           attrs: {
             tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
             tooltipDirection: "bottom-narrow"
@@ -20126,34 +20255,23 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm.$store.state.app.wordUsageExamplesReady
-          ? _c(
-              "div",
+        _c(
+          "div",
+          {
+            directives: [
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
-                    expression: "$store.getters['ui/isActiveTab']('wordUsage')"
-                  }
-                ],
-                staticClass:
-                  "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-              },
-              [
-                _c("word-usage-examples-block", {
-                  attrs: {
-                    wordUsageList: _vm.app.wordUsageExamples.wordUsageExamples,
-                    targetWord: _vm.app.wordUsageExamples.targetWord,
-                    language: _vm.app.wordUsageExamples.language,
-                    provider: _vm.app.wordUsageExamples.provider
-                  }
-                })
-              ],
-              1
-            )
-          : _vm._e(),
+                name: "show",
+                rawName: "v-show",
+                value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
+                expression: "$store.getters['ui/isActiveTab']('wordUsage')"
+              }
+            ],
+            staticClass:
+              "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
+          },
+          [_c("word-usage-examples-block")],
+          1
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -20294,6 +20412,16 @@ var render = function() {
                     classes: ["alpheios-panel__options-item"],
                     data:
                       _vm.settings.contentOptions.items.enableWordUsageExamples
+                  },
+                  on: { change: _vm.contentOptionChanged }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.settings.contentOptions.items
+              ? _c("setting", {
+                  attrs: {
+                    classes: ["alpheios-panel__options-item"],
+                    data: _vm.settings.contentOptions.items.wordUsageExamplesON
                   },
                   on: { change: _vm.contentOptionChanged }
                 })
@@ -22172,30 +22300,158 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-word-usage" }, [
-    _c("div", { staticClass: "alpheios_word_usage_list_title" }, [
-      _vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")
-    ]),
-    _vm._v(" "),
-    _vm.showWordUsageExampleItems
-      ? _c(
-          "div",
-          { staticClass: "alpheios_word_usage_list_mainblock" },
-          _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
-            return _c("word-usage-example-item", {
-              key: wordUsageItem.ID,
-              attrs: { wordUsageItem: wordUsageItem }
-            })
-          }),
-          1
+  return _c(
+    "div",
+    { staticClass: "alpheios-word-usage" },
+    [
+      _c("div", { staticClass: "alpheios_word_usage_list_title" }, [
+        _vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")
+      ]),
+      _vm._v(" "),
+      _c("word-usage-header-block"),
+      _vm._v(" "),
+      _vm.showWordUsageExampleItems
+        ? _c("div", { staticClass: "alpheios_word_usage_list_mainblock" }, [
+            _vm.wordUsageListSorted.length > 0
+              ? _c(
+                  "div",
+                  _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                    return _c("word-usage-example-item", {
+                      key: wordUsageItem.ID,
+                      attrs: { wordUsageItem: wordUsageItem }
+                    })
+                  }),
+                  1
+                )
+              : _c("div", [_vm._v("\n      There are no results.\n    ")])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.provider
+        ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
+            _vm._v("\n    " + _vm._s(_vm.provider.toString()) + "\n  ")
+          ])
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "alpheios-word-usage-header" }, [
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selectedAuthor,
+            expression: "selectedAuthor"
+          },
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.homonymReady,
+            expression: "homonymReady"
+          }
+        ],
+        staticClass: "uk-select alpheios-word-usage-header-select-author",
+        on: {
+          change: function($event) {
+            var $$selectedVal = Array.prototype.filter
+              .call($event.target.options, function(o) {
+                return o.selected
+              })
+              .map(function(o) {
+                var val = "_value" in o ? o._value : o.value
+                return val
+              })
+            _vm.selectedAuthor = $event.target.multiple
+              ? $$selectedVal
+              : $$selectedVal[0]
+          }
+        }
+      },
+      _vm._l(_vm.authorsList, function(authorItem) {
+        return _c(
+          "option",
+          { key: authorItem.ID, domProps: { value: authorItem } },
+          [_vm._v(_vm._s(_vm.calcTitle(authorItem)))]
         )
-      : _vm._e(),
+      }),
+      0
+    ),
     _vm._v(" "),
-    _vm.provider
-      ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
-          _vm._v("\n    " + _vm._s(_vm.provider.toString()) + "\n  ")
-        ])
-      : _vm._e()
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selectedWork,
+            expression: "selectedWork"
+          }
+        ],
+        staticClass: "uk-select alpheios-word-usage-header-select-textwork",
+        attrs: { disabled: _vm.disabledTextWork },
+        on: {
+          change: function($event) {
+            var $$selectedVal = Array.prototype.filter
+              .call($event.target.options, function(o) {
+                return o.selected
+              })
+              .map(function(o) {
+                var val = "_value" in o ? o._value : o.value
+                return val
+              })
+            _vm.selectedWork = $event.target.multiple
+              ? $$selectedVal
+              : $$selectedVal[0]
+          }
+        }
+      },
+      _vm._l(_vm.worksList, function(workItem) {
+        return _c(
+          "option",
+          { key: workItem.ID, domProps: { value: workItem } },
+          [_vm._v(_vm._s(_vm.calcTitle(workItem)))]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "alpheios-word-usage-header-actions" }, [
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-primary uk-button-small",
+          on: { click: _vm.getConcordanceResults }
+        },
+        [_vm._v("\n          Get results\n      ")]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -22401,7 +22657,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.8
+ * Vue.js v2.6.9
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -24262,10 +24518,11 @@ __webpack_require__.r(__webpack_exports__);
     var res;
     try {
       res = args ? handler.apply(context, args) : handler.call(context);
-      if (res && !res._isVue && isPromise(res)) {
+      if (res && !res._isVue && isPromise(res) && !res._handled) {
+        res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
         // issue #9511
-        // reassign to res to avoid catch triggering multiple times when nested calls
-        res = res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
+        // avoid catch triggering multiple times when nested calls
+        res._handled = true;
       }
     } catch (e) {
       handleError(e, vm, info);
@@ -24949,6 +25206,7 @@ __webpack_require__.r(__webpack_exports__);
   ) {
     var res;
     var isStable = slots ? !!slots.$stable : true;
+    var hasNormalSlots = Object.keys(normalSlots).length > 0;
     var key = slots && slots.$key;
     if (!slots) {
       res = {};
@@ -24960,7 +25218,8 @@ __webpack_require__.r(__webpack_exports__);
       prevSlots &&
       prevSlots !== emptyObject &&
       key === prevSlots.$key &&
-      Object.keys(normalSlots).length === 0
+      !hasNormalSlots &&
+      !prevSlots.$hasNormal
     ) {
       // fast path 2: stable scoped slots w/ no normal slots to proxy,
       // only need to normalize once
@@ -24986,6 +25245,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     def(res, '$stable', isStable);
     def(res, '$key', key);
+    def(res, '$hasNormal', hasNormalSlots);
     return res
   }
 
@@ -24995,8 +25255,10 @@ __webpack_require__.r(__webpack_exports__);
       res = res && typeof res === 'object' && !Array.isArray(res)
         ? [res] // single vnode
         : normalizeChildren(res);
-      return res && res.length === 0
-        ? undefined
+      return res && (
+        res.length === 0 ||
+        (res.length === 1 && res[0].isComment) // #9658
+      ) ? undefined
         : res
     };
     // this is a slot using the new v-slot syntax without scope. although it is
@@ -25176,12 +25438,13 @@ __webpack_require__.r(__webpack_exports__);
               : data.attrs || (data.attrs = {});
           }
           var camelizedKey = camelize(key);
-          if (!(key in hash) && !(camelizedKey in hash)) {
+          var hyphenatedKey = hyphenate(key);
+          if (!(camelizedKey in hash) && !(hyphenatedKey in hash)) {
             hash[key] = value[key];
 
             if (isSync) {
               var on = data.on || (data.on = {});
-              on[("update:" + camelizedKey)] = function ($event) {
+              on[("update:" + key)] = function ($event) {
                 value[key] = $event;
               };
             }
@@ -26016,7 +26279,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     var owner = currentRenderingInstance;
-    if (isDef(factory.owners) && factory.owners.indexOf(owner) === -1) {
+    if (owner && isDef(factory.owners) && factory.owners.indexOf(owner) === -1) {
       // already pending
       factory.owners.push(owner);
     }
@@ -26025,7 +26288,7 @@ __webpack_require__.r(__webpack_exports__);
       return factory.loadingComp
     }
 
-    if (!isDef(factory.owners)) {
+    if (owner && !isDef(factory.owners)) {
       var owners = factory.owners = [owner];
       var sync = true
 
@@ -26640,10 +26903,15 @@ __webpack_require__.r(__webpack_exports__);
   // timestamp can either be hi-res (relative to page load) or low-res
   // (relative to UNIX epoch), so in order to compare time we have to use the
   // same timestamp type when saving the flush timestamp.
-  if (inBrowser && getNow() > document.createEvent('Event').timeStamp) {
-    // if the low-res timestamp which is bigger than the event timestamp
-    // (which is evaluated AFTER) it means the event is using a hi-res timestamp,
-    // and we need to use the hi-res version for event listeners as well.
+  if (
+    inBrowser &&
+    window.performance &&
+    typeof performance.now === 'function' &&
+    document.createEvent('Event').timeStamp <= performance.now()
+  ) {
+    // if the event timestamp is bigger than the hi-res timestamp
+    // (which is evaluated AFTER) it means the event is using a lo-res timestamp,
+    // and we need to use the lo-res version for event listeners as well.
     getNow = function () { return performance.now(); };
   }
 
@@ -27809,7 +28077,7 @@ __webpack_require__.r(__webpack_exports__);
     value: FunctionalRenderContext
   });
 
-  Vue.version = '2.6.8';
+  Vue.version = '2.6.9';
 
   /*  */
 
@@ -29901,8 +30169,10 @@ __webpack_require__.r(__webpack_exports__);
           e.target === e.currentTarget ||
           // event is fired after handler attachment
           e.timeStamp >= attachedTimestamp ||
-          // #9462 bail for iOS 9 bug: event.timeStamp is 0 after history.pushState
-          e.timeStamp === 0 ||
+          // bail for environments that have buggy event.timeStamp implementations
+          // #9462 iOS 9 bug: event.timeStamp is 0 after history.pushState
+          // #9681 QtWebEngine event.timeStamp is negative value
+          e.timeStamp <= 0 ||
           // #9448 bail if event is fired in another document in a multi-page
           // electron/nw.js app, since event.timeStamp will be using a different
           // starting reference
@@ -30520,8 +30790,8 @@ __webpack_require__.r(__webpack_exports__);
     var context = activeInstance;
     var transitionNode = activeInstance.$vnode;
     while (transitionNode && transitionNode.parent) {
-      transitionNode = transitionNode.parent;
       context = transitionNode.context;
+      transitionNode = transitionNode.parent;
     }
 
     var isAppear = !context._isMounted || !vnode.isRootInsert;
@@ -32228,7 +32498,7 @@ __webpack_require__.r(__webpack_exports__);
           text = preserveWhitespace ? ' ' : '';
         }
         if (text) {
-          if (whitespaceOption === 'condense') {
+          if (!inPre && whitespaceOption === 'condense') {
             // condense consecutive whitespaces into single space
             text = text.replace(whitespaceRE$1, ' ');
           }
@@ -36095,6 +36365,7 @@ class UIController {
       inflectionsViewSet: null,
       wordlistC: this.wordlistC, // A word list controller
       wordUsageExamples: null,
+      wordUsageAuthors: [],
 
       isDevMode: () => {
         return this.options.mode === 'development'
@@ -36121,7 +36392,8 @@ class UIController {
           return true
         }
         return false
-      }
+      },
+      getWordUsageData: this.getWordUsageData.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -36158,6 +36430,7 @@ class UIController {
           page: {}
         },
         wordUsageExamplesReady: false, // Whether word usage examples data is available
+        wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
         providers: [] // A list of resource providers
@@ -36280,8 +36553,12 @@ class UIController {
           state.treebankData.word = {}
         },
 
-        setWordUsageExamplesReady (state) {
-          state.wordUsageExamplesReady = true
+        setWordUsageExamplesReady (state, value = true) {
+          state.wordUsageExamplesReady = value
+        },
+
+        setWordUsageAuthorsReady (state, value = true) {
+          state.wordUsageAuthorsReady = value
         },
 
         setWordLists (state, wordLists) {
@@ -36620,6 +36897,7 @@ class UIController {
     this.updateWordAnnotationData()
     this.store.commit('app/lexicalRequestStarted', targetWord)
     this.open()
+    this.getAuthorsForWordUsage()
     return this
   }
 
@@ -36823,7 +37101,7 @@ class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -36833,6 +37111,25 @@ class UIController {
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID)
         lexQuery.getData()
       }
+    }
+  }
+
+  async getWordUsageData (homonym, params) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+    let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
+      ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      : null
+
+    await _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_10__["default"].getWordUsageData(homonym, wordUsageExamples, params)
+  }
+
+  async getAuthorsForWordUsage () {
+    if (!this.store.state.app.wordUsageAuthorsReady) {
+      let authorsList = await _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_10__["default"].getAuthorsForWordUsage()
+
+      this.store.commit('app/setWordUsageAuthorsReady')
+      this.api.app.wordUsageAuthors = authorsList
     }
   }
 
@@ -36846,9 +37143,16 @@ class UIController {
       !this.contentOptions.items.locale.currentValue.match(/^en-/)
   }
 
-  enableWordUsageExamples (textSelector) {
+  enableWordUsageExamples (textSelector, requestType) {
+    /*
+    let requestTypes = this.contentOptions.items.wordUsageExamplesON.values.map(valueItem => valueItem.value)
+    requestType = requestType || requestTypes[0]
+    */
+    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
+    console.info('***********enableWordUsageExamples', checkType, requestType, this.contentOptions.items.wordUsageExamplesON.currentValue)
     return textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN &&
-      this.contentOptions.items.enableWordUsageExamples.currentValue
+      this.contentOptions.items.enableWordUsageExamples.currentValue &&
+      checkType
   }
 
   handleEscapeKey (event, nativeEvent) {
@@ -38987,6 +39291,56 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   static create (selector, options) {
     return _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].create(LexicalQuery, selector, options)
+  }
+
+  static async getWordUsageData (homonym, wordUsageExamples, params) {
+    if (wordUsageExamples) {
+      // the default query for usage examples should be to request all examples
+      // for all authors, with user pagination preference for max number of examples
+      // per author applied. Total max across all authors will be enforced on the
+      // client adapter side. Different pagination options may apply when working
+      // directly with the usage examples display
+      try {
+        let adapterConcordanceRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
+          method: 'getWordUsageExamples',
+          params: { homonym: homonym,
+            pagination: {
+              property: 'authmax',
+              value: wordUsageExamples.paginationAuthMax
+            },
+            filters: {
+              author: params.author,
+              textWork: params.textWork
+            }
+          }
+        })
+
+        if (adapterConcordanceRes.errors.length > 0) {
+          adapterConcordanceRes.errors.forEach(error => console.error(error))
+        }
+
+        LexicalQuery.evt.WORD_USAGE_EXAMPLES_READY.pub(adapterConcordanceRes.result)
+      } catch (error) {
+        console.error('Some strange eror inside getWordUsageData', error)
+      }
+    }
+  }
+
+  static async getAuthorsForWordUsage () {
+    try {
+      let adapterConcordanceRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
+        method: 'getAuthorsWorks',
+        params: {}
+      })
+
+      if (adapterConcordanceRes.errors.length > 0) {
+        adapterConcordanceRes.errors.forEach(error => console.error(error))
+      }
+
+      return adapterConcordanceRes.result
+    } catch (error) {
+      console.error('Some strange eror inside getAuthorsForWordUsage', error)
+    }
   }
 
   async getData () {
@@ -41385,7 +41739,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesON":{"defaultValue":"onDemand","labelText":"Get word usage examples:","values":[{"value":"onDemand","text":"On demand"},{"value":"onLexiqalQuery","text":"On LexiqalQuery"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
 
 /***/ }),
 
@@ -44120,6 +44474,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-header-block.vue":
+/*!****************************************************!*\
+  !*** ./vue/components/word-usage-header-block.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-header-block.vue?vue&type=template&id=193027da& */ "./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da&");
+/* harmony import */ var _word_usage_header_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-header-block.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-header-block.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-header-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _word_usage_header_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/components/word-usage-header-block.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-header-block.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./vue/components/word-usage-header-block.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_header_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!../../../node_modules/source-map-loader!./word-usage-header-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-header-block.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_header_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************!*\
+  !*** ./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib!../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-header-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-header-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da&":
+/*!***********************************************************************************!*\
+  !*** ./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-header-block.vue?vue&type=template&id=193027da& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-header-block.vue?vue&type=template&id=193027da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_header_block_vue_vue_type_template_id_193027da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,51 +1,63 @@
 <template>
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title">{{ targetWord }} ({{ language }})</div>
+    <word-usage-header-block></word-usage-header-block>
+
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
-      <word-usage-example-item
-          v-for="wordUsageItem in wordUsageListSorted"
-          v-bind:key="wordUsageItem.ID"
-          :wordUsageItem="wordUsageItem"
-      ></word-usage-example-item>
+      <div v-if="wordUsageListSorted.length > 0">
+        <word-usage-example-item
+            v-for="wordUsageItem in wordUsageListSorted"
+            v-bind:key="wordUsageItem.ID"
+            :wordUsageItem="wordUsageItem"
+        ></word-usage-example-item>
+      </div>
+      <div v-else>
+        There are no results.
+      </div>
     </div>
+    
     <div class="alpheios-word_usage_list__provider" v-if="provider">
       {{provider.toString()}}
     </div>
   </div>
 </template>
 <script>
-// TODO: Update to retrieve usage examples data directly from the Vue store, not from a parent component
 import WordUsageExampleItem from '@/vue/components/word-usage-example-item.vue'
+import WordUsageHeaderBlock from '@/vue/components/word-usage-header-block.vue'
 export default {
   name: 'WordUsageExamplesBlock',
+  inject: ['app'],
   components: {
-    wordUsageExampleItem: WordUsageExampleItem
-  },
-  props: {
-    wordUsageList: {
-      type: Array,
-      required: true
-    },
-    targetWord: {
-      type: String,
-      required: true
-    },
-    language: {
-      type: String,
-      required: true
-    },
-    provider: {
-      type: Object,
-      required: false
-    }
+    wordUsageExampleItem: WordUsageExampleItem,
+    wordUsageHeaderBlock: WordUsageHeaderBlock
   },
   computed: {
+    targetWord () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
+    },
+    language () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
+    },
+    showWordUsageExampleItems () {
+      return this.$store.state.app.wordUsageExamplesReady
+    },
+    wordUsageExamples () {
+      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.wordUsageExamples : []
+    },
+    provider () {
+      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
+    },
+    providerRights () {
+      return (this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+        ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
+        : []
+    },
     wordUsageListSorted() {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.wordUsageList) {
-        return this.wordUsageList.sort((a,b) => {
+      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
+        return this.wordUsageExamples.sort((a,b) => {
           let aU = a.fullCit().toUpperCase()
           let bU = b.fullCit().toUpperCase()
           if (aU < bU) {
@@ -58,17 +70,8 @@ export default {
         })
       }
 
-    },
-
-    showWordUsageExampleItems () {
-      return this.wordUsageList && this.wordUsageList.length > 0
-    },
-
-    providerRights () {
-      return (this.provider && this.provider.rights)
-        ? Array.from(this.provider.rights.entries()).map(([key, value]) => { return { key, value } })
-        : []
     }
+
   }
 }
 </script>

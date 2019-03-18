@@ -10384,6 +10384,23 @@ a.alpheios_word_usage_list_item__source_link {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-word-usage-header
+.alpheios-word-usage-header-select-textwork {
+  margin-top: 10px;
+}
+.alpheios-word-usage-header-actions {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #d3d3d3;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-word-usage {
   display: flex;
   flex-direction: column;
