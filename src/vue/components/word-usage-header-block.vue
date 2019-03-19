@@ -81,7 +81,7 @@ export default {
     async getConcordanceResults () {
       await this.app.getWordUsageData(this.homonym, {
         author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
-        textWork: this.selectedWork
+        textWork: this.selectedWork && this.selectedWork.ID !== 0 ? this.selectedWork : null
       })
     },
     calcTitle (item) {
