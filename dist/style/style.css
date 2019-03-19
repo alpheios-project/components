@@ -9333,7 +9333,7 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
   fill: #5BC8DC;
   stroke: #5BC8DC;
 }
-.alpheios-popup__notifications {
+.alpheios-popup__notifications, .alpheios-popup__notifications-auth {
   display: none;
   position: relative;
   padding: 10px 20px;
@@ -9360,6 +9360,9 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
   stroke: #5BC8DC;
 }
 [data-notification-visible="true"] .alpheios-popup__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
   display: block;
 }
 .alpheios-popup__notifications--lang-switcher {
@@ -10277,11 +10280,6 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-user-auth__message-box {
-  margin-top: 20px;
-  padding: 10px;
-  background: #BCE5F0;
-}
 .alpheios-user-auth__user-info-box {
   margin-top: 20px;
   display: flex;
@@ -10302,6 +10300,35 @@ ul.alpheios-skin_properties {
   flex: 1 1;
   color: #3E8D9C !important;
   text-align: right;
+}
+.alpheios-user-auth__notifications {
+  display: none;
+  position: relative;
+  padding: 10px 20px;
+  background: #73CDDE;
+  flex: 0 0 60px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.alpheios-user-auth__notifications-close-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  fill: #D1D1D0;
+  stroke: #D1D1D0;
+}
+.alpheios-user-auth__notifications-close-btn:hover,
+.alpheios-user-auth__notifications-close-btn:focus {
+  fill: #5BC8DC;
+  stroke: #5BC8DC;
+}
+[data-notification-visible="true"] .alpheios-user-auth__notifications {
+  display: block;
 }
 
 /************ UIKit vars ************************/
@@ -10558,7 +10585,7 @@ a.alpheios_word_usage_list_item__source_link {
   border-bottom: 1px solid;
   margin-bottom: 20px;
 }
-.alpheios-panel__notifications {
+.alpheios-panel__notifications, .alpheios-panel_notifications-auth {
   display: none;
   position: relative;
   padding: 10px 20px;
@@ -10597,6 +10624,9 @@ a.alpheios_word_usage_list_item__source_link {
   background: #73CDDE;
 }
 [data-notification-visible="true"] .alpheios-panel__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-panel__notifications-auth {
   display: block;
 }
 .alpheios-panel__tab-panel {

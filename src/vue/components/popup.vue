@@ -1,5 +1,6 @@
 <template>
-  <div :data-notification-visible="$store.state.ui.notification.visible && $store.state.ui.notification.visible"
+  <div :data-notification-visible="$store.state.ui.notification.visible"
+       :data-notification-auth-visible="$store.state.auth.notification.visible"
        :style="mainstyles" class="alpheios-popup auk" id="alpheios-popup-inner" ref="popup"
        :class="rootClasses" v-on-clickaway="attachTrackingClick"
        v-show="this.$store.state.popup.visible">
@@ -118,11 +119,21 @@
                :show-title="false" @change="contentOptionChanged"
                v-show="$store.state.ui.notification.showLanguageSwitcher"></setting>
     </div>
+    <div class="alpheios-popup__notifications-auth uk-text-small alpheios-popup__notifications--important"
+         :data-count="$store.state.auth.notification.count"
+         v-if="$store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
+         <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-popup__notifications-close-btn">
+            <close-icon></close-icon>
+         </span>
+         <span v-html="l10n.getMsg($store.state.auth.notification.text)"></span>
+         <login v-show="$store.state.auth.notification.showLogin"></login>
+    </div>
   </div>
 </template>
 <script>
 import Morph from './morph.vue'
 import Setting from './setting.vue'
+import Login from './login.vue'
 import interact from 'interactjs'
 import Logger from '@/lib/log/logger'
 
@@ -138,12 +149,13 @@ import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
 export default {
   name: 'Popup',
-  inject: ['app', 'ui', 'l10n', 'settings'],
-  storeModules: ['app', 'ui', 'popup'],
+  inject: ['app', 'ui', 'l10n', 'settings', 'auth'],
+  storeModules: ['app', 'ui', 'popup', 'auth'],
   mixins: [DependencyCheck],
   components: {
     morph: Morph,
     setting: Setting,
+    login: Login,
     closeIcon: CloseIcon,
     alphTooltip: Tooltip,
     progressBar: ProgressBar
@@ -646,7 +658,7 @@ export default {
     stroke: $alpheios-link-hover-color;
   }
 
-  .alpheios-popup__notifications {
+  .alpheios-popup__notifications, .alpheios-popup__notifications-auth {
     display: none;
     position: relative;
     padding: 10px 20px;
@@ -676,6 +688,10 @@ export default {
   }
 
   [data-notification-visible="true"] .alpheios-popup__notifications {
+    display: block;
+  }
+
+  [data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
     display: block;
   }
 

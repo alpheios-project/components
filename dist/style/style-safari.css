@@ -9333,7 +9333,7 @@ fieldset[disabled] .multiselect{pointer-events:none !important}.multiselect__spi
   fill: #5BC8DC !important;
   stroke: #5BC8DC !important;
 }
-.alpheios-popup__notifications {
+.alpheios-popup__notifications, .alpheios-popup__notifications-auth {
   display: none;
   position: relative !important;
   padding: 10px 20px !important;
@@ -9360,6 +9360,9 @@ fieldset[disabled] .multiselect{pointer-events:none !important}.multiselect__spi
   stroke: #5BC8DC !important;
 }
 [data-notification-visible="true"] .alpheios-popup__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
   display: block;
 }
 .alpheios-popup__notifications--lang-switcher {
@@ -10277,11 +10280,6 @@ ul.alpheios-skin_properties {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
-.alpheios-user-auth__message-box {
-  margin-top: 20px !important;
-  padding: 10px !important;
-  background: #BCE5F0 !important;
-}
 .alpheios-user-auth__user-info-box {
   margin-top: 20px !important;
   display: flex;
@@ -10302,6 +10300,35 @@ ul.alpheios-skin_properties {
   flex: 1 1 !important;
   color: #3E8D9C !important;
   text-align: right !important;
+}
+.alpheios-user-auth__notifications {
+  display: none;
+  position: relative !important;
+  padding: 10px 20px !important;
+  background: #73CDDE !important;
+  flex: 0 0 60px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.alpheios-user-auth__notifications-close-btn {
+  position: absolute !important;
+  right: 5px !important;
+  top: 5px !important;
+  display: block;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  fill: #D1D1D0 !important;
+  stroke: #D1D1D0 !important;
+}
+.alpheios-user-auth__notifications-close-btn:hover,
+.alpheios-user-auth__notifications-close-btn:focus {
+  fill: #5BC8DC !important;
+  stroke: #5BC8DC !important;
+}
+[data-notification-visible="true"] .alpheios-user-auth__notifications {
+  display: block;
 }
 
 /************ UIKit vars ************************/
@@ -10558,7 +10585,7 @@ a.alpheios_word_usage_list_item__source_link {
   border-bottom: 1px solid !important;
   margin-bottom: 20px !important;
 }
-.alpheios-panel__notifications {
+.alpheios-panel__notifications, .alpheios-panel_notifications-auth {
   display: none;
   position: relative !important;
   padding: 10px 20px !important;
@@ -10597,6 +10624,9 @@ a.alpheios_word_usage_list_item__source_link {
   background: #73CDDE !important;
 }
 [data-notification-visible="true"] .alpheios-panel__notifications {
+  display: block;
+}
+[data-notification-auth-visible="true"] .alpheios-panel__notifications-auth {
   display: block;
 }
 .alpheios-panel__tab-panel {
