@@ -143,29 +143,10 @@ export default class UIController {
     }) */
 
     // Creates on configures an event listener
-    let eventController = new UIEventController()
-    if (uiController.platform === HTMLPage.platforms.MOBILE) {
-      eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), LongTap)
-    } else {
-      switch (uiController.options.textQueryTrigger) {
-        case 'dblClick':
-          eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), MouseDblClick)
-          break
-        case 'longTap':
-          eventController.registerListener('GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), LongTap)
-          break
-        default:
-          eventController.registerListener(
-            'GetSelectedText', uiController.options.textQuerySelector, uiController.getSelectedText.bind(uiController), GenericEvt, uiController.options.textQueryTrigger
-          )
-      }
-    }
-
-    eventController.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), GenericEvt, 'keydown')
-    eventController.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), GenericEvt, 'Alpheios_Page_Load')
-
-    // Attaches an event controller to a UIController instance
-    uiController.evc = eventController
+    uiController.evc = new UIEventController()
+    uiController.registerGetSelectedText('GetSelectedText',uiController.options.textQuerySelector)
+    uiController.evc.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), GenericEvt, 'keydown')
+    uiController.evc.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), GenericEvt, 'Alpheios_Page_Load')
 
     // Subscribe to LexicalQuery events
     LexicalQuery.evt.LEXICAL_QUERY_COMPLETE.sub(uiController.onLexicalQueryComplete.bind(uiController))
@@ -590,6 +571,7 @@ export default class UIController {
       changeTab: this.changeTab.bind(this),
       showPanelTab: this.showPanelTab.bind(this),
       togglePanelTab: this.togglePanelTab.bind(this),
+      registerAndActivateGetSelectedText: this.registerAndActivateGetSelectedText.bind(this),
 
       optionChange: this.uiOptionChange.bind(this) // Handle a change of UI options
     }
@@ -977,7 +959,7 @@ export default class UIController {
     }
   }
 
-  updateWordUsageExamples (wordUsageExamplesData) {
+  async updateWordUsageExamples (wordUsageExamplesData) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
     this.api.app.wordUsageExamples = wordUsageExamplesData
     this.store.commit('app/setWordUsageExamplesReady')
@@ -1244,7 +1226,6 @@ export default class UIController {
 
   async onWordItemSelected (wordItem) {
     let wordItemFull = await this.userDataManager.query({ dataType: 'WordItem', params: { wordItem } }, { type: 'full' })
-    console.info('****************onWordItemSelected', wordItemFull[0].homonym)
     let homonym = wordItemFull[0].homonym
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
 
@@ -1336,6 +1317,38 @@ export default class UIController {
   resourceSettingChange (name, value) {
     let keyinfo = this.api.settings.resourceOptions.parseKey(name)
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+  }
+
+  registerGetSelectedText(listenerName,selector) {
+    let ev
+    if (this.platform === HTMLPage.platforms.MOBILE) {
+      ev = LongTap
+    } else {
+      switch (this.options.textQueryTrigger) {
+        case 'dblClick':
+          ev = MouseDblClick
+          break
+        case 'dblclick':
+          ev = MouseDblClick
+          break
+        case 'longTap':
+          ev = LongTap
+          break
+        default:
+          ev = null
+      }
+    }
+    if (ev) {
+      this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
+    } else {
+      this.evc.registerListener(
+        listenerName, selector, this.getSelectedText.bind(this), GenericEvt, this.options.textQueryTrigger)
+    }
+  }
+
+  registerAndActivateGetSelectedText(listenerName,selector) {
+    this.registerGetSelectedText(listenerName,selector)
+    this.evc.activateListener(listenerName)
   }
 }
 
