@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-word-usage">
-    <div class="alpheios_word_usage_list_title">{{ targetWord }} ({{ language }})</div>
+    <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
     <word-usage-header-block></word-usage-header-block>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
@@ -12,7 +12,7 @@
         ></word-usage-example-item>
       </div>
       <div v-else>
-        There are no results.
+        {{ l10n.getText('WORDUSAGE_NO_RESULTS') }}
       </div>
     </div>
     
@@ -24,9 +24,12 @@
 <script>
 import WordUsageExampleItem from '@/vue/components/word-usage-example-item.vue'
 import WordUsageHeaderBlock from '@/vue/components/word-usage-header-block.vue'
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 export default {
   name: 'WordUsageExamplesBlock',
-  inject: ['app'],
+  inject: ['ui', 'app', 'l10n'],
+  storeModules: ['ui'],
+  mixins: [DependencyCheck],
   components: {
     wordUsageExampleItem: WordUsageExampleItem,
     wordUsageHeaderBlock: WordUsageHeaderBlock
@@ -71,7 +74,11 @@ export default {
       }
 
     }
-
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.ui.registerAndActivateGetSelectedText('getSelectedText-usageExamples','.alpheios-word-usage')
+    })
   }
 }
 </script>

@@ -82,7 +82,7 @@ describe('word-usage-example-item.test.js', () => {
     let textContent = cmp.element.textContent
     
     expect(textContent.includes(testWordUsageItem.prefix)).toBeTruthy()
-    expect(textContent.includes(testWordUsageItem.suffix.replace(/^\s/,String.fromCharCode(160)))).toBeTruthy()
+    expect(textContent.includes(testWordUsageItem.suffix)).toBeTruthy()
     expect(textContent.includes(testWord1)).toBeTruthy()
 
     expect(cmp.html().includes(testWordUsageItem.fullCit())).toBeTruthy()

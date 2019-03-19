@@ -519,5 +519,30 @@
     "message": "Word Usage Examples",
     "description": "Word Usage Examples tooltip",
     "component": "Panel"
+  },
+  "WORDUSAGE_FILTERS": {
+    "message": "Filters",
+    "description": "Word Usage Examples Filters Title",
+    "component": "WordUsageHeaderBlock"
+  },
+  "WORDUSAGE_FILTERS_HIDE": {
+    "message": "hide",
+    "description": "Word Usage Examples Filters Hide link",
+    "component": "WordUsageHeaderBlock"
+  },
+  "WORDUSAGE_FILTERS_SHOW": {
+    "message": "show",
+    "description": "Word Usage Examples Filters Show Link",
+    "component": "WordUsageHeaderBlock"
+  },
+  "WORDUSAGE_GET_RESULTS": {
+    "message": "Get results",
+    "description": "Word Usage Examples Filters Get results button",
+    "component": "WordUsageHeaderBlock"
+  },
+  "WORDUSAGE_NO_RESULTS": {
+    "message": "There are no results.",
+    "description": "Word Usage Examples No results text",
+    "component": "WordUsageExamplesBlock"
   }
 }

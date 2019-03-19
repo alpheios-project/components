@@ -1,31 +1,35 @@
 <template>
-  <div class="alpheios-word-usage-header">
-      <select class="uk-select alpheios-word-usage-header-select-author" v-model="selectedAuthor"  v-show="homonymReady">
-        <option 
-            v-for="authorItem in authorsList" v-bind:key="authorItem.ID"
-            v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
-      </select>
-      <select class="uk-select alpheios-word-usage-header-select-textwork" 
-              v-model="selectedWork" :disabled="disabledTextWork">
-        <option 
-            v-for="workItem in worksList" v-bind:key="workItem.ID"
-            v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
-      </select>
-      <div class="alpheios-word-usage-header-actions">
-        <button @click="getConcordanceResults" class="uk-button uk-button-primary uk-button-small">
-            Get results
-        </button>
+  <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
+      <p class="alpheios-word-usage-header-title">{{ l10n.getText('WORDUSAGE_FILTERS') }} <span class="alpheios-word-usage-header-show-link" @click="showHideFilters">{{ showHideTitle}}</span></p>
+      <div v-show="visibleFilters">
+        <select class="uk-select alpheios-word-usage-header-select-author" v-model="selectedAuthor"  v-show="homonymReady">
+          <option 
+              v-for="authorItem in authorsList" v-bind:key="authorItem.ID"
+              v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
+        </select>
+        <select class="uk-select alpheios-word-usage-header-select-textwork" 
+                v-model="selectedWork" :disabled="disabledTextWork">
+          <option 
+              v-for="workItem in worksList" v-bind:key="workItem.ID"
+              v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
+        </select>
+        <div class="alpheios-word-usage-header-actions">
+          <button @click="getConcordanceResults" class="uk-button uk-button-primary uk-button-small">
+              {{ l10n.getText('WORDUSAGE_GET_RESULTS') }}
+          </button>
+        </div>
       </div>
   </div>
 </template>
 <script>
 export default {
   name: 'WordUsageHeaderBlock',
-  inject: ['app'],
+  inject: ['app', 'l10n'],
   data () {
     return {
       selectedAuthor: null,
-      selectedWork: null
+      selectedWork: null,
+      visibleFilters: true
     }
   },
   computed: {
@@ -68,6 +72,9 @@ export default {
         return resultTextWorks
       }
       return []
+    },
+    showHideTitle () {
+      return this.visibleFilters ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
     }
   },
   methods: {
@@ -90,6 +97,9 @@ export default {
         }
       }
       return ''
+    },
+    showHideFilters () {
+      this.visibleFilters = !this.visibleFilters
     }
   }
 }
@@ -107,8 +117,23 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
     border-top: 1px solid $alpheios-base-border-color;
-    border-bottom: 1px solid $alpheios-base-border-color;
   }
 
+  .alpheios-word-usage-header
+  .alpheios-word-usage-header-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: $alpheios-toolbar-color;
+  }
+
+  .alpheios-word-usage-header
+  .alpheios-word-usage-header-show-link {
+    color: $alpheios-link-color;
+    cursor: pointer;
+  }
+
+  .alpheios-word-usage-header  {
+    border-bottom: 1px solid $alpheios-toolbar-active-color;
+  }
   
 </style>

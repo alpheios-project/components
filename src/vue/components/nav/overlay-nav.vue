@@ -105,7 +105,7 @@
       </alph-tooltip>
 
       <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_WORD_USAGE')" tooltipDirection="left"
-                  v-show="$store.state.app.wordUsageExamplesReady">
+                  v-show="$store.state.app.homonymDataReady">
         <span @click="ui.togglePanelTab('wordUsage')" class="alpheios-navbuttons__btn"
               v-bind:class="{ active: $store.getters['ui/isActiveTab']('wordUsage') }">
           <word-usage-icon></word-usage-icon>
@@ -145,7 +145,7 @@ import GrammarIcon from '@/images/inline-icons/resources.svg'
 import TreebankIcon from '@/images/inline-icons/sitemap.svg'
 import InfoIcon from '@/images/inline-icons/info.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
-import WordUsageIcon from '@/images/inline-icons/books-stack.svg'
+import WordUsageIcon from '@/images/inline-icons/usage-examples-icon1.svg'
 import CollapsedIcon from '@/images/inline-icons/collapsed.svg'
 import ExpandedIcon from '@/images/inline-icons/expanded.svg'
 import LookupIcon from '@/images/inline-icons/lookup.svg'

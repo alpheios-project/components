@@ -10393,7 +10393,20 @@ a.alpheios_word_usage_list_item__source_link {
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid #d3d3d3;
-  border-bottom: 1px solid #d3d3d3;
+}
+.alpheios-word-usage-header
+.alpheios-word-usage-header-title {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #4E6476;
+}
+.alpheios-word-usage-header
+.alpheios-word-usage-header-show-link {
+  color: #3E8D9C;
+  cursor: pointer;
+}
+.alpheios-word-usage-header {
+  border-bottom: 1px solid #7E8897;
 }
 
 /************ UIKit vars ************************/
