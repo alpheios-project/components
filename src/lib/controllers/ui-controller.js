@@ -80,6 +80,7 @@ export default class UIController {
     this.isInitialized = false
     this.isActivated = false
     this.isDeactivated = false
+    this.userDataManager = null
 
     /**
      * A name of the platform (mobile/desktop) UI controller is running within.
@@ -645,20 +646,28 @@ export default class UIController {
     this.updateLanguage(preferredLanguageID)
     this.updateLemmaTranslations()
 
-    if (this.wordlistC) {
-      // TODO we need to integrate this with auth functionality, postponing both the initialization of the wordlists
-      // and the creation of the user data manager until we have an authenticated user, or else maybe using a user datamanager
-      // that operates on an in-memory user until such time the user authenticates
-      // see issue 317
-      this.userDataManager = new UserDataManager('testUserID', WordlistController.evt)
-      this.wordlistC.initLists(this.userDataManager)
-    }
-
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
 
     return this
+  }
+
+  async initUserDataManager (isAuthenticated) {
+    let wordLists
+    if (isAuthenticated) {
+      let accessToken = await this.api.auth.getAccessToken()
+      this.userDataManager = new UserDataManager(
+        { accessToken: accessToken,
+          userId: this.store.state.auth.userId
+        }, WordlistController.evt)
+      wordLists = this.wordlistC.initLists(this.userDataManager)
+      this.store.commit('app/setWordLists', wordLists)
+    } else {
+      this.userDataManager = null
+      wordLists = this.wordlistC.initLists()
+    }
+    this.store.commit('app/setWordLists', wordLists)
   }
 
   /**
@@ -692,6 +701,9 @@ export default class UIController {
       this.changeTab(this.state.tab)
     }
 
+    this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
+      this.userDataManager = this.initUserDataManager(newValue)
+    })
     return this
   }
 
@@ -710,6 +722,7 @@ export default class UIController {
     if (this.api.ui.hasModule('panel')) { this.api.ui.closePanel(false) } // Close panel without updating it's state so the state can be saved for later reactivation
     this.isActivated = false
     this.isDeactivated = true
+    this.authUnwatch()
     this.state.deactivate()
 
     return this
@@ -1174,6 +1187,9 @@ export default class UIController {
 
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
+    if (this.api.auth.isEnabled() && !this.store.state.auth.isAuthenticated) {
+      this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
+    }
   }
 
   onLemmaTranslationsReady (homonym) {

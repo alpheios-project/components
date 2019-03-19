@@ -98,12 +98,12 @@
           <div class="alpheios-panel__message">{{message}}</div>
         </div>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-show="$store.getters['ui/isActiveTab']('user')"
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-if="auth.isEnabled()" v-show="$store.getters['ui/isActiveTab']('user')"
            data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExamplesReady" 
+           v-if="$store.state.app.wordUsageExamplesReady"
            v-show="$store.getters['ui/isActiveTab']('wordUsage')"
         >
         <word-usage-examples-block
