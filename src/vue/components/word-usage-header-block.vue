@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
-      <p class="alpheios-word-usage-header-title">{{ l10n.getText('WORDUSAGE_FILTERS') }} <span class="alpheios-word-usage-header-show-link" @click="showHideFilters">{{ showHideTitle}}</span></p>
+      <p class="alpheios-word-usage-header-title">{{ l10n.getText('WORDUSAGE_FILTERS') }} <span class="alpheios-word-usage-header-show-link" @click="showHideFilters">{{ showHideTitleFilters}}</span></p>
       <div v-show="visibleFilters">
         <select class="uk-select alpheios-word-usage-header-select-author" v-model="selectedAuthor"  v-show="homonymReady">
           <option 
@@ -19,6 +19,19 @@
           </button>
         </div>
       </div>
+      <p class="alpheios-word-usage-header-title" v-if="$store.state.app.wordUsageExamplesReady">
+        {{ l10n.getText('WORDUSAGE_SORT_BY') }} <span class="alpheios-word-usage-header-show-link" @click="showHideSort">{{ showHideTitleSort}}</span>
+      </p>
+      <div v-show="visibleSortBy" v-if="$store.state.app.wordUsageExamplesReady">
+        <select class="uk-select alpheios-word-usage-header-select-sortBy" 
+                v-model="selectedSortBy" @change="changedSortBy">
+          <option value="byFullCit"> </option>
+          <option value="byAuthor">{{ l10n.getText('WORDUSAGE_SORT_BY_AUTHOR') }}</option>
+          <option value="byTextWork">{{ l10n.getText('WORDUSAGE_SORT_BY_TEXTWORK') }}</option>
+          <option value="byPrefix">{{ l10n.getText('WORDUSAGE_SORT_BY_PREFIX') }}</option>
+          <option value="bySuffix">{{ l10n.getText('WORDUSAGE_SORT_BY_SUFFIX') }}</option>
+        </select>
+      </div>
   </div>
 </template>
 <script>
@@ -29,7 +42,9 @@ export default {
     return {
       selectedAuthor: null,
       selectedWork: null,
-      visibleFilters: true
+      visibleFilters: true,
+      visibleSortBy: true,
+      selectedSortBy: 'byFullCit'
     }
   },
   computed: {
@@ -73,9 +88,13 @@ export default {
       }
       return []
     },
-    showHideTitle () {
+    showHideTitleFilters () {
       return this.visibleFilters ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
+    },
+    showHideTitleSort () {
+      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
     }
+
   },
   methods: {
     async getConcordanceResults () {
@@ -100,7 +119,14 @@ export default {
     },
     showHideFilters () {
       this.visibleFilters = !this.visibleFilters
+    },
+    showHideSort () {
+      this.visibleSortBy = !this.visibleSortBy
+    },
+    changedSortBy () {
+      this.$emit('changedSortBy', this.selectedSortBy)
     }
+
   }
 }
 </script>
@@ -110,6 +136,11 @@ export default {
   .alpheios-word-usage-header 
   .alpheios-word-usage-header-select-textwork {
     margin-top: 10px;
+  }
+
+  .alpheios-word-usage-header 
+  .alpheios-word-usage-header-select-sortBy {
+    margin-bottom: 10px;
   }
 
   .alpheios-word-usage-header-actions {

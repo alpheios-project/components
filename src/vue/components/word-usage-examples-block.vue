@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
-    <word-usage-header-block></word-usage-header-block>
+    <word-usage-header-block @changedSortBy = "changedSortBy"></word-usage-header-block>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
@@ -34,6 +34,11 @@ export default {
     wordUsageExampleItem: WordUsageExampleItem,
     wordUsageHeaderBlock: WordUsageHeaderBlock
   },
+  data () {
+    return {
+      sortBy: 'byFullCit'
+    }
+  },
   computed: {
     targetWord () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
@@ -59,20 +64,44 @@ export default {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
-        return this.wordUsageExamples.sort((a,b) => {
-          let aU = a.fullCit().toUpperCase()
-          let bU = b.fullCit().toUpperCase()
-          if (aU < bU) {
-            return -1
-          }
-          if (aU > bU) {
-            return 1
-          }
-          return 0
-        })
+      if (this.showWordUsageExampleItems && this.wordUsageExamples && this.sortBy) {
+        return this.sortWordUSageExamplesBy()
       }
 
+    }
+  },
+  methods: {
+    changedSortBy (sortByFromHeader) {
+      this.sortBy = sortByFromHeader
+    },
+    getPropertyBySortBy (a, type) {
+      switch (type) {
+        case 'byFullCit':
+          return a.fullCit().toUpperCase()
+        case 'byAuthor':
+          return a.authorForSort()
+        case 'byTextWork':
+          return a.textWorkForSort()
+        case 'byPrefix':
+          return a.prefixForSort
+        case 'bySuffix':
+          return a.suffixForSort
+        default:
+          return null
+      }
+    },
+    sortWordUSageExamplesBy () {
+      return this.wordUsageExamples.sort((a, b) => {
+        let aU = this.getPropertyBySortBy(a, this.sortBy)
+        let bU = this.getPropertyBySortBy(b, this.sortBy)
+        if (aU < bU) {
+          return -1
+        }
+        if (aU > bU) {
+          return 1
+        }
+        return 0
+      })
     }
   },
   mounted () {
