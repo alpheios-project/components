@@ -57,19 +57,20 @@ AuthModule.store = (moduleInstance) => {
   }
 }
 
-AuthModule.api = (moduleInstance,store) => {
+AuthModule.api = (moduleInstance, store) => {
   return {
     isEnabled: () => {
-        return moduleInstance._auth ? true : false
+      return !!moduleInstance._auth
     },
     authenticate: () => {
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
         return moduleInstance._auth.getProfileData()
       }).then((data) => {
-        store.commit('auth/setIsAuthenticated',data)
+        store.commit('auth/setIsAuthenticated', data)
         store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
+        console.error('Authenticate failed', error)
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
@@ -78,14 +79,14 @@ AuthModule.api = (moduleInstance,store) => {
         store.commit('auth/setIsNotAuthenticated')
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
-        console.error("Logout failed",error)
+        console.error('Logout failed', error)
       })
     },
     getAccessToken: () => {
       if (moduleInstance._auth) {
         return moduleInstance._auth.getUserData()
       } else {
-        console.error("Authentication is not enabled")
+        console.error('Authentication is not enabled')
       }
     }
   }
@@ -97,4 +98,3 @@ AuthModule._configDefaults = {
   _supportedPlatforms: [HTMLPage.platforms.ANY],
   auth: null
 }
-

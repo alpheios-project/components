@@ -91,7 +91,7 @@ export default class UIController {
     // Vuex store. A public API for data and UI module interactions.
     this.store = new Vuex.Store({
       // TODO: Remove this for production as it slows things down
-      strict: true,
+      strict: true
     })
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
@@ -671,10 +671,11 @@ export default class UIController {
     return this
   }
 
-  async initUserDataManager(isAuthenticated) {
+  async initUserDataManager (isAuthenticated) {
     let wordLists
     if (isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
+      console.info('******this.store.state.auth', this.store.state.auth)
       this.userDataManager = new UserDataManager(
         { accessToken: accessToken,
           userId: this.store.state.auth.userId
@@ -1205,7 +1206,7 @@ export default class UIController {
 
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
-    if (this.api.auth.isEnabled() && ! this.store.state.auth.isAuthenticated) {
+    if (this.api.auth.isEnabled() && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
@@ -1337,8 +1338,6 @@ export default class UIController {
     let keyinfo = this.api.settings.resourceOptions.parseKey(name)
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
-
-
 }
 
 /**
