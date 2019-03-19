@@ -675,7 +675,6 @@ export default class UIController {
     let wordLists
     if (isAuthenticated) {
       let accessToken = await this.api.auth.getAccessToken()
-      console.info('******this.store.state.auth', this.store.state.auth)
       this.userDataManager = new UserDataManager(
         { accessToken: accessToken,
           userId: this.store.state.auth.userId
