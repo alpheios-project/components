@@ -62,6 +62,13 @@ AuthModule.api = (moduleInstance, store) => {
     isEnabled: () => {
       return !!moduleInstance._auth
     },
+    session: () => {
+      moduleInstance._auth.session().then((data) => {
+        store.commit('auth/setIsAuthenticated', data)
+      }).catch((error) => {
+        console.error('Session validation failed', error)
+      })
+    }
     authenticate: () => {
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
@@ -82,9 +89,13 @@ AuthModule.api = (moduleInstance, store) => {
         console.error('Logout failed', error)
       })
     },
-    getAccessToken: () => {
+    getUserData: () => {
       if (moduleInstance._auth) {
-        return moduleInstance._auth.getUserData()
+        let token = moduleInstance._auth.getUserData()
+        return {
+          accessToken: token,
+          userId: store.state.auth.userId
+        }
       } else {
         console.error('Authentication is not enabled')
       }

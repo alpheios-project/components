@@ -663,11 +663,8 @@ export default class UIController {
   async initUserDataManager (isAuthenticated) {
     let wordLists
     if (isAuthenticated) {
-      let accessToken = await this.api.auth.getAccessToken()
-      this.userDataManager = new UserDataManager(
-        { accessToken: accessToken,
-          userId: this.store.state.auth.userId
-        }, WordlistController.evt)
+      let authData = await this.api.auth.getUserData()
+      this.userDataManager = new UserDataManager(authData, WordlistController.evt)
       wordLists = this.wordlistC.initLists(this.userDataManager)
       this.store.commit('app/setWordLists', wordLists)
     } else {
@@ -1217,7 +1214,8 @@ export default class UIController {
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
     if (this.api.auth.isEnabled() && !this.store.state.auth.isAuthenticated) {
-      this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
+      //this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
+      this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: 0 })
     }
   }
 
