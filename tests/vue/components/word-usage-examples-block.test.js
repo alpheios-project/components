@@ -6,8 +6,8 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import { Constants, Author, TextWork, ResourceProvider } from 'alpheios-data-models'
 import { ClientAdapters } from 'alpheios-client-adapters'
 
-import WordUsageExamplesBlock from '@/vue/components/word-usage-examples-block.vue'
-import wordUsageExampleItem from '@/vue/components/word-usage-example-item.vue'
+import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
+import wordUsageExampleItem from '@/vue/components/word-usage-examples/word-usage-examples-item.vue'
 
 describe('word-usage-examples-block.test.js', () => {
   const localVue = createLocalVue()
@@ -72,8 +72,8 @@ describe('word-usage-examples-block.test.js', () => {
     jest.clearAllMocks()
   })
 
-  it.skip('1 WordUsageExamplesBlock - checks if component mounts properly', async () => {
-    let cmp = mount(WordUsageExamplesBlock, {
+  it.skip('1 WordUsageExamples - checks if component mounts properly', async () => {
+    let cmp = mount(WordUsageExamples, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
         targetWord: testWord1,
@@ -86,8 +86,8 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it.skip('2 WordUsageExamplesBlock - doesn\'t render wordUsageExampleItem if wordUsageList is empty', async () => {
-    let cmp = mount(WordUsageExamplesBlock, {
+  it.skip('2 WordUsageExamples - doesn\'t render wordUsageExampleItem if wordUsageList is empty', async () => {
+    let cmp = mount(WordUsageExamples, {
       propsData: {
         wordUsageList: [],
         targetWord: testWord1,
@@ -101,8 +101,8 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.findAll(wordUsageExampleItem).length).toEqual(0)
   })
 
-  it.skip('3 WordUsageExamplesBlock - renders wordUsageExampleItem for each item in the list', async () => {
-    let cmp = mount(WordUsageExamplesBlock, {
+  it.skip('3 WordUsageExamples - renders wordUsageExampleItem for each item in the list', async () => {
+    let cmp = mount(WordUsageExamples, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
         targetWord: testWord1,
@@ -116,9 +116,9 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.findAll(wordUsageExampleItem).length).toEqual(testWordUsageList.wordUsageExamples.length)
   })
 
-  it.skip('4 WordUsageExamplesBlock - renders provider data if exists', async () => {
+  it.skip('4 WordUsageExamples - renders provider data if exists', async () => {
     const resourceProviderName = 'Resource Provider'
-    let cmp = mount(WordUsageExamplesBlock, {
+    let cmp = mount(WordUsageExamples, {
       propsData: {
         wordUsageList: testWordUsageList.wordUsageExamples,
         targetWord: testWord1,
@@ -133,13 +133,13 @@ describe('word-usage-examples-block.test.js', () => {
     expect(cmp.find('.alpheios-word_usage_list__provider').text()).toEqual(resourceProviderName)
   })
 
-  it.skip('4 WordUsageExamplesBlock - sorts lists', async () => {
+  it.skip('4 WordUsageExamples - sorts lists', async () => {
     let mockExA = { fullCit: () => {return 'abc.def.123'} }
     let mockExB = { fullCit: () => {return 'abc.def.123'} }
     let mockExC = { fullCit: () => {return 'abc.ghi.123'} }
     let mockExD = { fullCit: () => {return 'def.ghi.123'} }
     let mockExE = { fullCit: () => {return 'ghi.jkl.123'} }
-    let cmp = mount(WordUsageExamplesBlock, {
+    let cmp = mount(WordUsageExamples, {
       propsData: {
         wordUsageList: [
           mockExE,

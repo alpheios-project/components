@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
-    <word-usage-examples-header @changedSortBy = "changedSortBy"></word-usage-examples-header>
+    <word-usage-examples-header @changedSortBy = "changedSortBy" @filterCurrentByAuthor = "filterCurrentByAuthor"></word-usage-examples-header>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
@@ -38,7 +38,9 @@ export default {
   },
   data () {
     return {
-      sortBy: 'byFullCit'
+      sortBy: 'byFullCit',
+      selectedAuthor: null,
+      selectedTextWork: null
     }
   },
   computed: {
@@ -49,10 +51,21 @@ export default {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showWordUsageExampleItems () {
+      this.selectedAuthor = null
+      this.selectedTextWork = null
       return this.$store.state.app.wordUsageExamplesReady
     },
     wordUsageExamples () {
-      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.wordUsageExamples : []
+      if (!this.$store.state.app.wordUsageExamplesReady) {
+        return []
+      }
+      if (this.selectedAuthor) {
+        return this.app.wordUsageExamples.wordUsageExamples
+                   .filter(wordUsageExample => {
+                     return wordUsageExample.author.ID === this.selectedAuthor.ID && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
+                   })
+      }
+      return this.app.wordUsageExamples.wordUsageExamples
     },
     provider () {
       return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
@@ -69,12 +82,15 @@ export default {
       if (this.showWordUsageExampleItems && this.wordUsageExamples && this.sortBy) {
         return this.sortWordUSageExamplesBy()
       }
-
     }
   },
   methods: {
     changedSortBy (sortByFromHeader) {
       this.sortBy = sortByFromHeader
+    },
+    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+      this.selectedAuthor = selectedAuthor
+      this.selectedTextWork = selectedTextWork
     },
     getPropertyBySortBy (a, type) {
       switch (type) {

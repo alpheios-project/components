@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
-    <word-usage-examples-filters></word-usage-examples-filters>
+    <word-usage-examples-filters @filterCurrentByAuthor = "filterCurrentByAuthor"></word-usage-examples-filters>
     <div v-if="availableSortBy">
       <p class="alpheios-word-usage-header-title">
         {{ l10n.getText('WORDUSAGE_SORT_BY') }} <span class="alpheios-word-usage-header-show-link" @click="showHideSort">{{ showHideTitleSort}}</span>
@@ -52,6 +52,9 @@ export default {
     },
     changedSortBy () {
       this.$emit('changedSortBy', this.selectedSortBy)
+    },
+    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+      this.$emit('filterCurrentByAuthor', selectedAuthor, selectedTextWork)
     }
   }
 }
@@ -104,6 +107,11 @@ export default {
       height: 20px;
       display: inline-block;
       cursor: pointer;
+    }
+
+    .alpheios-word-usage-header-filter-clear-disabled.alpheios-word-usage-header-filter-clear-icon {
+      cursor: inherit;
+      fill: $alpheios-base-disabled-font-color;
     }
 
   }  

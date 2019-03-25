@@ -134,7 +134,7 @@ export default {
     & .alpheios-navbuttons__btn {
       width: 20px;
       height: 20px;
-      margin: 10px 5px;
+      margin: 10px 3px;
     }
 
     & .alpheios-navbuttons__btn svg {

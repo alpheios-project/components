@@ -106,7 +106,7 @@
            v-show="$store.getters['ui/isActiveTab']('wordUsage')"
            v-if="$store.state.app.homonymDataReady"
       >
-        <word-usage-examples-block></word-usage-examples-block>
+        <word-usage-examples></word-usage-examples>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"

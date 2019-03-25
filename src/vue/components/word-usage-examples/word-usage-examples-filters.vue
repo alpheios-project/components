@@ -1,40 +1,50 @@
 <template>
     <div class="alpheios-word-usage-header-filters">
-      <div class="alpheios-word-usage-header-select-type-filters-block" >
+        <div class="alpheios-word-usage-header-select-type-filters-block" >
         <div class="alpheios-word-usage-header-select-type-filter" 
             v-for="typeFilterItem of typeFiltersList" v-bind:key="typeFilterItem.value"
+            :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
         >
-          <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter">
+          <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter" :disabled = "typeFilterItem.disabled === true">
           <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
         </div>
       </div>
-      <div v-show="visibleFilters">
-
-        <select class="uk-select alpheios-word-usage-header-select-author" v-model="selectedAuthor"  v-show="homonymReady">
-          <option 
-              v-for="authorItem in authorsList" v-bind:key="authorItem.ID"
-              v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
+      
+      <div v-show="authorsList && typeFilter !== 'noFilters'">
+        <select class="uk-select alpheios-word-usage-header-select-author" v-model="selectedAuthor">
+            <option 
+                v-for="authorItem in lastAuthorsList" v-bind:key="authorItem.ID"
+                v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
         </select>
         <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
-          <span class="alpheios-word-usage-header-filter-clear-icon" @click="clearAuthorFilter">
-            <clear-filters-icon></clear-filters-icon>
-          </span>
-        </alph-tooltip>
-
-        <select class="uk-select alpheios-word-usage-header-select-textwork" 
-                v-model="selectedWork" :disabled="disabledTextWork">
-          <option 
-              v-for="workItem in worksList" v-bind:key="workItem.ID"
-              v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
-        </select>
-        <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right"> 
-          <span class="alpheios-word-usage-header-filter-clear-icon" @click="clearTextWorkFilter">
+          <span class="alpheios-word-usage-header-filter-clear-icon" 
+                @click="clearFilter('author')" 
+                :class = '{ "alpheios-word-usage-header-filter-clear-disabled": selectedAuthor === null }'
+                >
             <clear-filters-icon></clear-filters-icon>
           </span>
         </alph-tooltip>
       </div>
+
+      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'">
+        <select class="uk-select alpheios-word-usage-header-select-textwork" 
+                v-model="selectedTextWork">
+          <option 
+              v-for="workItem in filteredWorkList" v-bind:key="workItem.ID"
+              v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
+        </select>
+        <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right"> 
+          <span class="alpheios-word-usage-header-filter-clear-icon" 
+                @click="clearFilter('textwork')"
+                :class = '{ "alpheios-word-usage-header-filter-clear-disabled": selectedTextWork === null }'
+          >
+            <clear-filters-icon></clear-filters-icon>
+          </span>
+        </alph-tooltip>
+      </div>
+
       <div class="alpheios-word-usage-header-actions">
-          <button @click="getResults" class="uk-button uk-button-primary uk-button-small">
+          <button @click="getResults" class="uk-button uk-button-primary uk-button-small" :disabled="disabledButton">
               {{ l10n.getText('WORDUSAGE_GET_RESULTS') }}
           </button>
       </div>
@@ -53,109 +63,96 @@
     },
     data () {
       return {
+        typeFilter: 'noFilters',
         selectedAuthor: null,
-        selectedWork: null,
-        typeFilter: null
+        selectedTextWork: null,
+        lastTargetWord: null,
+        lastAuthorID: null,
+        lastAuthorsList: [],
+        lastTextWorksList: [],
+        typeFiltersList: [
+          { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
+          { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true },
+          { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), ignoreIf: 'moreResults', disabled: true }
+        ],
+        disabledButton: false
       }
     },
-    mounted () {
-      this.typeFilter = this.typeFiltersList[0].value
-    },
     computed: {
-      visibleFilters () {
-        return this.typeFilter !== 'noFilters'
-      },
-      typeFiltersList () {
-        return [
-          { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
-          { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS') },
-          { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS') }
-        ]
-      },
-      homonymReady () {
-        if (!this.$store.state.app.homonymDataReady) {
-          console.info('*************homonymReady this.selectedAuthor', this.selectedAuthor)
-          this.selectedAuthor = null
-          this.selectedWork = null
-          this.typeFilter = this.defaultTypeFIlter
-        }
-        return true
-      },
       homonym () {
         return this.$store.state.app.homonymDataReady ? this.app.homonym : null
       },
-      disabledTextWork () {
-        return !this.$store.state.app.wordUsageAuthorsReady || !this.selectedAuthor
-      },
       authorsList () {
-        if (this.$store.state.app.wordUsageAuthorsReady && !this.$store.state.app.wordUsageExamplesReady) {
-          return this.authorsListFromTheSource
-        } 
-        if (this.$store.state.app.wordUsageExamplesReady) {
-          return this.authorsListFromExamplesList
-        }
-        return []
-      },
-      authorsListFromTheSource () {
-        if (this.$store.state.app.wordUsageAuthorsReady) {
-          let resultAuthors = this.app.wordUsageAuthors.slice()
-          resultAuthors.sort((a, b) => {
-            if (a.title() > b.title()) { return 1 }
-            if (a.title() < b.title()) { return -1 }
-            return 0
-          })
-          return resultAuthors
-        }
-        return []
-      },
-      authorsListFromExamplesList () {
-        if (this.$store.state.app.wordUsageExamplesReady) {
-          let resultAuthors = this.app.wordUsageExamples.wordUsageExamples
+        if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
+            this.lastTargetWord = this.app.homonym.targetWord
+            this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
                                   .map(wordUsageExampleItem => wordUsageExampleItem.author)
                                   .filter((item, pos, self) => self.indexOf(item) == pos)
                                   .slice()
-          resultAuthors.sort((a, b) => {
-            if (a.title() > b.title()) { return 1 }
-            if (a.title() < b.title()) { return -1 }
-            return 0
+            
+            this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
+                                  .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
+                                  .filter((item, pos, self) => self.indexOf(item) == pos)
+                                  .slice()
+
+            this.removeDisabledFromTypeFilters()      
+            this.typeFilter = 'moreResults'
+            this.setDisabledToType('noFilters')                 
+        }
+        return true
+      },
+      filteredWorkList () {
+        if (this.selectedAuthor) {
+          this.selectedTextWork = null
+          return this.lastTextWorksList.filter(textWork => {
+            return textWork.author.ID === this.selectedAuthor.ID
           })
-          return resultAuthors
         }
         return []
-      },
-      worksList () {
-        if (this.$store.state.app.wordUsageAuthorsReady && this.selectedAuthor && this.selectedAuthor.ID !== 0) {
-          let resultTextWorks = this.selectedAuthor.works.slice()
-          resultTextWorks.sort((a, b) => {
-            if (a.title() > b.title()) { return 1 }
-            if (a.title() < b.title()) { return -1 }
-            return 0
-          })
-          return resultTextWorks
-        }
-        return []
-      },
-      showHideTitleFilters () {
-        return this.visibleFilters ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
       }
     },
     methods: {
+      removeDisabledFromTypeFilters () {
+        this.typeFiltersList.forEach(item => {
+          item.disabled = false
+        })
+      },
+      setDisabledToType (typeValue) {
+        this.removeDisabledFromTypeFilters()
+        this.typeFiltersList.find(item => item.value === typeValue).disabled = true
+      },
       async getResults () {
         if (this.typeFilter === 'noFilters') {
-          await this.getNewConcordanceResultsNoFilters()
+          this.disabledButton = true
+          
+          await this.getResultsNoFilters()
+
+          this.removeDisabledFromTypeFilters()
+          this.clearFilter('author')
+          this.lastAuthorID = null
+          this.typeFilter = 'moreResults'
+          this.setDisabledToType('noFilters')
+          this.disabledButton = false
         } else if (this.typeFilter === 'moreResults') {
-          await this.getNewConcordanceResults()
+          this.disabledButton = true
+
+          await this.getResultsWithFilters()
+
+          this.setDisabledToType('filterCurrentResults')
+          this.lastAuthorID = this.selectedAuthor.ID
+          this.disabledButton = false
         } else if (this.typeFilter === 'filterCurrentResults') {
-          console.info('***** filterCurrentResults')
+          this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
+          this.lastAuthorID = this.selectedAuthor.ID
         }
       },
-      async getNewConcordanceResultsNoFilters () {
+      async getResultsNoFilters () {
         await this.app.getWordUsageData(this.homonym)
       },
-      async getNewConcordanceResults () {
+      async getResultsWithFilters () {
         await this.app.getWordUsageData(this.homonym, {
           author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
-          textWork: this.selectedWork && this.selectedWork.ID !== 0 ? this.selectedWork : null
+          textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
         })
       },
       calcTitle (item) {
@@ -172,19 +169,21 @@
         }
         return ''
       },
-      clearAuthorFilter () {
-        this.selectedAuthor = null
-        this.selectedWork = null
-      },
-      clearTextWorkFilter () {
-        this.selectedWork = null
+      clearFilter (type) {
+        if (type === 'author') {
+          this.selectedAuthor = null
+          this.selectedTextWork = null
+        }
+        if (type === 'textwork') {
+          this.selectedTextWork = null
+        }
       }
     }
   }
 </script>
 <style lang="scss">
   @import "../../../styles/alpheios";
-  
+
   .alpheios-word-usage-header-select-type-filters-block {
     margin-bottom: 10px;
     
@@ -201,6 +200,17 @@
         display: inline-block;
         vertical-align: middle;
       }
+      &.alpheios-word-usage-header-select-type-filter-disabled {
+        color: $alpheios-base-disabled-font-color;
+        cursor: inherit;
+      }
     }
   }
+
+  .alpheios-word-usage-header-filters
+  .alpheios-word-usage-header-actions button:disabled {
+    background-color: $alpheios-toolbar-color;
+  }
+
+  
 </style>

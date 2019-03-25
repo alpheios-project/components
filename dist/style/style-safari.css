@@ -9471,7 +9471,7 @@ img.alpheios-popup__logo {
 .alpheios-navbuttons--large .alpheios-navbuttons__btn {
   width: 20px !important;
   height: 20px !important;
-  margin: 10px 5px !important;
+  margin: 10px 3px !important;
 }
 .alpheios-navbuttons--large .alpheios-navbuttons__btn svg {
   width: 20px !important;
@@ -10411,6 +10411,37 @@ a.alpheios_word_usage_list_item__source_link {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-word-usage-header-select-type-filters-block {
+  margin-bottom: 10px !important;
+}
+.alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter {
+    cursor: pointer !important;
+}
+.alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter input[type="radio"] {
+      display: inline-block;
+      vertical-align: middle !important;
+}
+.alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter label {
+      padding-left: 5px !important;
+      font-size: 80% !important;
+      line-height: 100% !important;
+      display: inline-block;
+      vertical-align: middle !important;
+}
+.alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter.alpheios-word-usage-header-select-type-filter-disabled {
+      color: #c7c7c7 !important;
+      cursor: inherit !important;
+}
+.alpheios-word-usage-header-filters
+.alpheios-word-usage-header-actions button:disabled {
+  background-color: #4E6476 !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-word-usage-header
 .alpheios-word-usage-header-select-textwork {
   margin-top: 10px !important;
@@ -10438,6 +10469,20 @@ a.alpheios_word_usage_list_item__source_link {
 }
 .alpheios-word-usage-header {
   border-bottom: 1px solid #7E8897 !important;
+}
+.alpheios-word-usage-header .alpheios-word-usage-header-select-author,
+.alpheios-word-usage-header .alpheios-word-usage-header-select-textwork {
+  width: 88% !important;
+}
+.alpheios-word-usage-header .alpheios-word-usage-header-filter-clear-icon {
+  width: 20px !important;
+  height: 20px !important;
+  display: inline-block;
+  cursor: pointer !important;
+}
+.alpheios-word-usage-header .alpheios-word-usage-header-filter-clear-disabled.alpheios-word-usage-header-filter-clear-icon {
+  cursor: inherit !important;
+  fill: #c7c7c7 !important;
 }
 
 /************ UIKit vars ************************/

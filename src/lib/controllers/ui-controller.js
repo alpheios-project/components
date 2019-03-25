@@ -1098,7 +1098,7 @@ export default class UIController {
     }
   }
 
-  async getWordUsageData (homonym, params) {
+  async getWordUsageData (homonym, params = {}) {
     this.store.commit('app/setWordUsageExamplesReady', false)
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,

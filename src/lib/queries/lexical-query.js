@@ -33,13 +33,24 @@ export default class LexicalQuery extends Query {
       // client adapter side. Different pagination options may apply when working
       // directly with the usage examples display
       try {
+        let paginationParams = {}
+
+        if (params.author) {
+          paginationParams = {
+            property: 'max',
+            value: wordUsageExamples.paginationMax
+          }
+        } else {
+          paginationParams = {
+            property: 'authmax',
+            value: wordUsageExamples.paginationAuthMax
+          }
+        }
+
         let adapterConcordanceRes = await ClientAdapters.wordusageExamples.concordance({
           method: 'getWordUsageExamples',
           params: { homonym: homonym,
-            pagination: {
-              property: 'authmax',
-              value: wordUsageExamples.paginationAuthMax
-            },
+            pagination: paginationParams,
             filters: {
               author: params.author,
               textWork: params.textWork

@@ -99,12 +99,12 @@
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
            v-if="$store.state.app.wordUsageExamplesReady" v-show="$store.getters['ui/isActiveTab']('wordUsage')">
-        <word-usage-examples-block
+        <word-usage-examples
             :language="app.wordUsageExamples.language"
             :provider="app.wordUsageExamples.provider"
             :targetWord="app.wordUsageExamples.targetWord"
             :wordUsageList="app.wordUsageExamples.wordUsageExamples">
-        </word-usage-examples-block>
+        </word-usage-examples>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')">
         <reskin-font-color></reskin-font-color>
@@ -219,7 +219,7 @@ import Tooltip from './tooltip.vue'
 import Lookup from './lookup.vue'
 import ReskinFontColor from './reskin-font-color.vue'
 import UserAuth from './user-auth.vue'
-import WordUsageExamplesBlock from '@/vue/components/word-usage-examples-block.vue'
+import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
 import { Definition } from 'alpheios-data-models'
 import { WordListPanel } from 'alpheios-wordlist'
 // Embeddable SVG icons
@@ -264,7 +264,7 @@ export default {
     lookup: Lookup,
     reskinFontColor: ReskinFontColor,
     wordListPanel: WordListPanel,
-    wordUsageExamplesBlock: WordUsageExamplesBlock
+    wordUsageExamples: WordUsageExamples
   },
   directives: {
     onClickaway: onClickaway
