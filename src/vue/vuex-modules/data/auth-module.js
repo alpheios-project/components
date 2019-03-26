@@ -68,7 +68,7 @@ AuthModule.api = (moduleInstance, store) => {
       }).catch((error) => {
         console.error('Session validation failed', error)
       })
-    }
+    },
     authenticate: () => {
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {

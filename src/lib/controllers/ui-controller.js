@@ -708,6 +708,14 @@ export default class UIController {
     this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
       this.userDataManager = this.initUserDataManager(newValue)
     })
+
+    if (this.api.auth) {
+      try {
+        await this.api.auth.session()
+      } catch (error) {
+        console.warn("Session not available",error)
+      }
+    }
     return this
   }
 
