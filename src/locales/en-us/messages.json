@@ -599,5 +599,10 @@
     "message": "Clear textwork filter",
     "description": "Word Usage Examples Type filter",
     "component": "WordUsageExamplesFilters"
+  },
+  "WORDUSAGE_SORTING_AUTHOR_CLEAR": {
+    "message": "Clear sorting",
+    "description": "Word Usage Examples Sorting",
+    "component": "WordUsageExamplesSorting"
   }
 }

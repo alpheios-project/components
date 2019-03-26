@@ -43,7 +43,7 @@ export default {
   },
   data () {
     return {
-      sortBy: 'byFullCit',
+      sortBy: null,
       selectedAuthor: null,
       selectedTextWork: null
     }
@@ -84,14 +84,14 @@ export default {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.showWordUsageExampleItems && this.wordUsageExamples && this.sortBy) {
+      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
         return this.sortWordUSageExamplesBy()
       }
+      return []
     }
   },
   methods: {
     changedSortBy (sortByFromHeader) {
-      console.info('****************main changedSortBy', sortByFromHeader)
       this.sortBy = sortByFromHeader
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
@@ -100,8 +100,6 @@ export default {
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
-        case 'byFullCit':
-          return a.fullCit().toUpperCase()
         case 'byAuthor':
           return a.authorForSort()
         case 'byTextWork':
@@ -111,7 +109,7 @@ export default {
         case 'bySuffix':
           return a.suffixForSort
         default:
-          return null
+          return a.fullCit().toUpperCase()
       }
     },
     sortWordUSageExamplesBy () {
@@ -167,6 +165,25 @@ export default {
 
     .alpheios-word-usage-header  {
       border-bottom: 1px solid $alpheios-toolbar-active-color;
+    }
+
+
+    .alpheios-word-usage-header-select-author,
+    .alpheios-word-usage-header-select-textwork,
+    .alpheios-word-usage-header-select-sortBy {
+      width: 88%;
+    }
+
+    .alpheios-word-usage-header-clear-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .alpheios-word-usage-header-clear-disabled.alpheios-word-usage-header-clear-icon {
+      cursor: inherit;
+      fill: $alpheios-base-disabled-font-color;
     }
 
   }

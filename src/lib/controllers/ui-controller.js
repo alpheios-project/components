@@ -1108,15 +1108,6 @@ export default class UIController {
     await LexicalQuery.getWordUsageData(homonym, wordUsageExamples, params)
   }
 
-  async getAuthorsForWordUsage () {
-    if (!this.store.state.app.wordUsageAuthorsReady) {
-      let authorsList = await LexicalQuery.getAuthorsForWordUsage()
-
-      this.store.commit('app/setWordUsageAuthorsReady')
-      this.api.app.wordUsageAuthors = authorsList
-    }
-  }
-
   /**
    * Check to see if Lemma Translations should be enabled for a query
    *  NB this is Prototype functionality

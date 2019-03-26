@@ -1,28 +1,45 @@
 <template>
-    <div v-if="availableSortBy">
+    <div v-if="availableSortBy" class="alpheios-word-usage-header-sorting">
       <p class="alpheios-word-usage-header-title">
-        {{ l10n.getText('WORDUSAGE_SORT_BY') }} <span class="alpheios-word-usage-header-show-link" @click="showHideSort">{{ showHideTitleSort}}</span>
+        {{ l10n.getText('WORDUSAGE_SORT_BY') }}
       </p>
-      <div v-show="visibleSortBy">
+      <div>
         <select class="uk-select alpheios-word-usage-header-select-sortBy" 
                 v-model="selectedSortBy" @change="changedSortBy">
-          <option value="byFullCit"> </option>
-          <option value="byAuthor">{{ l10n.getText('WORDUSAGE_SORT_BY_AUTHOR') }}</option>
-          <option value="byTextWork">{{ l10n.getText('WORDUSAGE_SORT_BY_TEXTWORK') }}</option>
-          <option value="byPrefix">{{ l10n.getText('WORDUSAGE_SORT_BY_PREFIX') }}</option>
-          <option value="bySuffix">{{ l10n.getText('WORDUSAGE_SORT_BY_SUFFIX') }}</option>
+          <option v-for="typeSorting in typeSortingList" v-bind:key="typeSorting.value"
+                  v-bind:value="typeSorting.value">{{ typeSorting.title }}</option>
         </select>
+        <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_SORTING_AUTHOR_CLEAR')" tooltipDirection="top-right">
+          <span class="alpheios-word-usage-header-clear-icon" 
+                @click="clearSorting" 
+                :class = '{ "alpheios-word-usage-header-clear-disabled": selectedSortBy === null }'
+                >
+            <clear-filters-icon></clear-filters-icon>
+          </span>
+        </alph-tooltip>
       </div>
     </div>
 </template>
 <script>
+  import ClearFilters from '@/images/inline-icons/clear-filters.svg'
+  import Tooltip from '@/vue/components/tooltip.vue'
+
   export default {
     name: 'WordUsageExamplesSorting',
     inject: ['app', 'l10n'],
+    components: {
+      clearFiltersIcon: ClearFilters,
+      alphTooltip: Tooltip
+    },
     data () {
       return {
-        visibleSortBy: true,
-        selectedSortBy: 'byFullCit'
+        selectedSortBy: null,
+        typeSortingList: [
+          { value: 'byAuthor', title: this.l10n.getText('WORDUSAGE_SORT_BY_AUTHOR') },
+          { value: 'byTextWork', title: this.l10n.getText('WORDUSAGE_SORT_BY_TEXTWORK') },
+          { value: 'byPrefix', title: this.l10n.getText('WORDUSAGE_SORT_BY_PREFIX') },
+          { value: 'bySuffix', title: this.l10n.getText('WORDUSAGE_SORT_BY_SUFFIX') }
+        ]
       }
     },
     computed: {
@@ -39,6 +56,10 @@
       },
       changedSortBy () {
         this.$emit('changedSortBy', this.selectedSortBy)
+      },
+      clearSorting () {
+        this.selectedSortBy = null
+        this.changedSortBy()
       }
     }
   }

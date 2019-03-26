@@ -10432,20 +10432,6 @@ a.alpheios_word_usage_list_item__source_link {
       color: #c7c7c7;
       cursor: inherit;
 }
-.alpheios-word-usage-header-filters .alpheios-word-usage-header-select-author,
-.alpheios-word-usage-header-filters .alpheios-word-usage-header-select-textwork {
-  width: 88%;
-}
-.alpheios-word-usage-header-filters .alpheios-word-usage-header-filter-clear-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  cursor: pointer;
-}
-.alpheios-word-usage-header-filters .alpheios-word-usage-header-filter-clear-disabled.alpheios-word-usage-header-filter-clear-icon {
-  cursor: inherit;
-  fill: #c7c7c7;
-}
 .alpheios-word-usage-header-filters
 .alpheios-word-usage-header-actions button:disabled {
   background-color: #4E6476;
@@ -10502,6 +10488,21 @@ a.alpheios_word_usage_list_item__source_link {
 }
 .alpheios-word-usage .alpheios-word-usage-header {
     border-bottom: 1px solid #7E8897;
+}
+.alpheios-word-usage .alpheios-word-usage-header-select-author,
+  .alpheios-word-usage .alpheios-word-usage-header-select-textwork,
+  .alpheios-word-usage .alpheios-word-usage-header-select-sortBy {
+    width: 88%;
+}
+.alpheios-word-usage .alpheios-word-usage-header-clear-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+.alpheios-word-usage .alpheios-word-usage-header-clear-disabled.alpheios-word-usage-header-clear-icon {
+    cursor: inherit;
+    fill: #c7c7c7;
 }
 
 /************ UIKit vars ************************/

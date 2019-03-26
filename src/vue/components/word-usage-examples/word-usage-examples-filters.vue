@@ -17,9 +17,9 @@
                 v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
         </select>
         <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
-          <span class="alpheios-word-usage-header-filter-clear-icon" 
+          <span class="alpheios-word-usage-header-clear-icon" 
                 @click="clearFilter('author')" 
-                :class = '{ "alpheios-word-usage-header-filter-clear-disabled": selectedAuthor === null }'
+                :class = '{ "alpheios-word-usage-header-clear-disabled": selectedAuthor === null }'
                 >
             <clear-filters-icon></clear-filters-icon>
           </span>
@@ -34,9 +34,9 @@
               v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
         </select>
         <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right"> 
-          <span class="alpheios-word-usage-header-filter-clear-icon" 
+          <span class="alpheios-word-usage-header-clear-icon" 
                 @click="clearFilter('textwork')"
-                :class = '{ "alpheios-word-usage-header-filter-clear-disabled": selectedTextWork === null }'
+                :class = '{ "alpheios-word-usage-header-clear-disabled": selectedTextWork === null }'
           >
             <clear-filters-icon></clear-filters-icon>
           </span>
@@ -73,7 +73,7 @@
         typeFiltersList: [
           { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
           { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true },
-          { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), ignoreIf: 'moreResults', disabled: true }
+          { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
         ],
         disabledButton: false
       }
@@ -132,6 +132,7 @@
           this.lastAuthorID = null
           this.typeFilter = 'moreResults'
           this.setDisabledToType('noFilters')
+          
           this.disabledButton = false
         } else if (this.typeFilter === 'moreResults') {
           this.disabledButton = true
@@ -140,6 +141,7 @@
 
           this.setDisabledToType('filterCurrentResults')
           this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
+
           this.disabledButton = false
         } else if (this.typeFilter === 'filterCurrentResults') {
           this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
@@ -204,25 +206,6 @@
         color: $alpheios-base-disabled-font-color;
         cursor: inherit;
       }
-    }
-  }
-  
-  .alpheios-word-usage-header-filters {
-    .alpheios-word-usage-header-select-author,
-    .alpheios-word-usage-header-select-textwork {
-      width: 88%;
-    }
-
-    .alpheios-word-usage-header-filter-clear-icon {
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      cursor: pointer;
-    }
-
-    .alpheios-word-usage-header-filter-clear-disabled.alpheios-word-usage-header-filter-clear-icon {
-      cursor: inherit;
-      fill: $alpheios-base-disabled-font-color;
     }
   }
 
