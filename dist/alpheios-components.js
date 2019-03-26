@@ -7848,10 +7848,10 @@ var singleton = jumper();
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7859,10 +7859,10 @@ var singleton = jumper();
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13800,11 +13800,11 @@ __webpack_require__.r(__webpack_exports__);
         await this.getResultsWithFilters()
 
         this.setDisabledToType('filterCurrentResults')
-        this.lastAuthorID = this.selectedAuthor.ID
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
         this.disabledButton = false
       } else if (this.typeFilter === 'filterCurrentResults') {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
-        this.lastAuthorID = this.selectedAuthor.ID
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
       }
     },
     async getResultsNoFilters () {
@@ -13838,83 +13838,6 @@ __webpack_require__.r(__webpack_exports__);
       if (type === 'textwork') {
         this.selectedTextWork = null
       }
-    }
-  }
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/clear-filters.svg */ "./images/inline-icons/clear-filters.svg");
-/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
-/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'WordUsageExamplesHeader',
-  inject: ['app', 'l10n'],
-  components: {
-    clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default.a,
-    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    wordUsageExamplesFilters: _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  data () {
-    return {
-      visibleSortBy: true,
-      selectedSortBy: 'byFullCit'
-    }
-  },
-  computed: {
-    availableSortBy () {
-      return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.wordUsageExamples && this.app.wordUsageExamples.wordUsageExamples.length > 0
-    },
-    showHideTitleSort () {
-      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
-    }
-  },
-  methods: {
-    showHideSort () {
-      this.visibleSortBy = !this.visibleSortBy
-    },
-    changedSortBy () {
-      this.$emit('changedSortBy', this.selectedSortBy)
-    },
-    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
-      this.$emit('filterCurrentByAuthor', selectedAuthor, selectedTextWork)
     }
   }
 });
@@ -14001,6 +13924,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WordUsageExamplesSorting',
+  inject: ['app', 'l10n'],
+  data () {
+    return {
+      visibleSortBy: true,
+      selectedSortBy: 'byFullCit'
+    }
+  },
+  computed: {
+    availableSortBy () {
+      return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.wordUsageExamples && this.app.wordUsageExamples.wordUsageExamples.length > 0
+    },
+    showHideTitleSort () {
+      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
+    }
+  },
+  methods: {
+    showHideSort () {
+      this.visibleSortBy = !this.visibleSortBy
+    },
+    changedSortBy () {
+      this.$emit('changedSortBy', this.selectedSortBy)
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js& ***!
@@ -14011,8 +13991,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-item.vue */ "./vue/components/word-usage-examples/word-usage-examples-item.vue");
-/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-header.vue */ "./vue/components/word-usage-examples/word-usage-examples-header.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -14036,6 +14017,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -14046,10 +14031,11 @@ __webpack_require__.r(__webpack_exports__);
   name: 'WordUsageExamples',
   inject: ['ui', 'app', 'l10n'],
   storeModules: ['ui'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   components: {
     wordUsageExamplesItem: _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    wordUsageExamplesHeader: _vue_components_word_usage_examples_word_usage_examples_header_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    wordUsageExamplesFilters: _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    wordUsageExamplesSorting: _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data () {
     return {
@@ -14101,6 +14087,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changedSortBy (sortByFromHeader) {
+      console.info('****************main changedSortBy', sortByFromHeader)
       this.sortBy = sortByFromHeader
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
@@ -22796,136 +22783,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb&":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb& ***!
-  \******************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-word-usage-header",
-      attrs: { "data-alpheios-ignore": "all" }
-    },
-    [
-      _c("word-usage-examples-filters", {
-        on: { filterCurrentByAuthor: _vm.filterCurrentByAuthor }
-      }),
-      _vm._v(" "),
-      _vm.availableSortBy
-        ? _c("div", [
-            _c("p", { staticClass: "alpheios-word-usage-header-title" }, [
-              _vm._v(
-                "\n      " + _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY")) + " "
-              ),
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-word-usage-header-show-link",
-                  on: { click: _vm.showHideSort }
-                },
-                [_vm._v(_vm._s(_vm.showHideTitleSort))]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.visibleSortBy,
-                    expression: "visibleSortBy"
-                  }
-                ]
-              },
-              [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedSortBy,
-                        expression: "selectedSortBy"
-                      }
-                    ],
-                    staticClass:
-                      "uk-select alpheios-word-usage-header-select-sortBy",
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.selectedSortBy = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                        _vm.changedSortBy
-                      ]
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "byFullCit" } }),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "byAuthor" } }, [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_AUTHOR"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "byTextWork" } }, [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_TEXTWORK"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "byPrefix" } }, [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_PREFIX"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "bySuffix" } }, [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_SUFFIX"))
-                      )
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&":
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1& ***!
@@ -23025,6 +22882,114 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.availableSortBy
+    ? _c("div", [
+        _c("p", { staticClass: "alpheios-word-usage-header-title" }, [
+          _vm._v(
+            "\n    " + _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY")) + " "
+          ),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-word-usage-header-show-link",
+              on: { click: _vm.showHideSort }
+            },
+            [_vm._v(_vm._s(_vm.showHideTitleSort))]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.visibleSortBy,
+                expression: "visibleSortBy"
+              }
+            ]
+          },
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedSortBy,
+                    expression: "selectedSortBy"
+                  }
+                ],
+                staticClass:
+                  "uk-select alpheios-word-usage-header-select-sortBy",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedSortBy = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.changedSortBy
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "byFullCit" } }),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "byAuthor" } }, [
+                  _vm._v(_vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_AUTHOR")))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "byTextWork" } }, [
+                  _vm._v(_vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_TEXTWORK")))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "byPrefix" } }, [
+                  _vm._v(_vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_PREFIX")))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "bySuffix" } }, [
+                  _vm._v(_vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY_SUFFIX")))
+                ])
+              ]
+            )
+          ]
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f& ***!
@@ -23040,57 +23005,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "alpheios-word-usage" },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "alpheios_word_usage_list_title",
-          attrs: { "data-alpheios-ignore": "all" }
-        },
-        [_vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")]
-      ),
-      _vm._v(" "),
-      _c("word-usage-examples-header", {
-        on: {
-          changedSortBy: _vm.changedSortBy,
-          filterCurrentByAuthor: _vm.filterCurrentByAuthor
-        }
-      }),
-      _vm._v(" "),
-      _vm.showWordUsageExampleItems
-        ? _c("div", { staticClass: "alpheios_word_usage_list_mainblock" }, [
-            _vm.wordUsageListSorted.length > 0
-              ? _c(
-                  "div",
-                  _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
-                    return _c("word-usage-examples-item", {
-                      key: wordUsageItem.ID,
-                      attrs: { wordUsageItem: wordUsageItem }
-                    })
-                  }),
-                  1
+  return _c("div", { staticClass: "alpheios-word-usage" }, [
+    _c(
+      "div",
+      {
+        staticClass: "alpheios_word_usage_list_title",
+        attrs: { "data-alpheios-ignore": "all" }
+      },
+      [_vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "alpheios-word-usage-header",
+        attrs: { "data-alpheios-ignore": "all" }
+      },
+      [
+        _c("word-usage-examples-filters", {
+          on: { filterCurrentByAuthor: _vm.filterCurrentByAuthor }
+        }),
+        _vm._v(" "),
+        _c("word-usage-examples-sorting", {
+          on: { changedSortBy: _vm.changedSortBy }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm.showWordUsageExampleItems
+      ? _c("div", { staticClass: "alpheios_word_usage_list_mainblock" }, [
+          _vm.wordUsageListSorted.length > 0
+            ? _c(
+                "div",
+                _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                  return _c("word-usage-examples-item", {
+                    key: wordUsageItem.ID,
+                    attrs: { wordUsageItem: wordUsageItem }
+                  })
+                }),
+                1
+              )
+            : _c("div", [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(_vm.l10n.getText("WORDUSAGE_NO_RESULTS")) +
+                    "\n    "
                 )
-              : _c("div", [
-                  _vm._v(
-                    "\n      " +
-                      _vm._s(_vm.l10n.getText("WORDUSAGE_NO_RESULTS")) +
-                      "\n    "
-                  )
-                ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.provider
-        ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
-            _vm._v("\n    " + _vm._s(_vm.provider.toString()) + "\n  ")
-          ])
-        : _vm._e()
-    ],
-    1
-  )
+              ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.provider
+      ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
+          _vm._v("\n    " + _vm._s(_vm.provider.toString()) + "\n  ")
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -45152,93 +45123,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-examples/word-usage-examples-header.vue":
-/*!***************************************************************************!*\
-  !*** ./vue/components/word-usage-examples/word-usage-examples-header.vue ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-header.vue?vue&type=template&id=6c57bfeb& */ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb&");
-/* harmony import */ var _word_usage_examples_header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-header.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-header.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _word_usage_examples_header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/components/word-usage-examples/word-usage-examples-header.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************!*\
-  !*** ./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-header.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************!*\
-  !*** ./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-header.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb&":
-/*!**********************************************************************************************************!*\
-  !*** ./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb& ***!
-  \**********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-header.vue?vue&type=template&id=6c57bfeb& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-header.vue?vue&type=template&id=6c57bfeb&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_header_vue_vue_type_template_id_6c57bfeb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue":
 /*!*************************************************************************!*\
   !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue ***!
@@ -45321,6 +45205,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue":
+/*!****************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=template&id=35b89596& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&");
+/* harmony import */ var _word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples-sorting.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-sorting.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&":
+/*!***********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-sorting.vue?vue&type=template&id=35b89596& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

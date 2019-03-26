@@ -139,11 +139,11 @@
           await this.getResultsWithFilters()
 
           this.setDisabledToType('filterCurrentResults')
-          this.lastAuthorID = this.selectedAuthor.ID
+          this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
           this.disabledButton = false
         } else if (this.typeFilter === 'filterCurrentResults') {
           this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
-          this.lastAuthorID = this.selectedAuthor.ID
+          this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
         }
       },
       async getResultsNoFilters () {
@@ -206,11 +206,41 @@
       }
     }
   }
+  
+  .alpheios-word-usage-header-filters {
+    .alpheios-word-usage-header-select-author,
+    .alpheios-word-usage-header-select-textwork {
+      width: 88%;
+    }
+
+    .alpheios-word-usage-header-filter-clear-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .alpheios-word-usage-header-filter-clear-disabled.alpheios-word-usage-header-filter-clear-icon {
+      cursor: inherit;
+      fill: $alpheios-base-disabled-font-color;
+    }
+  }
 
   .alpheios-word-usage-header-filters
   .alpheios-word-usage-header-actions button:disabled {
     background-color: $alpheios-toolbar-color;
   }
 
+  .alpheios-word-usage-header 
+  .alpheios-word-usage-header-select-textwork {
+    margin-top: 10px;
+  }
+
+  .alpheios-word-usage-header-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid $alpheios-base-border-color;
+  }
   
 </style>

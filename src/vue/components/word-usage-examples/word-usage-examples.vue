@@ -1,7 +1,10 @@
 <template>
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
-    <word-usage-examples-header @changedSortBy = "changedSortBy" @filterCurrentByAuthor = "filterCurrentByAuthor"></word-usage-examples-header>
+    <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
+      <word-usage-examples-filters @filterCurrentByAuthor = "filterCurrentByAuthor"></word-usage-examples-filters>
+      <word-usage-examples-sorting @changedSortBy = "changedSortBy"></word-usage-examples-sorting>
+    </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
@@ -23,7 +26,8 @@
 </template>
 <script>
 import WordUsageExamplesItem from '@/vue/components/word-usage-examples/word-usage-examples-item.vue'
-import WordUsageExamplesHeader from '@/vue/components/word-usage-examples/word-usage-examples-header.vue'
+import WordUsageExamplesFilters from '@/vue/components/word-usage-examples/word-usage-examples-filters.vue'
+import WordUsageExamplesSorting from '@/vue/components/word-usage-examples/word-usage-examples-sorting.vue'
 
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
@@ -34,7 +38,8 @@ export default {
   mixins: [DependencyCheck],
   components: {
     wordUsageExamplesItem: WordUsageExamplesItem,
-    wordUsageExamplesHeader: WordUsageExamplesHeader
+    wordUsageExamplesFilters: WordUsageExamplesFilters,
+    wordUsageExamplesSorting: WordUsageExamplesSorting
   },
   data () {
     return {
@@ -86,6 +91,7 @@ export default {
   },
   methods: {
     changedSortBy (sortByFromHeader) {
+      console.info('****************main changedSortBy', sortByFromHeader)
       this.sortBy = sortByFromHeader
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
@@ -158,5 +164,10 @@ export default {
       padding: 10px 0;
       font-size: 80%;
     }
+
+    .alpheios-word-usage-header  {
+      border-bottom: 1px solid $alpheios-toolbar-active-color;
+    }
+
   }
 </style>
