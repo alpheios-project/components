@@ -98,13 +98,8 @@
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExamplesReady" v-show="$store.getters['ui/isActiveTab']('wordUsage')">
-        <word-usage-examples
-            :language="app.wordUsageExamples.language"
-            :provider="app.wordUsageExamples.provider"
-            :targetWord="app.wordUsageExamples.targetWord"
-            :wordUsageList="app.wordUsageExamples.wordUsageExamples">
-        </word-usage-examples>
+           v-if="$store.state.app.showWordUsageTab" v-show="$store.getters['ui/isActiveTab']('wordUsage')">
+        <word-usage-examples></word-usage-examples>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')">
         <reskin-font-color></reskin-font-color>

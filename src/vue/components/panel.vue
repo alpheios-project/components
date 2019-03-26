@@ -104,7 +104,7 @@
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
            v-show="$store.getters['ui/isActiveTab']('wordUsage')"
-           v-if="$store.state.app.homonymDataReady"
+           v-if="$store.state.app.showWordUsageTab"
       >
         <word-usage-examples></word-usage-examples>
       </div>

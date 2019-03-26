@@ -11944,11 +11944,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /*
   This is a mobile version of a panel
@@ -18349,42 +18344,38 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.app.homonymDataReady,
-              expression: "$store.state.app.homonymDataReady"
-            }
-          ],
-          staticClass: "alpheios-navmenu__item",
-          class: { active: _vm.$store.getters["ui/isActiveTab"]("wordUsage") },
-          on: {
-            click: function($event) {
-              return _vm.changeTab("wordUsage")
-            }
-          }
-        },
-        [
-          _c(
+      _vm.$store.state.app.showWordUsageTab
+        ? _c(
             "div",
-            { staticClass: "alpheios-navbuttons__icon-cont" },
+            {
+              staticClass: "alpheios-navmenu__item",
+              class: {
+                active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
+              },
+              on: {
+                click: function($event) {
+                  return _vm.changeTab("wordUsage")
+                }
+              }
+            },
             [
-              _c("word-usage-icon", {
-                staticClass: "alpheios-navbuttons__icon"
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "alpheios-navmenu__text" }, [
-            _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_WORD_USAGE")))
-          ])
-        ]
-      ),
+              _c(
+                "div",
+                { staticClass: "alpheios-navbuttons__icon-cont" },
+                [
+                  _c("word-usage-icon", {
+                    staticClass: "alpheios-navbuttons__icon"
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "alpheios-navmenu__text" }, [
+                _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_WORD_USAGE")))
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -18874,41 +18865,35 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "alph-tooltip",
-        {
-          directives: [
+      _vm.$store.state.app.showWordUsageTab
+        ? _c(
+            "alph-tooltip",
             {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.app.homonymDataReady,
-              expression: "$store.state.app.homonymDataReady"
-            }
-          ],
-          attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-            tooltipDirection: "bottom-narrow"
-          }
-        },
-        [
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-navbuttons__btn",
-              class: {
-                active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
-              },
-              on: {
-                click: function($event) {
-                  return _vm.ui.changeTab("wordUsage")
-                }
+              attrs: {
+                tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
+                tooltipDirection: "bottom-narrow"
               }
             },
-            [_c("word-usage-icon")],
-            1
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-navbuttons__btn",
+                  class: {
+                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.ui.changeTab("wordUsage")
+                    }
+                  }
+                },
+                [_c("word-usage-icon")],
+                1
+              )
+            ]
           )
-        ]
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "alph-tooltip",
@@ -19368,41 +19353,37 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              directives: [
+          _vm.$store.state.app.showWordUsageTab
+            ? _c(
+                "alph-tooltip",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.$store.state.app.homonymDataReady,
-                  expression: "$store.state.app.homonymDataReady"
-                }
-              ],
-              attrs: {
-                tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-                tooltipDirection: "left"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("wordUsage")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
+                    tooltipDirection: "left"
                   }
                 },
-                [_c("word-usage-icon")],
-                1
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__btn",
+                      class: {
+                        active: _vm.$store.getters["ui/isActiveTab"](
+                          "wordUsage"
+                        )
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.togglePanelTab("wordUsage")
+                        }
+                      }
+                    },
+                    [_c("word-usage-icon")],
+                    1
+                  )
+                ]
               )
-            ]
-          ),
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "alph-tooltip",
@@ -19859,7 +19840,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.wordUsageExamplesReady
+          _vm.$store.state.app.showWordUsageTab
             ? _c(
                 "div",
                 {
@@ -19875,16 +19856,7 @@ var render = function() {
                   staticClass:
                     "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
                 },
-                [
-                  _c("word-usage-examples", {
-                    attrs: {
-                      language: _vm.app.wordUsageExamples.language,
-                      provider: _vm.app.wordUsageExamples.provider,
-                      targetWord: _vm.app.wordUsageExamples.targetWord,
-                      wordUsageList: _vm.app.wordUsageExamples.wordUsageExamples
-                    }
-                  })
-                ],
+                [_c("word-usage-examples")],
                 1
               )
             : _vm._e(),
@@ -20649,7 +20621,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.$store.state.app.homonymDataReady
+        _vm.$store.state.app.showWordUsageTab
           ? _c(
               "div",
               {
@@ -37048,6 +37020,7 @@ class UIController {
           y: 0
         },
         homonymDataReady: false,
+        showWordUsageTab: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -37129,6 +37102,7 @@ class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
+          state.showWordUsageTab = false
           state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
@@ -37152,9 +37126,11 @@ class UIController {
           }
         },
 
-        setHomonym (state, homonym) {
+        setHomonym (state, data) {
           state.homonymDataReady = true
-          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).grammarFeatures()
+          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(data.homonym.languageID).grammarFeatures()
+
+          state.showWordUsageTab = data.showWordUsageTab
         },
 
         setInflData (state, hasInflData = true) {
@@ -37545,7 +37521,6 @@ class UIController {
     this.updateWordAnnotationData()
     this.store.commit('app/lexicalRequestStarted', targetWord)
     this.open()
-    this.getAuthorsForWordUsage()
     return this
   }
 
@@ -37862,7 +37837,7 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, homonym)
+    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
