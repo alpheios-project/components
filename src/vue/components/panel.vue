@@ -103,15 +103,10 @@
         <user-auth></user-auth>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExamplesReady"
            v-show="$store.getters['ui/isActiveTab']('wordUsage')"
-        >
-        <word-usage-examples-block
-            :wordUsageList="app.wordUsageExamples.wordUsageExamples"
-            :targetWord="app.wordUsageExamples.targetWord"
-            :language="app.wordUsageExamples.language"
-            :provider="app.wordUsageExamples.provider">
-        </word-usage-examples-block>
+           v-if="$store.state.app.showWordUsageTab"
+      >
+        <word-usage-examples></word-usage-examples>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options" v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
@@ -155,6 +150,10 @@
 
         <setting :classes="['alpheios-panel__options-item']"
                  :data="settings.contentOptions.items.enableWordUsageExamples" @change="contentOptionChanged"
+                 v-if="settings.contentOptions.items"></setting>
+        
+        <setting :classes="['alpheios-panel__options-item']" :data="settings.contentOptions.items.wordUsageExamplesON"
+                 @change="contentOptionChanged"
                  v-if="settings.contentOptions.items"></setting>
 
         <setting :classes="['alpheios-panel__options-item']" :data="settings.contentOptions.items.wordUsageExamplesAuthMax"

@@ -61,7 +61,8 @@
     </alph-tooltip>
 
     <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_WORD_USAGE')" tooltipDirection="bottom-narrow"
-                v-show="$store.state.app.wordUsageExamplesReady">
+            v-if="$store.state.app.showWordUsageTab"
+    >
       <span @click="ui.changeTab('wordUsage')" class="alpheios-navbuttons__btn"
             v-bind:class="{ active: $store.getters['ui/isActiveTab']('wordUsage') }">
         <word-usage-icon></word-usage-icon>
@@ -133,7 +134,7 @@ export default {
     & .alpheios-navbuttons__btn {
       width: 20px;
       height: 20px;
-      margin: 10px 5px;
+      margin: 10px 3px;
     }
 
     & .alpheios-navbuttons__btn svg {

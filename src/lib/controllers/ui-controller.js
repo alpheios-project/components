@@ -144,7 +144,7 @@ export default class UIController {
 
     // Creates on configures an event listener
     uiController.evc = new UIEventController()
-    uiController.registerGetSelectedText('GetSelectedText',uiController.options.textQuerySelector)
+    uiController.registerGetSelectedText('GetSelectedText', uiController.options.textQuerySelector)
     uiController.evc.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), GenericEvt, 'keydown')
     uiController.evc.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), GenericEvt, 'Alpheios_Page_Load')
 
@@ -336,6 +336,7 @@ export default class UIController {
       inflectionsViewSet: null,
       wordlistC: this.wordlistC, // A word list controller
       wordUsageExamples: null,
+      wordUsageAuthors: [],
 
       isDevMode: () => {
         return this.options.mode === 'development'
@@ -362,7 +363,8 @@ export default class UIController {
           return true
         }
         return false
-      }
+      },
+      getWordUsageData: this.getWordUsageData.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -382,6 +384,7 @@ export default class UIController {
           y: 0
         },
         homonymDataReady: false,
+        showWordUsageTab: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -399,6 +402,7 @@ export default class UIController {
           page: {}
         },
         wordUsageExamplesReady: false, // Whether word usage examples data is available
+        wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
         providers: [] // A list of resource providers
@@ -462,6 +466,7 @@ export default class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
+          state.showWordUsageTab = false
           state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
@@ -485,9 +490,11 @@ export default class UIController {
           }
         },
 
-        setHomonym (state, homonym) {
+        setHomonym (state, data) {
           state.homonymDataReady = true
-          state.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.languageID).grammarFeatures()
+          state.linkedFeatures = LanguageModelFactory.getLanguageModel(data.homonym.languageID).grammarFeatures()
+
+          state.showWordUsageTab = data.showWordUsageTab
         },
 
         setInflData (state, hasInflData = true) {
@@ -521,8 +528,12 @@ export default class UIController {
           state.treebankData.word = {}
         },
 
-        setWordUsageExamplesReady (state) {
-          state.wordUsageExamplesReady = true
+        setWordUsageExamplesReady (state, value = true) {
+          state.wordUsageExamplesReady = value
+        },
+
+        setWordUsageAuthorsReady (state, value = true) {
+          state.wordUsageAuthorsReady = value
         },
 
         setWordLists (state, wordLists) {
@@ -1077,7 +1088,7 @@ export default class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -1090,6 +1101,16 @@ export default class UIController {
     }
   }
 
+  async getWordUsageData (homonym, params = {}) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+    let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
+      ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      : null
+
+    await LexicalQuery.getWordUsageData(homonym, wordUsageExamples, params)
+  }
+
   /**
    * Check to see if Lemma Translations should be enabled for a query
    *  NB this is Prototype functionality
@@ -1100,9 +1121,11 @@ export default class UIController {
       !this.contentOptions.items.locale.currentValue.match(/^en-/)
   }
 
-  enableWordUsageExamples (textSelector) {
+  enableWordUsageExamples (textSelector, requestType) {
+    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === Constants.LANG_LATIN &&
-      this.contentOptions.items.enableWordUsageExamples.currentValue
+      this.contentOptions.items.enableWordUsageExamples.currentValue &&
+      checkType
   }
 
   handleEscapeKey (event, nativeEvent) {
@@ -1178,7 +1201,7 @@ export default class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, homonym)
+    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
@@ -1319,7 +1342,7 @@ export default class UIController {
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 
-  registerGetSelectedText(listenerName,selector) {
+  registerGetSelectedText (listenerName, selector) {
     let ev
     if (this.platform === HTMLPage.platforms.MOBILE) {
       ev = LongTap
@@ -1346,8 +1369,8 @@ export default class UIController {
     }
   }
 
-  registerAndActivateGetSelectedText(listenerName,selector) {
-    this.registerGetSelectedText(listenerName,selector)
+  registerAndActivateGetSelectedText (listenerName, selector) {
+    this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
   }
 }

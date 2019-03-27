@@ -7837,10 +7837,10 @@ var singleton = jumper();
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7848,10 +7848,32 @@ var singleton = jumper();
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10966,9 +10988,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/images/inline-icons/books-stack.svg */ "./images/inline-icons/books-stack.svg");
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/images/inline-icons/usage-examples-icon1.svg */ "./images/inline-icons/usage-examples-icon1.svg");
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
 //
 //
 //
@@ -11111,7 +11134,7 @@ __webpack_require__.r(__webpack_exports__);
     infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_9___default.a,
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_7___default.a,
     treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_8___default.a,
-    wordUsageIcon: _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_11___default.a,
+    wordUsageIcon: _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_11___default.a,
     wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_10___default.a
   },
   tabChangeUnwatch: null, // Will hold a function for removal of a tab change watcher
@@ -11351,6 +11374,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Vue components
 
@@ -11428,8 +11452,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/images/inline-icons/books-stack.svg */ "./images/inline-icons/books-stack.svg");
-/* harmony import */ var _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/images/inline-icons/usage-examples-icon1.svg */ "./images/inline-icons/usage-examples-icon1.svg");
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/images/inline-icons/collapsed.svg */ "./images/inline-icons/collapsed.svg");
 /* harmony import */ var _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/images/inline-icons/expanded.svg */ "./images/inline-icons/expanded.svg");
@@ -11618,7 +11642,7 @@ __webpack_require__.r(__webpack_exports__);
     infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_10___default.a,
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_8___default.a,
     treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_9___default.a,
-    wordUsageIcon: _images_inline_icons_books_stack_svg__WEBPACK_IMPORTED_MODULE_12___default.a,
+    wordUsageIcon: _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_12___default.a,
     wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_11___default.a,
     collapsedIcon: _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
     expandedIcon: _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_14___default.a,
@@ -11712,7 +11736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lookup_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lookup.vue */ "./vue/components/lookup.vue");
 /* harmony import */ var _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./reskin-font-color.vue */ "./vue/components/reskin-font-color.vue");
 /* harmony import */ var _user_auth_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-auth.vue */ "./vue/components/user-auth.vue");
-/* harmony import */ var _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/vue/components/word-usage-examples-block.vue */ "./vue/components/word-usage-examples-block.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples.vue */ "./vue/components/word-usage-examples/word-usage-examples.vue");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! alpheios-wordlist */ "alpheios-wordlist");
@@ -11725,11 +11749,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11991,7 +12010,7 @@ __webpack_require__.r(__webpack_exports__);
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
     reskinFontColor: _reskin_font_color_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
     wordListPanel: alpheios_wordlist__WEBPACK_IMPORTED_MODULE_17__["WordListPanel"],
-    wordUsageExamplesBlock: _vue_components_word_usage_examples_block_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+    wordUsageExamples: _vue_components_word_usage_examples_word_usage_examples_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   directives: {
     onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_20__["directive"]
@@ -12226,7 +12245,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
-//
 //
 //
 //
@@ -13624,10 +13642,211 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-example-item.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-example-item.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/clear-filters.svg */ "./images/inline-icons/clear-filters.svg");
+/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WordUsageExamplesFilters',
+  inject: ['app', 'l10n'],
+  components: {
+    clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default.a,
+    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data () {
+    return {
+      typeFilter: 'noFilters',
+      selectedAuthor: null,
+      selectedTextWork: null,
+      lastTargetWord: null,
+      lastAuthorID: null,
+      lastAuthorsList: [],
+      lastTextWorksList: [],
+      typeFiltersList: [
+        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
+        { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true },
+        { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
+      ],
+      disabledButton: false
+    }
+  },
+  computed: {
+    homonym () {
+      return this.$store.state.app.homonymDataReady ? this.app.homonym : null
+    },
+    authorsList () {
+      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
+          this.lastTargetWord = this.app.homonym.targetWord
+          this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+                                .map(wordUsageExampleItem => wordUsageExampleItem.author)
+                                .filter((item, pos, self) => self.indexOf(item) == pos)
+                                .slice()
+          
+          this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
+                                .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
+                                .filter((item, pos, self) => item && self.indexOf(item) == pos)
+                                .slice()
+
+          this.removeDisabledFromTypeFilters()      
+          this.typeFilter = 'moreResults'
+          this.setDisabledToType('noFilters')                 
+      }
+      return true
+    },
+    filteredWorkList () {
+      if (this.selectedAuthor) {
+        this.selectedTextWork = null
+        console.info('*****this.lastTextWorksList', this.lastTextWorksList)
+        return this.lastTextWorksList.filter(textwork => {
+          return textwork.author.ID === this.selectedAuthor.ID
+        })
+      }
+      return []
+    }
+  },
+  methods: {
+    removeDisabledFromTypeFilters () {
+      this.typeFiltersList.forEach(item => {
+        item.disabled = false
+      })
+    },
+    setDisabledToType (typeValue) {
+      this.removeDisabledFromTypeFilters()
+      this.typeFiltersList.find(item => item.value === typeValue).disabled = true
+    },
+    async getResults () {
+      if (this.typeFilter === 'noFilters') {
+        this.disabledButton = true
+        
+        await this.getResultsNoFilters()
+
+        this.removeDisabledFromTypeFilters()
+        this.clearFilter('author')
+        this.lastAuthorID = null
+        this.typeFilter = 'moreResults'
+        this.setDisabledToType('noFilters')
+        
+        this.disabledButton = false
+      } else if (this.typeFilter === 'moreResults') {
+        this.disabledButton = true
+
+        await this.getResultsWithFilters()
+
+        this.setDisabledToType('filterCurrentResults')
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
+
+        this.disabledButton = false
+      } else if (this.typeFilter === 'filterCurrentResults') {
+        this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
+      }
+    },
+    async getResultsNoFilters () {
+      await this.app.getWordUsageData(this.homonym)
+    },
+    async getResultsWithFilters () {
+      await this.app.getWordUsageData(this.homonym, {
+        author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
+        textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
+      })
+    },
+    calcTitle (item) {
+      if (item) {
+        if ( item.title() && item.abbreviation() ) {
+          return `${item.title()} (${item.abbreviation()})`
+        }
+        if ( item.title() ) {
+          return item.title()
+        }
+        if ( item.abbreviation() ) {
+          return item.abbreviation()
+        }
+      }
+      return ''
+    },
+    clearFilter (type) {
+      if (type === 'author') {
+        this.selectedAuthor = null
+        this.selectedTextWork = null
+      }
+      if (type === 'textwork') {
+        this.selectedTextWork = null
+      }
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13667,7 +13886,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'WordUsageExampleItem',
+  name: 'WordUsageExamplesItem',
   components: {
     sourceIcon: _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -13683,11 +13902,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    prefix: function() {
+    prefix () {
       return this.wordUsageItem.prefix
     },
-    suffix: function() {
+    suffix () {
       return this.wordUsageItem.suffix
+    },
+    citFormatted () {
+      return `${this.wordUsageItem.cit} ${this.wordUsageItem.fullCit()}`
     }
   },
   methods: {
@@ -13700,17 +13922,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_components_word_usage_example_item_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-example-item.vue */ "./vue/components/word-usage-example-item.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/clear-filters.svg */ "./images/inline-icons/clear-filters.svg");
+/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13727,64 +13957,191 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-// TODO: Update to retrieve usage examples data directly from the Vue store, not from a parent component
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'WordUsageExamplesBlock',
-  inject: ['ui'],
-  storeModules: ['ui'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  name: 'WordUsageExamplesSorting',
+  inject: ['app', 'l10n'],
   components: {
-    wordUsageExampleItem: _vue_components_word_usage_example_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0___default.a,
+    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: {
-    wordUsageList: {
-      type: Array,
-      required: true
-    },
-    targetWord: {
-      type: String,
-      required: true
-    },
-    language: {
-      type: String,
-      required: true
-    },
-    provider: {
-      type: Object,
-      required: false
+  data () {
+    return {
+      selectedSortBy: null,
+      typeSortingList: [
+        { value: 'byAuthor', title: this.l10n.getText('WORDUSAGE_SORT_BY_AUTHOR') },
+        { value: 'byTextWork', title: this.l10n.getText('WORDUSAGE_SORT_BY_TEXTWORK') },
+        { value: 'byPrefix', title: this.l10n.getText('WORDUSAGE_SORT_BY_PREFIX') },
+        { value: 'bySuffix', title: this.l10n.getText('WORDUSAGE_SORT_BY_SUFFIX') }
+      ]
     }
   },
   computed: {
+    availableSortBy () {
+      return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.wordUsageExamples && this.app.wordUsageExamples.wordUsageExamples.length > 0
+    },
+    showHideTitleSort () {
+      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
+    }
+  },
+  methods: {
+    showHideSort () {
+      this.visibleSortBy = !this.visibleSortBy
+    },
+    changedSortBy () {
+      this.$emit('changedSortBy', this.selectedSortBy)
+    },
+    clearSorting () {
+      this.selectedSortBy = null
+      this.changedSortBy()
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-item.vue */ "./vue/components/word-usage-examples/word-usage-examples-item.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WordUsageExamples',
+  inject: ['ui', 'app', 'l10n'],
+  storeModules: ['ui'],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  components: {
+    wordUsageExamplesItem: _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    wordUsageExamplesFilters: _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    wordUsageExamplesSorting: _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data () {
+    return {
+      sortBy: null,
+      selectedAuthor: null,
+      selectedTextWork: null
+    }
+  },
+  computed: {
+    targetWord () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
+    },
+    language () {
+      return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
+    },
+    showWordUsageExampleItems () {
+      this.selectedAuthor = null
+      this.selectedTextWork = null
+      return this.$store.state.app.wordUsageExamplesReady
+    },
+    wordUsageExamples () {
+      if (!this.$store.state.app.wordUsageExamplesReady) {
+        return []
+      }
+      if (this.selectedAuthor) {
+        return this.app.wordUsageExamples.wordUsageExamples
+                   .filter(wordUsageExample => {
+                     return wordUsageExample.author.ID === this.selectedAuthor.ID && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
+                   })
+      }
+      return this.app.wordUsageExamples.wordUsageExamples
+    },
+    provider () {
+      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
+    },
+    providerRights () {
+      return (this.app.wordUsageExamples && this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+        ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
+        : []
+    },
     wordUsageListSorted() {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.wordUsageList) {
-        return this.wordUsageList.sort((a,b) => {
-          let aU = a.fullCit().toUpperCase()
-          let bU = b.fullCit().toUpperCase()
-          if (aU < bU) {
-            return -1
-          }
-          if (aU > bU) {
-            return 1
-          }
-          return 0
-        })
+      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
+        return this.sortWordUSageExamplesBy()
       }
-
+      return []
+    }
+  },
+  methods: {
+    changedSortBy (sortByFromHeader) {
+      this.sortBy = sortByFromHeader
     },
-
-    showWordUsageExampleItems () {
-      return this.wordUsageList && this.wordUsageList.length > 0
+    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+      this.selectedAuthor = selectedAuthor
+      this.selectedTextWork = selectedTextWork
     },
-
-    providerRights () {
-      return (this.provider && this.provider.rights)
-        ? Array.from(this.provider.rights.entries()).map(([key, value]) => { return { key, value } })
-        : []
+    getPropertyBySortBy (a, type) {
+      switch (type) {
+        case 'byAuthor':
+          return a.authorForSort()
+        case 'byTextWork':
+          return a.textWorkForSort()
+        case 'byPrefix':
+          return a.prefixForSort
+        case 'bySuffix':
+          return a.suffixForSort
+        default:
+          return a.fullCit().toUpperCase()
+      }
+    },
+    sortWordUSageExamplesBy () {
+      return this.wordUsageExamples.sort((a, b) => {
+        let aU = this.getPropertyBySortBy(a, this.sortBy)
+        let bU = this.getPropertyBySortBy(b, this.sortBy)
+        if (aU < bU) {
+          return -1
+        }
+        if (aU > bU) {
+          return 1
+        }
+        return 0
+      })
     }
   },
   mounted () {
@@ -17988,42 +18345,38 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.app.wordUsageExamplesReady,
-              expression: "$store.state.app.wordUsageExamplesReady"
-            }
-          ],
-          staticClass: "alpheios-navmenu__item",
-          class: { active: _vm.$store.getters["ui/isActiveTab"]("wordUsage") },
-          on: {
-            click: function($event) {
-              return _vm.changeTab("wordUsage")
-            }
-          }
-        },
-        [
-          _c(
+      _vm.$store.state.app.showWordUsageTab
+        ? _c(
             "div",
-            { staticClass: "alpheios-navbuttons__icon-cont" },
+            {
+              staticClass: "alpheios-navmenu__item",
+              class: {
+                active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
+              },
+              on: {
+                click: function($event) {
+                  return _vm.changeTab("wordUsage")
+                }
+              }
+            },
             [
-              _c("word-usage-icon", {
-                staticClass: "alpheios-navbuttons__icon"
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "alpheios-navmenu__text" }, [
-            _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_WORD_USAGE")))
-          ])
-        ]
-      ),
+              _c(
+                "div",
+                { staticClass: "alpheios-navbuttons__icon-cont" },
+                [
+                  _c("word-usage-icon", {
+                    staticClass: "alpheios-navbuttons__icon"
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "alpheios-navmenu__text" }, [
+                _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_WORD_USAGE")))
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -18513,41 +18866,35 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "alph-tooltip",
-        {
-          directives: [
+      _vm.$store.state.app.showWordUsageTab
+        ? _c(
+            "alph-tooltip",
             {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.app.wordUsageExamplesReady,
-              expression: "$store.state.app.wordUsageExamplesReady"
-            }
-          ],
-          attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-            tooltipDirection: "bottom-narrow"
-          }
-        },
-        [
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-navbuttons__btn",
-              class: {
-                active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
-              },
-              on: {
-                click: function($event) {
-                  return _vm.ui.changeTab("wordUsage")
-                }
+              attrs: {
+                tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
+                tooltipDirection: "bottom-narrow"
               }
             },
-            [_c("word-usage-icon")],
-            1
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-navbuttons__btn",
+                  class: {
+                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.ui.changeTab("wordUsage")
+                    }
+                  }
+                },
+                [_c("word-usage-icon")],
+                1
+              )
+            ]
           )
-        ]
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "alph-tooltip",
@@ -19007,41 +19354,37 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              directives: [
+          _vm.$store.state.app.showWordUsageTab
+            ? _c(
+                "alph-tooltip",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.$store.state.app.wordUsageExamplesReady,
-                  expression: "$store.state.app.wordUsageExamplesReady"
-                }
-              ],
-              attrs: {
-                tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-                tooltipDirection: "left"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage")
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("wordUsage")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
+                    tooltipDirection: "left"
                   }
                 },
-                [_c("word-usage-icon")],
-                1
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__btn",
+                      class: {
+                        active: _vm.$store.getters["ui/isActiveTab"](
+                          "wordUsage"
+                        )
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.togglePanelTab("wordUsage")
+                        }
+                      }
+                    },
+                    [_c("word-usage-icon")],
+                    1
+                  )
+                ]
               )
-            ]
-          ),
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "alph-tooltip",
@@ -19498,7 +19841,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.wordUsageExamplesReady
+          _vm.$store.state.app.showWordUsageTab
             ? _c(
                 "div",
                 {
@@ -19514,16 +19857,7 @@ var render = function() {
                   staticClass:
                     "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
                 },
-                [
-                  _c("word-usage-examples-block", {
-                    attrs: {
-                      language: _vm.app.wordUsageExamples.language,
-                      provider: _vm.app.wordUsageExamples.provider,
-                      targetWord: _vm.app.wordUsageExamples.targetWord,
-                      wordUsageList: _vm.app.wordUsageExamples.wordUsageExamples
-                    }
-                  })
-                ],
+                [_c("word-usage-examples")],
                 1
               )
             : _vm._e(),
@@ -20288,7 +20622,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.$store.state.app.wordUsageExamplesReady
+        _vm.$store.state.app.showWordUsageTab
           ? _c(
               "div",
               {
@@ -20303,16 +20637,7 @@ var render = function() {
                 staticClass:
                   "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
               },
-              [
-                _c("word-usage-examples-block", {
-                  attrs: {
-                    wordUsageList: _vm.app.wordUsageExamples.wordUsageExamples,
-                    targetWord: _vm.app.wordUsageExamples.targetWord,
-                    language: _vm.app.wordUsageExamples.language,
-                    provider: _vm.app.wordUsageExamples.provider
-                  }
-                })
-              ],
+              [_c("word-usage-examples")],
               1
             )
           : _vm._e(),
@@ -20457,6 +20782,16 @@ var render = function() {
                     classes: ["alpheios-panel__options-item"],
                     data:
                       _vm.settings.contentOptions.items.enableWordUsageExamples
+                  },
+                  on: { change: _vm.contentOptionChanged }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.settings.contentOptions.items
+              ? _c("setting", {
+                  attrs: {
+                    classes: ["alpheios-panel__options-item"],
+                    data: _vm.settings.contentOptions.items.wordUsageExamplesON
                   },
                   on: { change: _vm.contentOptionChanged }
                 })
@@ -22193,10 +22528,262 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "alpheios-word-usage-header-filters" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios-word-usage-header-select-type-filters-block" },
+      _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
+        return _c(
+          "div",
+          {
+            key: typeFilterItem.value,
+            staticClass: "alpheios-word-usage-header-select-type-filter",
+            class: {
+              "alpheios-word-usage-header-select-type-filter-disabled":
+                typeFilterItem.disabled === true
+            }
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.typeFilter,
+                  expression: "typeFilter"
+                }
+              ],
+              attrs: {
+                type: "radio",
+                id: typeFilterItem.value,
+                disabled: typeFilterItem.disabled === true
+              },
+              domProps: {
+                value: typeFilterItem.value,
+                checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
+              },
+              on: {
+                change: function($event) {
+                  _vm.typeFilter = typeFilterItem.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: typeFilterItem.value } }, [
+              _vm._v(_vm._s(typeFilterItem.label))
+            ])
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.authorsList && _vm.typeFilter !== "noFilters",
+            expression: "authorsList && typeFilter !== 'noFilters'"
+          }
+        ]
+      },
+      [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedAuthor,
+                expression: "selectedAuthor"
+              }
+            ],
+            staticClass: "uk-select alpheios-word-usage-header-select-author",
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedAuthor = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          _vm._l(_vm.lastAuthorsList, function(authorItem) {
+            return _c(
+              "option",
+              { key: authorItem.ID, domProps: { value: authorItem } },
+              [_vm._v(_vm._s(_vm.calcTitle(authorItem)))]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "alph-tooltip",
+          {
+            attrs: {
+              tooltipText: _vm.l10n.getMsg("WORDUSAGE_FILTERS_AUTHOR_CLEAR"),
+              tooltipDirection: "top-right"
+            }
+          },
+          [
+            _c(
+              "span",
+              {
+                staticClass: "alpheios-word-usage-header-clear-icon",
+                class: {
+                  "alpheios-word-usage-header-clear-disabled":
+                    _vm.selectedAuthor === null
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.clearFilter("author")
+                  }
+                }
+              },
+              [_c("clear-filters-icon")],
+              1
+            )
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    this.selectedAuthor && _vm.typeFilter !== "noFilters"
+      ? _c(
+          "div",
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedTextWork,
+                    expression: "selectedTextWork"
+                  }
+                ],
+                staticClass:
+                  "uk-select alpheios-word-usage-header-select-textwork",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedTextWork = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.filteredWorkList, function(workItem) {
+                return _c(
+                  "option",
+                  { key: workItem.ID, domProps: { value: workItem } },
+                  [_vm._v(_vm._s(_vm.calcTitle(workItem)))]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                attrs: {
+                  tooltipText: _vm.l10n.getMsg(
+                    "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
+                  ),
+                  tooltipDirection: "top-right"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "alpheios-word-usage-header-clear-icon",
+                    class: {
+                      "alpheios-word-usage-header-clear-disabled":
+                        _vm.selectedTextWork === null
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.clearFilter("textwork")
+                      }
+                    }
+                  },
+                  [_c("clear-filters-icon")],
+                  1
+                )
+              ]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "alpheios-word-usage-header-actions" }, [
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-primary uk-button-small",
+          attrs: { disabled: _vm.disabledButton },
+          on: { click: _vm.getResults }
+        },
+        [
+          _vm._v(
+            "\n          " +
+              _vm._s(_vm.l10n.getText("WORDUSAGE_GET_RESULTS")) +
+              "\n      "
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22219,7 +22806,7 @@ var render = function() {
             staticClass: "alpheios_word_usage_list_item__source_link",
             attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
           },
-          [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
+          [_vm._v(_vm._s(_vm.citFormatted))]
         )
       ]
     ),
@@ -22279,7 +22866,7 @@ var render = function() {
             staticClass: "alpheios_word_usage_list_item__source_link",
             attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
           },
-          [_vm._v(_vm._s(_vm.wordUsageItem.fullCit()))]
+          [_vm._v(_vm._s(_vm.citFormatted))]
         )
       ]
     )
@@ -22292,10 +22879,120 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.availableSortBy
+    ? _c("div", { staticClass: "alpheios-word-usage-header-sorting" }, [
+        _c("p", { staticClass: "alpheios-word-usage-header-title" }, [
+          _vm._v(
+            "\n    " + _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY")) + "\n  "
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedSortBy,
+                    expression: "selectedSortBy"
+                  }
+                ],
+                staticClass:
+                  "uk-select alpheios-word-usage-header-select-sortBy",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedSortBy = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.changedSortBy
+                  ]
+                }
+              },
+              _vm._l(_vm.typeSortingList, function(typeSorting) {
+                return _c(
+                  "option",
+                  {
+                    key: typeSorting.value,
+                    domProps: { value: typeSorting.value }
+                  },
+                  [_vm._v(_vm._s(typeSorting.title))]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                attrs: {
+                  tooltipText: _vm.l10n.getMsg(
+                    "WORDUSAGE_SORTING_AUTHOR_CLEAR"
+                  ),
+                  tooltipDirection: "top-right"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "alpheios-word-usage-header-clear-icon",
+                    class: {
+                      "alpheios-word-usage-header-clear-disabled":
+                        _vm.selectedSortBy === null
+                    },
+                    on: { click: _vm.clearSorting }
+                  },
+                  [_c("clear-filters-icon")],
+                  1
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22308,22 +23005,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-word-usage" }, [
-    _c("div", { staticClass: "alpheios_word_usage_list_title" }, [
-      _vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")
-    ]),
+    _c(
+      "div",
+      {
+        staticClass: "alpheios_word_usage_list_title",
+        attrs: { "data-alpheios-ignore": "all" }
+      },
+      [_vm._v(_vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "alpheios-word-usage-header",
+        attrs: { "data-alpheios-ignore": "all" }
+      },
+      [
+        _c("word-usage-examples-filters", {
+          on: { filterCurrentByAuthor: _vm.filterCurrentByAuthor }
+        }),
+        _vm._v(" "),
+        _c("word-usage-examples-sorting", {
+          on: { changedSortBy: _vm.changedSortBy }
+        })
+      ],
+      1
+    ),
     _vm._v(" "),
     _vm.showWordUsageExampleItems
-      ? _c(
-          "div",
-          { staticClass: "alpheios_word_usage_list_mainblock" },
-          _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
-            return _c("word-usage-example-item", {
-              key: wordUsageItem.ID,
-              attrs: { wordUsageItem: wordUsageItem }
-            })
-          }),
-          1
-        )
+      ? _c("div", { staticClass: "alpheios_word_usage_list_mainblock" }, [
+          _vm.wordUsageListSorted.length > 0
+            ? _c(
+                "div",
+                _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                  return _c("word-usage-examples-item", {
+                    key: wordUsageItem.ID,
+                    attrs: { wordUsageItem: wordUsageItem }
+                  })
+                }),
+                1
+              )
+            : _c("div", [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(_vm.l10n.getText("WORDUSAGE_NO_RESULTS")) +
+                    "\n    "
+                )
+              ])
+        ])
       : _vm._e(),
     _vm._v(" "),
     _vm.provider
@@ -22536,7 +23265,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.7
+ * Vue.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -23017,7 +23746,7 @@ __webpack_require__.r(__webpack_exports__);
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
    * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
    */
-  var unicodeLetters = 'a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD';
+  var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
 
   /**
    * Check if a string starts with $ or _
@@ -23042,7 +23771,7 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Parse simple path.
    */
-  var bailRE = new RegExp(("[^" + unicodeLetters + ".$_\\d]"));
+  var bailRE = new RegExp(("[^" + (unicodeRegExp.source) + ".$_\\d]"));
   function parsePath (path) {
     if (bailRE.test(path)) {
       return
@@ -23946,7 +24675,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   function validateComponentName (name) {
-    if (!new RegExp(("^[a-zA-Z][\\-\\.0-9_" + unicodeLetters + "]*$")).test(name)) {
+    if (!new RegExp(("^[a-zA-Z][\\-\\.0-9_" + (unicodeRegExp.source) + "]*$")).test(name)) {
       warn(
         'Invalid component name: "' + name + '". Component names ' +
         'should conform to valid custom element name in html5 specification.'
@@ -24397,10 +25126,11 @@ __webpack_require__.r(__webpack_exports__);
     var res;
     try {
       res = args ? handler.apply(context, args) : handler.call(context);
-      if (res && !res._isVue && isPromise(res)) {
+      if (res && !res._isVue && isPromise(res) && !res._handled) {
+        res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
         // issue #9511
-        // reassign to res to avoid catch triggering multiple times when nested calls
-        res = res.catch(function (e) { return handleError(e, vm, info + " (Promise/async)"); });
+        // avoid catch triggering multiple times when nested calls
+        res._handled = true;
       }
     } catch (e) {
       handleError(e, vm, info);
@@ -25083,7 +25813,8 @@ __webpack_require__.r(__webpack_exports__);
     prevSlots
   ) {
     var res;
-    var isStable = slots ? !!slots.$stable : true;
+    var hasNormalSlots = Object.keys(normalSlots).length > 0;
+    var isStable = slots ? !!slots.$stable : !hasNormalSlots;
     var key = slots && slots.$key;
     if (!slots) {
       res = {};
@@ -25095,7 +25826,8 @@ __webpack_require__.r(__webpack_exports__);
       prevSlots &&
       prevSlots !== emptyObject &&
       key === prevSlots.$key &&
-      Object.keys(normalSlots).length === 0
+      !hasNormalSlots &&
+      !prevSlots.$hasNormal
     ) {
       // fast path 2: stable scoped slots w/ no normal slots to proxy,
       // only need to normalize once
@@ -25121,6 +25853,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     def(res, '$stable', isStable);
     def(res, '$key', key);
+    def(res, '$hasNormal', hasNormalSlots);
     return res
   }
 
@@ -25130,8 +25863,10 @@ __webpack_require__.r(__webpack_exports__);
       res = res && typeof res === 'object' && !Array.isArray(res)
         ? [res] // single vnode
         : normalizeChildren(res);
-      return res && res.length === 0
-        ? undefined
+      return res && (
+        res.length === 0 ||
+        (res.length === 1 && res[0].isComment) // #9658
+      ) ? undefined
         : res
     };
     // this is a slot using the new v-slot syntax without scope. although it is
@@ -25311,12 +26046,13 @@ __webpack_require__.r(__webpack_exports__);
               : data.attrs || (data.attrs = {});
           }
           var camelizedKey = camelize(key);
-          if (!(key in hash) && !(camelizedKey in hash)) {
+          var hyphenatedKey = hyphenate(key);
+          if (!(camelizedKey in hash) && !(hyphenatedKey in hash)) {
             hash[key] = value[key];
 
             if (isSync) {
               var on = data.on || (data.on = {});
-              on[("update:" + camelizedKey)] = function ($event) {
+              on[("update:" + key)] = function ($event) {
                 value[key] = $event;
               };
             }
@@ -26150,17 +26886,23 @@ __webpack_require__.r(__webpack_exports__);
       return factory.resolved
     }
 
+    var owner = currentRenderingInstance;
+    if (owner && isDef(factory.owners) && factory.owners.indexOf(owner) === -1) {
+      // already pending
+      factory.owners.push(owner);
+    }
+
     if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
       return factory.loadingComp
     }
 
-    var owner = currentRenderingInstance;
-    if (isDef(factory.owners)) {
-      // already pending
-      factory.owners.push(owner);
-    } else {
+    if (owner && !isDef(factory.owners)) {
       var owners = factory.owners = [owner];
       var sync = true;
+      var timerLoading = null;
+      var timerTimeout = null
+
+      ;(owner).$on('hook:destroyed', function () { return remove(owners, owner); });
 
       var forceRender = function (renderCompleted) {
         for (var i = 0, l = owners.length; i < l; i++) {
@@ -26169,6 +26911,14 @@ __webpack_require__.r(__webpack_exports__);
 
         if (renderCompleted) {
           owners.length = 0;
+          if (timerLoading !== null) {
+            clearTimeout(timerLoading);
+            timerLoading = null;
+          }
+          if (timerTimeout !== null) {
+            clearTimeout(timerTimeout);
+            timerTimeout = null;
+          }
         }
       };
 
@@ -26215,7 +26965,8 @@ __webpack_require__.r(__webpack_exports__);
             if (res.delay === 0) {
               factory.loading = true;
             } else {
-              setTimeout(function () {
+              timerLoading = setTimeout(function () {
+                timerLoading = null;
                 if (isUndef(factory.resolved) && isUndef(factory.error)) {
                   factory.loading = true;
                   forceRender(false);
@@ -26225,7 +26976,8 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           if (isDef(res.timeout)) {
-            setTimeout(function () {
+            timerTimeout = setTimeout(function () {
+              timerTimeout = null;
               if (isUndef(factory.resolved)) {
                 reject(
                   "timeout (" + (res.timeout) + "ms)"
@@ -26771,11 +27523,21 @@ __webpack_require__.r(__webpack_exports__);
   // timestamp can either be hi-res (relative to page load) or low-res
   // (relative to UNIX epoch), so in order to compare time we have to use the
   // same timestamp type when saving the flush timestamp.
-  if (inBrowser && getNow() > document.createEvent('Event').timeStamp) {
-    // if the low-res timestamp which is bigger than the event timestamp
-    // (which is evaluated AFTER) it means the event is using a hi-res timestamp,
-    // and we need to use the hi-res version for event listeners as well.
-    getNow = function () { return performance.now(); };
+  // All IE versions use low-res event timestamps, and have problematic clock
+  // implementations (#9632)
+  if (inBrowser && !isIE) {
+    var performance = window.performance;
+    if (
+      performance &&
+      typeof performance.now === 'function' &&
+      getNow() > document.createEvent('Event').timeStamp
+    ) {
+      // if the event timestamp, although evaluated AFTER the Date.now(), is
+      // smaller than it, it means the event is using a hi-res timestamp,
+      // and we need to use the hi-res version for event listener timestamps as
+      // well.
+      getNow = function () { return performance.now(); };
+    }
   }
 
   /**
@@ -27940,7 +28702,7 @@ __webpack_require__.r(__webpack_exports__);
     value: FunctionalRenderContext
   });
 
-  Vue.version = '2.6.7';
+  Vue.version = '2.6.10';
 
   /*  */
 
@@ -30032,8 +30794,10 @@ __webpack_require__.r(__webpack_exports__);
           e.target === e.currentTarget ||
           // event is fired after handler attachment
           e.timeStamp >= attachedTimestamp ||
-          // #9462 bail for iOS 9 bug: event.timeStamp is 0 after history.pushState
-          e.timeStamp === 0 ||
+          // bail for environments that have buggy event.timeStamp implementations
+          // #9462 iOS 9 bug: event.timeStamp is 0 after history.pushState
+          // #9681 QtWebEngine event.timeStamp is negative value
+          e.timeStamp <= 0 ||
           // #9448 bail if event is fired in another document in a multi-page
           // electron/nw.js app, since event.timeStamp will be using a different
           // starting reference
@@ -30100,10 +30864,11 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     for (key in oldProps) {
-      if (isUndef(props[key])) {
+      if (!(key in props)) {
         elm[key] = '';
       }
     }
+
     for (key in props) {
       cur = props[key];
       // ignore children if the node has textContent or innerHTML,
@@ -30651,8 +31416,8 @@ __webpack_require__.r(__webpack_exports__);
     var context = activeInstance;
     var transitionNode = activeInstance.$vnode;
     while (transitionNode && transitionNode.parent) {
-      transitionNode = transitionNode.parent;
       context = transitionNode.context;
+      transitionNode = transitionNode.parent;
     }
 
     var isAppear = !context._isMounted || !vnode.isRootInsert;
@@ -31742,7 +32507,7 @@ __webpack_require__.r(__webpack_exports__);
   // Regular Expressions for parsing tags and attributes
   var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
   var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-  var ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z" + unicodeLetters + "]*";
+  var ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z" + (unicodeRegExp.source) + "]*";
   var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
   var startTagOpen = new RegExp(("^<" + qnameCapture));
   var startTagClose = /^\s*(\/?)>/;
@@ -32004,7 +32769,7 @@ __webpack_require__.r(__webpack_exports__);
           ) {
             options.warn(
               ("tag <" + (stack[i].tag) + "> has no matching end tag."),
-              { start: stack[i].start }
+              { start: stack[i].start, end: stack[i].end }
             );
           }
           if (options.end) {
@@ -32041,7 +32806,7 @@ __webpack_require__.r(__webpack_exports__);
 
   var argRE = /:(.*)$/;
   var bindRE = /^:|^\.|^v-bind:/;
-  var modifierRE = /\.[^.]+/g;
+  var modifierRE = /\.[^.\]]+(?=[^\]]*$)/g;
 
   var slotRE = /^v-slot(:|$)|^#/;
 
@@ -32218,7 +32983,7 @@ __webpack_require__.r(__webpack_exports__);
       shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
       shouldKeepComment: options.comments,
       outputSourceRange: options.outputSourceRange,
-      start: function start (tag, attrs, unary, start$1) {
+      start: function start (tag, attrs, unary, start$1, end) {
         // check namespace.
         // inherit parent ns if there is one
         var ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag);
@@ -32237,6 +33002,7 @@ __webpack_require__.r(__webpack_exports__);
         {
           if (options.outputSourceRange) {
             element.start = start$1;
+            element.end = end;
             element.rawAttrsMap = element.attrsList.reduce(function (cumulated, attr) {
               cumulated[attr.name] = attr;
               return cumulated
@@ -32358,7 +33124,7 @@ __webpack_require__.r(__webpack_exports__);
           text = preserveWhitespace ? ' ' : '';
         }
         if (text) {
-          if (whitespaceOption === 'condense') {
+          if (!inPre && whitespaceOption === 'condense') {
             // condense consecutive whitespaces into single space
             text = text.replace(whitespaceRE$1, ' ');
           }
@@ -33219,7 +33985,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /*  */
 
-  var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
   var fnInvokeRE = /\([^)]*?\);*$/;
   var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -33721,7 +34487,7 @@ __webpack_require__.r(__webpack_exports__);
     // components with only scoped slots to skip forced updates from parent.
     // but in some cases we have to bail-out of this optimization
     // for example if the slot contains dynamic names, has v-if or v-for on them...
-    var needsForceUpdate = Object.keys(slots).some(function (key) {
+    var needsForceUpdate = el.for || Object.keys(slots).some(function (key) {
       var slot = slots[key];
       return (
         slot.slotTargetDynamic ||
@@ -35514,7 +36280,7 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAAArCAYAAADL
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/attach-left.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M13 16l-6-6 6-6"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\attach-left.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35525,7 +36291,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/attach-right.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill":"none","d":"M5.5 1l9 9-9 9"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\attach-right.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35536,18 +36302,18 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/black-brush.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#fff","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#4e6476"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005z"}})]),_c('path',{attrs:{"d":"M45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\black-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
-/***/ "./images/inline-icons/books-stack.svg":
-/*!*********************************************!*\
-  !*** ./images/inline-icons/books-stack.svg ***!
-  \*********************************************/
+/***/ "./images/inline-icons/clear-filters.svg":
+/*!***********************************************!*\
+  !*** ./images/inline-icons/clear-filters.svg ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 335.08 335.08"}},[_c('path',{attrs:{"d":"M311.18 115.78c-1.355-10.186-1.546-27.73 7.915-33.621.169-.108.295-.264.443-.398 7.735-2.474 13.088-5.946 8.886-10.618l-114.1-34.38L29.564 62.45S8.407 65.474 10.297 98.344c1.026 17.89 6.637 26.676 11.544 31L6.68 133.913c-4.208 4.672 1.144 8.145 8.88 10.615.147.138.271.293.443.401 9.455 5.896 9.273 23.438 7.913 33.626-33.967 9.645-21.774 12.788-21.774 12.788l7.451 1.803c-5.241 4.736-10.446 13.717-9.471 30.75 1.891 32.864 19.269 35.132 19.269 35.132l120.9 39.298 182.49-44.202s12.197-3.148-21.779-12.794c-1.366-10.172-1.556-27.712 7.921-33.623.174-.105.301-.264.442-.396 7.736-2.474 13.084-5.943 8.881-10.615l-7.932-2.395c5.29-3.19 13.236-11.527 14.481-33.183.859-14.896-3.027-23.62-7.525-28.756l15.678-3.794c.001.006 12.198-3.142-21.773-12.788zm-152.64-.421l30.688-6.307 103.71-21.312 15.451-3.178c-4.937 9.036-4.73 21.402-3.913 29.35.179 1.798.385 3.44.585 4.688l-16.912 4.205-130.9 32.563 1.29-40.009zM26.72 147.342l15.449 3.178 99.597 20.474 8.701 1.782 26.093 5.363 1.287 40.01-134.53-33.471-13.263-3.296c.195-1.25.401-2.89.588-4.693.812-7.942 1.023-20.311-3.918-29.347zm-6.002-50.58c-.187-8.743 1.371-15.066 4.52-18.28 2.004-2.052 4.369-2.479 5.991-2.479.857 0 1.474.119 1.516.119l79.607 25.953 39.717 12.949-1.303 40.289-111.42-31.238-5.88-1.647a3.56 3.56 0 0 0-.735-.113c-.459-.033-11.475-1.047-12.011-25.553zm119.87 184.11l-117.3-32.886a3.489 3.489 0 0 0-.733-.116c-.467-.031-11.488-1.044-12.021-25.544-.19-8.754 1.376-15.071 4.519-18.288 2.009-2.052 4.375-2.479 5.994-2.479.859 0 1.474.115 1.519.115 0 0 .005 0 0 0l119.32 38.908-1.295 40.29zm153.7-41.407c.185 1.804.391 3.443.591 4.693l-147.81 36.771 1.292-40.01 31.601-6.497 4.667 1.129 17.492-5.685 80.631-16.569 15.457-3.18c-4.942 9.035-4.737 21.406-3.919 29.348zm8.142-54.375a2.84 2.84 0 0 0-.791.122l-11.148 3.121-106.15 29.764-1.298-40.289 34.826-11.359 84.327-27.501c.011-.005 4.436-.988 7.684 2.315 3.144 3.214 4.704 9.537 4.52 18.28-.55 24.498-11.571 25.516-11.972 25.547z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/books-stack.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1 0a1 1 0 0 0-1 1v3c0 .255.106.501.281.688l14.406 15.311h14.625L43.718 4.687c.035-.037.066-.084.094-.125.043-.063.097-.115.125-.187.029-.074.02-.172.031-.25.007-.048.031-.076.031-.125V1a1 1 0 0 0-1-1H1zm15 22v17a.99.99 0 0 0 .5.844l10 6A.967.967 0 0 0 27 46c.17 0 .347-.038.5-.125A1 1 0 0 0 28 45V22H16zm16.906 9.969a1 1 0 0 0-.125.031 1 1 0 0 0-.5 1.719L39.562 41l-7.281 7.281a1.016 1.016 0 1 0 1.438 1.438l7.28-7.281 7.282 7.28a1.016 1.016 0 1 0 1.437-1.437l-7.28-7.28 7.28-7.282A1 1 0 0 0 48.875 32a1 1 0 0 0-.594.281L41 39.563l-7.282-7.282a1 1 0 0 0-.812-.312z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\clear-filters.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35558,7 +36324,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/close.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M16 16L4 4M16 4L4 16"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\close.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35569,7 +36335,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1408 1088q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/collapsed.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1408 1088q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\collapsed.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35580,7 +36346,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/definitions.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\definitions.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35591,7 +36357,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1408 704q0 26-19 45t-45 19H448q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/expanded.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1408 704q0 26-19 45t-45 19H448q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\expanded.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35602,7 +36368,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/inflections-browser.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20"}},[_c('path',{attrs:{"fill":"none","d":"M-1-1h22v22H-1z"}}),_c('g',[_c('g',{attrs:{"stroke":"null"}},[_c('rect',{attrs:{"fill":"none","stroke-width":".551","x":".322","y":".475","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M9.14 3.518v8.812M4.733 3.518v8.811M.593 9.58H13.28M.594 6.555H13.28M.594 3.53H13.28"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"3.103","y":"2.807","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M11.922 5.85v8.812M7.515 5.85v8.811m-4.14-2.749h12.686M3.374 8.888H16.06M3.374 5.862H16.06"}}),_c('rect',{attrs:{"fill":"#fff","stroke-width":".551","x":"5.481","y":"4.525","width":"13.235","height":"12.15","ry":"1.6"}}),_c('path',{attrs:{"fill":"none","stroke-width":".438","d":"M14.3 7.568v8.812M9.893 7.568v8.812m-4.14-2.75H18.44M5.753 10.607H18.44M5.752 7.58h12.686"}}),_c('circle',{attrs:{"fill":"#fff","stroke-width":".367","r":"5.711","cy":"12.808","stroke-linecap":"round","cx":"13.667","stroke-linejoin":"round"}}),_c('path',{attrs:{"d":"M13.856 6.175c-.037-.002-.074-.005-.11-.005l-.03.001-.05-.001c-3.322 0-6.025 2.978-6.025 6.637 0 3.66 2.703 6.638 6.026 6.638s6.025-2.978 6.025-6.638c0-3.59-2.601-6.521-5.836-6.632h0zm-.095 12.298h-.032.032zm-.532-.125c-.608-.297-1.143-1.105-1.508-2.205a7.654 7.654 0 0 1 1.508-.245v2.45h0zm0-3.416a8.45 8.45 0 0 0-1.758.288 11.298 11.298 0 0 1-.24-1.93h1.998v1.642h0zm-1.998-2.606c.03-.753.128-1.47.281-2.116.543.146 1.12.238 1.717.273v1.843h-1.998 0zm1.998-2.81c-.5-.033-.986-.11-1.445-.23.362-1.008.87-1.743 1.445-2.024v2.254zm.876.975a8.503 8.503 0 0 0 1.874-.282c.153.647.252 1.363.281 2.117h-2.155V10.49h0zm0-.966V7.197c.64.215 1.21.993 1.604 2.093a7.73 7.73 0 0 1-1.604.235h0zM15.96 7.73a5.2 5.2 0 0 1 1.244.96 5.545 5.545 0 0 1-.652.318 6.858 6.858 0 0 0-.592-1.28v.002zM10.94 9.007a5.566 5.566 0 0 1-.753-.377c.416-.42.895-.766 1.42-1.02-.257.399-.48.869-.667 1.396v.001zm-.27.92a12.08 12.08 0 0 0-.317 2.399H8.538a5.982 5.982 0 0 1 1.044-2.964c.33.218.696.407 1.088.566h0zm-.316 3.364a12.2 12.2 0 0 0 .275 2.215c-.415.171-.798.376-1.14.612a5.998 5.998 0 0 1-.952-2.827h1.817zm.528 3.139c.198.603.445 1.135.73 1.579a5.172 5.172 0 0 1-1.547-1.152c.249-.16.524-.303.817-.427h0zm3.222 1.983V15.89c.58.025 1.142.113 1.665.254-.395 1.194-.992 2.042-1.665 2.27h0zm0-3.49V13.29h2.155c-.027.68-.11 1.329-.238 1.924a8.472 8.472 0 0 0-1.917-.292h0zm3.032-1.632h1.66a6.004 6.004 0 0 1-.903 2.752 6.133 6.133 0 0 0-1.031-.54 12.22 12.22 0 0 0 .274-2.212h0zm0-.965c-.03-.858-.139-1.667-.315-2.399.35-.141.678-.307.98-.496.555.822.912 1.816.994 2.895h-1.659 0zm-1.184 5.564a7.07 7.07 0 0 0 .656-1.46c.255.108.495.23.716.366a5.234 5.234 0 0 1-1.372 1.094h0z","fill":"#5bc8dc"}})])])])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\inflections-browser.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35613,7 +36379,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/inflections.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 25 21"}},[_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\inflections.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35624,7 +36390,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/info.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\info.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35635,7 +36401,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M782 1078q-1 3-12.5-.5T738 1066l-20-9q-44-20-87-49-7-5-41-31.5T552 948q-67 103-134 181-81 95-105 110-4 2-19.5 4t-18.5 0q6-4 82-92 21-24 85.5-115T521 918q17-30 51-98.5t36-77.5q-8-1-110 33-8 2-27.5 7.5T436 792t-17 5q-2 2-2 10.5t-1 9.5q-5 10-31 15-23 7-47 0-18-4-28-21-4-6-5-23 6-2 24.5-5t29.5-6q58-16 105-32 100-35 102-35 10-2 43-19.5t44-21.5q9-3 21.5-8t14.5-5.5 6 .5q2 12-1 33 0 2-12.5 27T655 769.5 638 803q-25 50-77 131l64 28q12 6 74.5 32t67.5 28q4 1 10.5 25.5t4.5 30.5zM577 592q3 15-4 28-12 23-50 38-30 12-60 12-26-3-49-26-14-15-18-41l1-3q3 3 19.5 5t26.5 0 58-16q36-12 55-14 17 0 21 17zm698 129l63 227-139-42zM167 1521l694-232V257L167 490v1031zm1241-317l102 31-181-657-100-31-216 536 102 31 45-110 211 65zM905 242l573 184V46zm311 1323l158 13-54 160-40-66q-130 83-276 108-58 12-91 12h-84q-79 0-199.5-39T446 1668q-8-7-8-16 0-8 5-13.5t13-5.5q4 0 18 7.5t30.5 16.5 20.5 11q73 37 159.5 61.5T842 1754q95 0 167-14.5t157-50.5q15-7 30.5-15.5t34-19 28.5-16.5zm448-1079v1079l-774-246q-14 6-375 127.5T147 1568q-13 0-18-13 0-1-1-3V474q3-9 4-10 5-6 20-11 107-36 149-50V19l558 198q2 0 160.5-55t316-108.5T1497 0q20 0 20 21v418z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/language.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M782 1078q-1 3-12.5-.5T738 1066l-20-9q-44-20-87-49-7-5-41-31.5T552 948q-67 103-134 181-81 95-105 110-4 2-19.5 4t-18.5 0q6-4 82-92 21-24 85.5-115T521 918q17-30 51-98.5t36-77.5q-8-1-110 33-8 2-27.5 7.5T436 792t-17 5q-2 2-2 10.5t-1 9.5q-5 10-31 15-23 7-47 0-18-4-28-21-4-6-5-23 6-2 24.5-5t29.5-6q58-16 105-32 100-35 102-35 10-2 43-19.5t44-21.5q9-3 21.5-8t14.5-5.5 6 .5q2 12-1 33 0 2-12.5 27T655 769.5 638 803q-25 50-77 131l64 28q12 6 74.5 32t67.5 28q4 1 10.5 25.5t4.5 30.5zM577 592q3 15-4 28-12 23-50 38-30 12-60 12-26-3-49-26-14-15-18-41l1-3q3 3 19.5 5t26.5 0 58-16q36-12 55-14 17 0 21 17zm698 129l63 227-139-42zM167 1521l694-232V257L167 490v1031zm1241-317l102 31-181-657-100-31-216 536 102 31 45-110 211 65zM905 242l573 184V46zm311 1323l158 13-54 160-40-66q-130 83-276 108-58 12-91 12h-84q-79 0-199.5-39T446 1668q-8-7-8-16 0-8 5-13.5t13-5.5q4 0 18 7.5t30.5 16.5 20.5 11q73 37 159.5 61.5T842 1754q95 0 167-14.5t157-50.5q15-7 30.5-15.5t34-19 28.5-16.5zm448-1079v1079l-774-246q-14 6-375 127.5T147 1568q-13 0-18-13 0-1-1-3V474q3-9 4-10 5-6 20-11 107-36 149-50V19l558 198q2 0 160.5-55t316-108.5T1497 0q20 0 20 21v418z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\language.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35646,7 +36412,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1216 832q0-185-131.5-316.5T768 384 451.5 515.5 320 832t131.5 316.5T768 1280t316.5-131.5T1216 832zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225T64 832t55.5-273.5 150-225 225-150T768 128t273.5 55.5 225 150 150 225T1472 832q0 220-124 399l343 343q37 37 37 90z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/lookup.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1216 832q0-185-131.5-316.5T768 384 451.5 515.5 320 832t131.5 316.5T768 1280t316.5-131.5T1216 832zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225T64 832t55.5-273.5 150-225 225-150T768 128t273.5 55.5 225 150 150 225T1472 832q0 220-124 399l343 343q37 37 37 90z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\lookup.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35657,7 +36423,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/menu.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\menu.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35668,7 +36434,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/options.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"9.997","cy":"10","r":"3.31"}}),_c('path',{attrs:{"fill":"none","d":"M18.488 12.285l-2.283 3.952c-.883-.741-2.02-.956-2.902-.446-.875.498-1.256 1.582-1.057 2.709H7.735c.203-1.126-.182-2.201-1.051-2.709-.883-.521-2.029-.299-2.911.446L1.5 12.285c1.073-.414 1.817-1.286 1.817-2.294-.012-1.011-.744-1.87-1.817-2.275l2.265-3.932c.88.732 2.029.954 2.922.448.868-.51 1.252-1.595 1.048-2.732h4.528c-.191 1.137.178 2.21 1.051 2.72.892.51 2.029.296 2.911-.426l2.262 3.92c-1.083.403-1.826 1.274-1.817 2.295.002 1.009.745 1.871 1.818 2.276z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\options.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35679,7 +36445,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/resources.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 24 24"}},[_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\resources.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35690,7 +36456,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/sitemap.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"width":"20","height":"20","viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1792 1248v320q0 40-28 68t-68 28h-320q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H960v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H736q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960H320v192h96q40 0 68 28t28 68v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h96V960q0-52 38-90t90-38h512V640h-96q-40 0-68-28t-28-68V224q0-40 28-68t68-28h320q40 0 68 28t28 68v320q0 40-28 68t-68 28h-96v192h512q52 0 90 38t38 90v192h96q40 0 68 28t28 68z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\sitemap.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35701,7 +36467,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1000 1000","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M500 10C229.4 10 10 229.4 10 500s219.4 490 490 490 490-219.4 490-490S770.6 10 500 10zm-64.7 733.6c-49.3 49.3-129.6 49.3-179 0-49.3-49.3-49.3-129.6 0-178.9l126.8-126.8c49.3-49.3 129.6-49.3 179 0 1.3 1.3 2.6 2.7 3.9 4.1.7.6 1.5 1.3 2.2 2 2 2 3.6 4.2 5 6.5.2.2.3.4.5.6l-.1.1c6.1 11.5 4.3 26-5.4 35.6-9.7 9.7-24.4 11.5-35.9 5.2-.8.8-8.7-7.1-13-11.3-25.8-25.8-67.3-26-93.1-.2l-127 127c-25.8 25.8-25.8 67.5 0 93.3s67.5 25.8 93.3 0l76.4-76.4c26.5 13 57.7 13.4 84.5 1.1L435.3 743.6zm308.3-308.3L616.9 562.1c-49.3 49.3-129.6 49.3-179 0-1.3-1.3-2.6-2.7-3.9-4.1-.7-.6-1.5-1.3-2.1-2-2-2-3.6-4.2-5-6.5-.2-.2-.3-.4-.5-.6l.1-.1c-6.1-11.5-4.3-26 5.4-35.6 9.7-9.7 24.4-11.4 35.9-5.2.8-.8 8.7 7.1 13 11.3 25.8 25.8 67.3 26 93.1.2l127-127c25.8-25.8 25.8-67.5 0-93.3s-67.5-25.8-93.3 0L531 375.6c-26.4-12.9-57.7-13.4-84.5-1.1l118.1-118.1c49.3-49.3 129.6-49.3 179 0s49.4 129.6 0 178.9z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/source.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1000 1000","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M500 10C229.4 10 10 229.4 10 500s219.4 490 490 490 490-219.4 490-490S770.6 10 500 10zm-64.7 733.6c-49.3 49.3-129.6 49.3-179 0-49.3-49.3-49.3-129.6 0-178.9l126.8-126.8c49.3-49.3 129.6-49.3 179 0 1.3 1.3 2.6 2.7 3.9 4.1.7.6 1.5 1.3 2.2 2 2 2 3.6 4.2 5 6.5.2.2.3.4.5.6l-.1.1c6.1 11.5 4.3 26-5.4 35.6-9.7 9.7-24.4 11.5-35.9 5.2-.8.8-8.7-7.1-13-11.3-25.8-25.8-67.3-26-93.1-.2l-127 127c-25.8 25.8-25.8 67.5 0 93.3s67.5 25.8 93.3 0l76.4-76.4c26.5 13 57.7 13.4 84.5 1.1L435.3 743.6zm308.3-308.3L616.9 562.1c-49.3 49.3-129.6 49.3-179 0-1.3-1.3-2.6-2.7-3.9-4.1-.7-.6-1.5-1.3-2.1-2-2-2-3.6-4.2-5-6.5-.2-.2-.3-.4-.5-.6l.1-.1c-6.1-11.5-4.3-26 5.4-35.6 9.7-9.7 24.4-11.4 35.9-5.2.8-.8 8.7 7.1 13 11.3 25.8 25.8 67.3 26 93.1.2l127-127c25.8-25.8 25.8-67.5 0-93.3s-67.5-25.8-93.3 0L531 375.6c-26.4-12.9-57.7-13.4-84.5-1.1l118.1-118.1c49.3-49.3 129.6-49.3 179 0s49.4 129.6 0 178.9z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\source.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35712,7 +36478,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/status.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}},[_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\status.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35723,7 +36489,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 760 514","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill-rule":"evenodd","clip-rule":"evenodd","d":"M624.288 0H136.257v142.624h488.031V0zM330.909 9.724h-184.92V132.9h184.92V9.724zM760 185.688H0v142.624h760V185.688zm-68.984 8.8h-184.92v123.175h184.92V194.488zM624.016 371.376H135.984V514h488.032V371.376zm-156.851 11.117H279.002v123.175h188.163V382.493z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/usage-examples-icon1.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 760 514","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"fill-rule":"evenodd","clip-rule":"evenodd","d":"M624.288 0H136.257v142.624h488.031V0zM330.909 9.724h-184.92V132.9h184.92V9.724zM760 185.688H0v142.624h760V185.688zm-68.984 8.8h-184.92v123.175h184.92V194.488zM624.016 371.376H135.984V514h488.032V371.376zm-156.851 11.117H279.002v123.175h188.163V382.493z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\usage-examples-icon1.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35734,7 +36500,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/user.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M1536 1399q0 109-62.5 187t-150.5 78H469q-88 0-150.5-78T256 1399q0-85 8.5-160.5t31.5-152 58.5-131 94-89T583 832q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\user.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35745,7 +36511,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/white-brush.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 50 50"}},[_c('path',{attrs:{"stroke-linejoin":"round","stroke":"#1a1a1a","stroke-linecap":"round","stroke-width":".194","fill":"#4e6476","d":"M.097.097h49.806v49.806H.097z"}}),_c('g',{attrs:{"fill":"#fff"}},[_c('path',{attrs:{"d":"M39.374 16.822c.053-.048.106-.097.158-.148l2.145-2.146c1.27-1.269 1.459-3.138.422-4.174l-3.252-3.252c-1.036-1.036-2.905-.847-4.174.422L32.527 9.67a3.82 3.82 0 0 0-.148.157l6.995 6.996zM13.209 42.91l-4.603 1.144-4.602 1.143 1.144-4.602 1.143-4.603 3.46 3.46zM38.23 17.977l-5.004-5.004L10.548 35.65l-1.001-1 22.679-22.678-1.001-1.001L7.32 34.876l7.005 7.005zM45.101 44.818c-3.798-.03-4.271-.944-5.509-4.757-2.283-6.018-12.566 1.574-6.194 4.21s15.502.577 11.703.547z"}}),_c('g',[_c('path',{attrs:{"d":"M32.46 34.475l-3.558-5.055-3.515 3.515 3.823 4.16c1.924 2.388 1.48 2.281 3.322.796 1.843-1.485 1.853-1.028-.071-3.416zM21.366 18.714L12.974 6.79c-1.925-2.388-4.978-3.12-6.82-1.635S4.375 9.78 6.3 12.168L16.65 23.43l4.716-4.716zM11.163 8.47s-.332-1.424-2.99-2.99c0 0 2.8-.427 4.224 1.898-.95.76-1.234 1.092-1.234 1.092z"}})])])])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\white-brush.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -35756,7 +36522,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 156 141","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M8.573 17.146A8.573 8.573 0 1 0 8.573 0a8.573 8.573 0 0 0 0 17.146zM29.148 2.363a6.21 6.21 0 0 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 69.728a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM8.573 140.027a8.573 8.573 0 1 0 0-17.146 8.573 8.573 0 1 0 0 17.146zM17.146 100.591A8.574 8.574 0 1 1 0 100.59a8.574 8.574 0 0 1 17.147.001zM29.148 32.655a6.21 6.21 0 1 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 38.865a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM90 130.823c0-1.885.154-3.752.451-5.58H29.148a6.21 6.21 0 0 0 0 12.421H90v-6.841zM106.79 102.066a26.672 26.672 0 0 1-5.803-7.438l-71.839.752c-3.43.036-6.21 2.846-6.21 6.276 0 3.43 2.78 6.181 6.21 6.145l70.552-.739c2.088-2.027 4.466-3.725 7.09-4.996zM98.834 75.938c1.245-4.797 3.824-9.072 7.327-12.42H29.148a6.21 6.21 0 0 0 0 12.42h69.686z"}}),_c('path',{attrs:{"d":"M135.143 102.561c7.3-3.769 12.29-11.385 12.29-20.166 0-12.527-10.155-22.682-22.682-22.682-12.526 0-22.681 10.155-22.681 22.682 0 8.745 4.949 16.335 12.2 20.12-11.819 4.251-20.27 15.56-20.27 28.842v8.397h61.285v-8.397c0-13.234-8.39-24.509-20.142-28.796z"}})])};var toString = function () {return "/home/balmas/workspace/components/src/images/inline-icons/wordlist-icon.svg"};module.exports = { render: render, toString: toString };
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{attrs:{"viewBox":"0 0 156 141","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":"M8.573 17.146A8.573 8.573 0 1 0 8.573 0a8.573 8.573 0 0 0 0 17.146zM29.148 2.363a6.21 6.21 0 0 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 69.728a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM8.573 140.027a8.573 8.573 0 1 0 0-17.146 8.573 8.573 0 1 0 0 17.146zM17.146 100.591A8.574 8.574 0 1 1 0 100.59a8.574 8.574 0 0 1 17.147.001zM29.148 32.655a6.21 6.21 0 1 0 0 12.42h95.447a6.211 6.211 0 1 0 0-12.42H29.148zM17.146 38.865a8.573 8.573 0 1 1-17.146 0 8.573 8.573 0 0 1 17.146 0zM90 130.823c0-1.885.154-3.752.451-5.58H29.148a6.21 6.21 0 0 0 0 12.421H90v-6.841zM106.79 102.066a26.672 26.672 0 0 1-5.803-7.438l-71.839.752c-3.43.036-6.21 2.846-6.21 6.276 0 3.43 2.78 6.181 6.21 6.145l70.552-.739c2.088-2.027 4.466-3.725 7.09-4.996zM98.834 75.938c1.245-4.797 3.824-9.072 7.327-12.42H29.148a6.21 6.21 0 0 0 0 12.42h69.686z"}}),_c('path',{attrs:{"d":"M135.143 102.561c7.3-3.769 12.29-11.385 12.29-20.166 0-12.527-10.155-22.682-22.682-22.682-12.526 0-22.681 10.155-22.681 22.682 0 8.745 4.949 16.335 12.2 20.12-11.819 4.251-20.27 15.56-20.27 28.842v8.397h61.285v-8.397c0-13.234-8.39-24.509-20.142-28.796z"}})])};var toString = function () {return "C:\\_Alpheios\\components\\src\\images\\inline-icons\\wordlist-icon.svg"};module.exports = { render: render, toString: toString };
 
 /***/ }),
 
@@ -36015,7 +36781,7 @@ class UIController {
 
     // Creates on configures an event listener
     uiController.evc = new _lib_controllers_ui_event_controller_js__WEBPACK_IMPORTED_MODULE_24__["default"]()
-    uiController.registerGetSelectedText('GetSelectedText',uiController.options.textQuerySelector)
+    uiController.registerGetSelectedText('GetSelectedText', uiController.options.textQuerySelector)
     uiController.evc.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_21__["default"], 'keydown')
     uiController.evc.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_21__["default"], 'Alpheios_Page_Load')
 
@@ -36207,6 +36973,7 @@ class UIController {
       inflectionsViewSet: null,
       wordlistC: this.wordlistC, // A word list controller
       wordUsageExamples: null,
+      wordUsageAuthors: [],
 
       isDevMode: () => {
         return this.options.mode === 'development'
@@ -36233,7 +37000,8 @@ class UIController {
           return true
         }
         return false
-      }
+      },
+      getWordUsageData: this.getWordUsageData.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -36253,6 +37021,7 @@ class UIController {
           y: 0
         },
         homonymDataReady: false,
+        showWordUsageTab: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -36270,6 +37039,7 @@ class UIController {
           page: {}
         },
         wordUsageExamplesReady: false, // Whether word usage examples data is available
+        wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
         providers: [] // A list of resource providers
@@ -36333,6 +37103,7 @@ class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
+          state.showWordUsageTab = false
           state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
@@ -36356,9 +37127,11 @@ class UIController {
           }
         },
 
-        setHomonym (state, homonym) {
+        setHomonym (state, data) {
           state.homonymDataReady = true
-          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).grammarFeatures()
+          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(data.homonym.languageID).grammarFeatures()
+
+          state.showWordUsageTab = data.showWordUsageTab
         },
 
         setInflData (state, hasInflData = true) {
@@ -36392,8 +37165,12 @@ class UIController {
           state.treebankData.word = {}
         },
 
-        setWordUsageExamplesReady (state) {
-          state.wordUsageExamplesReady = true
+        setWordUsageExamplesReady (state, value = true) {
+          state.wordUsageExamplesReady = value
+        },
+
+        setWordUsageAuthorsReady (state, value = true) {
+          state.wordUsageAuthorsReady = value
         },
 
         setWordLists (state, wordLists) {
@@ -36948,7 +37725,7 @@ class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector)
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -36961,6 +37738,16 @@ class UIController {
     }
   }
 
+  async getWordUsageData (homonym, params = {}) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+    let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
+      ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      : null
+
+    await _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_10__["default"].getWordUsageData(homonym, wordUsageExamples, params)
+  }
+
   /**
    * Check to see if Lemma Translations should be enabled for a query
    *  NB this is Prototype functionality
@@ -36971,9 +37758,11 @@ class UIController {
       !this.contentOptions.items.locale.currentValue.match(/^en-/)
   }
 
-  enableWordUsageExamples (textSelector) {
+  enableWordUsageExamples (textSelector, requestType) {
+    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN &&
-      this.contentOptions.items.enableWordUsageExamples.currentValue
+      this.contentOptions.items.enableWordUsageExamples.currentValue &&
+      checkType
   }
 
   handleEscapeKey (event, nativeEvent) {
@@ -37049,7 +37838,7 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, homonym)
+    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
@@ -37190,7 +37979,7 @@ class UIController {
     this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 
-  registerGetSelectedText(listenerName,selector) {
+  registerGetSelectedText (listenerName, selector) {
     let ev
     if (this.platform === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_17__["default"].platforms.MOBILE) {
       ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_20__["default"]
@@ -37217,8 +38006,8 @@ class UIController {
     }
   }
 
-  registerAndActivateGetSelectedText(listenerName,selector) {
-    this.registerGetSelectedText(listenerName,selector)
+  registerAndActivateGetSelectedText (listenerName, selector) {
+    this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
   }
 }
@@ -39146,6 +39935,67 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
   static create (selector, options) {
     return _query_js__WEBPACK_IMPORTED_MODULE_1__["default"].create(LexicalQuery, selector, options)
+  }
+
+  static async getWordUsageData (homonym, wordUsageExamples, params) {
+    if (wordUsageExamples) {
+      // the default query for usage examples should be to request all examples
+      // for all authors, with user pagination preference for max number of examples
+      // per author applied. Total max across all authors will be enforced on the
+      // client adapter side. Different pagination options may apply when working
+      // directly with the usage examples display
+      try {
+        let paginationParams = {}
+
+        if (params.author) {
+          paginationParams = {
+            property: 'max',
+            value: wordUsageExamples.paginationMax
+          }
+        } else {
+          paginationParams = {
+            property: 'authmax',
+            value: wordUsageExamples.paginationAuthMax
+          }
+        }
+
+        let adapterConcordanceRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
+          method: 'getWordUsageExamples',
+          params: { homonym: homonym,
+            pagination: paginationParams,
+            filters: {
+              author: params.author,
+              textWork: params.textWork
+            }
+          }
+        })
+
+        if (adapterConcordanceRes.errors.length > 0) {
+          adapterConcordanceRes.errors.forEach(error => console.error(error))
+        }
+
+        LexicalQuery.evt.WORD_USAGE_EXAMPLES_READY.pub(adapterConcordanceRes.result)
+      } catch (error) {
+        console.error('Some strange eror inside getWordUsageData', error)
+      }
+    }
+  }
+
+  static async getAuthorsForWordUsage () {
+    try {
+      let adapterConcordanceRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].wordusageExamples.concordance({
+        method: 'getAuthorsWorks',
+        params: {}
+      })
+
+      if (adapterConcordanceRes.errors.length > 0) {
+        adapterConcordanceRes.errors.forEach(error => console.error(error))
+      }
+
+      return adapterConcordanceRes.result
+    } catch (error) {
+      console.error('Some strange eror inside getAuthorsForWordUsage', error)
+    }
   }
 
   async getData () {
@@ -41286,10 +42136,10 @@ module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Decle
 /*!*************************************!*\
   !*** ./locales/en-us/messages.json ***!
   \*************************************/
-/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_SUGGEST_LOGIN, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_CONTROL, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOGIN_BTN_LABEL, AUTH_LOGOUT_BTN_LABEL, AUTH_LOGIN_PROGRESS_MSG, AUTH_LOGIN_SUCCESS_MSG, AUTH_LOGIN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, AUTH_LOGOUT_SUCCESS_MSG, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, default */
+/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, PLACEHOLDER_INFLECT_UNAVAILABLE, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_SUGGEST_LOGIN, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_GRAMMAR_NOTFOUND, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_CONTROL, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOGIN_BTN_LABEL, AUTH_LOGOUT_BTN_LABEL, AUTH_LOGIN_PROGRESS_MSG, AUTH_LOGIN_SUCCESS_MSG, AUTH_LOGIN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, AUTH_LOGOUT_SUCCESS_MSG, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, WORDUSAGE_FILTERS_HIDE, WORDUSAGE_FILTERS_SHOW, WORDUSAGE_GET_RESULTS, WORDUSAGE_NO_RESULTS, WORDUSAGE_SORT_BY, WORDUSAGE_SORT_BY_AUTHOR, WORDUSAGE_SORT_BY_TEXTWORK, WORDUSAGE_SORT_BY_PREFIX, WORDUSAGE_SORT_BY_SUFFIX, WORDUSAGE_FILTERS_TYPE_NO_FILTERS, WORDUSAGE_FILTERS_TYPE_MORE_RESULTS, WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS, WORDUSAGE_FILTERS_AUTHOR_CLEAR, WORDUSAGE_FILTERS_TEXTWORK_CLEAR, WORDUSAGE_SORTING_AUTHOR_CLEAR, default */
 /***/ (function(module) {
 
-module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_SUGGEST_LOGIN":{"message":"Login to save your words to your wordlist.","description":"login notification","component":"UI"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_CONTROL":{"message":"Show/Hide lookup","description":"A tooltip for the button that turns the lookup panel on and off","component":"Toolbar"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOGIN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOGOUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOGIN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOGIN_SUCCESS_MSG":{"message":"Congratulations! You are logged in successfully.","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOGIN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"AUTH_LOGOUT_SUCCESS_MSG":{"message":"You have been logged out.","description":"A message shown to the user if he or she logged out successfully","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"}};
+module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"PLACEHOLDER_INFLECT_UNAVAILABLE":{"message":"Inflection data is unavailable","description":"placeholder for inflections panel if unavailable","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Credits","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide Credits","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_SUGGEST_LOGIN":{"message":"Login to save your words to your wordlist.","description":"login notification","component":"UI"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_GRAMMAR_NOTFOUND":{"message":"The requested grammar resource is not currently available","description":"grammar not found notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_CONTROL":{"message":"Show/Hide lookup","description":"A tooltip for the button that turns the lookup panel on and off","component":"Toolbar"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOGIN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOGOUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOGIN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOGIN_SUCCESS_MSG":{"message":"Congratulations! You are logged in successfully.","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOGIN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"AUTH_LOGOUT_SUCCESS_MSG":{"message":"You have been logged out.","description":"A message shown to the user if he or she logged out successfully","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"},"WORDUSAGE_FILTERS_HIDE":{"message":"hide","description":"Word Usage Examples Filters Hide link","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_SHOW":{"message":"show","description":"Word Usage Examples Filters Show Link","component":"WordUsageExamplesHeader"},"WORDUSAGE_GET_RESULTS":{"message":"Get results","description":"Word Usage Examples Filters Get results button","component":"WordUsageExamplesHeader"},"WORDUSAGE_NO_RESULTS":{"message":"There are no results.","description":"Word Usage Examples No results text","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY":{"message":"Sort by","description":"Word Usage Examples Sort by Title","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_AUTHOR":{"message":"By author","description":"Word Usage Examples Sort by author","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_TEXTWORK":{"message":"By text work","description":"Word Usage Examples Sort by text work","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_PREFIX":{"message":"By prefix","description":"Word Usage Examples Sort by prefix","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_SUFFIX":{"message":"By suffix","description":"Word Usage Examples Sort by suffix","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_TYPE_NO_FILTERS":{"message":"Get results without filters","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_MORE_RESULTS":{"message":"See more results for a specific Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS":{"message":"Filter these results by Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_AUTHOR_CLEAR":{"message":"Clear author filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TEXTWORK_CLEAR":{"message":"Clear textwork filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORTING_AUTHOR_CLEAR":{"message":"Clear sorting","description":"Word Usage Examples Sorting","component":"WordUsageExamplesSorting"}};
 
 /***/ }),
 
@@ -41544,7 +42394,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesON":{"defaultValue":"onDemand","labelText":"Get word usage examples:","values":[{"value":"onDemand","text":"On demand"},{"value":"onLexiqalQuery","text":"On LexiqalQuery"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
 
 /***/ }),
 
@@ -41599,7 +42449,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n    <component v-bind:is=\"componentName\" :data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n    <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-overlay-nav\">\n    <component v-bind:is=\"componentName\"></component>\n</div>\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n    <component v-bind:is=\"componentName\" :data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n    <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-overlay-nav\">\r\n    <component v-bind:is=\"componentName\"></component>\r\n</div>\r\n";
 
 /***/ }),
 
@@ -44179,19 +45029,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-example-item.vue":
-/*!****************************************************!*\
-  !*** ./vue/components/word-usage-example-item.vue ***!
-  \****************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-filters.vue":
+/*!****************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-filters.vue ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-example-item.vue?vue&type=template&id=282848ba& */ "./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba&");
-/* harmony import */ var _word_usage_example_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-example-item.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-example-item.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-example-item.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6& */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6&");
+/* harmony import */ var _word_usage_examples_filters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-filters.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -44201,9 +45051,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _word_usage_example_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _word_usage_examples_filters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -44213,72 +45063,72 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vue/components/word-usage-example-item.vue"
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples-filters.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-example-item.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./vue/components/word-usage-example-item.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_example_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!../../../node_modules/source-map-loader!./word-usage-example-item.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-example-item.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_example_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_filters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-filters.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_filters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************!*\
-  !*** ./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib!../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-example-item.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-example-item.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba&":
-/*!***********************************************************************************!*\
-  !*** ./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba& ***!
-  \***********************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6&":
+/*!***********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6& ***!
+  \***********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-example-item.vue?vue&type=template&id=282848ba& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-example-item.vue?vue&type=template&id=282848ba&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=template&id=b2a85ee6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_example_item_vue_vue_type_template_id_282848ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_filters_vue_vue_type_template_id_b2a85ee6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-examples-block.vue":
-/*!******************************************************!*\
-  !*** ./vue/components/word-usage-examples-block.vue ***!
-  \******************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue":
+/*!*************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-block.vue?vue&type=template&id=43909d56& */ "./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56&");
-/* harmony import */ var _word_usage_examples_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-block.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=template&id=7a523ef1& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&");
+/* harmony import */ var _word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -44288,9 +45138,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _word_usage_examples_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -44300,54 +45150,228 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vue/components/word-usage-examples-block.vue"
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples-item.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!../../../node_modules/source-map-loader!./word-usage-examples-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples-block.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-item.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************!*\
-  !*** ./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib!../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56&":
-/*!*************************************************************************************!*\
-  !*** ./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56& ***!
-  \*************************************************************************************/
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&":
+/*!********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1& ***!
+  \********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-block.vue?vue&type=template&id=43909d56& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples-block.vue?vue&type=template&id=43909d56&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-item.vue?vue&type=template&id=7a523ef1& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_block_vue_vue_type_template_id_43909d56___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue":
+/*!****************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=template&id=35b89596& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&");
+/* harmony import */ var _word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples-sorting.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-sorting.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_sorting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&":
+/*!***********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-sorting.vue?vue&type=template&id=35b89596& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_sorting_vue_vue_type_template_id_35b89596___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples.vue":
+/*!********************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples.vue?vue&type=template&id=133b475f& */ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f&");
+/* harmony import */ var _word_usage_examples_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _word_usage_examples_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/lib/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f&":
+/*!***************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples.vue?vue&type=template&id=133b475f& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples.vue?vue&type=template&id=133b475f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_vue_vue_type_template_id_133b475f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
