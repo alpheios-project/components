@@ -11389,9 +11389,9 @@ __webpack_require__.r(__webpack_exports__);
     ui: 'ui',
     l10n: 'l10n',
     settings: 'settings',
-    auth: { from: 'auth', default: null } // This module is options
+    auth: 'auth',
   },
-  storeModules: ['app', 'ui'], // Store modules that are required by this component
+  storeModules: ['app', 'ui', 'auth'], // Store modules that are required by this component
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_10__["default"]],
   components: {
     inflectionsBrowserIcon: _images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_1___default.a,
@@ -11615,9 +11615,9 @@ __webpack_require__.r(__webpack_exports__);
     ui: 'ui',
     l10n: 'l10n',
     settings: 'settings',
-    auth: { from: 'auth', default: null } // This module is options
+    auth: 'auth',
   },
-  storeModules: ['app', 'ui'], // Store modules that are required by this component
+  storeModules: ['app', 'ui', 'auth'], // Store modules that are required by this component
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_17__["default"]],
   components: {
     lookup: _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
@@ -16940,49 +16940,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      {
-        directives: [
+  return this.auth.enableLogin()
+    ? _c("div", [
+        _c(
+          "button",
           {
-            name: "show",
-            rawName: "v-show",
-            value: !this.$store.state.auth.isAuthenticated,
-            expression: "! this.$store.state.auth.isAuthenticated"
-          }
-        ],
-        staticClass: "uk-button uk-button-primary",
-        on: { click: _vm.logIn }
-      },
-      [
-        _vm._v(
-          "\n    " + _vm._s(_vm.l10n.getMsg("AUTH_LOGIN_BTN_LABEL")) + "\n  "
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        directives: [
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !this.$store.state.auth.isAuthenticated,
+                expression: "! this.$store.state.auth.isAuthenticated"
+              }
+            ],
+            staticClass: "uk-button uk-button-primary",
+            on: { click: _vm.logIn }
+          },
+          [
+            _vm._v(
+              "\n    " +
+                _vm._s(_vm.l10n.getMsg("AUTH_LOGIN_BTN_LABEL")) +
+                "\n  "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
           {
-            name: "show",
-            rawName: "v-show",
-            value: this.$store.state.auth.isAuthenticated,
-            expression: "this.$store.state.auth.isAuthenticated"
-          }
-        ],
-        staticClass: "uk-button uk-button-primary",
-        on: { click: _vm.logOut }
-      },
-      [
-        _vm._v(
-          "\n    " + _vm._s(_vm.l10n.getMsg("AUTH_LOGOUT_BTN_LABEL")) + "\n  "
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.$store.state.auth.isAuthenticated,
+                expression: "this.$store.state.auth.isAuthenticated"
+              }
+            ],
+            staticClass: "uk-button uk-button-primary",
+            on: { click: _vm.logOut }
+          },
+          [
+            _vm._v(
+              "\n    " +
+                _vm._s(_vm.l10n.getMsg("AUTH_LOGOUT_BTN_LABEL")) +
+                "\n  "
+            )
+          ]
         )
-      ]
-    )
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -18670,7 +18676,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      Boolean(_vm.auth)
+      _vm.auth.isEnabled()
         ? _c(
             "alph-tooltip",
             {
@@ -19164,7 +19170,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          Boolean(_vm.auth)
+          _vm.auth.isEnabled()
             ? _c(
                 "alph-tooltip",
                 {
@@ -45253,8 +45259,14 @@ AuthModule.store = (moduleInstance) => {
 
 AuthModule.api = (moduleInstance, store) => {
   return {
+    // use to check if auth ui features can be shown
     isEnabled: () => {
-      return !!moduleInstance._auth
+      // show if login is enabled or if we are already authenticated
+      // for server side authentication login is disabled on the client so user functionality is only enabled once uathenticated on the server
+      return !!moduleInstance._auth && (store.state.auth.isAuthenticated || moduleInstance._auth.enableLogin())
+    },
+    enableLogin: () => {
+        return moduleInstance._auth.enableLogin()
     },
     session: () => {
       moduleInstance._auth.session().then((data) => {
@@ -45283,13 +45295,14 @@ AuthModule.api = (moduleInstance, store) => {
         console.error('Logout failed', error)
       })
     },
-    getUserData: () => {
+    getUserData: async () => {
       if (moduleInstance._auth) {
-        let token = moduleInstance._auth.getUserData()
-        return {
-          accessToken: token,
-          userId: store.state.auth.userId
-        }
+          let data= await moduleInstance._auth.getUserData()
+          return {
+            accessToken: data,
+            userId: store.state.auth.userId,
+            endpoints: moduleInstance._auth.getEndPoints()
+          }
       } else {
         console.error('Authentication is not enabled')
       }

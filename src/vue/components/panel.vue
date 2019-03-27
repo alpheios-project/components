@@ -151,7 +151,7 @@
         <setting :classes="['alpheios-panel__options-item']"
                  :data="settings.contentOptions.items.enableWordUsageExamples" @change="contentOptionChanged"
                  v-if="settings.contentOptions.items"></setting>
-        
+
         <setting :classes="['alpheios-panel__options-item']" :data="settings.contentOptions.items.wordUsageExamplesON"
                  @change="contentOptionChanged"
                  v-if="settings.contentOptions.items"></setting>

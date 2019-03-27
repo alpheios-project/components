@@ -59,8 +59,14 @@ AuthModule.store = (moduleInstance) => {
 
 AuthModule.api = (moduleInstance, store) => {
   return {
+    // use to check if auth ui features can be shown
     isEnabled: () => {
-      return !!moduleInstance._auth
+      // show if login is enabled or if we are already authenticated
+      // for server side authentication login is disabled on the client so user functionality is only enabled once uathenticated on the server
+      return !!moduleInstance._auth && (store.state.auth.isAuthenticated || moduleInstance._auth.enableLogin())
+    },
+    enableLogin: () => {
+        return moduleInstance._auth.enableLogin()
     },
     session: () => {
       moduleInstance._auth.session().then((data) => {
@@ -89,13 +95,14 @@ AuthModule.api = (moduleInstance, store) => {
         console.error('Logout failed', error)
       })
     },
-    getUserData: () => {
+    getUserData: async () => {
       if (moduleInstance._auth) {
-        let token = moduleInstance._auth.getUserData()
-        return {
-          accessToken: token,
-          userId: store.state.auth.userId
-        }
+          let data= await moduleInstance._auth.getUserData()
+          return {
+            accessToken: data,
+            userId: store.state.auth.userId,
+            endpoints: moduleInstance._auth.getEndPoints()
+          }
       } else {
         console.error('Authentication is not enabled')
       }
