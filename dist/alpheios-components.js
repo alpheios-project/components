@@ -13760,9 +13760,7 @@ __webpack_require__.r(__webpack_exports__);
     filteredWorkList () {
       if (this.selectedAuthor) {
         this.selectedTextWork = null
-        return this.lastTextWorksList.filter(textWork => {
-          return textWork.author.ID === this.selectedAuthor.ID
-        })
+        return this.lastTextWorksList.filter((textWork) => textWork.author.ID === this.selectedAuthor.ID)
       }
       return []
     }
@@ -14093,7 +14091,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
     },
     providerRights () {
-      return (this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+      return (this.app.wordUsageExamples && this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
         ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
         : []
     },

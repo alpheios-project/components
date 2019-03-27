@@ -104,9 +104,7 @@
       filteredWorkList () {
         if (this.selectedAuthor) {
           this.selectedTextWork = null
-          return this.lastTextWorksList.filter(textWork => {
-            return textWork.author.ID === this.selectedAuthor.ID
-          })
+          return this.lastTextWorksList.filter((textWork) => textWork.author.ID === this.selectedAuthor.ID)
         }
         return []
       }

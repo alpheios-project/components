@@ -76,7 +76,7 @@ export default {
       return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
     },
     providerRights () {
-      return (this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+      return (this.app.wordUsageExamples && this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
         ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
         : []
     },
