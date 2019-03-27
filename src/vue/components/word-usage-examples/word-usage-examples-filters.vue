@@ -92,7 +92,7 @@
             
             this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
                                   .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
-                                  .filter((item, pos, self) => self.indexOf(item) == pos)
+                                  .filter((item, pos, self) => item && self.indexOf(item) == pos)
                                   .slice()
 
             this.removeDisabledFromTypeFilters()      
@@ -104,7 +104,9 @@
       filteredWorkList () {
         if (this.selectedAuthor) {
           this.selectedTextWork = null
-          return this.lastTextWorksList.filter((textWork) => textWork.author.ID === this.selectedAuthor.ID)
+          return this.lastTextWorksList.filter(textwork => {
+            return textwork.author.ID === this.selectedAuthor.ID
+          })
         }
         return []
       }

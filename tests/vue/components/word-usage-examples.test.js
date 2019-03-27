@@ -58,7 +58,6 @@ describe('word-usage-examples-block.test.js', () => {
     })
 
     testWordUsageList = adapterConcordanceRes.result
-    console.info('**********testWordUsageList', testWordUsageList)
     mockProvider = { toString: () => { return 'fooProvider'} }
   })
 
