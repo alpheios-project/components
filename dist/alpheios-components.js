@@ -45295,17 +45295,26 @@ AuthModule.api = (moduleInstance, store) => {
         console.error('Logout failed', error)
       })
     },
-    getUserData: async () => {
-      if (moduleInstance._auth) {
-          let data= await moduleInstance._auth.getUserData()
-          return {
-            accessToken: data,
-            userId: store.state.auth.userId,
-            endpoints: moduleInstance._auth.getEndPoints()
-          }
-      } else {
-        console.error('Authentication is not enabled')
-      }
+    getUserData: () => {
+      return new Promise((resolve,reject) => {
+        if (moduleInstance._auth) {
+            let accessToken
+            moduleInstance._auth.getUserData().then((token) => {
+              accessToken = token
+              return moduleInstance._auth.getEndPoints()
+            }).then((endpoints) => {
+              resolve({
+                accessToken: accessToken,
+                userId: store.state.auth.userId,
+                endpoints: endpoints
+              })
+            }).catch((error) => {
+              console.error("Error retrieving user data")
+            })
+        } else {
+          reject(new Error('Authentication is not enabled'))
+        }
+      })
     }
   }
 }
