@@ -18676,7 +18676,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.auth.isEnabled()
+      _vm.auth.showUI()
         ? _c(
             "alph-tooltip",
             {
@@ -19170,7 +19170,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm.auth.isEnabled()
+          _vm.auth.showUI()
             ? _c(
                 "alph-tooltip",
                 {
@@ -19671,7 +19671,7 @@ var render = function() {
             0
           ),
           _vm._v(" "),
-          _vm.auth.isEnabled()
+          _vm.auth.showUI()
             ? _c(
                 "div",
                 {
@@ -20460,7 +20460,7 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm.auth.isEnabled()
+        _vm.auth.showUI()
           ? _c(
               "div",
               {
@@ -37034,6 +37034,8 @@ class UIController {
     })
 
     if (this.api.auth) {
+      // initiate session check so that user data is available
+      // if we have an active session
       this.api.auth.session()
     }
     return this
@@ -37541,9 +37543,8 @@ class UIController {
 
   onWordListUpdated (wordLists) {
     this.store.commit('app/setWordLists', wordLists)
-    if (this.api.auth.isEnabled() && !this.store.state.auth.isAuthenticated) {
-      //this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
-      this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: 0 })
+    if (this.api.auth.promptLogin()) {
+      this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
 
@@ -45256,10 +45257,13 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance, store) => {
   return {
     // use to check if auth ui features can be shown
-    isEnabled: () => {
+    showUI: () => {
       // show if login is enabled or if we are already authenticated
       // for server side authentication login is disabled on the client so user functionality is only enabled once uathenticated on the server
       return !!moduleInstance._auth && (store.state.auth.isAuthenticated || moduleInstance._auth.enableLogin())
+    },
+    promptLogin: () => {
+      return !!moduleInstance._auth && !store.state.auth.isAuthenticated
     },
     enableLogin: () => {
         return moduleInstance._auth.enableLogin()

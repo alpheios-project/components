@@ -60,10 +60,13 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance, store) => {
   return {
     // use to check if auth ui features can be shown
-    isEnabled: () => {
+    showUI: () => {
       // show if login is enabled or if we are already authenticated
       // for server side authentication login is disabled on the client so user functionality is only enabled once uathenticated on the server
       return !!moduleInstance._auth && (store.state.auth.isAuthenticated || moduleInstance._auth.enableLogin())
+    },
+    promptLogin: () => {
+      return !!moduleInstance._auth && !store.state.auth.isAuthenticated
     },
     enableLogin: () => {
         return moduleInstance._auth.enableLogin()

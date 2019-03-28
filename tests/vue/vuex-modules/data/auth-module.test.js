@@ -157,32 +157,42 @@ describe('auth-module.test.js', () => {
 
   it('AuthModule should expose an api with a correct set of methods', () => {
     const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    const methods = ['isEnabled', 'enableLogin', 'session', 'authenticate', 'logout', 'getUserData']
+    const methods = ['showUI', 'promptLogin','enableLogin', 'session', 'authenticate', 'logout', 'getUserData']
     expect(Object.keys(api.auth)).toEqual(expect.arrayContaining(methods))
   })
 
-  it(`AuthModule API's isEnabled should return false if auth not enabled`, () => {
+  it(`AuthModule API's showUI should return false if auth not enabled`, () => {
     const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.isEnabled()).toBeFalsy()
+    expect(api.auth.showUI()).toBeFalsy()
   })
 
-  it(`AuthModule API's isEnabled should return false if login disabled and not authenticated`, () => {
+  it(`AuthModule API's showUI should return false if login disabled and not authenticated`, () => {
     const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.isEnabled()).toBeFalsy()
+    expect(api.auth.showUI()).toBeFalsy()
   })
 
   it(`AuthModule API's isEnabled should return true if login disabled and already authenticated`, () => {
     const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
     store.commit('auth/setIsAuthenticated',mockProfile)
     expect(store.state.auth.isAuthenticated).toBeTruthy()
-    expect(api.auth.isEnabled()).toBeTruthy()
+    expect(api.auth.showUI()).toBeTruthy()
   })
 
-  it(`AuthModule API's isEnabled should return true if login enabled wehther or not authenticated`, () => {
+  it(`AuthModule API's showUI should return true if login enabled whether or not authenticated`, () => {
     const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    expect(api.auth.isEnabled()).toBeTruthy()
+    expect(api.auth.showUI()).toBeTruthy()
     store.commit('auth/setIsAuthenticated',mockProfile)
-    expect(api.auth.isEnabled()).toBeTruthy()
+    expect(api.auth.showUI()).toBeTruthy()
+  })
+
+  it(`AuthModule API's promptLogin should return true for appAuthenticator`, () => {
+    const authModule = new AuthModule(store, api, { auth: mockAppAuth })
+    expect(api.auth.promptLogin()).toBeTruthy()
+  })
+
+  it(`AuthModule API's promptLogin should return true for sessionAuthenticator`, () => {
+    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
+    expect(api.auth.promptLogin()).toBeTruthy()
   })
 
   it(`AuthModule API's enableLogin should return true for appAuthenticator`, () => {
