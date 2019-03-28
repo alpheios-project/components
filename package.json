@@ -65,7 +65,7 @@
     "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
-    "sinon": "^7.3.0",
+    "sinon": "^7.3.1",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "uikit": "^3.0.3",

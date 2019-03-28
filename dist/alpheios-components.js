@@ -13742,6 +13742,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
           this.lastTargetWord = this.app.homonym.targetWord
           this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+                                .filter(wordUsageExampleItem => wordUsageExampleItem.author)
                                 .map(wordUsageExampleItem => wordUsageExampleItem.author)
                                 .filter((item, pos, self) => self.indexOf(item) == pos)
                                 .slice()
@@ -13760,10 +13761,8 @@ __webpack_require__.r(__webpack_exports__);
     filteredWorkList () {
       if (this.selectedAuthor) {
         this.selectedTextWork = null
-        console.info('*****this.lastTextWorksList', this.lastTextWorksList)
-        return this.lastTextWorksList.filter(textwork => {
-          return textwork.author.ID === this.selectedAuthor.ID
-        })
+
+        return this.lastTextWorksList.filter(textwork => textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
       }
       return []
     }
