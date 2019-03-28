@@ -37034,11 +37034,7 @@ class UIController {
     })
 
     if (this.api.auth) {
-      try {
-        await this.api.auth.session()
-      } catch (error) {
-        console.warn("Session not available",error)
-      }
+      this.api.auth.session()
     }
     return this
   }

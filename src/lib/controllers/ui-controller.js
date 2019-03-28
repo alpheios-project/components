@@ -710,11 +710,9 @@ export default class UIController {
     })
 
     if (this.api.auth) {
-      try {
-        await this.api.auth.session()
-      } catch (error) {
-        console.warn("Session not available",error)
-      }
+      // initiate session check so that user data is available
+      // if we have an active session
+      this.api.auth.session()
     }
     return this
   }
