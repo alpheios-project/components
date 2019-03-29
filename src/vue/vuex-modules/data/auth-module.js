@@ -9,6 +9,8 @@ export default class AuthModule extends Module {
   constructor (store, api, config) {
     super(store, api, config)
     this._auth = this.config.auth
+    // enable ui in initial unauthenticated state only if we have an auth object that allows login
+    this._showUIDefault = !! this._auth && this._auth.enableLogin()
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
     api[this.constructor.moduleName] = this.constructor.api(this, store)
   }
@@ -28,18 +30,22 @@ AuthModule.store = (moduleInstance) => {
         showLogin: false,
         count: 0,
         text: null
-      }
+      },
+      showUI: moduleInstance._showUIDefault,
+      promptLogin: !! moduleInstance._auth // don't prompt for login if we have no auth object
     },
     mutations: {
       setIsAuthenticated: (state, profile) => {
         state.isAuthenticated = true
         state.userId = profile.sub
         state.userNickName = profile.nickname
+        state.showUI = true
       },
       setIsNotAuthenticated: (state) => {
         state.isAuthenticated = false
         state.userId = ''
         state.userNickName = ''
+        state.showUI = moduleInstance._showUIDefault
       },
       setNotification (state, data) {
         state.notification.visible = true
@@ -59,18 +65,6 @@ AuthModule.store = (moduleInstance) => {
 
 AuthModule.api = (moduleInstance, store) => {
   return {
-    // use to check if auth ui features can be shown
-    showUI: () => {
-      // show if login is enabled or if we are already authenticated
-      // for server side authentication login is disabled on the client so user functionality is only enabled once uathenticated on the server
-      return !!moduleInstance._auth && (store.state.auth.isAuthenticated || moduleInstance._auth.enableLogin())
-    },
-    promptLogin: () => {
-      return !!moduleInstance._auth && !store.state.auth.isAuthenticated
-    },
-    enableLogin: () => {
-        return moduleInstance._auth.enableLogin()
-    },
     session: () => {
       moduleInstance._auth.session().then((data) => {
         store.commit('auth/setIsAuthenticated', data)

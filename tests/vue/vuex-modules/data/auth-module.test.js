@@ -107,25 +107,50 @@ describe('auth-module.test.js', () => {
     expect(store.state.auth.userId).toEqual('')
     expect(store.state.auth.userNickName).toEqual('')
     expect(store.state.auth.isAuthenticated).toEqual(false)
+    expect(store.state.auth.showUI).toEqual(true)
+    expect(store.state.auth.promptLogin).toEqual(true)
     expect(store.state.auth.notification.visible).toEqual(false)
     expect(store.state.auth.notification.showLogin).toEqual(false)
     expect(store.state.auth.notification.count).toEqual(0)
     expect(store.state.auth.notification.text).toBeNull()
   })
 
-  it(`AuthModule's setIsAuthenticated() store mutation should update profile`, () => {
+  it(`AuthModule showUI and promptLogin state should default to false if auth not enabled`, () => {
+    const authModule = new AuthModule(store, api, { auth: null })
+    expect(store.state.auth.showUI).toBeFalsy()
+    expect(store.state.auth.promptLogin).toBeFalsy()
+  })
+
+  it(`AuthModule showUI should default to false promptLogin to true for session auth`, () => {
+    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
+    expect(store.state.auth.showUI).toBeFalsy()
+    expect(store.state.auth.promptLogin).toBeTruthy()
+  })
+
+  it(`AuthModule's setIsAuthenticated() store mutation should update profile and showUI`, () => {
     const authModule = new AuthModule(store, api, { auth: mockAppAuth })
     store.commit('auth/setIsAuthenticated', mockProfile)
     expect(store.state.auth.isAuthenticated).toBeTruthy()
     expect(store.state.auth.userId).toEqual(mockProfile.sub)
     expect(store.state.auth.userNickName).toEqual(mockProfile.nickname)
+    expect(store.state.auth.showUI).toBeTruthy()
   })
-  it(`AuthModule's setIsNotAuthenticated() store mutation should clear profile`, () => {
+  it(`AuthModule's setIsNotAuthenticated() store mutation should reset profile and showUI`, () => {
     const authModule = new AuthModule(store, api, { auth: mockAppAuth })
     store.commit('auth/setIsNotAuthenticated')
     expect(store.state.auth.isAuthenticated).toBeFalsy()
     expect(store.state.auth.userId).toEqual('')
     expect(store.state.auth.userNickName).toEqual('')
+    expect(store.state.auth.showUI).toBeTruthy()
+  })
+
+  it(`AuthModule's setIsNotAuthenticated() store mutation should reset profile and showUI for sessionAuth`, () => {
+    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
+    store.commit('auth/setIsNotAuthenticated')
+    expect(store.state.auth.isAuthenticated).toBeFalsy()
+    expect(store.state.auth.userId).toEqual('')
+    expect(store.state.auth.userNickName).toEqual('')
+    expect(store.state.auth.showUI).toBeFalsy()
   })
 
   it(`AuthModule's setNotification() store mutation should update notification state`, () => {
@@ -157,61 +182,18 @@ describe('auth-module.test.js', () => {
 
   it('AuthModule should expose an api with a correct set of methods', () => {
     const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    const methods = ['showUI', 'promptLogin','enableLogin', 'session', 'authenticate', 'logout', 'getUserData']
+    const methods = ['session', 'authenticate', 'logout', 'getUserData']
     expect(Object.keys(api.auth)).toEqual(expect.arrayContaining(methods))
   })
 
-  it(`AuthModule API's showUI should return false if auth not enabled`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.showUI()).toBeFalsy()
-  })
-
-  it(`AuthModule API's showUI should return false if login disabled and not authenticated`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.showUI()).toBeFalsy()
-  })
-
-  it(`AuthModule API's isEnabled should return true if login disabled and already authenticated`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    store.commit('auth/setIsAuthenticated',mockProfile)
-    expect(store.state.auth.isAuthenticated).toBeTruthy()
-    expect(api.auth.showUI()).toBeTruthy()
-  })
-
-  it(`AuthModule API's showUI should return true if login enabled whether or not authenticated`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    expect(api.auth.showUI()).toBeTruthy()
-    store.commit('auth/setIsAuthenticated',mockProfile)
-    expect(api.auth.showUI()).toBeTruthy()
-  })
-
-  it(`AuthModule API's promptLogin should return true for appAuthenticator`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    expect(api.auth.promptLogin()).toBeTruthy()
-  })
-
-  it(`AuthModule API's promptLogin should return true for sessionAuthenticator`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.promptLogin()).toBeTruthy()
-  })
-
-  it(`AuthModule API's enableLogin should return true for appAuthenticator`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockAppAuth })
-    expect(api.auth.enableLogin()).toBeTruthy()
-  })
-
-  it(`AuthModule API's enableLogin should return false for sessionAuthenticator`, () => {
-    const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
-    expect(api.auth.enableLogin()).toBeFalsy()
-  })
-
-  it(`AuthModule API's session should update profile for sessionAuthenticator`, async () => {
+  it(`AuthModule API's session should update profile and showUI for sessionAuthenticator`, async () => {
     const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
     api.auth.session()
     await flushPromises()
     expect(store.state.auth.isAuthenticated).toBeTruthy()
     expect(store.state.auth.userId).toEqual(mockProfile.sub)
     expect(store.state.auth.userNickName).toEqual(mockProfile.nickname)
+    expect(store.state.auth.showUI).toBeTruthy()
   })
 
   it(`AuthModule API's session should not update profile for Unauthorized sessionAuthenticator`, async () => {
@@ -221,6 +203,7 @@ describe('auth-module.test.js', () => {
     expect(store.state.auth.isAuthenticated).toBeFalsy()
     expect(store.state.auth.userId).toEqual('')
     expect(store.state.auth.userNickName).toEqual('')
+    expect(store.state.auth.showUI).toBeFalsy()
   })
 
   it(`AuthModule API's session should not update profile for app authenticator`, async () => {
