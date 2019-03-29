@@ -16938,7 +16938,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return this.$store.state.auth.showUI
+  return this.$store.state.auth.enableLogin
     ? _c("div", [
         _c(
           "button",
@@ -45227,6 +45227,7 @@ AuthModule.store = (moduleInstance) => {
         text: null
       },
       showUI: moduleInstance._showUIDefault,
+      enableLogin: moduleInstance._showUIDefault, // this doesn't change based upon auth
       promptLogin: !! moduleInstance._auth // don't prompt for login if we have no auth object
     },
     mutations: {
