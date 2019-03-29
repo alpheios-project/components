@@ -168,6 +168,8 @@ export default class LexicalQuery extends Query {
       }
     }
 
+    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
+
     let lexiconFullOpts = this.getLexiconOptions('lexicons')
     let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 
@@ -176,8 +178,6 @@ export default class LexicalQuery extends Query {
     if (lexiconShortOpts.allow) {
       this.homonym.lexemes.forEach((l) => { l.meaning.clearShortDefs() })
     }
-
-    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield ClientAdapters.lemmatranslation.alpheios({

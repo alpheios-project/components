@@ -1190,8 +1190,7 @@ export default class UIController {
 
   onHomonymReady (homonym) {
     homonym.lexemes.sort(Lexeme.getSortByTwoLemmaFeatures(Feature.types.frequency, Feature.types.part))
-    this.updateProviders(homonym)
-    this.updateDefinitions(homonym)
+
     // Update status info with data from a morphological analyzer
     this.store.commit(`app/setTextData`, { text: homonym.targetWord, languageID: homonym.languageID })
 
@@ -1206,6 +1205,9 @@ export default class UIController {
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
     this.store.commit('app/setInflData', inflDataReady)
+
+    this.updateProviders(homonym)
+    this.updateDefinitions(homonym)
   }
 
   onWordListUpdated (wordLists) {
