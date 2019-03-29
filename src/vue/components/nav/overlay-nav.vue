@@ -97,7 +97,7 @@
       </alph-tooltip>
 
       <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_USER')" tooltipDirection="left"
-                  v-if="Boolean(auth)">
+                  v-if="$store.state.auth.showUI">
         <span @click="ui.togglePanelTab('user')" class="alpheios-navbuttons__btn"
               v-bind:class="{ active: $store.getters['ui/isActiveTab']('user') }">
           <user-icon></user-icon>
@@ -161,8 +161,7 @@ export default {
     app: 'app',
     ui: 'ui',
     l10n: 'l10n',
-    settings: 'settings',
-    auth: { from: 'auth', default: null } // This module is options
+    settings: 'settings'
   },
   storeModules: ['app', 'ui'], // Store modules that are required by this component
   mixins: [DependencyCheck],

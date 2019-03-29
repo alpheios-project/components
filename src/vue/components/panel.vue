@@ -98,7 +98,7 @@
           <div class="alpheios-panel__message">{{message}}</div>
         </div>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-if="auth.isEnabled()" v-show="$store.getters['ui/isActiveTab']('user')"
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__status" v-if="$store.state.auth.showUI" v-show="$store.getters['ui/isActiveTab']('user')"
            data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
@@ -151,7 +151,7 @@
         <setting :classes="['alpheios-panel__options-item']"
                  :data="settings.contentOptions.items.enableWordUsageExamples" @change="contentOptionChanged"
                  v-if="settings.contentOptions.items"></setting>
-        
+
         <setting :classes="['alpheios-panel__options-item']" :data="settings.contentOptions.items.wordUsageExamplesON"
                  @change="contentOptionChanged"
                  v-if="settings.contentOptions.items"></setting>
