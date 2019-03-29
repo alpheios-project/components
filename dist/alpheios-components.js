@@ -10841,13 +10841,14 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     lexemes () {
       // A call to `defDataReady` will force this computed prop to recalculate every time definitions data is updated
-      return this.$store.getters['app/defDataReady'] ? this.app.getHomonymLexemes() : []
+      let defs = this.$store.getters['app/defDataReady']
+      return this.$store.state.app.morphDataReady ? this.app.getHomonymLexemes() : []
     },
 
     translations () {
       let translations = {}
       if (this.$store.state.app.translationsDataReady) {
-        for (let lexeme of this.app.getHomonymLexemes()) {
+        for (let lexeme of this.lexemes) {
           if (lexeme.lemma.translation !== undefined) {
             translations[lexeme.lemma.ID] = lexeme.lemma.translation
           }
@@ -37826,8 +37827,7 @@ class UIController {
 
   onHomonymReady (homonym) {
     homonym.lexemes.sort(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Lexeme"].getSortByTwoLemmaFeatures(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.frequency, alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Feature"].types.part))
-    this.updateProviders(homonym)
-    this.updateDefinitions(homonym)
+
     // Update status info with data from a morphological analyzer
     this.store.commit(`app/setTextData`, { text: homonym.targetWord, languageID: homonym.languageID })
 
@@ -37842,6 +37842,9 @@ class UIController {
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
     this.store.commit('app/setInflData', inflDataReady)
+
+    this.updateProviders(homonym)
+    this.updateDefinitions(homonym)
   }
 
   onWordListUpdated (wordLists) {
@@ -40079,6 +40082,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       }
     }
 
+    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
+
     let lexiconFullOpts = this.getLexiconOptions('lexicons')
     let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 
@@ -40087,8 +40092,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     if (lexiconShortOpts.allow) {
       this.homonym.lexemes.forEach((l) => { l.meaning.clearShortDefs() })
     }
-
-    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
