@@ -73,7 +73,7 @@
     </div>
 
     <div class="alpheios-navmenu__item" :class="{ active: $store.getters['ui/isActiveTab']('wordUsage') }"
-        v-show="$store.state.app.homonymDataReady"
+        v-if="$store.state.app.showWordUsageTab"
         @click="changeTab('wordUsage')">
       <div class="alpheios-navbuttons__icon-cont">
         <word-usage-icon class="alpheios-navbuttons__icon"></word-usage-icon>

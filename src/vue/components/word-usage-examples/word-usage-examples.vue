@@ -1,15 +1,18 @@
 <template>
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
-    <word-usage-header-block @changedSortBy = "changedSortBy"></word-usage-header-block>
+    <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
+      <word-usage-examples-filters @filterCurrentByAuthor = "filterCurrentByAuthor"></word-usage-examples-filters>
+      <word-usage-examples-sorting @changedSortBy = "changedSortBy"></word-usage-examples-sorting>
+    </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
-        <word-usage-example-item
+        <word-usage-examples-item
             v-for="wordUsageItem in wordUsageListSorted"
             v-bind:key="wordUsageItem.ID"
             :wordUsageItem="wordUsageItem"
-        ></word-usage-example-item>
+        ></word-usage-examples-item>
       </div>
       <div v-else>
         {{ l10n.getText('WORDUSAGE_NO_RESULTS') }}
@@ -22,21 +25,27 @@
   </div>
 </template>
 <script>
-import WordUsageExampleItem from '@/vue/components/word-usage-example-item.vue'
-import WordUsageHeaderBlock from '@/vue/components/word-usage-header-block.vue'
+import WordUsageExamplesItem from '@/vue/components/word-usage-examples/word-usage-examples-item.vue'
+import WordUsageExamplesFilters from '@/vue/components/word-usage-examples/word-usage-examples-filters.vue'
+import WordUsageExamplesSorting from '@/vue/components/word-usage-examples/word-usage-examples-sorting.vue'
+
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 export default {
-  name: 'WordUsageExamplesBlock',
+  name: 'WordUsageExamples',
   inject: ['ui', 'app', 'l10n'],
   storeModules: ['ui'],
   mixins: [DependencyCheck],
   components: {
-    wordUsageExampleItem: WordUsageExampleItem,
-    wordUsageHeaderBlock: WordUsageHeaderBlock
+    wordUsageExamplesItem: WordUsageExamplesItem,
+    wordUsageExamplesFilters: WordUsageExamplesFilters,
+    wordUsageExamplesSorting: WordUsageExamplesSorting
   },
   data () {
     return {
-      sortBy: 'byFullCit'
+      sortBy: null,
+      selectedAuthor: null,
+      selectedTextWork: null
     }
   },
   computed: {
@@ -47,16 +56,27 @@ export default {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showWordUsageExampleItems () {
+      this.selectedAuthor = null
+      this.selectedTextWork = null
       return this.$store.state.app.wordUsageExamplesReady
     },
     wordUsageExamples () {
-      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.wordUsageExamples : []
+      if (!this.$store.state.app.wordUsageExamplesReady) {
+        return []
+      }
+      if (this.selectedAuthor) {
+        return this.app.wordUsageExamples.wordUsageExamples
+                   .filter(wordUsageExample => {
+                     return wordUsageExample.author.ID === this.selectedAuthor.ID && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
+                   })
+      }
+      return this.app.wordUsageExamples.wordUsageExamples
     },
     provider () {
       return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
     },
     providerRights () {
-      return (this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
+      return (this.app.wordUsageExamples && this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
         ? Array.from(this.app.wordUsageExamples.provider.rights.entries()).map(([key, value]) => { return { key, value } })
         : []
     },
@@ -64,20 +84,22 @@ export default {
       // TODO support user-selected sort key and order
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
-      if (this.showWordUsageExampleItems && this.wordUsageExamples && this.sortBy) {
+      if (this.showWordUsageExampleItems && this.wordUsageExamples) {
         return this.sortWordUSageExamplesBy()
       }
-
+      return []
     }
   },
   methods: {
     changedSortBy (sortByFromHeader) {
       this.sortBy = sortByFromHeader
     },
+    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+      this.selectedAuthor = selectedAuthor
+      this.selectedTextWork = selectedTextWork
+    },
     getPropertyBySortBy (a, type) {
       switch (type) {
-        case 'byFullCit':
-          return a.fullCit().toUpperCase()
         case 'byAuthor':
           return a.authorForSort()
         case 'byTextWork':
@@ -87,7 +109,7 @@ export default {
         case 'bySuffix':
           return a.suffixForSort
         default:
-          return null
+          return a.fullCit().toUpperCase()
       }
     },
     sortWordUSageExamplesBy () {
@@ -112,7 +134,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/alpheios";
+  @import "../../../styles/alpheios";
 
   .alpheios-word-usage {
     display: flex;
@@ -140,5 +162,29 @@ export default {
       padding: 10px 0;
       font-size: 80%;
     }
+
+    .alpheios-word-usage-header  {
+      border-bottom: 1px solid $alpheios-toolbar-active-color;
+    }
+
+
+    .alpheios-word-usage-header-select-author,
+    .alpheios-word-usage-header-select-textwork,
+    .alpheios-word-usage-header-select-sortBy {
+      width: 88%;
+    }
+
+    .alpheios-word-usage-header-clear-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .alpheios-word-usage-header-clear-disabled.alpheios-word-usage-header-clear-icon {
+      cursor: inherit;
+      fill: $alpheios-base-disabled-font-color;
+    }
+
   }
 </style>
