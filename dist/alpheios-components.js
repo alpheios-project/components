@@ -45264,7 +45264,9 @@ AuthModule.api = (moduleInstance, store) => {
       moduleInstance._auth.session().then((data) => {
         store.commit('auth/setIsAuthenticated', data)
       }).catch((error) => {
-        console.error('Session validation failed', error)
+        // a session being unavailable is not necessarily an error
+        // user might not have authenticated or it might be client-side auth
+        console.info('Session unavailable', error)
       })
     },
     authenticate: () => {
