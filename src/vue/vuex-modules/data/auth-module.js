@@ -32,6 +32,7 @@ AuthModule.store = (moduleInstance) => {
         text: null
       },
       showUI: moduleInstance._showUIDefault,
+      enableLogin: moduleInstance._showUIDefault, // this doesn't change based upon auth
       promptLogin: !! moduleInstance._auth // don't prompt for login if we have no auth object
     },
     mutations: {

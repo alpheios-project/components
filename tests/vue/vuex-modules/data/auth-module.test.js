@@ -109,6 +109,7 @@ describe('auth-module.test.js', () => {
     expect(store.state.auth.isAuthenticated).toEqual(false)
     expect(store.state.auth.showUI).toEqual(true)
     expect(store.state.auth.promptLogin).toEqual(true)
+    expect(store.state.auth.enableLogin).toEqual(true)
     expect(store.state.auth.notification.visible).toEqual(false)
     expect(store.state.auth.notification.showLogin).toEqual(false)
     expect(store.state.auth.notification.count).toEqual(0)
@@ -119,12 +120,14 @@ describe('auth-module.test.js', () => {
     const authModule = new AuthModule(store, api, { auth: null })
     expect(store.state.auth.showUI).toBeFalsy()
     expect(store.state.auth.promptLogin).toBeFalsy()
+    expect(store.state.auth.enableLogin).toBeFalsy()
   })
 
   it(`AuthModule showUI should default to false promptLogin to true for session auth`, () => {
     const authModule = new AuthModule(store, api, { auth: mockSessionAuth })
     expect(store.state.auth.showUI).toBeFalsy()
     expect(store.state.auth.promptLogin).toBeTruthy()
+    expect(store.state.auth.enableLogin).toBeFalsy()
   })
 
   it(`AuthModule's setIsAuthenticated() store mutation should update profile and showUI`, () => {
