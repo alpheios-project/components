@@ -467,7 +467,7 @@ export default class UIController {
           state.linkedFeatures = []
           state.homonymDataReady = false
           state.showWordUsageTab = false
-          state.grammarRes = null
+          // state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -475,6 +475,10 @@ export default class UIController {
           state.hasWordListsData = false
           state.treebankData.page = {}
           state.treebankData.word = {}
+        },
+
+        resetGrammarData (state) {
+          state.grammarRes = null
         },
 
         lexicalRequestFinished (state) {
@@ -876,6 +880,7 @@ export default class UIController {
   newLexicalRequest (targetWord, languageID) {
     // Reset old word-related data
     this.api.app.homonym = null
+
     this.store.commit('app/resetWordData')
     this.resetInflData()
     this.store.commit('ui/resetNotification')
@@ -924,8 +929,6 @@ export default class UIController {
   updateGrammar (urls = []) {
     if (urls.length > 0) {
       this.store.commit('app/setGrammarRes', urls[0])
-    } else {
-      this.store.commit('app/resetGrammarRes')
     }
   }
 
@@ -959,9 +962,12 @@ export default class UIController {
       preferredLanguageID = LanguageModelFactory.getLanguageIdFromCode(preferredLanguageID)
     }
     this.store.commit('app/setLanguage', preferredLanguageID)
-    this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID))
-    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
-
+    let newLanguageCode = LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID)
+    if (this.state.currentLanguage !== newLanguageCode) {
+      this.store.commit('app/resetGrammarData')
+      this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID))
+      this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
+    }
     this.resetInflData()
   }
 
