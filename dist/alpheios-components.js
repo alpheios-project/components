@@ -37805,7 +37805,6 @@ class UIController {
   }
 
   startResourceQuery (feature) {
-    console.info('******startResourceQuery', feature)
     // ExpObjMon.track(
     _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
       grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]

@@ -1157,7 +1157,6 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
-    console.info('******startResourceQuery', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars
