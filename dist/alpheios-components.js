@@ -40097,8 +40097,6 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       }
     }
 
-    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
-
     let lexiconFullOpts = this.getLexiconOptions('lexicons')
     let lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 
@@ -40107,6 +40105,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     if (lexiconShortOpts.allow) {
       this.homonym.lexemes.forEach((l) => { l.meaning.clearShortDefs() })
     }
+
+    LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
 
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_2__["ClientAdapters"].lemmatranslation.alpheios({
