@@ -12459,7 +12459,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /*
   This is a desktop version of a panel
@@ -20645,12 +20644,6 @@ var render = function() {
                 rawName: "v-show",
                 value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
                 expression: "$store.getters['ui/isActiveTab']('wordUsage')"
-              },
-              {
-                name: "if-backup",
-                rawName: "v-if-backup",
-                value: _vm.$store.state.app.showWordUsageTab,
-                expression: "$store.state.app.showWordUsageTab"
               }
             ],
             staticClass:
@@ -37148,11 +37141,9 @@ class UIController {
           }
         },
 
-        setHomonym (state, data) {
+        setHomonym (state, homonym) {
           state.homonymDataReady = true
-          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(data.homonym.languageID).grammarFeatures()
-
-          state.showWordUsageTab = data.showWordUsageTab
+          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).grammarFeatures()
         },
 
         setInflData (state, hasInflData = true) {
@@ -37764,7 +37755,6 @@ class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
-    this.store.commit('app/setWordUsageExamplesReady', false)
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
         paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
@@ -37863,8 +37853,7 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    let showWordUsageTab = this.enableWordUsageExamples({ languageID: homonym.languageID })
-    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab })
+    this.store.commit('app/setHomonym', homonym)
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet

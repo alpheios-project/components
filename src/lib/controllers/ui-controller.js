@@ -493,11 +493,9 @@ export default class UIController {
           }
         },
 
-        setHomonym (state, data) {
+        setHomonym (state, homonym) {
           state.homonymDataReady = true
-          state.linkedFeatures = LanguageModelFactory.getLanguageModel(data.homonym.languageID).grammarFeatures()
-
-          state.showWordUsageTab = data.showWordUsageTab
+          state.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.languageID).grammarFeatures()
         },
 
         setInflData (state, hasInflData = true) {
@@ -1109,7 +1107,6 @@ export default class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
-    this.store.commit('app/setWordUsageExamplesReady', false)
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
         paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
@@ -1208,8 +1205,7 @@ export default class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    let showWordUsageTab = this.enableWordUsageExamples({ languageID: homonym.languageID })
-    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab })
+    this.store.commit('app/setHomonym', homonym)
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
