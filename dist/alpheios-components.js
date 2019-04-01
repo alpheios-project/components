@@ -8540,13 +8540,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Grammar',
   inject: ['l10n'],
   storeModules: ['app'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  watch: {
-    '$store.state.app.grammarRes' (value) {
-      console.info('******changed $store.getters[`app/hasGrammarRes`]', this.$store.getters[`app/hasGrammarRes`])
-      console.info('******changed $store.state.app.grammarRes.url', value ? value.url : null)
-    }
-  }
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 

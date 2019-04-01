@@ -16,13 +16,7 @@ export default {
   name: 'Grammar',
   inject: ['l10n'],
   storeModules: ['app'],
-  mixins: [DependencyCheck],
-  watch: {
-    '$store.state.app.grammarRes' (value) {
-      console.info('******changed $store.getters[`app/hasGrammarRes`]', this.$store.getters[`app/hasGrammarRes`])
-      console.info('******changed $store.state.app.grammarRes.url', value ? value.url : null)
-    }
-  }
+  mixins: [DependencyCheck]
 }
 </script>
 <style lang="scss">
