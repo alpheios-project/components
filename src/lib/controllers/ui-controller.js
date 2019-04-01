@@ -467,7 +467,6 @@ export default class UIController {
           state.linkedFeatures = []
           state.homonymDataReady = false
           state.showWordUsageTab = false
-          // state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -880,7 +879,6 @@ export default class UIController {
   newLexicalRequest (targetWord, languageID) {
     // Reset old word-related data
     this.api.app.homonym = null
-
     this.store.commit('app/resetWordData')
     this.resetInflData()
     this.store.commit('ui/resetNotification')
@@ -965,7 +963,7 @@ export default class UIController {
     let newLanguageCode = LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID)
     if (this.state.currentLanguage !== newLanguageCode) {
       this.store.commit('app/resetGrammarData')
-      this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID))
+      this.state.setItem('currentLanguage', newLanguageCode)
       this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
     }
     this.resetInflData()

@@ -8533,7 +8533,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -37109,7 +37108,6 @@ class UIController {
           state.linkedFeatures = []
           state.homonymDataReady = false
           state.showWordUsageTab = false
-          // state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -37522,7 +37520,6 @@ class UIController {
   newLexicalRequest (targetWord, languageID) {
     // Reset old word-related data
     this.api.app.homonym = null
-
     this.store.commit('app/resetWordData')
     this.resetInflData()
     this.store.commit('ui/resetNotification')
@@ -37607,7 +37604,7 @@ class UIController {
     let newLanguageCode = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(preferredLanguageID)
     if (this.state.currentLanguage !== newLanguageCode) {
       this.store.commit('app/resetGrammarData')
-      this.state.setItem('currentLanguage', alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageCodeFromId(preferredLanguageID))
+      this.state.setItem('currentLanguage', newLanguageCode)
       this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
     }
     this.resetInflData()
