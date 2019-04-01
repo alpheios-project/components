@@ -10,7 +10,7 @@ export default class AuthModule extends Module {
     super(store, api, config)
     this._auth = this.config.auth
     // enable ui in initial unauthenticated state only if we have an auth object that allows login
-    this._showUIDefault = !! this._auth && this._auth.enableLogin()
+    this._showUIDefault = !!this._auth && this._auth.enableLogin()
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
     api[this.constructor.moduleName] = this.constructor.api(this, store)
   }
@@ -33,7 +33,7 @@ AuthModule.store = (moduleInstance) => {
       },
       showUI: moduleInstance._showUIDefault,
       enableLogin: moduleInstance._showUIDefault, // this doesn't change based upon auth
-      promptLogin: !! moduleInstance._auth // don't prompt for login if we have no auth object
+      promptLogin: !!moduleInstance._auth // don't prompt for login if we have no auth object
     },
     mutations: {
       setIsAuthenticated: (state, profile) => {
@@ -96,21 +96,21 @@ AuthModule.api = (moduleInstance, store) => {
       })
     },
     getUserData: () => {
-      return new Promise((resolve,reject) => {
+      return new Promise((resolve, reject) => {
         if (moduleInstance._auth) {
-            let accessToken
-            moduleInstance._auth.getUserData().then((token) => {
-              accessToken = token
-              return moduleInstance._auth.getEndPoints()
-            }).then((endpoints) => {
-              resolve({
-                accessToken: accessToken,
-                userId: store.state.auth.userId,
-                endpoints: endpoints
-              })
-            }).catch((error) => {
-              console.error("Error retrieving user data")
+          let accessToken
+          moduleInstance._auth.getUserData().then((token) => {
+            accessToken = token
+            return moduleInstance._auth.getEndPoints()
+          }).then((endpoints) => {
+            resolve({
+              accessToken: accessToken,
+              userId: store.state.auth.userId,
+              endpoints: endpoints
             })
+          }).catch((error) => {
+            console.error('Error retrieving user data', error)
+          })
         } else {
           reject(new Error('Authentication is not enabled'))
         }
