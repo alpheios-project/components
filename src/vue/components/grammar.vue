@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-grammar" v-if="$store.getters[`app/hasGrammarRes`]">
+  <div class="alpheios-grammar" v-if="$store.getters['app/hasGrammarRes']">
     <div class="alpheios-grammar__frame-cont" v-show="$store.state.app.grammarRes.url">
       <iframe :src="$store.state.app.grammarRes.url" class="alpheios-grammar__frame" scrolling="yes" v-if="$store.state.app.grammarRes.url"></iframe>
     </div>
@@ -16,7 +16,13 @@ export default {
   name: 'Grammar',
   inject: ['l10n'],
   storeModules: ['app'],
-  mixins: [DependencyCheck]
+  mixins: [DependencyCheck],
+  watch: {
+    '$store.state.app.grammarRes' (value) {
+      console.info('******changed $store.getters[`app/hasGrammarRes`]', this.$store.getters[`app/hasGrammarRes`])
+      console.info('******changed $store.state.app.grammarRes.url', value ? value.url : null)
+    }
+  }
 }
 </script>
 <style lang="scss">

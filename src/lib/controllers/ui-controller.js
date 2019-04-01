@@ -1160,6 +1160,7 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
+    console.info('******startResourceQuery', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars
@@ -1207,7 +1208,8 @@ export default class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
+    let showWordUsageTab = this.enableWordUsageExamples({ languageID: homonym.languageID })
+    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet

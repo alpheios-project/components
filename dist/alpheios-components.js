@@ -8540,7 +8540,13 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Grammar',
   inject: ['l10n'],
   storeModules: ['app'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  watch: {
+    '$store.state.app.grammarRes' (value) {
+      console.info('******changed $store.getters[`app/hasGrammarRes`]', this.$store.getters[`app/hasGrammarRes`])
+      console.info('******changed $store.state.app.grammarRes.url', value ? value.url : null)
+    }
+  }
 });
 
 
@@ -12244,6 +12250,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20626,25 +20642,29 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.$store.state.app.showWordUsageTab
-          ? _c(
-              "div",
+        _c(
+          "div",
+          {
+            directives: [
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
-                    expression: "$store.getters['ui/isActiveTab']('wordUsage')"
-                  }
-                ],
-                staticClass:
-                  "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
+                name: "show",
+                rawName: "v-show",
+                value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
+                expression: "$store.getters['ui/isActiveTab']('wordUsage')"
               },
-              [_c("word-usage-examples")],
-              1
-            )
-          : _vm._e(),
+              {
+                name: "if-backup",
+                rawName: "v-if-backup",
+                value: _vm.$store.state.app.showWordUsageTab,
+                expression: "$store.state.app.showWordUsageTab"
+              }
+            ],
+            staticClass:
+              "alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
+          },
+          [_c("word-usage-examples")],
+          1
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -37801,6 +37821,7 @@ class UIController {
   }
 
   startResourceQuery (feature) {
+    console.info('******startResourceQuery', feature)
     // ExpObjMon.track(
     _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].create(feature, {
       grammars: alpheios_res_client__WEBPACK_IMPORTED_MODULE_1__["Grammars"]
@@ -37848,7 +37869,8 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
+    let showWordUsageTab = this.enableWordUsageExamples({ languageID: homonym.languageID })
+    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
