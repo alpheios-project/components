@@ -467,7 +467,6 @@ export default class UIController {
           state.linkedFeatures = []
           state.homonymDataReady = false
           state.showWordUsageTab = false
-          state.grammarRes = null
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -475,6 +474,10 @@ export default class UIController {
           state.hasWordListsData = false
           state.treebankData.page = {}
           state.treebankData.word = {}
+        },
+
+        resetGrammarData (state) {
+          state.grammarRes = null
         },
 
         lexicalRequestFinished (state) {
@@ -490,11 +493,9 @@ export default class UIController {
           }
         },
 
-        setHomonym (state, data) {
+        setHomonym (state, homonym) {
           state.homonymDataReady = true
-          state.linkedFeatures = LanguageModelFactory.getLanguageModel(data.homonym.languageID).grammarFeatures()
-
-          state.showWordUsageTab = data.showWordUsageTab
+          state.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.languageID).grammarFeatures()
         },
 
         setInflData (state, hasInflData = true) {
@@ -924,8 +925,6 @@ export default class UIController {
   updateGrammar (urls = []) {
     if (urls.length > 0) {
       this.store.commit('app/setGrammarRes', urls[0])
-    } else {
-      this.store.commit('app/resetGrammarRes')
     }
   }
 
@@ -959,9 +958,12 @@ export default class UIController {
       preferredLanguageID = LanguageModelFactory.getLanguageIdFromCode(preferredLanguageID)
     }
     this.store.commit('app/setLanguage', preferredLanguageID)
-    this.state.setItem('currentLanguage', LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID))
-    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
-
+    let newLanguageCode = LanguageModelFactory.getLanguageCodeFromId(preferredLanguageID)
+    if (this.state.currentLanguage !== newLanguageCode) {
+      this.store.commit('app/resetGrammarData')
+      this.state.setItem('currentLanguage', newLanguageCode)
+      this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: preferredLanguageID })
+    }
     this.resetInflData()
   }
 
@@ -1105,7 +1107,6 @@ export default class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
-    this.store.commit('app/setWordUsageExamplesReady', false)
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
         paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
@@ -1203,7 +1204,7 @@ export default class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    this.store.commit(`app/setHomonym`, { homonym, showWordUsageTab: this.enableWordUsageExamples({ languageID: homonym.languageID }) })
+    this.store.commit('app/setHomonym', homonym)
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
