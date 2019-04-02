@@ -84,21 +84,27 @@
       },
       authorsList () {
         if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
-            this.lastTargetWord = this.app.homonym.targetWord
-            this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
-                                  .filter(wordUsageExampleItem => wordUsageExampleItem.author)
-                                  .map(wordUsageExampleItem => wordUsageExampleItem.author)
-                                  .filter((item, pos, self) => self.indexOf(item) == pos)
-                                  .slice()
-            
-            this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
-                                  .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
-                                  .filter((item, pos, self) => item && self.indexOf(item) == pos)
-                                  .slice()
-
-            this.removeDisabledFromTypeFilters()      
-            this.typeFilter = 'moreResults'
-            this.setDisabledToType('noFilters')                 
+          this.lastTargetWord = this.app.homonym.targetWord
+          this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+                                .filter(wordUsageExampleItem => wordUsageExampleItem.author)
+                                .map(wordUsageExampleItem => wordUsageExampleItem.author)
+                                .filter((item, pos, self) => self.indexOf(item) == pos)
+                                .slice()
+          
+          this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
+                                .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
+                                .filter((item, pos, self) => item && self.indexOf(item) == pos)
+                                .slice()       
+          this.removeDisabledFromTypeFilters()      
+          this.typeFilter = 'moreResults'
+          this.setDisabledToType('noFilters')    
+        }
+        else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
+          this.removeDisabledFromTypeFilters()      
+          this.typeFilter = 'noFilters'
+          this.setDisabledToType('filterCurrentResults')   
+          this.selectedAuthor = null
+          this.selectedTextWork = null    
         }
         return true
       },
