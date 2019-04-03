@@ -10510,6 +10510,162 @@ a.alpheios_word_usage_list_item__source_link {
 /*********** Font styles ***********************/
 /********** Light Schema ***********************/
 /********** Dark Schema ***********************/
+.alpheios-wordlist-language__worditem {
+  border-bottom: 1px solid #ddd !important;
+  padding: 2px 0 !important;
+}
+.alpheios-wordlist-language__worditem__current_session {
+  background: #fdf7d0 !important;
+}
+.alpheios-worditem__data {
+  display: inline-block;
+  vertical-align: middle !important;
+}
+.alpheios-wordlist-language__worditem .alpheios-worditem__icon {
+  width: 15px !important;
+  height: 15px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  fill: #D1D1D0 !important;
+  stroke: #D1D1D0 !important;
+  margin: 5px !important;
+}
+.alpheios-wordlist-language__worditem .alpheios-worditem__icon svg {
+    width: 15px !important;
+    height: 15px !important;
+    display: inline-block;
+    vertical-align: top !important;
+}
+.alpheios-wordlist-language__worditem .alpheios-worditem__icon.alpheios-worditem__delete_icon {
+    fill: #333333 !important;
+    stroke: #333333 !important;
+}
+.alpheios-wordlist-language__worditem__active .alpheios-worditem__data {
+  fill: #5BC8DC !important;
+  stroke: #5BC8DC !important;
+  color: #5BC8DC !important;
+}
+.alpheios-wordlist-language__worditem__active .alpheios-worditem__data.alpheios-worditem__delete_icon {
+    fill: #333333 !important;
+    stroke: #333333 !important;
+}
+.alpheios-worditem__targetWord {
+  font-weight: bold !important;
+  width: 30% !important;
+  cursor: pointer !important;
+}
+.alpheios-worditem__lemmasList {
+  width: 38% !important;
+}
+.alpheios_no_tq {
+  visibility: hidden !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-wordlist-commands {
+  border-bottom: 1px solid #4E6476 !important;
+}
+.alpheios-wordlist-commands .alpheios-wordlist-commands__item {
+  width: 15px !important;
+  height: 15px !important;
+  display: inline-block;
+  text-align: center !important;
+  cursor: pointer !important;
+  margin: 0 5px 10px !important;
+}
+.alpheios-wordlist-commands .alpheios-wordlist-commands__item svg {
+    width: 15px !important;
+    height: 15px !important;
+    display: inline-block;
+    vertical-align: top !important;
+}
+.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-no-important {
+  fill: #D1D1D0 !important;
+  stroke: #D1D1D0 !important;
+}
+.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-all-important {
+  fill: #5BC8DC !important;
+  stroke: #5BC8DC !important;
+}
+.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-remove-all {
+  fill: #333333 !important;
+  stroke: #333333 !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-wordlists-tq a.alpheios-wordlists-tq-title {
+  font-weight: bold !important;
+  padding: 5px 0 !important;
+  color: #3E8D9C !important;
+}
+.alpheios-wordlists-tq .alpheios-wordlists-tq-contextHTML-block {
+  padding: 5px 0 5px 10px !important;
+}
+.alpheios-wordlists-tq .alpheios-wordlists-tq-contextHTML {
+  font-style: italic !important;
+}
+.alpheios-wordlists-tq .alpheios_worditem_incontext,
+.alpheios-wordlists-tq .alpheios_worditem_incontext_add {
+  font-weight: bold !important;
+  background: #F6D918 !important;
+  display: inline-block;
+  padding: 0 5px !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-wordlist-commands {
+  border-bottom: 1px solid #4E6476 !important;
+}
+.alpheios-wordlist-commands .alpheios-wordlist-commands__item {
+  width: 15px !important;
+  height: 15px !important;
+  display: inline-block;
+  text-align: center !important;
+  cursor: pointer !important;
+  margin: 0 5px 10px !important;
+}
+.alpheios-wordlist-commands .alpheios-wordlist-commands__item svg {
+    width: 15px !important;
+    height: 15px !important;
+    display: inline-block;
+    vertical-align: top !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
+.alpheios-wordlist-language {
+  padding-bottom: 5px !important;
+  margin-bottom: 10px !important;
+}
+.alpheios-wordlist-language__title {
+  font-weight: bold !important;
+  font-size: 110% !important;
+  display: inline-block;
+}
+.alpheios-wordlist-language__worditem.active {
+  color: #5BC8DC !important;
+}
+
+/************ UIKit vars ************************/
+/************ Multiselect vars ************************/
+/*********** Font styles ***********************/
+/********** Light Schema ***********************/
+/********** Dark Schema ***********************/
 .alpheios-panel {
   z-index: 2000 !important;
   position: fixed !important;

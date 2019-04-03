@@ -166,7 +166,7 @@
         <info></info>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist" v-show="$store.getters['ui/isActiveTab']('wordlist')">
-        <word-list-panel :updated="$store.state.app.wordListUpdateTime" :wordlistC="app.wordlistC"></word-list-panel>
+        <word-list-panel></word-list-panel>
       </div>
     </div>
     <div class="alpheios-panel__notifications uk-text-small"
@@ -216,7 +216,7 @@ import ReskinFontColor from './reskin-font-color.vue'
 import UserAuth from './user-auth.vue'
 import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
 import { Definition } from 'alpheios-data-models'
-import { WordListPanel } from 'alpheios-wordlist'
+import WordListPanel from '@/vue/components/word-list/word-list-panel.vue'
 // Embeddable SVG icons
 import MenuIcon from '@/images/inline-icons/menu.svg'
 import CloseIcon from '../../images/inline-icons/close.svg'
