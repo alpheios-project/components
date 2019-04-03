@@ -18373,7 +18373,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.app.showWordUsageTab
+      _vm.$store.state.app.wordUsageExampleEnabled
         ? _c(
             "div",
             {
@@ -18894,7 +18894,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.app.showWordUsageTab
+      _vm.$store.state.app.wordUsageExampleEnabled
         ? _c(
             "alph-tooltip",
             {
@@ -19382,7 +19382,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.showWordUsageTab
+          _vm.$store.state.app.wordUsageExampleEnabled
             ? _c(
                 "alph-tooltip",
                 {
@@ -19869,7 +19869,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.showWordUsageTab
+          _vm.$store.state.app.wordUsageExampleEnabled
             ? _c(
                 "div",
                 {
@@ -37049,7 +37049,7 @@ class UIController {
           y: 0
         },
         homonymDataReady: false,
-        showWordUsageTab: false,
+        wordUsageExampleEnabled: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -37131,7 +37131,7 @@ class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
-          state.showWordUsageTab = false
+          state.wordUsageExampleEnabled = false
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -37161,7 +37161,7 @@ class UIController {
         setHomonym (state, data) {
           state.homonymDataReady = true
           state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(data.homonym.languageID).grammarFeatures()
-          state.showWordUsageTab = data.showWordUsageTab
+          state.wordUsageExampleEnabled = data.wordUsageExampleEnabled
         },
 
         setInflData (state, hasInflData = true) {
@@ -37872,9 +37872,9 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
-    let showWordUsageTab = this.enableWordUsageExamples({ languageID: homonym.languageID })
+    let wordUsageExampleEnabled = this.enableWordUsageExamples({ languageID: homonym.languageID })
 
-    this.store.commit('app/setHomonym', { homonym: homonym, showWordUsageTab: showWordUsageTab })
+    this.store.commit('app/setHomonym', { homonym, wordUsageExampleEnabled })
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
