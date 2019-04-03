@@ -105,7 +105,7 @@
       </alph-tooltip>
 
       <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_WORD_USAGE')" tooltipDirection="left"
-                  v-if="$store.state.app.showWordUsageTab">
+                  v-if="$store.state.app.wordUsageExampleEnabled">
         <span @click="ui.togglePanelTab('wordUsage')" class="alpheios-navbuttons__btn"
               v-bind:class="{ active: $store.getters['ui/isActiveTab']('wordUsage') }">
           <word-usage-icon></word-usage-icon>

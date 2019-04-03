@@ -10543,9 +10543,18 @@ __webpack_require__.r(__webpack_exports__);
 
       const resourceOptions = this.instanceResourceOptions || this.settings.resourceOptions
       const lemmaTranslationLang = this.app.state.lemmaTranslationLang
-      _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
-        .create(textSelector, resourceOptions, lemmaTranslationLang)
-        .getData()
+
+      const wordUsageExamples = this.app.enableWordUsageExamples(textSelector, 'onLexicalQuery')
+            ? { paginationMax: this.settings.contentOptions.items.wordUsageExamplesMax.currentValue,
+              paginationAuthMax: this.settings.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+            : null
+
+      let lexQuery = _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
+        .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
+
+      this.app.newLexicalRequest(this.lookuptext, languageID)
+
+      lexQuery.getData()
       // A lookup, when started from a panel, should open a popup with lookup results
       this.ui.openPopup()
       this.ui.closePanel()
@@ -13748,21 +13757,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     authorsList () {
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
-          this.lastTargetWord = this.app.homonym.targetWord
-          this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
-                                .filter(wordUsageExampleItem => wordUsageExampleItem.author)
-                                .map(wordUsageExampleItem => wordUsageExampleItem.author)
-                                .filter((item, pos, self) => self.indexOf(item) == pos)
-                                .slice()
-          
-          this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
-                                .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
-                                .filter((item, pos, self) => item && self.indexOf(item) == pos)
-                                .slice()
-
-          this.removeDisabledFromTypeFilters()      
-          this.typeFilter = 'moreResults'
-          this.setDisabledToType('noFilters')                 
+        this.lastTargetWord = this.app.homonym.targetWord
+        this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+                              .filter(wordUsageExampleItem => wordUsageExampleItem.author)
+                              .map(wordUsageExampleItem => wordUsageExampleItem.author)
+                              .filter((item, pos, self) => self.indexOf(item) == pos)
+                              .slice()
+        
+        this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
+                              .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
+                              .filter((item, pos, self) => item && self.indexOf(item) == pos)
+                              .slice()       
+        this.removeDisabledFromTypeFilters()      
+        this.typeFilter = 'moreResults'
+        this.setDisabledToType('noFilters')    
+      }
+      else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
+        this.removeDisabledFromTypeFilters()      
+        this.typeFilter = 'noFilters'
+        this.setDisabledToType('filterCurrentResults')   
+        this.selectedAuthor = null
+        this.selectedTextWork = null    
       }
       return true
     },
@@ -14092,7 +14107,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.selectedAuthor) {
         return this.app.wordUsageExamples.wordUsageExamples
                    .filter(wordUsageExample => {
-                     return wordUsageExample.author.ID === this.selectedAuthor.ID && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
+                     return wordUsageExample.author && (wordUsageExample.author.ID === this.selectedAuthor.ID) && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
                    })
       }
       return this.app.wordUsageExamples.wordUsageExamples
@@ -18358,7 +18373,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.app.showWordUsageTab
+      _vm.$store.state.app.wordUsageExampleEnabled
         ? _c(
             "div",
             {
@@ -18879,7 +18894,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.$store.state.app.showWordUsageTab
+      _vm.$store.state.app.wordUsageExampleEnabled
         ? _c(
             "alph-tooltip",
             {
@@ -19367,7 +19382,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.showWordUsageTab
+          _vm.$store.state.app.wordUsageExampleEnabled
             ? _c(
                 "alph-tooltip",
                 {
@@ -19854,7 +19869,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.$store.state.app.showWordUsageTab
+          _vm.$store.state.app.wordUsageExampleEnabled
             ? _c(
                 "div",
                 {
@@ -37012,7 +37027,9 @@ class UIController {
         }
         return false
       },
-      getWordUsageData: this.getWordUsageData.bind(this)
+      getWordUsageData: this.getWordUsageData.bind(this),
+      enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
+      newLexicalRequest: this.newLexicalRequest.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -37032,7 +37049,7 @@ class UIController {
           y: 0
         },
         homonymDataReady: false,
-        showWordUsageTab: false,
+        wordUsageExampleEnabled: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -37114,7 +37131,7 @@ class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
-          state.showWordUsageTab = false
+          state.wordUsageExampleEnabled = false
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -37144,6 +37161,10 @@ class UIController {
         setHomonym (state, homonym) {
           state.homonymDataReady = true
           state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).grammarFeatures()
+        },
+
+        setWordUsageExampleEnabled (state, wordUsageExampleEnabled) {
+          state.wordUsageExampleEnabled = wordUsageExampleEnabled
         },
 
         setInflData (state, hasInflData = true) {
@@ -37741,7 +37762,7 @@ class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexicalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -37755,6 +37776,8 @@ class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
         paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
@@ -37774,7 +37797,7 @@ class UIController {
   }
 
   enableWordUsageExamples (textSelector, requestType) {
-    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
+    let checkType = requestType === 'onLexicalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN &&
       this.contentOptions.items.enableWordUsageExamples.currentValue &&
       checkType
@@ -37852,7 +37875,11 @@ class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
+    let wordUsageExampleEnabled = this.enableWordUsageExamples({ languageID: homonym.languageID })
+
     this.store.commit('app/setHomonym', homonym)
+    this.store.commit('app/setWordUsageExampleEnabled', wordUsageExampleEnabled)
+
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
@@ -39890,7 +39917,7 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
    * @param lemmaTranslationLang
    */
 
-  static create (textSelector, resourceOptions, lemmaTranslationLang) {
+  static create (textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples) {
     // Check to see if Lemma Translations should be enabled for a query
     // Experimental
     let lemmaTranslations
@@ -39901,6 +39928,8 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
       htmlSelector: _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_2__["default"].getDumpHTMLSelector(),
 
       lemmaTranslations: lemmaTranslations,
+
+      wordUsageExamples: wordUsageExamples,
 
       resourceOptions: resourceOptions,
       langOpts: { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["Constants"].LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
@@ -42411,7 +42440,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_20___namespace =
 /*! exports provided: domain, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesON":{"defaultValue":"onDemand","labelText":"Get word usage examples:","values":[{"value":"onDemand","text":"On demand"},{"value":"onLexiqalQuery","text":"On LexiqalQuery"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
+module.exports = {"domain":"alpheios-content-options","items":{"enableLemmaTranslations":{"defaultValue":false,"labelText":"Experimental: Enable Latin Lemma Translations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"locale":{"defaultValue":"en-US","labelText":"UI Locale:","values":[{"value":"en-US","text":"English (US)"},{"value":"fr","text":"French"},{"value":"de","text":"German"},{"value":"it","text":"Italian"},{"value":"pt","text":"Portuguese"},{"value":"es","text":"Spanish"},{"value":"ca","text":"Catalonian"}]},"enableWordUsageExamples":{"defaultValue":false,"labelText":"Experimental: Enable Latin Word Usage Examples (Concordance)","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"wordUsageExamplesON":{"defaultValue":"onDemand","labelText":"Get word usage examples:","values":[{"value":"onDemand","text":"On demand"},{"value":"onLexicalQuery","text":"On LexicalQuery"}]},"wordUsageExamplesAuthMax":{"defaultValue":3,"labelText":"Word Usage Examples - max results per author","number":true,"values":[]},"wordUsageExamplesMax":{"defaultValue":500,"labelText":"Word Usage Examples - max results for single author request","number":true,"values":[]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupPosition":{"defaultValue":"fixed","labelText":"Popup position:","values":[{"value":"flexible","text":"Flexible"},{"value":"fixed","text":"Fixed"}]},"uiType":{"defaultValue":"popup","labelText":"UI type:","values":[{"value":"popup","text":"Pop-up"},{"value":"panel","text":"Panel"}]},"preferredLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]},"lookupLanguage":{"defaultValue":"lat","labelText":"Page language:","values":[{"value":"lat","text":"Latin"},{"value":"grc","text":"Greek"},{"value":"ara","text":"Arabic"},{"value":"per","text":"Persian"},{"value":"gez","text":"Ancient Ethiopic (Ge'ez - Experimental)"}]}}};
 
 /***/ }),
 
