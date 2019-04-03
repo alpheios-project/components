@@ -38080,7 +38080,7 @@ class UIController {
           state.morphDataReady = false
           state.translationsDataReady = false
           state.providers = []
-          // state.hasWordListsData = false
+
           state.treebankData.page = {}
           state.treebankData.word = {}
         },
