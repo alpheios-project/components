@@ -37158,10 +37158,13 @@ class UIController {
           }
         },
 
-        setHomonym (state, data) {
+        setHomonym (state, homonym) {
           state.homonymDataReady = true
-          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(data.homonym.languageID).grammarFeatures()
-          state.wordUsageExampleEnabled = data.wordUsageExampleEnabled
+          state.linkedFeatures = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(homonym.languageID).grammarFeatures()
+        },
+
+        setWordUsageExampleEnabled (state, wordUsageExampleEnabled) {
+          state.wordUsageExampleEnabled = wordUsageExampleEnabled
         },
 
         setInflData (state, hasInflData = true) {
@@ -37874,7 +37877,9 @@ class UIController {
     this.api.app.homonym = homonym
     let wordUsageExampleEnabled = this.enableWordUsageExamples({ languageID: homonym.languageID })
 
-    this.store.commit('app/setHomonym', { homonym, wordUsageExampleEnabled })
+    this.store.commit('app/setHomonym', homonym)
+    this.store.commit('app/setWordUsageExampleEnabled', wordUsageExampleEnabled)
+
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
