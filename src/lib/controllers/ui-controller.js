@@ -334,7 +334,6 @@ export default class UIController {
       state: this.state, // An app-level state
       homonym: null,
       inflectionsViewSet: null,
-      wordlistC: this.wordlistC, // A word list controller
       wordUsageExamples: null,
       wordUsageAuthors: [],
 
@@ -365,6 +364,9 @@ export default class UIController {
         return false
       },
       getWordUsageData: this.getWordUsageData.bind(this),
+      getWordList: this.wordlistC.getWordList.bind(this.wordlistC),
+      selectWordItem: this.wordlistC.selectWordItem.bind(this.wordlistC),
+      getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : [],
       enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
       newLexicalRequest: this.newLexicalRequest.bind(this)
     }
@@ -473,7 +475,7 @@ export default class UIController {
           state.morphDataReady = false
           state.translationsDataReady = false
           state.providers = []
-          state.hasWordListsData = false
+
           state.treebankData.page = {}
           state.treebankData.word = {}
         },
@@ -544,7 +546,7 @@ export default class UIController {
         },
 
         setWordLists (state, wordLists) {
-          state.hasWordListsData = (wordLists.length > 0)
+          state.hasWordListsData = Boolean(wordLists.find(wordList => !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
         },
 
@@ -1226,8 +1228,8 @@ export default class UIController {
     this.updateDefinitions(homonym)
   }
 
-  onWordListUpdated (wordLists) {
-    this.store.commit('app/setWordLists', wordLists)
+  onWordListUpdated (wordList) {
+    this.store.commit('app/setWordLists', [wordList])
     if (this.store.state.auth.promptLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
@@ -1266,13 +1268,17 @@ export default class UIController {
   }
 
   async onWordItemSelected (wordItem) {
-    let wordItemFull = await this.userDataManager.query({ dataType: 'WordItem', params: { wordItem } }, { type: 'full' })
-    let homonym = wordItemFull[0].homonym
-    this.newLexicalRequest(homonym.targetWord, homonym.languageID)
+    if (this.userDataManager) {
+      let wordItemFull = await this.userDataManager.query({ dataType: 'WordItem', params: { wordItem } }, { type: 'full' })
+      let homonym = wordItemFull[0].homonym
+      this.newLexicalRequest(homonym.targetWord, homonym.languageID)
 
-    this.onHomonymReady(homonym)
-    this.updateDefinitions(homonym)
-    this.updateTranslations(homonym)
+      this.onHomonymReady(homonym)
+      this.updateDefinitions(homonym)
+      this.updateTranslations(homonym)
+    } else {
+      console.warn('UserDataManager is not defined, data couldn\'t be loaded from the storage')
+    }
   }
 
   /**
