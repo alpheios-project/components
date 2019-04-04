@@ -2,8 +2,8 @@
 .auk .alpheios-tooltip {
   position: relative;
   display: inline-block;
-  user-select: none; }
-
+  user-select: none;
+}
 .auk .alpheios-tooltip__text {
   visibility: hidden;
   position: absolute;
@@ -15,24 +15,24 @@
   border-radius: 6px;
   z-index: 1;
   opacity: 0;
-  transition: opacity .6s;
+  transition: opacity 0.6s;
   font-size: 12px;
-  border: 1px solid #4E6476; }
-
+  border: 1px solid #4E6476;
+}
 .auk .auk .alpheios-tooltip span.alpheios-tooltip__text,
 .auk .alpheios-tooltip span.alpheios-tooltip__text {
   font-size: 12px;
-  padding: 5px 0; }
-
+  padding: 5px 0;
+}
 .auk .alpheios-tooltip:hover .alpheios-tooltip__text {
   visibility: visible;
-  opacity: 1; }
-
+  opacity: 1;
+}
 .auk .alpheios-tooltip__top {
   bottom: 125%;
   left: 50%;
-  margin-left: -50%; }
-
+  margin-left: -50%;
+}
 .auk .alpheios-tooltip__top::after {
   content: "";
   position: absolute;
@@ -41,13 +41,13 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #4E6476 transparent transparent transparent; }
-
+  border-color: #4E6476 transparent transparent transparent;
+}
 .auk .alpheios-tooltip__top-right {
   bottom: 125%;
   right: 0;
-  margin-left: -50%; }
-
+  margin-left: -50%;
+}
 .auk .alpheios-tooltip__top-right::after {
   content: "";
   position: absolute;
@@ -56,12 +56,12 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #4E6476 transparent transparent transparent; }
-
+  border-color: #4E6476 transparent transparent transparent;
+}
 .auk .alpheios-tooltip__top-left {
   bottom: 125%;
-  left: 0; }
-
+  left: 0;
+}
 .auk .alpheios-tooltip__top-left::after {
   content: "";
   position: absolute;
@@ -70,12 +70,12 @@
   margin-left: 5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #4E6476 transparent transparent transparent; }
-
+  border-color: #4E6476 transparent transparent transparent;
+}
 .auk .alpheios-tooltip__right {
   top: -5px;
-  left: 125%; }
-
+  left: 125%;
+}
 .auk .alpheios-tooltip__right::after {
   content: "";
   position: absolute;
@@ -84,25 +84,25 @@
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent #4E6476 transparent transparent; }
-
+  border-color: transparent #4E6476 transparent transparent;
+}
 .auk .alpheios-tooltip__bottom {
   top: 135%;
   left: 50%;
-  margin-left: -50%; }
-
+  margin-left: -50%;
+}
 .auk .alpheios-tooltip__bottom-wide {
   top: 135%;
-  left: -30%; }
-
+  left: -30%;
+}
 .auk .alpheios-tooltip__bottom-narrow {
   top: 135%;
-  left: -75%; }
-
+  left: -75%;
+}
 .auk .alpheios-tooltip__bottom-narrow2 {
   top: 135%;
-  left: -165%; }
-
+  left: -165%;
+}
 .auk .alpheios-tooltip__bottom::after,
 .auk .alpheios-tooltip__bottom-wide::after,
 .auk .alpheios-tooltip__bottom-narrow::after,
@@ -114,13 +114,13 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #4E6476 transparent; }
-
+  border-color: transparent transparent #4E6476 transparent;
+}
 .auk .alpheios-tooltip__bottom-right {
   top: 135%;
   right: 0;
-  margin-left: -50%; }
-
+  margin-left: -50%;
+}
 .auk .alpheios-tooltip__bottom-right::after {
   content: "";
   position: absolute;
@@ -129,12 +129,12 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #4E6476 transparent; }
-
+  border-color: transparent transparent #4E6476 transparent;
+}
 .auk .alpheios-tooltip__left {
   bottom: auto;
-  right: 128%; }
-
+  right: 128%;
+}
 .auk .alpheios-tooltip__left::after {
   content: "";
   position: absolute;
@@ -143,8 +143,8 @@
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent #4E6476; }
-
+  border-color: transparent transparent transparent #4E6476;
+}
 /***************** panel settings **********************/
 .alpheios-wordlist-language__worditem {
   border-bottom: 1px solid #ddd;
@@ -167,14 +167,14 @@
   margin: 5px;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon svg {
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    vertical-align: top;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: top;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon.alpheios-worditem__delete_icon {
-    fill: #333333;
-    stroke: #333333;
+  fill: #333333;
+  stroke: #333333;
 }
 .alpheios-wordlist-language__worditem__active .alpheios-worditem__data {
   fill: #5BC8DC;
@@ -182,8 +182,8 @@
   color: #5BC8DC;
 }
 .alpheios-wordlist-language__worditem__active .alpheios-worditem__data.alpheios-worditem__delete_icon {
-    fill: #333333;
-    stroke: #333333;
+  fill: #333333;
+  stroke: #333333;
 }
 .alpheios-worditem__targetWord {
   font-weight: bold;
@@ -196,7 +196,6 @@
 .alpheios_no_tq {
   visibility: hidden;
 }
-
 /***************** panel settings **********************/
 .alpheios-wordlist-commands {
   border-bottom: 1px solid #4E6476;
@@ -210,10 +209,10 @@
   margin: 0 5px 10px;
 }
 .alpheios-wordlist-commands .alpheios-wordlist-commands__item svg {
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    vertical-align: top;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: top;
 }
 .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-no-important {
   fill: #D1D1D0;
@@ -227,7 +226,6 @@
   fill: #333333;
   stroke: #333333;
 }
-
 /***************** panel settings **********************/
 .alpheios-wordlists-tq a.alpheios-wordlists-tq-title {
   font-weight: bold;
@@ -247,7 +245,6 @@
   display: inline-block;
   padding: 0 5px;
 }
-
 /***************** panel settings **********************/
 .alpheios-wordlist-commands {
   border-bottom: 1px solid #4E6476;
@@ -261,12 +258,11 @@
   margin: 0 5px 10px;
 }
 .alpheios-wordlist-commands .alpheios-wordlist-commands__item svg {
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    vertical-align: top;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: top;
 }
-
 /***************** panel settings **********************/
 .alpheios-wordlist-language {
   padding-bottom: 5px;
@@ -280,7 +276,6 @@
 .alpheios-wordlist-language__worditem.active {
   color: #5BC8DC;
 }
-
 
 /*# sourceMappingURL=style.css.map*/
 @charset "UTF-8";

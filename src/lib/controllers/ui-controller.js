@@ -366,7 +366,9 @@ export default class UIController {
       getWordUsageData: this.getWordUsageData.bind(this),
       getWordList: this.wordlistC.getWordList.bind(this.wordlistC),
       selectWordItem: this.wordlistC.selectWordItem.bind(this.wordlistC),
-      getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : []
+      getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : [],
+      enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
+      newLexicalRequest: this.newLexicalRequest.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -386,7 +388,7 @@ export default class UIController {
           y: 0
         },
         homonymDataReady: false,
-        showWordUsageTab: false,
+        wordUsageExampleEnabled: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
@@ -468,7 +470,7 @@ export default class UIController {
           state.wordUsageExamplesReady = false
           state.linkedFeatures = []
           state.homonymDataReady = false
-          state.showWordUsageTab = false
+          state.wordUsageExampleEnabled = false
           state.defUpdateTime = 0
           state.morphDataReady = false
           state.translationsDataReady = false
@@ -498,6 +500,10 @@ export default class UIController {
         setHomonym (state, homonym) {
           state.homonymDataReady = true
           state.linkedFeatures = LanguageModelFactory.getLanguageModel(homonym.languageID).grammarFeatures()
+        },
+
+        setWordUsageExampleEnabled (state, wordUsageExampleEnabled) {
+          state.wordUsageExampleEnabled = wordUsageExampleEnabled
         },
 
         setInflData (state, hasInflData = true) {
@@ -1095,7 +1101,7 @@ export default class UIController {
           resourceOptions: this.resourceOptions,
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
-          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexiqalQuery')
+          wordUsageExamples: this.enableWordUsageExamples(textSelector, 'onLexicalQuery')
             ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
               paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
             : null,
@@ -1109,6 +1115,8 @@ export default class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
+    this.store.commit('app/setWordUsageExamplesReady', false)
+
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
       ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
         paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
@@ -1128,7 +1136,7 @@ export default class UIController {
   }
 
   enableWordUsageExamples (textSelector, requestType) {
-    let checkType = requestType === 'onLexiqalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
+    let checkType = requestType === 'onLexicalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === Constants.LANG_LATIN &&
       this.contentOptions.items.enableWordUsageExamples.currentValue &&
       checkType
@@ -1206,7 +1214,11 @@ export default class UIController {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
     this.api.app.homonym = homonym
+    let wordUsageExampleEnabled = this.enableWordUsageExamples({ languageID: homonym.languageID })
+
     this.store.commit('app/setHomonym', homonym)
+    this.store.commit('app/setWordUsageExampleEnabled', wordUsageExampleEnabled)
+
     this.store.commit('app/setMorphDataReady')
     const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
     this.api.app.inflectionsViewSet = inflectionsViewSet
