@@ -10518,7 +10518,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -10575,16 +10574,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-// Modules support
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
-  storeModules: ['app'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_4__["default"]],
   components: {
     alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
@@ -10668,9 +10662,9 @@ __webpack_require__.r(__webpack_exports__);
       const lemmaTranslationLang = this.app.state.lemmaTranslationLang
 
       const wordUsageExamples = this.app.enableWordUsageExamples(textSelector, 'onLexicalQuery')
-            ? { paginationMax: this.settings.contentOptions.items.wordUsageExamplesMax.currentValue,
-              paginationAuthMax: this.settings.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
-            : null
+        ? { paginationMax: this.settings.contentOptions.items.wordUsageExamplesMax.currentValue,
+          paginationAuthMax: this.settings.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+        : null
 
       let lexQuery = _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
@@ -20654,7 +20648,7 @@ var render = function() {
                 }
               ],
               staticClass:
-                "alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
+                "alpheios-panel__tab-panel alpheios-panel__tab__wordlist alpheios-panel__tab-panel--fw"
             },
             [_c("word-list-panel")],
             1
@@ -21463,7 +21457,7 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__tab__wordlist",
+              "alpheios-panel__tab-panel alpheios-panel__tab__wordlist alpheios-panel__tab-panel--fw",
             attrs: { "data-alpheios-ignore": "all" }
           },
           [
@@ -41039,10 +41033,10 @@ class Options {
       if (Array.isArray(this.items[item])) {
         obj.items[item] = []
         for (let option of this.items[item]) {
-          obj.items[item].push(option.clone(option.name, obj.labelText, obj.storageAdapter))
+          obj.items[item].push(option.clone(option.name, option.labelText, obj.storageAdapter))
         }
       } else {
-        obj.items[item] = this.items[item].clone(item, obj.labelText, obj.storageAdapter)
+        obj.items[item] = this.items[item].clone(item, this.items[item].labelText, obj.storageAdapter)
       }
     }
     return obj
