@@ -191,6 +191,7 @@ describe('options.test.js', () => {
     expect(res.storageAdapter.constructor.name).toEqual('StorageAdapter')
     expect(res.storageAdapter.domain).toEqual(opt.domain)
     expect(res.items.locale.defaultValue).toEqual('en-US')
+
     expect(res.items.locale.labelText).toEqual('UI Locale:')
     expect(res.items.locale.values).toEqual([ { text: 'English (US)', value: 'en-US' } ])
     expect(res.items.locale.currentValue).toEqual(opt.items.locale.currentValue)
@@ -206,6 +207,7 @@ describe('options.test.js', () => {
     let opt = new Options(testDefaults, StorageAdapter)
 
     let res = opt.clone(StorageAdapter)
+
 
     expect(Array.isArray(res.items.locale)).toBeTruthy()
     expect(res.items.locale[0].name).toEqual('locale-foo')
