@@ -43,7 +43,7 @@
           </span>
         </div>
 
-        <div class="alpheios-popup__toolbar-buttons" v-if="data">
+        <div class="alpheios-popup__toolbar-buttons" v-show="data">
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_DEFINITIONS')" tooltipDirection="bottom-wide"
                         v-show="$store.getters['app/defDataReady']">
             <button @click="ui.showPanelTab('definitions')"

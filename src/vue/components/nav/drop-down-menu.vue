@@ -65,7 +65,7 @@
     </div>
 
     <div class="alpheios-navmenu__item" :class="{ active: $store.getters['ui/isActiveTab']('user') }"
-         v-if="Boolean(auth)" @click="changeTab('user')">
+         v-show="Boolean(auth)" @click="changeTab('user')">
       <div class="alpheios-navbuttons__icon-cont">
         <user-icon class="alpheios-navbuttons__icon"></user-icon>
       </div>
@@ -73,7 +73,7 @@
     </div>
 
     <div class="alpheios-navmenu__item" :class="{ active: $store.getters['ui/isActiveTab']('wordUsage') }"
-        v-if="$store.state.app.wordUsageExampleEnabled"
+        v-show="$store.state.app.wordUsageExampleEnabled"
         @click="changeTab('wordUsage')">
       <div class="alpheios-navbuttons__icon-cont">
         <word-usage-icon class="alpheios-navbuttons__icon"></word-usage-icon>

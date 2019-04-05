@@ -46,28 +46,33 @@
           </div>-->
         </div>
       </div>
+
       <div
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab-panel--fw alpheios-panel__tab__definitions"
-          v-if="$store.getters['ui/isActiveTab']('definitions')"
+          v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
-          >
+      >
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-defs`"
           />
         </div>
-        <div v-if="$store.getters['app/defDataReady']">
-          <div :key="definition.ID"
-               class="alpheios-panel__contentitem" v-for="definition in formattedShortDefinitions">
-            <shortdef :definition="definition" :languageCode="$store.state.app.languageCode"></shortdef>
-          </div>
-          <div class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions"
-               v-html="formattedFullDefinitions"></div>
+        <div
+            class="alpheios-panel__contentitem"
+            v-for="definition in formattedShortDefinitions"
+            :key="definition.ID"
+        >
+          <shortdef
+              :definition="definition"
+              :languageCode="$store.state.app.languageCode"
+          />
         </div>
-        <div v-else>
-          {{ l10n.getText('PLACEHOLDER_DEFINITIONS') }}
-        </div>
+        <div
+            class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions"
+            v-html="formattedFullDefinitions"
+        />
       </div>
+
       <div :id="inflectionsPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflections"
            v-if="$store.state.app.hasInflData" v-show="$store.getters['ui/isActiveTab']('inflections')"
            data-alpheios-ignore="all">
@@ -110,16 +115,18 @@
           <div class="alpheios-panel__message">{{message}}</div>
         </div>
       </div>
+
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__user"
           v-if="$store.state.auth.showUI" v-show="$store.getters['ui/isActiveTab']('user')"
            data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
-           v-if="$store.state.app.wordUsageExampleEnabled"
-           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
+
+      <div
+          class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
+          v-show="$store.getters['ui/isActiveTab']('wordUsage')"
         >
-        <word-usage-examples></word-usage-examples>
+        <word-usage-examples/>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__options"
            v-show="$store.getters['ui/isActiveTab']('options')"
@@ -204,26 +211,40 @@
         <word-list-panel></word-list-panel>
       </div>
     </div>
-    <div class="alpheios-panel__notifications alpheios-text-small"
-         :class="{ 'alpheios-panel__notifications--important': $store.state.ui.notification.important }"
-         v-if="$store.state.ui.notification.visible" v-show="$store.state.ui.notification.important">
-            <span @click="$store.commit(`ui/resetNotification`)" class="alpheios-panel__notifications-close-btn">
-                <close-icon></close-icon>
+    <div
+        :class="{ 'alpheios-panel__notifications--important': $store.state.ui.notification.important }"
+        class="alpheios-panel__notifications alpheios-text-small"
+        v-show="$store.state.ui.notification.visible && $store.state.ui.notification.important"
+    >
+            <span
+                class="alpheios-panel__notifications-close-btn"
+                @click="$store.commit(`ui/resetNotification`)"
+            >
+                <close-icon/>
             </span>
       <span class="alpheios-panel__notifications-text" v-html="$store.state.ui.notification.text"></span>
-      <setting :classes="['alpheios-panel__notifications--lang-switcher alpheios-text-smaller']"
-               :data="settings.contentOptions.items.preferredLanguage"
-               @change="contentOptionChanged"
-               v-show="$store.state.ui.notification.showLanguageSwitcher"></setting>
+      <setting
+          v-show="$store.state.ui.notification.showLanguageSwitcher"
+          :classes="['alpheios-panel__notifications--lang-switcher alpheios-text-smaller']"
+          :data="settings.contentOptions.items.preferredLanguage"
+          @change="contentOptionChanged"
+      />
     </div>
-    <div class="alpheios-panel__notifications-auth alpheios-panel__notifications--important"
-         :data-count="$store.state.auth.notification.count"
-         v-if="$store.state.auth.notification.text" v-show="$store.state.auth.notification.count === 1 || $store.state.auth.notification.count % 10 == 0">
-         <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-panel__notifications-close-btn">
-            <close-icon></close-icon>
+    <div
+        v-show="showLoginNotification"
+        class="alpheios-panel__notifications-auth alpheios-panel__notifications--important"
+        :data-count="$store.state.auth.notification.count"
+    >
+         <span
+             class="alpheios-panel__notifications-close-btn"
+             @click="$store.commit(`auth/resetNotification`)"
+         >
+            <close-icon/>
          </span>
-         <span v-html="l10n.getMsg($store.state.auth.notification.text)"></span>
-         <login v-show="$store.state.auth.notification.showLogin"></login>
+         <span
+             v-html="l10n.getMsg($store.state.auth.notification.text)"
+         />
+         <login/>
     </div>
   </div>
 </template>
@@ -376,6 +397,14 @@ export default {
         }
       }
       return content
+    },
+
+    showLoginNotification () {
+      return Boolean(
+        this.$store.state.auth.notification.text &&
+        this.$store.state.auth.notification.showLogin &&
+        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
+      )
     }
   },
   methods: {
