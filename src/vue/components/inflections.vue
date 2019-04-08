@@ -1,6 +1,6 @@
 <template>
   <div :id="elementIDs.content">
-    <div class="alpheios-inflections__placeholder" v-if="$store.state.app.inflectionsWaitState">
+    <div class="alpheios-inflections__placeholder" v-show="$store.state.app.inflectionsWaitState">
       <div class="alpheios-inflections__progress-wrapper">
         <div class="alpheios-inflections__progress-border">
           <div class="alpheios-inflections__progress-whitespace">
@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="alpheios-inflections__content" v-else-if="inflectionsEnabled && $store.state.app.hasInflData">
+    <div class="alpheios-inflections__content" v-if="$store.state.app.hasInflData">
       <word-forms
           :lexemes="selectedView.homonym.lexemes"
           :partOfSpeech="selectedView.constructor.mainPartOfSpeech"
@@ -74,13 +74,9 @@
         <div class="alpheios-inflections__credits-text" v-html="selectedView.creditsText"></div>
       </div>
     </div>
-    <div class="alpheios-inflections__placeholder" v-else>
-      {{ l10n.getMsg('PLACEHOLDER_INFLECT_UNAVAILABLE') }}
-    </div>
   </div>
 </template>
 <script>
-import { ViewSetFactory } from 'alpheios-inflection-tables'
 // Subcomponents
 import WidePrerenderedTable from './inflections-table-prerendered.vue'
 import WideTableVue from './inflections-table-wide.vue'
@@ -127,12 +123,6 @@ export default {
   },
 
   computed: {
-    inflectionsEnabled: function () {
-      // TODO: This is a temporary solution. This should be handled in accord with our overall state handling policy
-      return this.$store.state.app.currentLanguageID
-        ? ViewSetFactory.hasInflectionsEnabled(this.$store.state.app.currentLanguageID)
-        : false
-    },
     partOfSpeechSelector: {
       get: function () {
         return this.selectedPartOfSpeech

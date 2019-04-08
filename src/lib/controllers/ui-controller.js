@@ -526,7 +526,9 @@ export default class UIController {
 
         setInflData (state, hasInflData = true) {
           state.inflectionsWaitState = false
-          state.hasInflData = hasInflData
+          state.hasInflData = hasInflData &&
+            // Whether the language support inflections
+            LanguageModelFactory.getLanguageModel(state.currentLanguageID).canInflect()
         },
 
         resetInflData (state) {
@@ -854,11 +856,11 @@ export default class UIController {
   changeTab (tabName) {
     // If tab is disabled, switch to a default one
     if (
-      (name === 'definitions' && !this.$store.getters['app/defDataReady']) ||
+      (name === 'definitions' && !this.store.getters['app/defDataReady']) ||
       (name === 'inflections' && !this.store.state.app.hasInflData) ||
       (name === 'grammar' && !this.store.getters['app/hasGrammarRes']) ||
       (name === 'treebank' && !this.store.getters['app/hasTreebankData']) ||
-      (name === 'wordUsage' && !this.$store.state.app.wordUsageExampleEnabled) ||
+      (name === 'wordUsage' && !this.store.state.app.wordUsageExampleEnabled) ||
       (name === 'status' && this.api.settings.contentOptions.items.verboseMode.currentValue !== 'verbose')
     ) {
       console.warn(`Attempting to switch to a ${tabName} tab which is not available`)
