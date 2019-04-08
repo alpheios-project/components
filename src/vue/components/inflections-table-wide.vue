@@ -17,7 +17,7 @@
       </h4>
 
       <div
-          v-show="isAvailable"
+          v-if="isAvailable"
           class="alpheios-inflections__wide-view"
       >
         <div

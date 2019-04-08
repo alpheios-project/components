@@ -44,9 +44,13 @@
         <main-table-wide-vue :collapsed="false" :view="selectedView" @widthchange="updateWidth">
         </main-table-wide-vue>
 
-        <template v-for="linkedView in selectedView.linkedViews" v-if="selectedView.linkedViews">
-          <main-table-wide-vue :collapsed="false" :view="linkedView" @widthchange="updateWidth">
-          </main-table-wide-vue>
+        <template v-if="selectedView.linkedViews">
+          <main-table-wide-vue
+              :collapsed="false"
+              :view="linkedView"
+              @widthchange="updateWidth"
+              v-for="linkedView in selectedView.linkedViews"
+          />
         </template>
 
         <div :id="elementIDs.footnotes" class="alpheios-inflections__footnotes">
