@@ -58,15 +58,22 @@
               :name-base="`panel-defs`"
           />
         </div>
-        <div
-            class="alpheios-panel__contentitem"
-            v-for="definition in formattedShortDefinitions"
-            :key="definition.ID"
-        >
-          <shortdef
-              :definition="definition"
-              :languageCode="$store.state.app.languageCode"
-          />
+        <div v-if="$store.getters['app/defDataReady']">
+          <div :key="definition.ID"
+               class="alpheios-panel__contentitem"
+               v-for="definition in formattedShortDefinitions"
+          >
+            <shortdef
+                :definition="definition"
+                :languageCode="$store.state.app.languageCode"
+            />
+          </div>
+          <div
+              class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions"
+              v-html="formattedFullDefinitions"/>
+        </div>
+        <div v-else>
+          {{ l10n.getText('PLACEHOLDER_DEFINITIONS') }}
         </div>
         <div
             class="alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions"

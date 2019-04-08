@@ -255,6 +255,9 @@ export default {
       return this.showProviders ? this.l10n.getText('LABEL_POPUP_HIDECREDITS') : this.l10n.getText('LABEL_POPUP_SHOWCREDITS')
     },
 
+    // TODO: right now this prop sets a condition for displaying both the notification message and the login button.
+    //       However, sometimes we cannot obtain the login URL and thus cannot show the button.
+    //       Need to think how to handle such situations gracefully.
     showLoginNotification () {
       return Boolean(
         this.$store.state.auth.notification.text &&
