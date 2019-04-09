@@ -10225,6 +10225,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Subcomponents
 
@@ -17640,6 +17641,7 @@ var render = function() {
                           linkedView
                         ) {
                           return _c("main-table-wide-vue", {
+                            key: linkedView.id,
                             attrs: { collapsed: false, view: linkedView },
                             on: { widthchange: _vm.updateWidth }
                           })
@@ -19063,8 +19065,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: Boolean(_vm.auth),
-              expression: "Boolean(auth)"
+              value: _vm.$store.state.auth.showUI,
+              expression: "$store.state.auth.showUI"
             }
           ],
           staticClass: "alpheios-navmenu__item",
@@ -19133,12 +19135,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value:
-                this.$store.state.app.wordListUpdateTime &&
-                this.app.wordlistC &&
-                Object.keys(this.app.wordlistC.wordLists).length > 0,
-              expression:
-                "this.$store.state.app.wordListUpdateTime && this.app.wordlistC && Object.keys(this.app.wordlistC.wordLists).length > 0"
+              value: this.$store.state.app.hasWordListsData,
+              expression: "this.$store.state.app.hasWordListsData"
             }
           ],
           staticClass: "alpheios-navmenu__item",
@@ -38801,9 +38799,7 @@ class UIController {
 
         setInflData (state, hasInflData = true) {
           state.inflectionsWaitState = false
-          state.hasInflData = hasInflData &&
-            // Whether the language support inflections
-            alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(state.currentLanguageID).canInflect()
+          state.hasInflData = hasInflData
         },
 
         resetInflData (state) {
@@ -39487,8 +39483,12 @@ class UIController {
     this.store.commit('app/setWordUsageExampleEnabled', wordUsageExampleEnabled)
 
     this.store.commit('app/setMorphDataReady')
-    const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
-    this.api.app.inflectionsViewSet = inflectionsViewSet
+
+    let inflDataReady = false
+    if (alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["LanguageModelFactory"].getLanguageModel(this.store.state.app.currentLanguageID).canInflect()) {
+      inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
+      this.api.app.inflectionsViewSet = inflectionsViewSet
+    }
     this.store.commit('app/setInflData', inflDataReady)
 
     this.updateProviders(homonym)

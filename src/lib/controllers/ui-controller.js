@@ -526,9 +526,7 @@ export default class UIController {
 
         setInflData (state, hasInflData = true) {
           state.inflectionsWaitState = false
-          state.hasInflData = hasInflData &&
-            // Whether the language support inflections
-            LanguageModelFactory.getLanguageModel(state.currentLanguageID).canInflect()
+          state.hasInflData = hasInflData
         },
 
         resetInflData (state) {
@@ -1212,8 +1210,12 @@ export default class UIController {
     this.store.commit('app/setWordUsageExampleEnabled', wordUsageExampleEnabled)
 
     this.store.commit('app/setMorphDataReady')
-    const inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
-    this.api.app.inflectionsViewSet = inflectionsViewSet
+
+    let inflDataReady = false
+    if (LanguageModelFactory.getLanguageModel(this.store.state.app.currentLanguageID).canInflect()) {
+      inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
+      this.api.app.inflectionsViewSet = inflectionsViewSet
+    }
     this.store.commit('app/setInflData', inflDataReady)
 
     this.updateProviders(homonym)

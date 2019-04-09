@@ -50,6 +50,7 @@
               :view="linkedView"
               @widthchange="updateWidth"
               v-for="linkedView in selectedView.linkedViews"
+              :key = "linkedView.id"
           />
         </template>
 
