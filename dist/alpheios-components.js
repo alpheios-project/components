@@ -14418,20 +14418,25 @@ __webpack_require__.r(__webpack_exports__);
     authorsList () {
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
         this.lastTargetWord = this.app.homonym.targetWord
-        this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
-          .filter(wordUsageExampleItem => wordUsageExampleItem.author)
-          .map(wordUsageExampleItem => wordUsageExampleItem.author)
-          .filter((item, pos, self) => self.indexOf(item) == pos)
-          .slice()
+        if (!this.app.wordUsageExamples.wordUsageExamples) {
+          this.lastAuthorsList = []
+          this.lastTextWorksList = []
+        } else {
+          this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+            .filter(wordUsageExampleItem => wordUsageExampleItem.author)
+            .map(wordUsageExampleItem => wordUsageExampleItem.author)
+            .filter((item, pos, self) => self.indexOf(item) == pos)
+            .slice()
 
-        this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
-          .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
-          .filter((item, pos, self) => item && self.indexOf(item) == pos)
-          .slice()
+          this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
+            .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
+            .filter((item, pos, self) => item && self.indexOf(item) == pos)
+            .slice()
 
-        this.removeDisabledFromTypeFilters()
-        this.typeFilter = 'moreResults'
-        this.setDisabledToType('noFilters')
+          this.removeDisabledFromTypeFilters()
+          this.typeFilter = 'moreResults'
+          this.setDisabledToType('noFilters')
+        }
       } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
         this.removeDisabledFromTypeFilters()
         this.typeFilter = 'noFilters'
@@ -14464,6 +14469,8 @@ __webpack_require__.r(__webpack_exports__);
       if (this.typeFilter === 'noFilters') {
         this.disabledButton = true
 
+        this.$emit('getAllResults')
+
         await this.getResultsNoFilters()
 
         this.removeDisabledFromTypeFilters()
@@ -14473,15 +14480,17 @@ __webpack_require__.r(__webpack_exports__);
         this.setDisabledToType('noFilters')
 
         this.disabledButton = false
+        
       } else if (this.typeFilter === 'moreResults') {
         this.disabledButton = true
-
+        this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
         await this.getResultsWithFilters()
 
         this.setDisabledToType('filterCurrentResults')
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
 
         this.disabledButton = false
+        
       } else if (this.typeFilter === 'filterCurrentResults') {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
@@ -14722,6 +14731,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -14731,7 +14744,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordUsageExamples',
-  inject: ['ui', 'app', 'l10n'],
+  inject: ['ui', 'app', 'l10n', 'settings'],
   storeModules: ['ui'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   components: {
@@ -14743,7 +14756,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       sortBy: null,
       selectedAuthor: null,
-      selectedTextWork: null
+      selectedTextWork: null,
+      needInnerFilter: false
     }
   },
   computed: {
@@ -14753,16 +14767,19 @@ __webpack_require__.r(__webpack_exports__);
     language () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
+    showHeader () {
+      return Boolean(this.selectedAuthor) || 
+             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
+             !this.showWordUsageExampleItems // && this.settings.contentOptions.items.wordUsageExamplesON.currentValue === 'onDemand'
+    },
     showWordUsageExampleItems () {
-      this.selectedAuthor = null
-      this.selectedTextWork = null
       return this.$store.state.app.wordUsageExamplesReady
     },
     wordUsageExamples () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
         return []
       }
-      if (this.selectedAuthor) {
+      if (this.selectedAuthor && this.needInnerFilter) {
         return this.app.wordUsageExamples.wordUsageExamples
           .filter(wordUsageExample => {
             return wordUsageExample.author && (wordUsageExample.author.ID === this.selectedAuthor.ID) && (this.selectedTextWork ? wordUsageExample.textWork.ID === this.selectedTextWork.ID : true)
@@ -14771,7 +14788,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.app.wordUsageExamples.wordUsageExamples
     },
     provider () {
-      return this.$store.state.app.wordUsageExamplesReady ? this.app.wordUsageExamples.provider : null
+      return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.provider ? this.app.wordUsageExamples.provider.toString() : null
     },
     providerRights () {
       return (this.app.wordUsageExamples && this.app.wordUsageExamples.provider && this.app.wordUsageExamples.provider.rights)
@@ -14792,9 +14809,22 @@ __webpack_require__.r(__webpack_exports__);
     changedSortBy (sortByFromHeader) {
       this.sortBy = sortByFromHeader
     },
-    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+    setAuthorTextWork (selectedAuthor, selectedTextWork) {
       this.selectedAuthor = selectedAuthor
       this.selectedTextWork = selectedTextWork
+    },
+    filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
+      this.setAuthorTextWork(selectedAuthor, selectedTextWork)
+      this.needInnerFilter = true
+    },
+    getMoreResults (selectedAuthor, selectedTextWork) {
+      this.setAuthorTextWork(selectedAuthor, selectedTextWork)
+      this.needInnerFilter = false
+    },
+    getAllResults () {
+      this.selectedAuthor = null
+      this.selectedTextWork = null
+      this.needInnerFilter = false
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
@@ -23763,93 +23793,103 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.availableSortBy
-    ? _c("div", { staticClass: "alpheios-word-usage-header-sorting" }, [
-        _c("p", { staticClass: "alpheios-word-usage-header-title" }, [
-          _vm._v(
-            "\n    " + _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY")) + "\n  "
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedSortBy,
-                    expression: "selectedSortBy"
-                  }
-                ],
-                staticClass:
-                  "alpheios-select alpheios-word-usage-header-select-sortBy",
-                on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.selectedSortBy = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                    _vm.changedSortBy
-                  ]
-                }
-              },
-              _vm._l(_vm.typeSortingList, function(typeSorting) {
-                return _c(
-                  "option",
-                  {
-                    key: typeSorting.value,
-                    domProps: { value: typeSorting.value }
-                  },
-                  [_vm._v(_vm._s(typeSorting.title))]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "alph-tooltip",
-              {
-                attrs: {
-                  tooltipText: _vm.l10n.getMsg(
-                    "WORDUSAGE_SORTING_AUTHOR_CLEAR"
-                  ),
-                  tooltipDirection: "top-right"
-                }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    staticClass: "alpheios-word-usage-header-clear-icon",
-                    class: {
-                      "alpheios-word-usage-header-clear-disabled":
-                        _vm.selectedSortBy === null
-                    },
-                    on: { click: _vm.clearSorting }
-                  },
-                  [_c("clear-filters-icon")],
-                  1
-                )
-              ]
-            )
-          ],
-          1
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.availableSortBy,
+          expression: "availableSortBy"
+        }
+      ],
+      staticClass: "alpheios-word-usage-header-sorting"
+    },
+    [
+      _c("p", { staticClass: "alpheios-word-usage-header-title" }, [
+        _vm._v(
+          "\n    " + _vm._s(_vm.l10n.getText("WORDUSAGE_SORT_BY")) + "\n  "
         )
-      ])
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedSortBy,
+                  expression: "selectedSortBy"
+                }
+              ],
+              staticClass:
+                "alpheios-select alpheios-word-usage-header-select-sortBy",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedSortBy = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.changedSortBy
+                ]
+              }
+            },
+            _vm._l(_vm.typeSortingList, function(typeSorting) {
+              return _c(
+                "option",
+                {
+                  key: typeSorting.value,
+                  domProps: { value: typeSorting.value }
+                },
+                [_vm._v(_vm._s(typeSorting.title))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsg("WORDUSAGE_SORTING_AUTHOR_CLEAR"),
+                tooltipDirection: "top-right"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-word-usage-header-clear-icon",
+                  class: {
+                    "alpheios-word-usage-header-clear-disabled":
+                      _vm.selectedSortBy === null
+                  },
+                  on: { click: _vm.clearSorting }
+                },
+                [_c("clear-filters-icon")],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23886,12 +23926,24 @@ var render = function() {
     _c(
       "div",
       {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showHeader,
+            expression: "showHeader"
+          }
+        ],
         staticClass: "alpheios-word-usage-header",
         attrs: { "data-alpheios-ignore": "all" }
       },
       [
         _c("word-usage-examples-filters", {
-          on: { filterCurrentByAuthor: _vm.filterCurrentByAuthor }
+          on: {
+            filterCurrentByAuthor: _vm.filterCurrentByAuthor,
+            getMoreResults: _vm.getMoreResults,
+            getAllResults: _vm.getAllResults
+          }
         }),
         _vm._v(" "),
         _c("word-usage-examples-sorting", {
@@ -23924,11 +23976,21 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.provider
-      ? _c("div", { staticClass: "alpheios-word_usage_list__provider" }, [
-          _vm._v("\n    " + _vm._s(_vm.provider.toString()) + "\n  ")
-        ])
-      : _vm._e()
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.provider,
+            expression: "provider"
+          }
+        ],
+        staticClass: "alpheios-word_usage_list__provider"
+      },
+      [_vm._v("\n    " + _vm._s(_vm.provider) + "\n  ")]
+    )
   ])
 }
 var staticRenderFns = []
