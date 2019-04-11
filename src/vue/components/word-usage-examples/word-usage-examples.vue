@@ -63,7 +63,7 @@ export default {
     showHeader () {
       return Boolean(this.selectedAuthor) || 
              this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
-             !this.showWordUsageExampleItems // && this.settings.contentOptions.items.wordUsageExamplesON.currentValue === 'onDemand'
+             !this.showWordUsageExampleItems
     },
     showWordUsageExampleItems () {
       return this.$store.state.app.wordUsageExamplesReady
