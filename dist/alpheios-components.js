@@ -10503,6 +10503,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10510,6 +10518,13 @@ __webpack_require__.r(__webpack_exports__);
   inject: {
     l10n: 'l10n',
     auth: { from: 'auth', default: null } // This module is options
+  },
+  props: {
+    btnClass: {
+      type: String,
+      default: 'alpheios-button-primary',
+      required: false
+    }
   },
   data: function () {
     return {
@@ -12287,6 +12302,11 @@ __webpack_require__.r(__webpack_exports__);
         zIndex: this.ui.zIndex
       }
     },
+
+    notificationClass: function () {
+      return this.$store.state.ui.notification.important ? 'alpheios-notification--important' : 'alpheios-notification'
+    },
+
     resourceSettingsLexicons: function () {
       return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexicons
         ? this.settings.resourceOptions.items.lexicons.filter(item => item.values.length > 0)
@@ -13133,6 +13153,11 @@ __webpack_require__.r(__webpack_exports__);
         zIndex: this.ui.zIndex
       }
     },
+
+    notificationClass: function () {
+      return this.$store.state.ui.notification.important ? 'alpheios-notification--important' : 'alpheios-notification'
+    },
+
     logger: function () {
       return _lib_log_logger__WEBPACK_IMPORTED_MODULE_4__["default"].getLogger(this.verboseMode)
     },
@@ -17925,7 +17950,7 @@ var render = function() {
               expression: "! this.$store.state.auth.isAuthenticated"
             }
           ],
-          staticClass: "alpheios-button-primary",
+          class: _vm.btnClass,
           on: { click: _vm.logIn }
         },
         [
@@ -17946,7 +17971,7 @@ var render = function() {
               expression: "this.$store.state.auth.isAuthenticated"
             }
           ],
-          staticClass: "alpheios-button-primary",
+          class: _vm.btnClass,
           on: { click: _vm.logOut }
         },
         [
@@ -20927,10 +20952,7 @@ var render = function() {
             }
           ],
           staticClass: "alpheios-panel__notifications alpheios-text-small",
-          class: {
-            "alpheios-panel__notifications--important":
-              _vm.$store.state.ui.notification.important
-          }
+          class: _vm.notificationClass
         },
         [
           _c(
@@ -20987,7 +21009,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "alpheios-panel__notifications-auth alpheios-panel__notifications--important",
+            "alpheios-panel__notifications-auth alpheios-notification--important",
           attrs: { "data-count": _vm.$store.state.auth.notification.count }
         },
         [
@@ -21013,7 +21035,7 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("login")
+          _c("login", { attrs: { "btn-class": "alpheios-button-tertiary" } })
         ],
         1
       )
@@ -21706,10 +21728,7 @@ var render = function() {
             }
           ],
           staticClass: "alpheios-panel__notifications alpheios-text-small",
-          class: {
-            "alpheios-panel__notifications--important":
-              _vm.$store.state.ui.notification.important
-          }
+          class: _vm.notificationClass
         },
         [
           _c(
@@ -22268,10 +22287,7 @@ var render = function() {
             }
           ],
           staticClass: "alpheios-popup__notifications",
-          class: {
-            "alpheios-popup__notifications--important": this.$store.state.ui
-              .notification.important
-          }
+          class: _vm.notificationClass
         },
         [
           _c(
@@ -22326,7 +22342,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "alpheios-popup__notifications-auth alpheios-popup__notifications--important",
+            "alpheios-popup__notifications alpheios-notification--important",
           attrs: { "data-count": _vm.$store.state.auth.notification.count }
         },
         [
@@ -22353,7 +22369,7 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("login")
+          _c("login", { attrs: { "btn-class": "alpheios-button-tertiary" } })
         ],
         1
       )

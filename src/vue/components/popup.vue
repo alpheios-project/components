@@ -127,16 +127,16 @@
       </div>
     </div>
 
-    <div :class="{ 'alpheios-popup__notifications--important': this.$store.state.ui.notification.important }"
+    <div :class="notificationClass"
          class="alpheios-popup__notifications"
-         v-show="$store.state.ui.notification.text && $store.state.ui.notification.important">
-
-              <span
-                  @click="$store.commit(`ui/resetNotification`)"
-                  class="alpheios-popup__notifications-close-btn"
-              >
-                  <close-icon/>
-              </span>
+         v-show="$store.state.ui.notification.text && $store.state.ui.notification.important"
+    >
+      <span
+          @click="$store.commit(`ui/resetNotification`)"
+          class="alpheios-popup__notifications-close-btn"
+      >
+          <close-icon/>
+      </span>
 
       <span v-html="$store.state.ui.notification.text"></span>
       <setting :classes="['alpheios-popup__notifications--lang-switcher']"
@@ -145,14 +145,14 @@
                v-show="$store.state.ui.notification.showLanguageSwitcher"></setting>
     </div>
     <div
-        class="alpheios-popup__notifications-auth alpheios-popup__notifications--important"
+        class="alpheios-popup__notifications alpheios-notification--important"
         :data-count="$store.state.auth.notification.count"
         v-show="showLoginNotification">
          <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-popup__notifications-close-btn">
             <close-icon/>
          </span>
          <div class="alpheios-popup__notifications-auth-msg" v-html="l10n.getMsg($store.state.auth.notification.text)"></div>
-         <login/>
+         <login btn-class="alpheios-button-tertiary"/>
     </div>
   </div>
 </template>
@@ -245,6 +245,11 @@ export default {
         zIndex: this.ui.zIndex
       }
     },
+
+    notificationClass: function () {
+      return this.$store.state.ui.notification.important ? 'alpheios-notification--important' : 'alpheios-notification'
+    },
+
     logger: function () {
       return Logger.getLogger(this.verboseMode)
     },
@@ -752,13 +757,10 @@ export default {
     color: var(--alpheios-color-neutral-dark);
   }
 
-  .alpheios-popup__notifications,
-  .alpheios-popup__notifications-auth {
+  .alpheios-popup__notifications {
     display: none;
     position: relative;
     padding: uisize(10px) uisize(20px);
-    color: var(--alpheios-color-neutral-lightest);
-    background: var(--alpheios-color-muted);
     flex: 0 0 uisize(60px);
     overflow: hidden;
   }
@@ -790,10 +792,6 @@ export default {
     display: block;
   }
 
-  [data-notification-auth-visible="true"] .alpheios-popup__notifications-auth {
-    display: block;
-  }
-
   .alpheios-popup__notifications--lang-switcher {
     font-size: textsize(12px);
     float: right;
@@ -804,9 +802,5 @@ export default {
   .alpheios-popup__notifications--lang-switcher .alpheios-select {
     width: textsize(120px);
     height: textsize(25px);
-  }
-
-  .alpheios-popup__notifications--important {
-    background: var(--alpheios-color-muted);
   }
 </style>

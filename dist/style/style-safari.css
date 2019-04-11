@@ -488,6 +488,16 @@ html {
   fill: #FFF !important;
 }
 
+.alpheios-notification {
+  color: var(--alpheios-color-neutral-lightest) !important;
+  background: var(--alpheios-color-muted) !important;
+}
+
+.alpheios-notification--important {
+  color: var(--alpheios-color-neutral-lightest) !important;
+  background: var(--alpheios-color-vivid) !important;
+}
+
 .alpheios-input {
   box-sizing: border-box !important;
   margin: 0 !important;
@@ -1475,13 +1485,10 @@ a.alpheios-popup__providers-link {
 .alpheios-popup__providers-item {
   color: var(--alpheios-color-neutral-dark) !important;
 }
-.alpheios-popup__notifications,
-.alpheios-popup__notifications-auth {
+.alpheios-popup__notifications {
   display: none;
   position: relative !important;
   padding: calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  color: var(--alpheios-color-neutral-lightest) !important;
-  background: var(--alpheios-color-muted) !important;
   flex: 0 0 calc(var(--alpheios-base-ui-size) * 3.75) !important;
   overflow: hidden !important;
 }
@@ -1508,9 +1515,6 @@ a.alpheios-popup__providers-link {
 [data-notification-visible=true] .alpheios-popup__notifications {
   display: block;
 }
-[data-notification-auth-visible=true] .alpheios-popup__notifications-auth {
-  display: block;
-}
 .alpheios-popup__notifications--lang-switcher {
   font-size: calc(var(--alpheios-base-text-size) * 0.75) !important;
   float: right !important;
@@ -1520,9 +1524,6 @@ a.alpheios-popup__providers-link {
 .alpheios-popup__notifications--lang-switcher .alpheios-select {
   width: calc(var(--alpheios-base-text-size) * 7.5) !important;
   height: calc(var(--alpheios-base-text-size) * 1.5625) !important;
-}
-.alpheios-popup__notifications--important {
-  background: var(--alpheios-color-muted) !important;
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2811,10 +2812,6 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel__notifications--lang-switcher .alpheios-select {
   width: 120px !important;
   height: 25px !important;
-}
-.alpheios-panel__notifications--important {
-  color: var(--alpheios-color-neutral-lightest) !important;
-  background: var(--alpheios-color-muted) !important;
 }
 [data-notification-visible=true] .alpheios-panel__notifications {
   display: block;

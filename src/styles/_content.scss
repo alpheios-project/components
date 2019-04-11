@@ -143,3 +143,14 @@
     fill: #FFF;
   }
 }
+
+// Notifications: classes that are universal for both panel and popup
+.alpheios-notification {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-muted);
+}
+
+.alpheios-notification--important {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-vivid);
+}

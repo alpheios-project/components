@@ -276,7 +276,7 @@
       </div>
     </div>
     <div
-        :class="{ 'alpheios-panel__notifications--important': $store.state.ui.notification.important }"
+        :class="notificationClass"
         class="alpheios-panel__notifications alpheios-text-small"
         v-show="$store.state.ui.notification.visible && $store.state.ui.notification.important"
     >
@@ -296,7 +296,7 @@
     </div>
     <div
         v-show="showLoginNotification"
-        class="alpheios-panel__notifications-auth alpheios-panel__notifications--important"
+        class="alpheios-panel__notifications-auth alpheios-notification--important"
         :data-count="$store.state.auth.notification.count"
     >
          <span
@@ -308,7 +308,7 @@
          <span
              v-html="l10n.getMsg($store.state.auth.notification.text)"
          />
-         <login/>
+         <login btn-class="alpheios-button-tertiary"/>
     </div>
   </div>
 </template>
@@ -406,6 +406,11 @@ export default {
         zIndex: this.ui.zIndex
       }
     },
+
+    notificationClass: function () {
+      return this.$store.state.ui.notification.important ? 'alpheios-notification--important' : 'alpheios-notification'
+    },
+
     resourceSettingsLexicons: function () {
       return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexicons
         ? this.settings.resourceOptions.items.lexicons.filter(item => item.values.length > 0)
@@ -737,11 +742,6 @@ export default {
   .alpheios-panel__notifications--lang-switcher .alpheios-select {
     width: 120px;
     height: 25px;
-  }
-
-  .alpheios-panel__notifications--important {
-    color: var(--alpheios-color-neutral-lightest);
-    background: var(--alpheios-color-muted);
   }
 
   [data-notification-visible="true"] .alpheios-panel__notifications {

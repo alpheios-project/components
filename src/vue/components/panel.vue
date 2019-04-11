@@ -288,7 +288,7 @@
 
     </div>
     <div
-        :class="{ 'alpheios-panel__notifications--important': $store.state.ui.notification.important }"
+        :class="notificationClass"
         class="alpheios-panel__notifications alpheios-text-small"
         v-show="$store.state.ui.notification.visible && $store.state.ui.notification.important"
     >

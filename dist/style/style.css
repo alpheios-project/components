@@ -488,6 +488,16 @@ html {
   fill: #FFF;
 }
 
+.alpheios-notification {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-muted);
+}
+
+.alpheios-notification--important {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-vivid);
+}
+
 .alpheios-input {
   box-sizing: border-box;
   margin: 0;
@@ -1475,13 +1485,10 @@ a.alpheios-popup__providers-link {
 .alpheios-popup__providers-item {
   color: var(--alpheios-color-neutral-dark);
 }
-.alpheios-popup__notifications,
-.alpheios-popup__notifications-auth {
+.alpheios-popup__notifications {
   display: none;
   position: relative;
   padding: calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25);
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-muted);
   flex: 0 0 calc(var(--alpheios-base-ui-size) * 3.75);
   overflow: hidden;
 }
@@ -1508,9 +1515,6 @@ a.alpheios-popup__providers-link {
 [data-notification-visible=true] .alpheios-popup__notifications {
   display: block;
 }
-[data-notification-auth-visible=true] .alpheios-popup__notifications-auth {
-  display: block;
-}
 .alpheios-popup__notifications--lang-switcher {
   font-size: calc(var(--alpheios-base-text-size) * 0.75);
   float: right;
@@ -1520,9 +1524,6 @@ a.alpheios-popup__providers-link {
 .alpheios-popup__notifications--lang-switcher .alpheios-select {
   width: calc(var(--alpheios-base-text-size) * 7.5);
   height: calc(var(--alpheios-base-text-size) * 1.5625);
-}
-.alpheios-popup__notifications--important {
-  background: var(--alpheios-color-muted);
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2811,10 +2812,6 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel__notifications--lang-switcher .alpheios-select {
   width: 120px;
   height: 25px;
-}
-.alpheios-panel__notifications--important {
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-muted);
 }
 [data-notification-visible=true] .alpheios-panel__notifications {
   display: block;
