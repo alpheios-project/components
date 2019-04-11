@@ -488,16 +488,6 @@ html {
   fill: #FFF;
 }
 
-.alpheios-notification {
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-muted);
-}
-
-.alpheios-notification--important {
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-vivid);
-}
-
 .alpheios-input {
   box-sizing: border-box;
   margin: 0;
@@ -1150,6 +1140,54 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
 .alpheios-setting__control {
   width: 50%;
 }
+.notification-area {
+  display: none;
+  position: relative;
+  padding: uisize(10px) uisize(20px);
+  flex: 0 0 uisize(60px);
+  overflow: hidden;
+}
+.notification-area__notification {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-muted);
+}
+.notification-area__notification--important {
+  color: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-color-vivid);
+}
+.notification-area-auth-msg {
+  margin-bottom: uisize(10px);
+}
+.notification-area-close-btn {
+  position: absolute;
+  right: uisize(5px);
+  top: uisize(5px);
+  display: block;
+  width: uisize(20px);
+  height: uisize(20px);
+  margin: 0;
+  cursor: pointer;
+  fill: var(--alpheios-color-neutral-lightest);
+  stroke: var(--alpheios-color-neutral-lightest);
+}
+.notification-area-close-btn:hover,
+.notification-area-close-btn:focus {
+  fill: var(--alpheios-color-neutral-light);
+  stroke: var(--alpheios-color-neutral-light);
+}
+[data-notification-visible=true] .notification-area {
+  display: block;
+}
+.notification-area--lang-switcher {
+  font-size: textsize(12px);
+  float: right;
+  margin: textsize(-20px) textsize(10px) 0 0;
+  display: inline-block;
+}
+.notification-area--lang-switcher .alpheios-select {
+  width: textsize(120px);
+  height: textsize(25px);
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
@@ -1484,46 +1522,6 @@ a.alpheios-popup__providers-link {
 }
 .alpheios-popup__providers-item {
   color: var(--alpheios-color-neutral-dark);
-}
-.alpheios-popup__notifications {
-  display: none;
-  position: relative;
-  padding: calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25);
-  flex: 0 0 calc(var(--alpheios-base-ui-size) * 3.75);
-  overflow: hidden;
-}
-.alpheios-popup__notifications-auth-msg {
-  margin-bottom: calc(var(--alpheios-base-ui-size) * 0.625);
-}
-.alpheios-popup__notifications-close-btn {
-  position: absolute;
-  right: calc(var(--alpheios-base-ui-size) * 0.3125);
-  top: calc(var(--alpheios-base-ui-size) * 0.3125);
-  display: block;
-  width: calc(var(--alpheios-base-ui-size) * 1.25);
-  height: calc(var(--alpheios-base-ui-size) * 1.25);
-  margin: 0;
-  cursor: pointer;
-  fill: var(--alpheios-color-neutral-lightest);
-  stroke: var(--alpheios-color-neutral-lightest);
-}
-.alpheios-popup__notifications-close-btn:hover,
-.alpheios-popup__notifications-close-btn:focus {
-  fill: var(--alpheios-color-neutral-light);
-  stroke: var(--alpheios-color-neutral-light);
-}
-[data-notification-visible=true] .alpheios-popup__notifications {
-  display: block;
-}
-.alpheios-popup__notifications--lang-switcher {
-  font-size: calc(var(--alpheios-base-text-size) * 0.75);
-  float: right;
-  margin: calc(var(--alpheios-base-text-size) * -1.25) calc(var(--alpheios-base-text-size) * 0.625) 0 0;
-  display: inline-block;
-}
-.alpheios-popup__notifications--lang-switcher .alpheios-select {
-  width: calc(var(--alpheios-base-text-size) * 7.5);
-  height: calc(var(--alpheios-base-text-size) * 1.5625);
 }
 /*
  Calculates a size of text elements relative to the base size.

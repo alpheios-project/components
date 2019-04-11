@@ -126,40 +126,12 @@
 
       </div>
     </div>
-
-    <div :class="notificationClass"
-         class="alpheios-popup__notifications"
-         v-show="$store.state.ui.notification.text && $store.state.ui.notification.important"
-    >
-      <span
-          @click="$store.commit(`ui/resetNotification`)"
-          class="alpheios-popup__notifications-close-btn"
-      >
-          <close-icon/>
-      </span>
-
-      <span v-html="$store.state.ui.notification.text"></span>
-      <setting :classes="['alpheios-popup__notifications--lang-switcher']"
-               :data="settings.contentOptions.items.preferredLanguage"
-               :show-title="false" @change="contentOptionChanged"
-               v-show="$store.state.ui.notification.showLanguageSwitcher"></setting>
-    </div>
-    <div
-        class="alpheios-popup__notifications alpheios-notification--important"
-        :data-count="$store.state.auth.notification.count"
-        v-show="showLoginNotification">
-         <span @click="$store.commit(`auth/resetNotification`)" class="alpheios-popup__notifications-close-btn">
-            <close-icon/>
-         </span>
-         <div class="alpheios-popup__notifications-auth-msg" v-html="l10n.getMsg($store.state.auth.notification.text)"></div>
-         <login btn-class="alpheios-button-tertiary"/>
-    </div>
+    <notification-area/>
   </div>
 </template>
 <script>
 import Morph from './morph.vue'
-import Setting from './setting.vue'
-import Login from './login.vue'
+import NotificationArea from './notification-area.vue'
 import interact from 'interactjs'
 import Logger from '@/lib/log/logger'
 
@@ -167,7 +139,7 @@ import Tooltip from './tooltip.vue'
 import ProgressBar from './progress-bar.vue'
 // Embeddable SVG icons
 import LogoIcon from '@/images/alpheios/logo.svg'
-import CloseIcon from '../../images/inline-icons/close.svg'
+import CloseIcon from '@/images/inline-icons/close.svg'
 
 import { directive as onClickaway } from '../directives/clickaway.js'
 // Modules support
@@ -180,12 +152,11 @@ export default {
   mixins: [DependencyCheck],
   components: {
     morph: Morph,
-    setting: Setting,
-    login: Login,
     logoIcon: LogoIcon,
     closeIcon: CloseIcon,
     alphTooltip: Tooltip,
-    progressBar: ProgressBar
+    progressBar: ProgressBar,
+    notificationArea: NotificationArea
   },
   directives: {
     onClickaway: onClickaway
@@ -246,10 +217,6 @@ export default {
       }
     },
 
-    notificationClass: function () {
-      return this.$store.state.ui.notification.important ? 'alpheios-notification--important' : 'alpheios-notification'
-    },
-
     logger: function () {
       return Logger.getLogger(this.verboseMode)
     },
@@ -258,17 +225,6 @@ export default {
     },
     providersLinkText: function () {
       return this.showProviders ? this.l10n.getText('LABEL_POPUP_HIDECREDITS') : this.l10n.getText('LABEL_POPUP_SHOWCREDITS')
-    },
-
-    // TODO: right now this prop sets a condition for displaying both the notification message and the login button.
-    //       However, sometimes we cannot obtain the login URL and thus cannot show the button.
-    //       Need to think how to handle such situations gracefully.
-    showLoginNotification () {
-      return Boolean(
-        this.$store.state.auth.notification.text &&
-        this.$store.state.auth.notification.showLogin &&
-        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
-      )
     },
 
     positionLeftDm: function () {
@@ -400,10 +356,6 @@ export default {
   },
 
   methods: {
-    contentOptionChanged: function (name, value) {
-      this.app.contentOptionChange(name, value)
-    },
-
     switchProviders: function () {
       this.showProviders = !this.showProviders
       if (this.showProviders) {
@@ -755,52 +707,5 @@ export default {
 
   .alpheios-popup__providers-item {
     color: var(--alpheios-color-neutral-dark);
-  }
-
-  .alpheios-popup__notifications {
-    display: none;
-    position: relative;
-    padding: uisize(10px) uisize(20px);
-    flex: 0 0 uisize(60px);
-    overflow: hidden;
-  }
-
-  .alpheios-popup__notifications-auth-msg {
-    margin-bottom: uisize(10px);
-  }
-
-  .alpheios-popup__notifications-close-btn {
-    position: absolute;
-    right: uisize(5px);
-    top: uisize(5px);
-    display: block;
-    width: uisize(20px);
-    height: uisize(20px);
-    margin: 0;
-    cursor: pointer;
-    fill: var(--alpheios-color-neutral-lightest);
-    stroke: var(--alpheios-color-neutral-lightest);
-  }
-
-  .alpheios-popup__notifications-close-btn:hover,
-  .alpheios-popup__notifications-close-btn:focus {
-    fill: var(--alpheios-color-neutral-light);
-    stroke: var(--alpheios-color-neutral-light);
-  }
-
-  [data-notification-visible="true"] .alpheios-popup__notifications {
-    display: block;
-  }
-
-  .alpheios-popup__notifications--lang-switcher {
-    font-size: textsize(12px);
-    float: right;
-    margin: textsize(-20px) textsize(10px) 0 0;
-    display: inline-block;
-  }
-
-  .alpheios-popup__notifications--lang-switcher .alpheios-select {
-    width: textsize(120px);
-    height: textsize(25px);
   }
 </style>
