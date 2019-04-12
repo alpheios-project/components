@@ -1155,9 +1155,17 @@ export default class UIController {
 
   enableWordUsageExamples (textSelector, requestType) {
     let checkType = requestType === 'onLexicalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
-    return textSelector.languageID === Constants.LANG_LATIN &&
-      this.contentOptions.items.enableWordUsageExamples.currentValue &&
-      checkType
+    console.info('***********enableWordUsageExamples currentValue', this.contentOptions.items.wordUsageExamplesON.currentValue)
+
+    console.info('***********enableWordUsageExamples 1', textSelector.languageID === Constants.LANG_LATIN)
+    console.info('***********enableWordUsageExamples 2', Boolean(this.contentOptions.items.enableWordUsageExamples.currentValue))
+    console.info('***********enableWordUsageExamples 3', checkType)
+
+    let finalRes = textSelector.languageID === Constants.LANG_LATIN &&
+    Boolean(this.contentOptions.items.enableWordUsageExamples.currentValue) &&
+    checkType
+    console.info('***********enableWordUsageExamples final', finalRes)
+    return finalRes
   }
 
   handleEscapeKey (event, nativeEvent) {
