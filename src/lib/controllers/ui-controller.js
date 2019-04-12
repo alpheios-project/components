@@ -873,7 +873,20 @@ export default class UIController {
    */
   changeTab (tabName) {
     // If tab is disabled, switch to a default one
-    if (
+    let tabsCheck = {
+      definitions: () => this.store.getters['app/defDataReady'],
+      inflections: () => this.store.state.app.hasInflData,
+      grammar: () => this.store.getters['app/hasGrammarRes'],
+      treebank: () => this.store.getters['app/hasTreebankData'],
+      wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
+      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue !== 'verbose'
+    }
+    if (tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()) {
+      console.warn(`Attempting to switch to a ${tabName} tab which is not available`)
+      tabName = this.defaultTab
+    }
+
+    /* if (
       (tabName === 'definitions' && !this.store.getters['app/defDataReady']) ||
       (tabName === 'inflections' && !this.store.state.app.hasInflData) ||
       (tabName === 'grammar' && !this.store.getters['app/hasGrammarRes']) ||
@@ -883,7 +896,7 @@ export default class UIController {
     ) {
       console.warn(`Attempting to switch to a ${tabName} tab which is not available`)
       tabName = this.defaultTab
-    }
+    } */
     this.store.commit('ui/setActiveTab', tabName) // Reflect a tab change in a state
     return this
   }
