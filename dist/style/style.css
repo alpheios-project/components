@@ -3044,6 +3044,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-toolbar__buttons .alpheios-navbuttons__btn.disabled {
   fill: var(--alpheios-color-neutral-dark);
   stroke: var(--alpheios-color-neutral-dark);
+  cursor: default;
 }
 
 /*# sourceMappingURL=style.css.map*/
