@@ -39516,17 +39516,9 @@ class UIController {
 
   enableWordUsageExamples (textSelector, requestType) {
     let checkType = requestType === 'onLexicalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
-    console.info('***********enableWordUsageExamples currentValue', this.contentOptions.items.wordUsageExamplesON.currentValue)
-
-    console.info('***********enableWordUsageExamples 1', textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN)
-    console.info('***********enableWordUsageExamples 2', Boolean(this.contentOptions.items.enableWordUsageExamples.currentValue))
-    console.info('***********enableWordUsageExamples 3', checkType)
-
-    let finalRes = textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN &&
-    Boolean(this.contentOptions.items.enableWordUsageExamples.currentValue) &&
+    return textSelector.languageID === alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["Constants"].LANG_LATIN &&
+    this.contentOptions.items.enableWordUsageExamples.currentValue &&
     checkType
-    console.info('***********enableWordUsageExamples final', finalRes)
-    return finalRes
   }
 
   handleEscapeKey (event, nativeEvent) {
