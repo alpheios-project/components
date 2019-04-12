@@ -22674,7 +22674,7 @@ var render = function() {
           _c(
             "span",
             {
-              staticClass: "alpheios-popup__notifications-close-btn",
+              staticClass: "alpheios-user-auth__notifications-close-btn",
               on: {
                 click: function($event) {
                   return _vm.$store.commit("auth/resetNotification")
