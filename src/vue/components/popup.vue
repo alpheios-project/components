@@ -1,12 +1,12 @@
 <template>
-  <div :data-notification-visible="$store.state.ui.notification.visible"
-       :data-notification-auth-visible="$store.state.auth.notification.visible"
-       :style="mainstyles"
-       class="alpheios-popup alpheios-content"
-       id="alpheios-popup-inner"
-       ref="popup"
-       v-on-clickaway="attachTrackingClick"
-       v-show="this.$store.state.popup.visible">
+  <div
+     :style="mainstyles"
+     class="alpheios-popup alpheios-content"
+     id="alpheios-popup-inner"
+     ref="popup"
+     v-on-clickaway="attachTrackingClick"
+     v-show="this.$store.state.popup.visible"
+  >
     <div class="alpheios-popup__header">
       <div class="alpheios-popup__logo">
         <logo-icon class="alpheios-logo-on-dark"/>
