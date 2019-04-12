@@ -1,4 +1,5 @@
-.alpheios-input {
+// We're using a double selector here to protect from styles leaked from the pages
+input.alpheios-input {
   box-sizing: border-box;
   margin: 0;
   font: inherit;
