@@ -38818,7 +38818,9 @@ class UIController {
         },
 
         setWordLists (state, wordLists) {
-          state.hasWordListsData = Boolean(wordLists.find(wordList => !wordList.isEmpty))
+          console.info('************setWordLists wordLists', wordLists)
+          let checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
+          state.hasWordListsData = Boolean(checkWordLists.find(wordList => !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
         },
 
@@ -38944,14 +38946,18 @@ class UIController {
 
   async initUserDataManager (isAuthenticated) {
     let wordLists
+    console.info('*******initUserDataManager', isAuthenticated)
     if (isAuthenticated) {
       let authData = await this.api.auth.getUserData()
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](authData, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
-      wordLists = this.wordlistC.initLists(this.userDataManager)
+      console.info('*******initUserDataManager this.userDataManager', this.userDataManager)
+      wordLists = await this.wordlistC.initLists(this.userDataManager)
+      console.info('*******initUserDataManager wordLists', wordLists)
       this.store.commit('app/setWordLists', wordLists)
     } else {
       this.userDataManager = null
-      wordLists = this.wordlistC.initLists()
+      wordLists = await this.wordlistC.initLists()
+      console.info('*********initUserDataManager wordLists', wordLists)
     }
     this.store.commit('app/setWordLists', wordLists)
   }
@@ -47705,6 +47711,7 @@ AuthModule.store = (moduleInstance) => {
     },
     mutations: {
       setIsAuthenticated: (state, profile) => {
+        console.info('*****************setIsAuthenticated profile', profile)
         state.isAuthenticated = true
         state.userId = profile.sub
         state.userNickName = profile.nickname
@@ -47736,6 +47743,7 @@ AuthModule.api = (moduleInstance, store) => {
   return {
     session: () => {
       moduleInstance._auth.session().then((data) => {
+        console.info('*****************setIsAuthenticated api session', data)
         store.commit('auth/setIsAuthenticated', data)
       }).catch((error) => {
         // a session being unavailable is not necessarily an error
@@ -47748,6 +47756,7 @@ AuthModule.api = (moduleInstance, store) => {
       moduleInstance._auth.authenticate().then(() => {
         return moduleInstance._auth.getProfileData()
       }).then((data) => {
+        console.info('*****************setIsAuthenticated api authenticate', data)
         store.commit('auth/setIsAuthenticated', data)
         store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
@@ -47771,6 +47780,7 @@ AuthModule.api = (moduleInstance, store) => {
             accessToken = token
             return moduleInstance._auth.getEndPoints()
           }).then((endpoints) => {
+            console.info('********getUserData store.state.auth', store.state.auth)
             resolve({
               accessToken: accessToken,
               userId: store.state.auth.userId,
