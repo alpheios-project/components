@@ -10225,18 +10225,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 // Subcomponents
 
@@ -17571,50 +17559,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: _vm.elementIDs.content } }, [
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.$store.state.app.inflectionsWaitState,
-            expression: "$store.state.app.inflectionsWaitState"
-          }
-        ],
-        staticClass: "alpheios-inflections__placeholder"
-      },
-      [
-        _c("div", { staticClass: "alpheios-inflections__progress-wrapper" }, [
-          _c("div", { staticClass: "alpheios-inflections__progress-border" }, [
-            _c(
-              "div",
-              { staticClass: "alpheios-inflections__progress-whitespace" },
-              [
-                _c("div", {
-                  staticClass: "alpheios-inflections__progress-line"
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "alpheios-inflections__progress-text" },
-                  [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(
-                          _vm.l10n.getMsg("PLACEHOLDER_INFLECT_IN_PROGRESS")
-                        ) +
-                        "\n          "
-                    )
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
     _vm.$store.state.app.hasInflData
       ? _c(
           "div",
@@ -22131,27 +22075,18 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-popup__content" }, [
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    !_vm.$store.state.app.morphDataReady && !_vm.noLanguage,
-                  expression: "!$store.state.app.morphDataReady && !noLanguage"
-                }
-              ],
-              staticClass: "alpheios-popup__definitions--placeholder"
-            },
-            [
-              _c("progress-bar", {
-                attrs: { text: _vm.l10n.getText("PLACEHOLDER_POPUP_DATA") }
-              })
-            ],
-            1
-          ),
+          !_vm.$store.state.app.morphDataReady && !_vm.noLanguage
+            ? _c(
+                "div",
+                { staticClass: "alpheios-popup__definitions--placeholder" },
+                [
+                  _c("progress-bar", {
+                    attrs: { text: _vm.l10n.getText("PLACEHOLDER_POPUP_DATA") }
+                  })
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "div",
