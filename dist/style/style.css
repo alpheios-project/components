@@ -488,7 +488,7 @@ html {
   fill: #FFF;
 }
 
-input.alpheios-input {
+input.alpheios-input, input.alpheios-input[type] {
   box-sizing: border-box;
   margin: 0;
   font: inherit;
@@ -517,12 +517,17 @@ input.alpheios-input::-moz-placeholder {
 input.alpheios-input:not(input) {
   line-height: 40px;
 }
-input.alpheios-input:focus {
+input.alpheios-input:focus, input.alpheios-input[type]:focus {
   outline: none;
+  border: inherit;
+  border: 1px solid var(--alpheios-border-color);
+  border-radius: calc(var(--alpheios-base-ui-size) * 0.625);
 }
 input.alpheios-input:disabled {
   background-color: var(--alpheios-color-neutral-dark);
   color: var(--alpheios-color-neutral-lightest);
+  border: 1px solid var(--alpheios-border-color);
+  border-radius: calc(var(--alpheios-base-ui-size) * 0.625);
 }
 input.alpheios-input::placeholder {
   color: var(--alpheios-color-neutral-light);
@@ -1139,7 +1144,9 @@ fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{positi
 .alpheios-setting__label {
   width: 50%;
 }
-.alpheios-setting__control {
+input.alpheios-input.alpheios-setting__control,
+select.alpheios-setting__control,
+.multiselect.alpheios-setting__control {
   width: 50%;
 }
 /*
@@ -2243,7 +2250,8 @@ h3.alpheios-inflections__credits-title {
 .alpheios-lookup__search-control {
   display: flex;
 }
-.alpheios-lookup__search-control input {
+.alpheios-lookup__search-control input.alpheios-input,
+.alpheios-lookup__search-control input.alpheios-input:focus {
   width: 70%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

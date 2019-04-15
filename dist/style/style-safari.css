@@ -488,7 +488,7 @@ html {
   fill: #FFF !important;
 }
 
-.alpheios-input {
+input.alpheios-input, input.alpheios-input[type] {
   box-sizing: border-box !important;
   margin: 0 !important;
   font: inherit !important;
@@ -505,29 +505,34 @@ html {
   -webkit-appearance: none !important;
   border-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
 }
-.alpheios-input[type=search]::-webkit-search-cancel-button, .alpheios-input[type=search]::-webkit-search-decoration {
+input.alpheios-input[type=search]::-webkit-search-cancel-button, input.alpheios-input[type=search]::-webkit-search-decoration {
   -webkit-appearance: none !important;
 }
-.alpheios-input[type=number]::-webkit-inner-spin-button, .alpheios-input[type=number]::-webkit-outer-spin-button {
+input.alpheios-input[type=number]::-webkit-inner-spin-button, input.alpheios-input[type=number]::-webkit-outer-spin-button {
   height: auto !important;
 }
-.alpheios-input::-moz-placeholder {
+input.alpheios-input::-moz-placeholder {
   opacity: 1 !important;
 }
-.alpheios-input:not(input) {
+input.alpheios-input:not(input) {
   line-height: 40px !important;
 }
-.alpheios-input:focus {
+input.alpheios-input:focus, input.alpheios-input[type]:focus {
   outline: none !important;
+  border: inherit !important;
+  border: 1px solid var(--alpheios-border-color) !important;
+  border-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
 }
-.alpheios-input:disabled {
+input.alpheios-input:disabled {
   background-color: var(--alpheios-color-neutral-dark) !important;
   color: var(--alpheios-color-neutral-lightest) !important;
+  border: 1px solid var(--alpheios-border-color) !important;
+  border-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
 }
-.alpheios-input::placeholder {
+input.alpheios-input::placeholder {
   color: var(--alpheios-color-neutral-light) !important;
 }
-.alpheios-input::-ms-input-placeholder {
+input.alpheios-input::-ms-input-placeholder {
   color: var(--alpheios-color-neutral-light) !important;
 }
 
@@ -1139,7 +1144,9 @@ fieldset[disabled] .multiselect{pointer-events:none !important}.multiselect__spi
 .alpheios-setting__label {
   width: 50% !important;
 }
-.alpheios-setting__control {
+input.alpheios-input.alpheios-setting__control,
+select.alpheios-setting__control,
+.multiselect.alpheios-setting__control {
   width: 50% !important;
 }
 /*
@@ -2243,7 +2250,8 @@ h3.alpheios-inflections__credits-title {
 .alpheios-lookup__search-control {
   display: flex;
 }
-.alpheios-lookup__search-control input {
+.alpheios-lookup__search-control input.alpheios-input,
+.alpheios-lookup__search-control input.alpheios-input:focus {
   width: 70% !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
