@@ -14261,11 +14261,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : {}
     },
     wordItems () {
-      console.info('**********WLP wordItems wordListUpdateTime', this.$store.state.app.wordListUpdateTime)
-      console.info('**********WLP wordItems this.reloadList', this.reloadList)
-      let res = this.$store.state.app.wordListUpdateTime && this.reloadList ? this.wordlist.values : []
-      console.info('**********WLP wordItems res', res)
-      return res
+      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.wordlist.values : []
     },
     languageName () {
       // TODO with upcoming merge, this can be retrived from utility library
@@ -37167,7 +37163,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M14 1l-8 9 8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","d":"M14 1l-8 9 8 9"}})])
           )
         }
       });
@@ -37207,7 +37203,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M6 1l8 9-8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","d":"M6 1l8 9-8 9"}})])
           )
         }
       });
@@ -37407,7 +37403,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -37567,7 +37563,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 25 21"}, attrs),
               ...rest,
             },
-            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005","stroke-width":".794"}})])])
+            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])
           )
         }
       });
@@ -37607,7 +37603,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -37727,7 +37723,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
+            children.concat([_c('path',{attrs:{"d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
           )
         }
       });
@@ -37807,7 +37803,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 24 24"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"stroke-width":"0","d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])
+            children.concat([_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])
           )
         }
       });
@@ -37927,7 +37923,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -38822,11 +38818,9 @@ class UIController {
         },
 
         setWordLists (state, wordLists) {
-          console.info('***************setWordLists', wordLists)
           let checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
           state.hasWordListsData = Boolean(checkWordLists.find(wordList => !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
-          console.info('***************setWordLists state.wordListUpdateTime', state.wordListUpdateTime)
         },
 
         /**
@@ -38955,7 +38949,6 @@ class UIController {
       let authData = await this.api.auth.getUserData()
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](authData, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
       wordLists = await this.wordlistC.initLists(this.userDataManager)
-      console.info('*************initUserDataManager', wordLists)
       this.store.commit('app/setWordLists', wordLists)
     } else {
       this.userDataManager = null
@@ -39521,7 +39514,6 @@ class UIController {
   }
 
   onWordListUpdated (wordList) {
-    console.info('****************onWordListUpdated', wordList)
     this.store.commit('app/setWordLists', [wordList])
     if (this.store.state.auth.promptLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
