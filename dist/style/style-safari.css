@@ -1381,7 +1381,8 @@ select.alpheios-setting__control,
   background: white !important;
 }
 .alpheios-popup-lexdataloading__progress-line {
-  -webkit-animation: progress 3s infinite;
+  background: var(--alpheios-color-muted) !important;
+  animation: progress 3s infinite;
   position: absolute !important;
   left: 0 !important;
   top: 0 !important;
@@ -1402,12 +1403,10 @@ select.alpheios-setting__control,
 }
 @keyframes progress {
 0% {
-    background: var(--alpheios-color-muted);
-    width: 0%;
+    transform: translateX(-49.5%) scaleX(0.01);
 }
 100% {
-    background: var(--alpheios-color-muted);
-    width: 100%;
+    transform: translateX(0%) scaleX(1);
 }
 }
 /*
@@ -1973,10 +1972,6 @@ a.infl-supp-tbl__reflink {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
-.alpheios-inflections__placeholder {
-  padding: 0 20px !important;
-  margin-bottom: 1rem !important;
-}
 h4.alpheios-inflections__additional_title {
   line-height: 1.6 !important;
   font-weight: bold !important;
@@ -2000,9 +1995,6 @@ h4.alpheios-inflections__additional_title {
   font-weight: bold !important;
   line-height: 1.2 !important;
   justify-content: flex-start !important;
-}
-.alpheios-inflections__placeholder {
-  text-align: center !important;
 }
 .alpheios-inflections__footnotes {
   display: none;
@@ -2043,52 +2035,6 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-inflections__supp-tables {
   margin-top: 4rem !important;
-}
-.alpheios-inflections__progress-wrapper {
-  height: 1.2rem !important;
-  margin: 0 1rem 2rem !important;
-  font-size: 0.875rem !important;
-}
-.alpheios-inflections__progress-border {
-  border: calc(var(--alpheios-base-ui-size) * 0.125) solid var(--alpheios-color-muted) !important;
-  min-width: 300px !important;
-  height: 100% !important;
-  padding: 2px !important;
-}
-.alpheios-inflections__progress-whitespace {
-  overflow: hidden !important;
-  height: 100% !important;
-  margin: 0 auto !important;
-  position: relative !important;
-}
-.alpheios-inflections__progress-line {
-  position: absolute !important;
-  height: 100% !important;
-  width: 100% !important;
-  background-color: var(--alpheios-color-muted) !important;
-  animation: cssload-slide 5.75s steps(40) infinite;
-}
-.alpheios-inflections__progress-whitespace div.alpheios-inflections__progress-text,
-.alpheios-inflections__progress-text {
-  text-transform: uppercase !important;
-  color: var(--alpheios-text-color-dark) !important;
-  position: absolute !important;
-  width: 100% !important;
-  text-align: center !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  min-width: 300px !important;
-  font-size: 13px !important;
-  top: 3px !important;
-}
-@keyframes cssload-slide {
-0% {
-    left: -100%;
-}
-100% {
-    left: 100%;
-}
 }
 /*
  Calculates a size of text elements relative to the base size.
