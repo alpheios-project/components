@@ -14258,10 +14258,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     wordlist () {
-      return this.app.getWordList(this.languageCode)
+      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : {}
     },
     wordItems () {
-      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.wordlist.values : []
+      console.info('**********WLP wordItems wordListUpdateTime', this.$store.state.app.wordListUpdateTime)
+      console.info('**********WLP wordItems this.reloadList', this.reloadList)
+      let res = this.$store.state.app.wordListUpdateTime && this.reloadList ? this.wordlist.values : []
+      console.info('**********WLP wordItems res', res)
+      return res
     },
     languageName () {
       // TODO with upcoming merge, this can be retrived from utility library
@@ -38818,9 +38822,11 @@ class UIController {
         },
 
         setWordLists (state, wordLists) {
+          console.info('***************setWordLists', wordLists)
           let checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
           state.hasWordListsData = Boolean(checkWordLists.find(wordList => !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
+          console.info('***************setWordLists state.wordListUpdateTime', state.wordListUpdateTime)
         },
 
         /**
@@ -38949,6 +38955,7 @@ class UIController {
       let authData = await this.api.auth.getUserData()
       this.userDataManager = new alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["UserDataManager"](authData, alpheios_wordlist__WEBPACK_IMPORTED_MODULE_3__["WordlistController"].evt)
       wordLists = await this.wordlistC.initLists(this.userDataManager)
+      console.info('*************initUserDataManager', wordLists)
       this.store.commit('app/setWordLists', wordLists)
     } else {
       this.userDataManager = null
@@ -39514,6 +39521,7 @@ class UIController {
   }
 
   onWordListUpdated (wordList) {
+    console.info('****************onWordListUpdated', wordList)
     this.store.commit('app/setWordLists', [wordList])
     if (this.store.state.auth.promptLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
