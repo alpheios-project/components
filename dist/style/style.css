@@ -1168,12 +1168,14 @@ select.alpheios-setting__control,
   display: flex;
   padding: calc(var(--alpheios-base-ui-size) * 0.625) 0 calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25);
   flex: 0 0 calc(var(--alpheios-base-ui-size) * 3.75);
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-muted);
+  color: var(--alpheios-color-muted);
+  background: var(--alpheios-color-neutral-lightest);
+  border: 1px solid var(--alpheios-color-muted);
 }
 .alpheios-notification-area__notification--important {
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-color-vivid);
+  color: var(--alpheios-color-vivid);
+  background: var(--alpheios-color-neutral-lightest);
+  border: 1px solid var(--alpheios-color-vivid);
 }
 .alpheios-notification-area__msg {
   padding-right: calc(var(--alpheios-base-ui-size) * 0.625);
@@ -1187,16 +1189,16 @@ select.alpheios-setting__control,
   height: calc(var(--alpheios-base-ui-size) * 1.25);
   padding: 0 calc(var(--alpheios-base-ui-size) * 0.625) 0 calc(var(--alpheios-base-ui-size) * 1.25);
   cursor: pointer;
-  fill: var(--alpheios-color-neutral-lightest);
-  stroke: var(--alpheios-color-neutral-lightest);
+  fill: var(--alpheios-color-muted);
+  stroke: var(--alpheios-color-muted);
 }
 .alpheios-notification-area__close-btn:hover, .alpheios-notification-area__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover);
-  stroke: var(--alpheios-icon-color-hover);
+  fill: var(--alpheios-color-muted-hover);
+  stroke: var(--alpheios-color-muted-hover);
 }
 .alpheios-notification-area__close-btn:active {
-  fill: var(--alpheios-icon-color-active);
-  stroke: var(--alpheios-icon-color-active);
+  fill: var(--alpheios-color-muted-pressed);
+  stroke: var(--alpheios-color-muted-pressed);
 }
 /*
  Calculates a size of text elements relative to the base size.

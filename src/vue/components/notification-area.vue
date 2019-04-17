@@ -105,13 +105,15 @@ export default {
       display: flex;
       padding: uisize(10px) 0 uisize(10px) uisize(20px);
       flex: 0 0 uisize(60px);
-      color: var(--alpheios-color-neutral-lightest);
-      background: var(--alpheios-color-muted);
+      color: var(--alpheios-color-muted);
+      background: var(--alpheios-color-neutral-lightest);
+      border: 1px solid var(--alpheios-color-muted);
     }
 
     &__notification--important {
-      color: var(--alpheios-color-neutral-lightest);
-      background: var(--alpheios-color-vivid);
+      color: var(--alpheios-color-vivid);
+      background: var(--alpheios-color-neutral-lightest);
+      border: 1px solid var(--alpheios-color-vivid);
     }
 
     &__msg {
@@ -130,18 +132,18 @@ export default {
       height: uisize(20px);
       padding: 0 uisize(10px) 0 uisize(20px);
       cursor: pointer;
-      fill: var(--alpheios-color-neutral-lightest);
-      stroke: var(--alpheios-color-neutral-lightest);
+      fill: var(--alpheios-color-muted);
+      stroke: var(--alpheios-color-muted);
 
       &:hover,
       &:focus {
-        fill: var(--alpheios-icon-color-hover);
-        stroke: var(--alpheios-icon-color-hover);
+        fill: var(--alpheios-color-muted-hover);
+        stroke: var(--alpheios-color-muted-hover);
       }
 
       &:active {
-        fill: var(--alpheios-icon-color-active);
-        stroke: var(--alpheios-icon-color-active);
+        fill: var(--alpheios-color-muted-pressed);
+        stroke: var(--alpheios-color-muted-pressed);
       }
     }
   }
