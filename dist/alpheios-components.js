@@ -20658,7 +20658,7 @@ var render = function() {
         _vm._v(" "),
         _c("login", {
           staticClass: "alpheios-notification-area__control",
-          attrs: { "btn-class": "alpheios-button-tertiary" }
+          attrs: { "btn-class": "alpheios-button-primary" }
         }),
         _vm._v(" "),
         _c(
