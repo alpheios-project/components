@@ -82,6 +82,12 @@ html {
   --alpheios-btn-tertiary-bg-color-pressed: var(--alpheios-color-muted);
   --alpheios-btn-tertiary-border-color-pressed: var(--alpheios-color-muted);
 
+  // Notifications
+  --alpheios-notification-bg-color: rgba(255, 193, 77, 0.5);
+  --alpheios-notification-border-color: var(--alpheios-color-bright);
+  --alpheios-notification-important-bg-color: rgba(198, 73, 6, 0.31);
+  --alpheios-notification-important-border-color: var(--alpheios-color-vivid);
+
   // Those colors are not defined in a style guide
   --alpheios-highlight-color: #F6D918;
   --alpheios-highlight-dark-color: #E49A0D;

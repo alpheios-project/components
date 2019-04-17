@@ -350,6 +350,10 @@ html {
   --alpheios-btn-tertiary-font-color-pressed: var(--alpheios-color-neutral-lightest) !important;
   --alpheios-btn-tertiary-bg-color-pressed: var(--alpheios-color-muted) !important;
   --alpheios-btn-tertiary-border-color-pressed: var(--alpheios-color-muted) !important;
+  --alpheios-notification-bg-color: rgba(255, 193, 77, 0.5) !important;
+  --alpheios-notification-border-color: var(--alpheios-color-bright) !important;
+  --alpheios-notification-important-bg-color: rgba(198, 73, 6, 0.31) !important;
+  --alpheios-notification-important-border-color: var(--alpheios-color-vivid) !important;
   --alpheios-highlight-color: #F6D918 !important;
   --alpheios-highlight-dark-color: #E49A0D !important;
 }
@@ -1172,17 +1176,51 @@ select.alpheios-setting__control,
   flex-direction: column !important;
   align-items: stretch !important;
   flex: 0 0 auto !important;
+  background: var(--alpheios-color-neutral-lightest) !important;
+  padding: 0 calc(var(--alpheios-base-ui-size) * 1) !important;
 }
 .alpheios-notification-area__notification {
   display: flex;
-  padding: calc(var(--alpheios-base-ui-size) * 0.625) 0 calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  flex: 0 0 calc(var(--alpheios-base-ui-size) * 3.75) !important;
-  color: var(--alpheios-color-neutral-lightest) !important;
-  background: var(--alpheios-color-muted) !important;
+  padding: calc(var(--alpheios-base-ui-size) * 1) 0 calc(var(--alpheios-base-ui-size) * 1) calc(var(--alpheios-base-ui-size) * 1) !important;
+  flex: 0 0 auto !important;
+  color: var(--alpheios-color-dark) !important;
+  background: var(--alpheios-notification-bg-color) !important;
+  border: 1px solid var(--alpheios-notification-border-color) !important;
+  border-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
+  margin-bottom: calc(var(--alpheios-base-ui-size) * 1) !important;
+}
+.alpheios-notification-area__close-btn {
+  width: calc(var(--alpheios-base-ui-size) * 1.25) !important;
+  height: calc(var(--alpheios-base-ui-size) * 1.25) !important;
+  padding: 0 calc(var(--alpheios-base-ui-size) * 0.625) 0 calc(var(--alpheios-base-ui-size) * 1.25) !important;
+  cursor: pointer !important;
+  fill: var(--alpheios-color-dark) !important;
+  stroke: var(--alpheios-color-dark) !important;
+}
+.alpheios-notification-area__close-btn:hover, .alpheios-notification-area__close-btn:focus {
+  fill: var(--alpheios-color-dark-hover) !important;
+  stroke: var(--alpheios-color-dark-hover) !important;
+}
+.alpheios-notification-area__close-btn:active {
+  fill: var(--alpheios-color-dark-pressed) !important;
+  stroke: var(--alpheios-color-dark-pressed) !important;
 }
 .alpheios-notification-area__notification--important {
-  color: var(--alpheios-color-neutral-lightest) !important;
-  background: var(--alpheios-color-vivid) !important;
+  color: var(--alpheios-color-vivid) !important;
+  background: var(--alpheios-notification-important-bg-color) !important;
+  border: 1px solid var(--alpheios-notification-important-border-color) !important;
+}
+.alpheios-notification-area__notification--important .alpheios-notification-area__close-btn {
+  fill: var(--alpheios-color-vivid) !important;
+  stroke: var(--alpheios-color-vivid) !important;
+}
+.alpheios-notification-area__notification--important .alpheios-notification-area__close-btn:hover, .alpheios-notification-area__notification--important .alpheios-notification-area__close-btn:focus {
+  fill: var(--alpheios-color-vivid-hover) !important;
+  stroke: var(--alpheios-color-vivid-hover) !important;
+}
+.alpheios-notification-area__notification--important .alpheios-notification-area__close-btn:active {
+  fill: var(--alpheios-color-vivid-pressed) !important;
+  stroke: var(--alpheios-color-vivid-pressed) !important;
 }
 .alpheios-notification-area__msg {
   padding-right: calc(var(--alpheios-base-ui-size) * 0.625) !important;
@@ -1190,22 +1228,6 @@ select.alpheios-setting__control,
 }
 .alpheios-notification-area__control .alpheios-setting__control {
   width: 140px !important;
-}
-.alpheios-notification-area__close-btn {
-  width: calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  height: calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  padding: 0 calc(var(--alpheios-base-ui-size) * 0.625) 0 calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  cursor: pointer !important;
-  fill: var(--alpheios-color-neutral-lightest) !important;
-  stroke: var(--alpheios-color-neutral-lightest) !important;
-}
-.alpheios-notification-area__close-btn:hover, .alpheios-notification-area__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover) !important;
-  stroke: var(--alpheios-icon-color-hover) !important;
-}
-.alpheios-notification-area__close-btn:active {
-  fill: var(--alpheios-icon-color-active) !important;
-  stroke: var(--alpheios-icon-color-active) !important;
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -1485,7 +1507,7 @@ select.alpheios-setting__control,
 .alpheios-popup__body {
   display: flex;
   flex-direction: column !important;
-  padding: calc(var(--alpheios-base-text-size) * 1.25) !important;
+  padding: calc(var(--alpheios-base-text-size) * 1) !important;
   background: var(--alpheios-text-bg-color) !important;
   overflow: auto !important;
   flex: 1 0 !important;
