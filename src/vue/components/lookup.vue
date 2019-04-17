@@ -87,6 +87,12 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    showResultsIn: {
+      type: String,
+      required: false,
+      default: 'popup'
     }
   },
   created: function () {
@@ -150,11 +156,19 @@ export default {
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
 
       this.app.newLexicalRequest(this.lookuptext, languageID)
-
       lexQuery.getData()
-      // A lookup, when started from a panel, should open a popup with lookup results
-      this.ui.openPopup()
-      this.ui.closePanel()
+
+      switch (this.showResultsIn) {
+        case 'popup':
+          this.ui.openPopup()
+          this.ui.closePanel()
+          break
+        case 'panel':
+          this.ui.showPanelTab('morphology')
+          break
+        default:
+          console.warn(`Unknown afterLookupAction value: ${this.showResultsIn}`)
+      }
 
       // Clear the lookup text when the lookup started
       this.lookuptext = ''
@@ -216,7 +230,10 @@ export default {
   .alpheios-lookup__search-control {
     display: flex;
 
-    input {
+    // Double selector is used to prevent style leaks from host pages
+    input.alpheios-input,
+    input.alpheios-input:focus
+    {
       width: 70%;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;

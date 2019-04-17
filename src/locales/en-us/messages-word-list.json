@@ -68,5 +68,10 @@
         "message": "Clear filter by",
         "description": "Tooltip for clear filter icon",
         "component": "WordFilterPanel"
+    },
+    "WORDLIST_CURRENT_SESSION": {
+        "message": "Added in the current session",
+        "description": "Icon indicates, thats it was retrieved durent the current session",
+        "component": "WordItemPanel"
     }
 }
