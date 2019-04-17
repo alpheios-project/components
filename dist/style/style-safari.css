@@ -287,7 +287,6 @@
 html {
   --alpheios-base-text-size: 16px !important;
   --alpheios-base-ui-size: 16px !important;
-  font-size: 16px !important;
   --alpheios-sans-font-face: "Source Sans Pro", sans-serif !important;
   --alpheios-serif-font-face: "Source Serif Pro", serif !important;
   --alpheios-arabic-font-face: Amiri, serif !important;
@@ -376,9 +375,14 @@ html {
 }
 .alpheios-content h1, .alpheios-content h2, .alpheios-content h3, .alpheios-content h4, .alpheios-content h5, .alpheios-content h6, .alpheios-content p, .alpheios-content span, .alpheios-content a {
   line-height: 1.15 !important;
+  text-align: left !important;
   text-size-adjust: 100% !important;
   padding: 0 !important;
+  font-family: var(--alpheios-sans-font-face) !important;
   font-style: normal !important;
+  font-size: var(--alpheios-base-text-size) !important;
+  color: var(--alpheios-text-color) !important;
+  margin: 0 !important;
   margin-block-start: 0 !important;
   margin-block-end: 0 !important;
 }
@@ -396,15 +400,17 @@ html {
   font-family: var(--alpheios-serif-font-face) !important;
   font-size: calc(var(--alpheios-base-text-size) * 1.625) !important;
   font-weight: 700 !important;
-  margin-bottom: calc(var(--alpheios-base-text-size) * 2) !important;
+  margin: 0 0 calc(var(--alpheios-base-text-size) * 2) 0 !important;
   color: var(--alpheios-text-color-dark) !important;
 }
 .alpheios-content h2 {
+  font-family: var(--alpheios-sans-font-face) !important;
   font-size: calc(var(--alpheios-base-text-size) * 1.5) !important;
   font-weight: 700 !important;
   margin-bottom: calc(var(--alpheios-base-text-size) * 1.625) !important;
 }
 .alpheios-content h3 {
+  font-family: var(--alpheios-sans-font-face) !important;
   font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
   font-weight: 700 !important;
   margin-bottom: calc(var(--alpheios-base-text-size) * 1.375) !important;
@@ -412,9 +418,11 @@ html {
 .alpheios-content h4 {
   font-family: var(--alpheios-serif-font-face) !important;
   font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
+  font-weight: 400 !important;
   margin-bottom: calc(var(--alpheios-base-text-size) * 1.125) !important;
 }
 .alpheios-content h5 {
+  font-family: var(--alpheios-sans-font-face) !important;
   font-size: --alpheios-base-text-size !important;
   font-weight: 700 !important;
   font-style: italic !important;
@@ -604,6 +612,7 @@ input.alpheios-input::-ms-input-placeholder {
   margin: 0 !important;
 }
 .alpheios-content .multiselect__tags {
+  font-size: calc(var(--alpheios-base-ui-size) * 1) !important;
   border-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
 }
 .alpheios-content .multiselect__tag {
@@ -2128,14 +2137,14 @@ h3.alpheios-inflections__credits-title {
 .alpheios-ib .alpheios-inflections__title {
   font-family: var(--alpheios-sans-font-face) !important;
   font-size: var(--alpheios-base-text-size) !important;
-  margin: 0 0 1.25rem 3rem !important;
+  margin: 0 0 calc(var(--alpheios-base-text-size) * 1.25) calc(var(--alpheios-base-text-size) * 3) !important;
 }
 .alpheios-ib__title {
   color: var(--alpheios-text-color-vivid) !important;
   font-size: calc(var(--alpheios-base-text-size) * 1.5) !important;
   font-family: var(--alpheios-serif-font-face) !important;
   font-weight: 700 !important;
-  margin-bottom: 1.25rem !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.25) !important;
   display: inline-block;
 }
 .alpheios-ib__title.open {
@@ -2148,13 +2157,13 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-ib__pofs-title-l2 {
   font-weight: 700 !important;
-  margin-left: 1rem !important;
-  margin-bottom: 1.25rem !important;
+  margin-left: calc(var(--alpheios-base-text-size) * 1) !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.25) !important;
 }
 .alpheios-ib__pofs-title-l3 {
   font-weight: 700 !important;
-  margin-left: 2rem !important;
-  margin-bottom: 1.25rem !important;
+  margin-left: calc(var(--alpheios-base-text-size) * 2) !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.25) !important;
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2803,6 +2812,7 @@ h3.alpheios-inflections__credits-title {
   flex-wrap: nowrap !important;
   box-sizing: border-box !important;
   height: 100% !important;
+  align-items: center !important;
 }
 .alpheios-panel__header-btn-group--end {
   display: flex;
