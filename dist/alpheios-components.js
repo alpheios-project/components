@@ -11907,6 +11907,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -20501,7 +20502,7 @@ var render = function() {
                   staticClass: "alpheios-navbuttons__btn",
                   class: {
                     active: _vm.$store.getters["ui/isActiveTab"]("wordlist"),
-                    disabled: !this.$store.state.app.hasWordListsData
+                    disabled: !_vm.$store.state.app.hasWordListsData
                   },
                   on: {
                     click: function($event) {
@@ -20518,6 +20519,17 @@ var render = function() {
           _c(
             "alph-tooltip",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.settings.contentOptions.items.verboseMode
+                      .currentValue === "verbose",
+                  expression:
+                    "settings.contentOptions.items.verboseMode.currentValue === `verbose`"
+                }
+              ],
               attrs: {
                 tooltipText: _vm.l10n.getText("TOOLTIP_STATUS"),
                 tooltipDirection: "left"
@@ -20529,10 +20541,7 @@ var render = function() {
                 {
                   staticClass: "alpheios-navbuttons__btn",
                   class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("status"),
-                    disabled:
-                      this.settings.contentOptions.items.verboseMode
-                        .currentValue === "verbose"
+                    active: _vm.$store.getters["ui/isActiveTab"]("status")
                   },
                   on: {
                     click: function($event) {
@@ -39536,13 +39545,17 @@ class UIController {
    *         false otherwise (including if we have no disabling conditions on this tab).
    */
   isDisabledTab (tabName) {
+    /**
+     * A structure that defines availability condition for panel's tabs.
+     * The key is a tab name, and a value is the function that returns true if the tab is available.
+     */
     const tabsCheck = {
       definitions: () => this.store.getters['app/defDataReady'],
       inflections: () => this.store.state.app.hasInflData,
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
-      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue !== 'verbose'
+      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose'
     }
     return tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()
   }
