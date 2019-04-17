@@ -406,7 +406,7 @@ export default {
     }
 
     .alpheios-panel__header-logo {
-      margin-left: uisize(32px);
+      margin-left: uisize(16px);
     }
 
     .alpheios-panel__content,
@@ -417,7 +417,7 @@ export default {
     .alpheios-panel__close-btn {
 
       svg {
-        left: uisize(16px);
+        left: uisize(28px);
       }
     }
   }

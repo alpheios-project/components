@@ -2904,14 +2904,14 @@ h3.alpheios-inflections__credits-title {
   border-top-left-radius: calc(var(--alpheios-base-ui-size) * 0.625);
 }
 .alpheios-panel-right .alpheios-panel__header-logo {
-  margin-left: calc(var(--alpheios-base-ui-size) * 2);
+  margin-left: calc(var(--alpheios-base-ui-size) * 1);
 }
 .alpheios-panel-right .alpheios-panel__content,
 .alpheios-panel-right .alpheios-notification-area {
   border-left: 1px solid var(--alpheios-border-color);
 }
 .alpheios-panel-right .alpheios-panel__close-btn svg {
-  left: calc(var(--alpheios-base-ui-size) * 1);
+  left: calc(var(--alpheios-base-ui-size) * 1.75);
 }
 .alpheios-panel__tab__word-usage {
   width: 100%;
