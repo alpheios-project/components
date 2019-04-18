@@ -41,7 +41,11 @@
         </div>
 
         <div class="alpheios-wordlist-filter-panel">
-          <word-filter-panel @changedFilterBy="changedFilterBy"></word-filter-panel>
+          <word-filter-panel 
+            @changedFilterBy="changedFilterBy"
+            @clearClickedLemma = "clearClickedLemma"
+            :clickedLemma = "clickedLemma"
+          ></word-filter-panel>
         </div>
         <div
                 v-for="wordItem in wordItems"
@@ -51,6 +55,7 @@
               @changeImportant = "changeImportant"
               @deleteItem = "deleteItem"
               @showContexts = "showContexts"
+              @setLemmaFilterByClick = "setLemmaFilterByClick"
             ></word-item>
         </div>
     </div>
@@ -88,6 +93,7 @@ export default {
       showDeleteAllBox: false,
       selectedFilterBy: null,
       textInput: null,
+      clickedLemma: null,
       filterMethods: {
         'byCurrentSession': (wordItem) => wordItem.currentSession,
         'byImportant': (wordItem) => wordItem.important,
@@ -154,6 +160,12 @@ export default {
     changedFilterBy (selectedFilterBy, textInput) {
       this.selectedFilterBy = selectedFilterBy
       this.textInput = textInput
+    },
+    setLemmaFilterByClick (lemma) {
+      this.clickedLemma = lemma
+    },
+    clearClickedLemma () {
+      this.clickedLemma = null
     }
   }
 }

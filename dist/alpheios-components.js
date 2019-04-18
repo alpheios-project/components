@@ -14223,6 +14223,12 @@ __webpack_require__.r(__webpack_exports__);
     goIcon: _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  props: {
+    clickedLemma: {
+      type: String,
+      required: false
+    }
+  },
   data () {
     return {
       selectedFilterBy: null,
@@ -14256,6 +14262,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     currentTypeFilter () {
       return this.selectedFilterBy ? this.typeFiltersList.find(typeFilter => typeFilter.value === this.selectedFilterBy) : null
+    },
+    currentClickedLemma () {
+      if (this.clickedLemma) {
+        this.setClickedLemmaFilter()
+      }
+      return true
     }
   },
   methods: {
@@ -14282,6 +14294,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearFilterEvent () {
       this.$emit('changedFilterBy', null)
+    },
+    setClickedLemmaFilter () {
+      this.selectedFilterBy = 'byLemmaFull'
+      this.textInput = this.clickedLemma
+      this.clickFilterBy()
+      this.$emit('clearClickedLemma')
     }
   }
 });
@@ -14303,6 +14321,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_text_quote_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/text-quote.svg */ "./images/inline-icons/text-quote.svg");
 /* harmony import */ var _images_inline_icons_current_session_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/current-session.svg */ "./images/inline-icons/current-session.svg");
 /* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14379,7 +14402,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     lemmasList () {
-      return this.$store.state.app.wordListUpdateTime ? this.worditem.lemmasList : ''
+      return this.$store.state.app.wordListUpdateTime ? this.worditem.lemmasList.split(',') : []
     }
   },
   methods: {
@@ -14398,6 +14421,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showContexts () {
       this.$emit('showContexts', this.worditem.targetWord)
+    },
+    setLemmaFilterByClick(lemma) {
+      this.$emit('setLemmaFilterByClick', lemma)
     }
   }
 });
@@ -14424,6 +14450,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14514,6 +14545,7 @@ __webpack_require__.r(__webpack_exports__);
       showDeleteAllBox: false,
       selectedFilterBy: null,
       textInput: null,
+      clickedLemma: null,
       filterMethods: {
         'byCurrentSession': (wordItem) => wordItem.currentSession,
         'byImportant': (wordItem) => wordItem.important,
@@ -14580,6 +14612,12 @@ __webpack_require__.r(__webpack_exports__);
     changedFilterBy (selectedFilterBy, textInput) {
       this.selectedFilterBy = selectedFilterBy
       this.textInput = textInput
+    },
+    setLemmaFilterByClick (lemma) {
+      this.clickedLemma = lemma
+    },
+    clearClickedLemma () {
+      this.clickedLemma = null
     }
   }
 });
@@ -23241,7 +23279,9 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.currentTypeFilter && _vm.currentTypeFilter.showTextInput
+      _vm.currentClickedLemma &&
+      _vm.currentTypeFilter &&
+      _vm.currentTypeFilter.showTextInput
         ? _c(
             "div",
             { staticClass: "alpheios-wordlist-header-input-filterBy-block" },
@@ -23487,7 +23527,26 @@ var render = function() {
         {
           staticClass: "alpheios-worditem__data alpheios-worditem__lemmasList"
         },
-        [_vm._v(_vm._s(_vm.lemmasList))]
+        _vm._l(_vm.lemmasList, function(lemma, lemmaIndex) {
+          return _c(
+            "span",
+            {
+              staticClass: "alpheios-worditem__lemmasList-lemmaitem",
+              on: {
+                click: function($event) {
+                  return _vm.setLemmaFilterByClick(lemma)
+                }
+              }
+            },
+            [
+              _vm._v(_vm._s(lemma)),
+              lemmaIndex < _vm.lemmasList.length - 1
+                ? _c("span", [_vm._v(", ")])
+                : _vm._e()
+            ]
+          )
+        }),
+        0
       )
     ],
     1
@@ -23689,7 +23748,11 @@ var render = function() {
         { staticClass: "alpheios-wordlist-filter-panel" },
         [
           _c("word-filter-panel", {
-            on: { changedFilterBy: _vm.changedFilterBy }
+            attrs: { clickedLemma: _vm.clickedLemma },
+            on: {
+              changedFilterBy: _vm.changedFilterBy,
+              clearClickedLemma: _vm.clearClickedLemma
+            }
           })
         ],
         1
@@ -23705,7 +23768,8 @@ var render = function() {
               on: {
                 changeImportant: _vm.changeImportant,
                 deleteItem: _vm.deleteItem,
-                showContexts: _vm.showContexts
+                showContexts: _vm.showContexts,
+                setLemmaFilterByClick: _vm.setLemmaFilterByClick
               }
             })
           ],
@@ -37675,7 +37739,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M14 1l-8 9 8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","d":"M14 1l-8 9 8 9"}})])
           )
         }
       });
@@ -37715,7 +37779,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M6 1l8 9-8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","d":"M6 1l8 9-8 9"}})])
           )
         }
       });
@@ -37955,7 +38019,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -38155,7 +38219,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 25 21"}, attrs),
               ...rest,
             },
-            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005","stroke-width":".794"}})])])
+            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])
           )
         }
       });
@@ -38195,7 +38259,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -38315,7 +38379,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
+            children.concat([_c('path',{attrs:{"d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
           )
         }
       });
@@ -38395,7 +38459,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 24 24"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"stroke-width":"0","d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])
+            children.concat([_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])
           )
         }
       });
@@ -38515,7 +38579,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });

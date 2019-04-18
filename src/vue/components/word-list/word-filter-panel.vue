@@ -18,7 +18,7 @@
           </alph-tooltip>
         </div>
         <div class="alpheios-wordlist-header-input-filterBy-block"
-          v-if="currentTypeFilter && currentTypeFilter.showTextInput"
+          v-if="currentClickedLemma && currentTypeFilter && currentTypeFilter.showTextInput"
         >
           <input v-model="textInput"  class="alpheios-input alpheios-wordlist-header-input-filterBy"
                 :placeholder="currentTypeFilter.textInputPlaceholder"
@@ -57,6 +57,12 @@
       goIcon: GoIcon,
       alphTooltip: Tooltip
     },
+    props: {
+      clickedLemma: {
+        type: String,
+        required: false
+      }
+    },
     data () {
       return {
         selectedFilterBy: null,
@@ -90,6 +96,12 @@
     computed: {
       currentTypeFilter () {
         return this.selectedFilterBy ? this.typeFiltersList.find(typeFilter => typeFilter.value === this.selectedFilterBy) : null
+      },
+      currentClickedLemma () {
+        if (this.clickedLemma) {
+          this.setClickedLemmaFilter()
+        }
+        return true
       }
     },
     methods: {
@@ -116,6 +128,12 @@
       },
       clearFilterEvent () {
         this.$emit('changedFilterBy', null)
+      },
+      setClickedLemmaFilter () {
+        this.selectedFilterBy = 'byLemmaFull'
+        this.textInput = this.clickedLemma
+        this.clickFilterBy()
+        this.$emit('clearClickedLemma')
       }
     }
   }
