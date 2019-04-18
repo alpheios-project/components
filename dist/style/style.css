@@ -2647,6 +2647,9 @@ h3.alpheios-inflections__credits-title {
   fill: var(--alpheios-color-dark);
   stroke: var(--alpheios-color-dark);
 }
+.alpheios-wordlist-delete-all-confirmation {
+  margin-top: 10px;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
