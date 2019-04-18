@@ -85,7 +85,8 @@ export default {
     return {
       reloadList: 1,
       showDeleteAllBox: false,
-      selectedFilterBy: null
+      selectedFilterBy: null,
+      textInput: null
     }
   },
   computed: {
@@ -99,6 +100,15 @@ export default {
         }
         if (this.selectedFilterBy === 'byCurrentSession') {
           return this.wordlist.values.filter(wordItem => wordItem.currentSession)
+        }
+        if (this.selectedFilterBy === 'byImportant') {
+          return this.wordlist.values.filter(wordItem => wordItem.important)
+        }
+        if (this.selectedFilterBy === 'byWordFormFull') {
+          return this.wordlist.values.filter(wordItem => wordItem.targetWord === this.textInput)
+        }
+        if (this.selectedFilterBy === 'byWordFormPart') {
+          return this.wordlist.values.filter(wordItem => wordItem.targetWord.indexOf(this.textInput) > -1)
         }
       }
       return []
@@ -139,8 +149,9 @@ export default {
     showContexts (targetWord) {
       this.$emit('showContexts', targetWord, this.languageCode)
     },
-    changedFilterBy (selectedFilterBy) {
+    changedFilterBy (selectedFilterBy, textInput) {
       this.selectedFilterBy = selectedFilterBy
+      this.textInput = textInput
     }
   }
 }

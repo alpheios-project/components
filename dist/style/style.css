@@ -2593,8 +2593,18 @@ h3.alpheios-inflections__credits-title {
   font-weight: bold;
   padding-bottom: 10px;
 }
-.alpheios-wordlist-filters .alpheios-wordlist-header-select-filterBy {
-  width: 50%;
+.alpheios-wordlist-filters .alpheios-wordlist-header-select-filterBy-block,
+.alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy-block {
+  width: 48%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy-block {
+  margin-left: 2%;
+}
+.alpheios-wordlist-filters .alpheios-wordlist-header-select-filterBy,
+.alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy {
+  width: 90%;
 }
 .alpheios-wordlist-filters .alpheios-wordlist-header-clear-icon {
   width: 20px;
