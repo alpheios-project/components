@@ -3,7 +3,7 @@
       id="alpheios-toolbar-inner"
       class="alpheios-content alpheios-toolbar alpheios-toolbar--large"
       :class="positionClass"
-      :style="`top: ${this.initial.top}px; right: ${this.initial.right}px; transform: translate(${this.shift.x}px, ${this.shift.y}px)`"
+      :style="componentStyles"
       v-show="$store.state.toolbar.visible"
   >
     <div
@@ -265,12 +265,6 @@ export default {
       lookupVisible: false,
       contentVisible: false,
 
-      // Initial position of a toolbar, in pixels. Need this as variable for positioning calculations
-      initial: {
-        top: 10,
-        right: 15
-      },
-
       // How much a toolbar has been dragged from its initial position, in pixels
       shift: {
         x: 0,
@@ -280,8 +274,37 @@ export default {
   },
 
   computed: {
+    componentStyles: function () {
+      let styles = {
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+      }
+
+      if (this.$store.state.toolbar.initialPos) {
+        if (this.$store.state.toolbar.initialPos.top) {
+          styles.top = `${this.$store.state.toolbar.initialPos.top}px`
+        }
+        if (this.$store.state.toolbar.initialPos.right) {
+          styles.right = `${this.$store.state.toolbar.initialPos.right}px`
+        }
+        if (this.$store.state.toolbar.initialPos.bottom) {
+          styles.bottom = `${this.$store.state.toolbar.initialPos.bottom}px`
+        }
+        if (this.$store.state.toolbar.initialPos.left) {
+          styles.left = `${this.$store.state.toolbar.initialPos.left}px`
+        }
+      }
+      return styles
+    },
+
     isInLeftHalf: function () {
-      return (window.innerWidth / 2 - this.initial.right + this.shift.x < 0)
+      if (this.$store.state.toolbar.initialPos.hasOwnProperty(`right`)) {
+        return (window.innerWidth / 2 - this.$store.state.toolbar.initialPos.right + this.shift.x < 0)
+      } else if (this.$store.state.toolbar.initialPos.hasOwnProperty(`left`)) {
+        return (this.$store.state.toolbar.initialPos.left + this.shift.x < window.innerWidth / 2)
+      } else {
+        // We have no information in which part of the screen the toolbar is, will default to right
+        return false
+      }
     },
 
     positionClass: function () {

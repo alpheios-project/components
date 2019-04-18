@@ -11981,12 +11981,6 @@ __webpack_require__.r(__webpack_exports__);
       lookupVisible: false,
       contentVisible: false,
 
-      // Initial position of a toolbar, in pixels. Need this as variable for positioning calculations
-      initial: {
-        top: 10,
-        right: 15
-      },
-
       // How much a toolbar has been dragged from its initial position, in pixels
       shift: {
         x: 0,
@@ -11996,8 +11990,37 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
+    componentStyles: function () {
+      let styles = {
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+      }
+
+      if (this.$store.state.toolbar.initialPos) {
+        if (this.$store.state.toolbar.initialPos.top) {
+          styles.top = `${this.$store.state.toolbar.initialPos.top}px`
+        }
+        if (this.$store.state.toolbar.initialPos.right) {
+          styles.right = `${this.$store.state.toolbar.initialPos.right}px`
+        }
+        if (this.$store.state.toolbar.initialPos.bottom) {
+          styles.bottom = `${this.$store.state.toolbar.initialPos.bottom}px`
+        }
+        if (this.$store.state.toolbar.initialPos.left) {
+          styles.left = `${this.$store.state.toolbar.initialPos.left}px`
+        }
+      }
+      return styles
+    },
+
     isInLeftHalf: function () {
-      return (window.innerWidth / 2 - this.initial.right + this.shift.x < 0)
+      if (this.$store.state.toolbar.initialPos.hasOwnProperty(`right`)) {
+        return (window.innerWidth / 2 - this.$store.state.toolbar.initialPos.right + this.shift.x < 0)
+      } else if (this.$store.state.toolbar.initialPos.hasOwnProperty(`left`)) {
+        return (this.$store.state.toolbar.initialPos.left + this.shift.x < window.innerWidth / 2)
+      } else {
+        // We have no information in which part of the screen the toolbar is, will default to right
+        return false
+      }
     },
 
     positionClass: function () {
@@ -20128,16 +20151,7 @@ var render = function() {
       ],
       staticClass: "alpheios-content alpheios-toolbar alpheios-toolbar--large",
       class: _vm.positionClass,
-      style:
-        "top: " +
-        this.initial.top +
-        "px; right: " +
-        this.initial.right +
-        "px; transform: translate(" +
-        this.shift.x +
-        "px, " +
-        this.shift.y +
-        "px)",
+      style: _vm.componentStyles,
       attrs: { id: "alpheios-toolbar-inner" }
     },
     [
@@ -49010,7 +49024,9 @@ ToolbarModule.store = (moduleInstance) => {
       // Whether a toolbar is shown or hidden
       visible: false,
       // Choose compact or large layout from the value of the `platform` prop of a configuration object
-      layout: moduleInstance.config.platform === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP ? `toolbarLarge` : 'toolbarCompact'
+      layout: moduleInstance.config.platform === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP ? `toolbarLarge` : 'toolbarCompact',
+      // Initial position of a toolbar
+      initialPos: moduleInstance.config.initialPos
     },
     mutations: {
       /**
@@ -49038,7 +49054,14 @@ ToolbarModule._configDefaults = {
   _supportedPlatforms: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP, _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.MOBILE],
   // A selector that specifies to what DOM element a nav will be mounted.
   // This element will be replaced with the root element of the panel component.
-  mountPoint: '#alpheios-toolbar'
+  mountPoint: '#alpheios-toolbar',
+  // Initial position of a toolbar, in pixels. Any combination of positioning parameters (top, right, bottom, left)
+  // in two different dimensions (X and Y) must be specified. Pixel units should NOT be added to the values.
+  // Default values are the ones below.
+  initialPos: {
+    top: 10,
+    right: 15
+  }
 }
 
 
