@@ -2602,9 +2602,11 @@ h3.alpheios-inflections__credits-title {
 .alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy-block {
   margin-left: 2% !important;
 }
-.alpheios-wordlist-filters .alpheios-wordlist-header-select-filterBy,
-.alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy {
+.alpheios-wordlist-filters .alpheios-wordlist-header-select-filterBy {
   width: 90% !important;
+}
+.alpheios-wordlist-filters .alpheios-wordlist-header-input-filterBy {
+  width: 80% !important;
 }
 .alpheios-wordlist-filters .alpheios-wordlist-header-clear-icon {
   width: 20px !important;

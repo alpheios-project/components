@@ -21,13 +21,23 @@
           v-if="currentTypeFilter && currentTypeFilter.showTextInput"
         >
           <input v-model="textInput"  class="alpheios-input alpheios-wordlist-header-input-filterBy"
-                :placeholder="currentTypeFilter.textInputPlaceholder">
+                :placeholder="currentTypeFilter.textInputPlaceholder"
+                v-on:keyup.enter = "clickFilterBy"
+                >
           <alph-tooltip :tooltipText="l10n.getMsg('WORDLIST_FILTER')" tooltipDirection="top-right">
             <span class="alpheios-wordlist-header-clear-icon"
                   @click="clickFilterBy"
                   :class = '{ "alpheios-wordlist-header-clear-disabled": textInput === null }'
                   >
               <go-icon></go-icon>
+            </span>
+          </alph-tooltip>
+          <alph-tooltip :tooltipText="l10n.getMsg('WORDLIST_FILTER_CLEAR')" tooltipDirection="top-right">
+            <span class="alpheios-wordlist-header-clear-icon"
+                  @click="clearFilteringText"
+                  :class = '{ "alpheios-wordlist-header-clear-disabled": textInput === null }'
+                  >
+              <clear-filters-icon></clear-filters-icon>
             </span>
           </alph-tooltip>
         </div>
@@ -68,6 +78,8 @@
       changedFilterBy () {
         if (this.currentTypeFilter.onChange) {
           this.$emit('changedFilterBy', this.selectedFilterBy)
+        } else {
+          this.clearFilterEvent()
         }
       },
       clickFilterBy () {
@@ -77,7 +89,15 @@
       },
       clearFiltering () {
         this.selectedFilterBy = null
-        this.changedFilterBy()
+        this.textInput = null
+        this.clearFilterEvent()
+      },
+      clearFilteringText () {
+        this.textInput = null
+        this.clearFilterEvent()
+      },
+      clearFilterEvent () {
+        this.$emit('changedFilterBy', null)
       }
     }
   }
@@ -104,9 +124,12 @@
         margin-left: 2%;
       }
 
-      .alpheios-wordlist-header-select-filterBy,
-      .alpheios-wordlist-header-input-filterBy {
+      .alpheios-wordlist-header-select-filterBy{
         width: 90%;
+      }
+
+      .alpheios-wordlist-header-input-filterBy {
+        width: 80%;
       }
 
       .alpheios-wordlist-header-clear-icon {
