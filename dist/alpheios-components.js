@@ -14381,10 +14381,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/check.svg */ "./images/inline-icons/check.svg");
 /* harmony import */ var _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/delete.svg */ "./images/inline-icons/delete.svg");
-/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
-/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
-/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
+/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
+/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
+/* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__);
 //
 //
 //
@@ -14442,7 +14443,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -14455,10 +14456,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WordLanguagePanel',
   components: {
+    closeIcon: _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     checkIcon: _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
     deleteIcon: _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
-    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   inject: ['l10n', 'app'],
@@ -23125,7 +23127,7 @@ var render = function() {
     _c("div", [
       _c(
         "div",
-        { staticClass: "alpheios-wordlist-header-input-filterBy-block" },
+        { staticClass: "alpheios-wordlist-header-select-filterBy-block" },
         [
           _c(
             "select",
@@ -23543,17 +23545,19 @@ var render = function() {
               expression: "showDeleteAllBox"
             }
           ],
-          staticClass: "alpheios-wordlist-delete-all-confirmation"
+          staticClass:
+            "alpheios-wordlist-delete-all-confirmation alpheios-notification-area__notification alpheios-notification-area__notification--important"
         },
         [
-          _c("p", [
+          _c("div", { staticClass: "alpheios-notification-area__msg" }, [
             _vm._v(_vm._s(_vm.l10n.getText("WORDLIST_DELETE_CONFIRM_MESSAGE")))
           ]),
           _vm._v(" "),
           _c(
             "div",
             {
-              staticClass: "alpheios-wordlist-delete-all-confirmation__buttons"
+              staticClass:
+                "alpheios-wordlist-delete-all-confirmation__buttons alpheios-notification-area__control"
             },
             [
               _c(
@@ -23570,8 +23574,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
+                      staticClass: "alpheios-button-primary",
                       on: {
                         click: function($event) {
                           return _vm.deleteAll()
@@ -23587,43 +23590,22 @@ var render = function() {
                     ]
                   )
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getText(
-                      "WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL"
-                    ),
-                    tooltipDirection: "bottom-wide"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.cancelDeleteAll()
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(
-                            _vm.l10n.getText("WORDLIST_BUTTON_CANCEL_DELETE")
-                          ) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
               )
             ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "alpheios-notification-area__close-btn",
+              on: {
+                click: function($event) {
+                  return _vm.cancelDeleteAll()
+                }
+              }
+            },
+            [_c("close-icon")],
             1
           )
         ]

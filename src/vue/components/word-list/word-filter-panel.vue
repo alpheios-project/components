@@ -2,7 +2,7 @@
     <div class="alpheios-wordlist-filters">
         <p class="alpheios-wordlist-header-title">{{ l10n.getText('WORDLIST_FILTER_BY') }}</p>
         <div>
-        <div class="alpheios-wordlist-header-input-filterBy-block">
+        <div class="alpheios-wordlist-header-select-filterBy-block">
           <select class="alpheios-select alpheios-wordlist-header-select-filterBy"
                   v-model="selectedFilterBy" @change="changedFilterBy">
             <option v-for="typeFiltering in typeFiltersList" v-bind:key="typeFiltering.value"
