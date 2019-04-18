@@ -87,7 +87,15 @@ export default {
       reloadList: 1,
       showDeleteAllBox: false,
       selectedFilterBy: null,
-      textInput: null
+      textInput: null,
+      filterMethods: {
+        'byCurrentSession': (wordItem) => wordItem.currentSession,
+        'byImportant': (wordItem) => wordItem.important,
+        'byWordFormFull': (wordItem) => wordItem.targetWord === this.textInput,
+        'byWordFormPart': (wordItem) => wordItem.targetWord.indexOf(this.textInput) > -1,
+        'byLemmaFull': (wordItem) => wordItem.lemmasList.split(',').indexOf(this.textInput) > -1,
+        'byLemmaPart': (wordItem) => wordItem.lemmasList.split(',').find(lemmaItem => lemmaItem.indexOf(this.textInput) > -1)
+      }
     }
   },
   computed: {
@@ -99,17 +107,10 @@ export default {
         if (!this.selectedFilterBy) {
           return this.wordlist.values
         }
-        if (this.selectedFilterBy === 'byCurrentSession') {
-          return this.wordlist.values.filter(wordItem => wordItem.currentSession)
-        }
-        if (this.selectedFilterBy === 'byImportant') {
-          return this.wordlist.values.filter(wordItem => wordItem.important)
-        }
-        if (this.selectedFilterBy === 'byWordFormFull') {
-          return this.wordlist.values.filter(wordItem => wordItem.targetWord === this.textInput)
-        }
-        if (this.selectedFilterBy === 'byWordFormPart') {
-          return this.wordlist.values.filter(wordItem => wordItem.targetWord.indexOf(this.textInput) > -1)
+        if (this.filterMethods[this.selectedFilterBy]) {
+          return this.wordlist.values.filter(this.filterMethods[this.selectedFilterBy])
+        } else {
+          console.warn(`The current filter method - ${this.selectedFilterBy} - is not defined, that's why empty result is returned!`)
         }
       }
       return []

@@ -63,8 +63,26 @@
         typeFiltersList: [
           { value: 'byCurrentSession', title: this.l10n.getText('WORDLIST_FILTER_BYCURRENTSESSION'), onChange: true },
           { value: 'byImportant', title: this.l10n.getText('WORDLIST_FILTER_BYIMPORTANT'), onChange: true },
-          { value: 'byWordFormFull', title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL'), onClick: true, showTextInput: true, textInputPlaceholder: 'type full word form here' },
-          { value: 'byWordFormPart', title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART'), onClick: true, showTextInput: true, textInputPlaceholder: 'type part of word form here' }
+          { value: 'byWordFormFull', 
+            title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL'), 
+            onClick: true, showTextInput: true, 
+            textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER') 
+          },
+          { value: 'byWordFormPart', 
+            title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART'), 
+            onClick: true, showTextInput: true, 
+            textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER') 
+          },
+          { value: 'byLemmaFull', 
+            title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL'), 
+            onClick: true, showTextInput: true, 
+            textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER')
+          },
+          { value: 'byLemmaPart', 
+            title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART'), 
+            onClick: true, showTextInput: true, 
+            textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER')
+          }
         ],
         textInput: null
       }
@@ -79,7 +97,7 @@
         if (this.currentTypeFilter.onChange) {
           this.$emit('changedFilterBy', this.selectedFilterBy)
         } else {
-          this.clearFilterEvent()
+          this.clearFilteringText()
         }
       },
       clickFilterBy () {

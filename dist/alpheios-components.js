@@ -14229,8 +14229,26 @@ __webpack_require__.r(__webpack_exports__);
       typeFiltersList: [
         { value: 'byCurrentSession', title: this.l10n.getText('WORDLIST_FILTER_BYCURRENTSESSION'), onChange: true },
         { value: 'byImportant', title: this.l10n.getText('WORDLIST_FILTER_BYIMPORTANT'), onChange: true },
-        { value: 'byWordFormFull', title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL'), onClick: true, showTextInput: true, textInputPlaceholder: 'type full word form here' },
-        { value: 'byWordFormPart', title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART'), onClick: true, showTextInput: true, textInputPlaceholder: 'type part of word form here' }
+        { value: 'byWordFormFull', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER') 
+        },
+        { value: 'byWordFormPart', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER') 
+        },
+        { value: 'byLemmaFull', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER')
+        },
+        { value: 'byLemmaPart', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER')
+        }
       ],
       textInput: null
     }
@@ -14245,7 +14263,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.currentTypeFilter.onChange) {
         this.$emit('changedFilterBy', this.selectedFilterBy)
       } else {
-        this.clearFilterEvent()
+        this.clearFilteringText()
       }
     },
     clickFilterBy () {
@@ -14495,7 +14513,15 @@ __webpack_require__.r(__webpack_exports__);
       reloadList: 1,
       showDeleteAllBox: false,
       selectedFilterBy: null,
-      textInput: null
+      textInput: null,
+      filterMethods: {
+        'byCurrentSession': (wordItem) => wordItem.currentSession,
+        'byImportant': (wordItem) => wordItem.important,
+        'byWordFormFull': (wordItem) => wordItem.targetWord === this.textInput,
+        'byWordFormPart': (wordItem) => wordItem.targetWord.indexOf(this.textInput) > -1,
+        'byLemmaFull': (wordItem) => wordItem.lemmasList.split(',').indexOf(this.textInput) > -1,
+        'byLemmaPart': (wordItem) => wordItem.lemmasList.split(',').find(lemmaItem => lemmaItem.indexOf(this.textInput) > -1)
+      }
     }
   },
   computed: {
@@ -14507,17 +14533,10 @@ __webpack_require__.r(__webpack_exports__);
         if (!this.selectedFilterBy) {
           return this.wordlist.values
         }
-        if (this.selectedFilterBy === 'byCurrentSession') {
-          return this.wordlist.values.filter(wordItem => wordItem.currentSession)
-        }
-        if (this.selectedFilterBy === 'byImportant') {
-          return this.wordlist.values.filter(wordItem => wordItem.important)
-        }
-        if (this.selectedFilterBy === 'byWordFormFull') {
-          return this.wordlist.values.filter(wordItem => wordItem.targetWord === this.textInput)
-        }
-        if (this.selectedFilterBy === 'byWordFormPart') {
-          return this.wordlist.values.filter(wordItem => wordItem.targetWord.indexOf(this.textInput) > -1)
+        if (this.filterMethods[this.selectedFilterBy]) {
+          return this.wordlist.values.filter(this.filterMethods[this.selectedFilterBy])
+        } else {
+          console.warn(`The current filter method - ${this.selectedFilterBy} - is not defined, that's why empty result is returned!`)
         }
       }
       return []
@@ -44428,10 +44447,10 @@ module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Decle
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-word-list.json ***!
   \***********************************************/
-/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, default */
+/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, default */
 /***/ (function(module) {
 
-module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"by this session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BYIMPORTANT":{"message":"by important","description":"Filter only those words that has an important flag","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL":{"message":"by word form (full)","description":"Filter only those words that has a word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART":{"message":"by word form (part)","description":"Filter only those words that has a part of word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_FILTER":{"message":"Filter","description":"Tooltip for filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"}};
+module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"by this session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BYIMPORTANT":{"message":"by important","description":"Filter only those words that has an important flag","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL":{"message":"by word form (full)","description":"Filter only those words that has this word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART":{"message":"by word form (part)","description":"Filter only those words that has this part of word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL":{"message":"by lemma (full)","description":"Filter only those words that has this lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART":{"message":"by lemma (part)","description":"Filter only those words that has this part of lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER":{"message":"type full word form here","description":"Placeholder for the text input for filter by word form (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER":{"message":"type part of word form here","description":"Placeholder for the text input for filter by word form (part)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER":{"message":"type full lemma here","description":"Placeholder for the text input for filter by lemma (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER":{"message":"type part of lemma here","description":"Placeholder for the text input for filter by lemma (part)","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_FILTER":{"message":"Filter","description":"Tooltip for filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"}};
 
 /***/ }),
 

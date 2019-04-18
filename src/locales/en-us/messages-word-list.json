@@ -66,12 +66,42 @@
     },
     "WORDLIST_FILTER_BYWORDFORM_FULL": {
         "message": "by word form (full)",
-        "description": "Filter only those words that has a word form",
+        "description": "Filter only those words that has this word form",
         "component": "WordFilterPanel"
     },
     "WORDLIST_FILTER_BYWORDFORM_PART": {
         "message": "by word form (part)",
-        "description": "Filter only those words that has a part of word form",
+        "description": "Filter only those words that has this part of word form",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYLEMMA_FULL": {
+        "message": "by lemma (full)",
+        "description": "Filter only those words that has this lemma",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYLEMMA_PART": {
+        "message": "by lemma (part)",
+        "description": "Filter only those words that has this part of lemma",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER": {
+        "message": "type full word form here",
+        "description": "Placeholder for the text input for filter by word form (full)",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER": {
+        "message": "type part of word form here",
+        "description": "Placeholder for the text input for filter by word form (part)",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER": {
+        "message": "type full lemma here",
+        "description": "Placeholder for the text input for filter by lemma (full)",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER": {
+        "message": "type part of lemma here",
+        "description": "Placeholder for the text input for filter by lemma (part)",
         "component": "WordFilterPanel"
     },
     "WORDLIST_FILTER_BY": {
