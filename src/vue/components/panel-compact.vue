@@ -1,10 +1,12 @@
 <template>
-  <div class="alpheios-panel alpheios-panel--compact alpheios-content"
-       :style="mainstyles"
-       data-component="alpheios-panel"
-       data-resizable="true"
-       id="alpheios-panel-inner"
-       v-show="$store.state.panel.visible"
+  <div
+      :class="rootClasses"
+      class="alpheios-panel alpheios-panel--compact alpheios-content"
+      :style="mainstyles"
+      data-component="alpheios-panel"
+      data-resizable="true"
+      id="alpheios-panel-inner"
+      v-show="$store.state.panel.visible"
   >
 
     <div class="alpheios-panel__header" >
@@ -375,7 +377,17 @@ export default {
     }
   },
 
+  // `positionClassVariants` is a custom property. This is to prent Vue from attaching reactivity to it.
+  positionClassVariants: {
+    left: 'alpheios-panel-left',
+    right: 'alpheios-panel-right'
+  },
+
   computed: {
+    rootClasses () {
+      return [this.$options.positionClassVariants[this.panelPosition]]
+    },
+
     mainstyles: function () {
       this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
       return {

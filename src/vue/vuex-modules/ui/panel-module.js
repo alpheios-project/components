@@ -37,7 +37,7 @@ PanelModule.store = (moduleInstance) => {
       // Whether a panel is shown or hidden
       visible: false,
       // Choose mobile or desktop layout from the value of the `platform` prop of a configuration object
-      layout: moduleInstance.config.platform === HTMLPage.platforms.DESKTOP ? `panel` : 'compactPanel'
+      layout: moduleInstance.config.platform === HTMLPage.deviceTypes.DESKTOP ? `panel` : 'compactPanel'
     },
     mutations: {
       /**
@@ -66,7 +66,7 @@ PanelModule.store = (moduleInstance) => {
 PanelModule._configDefaults = {
   _moduleName: 'panel',
   _moduleType: Module.types.UI,
-  _supportedPlatforms: [HTMLPage.platforms.DESKTOP, HTMLPage.platforms.MOBILE],
+  _supportedDeviceTypes: [HTMLPage.deviceTypes.DESKTOP, HTMLPage.deviceTypes.MOBILE],
   // A selector that specifies to what DOM element a panel will be mounted.
   // This element will be replaced with the root element of the panel component.
   mountPoint: '#alpheios-panel'

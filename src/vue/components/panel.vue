@@ -1,12 +1,14 @@
 <template>
-  <div :class="rootClasses"
-       :style="mainstyles"
-       class="alpheios-panel alpheios-panel--large alpheios-content"
-       data-component="alpheios-panel"
-       data-resizable="true"
-       id="alpheios-panel-inner"
-       v-on-clickaway="attachTrackingClick"
-       v-show="$store.state.panel.visible">
+  <div
+      :class="rootClasses"
+      :style="mainstyles"
+      class="alpheios-panel alpheios-panel--large alpheios-content"
+      data-component="alpheios-panel"
+      data-resizable="true"
+      id="alpheios-panel-inner"
+      v-on-clickaway="attachTrackingClick"
+      v-show="$store.state.panel.visible"
+  >
 
     <div class="alpheios-panel__header">
       <div class="alpheios-panel__header-logo">
@@ -312,16 +314,8 @@ export default {
     attachRightIcon: AttachRightIcon
   },
   tabChangeUnwatch: null, // Will hold a function for removal of a tab change watcher
-  // `positionClassVariants` is a custom property. This is to prent Vue from attaching reactivity to it.
-  positionClassVariants: {
-    left: 'alpheios-panel-left',
-    right: 'alpheios-panel-right'
-  },
 
   computed: {
-    rootClasses () {
-      return [this.$options.positionClassVariants[this.panelPosition]]
-    },
     mainstyles: function () {
       this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
       return {
