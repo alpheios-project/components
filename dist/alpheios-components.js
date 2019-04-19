@@ -14092,6 +14092,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -23055,13 +23064,23 @@ var render = function() {
               expression: "$store.state.auth.notification.text"
             }
           ],
-          staticClass: "alpheios-user-auth__notifications"
+          staticClass:
+            "alpheios-user-auth__notifications alpheios-notification-area__notification"
         },
         [
+          _c("div", {
+            staticClass: "alpheios-notification-area__msg",
+            domProps: {
+              innerHTML: _vm._s(
+                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
+              )
+            }
+          }),
+          _vm._v(" "),
           _c(
-            "span",
+            "div",
             {
-              staticClass: "alpheios-user-auth__notifications-close-btn",
+              staticClass: "alpheios-notification-area__close-btn",
               on: {
                 click: function($event) {
                   return _vm.$store.commit("auth/resetNotification")
@@ -23070,15 +23089,7 @@ var render = function() {
             },
             [_c("close-icon")],
             1
-          ),
-          _vm._v(" "),
-          _c("span", {
-            domProps: {
-              innerHTML: _vm._s(
-                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
-              )
-            }
-          })
+          )
         ]
       ),
       _vm._v(" "),
