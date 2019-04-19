@@ -11861,58 +11861,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -11981,12 +11929,6 @@ __webpack_require__.r(__webpack_exports__);
       lookupVisible: false,
       contentVisible: false,
 
-      // Initial position of a toolbar, in pixels. Need this as variable for positioning calculations
-      initial: {
-        top: 10,
-        right: 15
-      },
-
       // How much a toolbar has been dragged from its initial position, in pixels
       shift: {
         x: 0,
@@ -11996,8 +11938,37 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
+    componentStyles: function () {
+      let styles = {
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+      }
+
+      if (this.$store.state.toolbar.initialPos) {
+        if (this.$store.state.toolbar.initialPos.top) {
+          styles.top = `${this.$store.state.toolbar.initialPos.top}px`
+        }
+        if (this.$store.state.toolbar.initialPos.right) {
+          styles.right = `${this.$store.state.toolbar.initialPos.right}px`
+        }
+        if (this.$store.state.toolbar.initialPos.bottom) {
+          styles.bottom = `${this.$store.state.toolbar.initialPos.bottom}px`
+        }
+        if (this.$store.state.toolbar.initialPos.left) {
+          styles.left = `${this.$store.state.toolbar.initialPos.left}px`
+        }
+      }
+      return styles
+    },
+
     isInLeftHalf: function () {
-      return (window.innerWidth / 2 - this.initial.right + this.shift.x < 0)
+      if (this.$store.state.toolbar.initialPos.hasOwnProperty(`right`)) {
+        return (window.innerWidth / 2 - this.$store.state.toolbar.initialPos.right + this.shift.x < 0)
+      } else if (this.$store.state.toolbar.initialPos.hasOwnProperty(`left`)) {
+        return (this.$store.state.toolbar.initialPos.left + this.shift.x < window.innerWidth / 2)
+      } else {
+        // We have no information in which part of the screen the toolbar is, will default to right
+        return false
+      }
     },
 
     positionClass: function () {
@@ -12201,6 +12172,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14092,6 +14073,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -20251,16 +20241,7 @@ var render = function() {
       ],
       staticClass: "alpheios-content alpheios-toolbar alpheios-toolbar--large",
       class: _vm.positionClass,
-      style:
-        "top: " +
-        this.initial.top +
-        "px; right: " +
-        this.initial.right +
-        "px; transform: translate(" +
-        this.shift.x +
-        "px, " +
-        this.shift.y +
-        "px)",
+      style: _vm.componentStyles,
       attrs: { id: "alpheios-toolbar-inner" }
     },
     [
@@ -20423,64 +20404,6 @@ var render = function() {
             "alph-tooltip",
             {
               attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_DEFINITIONS"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("definitions"),
-                    disabled: !_vm.$store.getters["app/defDataReady"]
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("definitions")
-                    }
-                  }
-                },
-                [_c("definitions-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_INFLECT"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("inflections"),
-                    disabled: !_vm.$store.state.app.hasInflData
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("inflections")
-                    }
-                  }
-                },
-                [_c("inflections-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
                 "tooltip-text": _vm.l10n.getText("TOOLTIP_INFLECT_BROWSER"),
                 "tooltip-direction": _vm.tooltipDirection
               }
@@ -20540,35 +20463,6 @@ var render = function() {
             "alph-tooltip",
             {
               attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_TREEBANK"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("treebank"),
-                    disabled: !_vm.$store.getters["app/hasTreebankData"]
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("treebank")
-                    }
-                  }
-                },
-                [_c("treebank-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
                 "tooltip-text": _vm.l10n.getText("TOOLTIP_OPTIONS"),
                 "tooltip-direction": _vm.tooltipDirection
               }
@@ -20617,35 +20511,6 @@ var render = function() {
                   }
                 },
                 [_c("user-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
-                    disabled: !_vm.$store.state.app.wordUsageExampleEnabled
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("wordUsage")
-                    }
-                  }
-                },
-                [_c("word-usage-icon")],
                 1
               )
             ]
@@ -21061,45 +20926,43 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm.$store.state.app.hasInflData
-            ? _c(
-                "div",
+          _c(
+            "div",
+            {
+              directives: [
                 {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.$store.getters["ui/isActiveTab"](
-                        "inflections"
-                      ),
-                      expression:
-                        "$store.getters['ui/isActiveTab']('inflections')"
-                    }
-                  ],
-                  staticClass:
-                    "alpheios-panel__tab-panel alpheios-panel__tab__inflections",
-                  attrs: {
-                    id: _vm.inflectionsPanelID,
-                    "data-alpheios-ignore": "all"
-                  }
-                },
-                [
-                  _c("h1", { staticClass: "alpheios-panel__title" }, [
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(_vm.l10n.getText("TITLE_INFLECTIONS_PANEL")) +
-                        "\n      "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("inflections", {
-                    staticClass: "alpheios-panel-inflections",
-                    on: { contentwidth: _vm.setContentWidth }
-                  })
-                ],
-                1
-              )
-            : _vm._e(),
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.$store.state.app.hasInflData &&
+                    _vm.$store.getters["ui/isActiveTab"]("inflections"),
+                  expression:
+                    "$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections')"
+                }
+              ],
+              staticClass:
+                "alpheios-panel__tab-panel alpheios-panel__tab__inflections",
+              attrs: {
+                id: _vm.inflectionsPanelID,
+                "data-alpheios-ignore": "all"
+              }
+            },
+            [
+              _c("h1", { staticClass: "alpheios-panel__title" }, [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.l10n.getText("TITLE_INFLECTIONS_PANEL")) +
+                    "\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _c("inflections", {
+                staticClass: "alpheios-panel-inflections",
+                on: { contentwidth: _vm.setContentWidth }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -21479,7 +21342,8 @@ var render = function() {
                 }
               ],
               staticClass:
-                "alpheios-panel__tab-panel alpheios-panel__tab__wordlist alpheios-panel__tab-panel--fw"
+                "alpheios-panel__tab-panel alpheios-panel__tab__wordlist alpheios-panel__tab-panel--fw",
+              attrs: { "data-alpheios-ignore": "all" }
             },
             [_c("word-list-panel")],
             1
@@ -22149,14 +22013,7 @@ var render = function() {
               "alpheios-panel__tab-panel alpheios-panel__tab__wordlist alpheios-panel__tab-panel--fw",
             attrs: { "data-alpheios-ignore": "all" }
           },
-          [
-            _c("word-list-panel", {
-              attrs: {
-                updated: _vm.$store.state.app.wordListUpdateTime,
-                wordlistC: _vm.app.wordlistC
-              }
-            })
-          ],
+          [_c("word-list-panel")],
           1
         )
       ]),
@@ -23055,13 +22912,23 @@ var render = function() {
               expression: "$store.state.auth.notification.text"
             }
           ],
-          staticClass: "alpheios-user-auth__notifications"
+          staticClass:
+            "alpheios-user-auth__notifications alpheios-notification-area__notification"
         },
         [
+          _c("div", {
+            staticClass: "alpheios-notification-area__msg",
+            domProps: {
+              innerHTML: _vm._s(
+                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
+              )
+            }
+          }),
+          _vm._v(" "),
           _c(
-            "span",
+            "div",
             {
-              staticClass: "alpheios-user-auth__notifications-close-btn",
+              staticClass: "alpheios-notification-area__close-btn",
               on: {
                 click: function($event) {
                   return _vm.$store.commit("auth/resetNotification")
@@ -23070,15 +22937,7 @@ var render = function() {
             },
             [_c("close-icon")],
             1
-          ),
-          _vm._v(" "),
-          _c("span", {
-            domProps: {
-              innerHTML: _vm._s(
-                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
-              )
-            }
-          })
+          )
         ]
       ),
       _vm._v(" "),
@@ -49295,7 +49154,9 @@ ToolbarModule.store = (moduleInstance) => {
       // Whether a toolbar is shown or hidden
       visible: false,
       // Choose compact or large layout from the value of the `platform` prop of a configuration object
-      layout: moduleInstance.config.platform === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP ? `toolbarLarge` : 'toolbarCompact'
+      layout: moduleInstance.config.platform === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP ? `toolbarLarge` : 'toolbarCompact',
+      // Initial position of a toolbar
+      initialPos: moduleInstance.config.initialPos
     },
     mutations: {
       /**
@@ -49323,7 +49184,14 @@ ToolbarModule._configDefaults = {
   _supportedPlatforms: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.DESKTOP, _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].platforms.MOBILE],
   // A selector that specifies to what DOM element a nav will be mounted.
   // This element will be replaced with the root element of the panel component.
-  mountPoint: '#alpheios-toolbar'
+  mountPoint: '#alpheios-toolbar',
+  // Initial position of a toolbar, in pixels. Any combination of positioning parameters (top, right, bottom, left)
+  // in two different dimensions (X and Y) must be specified. Pixel units should NOT be added to the values.
+  // Default values are the ones below.
+  initialPos: {
+    top: 10,
+    right: 15
+  }
 }
 
 
