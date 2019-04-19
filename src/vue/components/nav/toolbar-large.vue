@@ -65,32 +65,6 @@
       </alph-tooltip>
 
       <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_DEFINITIONS')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <span
-            :class="{ active: $store.getters['ui/isActiveTab']('definitions'), disabled: !$store.getters['app/defDataReady'] }"
-            class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('definitions')"
-          >
-          <definitions-icon/>
-        </span>
-      </alph-tooltip>
-
-      <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_INFLECT')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <span
-            :class="{ active: $store.getters['ui/isActiveTab']('inflections'), disabled: !$store.state.app.hasInflData }"
-            class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('inflections')"
-          >
-          <inflections-icon/>
-        </span>
-      </alph-tooltip>
-
-      <alph-tooltip
           :tooltip-text="l10n.getText('TOOLTIP_INFLECT_BROWSER')"
           :tooltip-direction="tooltipDirection"
       >
@@ -117,19 +91,6 @@
       </alph-tooltip>
 
       <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_TREEBANK')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <span
-            :class="{ active: $store.getters['ui/isActiveTab']('treebank'), disabled: !$store.getters['app/hasTreebankData'] }"
-            class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('treebank')"
-        >
-          <treebank-icon/>
-        </span>
-      </alph-tooltip>
-
-      <alph-tooltip
           :tooltip-text="l10n.getText('TOOLTIP_OPTIONS')"
           :tooltip-direction="tooltipDirection"
       >
@@ -152,19 +113,6 @@
             @click="ui.togglePanelTab('user')"
         >
           <user-icon/>
-        </span>
-      </alph-tooltip>
-
-      <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_WORD_USAGE')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <span
-            :class="{ active: $store.getters['ui/isActiveTab']('wordUsage'), disabled: !$store.state.app.wordUsageExampleEnabled }"
-            class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('wordUsage')"
-        >
-          <word-usage-icon/>
         </span>
       </alph-tooltip>
 
