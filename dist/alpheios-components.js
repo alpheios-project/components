@@ -11861,58 +11861,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -14115,6 +14063,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -14213,7 +14170,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/clear-filters.svg */ "./images/inline-icons/clear-filters.svg");
-/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+/* harmony import */ var _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/inline-icons/go-icon.svg */ "./images/inline-icons/go-icon.svg");
+/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
 //
 //
 //
@@ -14234,6 +14192,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -14243,23 +14228,86 @@ __webpack_require__.r(__webpack_exports__);
   inject: ['app', 'l10n'],
   components: {
     clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
-    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    goIcon: _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    clickedLemma: {
+      type: String,
+      required: false
+    }
   },
   data () {
     return {
       selectedFilterBy: null,
       typeFiltersList: [
-        { value: 'byCurrentSession', title: this.l10n.getText('WORDLIST_FILTER_BYCURRENTSESSION') }
-      ]
+        { value: 'byCurrentSession', title: this.l10n.getText('WORDLIST_FILTER_BYCURRENTSESSION'), onChange: true },
+        { value: 'byImportant', title: this.l10n.getText('WORDLIST_FILTER_BYIMPORTANT'), onChange: true },
+        { value: 'byWordFormFull', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER') 
+        },
+        { value: 'byWordFormPart', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER') 
+        },
+        { value: 'byLemmaFull', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER')
+        },
+        { value: 'byLemmaPart', 
+          title: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART'), 
+          onClick: true, showTextInput: true, 
+          textInputPlaceholder: this.l10n.getText('WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER')
+        }
+      ],
+      textInput: null
+    }
+  },
+  computed: {
+    currentTypeFilter () {
+      return this.selectedFilterBy ? this.typeFiltersList.find(typeFilter => typeFilter.value === this.selectedFilterBy) : null
+    },
+    currentClickedLemma () {
+      if (this.clickedLemma) {
+        this.setClickedLemmaFilter()
+      }
+      return true
     }
   },
   methods: {
     changedFilterBy () {
-      this.$emit('changedFilterBy', this.selectedFilterBy)
+      if (this.currentTypeFilter.onChange) {
+        this.$emit('changedFilterBy', this.selectedFilterBy)
+      } else {
+        this.clearFilteringText()
+      }
+    },
+    clickFilterBy () {
+      if (this.currentTypeFilter.onClick && this.textInput) {
+        this.$emit('changedFilterBy', this.selectedFilterBy, this.textInput)
+      }
     },
     clearFiltering () {
       this.selectedFilterBy = null
-      this.changedFilterBy()
+      this.textInput = null
+      this.clearFilterEvent()
+    },
+    clearFilteringText () {
+      this.textInput = null
+      this.clearFilterEvent()
+    },
+    clearFilterEvent () {
+      this.$emit('changedFilterBy', null)
+    },
+    setClickedLemmaFilter () {
+      this.selectedFilterBy = 'byLemmaFull'
+      this.textInput = this.clickedLemma
+      this.clickFilterBy()
+      this.$emit('clearClickedLemma')
     }
   }
 });
@@ -14281,6 +14329,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_text_quote_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/text-quote.svg */ "./images/inline-icons/text-quote.svg");
 /* harmony import */ var _images_inline_icons_current_session_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/current-session.svg */ "./images/inline-icons/current-session.svg");
 /* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14357,7 +14410,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     lemmasList () {
-      return this.$store.state.app.wordListUpdateTime ? this.worditem.lemmasList : ''
+      return this.$store.state.app.wordListUpdateTime ? this.worditem.lemmasList.split(',') : []
     }
   },
   methods: {
@@ -14376,6 +14429,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showContexts () {
       this.$emit('showContexts', this.worditem.targetWord)
+    },
+    setLemmaFilterByClick(lemma) {
+      this.$emit('setLemmaFilterByClick', lemma)
     }
   }
 });
@@ -14402,6 +14458,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_7__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14490,7 +14551,17 @@ __webpack_require__.r(__webpack_exports__);
     return {
       reloadList: 1,
       showDeleteAllBox: false,
-      selectedFilterBy: null
+      selectedFilterBy: null,
+      textInput: null,
+      clickedLemma: null,
+      filterMethods: {
+        'byCurrentSession': (wordItem) => wordItem.currentSession,
+        'byImportant': (wordItem) => wordItem.important,
+        'byWordFormFull': (wordItem) => wordItem.targetWord.toLowerCase() === this.textInput.toLowerCase(),
+        'byWordFormPart': (wordItem) => wordItem.targetWord.toLowerCase().indexOf(this.textInput.toLowerCase()) > -1,
+        'byLemmaFull': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase() === this.textInput.toLowerCase()),
+        'byLemmaPart': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase().indexOf(this.textInput.toLowerCase()) > -1)
+      }
     }
   },
   computed: {
@@ -14502,8 +14573,10 @@ __webpack_require__.r(__webpack_exports__);
         if (!this.selectedFilterBy) {
           return this.wordlist.values
         }
-        if (this.selectedFilterBy === 'byCurrentSession') {
-          return this.wordlist.values.filter(wordItem => wordItem.currentSession)
+        if (this.filterMethods[this.selectedFilterBy]) {
+          return this.wordlist.values.filter(this.filterMethods[this.selectedFilterBy])
+        } else {
+          console.warn(`The current filter method - ${this.selectedFilterBy} - is not defined, that's why empty result is returned!`)
         }
       }
       return []
@@ -14544,8 +14617,15 @@ __webpack_require__.r(__webpack_exports__);
     showContexts (targetWord) {
       this.$emit('showContexts', targetWord, this.languageCode)
     },
-    changedFilterBy (selectedFilterBy) {
+    changedFilterBy (selectedFilterBy, textInput) {
       this.selectedFilterBy = selectedFilterBy
+      this.textInput = textInput
+    },
+    setLemmaFilterByClick (lemma) {
+      this.clickedLemma = lemma
+    },
+    clearClickedLemma () {
+      this.clickedLemma = null
     }
   }
 });
@@ -20314,64 +20394,6 @@ var render = function() {
             "alph-tooltip",
             {
               attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_DEFINITIONS"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("definitions"),
-                    disabled: !_vm.$store.getters["app/defDataReady"]
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("definitions")
-                    }
-                  }
-                },
-                [_c("definitions-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_INFLECT"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("inflections"),
-                    disabled: !_vm.$store.state.app.hasInflData
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("inflections")
-                    }
-                  }
-                },
-                [_c("inflections-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
                 "tooltip-text": _vm.l10n.getText("TOOLTIP_INFLECT_BROWSER"),
                 "tooltip-direction": _vm.tooltipDirection
               }
@@ -20431,35 +20453,6 @@ var render = function() {
             "alph-tooltip",
             {
               attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_TREEBANK"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("treebank"),
-                    disabled: !_vm.$store.getters["app/hasTreebankData"]
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("treebank")
-                    }
-                  }
-                },
-                [_c("treebank-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
                 "tooltip-text": _vm.l10n.getText("TOOLTIP_OPTIONS"),
                 "tooltip-direction": _vm.tooltipDirection
               }
@@ -20508,35 +20501,6 @@ var render = function() {
                   }
                 },
                 [_c("user-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                "tooltip-text": _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
-                "tooltip-direction": _vm.tooltipDirection
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-navbuttons__btn",
-                  class: {
-                    active: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
-                    disabled: !_vm.$store.state.app.wordUsageExampleEnabled
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.ui.togglePanelTab("wordUsage")
-                    }
-                  }
-                },
-                [_c("word-usage-icon")],
                 1
               )
             ]
@@ -22946,13 +22910,23 @@ var render = function() {
               expression: "$store.state.auth.notification.text"
             }
           ],
-          staticClass: "alpheios-user-auth__notifications"
+          staticClass:
+            "alpheios-user-auth__notifications alpheios-notification-area__notification"
         },
         [
+          _c("div", {
+            staticClass: "alpheios-notification-area__msg",
+            domProps: {
+              innerHTML: _vm._s(
+                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
+              )
+            }
+          }),
+          _vm._v(" "),
           _c(
-            "span",
+            "div",
             {
-              staticClass: "alpheios-user-auth__notifications-close-btn",
+              staticClass: "alpheios-notification-area__close-btn",
               on: {
                 click: function($event) {
                   return _vm.$store.commit("auth/resetNotification")
@@ -22961,15 +22935,7 @@ var render = function() {
             },
             [_c("close-icon")],
             1
-          ),
-          _vm._v(" "),
-          _c("span", {
-            domProps: {
-              innerHTML: _vm._s(
-                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
-              )
-            }
-          })
+          )
         ]
       ),
       _vm._v(" "),
@@ -23131,81 +23097,179 @@ var render = function() {
       _vm._v(_vm._s(_vm.l10n.getText("WORDLIST_FILTER_BY")))
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedFilterBy,
-                expression: "selectedFilterBy"
+    _c("div", [
+      _c(
+        "div",
+        { staticClass: "alpheios-wordlist-header-select-filterBy-block" },
+        [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedFilterBy,
+                  expression: "selectedFilterBy"
+                }
+              ],
+              staticClass:
+                "alpheios-select alpheios-wordlist-header-select-filterBy",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedFilterBy = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.changedFilterBy
+                ]
               }
+            },
+            _vm._l(_vm.typeFiltersList, function(typeFiltering) {
+              return _c(
+                "option",
+                {
+                  key: typeFiltering.value,
+                  domProps: { value: typeFiltering.value }
+                },
+                [_vm._v(_vm._s(typeFiltering.title))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsg("WORDLIST_FILTER_CLEAR"),
+                tooltipDirection: "top-right"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-wordlist-header-clear-icon",
+                  class: {
+                    "alpheios-wordlist-header-clear-disabled":
+                      _vm.selectedFilterBy === null
+                  },
+                  on: { click: _vm.clearFiltering }
+                },
+                [_c("clear-filters-icon")],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.currentClickedLemma &&
+      _vm.currentTypeFilter &&
+      _vm.currentTypeFilter.showTextInput
+        ? _c(
+            "div",
+            { staticClass: "alpheios-wordlist-header-input-filterBy-block" },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.textInput,
+                    expression: "textInput"
+                  }
+                ],
+                staticClass:
+                  "alpheios-input alpheios-wordlist-header-input-filterBy",
+                attrs: {
+                  placeholder: _vm.currentTypeFilter.textInputPlaceholder
+                },
+                domProps: { value: _vm.textInput },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.clickFilterBy($event)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.textInput = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "alph-tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsg("WORDLIST_FILTER"),
+                    tooltipDirection: "top-right"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-wordlist-header-clear-icon",
+                      class: {
+                        "alpheios-wordlist-header-clear-disabled":
+                          _vm.textInput === null
+                      },
+                      on: { click: _vm.clickFilterBy }
+                    },
+                    [_c("go-icon")],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "alph-tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsg("WORDLIST_FILTER_CLEAR"),
+                    tooltipDirection: "top-right"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-wordlist-header-clear-icon",
+                      class: {
+                        "alpheios-wordlist-header-clear-disabled":
+                          _vm.textInput === null
+                      },
+                      on: { click: _vm.clearFilteringText }
+                    },
+                    [_c("clear-filters-icon")],
+                    1
+                  )
+                ]
+              )
             ],
-            staticClass:
-              "alpheios-select alpheios-wordlist-header-select-filterBy",
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selectedFilterBy = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                _vm.changedFilterBy
-              ]
-            }
-          },
-          _vm._l(_vm.typeFiltersList, function(typeFiltering) {
-            return _c(
-              "option",
-              {
-                key: typeFiltering.value,
-                domProps: { value: typeFiltering.value }
-              },
-              [_vm._v(_vm._s(typeFiltering.title))]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c(
-          "alph-tooltip",
-          {
-            attrs: {
-              tooltipText: _vm.l10n.getMsg("WORDLIST_FILTER_CLEAR"),
-              tooltipDirection: "top-right"
-            }
-          },
-          [
-            _c(
-              "span",
-              {
-                staticClass: "alpheios-wordlist-header-clear-icon",
-                class: {
-                  "alpheios-wordlist-header-clear-disabled":
-                    _vm.selectedFilterBy === null
-                },
-                on: { click: _vm.clearFiltering }
-              },
-              [_c("clear-filters-icon")],
-              1
-            )
-          ]
-        )
-      ],
-      1
-    )
+            1
+          )
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -23359,7 +23423,26 @@ var render = function() {
         {
           staticClass: "alpheios-worditem__data alpheios-worditem__lemmasList"
         },
-        [_vm._v(_vm._s(_vm.lemmasList))]
+        _vm._l(_vm.lemmasList, function(lemma, lemmaIndex) {
+          return _c(
+            "span",
+            {
+              staticClass: "alpheios-worditem__lemmasList-lemmaitem",
+              on: {
+                click: function($event) {
+                  return _vm.setLemmaFilterByClick(lemma)
+                }
+              }
+            },
+            [
+              _vm._v(_vm._s(lemma)),
+              lemmaIndex < _vm.lemmasList.length - 1
+                ? _c("span", [_vm._v(", ")])
+                : _vm._e()
+            ]
+          )
+        }),
+        0
       )
     ],
     1
@@ -23561,7 +23644,11 @@ var render = function() {
         { staticClass: "alpheios-wordlist-filter-panel" },
         [
           _c("word-filter-panel", {
-            on: { changedFilterBy: _vm.changedFilterBy }
+            attrs: { clickedLemma: _vm.clickedLemma },
+            on: {
+              changedFilterBy: _vm.changedFilterBy,
+              clearClickedLemma: _vm.clearClickedLemma
+            }
           })
         ],
         1
@@ -23577,7 +23664,8 @@ var render = function() {
               on: {
                 changeImportant: _vm.changeImportant,
                 deleteItem: _vm.deleteItem,
-                showContexts: _vm.showContexts
+                showContexts: _vm.showContexts,
+                setLemmaFilterByClick: _vm.setLemmaFilterByClick
               }
             })
           ],
@@ -37915,6 +38003,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./images/inline-icons/go-icon.svg":
+/*!*****************************************!*\
+  !*** ./images/inline-icons/go-icon.svg ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1000 1000"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M10 500c0 270.6 219.4 490 490 490s490-219.4 490-490c0-270.7-219.4-490-490-490S10 229.3 10 500zm61.3 0c0-236.8 192-428.8 428.8-428.8 236.9 0 428.8 192 428.8 428.8 0 236.7-191.9 428.8-428.8 428.8-236.8 0-428.8-192.1-428.8-428.8z"}}),_c('path',{attrs:{"d":"M211 454.1h490V546H211v-91.9z"}}),_c('path',{attrs:{"d":"M452.2 285.6h122.5l214.4 219-214.4 209.8H452.2l214.4-209.8-214.4-219z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
 /***/ "./images/inline-icons/inflections-browser.svg":
 /*!*****************************************************!*\
   !*** ./images/inline-icons/inflections-browser.svg ***!
@@ -44279,10 +44407,10 @@ module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Decle
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-word-list.json ***!
   \***********************************************/
-/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_CURRENT_SESSION, default */
+/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, default */
 /***/ (function(module) {
 
-module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"This session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"}};
+module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"by this session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BYIMPORTANT":{"message":"by important","description":"Filter only those words that has an important flag","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL":{"message":"by word form (full)","description":"Filter only those words that has this word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART":{"message":"by word form (part)","description":"Filter only those words that has this part of word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL":{"message":"by lemma (full)","description":"Filter only those words that has this lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART":{"message":"by lemma (part)","description":"Filter only those words that has this part of lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER":{"message":"type full word form here","description":"Placeholder for the text input for filter by word form (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER":{"message":"type part of word form here","description":"Placeholder for the text input for filter by word form (part)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER":{"message":"type full lemma here","description":"Placeholder for the text input for filter by lemma (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER":{"message":"type part of lemma here","description":"Placeholder for the text input for filter by lemma (part)","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_FILTER":{"message":"Filter","description":"Tooltip for filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"}};
 
 /***/ }),
 
