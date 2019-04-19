@@ -128,9 +128,13 @@ export default class HTMLPage {
    * Determines what version of a UI shall be used.
    * @return {string} - A name of one of the platforms defined in HTMLPage.platforms.
    */
-  static getPlatform () {
+  static getPlatformType () {
     const screenWidthThreshold = 720
     return window.screen.width <= screenWidthThreshold ? HTMLPage.platforms.MOBILE : HTMLPage.platforms.DESKTOP
+  }
+
+  static getOrientation () {
+    return (window.screen.width <= window.screen.height) ? HTMLPage.orientations.PORTRAIT : HTMLPage.orientations.LANDSCAPE
   }
 }
 
@@ -164,4 +168,12 @@ HTMLPage.platforms = {
    * Indicates a platform agnostic value.
    */
   ANY: 'any'
+}
+
+/**
+ * Constants for screen orientations.
+ */
+HTMLPage.orientations = {
+  PORTRAIT: 'portrait',
+  LANDSCAPE: 'landscape'
 }

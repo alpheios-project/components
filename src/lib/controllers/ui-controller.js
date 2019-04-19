@@ -91,7 +91,7 @@ export default class UIController {
      * A name of the platform (mobile/desktop) UI controller is running within.
      * @type {string} - A platform name from {HTMLPage.platforms}
      */
-    this.platform = HTMLPage.getPlatform()
+    this.platform = HTMLPage.getPlatformType()
     // Assign a class that will specify what type of layout will be used
     const layoutClassName = (this.platform === HTMLPage.platforms.MOBILE)
       ? layoutClasses.COMPACT
