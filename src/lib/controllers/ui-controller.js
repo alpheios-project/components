@@ -340,6 +340,7 @@ export default class UIController {
     container.outerHTML = this.options.template.html
 
     await Promise.all(optionLoadPromises)
+    // All options has been loaded after this point
 
     /**
      * This is a settings API. It exposes different options to modules and UI components.
@@ -690,6 +691,11 @@ export default class UIController {
     }
 
     this.createModules()
+
+    // Adjust configuration of modules according to content options
+    if (this.hasModule('panel')) {
+      this.store.commit('panel/setPosition', this.contentOptions.items.panelPosition.currentValue)
+    }
 
     const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
     this.updateLanguage(currentLanguageID)
@@ -1379,6 +1385,9 @@ export default class UIController {
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
+        break
+      case 'panelPosition':
+        this.store.commit('panel/setPosition', this.api.settings.contentOptions.items.panelPosition.currentValue)
         break
     }
   }

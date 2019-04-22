@@ -585,6 +585,10 @@ export default {
     box-sizing: border-box;
     overflow: auto;
     @include alpheios-border;
+
+    & .alpheios-notification-area {
+      padding-top: 0;
+    }
   }
 
   .alpheios-popup__header {

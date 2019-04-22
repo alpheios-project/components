@@ -37,7 +37,11 @@ PanelModule.store = (moduleInstance) => {
       // Whether a panel is shown or hidden
       visible: false,
       // Choose mobile or desktop layout from the value of the `platform` prop of a configuration object
-      layout: moduleInstance.config.platform === HTMLPage.deviceTypes.DESKTOP ? `panel` : 'compactPanel'
+      layout: moduleInstance.config.platform.isDesktop ? `panel` : 'compactPanel',
+      // Where a panel is located. Possible values are `left` or `right`.
+      position: 'left',
+      // Device orientation
+      orientation: moduleInstance.config.platform.orientation
     },
     mutations: {
       /**
@@ -58,6 +62,10 @@ PanelModule.store = (moduleInstance) => {
 
       setPanelLayout (state, layout) {
         state.layout = layout
+      },
+
+      setPosition (state, position) {
+        state.position = position
       }
     }
   }
