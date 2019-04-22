@@ -464,7 +464,6 @@ export default {
        * It seems that calling it even without `nextTick()` is enough for updating a popup dimensions.
        */
     updatePopupDimensions () {
-      console.info(`update popup dimensions has been called`)
       let time = Date.now()
 
       if (this.resizeCount >= this.resizeCountMax) {
@@ -528,18 +527,6 @@ export default {
         .on('resizemove', this.resizeListener)
     }
 
-    // Updated popup dimensions when its visibility is updated
-    /* this.$options.visibleUnwatch = this.$store.watch((state) => state.popup.visible, (oldValue, newValue) => {
-      console.info(`Popup visibility change, oldValue is ${oldValue}, new value is ${newValue}`)
-      if (newValue) {
-        // A popup became visible
-        this.updatePopupDimensions()
-      } else {
-        // A popup became invisible
-        this.resetPopupDimensions()
-      }
-    }) */
-
     this.$options.lexrqStartedUnwatch = this.$store.watch((state, getters) => state.app.lexicalRequest.startTime, () => {
       // There is a new request coming in, reset popup dimensions
       this.resetPopupDimensions()
@@ -554,7 +541,6 @@ export default {
   },
 
   updated () {
-    console.info(`Updated callback`)
     if (this.$store.state.popup.visible) {
       let time = Date.now()
       this.logger.log(`${time}: component is updated`)
