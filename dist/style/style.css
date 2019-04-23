@@ -2336,9 +2336,9 @@ h3.alpheios-inflections__credits-title {
   flex-direction: row;
   line-height: normal;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
 }
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
+.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item_targetword {
   color: var(--alpheios-highlight-dark-color);
 }
 .alpheios_word_usage_list_item__text_targetword {

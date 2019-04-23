@@ -70,35 +70,33 @@ export default {
         flex-direction: column;
         padding: 10px 0;
         border-bottom: 1px solid var(--alpheios-border-color);
-    }
 
-    .alpheios_word_usage_list_item__text {
+      &__text {
         display: flex;
         flex-direction: row;
         line-height: normal;
         justify-content: center;
-        align-items: center;
-    }
+        align-items: baseline;
+      }
 
-    .alpheios_word_usage_list_item
-    .alpheios_word_usage_list_item__text
-    .alpheios_word_usage_list_item__text_targetword {
+      & &__text &__targetword {
         color: var(--alpheios-highlight-dark-color);
-    }
+      }
 
-    .alpheios_word_usage_list_item__text_targetword {
+      &__text_targetword {
         padding: 0 10px;
         font-weight: 700;
         text-align: center;
-    }
+      }
 
-    .alpheios_word_usage_list_item__text_prefix {
+      &__text_prefix {
         text-align: center;
         padding-left: 4px;
-    }
+      }
 
-    .alpheios_word_usage_list_item__text_suffix {
+      &__text_suffix {
         text-align: center;
+      }
     }
 
     .alpheios_word_usage_list_item
