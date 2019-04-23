@@ -690,6 +690,25 @@ export default class UIController {
       resourceSettingChange: this.resourceSettingChange.bind(this)
     }
 
+    // Set options of modules before modules are created
+    if (this.hasModule('popup')) {
+      let popupOptions = this.modules.get('popup').options
+      popupOptions.positioning = this.contentOptions.items.popupPosition.currentValue
+      popupOptions.initialShift = {
+        x: this.contentOptions.items.popupShiftX.currentValue,
+        y: this.contentOptions.items.popupShiftY.currentValue
+      }
+    }
+
+    if (this.hasModule('toolbar')) {
+      let toolbarOptions = this.modules.get('toolbar').options
+      toolbarOptions.initialShift = {
+        x: this.contentOptions.items.toolbarShiftX.currentValue,
+        y: this.contentOptions.items.toolbarShiftY.currentValue
+      }
+    }
+
+    // Create all registered modules
     this.createModules()
 
     // Adjust configuration of modules according to content options
@@ -1388,6 +1407,9 @@ export default class UIController {
         break
       case 'panelPosition':
         this.store.commit('panel/setPosition', this.api.settings.contentOptions.items.panelPosition.currentValue)
+        break
+      case 'popupPosition':
+        this.store.commit('popup/setPositioning', this.api.settings.contentOptions.items.popupPosition.currentValue)
         break
     }
   }
