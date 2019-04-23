@@ -13679,17 +13679,6 @@ __webpack_require__.r(__webpack_exports__);
         .on('resizemove', this.resizeListener)
     }
 
-    // Updated popup dimensions when its visibility is updated
-    this.$options.visibleUnwatch = this.$store.watch((state) => state.popup.visible, (oldValue, newValue) => {
-      if (newValue) {
-        // A popup became visible
-        this.updatePopupDimensions()
-      } else {
-        // A popup became invisible
-        this.resetPopupDimensions()
-      }
-    })
-
     this.$options.lexrqStartedUnwatch = this.$store.watch((state, getters) => state.app.lexicalRequest.startTime, () => {
       // There is a new request coming in, reset popup dimensions
       this.resetPopupDimensions()
@@ -13699,7 +13688,7 @@ __webpack_require__.r(__webpack_exports__);
 
   beforeDestroy () {
     // Teardown the watch function
-    this.$options.visibleUnwatch()
+    // this.$options.visibleUnwatch()
     this.$options.lexrqStartedUnwatch()
   },
 
