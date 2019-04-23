@@ -2,7 +2,7 @@
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})</div>
     <div class="alpheios-word-usage-header" data-alpheios-ignore="all" v-show="showHeader">
-      <word-usage-examples-filters 
+      <word-usage-examples-filters
         @filterCurrentByAuthor = "filterCurrentByAuthor"
         @getMoreResults = "getMoreResults"
         @getAllResults = "getAllResults"
@@ -12,6 +12,36 @@
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
+        Alternative table
+        <div class="alpheios-word-usage__examples">
+          <template
+              v-for="wordUsageItem in wordUsageListSorted"
+              :wordUsageItem="wordUsageItem"
+          >
+            <a
+                class="alpheios-word-usage__examples-source-link"
+                :href="wordUsageItem.source"
+                target="_blank"
+            >
+              {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
+            </a>
+            <div
+                class="alpheios-word-usage__examples-pre"
+            >
+              {{ wordUsageItem.prefix }}
+            </div>
+            <div
+                class="alpheios-word-usage__examples-target-word"
+                v-html="wordUsageItem.normalizedText"
+            />
+            <div
+                class="alpheios-word-usage__examples-post"
+            >
+              {{ wordUsageItem.suffix }}
+            </div>
+          </template>
+        </div>
+        Original table
         <word-usage-examples-item
             v-for="wordUsageItem in wordUsageListSorted"
             v-bind:key="wordUsageItem.ID"
@@ -61,7 +91,7 @@ export default {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeader () {
-      return Boolean(this.selectedAuthor) || 
+      return Boolean(this.selectedAuthor) ||
              this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
              !this.showWordUsageExampleItems
     },
@@ -211,5 +241,45 @@ export default {
       fill: var(--alpheios-text-color);
     }
 
+    &__examples {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      grid-auto-rows: auto;
+    }
+
+    a#{&}__examples-source-link {
+      grid-column: 1/4;
+      color: var(--alpheios-link-color-on-light);
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
+
+    &__examples-pre,
+    &__examples-target-word,
+    &__examples-post {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--alpheios-border-color);
+    }
+
+    &__examples-pre {
+      grid-column: 1;
+      text-align: right;
+      border-bottom: 1px solid var(--alpheios-border-color);
+    }
+
+    &__examples-target-word {
+      grid-column: 2;
+      text-align: center;
+      padding: 0 5px;
+      color: var(--alpheios-highlight-dark-color);
+      font-weight: 700;
+      border-bottom: 1px solid var(--alpheios-border-color);
+    }
+
+    &__examples-post {
+      grid-column: 3;
+      text-align: left;
+      border-bottom: 1px solid var(--alpheios-border-color);
+    }
   }
 </style>

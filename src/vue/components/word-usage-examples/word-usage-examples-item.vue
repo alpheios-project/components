@@ -70,33 +70,35 @@ export default {
         flex-direction: column;
         padding: 10px 0;
         border-bottom: 1px solid var(--alpheios-border-color);
+    }
 
-      &__text {
+    .alpheios_word_usage_list_item__text {
         display: flex;
         flex-direction: row;
         line-height: normal;
         justify-content: center;
-        align-items: baseline;
-      }
+        align-items: center;
+    }
 
-      & &__text &__targetword {
+    .alpheios_word_usage_list_item
+    .alpheios_word_usage_list_item__text
+    .alpheios_word_usage_list_item__text_targetword {
         color: var(--alpheios-highlight-dark-color);
-      }
+    }
 
-      &__text_targetword {
+    .alpheios_word_usage_list_item__text_targetword {
         padding: 0 10px;
         font-weight: 700;
         text-align: center;
-      }
+    }
 
-      &__text_prefix {
+    .alpheios_word_usage_list_item__text_prefix {
         text-align: center;
         padding-left: 4px;
-      }
+    }
 
-      &__text_suffix {
+    .alpheios_word_usage_list_item__text_suffix {
         text-align: center;
-      }
     }
 
     .alpheios_word_usage_list_item
@@ -105,6 +107,15 @@ export default {
       .alpheios_word_usage_list_item__text_suffix {
         font-size: 85%;
         width: 40%;
+        white-space: nowrap;
+      }
+
+      .alpheios_word_usage_list_item__text_prefix {
+        text-align: right;
+      }
+
+      .alpheios_word_usage_list_item__text_suffix {
+        text-align: left;
       }
     }
 

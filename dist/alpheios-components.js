@@ -15201,6 +15201,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15234,7 +15264,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeader () {
-      return Boolean(this.selectedAuthor) || 
+      return Boolean(this.selectedAuthor) ||
              this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
              !this.showWordUsageExampleItems
     },
@@ -24356,13 +24386,86 @@ var render = function() {
           _vm.wordUsageListSorted.length > 0
             ? _c(
                 "div",
-                _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
-                  return _c("word-usage-examples-item", {
-                    key: wordUsageItem.ID,
-                    attrs: { wordUsageItem: wordUsageItem }
+                [
+                  _vm._v("\n      Alternative table\n      "),
+                  _c(
+                    "div",
+                    { staticClass: "alpheios-word-usage__examples" },
+                    [
+                      _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                        return [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "alpheios-word-usage__examples-source-link",
+                              attrs: {
+                                href: wordUsageItem.source,
+                                target: "_blank"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(
+                                    wordUsageItem.cit +
+                                      " " +
+                                      wordUsageItem.fullCit()
+                                  ) +
+                                  "\n          "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "alpheios-word-usage__examples-pre"
+                            },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(wordUsageItem.prefix) +
+                                  "\n          "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass:
+                              "alpheios-word-usage__examples-target-word",
+                            domProps: {
+                              innerHTML: _vm._s(wordUsageItem.normalizedText)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "alpheios-word-usage__examples-post"
+                            },
+                            [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(wordUsageItem.suffix) +
+                                  "\n          "
+                              )
+                            ]
+                          )
+                        ]
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v("\n      Original table\n      "),
+                  _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                    return _c("word-usage-examples-item", {
+                      key: wordUsageItem.ID,
+                      attrs: { wordUsageItem: wordUsageItem }
+                    })
                   })
-                }),
-                1
+                ],
+                2
               )
             : _c("div", [
                 _vm._v(
@@ -37943,7 +38046,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -38143,7 +38246,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 25 21"}, attrs),
               ...rest,
             },
-            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])
+            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005","stroke-width":".794"}})])])
           )
         }
       });
