@@ -12,19 +12,34 @@
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <div v-if="wordUsageListSorted.length > 0">
-        Alternative table
-        <div class="alpheios-word-usage__examples">
+        <div
+            class="alpheios-word-usage__examples-show-sources-btn alpheios-button-primary"
+            @click="changeShowDataSource"
+        >
+          {{ l10n.getText('WORDUSAGE_SHOw_SOURCE_LINKS') }}
+        </div>
+        <div
+            class="alpheios-word-usage__examples"
+            :class="{'alpheios-word-usage__examples--sources-visible': showDataSource}"
+        >
           <template
               v-for="wordUsageItem in wordUsageListSorted"
               :wordUsageItem="wordUsageItem"
           >
             <a
-                class="alpheios-word-usage__examples-source-link"
+                class="alpheios-word-usage__examples-source-link-large"
                 :href="wordUsageItem.source"
                 target="_blank"
             >
               {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
             </a>
+            <div
+                class="alpheios-word-usage__examples-source-toggle"
+            >
+              <source-icon
+                  @click="changeShowDataSource(wordUsageItem)"
+              />
+            </div>
             <div
                 class="alpheios-word-usage__examples-pre"
             >
@@ -39,6 +54,14 @@
             >
               {{ wordUsageItem.suffix }}
             </div>
+            <a
+                class="alpheios-word-usage__examples-source-link-compact"
+                :href="wordUsageItem.source"
+                target="_blank"
+                v-show="showDataSource"
+            >
+              {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
+            </a>
           </template>
         </div>
         Original table
@@ -80,7 +103,9 @@ export default {
       sortBy: null,
       selectedAuthor: null,
       selectedTextWork: null,
-      needInnerFilter: false
+      needInnerFilter: false,
+      // Whether to show reference links on mobile layout or not
+      showDataSource: false
     }
   },
   computed: {
@@ -175,6 +200,9 @@ export default {
         }
         return 0
       })
+    },
+    changeShowDataSource () {
+      this.showDataSource = !this.showDataSource
     }
   },
   mounted () {
@@ -247,16 +275,25 @@ export default {
       grid-auto-rows: auto;
     }
 
-    a#{&}__examples-source-link {
+    &__examples-show-sources-btn {
+      margin: 40px 0  20px;
+    }
+
+    .alpheios-panel--large &__examples-show-sources-btn {
+      display: none;
+    }
+
+    a#{&}__examples-source-link-large {
       grid-column: 1/4;
       color: var(--alpheios-link-color-on-light);
       padding-top: 10px;
       padding-bottom: 5px;
     }
 
-    &__examples-pre,
-    &__examples-target-word,
-    &__examples-post {
+    a#{&}__examples-source-link-compact {
+      grid-column: 1/4;
+      color: var(--alpheios-link-color-on-light);
+      padding-top: 5px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--alpheios-border-color);
     }
@@ -270,7 +307,7 @@ export default {
     &__examples-target-word {
       grid-column: 2;
       text-align: center;
-      padding: 0 5px;
+      padding: 0 3px;
       color: var(--alpheios-highlight-dark-color);
       font-weight: 700;
       border-bottom: 1px solid var(--alpheios-border-color);
@@ -280,6 +317,24 @@ export default {
       grid-column: 3;
       text-align: left;
       border-bottom: 1px solid var(--alpheios-border-color);
+    }
+
+    &__examples-pre,
+    &__examples-target-word,
+    &__examples-post {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--alpheios-border-color);
+    }
+
+    &__examples--sources-visible &__examples-pre,
+    &__examples--sources-visible &__examples-target-word,
+    &__examples--sources-visible &__examples-post {
+      padding-bottom: 5px;
+      border-bottom: none;
+    }
+
+    .alpheios-panel--compact &__examples-source-link-large {
+      display: none;
     }
   }
 </style>
