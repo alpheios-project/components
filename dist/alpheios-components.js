@@ -48624,7 +48624,7 @@ AuthModule.store = (moduleInstance) => {
       },
       externalLoginUrl: moduleInstance._externalLoginUrl,
       externalLogoutUrl: moduleInstance._externalLogoutUrl,
-      enableLogin: !!moduleInstance._auth // don't enable login if we have no auth object
+      enableLogin: Boolean(moduleInstance._auth) // don't enable login if we have no auth object
     },
     mutations: {
       setIsAuthenticated: (state, profile) => {
@@ -48707,9 +48707,6 @@ AuthModule.api = (moduleInstance, store) => {
           reject(new Error('Authentication is not enabled'))
         }
       })
-    },
-    getLoginLink: () => {
-
     }
   }
 }
