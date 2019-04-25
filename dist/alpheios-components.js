@@ -12116,13 +12116,9 @@ __webpack_require__.r(__webpack_exports__);
         : undefined
     },
 
-    // TODO: right now this prop sets a condition for displaying both the notification message and the login button.
-    //       However, sometimes we cannot obtain the login URL and thus cannot show the button.
-    //       Need to think how to handle such situations gracefully.
     showLoginNotification () {
       return Boolean(
         this.$store.state.auth.notification.visible &&
-        this.$store.state.auth.notification.showLogin &&
         (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
       )
     }
@@ -39851,6 +39847,7 @@ class UIController {
     this.resetInflData()
     this.store.commit('ui/resetNotification')
     this.store.commit('ui/resetMessages')
+    this.store.commit('auth/resetNotification')
 
     // Set new data values
     this.store.commit(`app/setTextData`, { text: targetWord, languageID: languageID })
