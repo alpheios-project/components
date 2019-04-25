@@ -12689,7 +12689,6 @@ __webpack_require__.r(__webpack_exports__);
         .on('resizemove', event => {
           let target = event.target
           // Indicate that panel received a custom size
-          console.info(`resizemove`)
           this.resized = true
           // update the element's style
           target.style.width = `${event.rect.width}px`
