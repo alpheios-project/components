@@ -676,7 +676,6 @@ export default {
     position: relative;
     background: var(--alpheios-color-neutral-lightest);
     padding-top: uisize(20px);
-    max-width: 1000px;
 
     [data-resized="true"] & {
       max-width: none;
@@ -699,6 +698,10 @@ export default {
     padding: 20px;
     flex: 1 1 auto;
     box-sizing: border-box;
+  }
+
+  .alpheios-panel__tab-panel--scroll {
+    overflow: auto;
   }
 
   .alpheios-panel__tab-panel--no-padding {

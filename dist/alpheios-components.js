@@ -21769,7 +21769,8 @@ var render = function() {
                 expression: "$store.getters['ui/isActiveTab']('wordUsage')"
               }
             ],
-            staticClass: "alpheios-panel__tab-panel"
+            staticClass:
+              "alpheios-panel__tab-panel alpheios-panel__tab-panel--scroll"
           },
           [_c("word-usage-examples")],
           1

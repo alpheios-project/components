@@ -2778,7 +2778,6 @@ h3.alpheios-inflections__credits-title {
   position: relative !important;
   background: var(--alpheios-color-neutral-lightest) !important;
   padding-top: calc(var(--alpheios-base-ui-size) * 1.25) !important;
-  max-width: 1000px !important;
 }
 [data-resized=true] .alpheios-panel__content {
   max-width: none !important;
@@ -2797,6 +2796,9 @@ h3.alpheios-inflections__credits-title {
   padding: 20px !important;
   flex: 1 1 auto !important;
   box-sizing: border-box !important;
+}
+.alpheios-panel__tab-panel--scroll {
+  overflow: auto !important;
 }
 .alpheios-panel__tab-panel--no-padding {
   padding: 0 !important;
@@ -2885,12 +2887,15 @@ h3.alpheios-inflections__credits-title {
   height: 100vh !important;
   top: 0 !important;
 }
-.alpheios-panel__header-logo {
-  width: calc(var(--alpheios-base-ui-size) * 2.75) !important;
-  height: auto !important;
+.alpheios-panel--large .alpheios-panel__content {
+  max-width: 80vw !important;
 }
 .alpheios-panel--large .alpheios-navbuttons__btn svg {
   width: calc(var(--alpheios-base-ui-size) * 1.75) !important;
+}
+.alpheios-panel__header-logo {
+  width: calc(var(--alpheios-base-ui-size) * 2.75) !important;
+  height: auto !important;
 }
 .alpheios-navbuttons__btn--attach {
   stroke-width: 2.5 !important;

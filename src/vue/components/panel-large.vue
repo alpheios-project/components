@@ -139,7 +139,7 @@
       </div>
 
       <div
-          class="alpheios-panel__tab-panel"
+          class="alpheios-panel__tab-panel alpheios-panel__tab-panel--scroll"
           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
         >
         <word-usage-examples/>
@@ -355,19 +355,21 @@ export default {
   .alpheios-panel--large {
     height: 100vh;
     top: 0;
-  }
 
-  .alpheios-panel__header-logo {
-    width: uisize(44px);
-    height: auto;
-  }
+    & .alpheios-panel__content {
+      max-width: 80vw;
+    }
 
-  .alpheios-panel--large {
     .alpheios-navbuttons__btn {
       svg {
         width: uisize(28px);
       }
     }
+  }
+
+  .alpheios-panel__header-logo {
+    width: uisize(44px);
+    height: auto;
   }
 
   .alpheios-navbuttons__btn--attach {
