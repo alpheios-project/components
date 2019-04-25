@@ -2544,7 +2544,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples-post {
   padding-bottom: 10px !important;
   border-bottom: 1px solid var(--alpheios-border-color) !important;
-  white-space: nowrap !important;
+  /*white-space: nowrap;*/
 }
 .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-post {
   padding-bottom: 5px !important;
@@ -2787,9 +2787,12 @@ h3.alpheios-inflections__credits-title {
   opacity: 0.95 !important;
   direction: ltr !important;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: min-content;
   grid-template-rows: calc(var(--alpheios-base-ui-size) * 3.5) 1fr min-content !important;
   grid-template-areas: "header" "content" "notifications" !important;
+}
+.alpheios-panel[data-resized=true] {
+  grid-template-columns: auto;
 }
 .alpheios-panel__header {
   position: relative !important;
@@ -2849,6 +2852,10 @@ h3.alpheios-inflections__credits-title {
   position: relative !important;
   background: var(--alpheios-color-neutral-lightest) !important;
   padding-top: calc(var(--alpheios-base-ui-size) * 1.25) !important;
+  max-width: 1000px !important;
+}
+[data-resized=true] .alpheios-panel__content {
+  max-width: none !important;
 }
 .alpheios-panel__title {
   text-transform: capitalize !important;

@@ -5,6 +5,7 @@
       class="alpheios-panel alpheios-panel--large alpheios-content"
       data-component="alpheios-panel"
       data-resizable="true"
+      :data-resized="resized"
       id="alpheios-panel-inner"
       v-on-clickaway="attachTrackingClick"
       v-show="$store.state.panel.visible"
@@ -323,8 +324,8 @@ export default {
     mainstyles: function () {
       this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
       return {
-        zIndex: this.ui.zIndex,
-        width: `${this.panelWidth}px`
+        zIndex: this.ui.zIndex
+//        width: `${this.panelWidth}px`
       }
     },
 

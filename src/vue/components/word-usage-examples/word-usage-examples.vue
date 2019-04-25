@@ -34,13 +34,6 @@
               {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
             </a>
             <div
-                class="alpheios-word-usage__examples-source-toggle"
-            >
-              <source-icon
-                  @click="changeShowDataSource(wordUsageItem)"
-              />
-            </div>
-            <div
                 class="alpheios-word-usage__examples-pre"
             >
               {{ wordUsageItem.prefix }}
@@ -324,7 +317,7 @@ export default {
     &__examples-post {
       padding-bottom: 10px;
       border-bottom: 1px solid var(--alpheios-border-color);
-      white-space: nowrap;
+      /*white-space: nowrap;*/
     }
 
     &__examples--sources-visible &__examples-pre,

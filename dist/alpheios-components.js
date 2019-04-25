@@ -12548,7 +12548,8 @@ __webpack_require__.r(__webpack_exports__);
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
-      panelWidth: null
+      panelWidth: null,
+      resized: false
     }
   },
 
@@ -12753,6 +12754,9 @@ __webpack_require__.r(__webpack_exports__);
         })
         .on('resizemove', event => {
           let target = event.target
+          // Indicate that panel received a custom size
+          console.info(`resizemove`)
+          this.resized = true
           // update the element's style
           target.style.width = `${event.rect.width}px`
         })
@@ -12777,6 +12781,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/attach-left.svg */ "./images/inline-icons/attach-left.svg");
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+//
 //
 //
 //
@@ -13102,8 +13107,8 @@ __webpack_require__.r(__webpack_exports__);
     mainstyles: function () {
       this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
       return {
-        zIndex: this.ui.zIndex,
-        width: `${this.panelWidth}px`
+        zIndex: this.ui.zIndex
+//        width: `${this.panelWidth}px`
       }
     },
 
@@ -15171,13 +15176,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -21488,6 +21486,7 @@ var render = function() {
       attrs: {
         "data-component": "alpheios-panel",
         "data-resizable": "true",
+        "data-resized": _vm.resized,
         id: "alpheios-panel-inner"
       }
     },
@@ -24466,26 +24465,6 @@ var render = function() {
                                   "\n          "
                               )
                             ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "alpheios-word-usage__examples-source-toggle"
-                            },
-                            [
-                              _c("source-icon", {
-                                on: {
-                                  click: function($event) {
-                                    return _vm.changeShowDataSource(
-                                      wordUsageItem
-                                    )
-                                  }
-                                }
-                              })
-                            ],
-                            1
                           ),
                           _vm._v(" "),
                           _c(

@@ -373,7 +373,8 @@ export default {
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
-      panelWidth: null
+      panelWidth: null,
+      resized: false
     }
   },
 
@@ -578,6 +579,9 @@ export default {
         })
         .on('resizemove', event => {
           let target = event.target
+          // Indicate that panel received a custom size
+          console.info(`resizemove`)
+          this.resized = true
           // update the element's style
           target.style.width = `${event.rect.width}px`
         })
@@ -596,9 +600,13 @@ export default {
     opacity: 0.95;
     direction: ltr;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: min-content;
     grid-template-rows: $alpheios-toolbar-height 1fr min-content;
     grid-template-areas: "header" "content" "notifications";
+
+    &[data-resized="true"] {
+      grid-template-columns: auto;
+    }
   }
 
   .alpheios-panel__header {
@@ -668,6 +676,11 @@ export default {
     position: relative;
     background: var(--alpheios-color-neutral-lightest);
     padding-top: uisize(20px);
+    max-width: 1000px;
+
+    [data-resized="true"] & {
+      max-width: none;
+    }
   }
 
   .alpheios-panel__title {
