@@ -766,9 +766,13 @@ export default {
   // Special styles for compact panel
   .alpheios-panel--compact {
     height: 50vh;
-    width: 100%;
+    width: 100vw;
     left: 0;
     bottom: 0;
+
+    &.alpheios-panel {
+      grid-template-columns: auto;
+    }
 
     &.alpheios-panel--left {
       height: 100vh;

@@ -2325,81 +2325,6 @@ h3.alpheios-inflections__credits-title {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
-.alpheios_word_usage_list_item {
-  display: flex;
-  flex-direction: column !important;
-  padding: 10px 0 !important;
-  border-bottom: 1px solid var(--alpheios-border-color) !important;
-}
-.alpheios_word_usage_list_item__text {
-  display: flex;
-  flex-direction: row !important;
-  line-height: normal !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_targetword {
-  color: var(--alpheios-highlight-dark-color) !important;
-}
-.alpheios_word_usage_list_item__text_targetword {
-  padding: 0 10px !important;
-  font-weight: 700 !important;
-  text-align: center !important;
-}
-.alpheios_word_usage_list_item__text_prefix {
-  text-align: center !important;
-  padding-left: 4px !important;
-}
-.alpheios_word_usage_list_item__text_suffix {
-  text-align: center !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix,
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
-  font-size: 85% !important;
-  width: 40% !important;
-  white-space: nowrap !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_prefix {
-  text-align: right !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__text_suffix {
-  text-align: left !important;
-}
-.alpheios_word_usage_list_item__source-data {
-  width: 100% !important;
-  padding-top: 10px !important;
-}
-.alpheios_word_usage_list_item a.alpheios_word_usage_list_item__source_link {
-  color: var(--alpheios-link-color-on-light) !important;
-  font-size: 95% !important;
-  display: block;
-}
-.alpheios_word_usage_list_item__source-link {
-  display: inline-block;
-  cursor: pointer !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__source-data-title {
-  display: block;
-  width: 100% !important;
-  padding-bottom: 5px !important;
-}
-.alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__source {
-  display: none;
-}
-.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__source-data-title {
-  display: none;
-}
-.alpheios-panel--compact .alpheios_word_usage_list_item .alpheios_word_usage_list_item__text .alpheios_word_usage_list_item__source {
-  display: inline-block;
-}
-/*
- Calculates a size of text elements relative to the base size.
- Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
- */
-/*
- Calculates a size of UI elements relative to the base size.
- Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
- */
 .alpheios-word-usage-header-select-type-filters-block {
   margin-bottom: 10px !important;
 }
@@ -2483,6 +2408,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage .alpheios-word-usage-header-select-textwork,
 .alpheios-word-usage .alpheios-word-usage-header-select-sortBy {
   width: 88% !important;
+  max-width: 400px !important;
 }
 .alpheios-word-usage .alpheios-word-usage-header-clear-icon {
   width: 20px !important;
@@ -2544,7 +2470,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples-post {
   padding-bottom: 10px !important;
   border-bottom: 1px solid var(--alpheios-border-color) !important;
-  /*white-space: nowrap;*/
+  white-space: nowrap !important;
 }
 .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-post {
   padding-bottom: 5px !important;
@@ -2923,9 +2849,12 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel--compact {
   height: 50vh !important;
-  width: 100% !important;
+  width: 100vw !important;
   left: 0 !important;
   bottom: 0 !important;
+}
+.alpheios-panel--compact.alpheios-panel {
+  grid-template-columns: auto;
 }
 .alpheios-panel--compact.alpheios-panel--left {
   height: 100vh !important;

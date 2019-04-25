@@ -11,7 +11,7 @@
     </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
-      <div v-if="wordUsageListSorted.length > 0">
+      <template v-if="wordUsageListSorted.length > 0">
         <div
             class="alpheios-word-usage__examples-show-sources-btn alpheios-button-primary"
             @click="changeShowDataSource"
@@ -57,16 +57,10 @@
             </a>
           </template>
         </div>
-        Original table
-        <word-usage-examples-item
-            v-for="wordUsageItem in wordUsageListSorted"
-            v-bind:key="wordUsageItem.ID"
-            :wordUsageItem="wordUsageItem"
-        ></word-usage-examples-item>
-      </div>
-      <div v-else>
+      </template>
+      <template v-else>
         {{ l10n.getText('WORDUSAGE_NO_RESULTS') }}
-      </div>
+      </template>
     </div>
 
     <div class="alpheios-word_usage_list__provider" v-show="provider">
@@ -75,7 +69,6 @@
   </div>
 </template>
 <script>
-import WordUsageExamplesItem from '@/vue/components/word-usage-examples/word-usage-examples-item.vue'
 import WordUsageExamplesFilters from '@/vue/components/word-usage-examples/word-usage-examples-filters.vue'
 import WordUsageExamplesSorting from '@/vue/components/word-usage-examples/word-usage-examples-sorting.vue'
 
@@ -87,7 +80,6 @@ export default {
   storeModules: ['ui'],
   mixins: [DependencyCheck],
   components: {
-    wordUsageExamplesItem: WordUsageExamplesItem,
     wordUsageExamplesFilters: WordUsageExamplesFilters,
     wordUsageExamplesSorting: WordUsageExamplesSorting
   },
@@ -243,6 +235,7 @@ export default {
     .alpheios-word-usage-header-select-textwork,
     .alpheios-word-usage-header-select-sortBy {
       width: 88%;
+      max-width: 400px;
     }
 
     .alpheios-word-usage-header-clear-icon {
@@ -317,7 +310,7 @@ export default {
     &__examples-post {
       padding-bottom: 10px;
       border-bottom: 1px solid var(--alpheios-border-color);
-      /*white-space: nowrap;*/
+      white-space: nowrap;
     }
 
     &__examples--sources-visible &__examples-pre,
