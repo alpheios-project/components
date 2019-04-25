@@ -1,7 +1,7 @@
 <template>
   <div
       :class="rootClasses"
-      :style="mainstyles"
+      :style="componentStyles"
       class="alpheios-panel alpheios-panel--large alpheios-content"
       data-component="alpheios-panel"
       data-resizable="true"
@@ -94,7 +94,7 @@
         >
           {{ l10n.getText('TITLE_INFLECTIONS_PANEL') }}
         </h1>
-        <inflections @contentwidth="setContentWidth" class="alpheios-panel-inflections"></inflections>
+        <inflections class="alpheios-panel-inflections"></inflections>
       </div>
 
       <div :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser"
@@ -105,8 +105,7 @@
         >
           {{ l10n.getText('TITLE_INFLECTIONS_BROWSER_PANEL') }}
         </h1>
-        <inflection-browser @contentwidth="setContentWidth">
-        </inflection-browser>
+        <inflection-browser/>
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
@@ -120,8 +119,7 @@
           class="alpheios-panel__tab-panel alpheios-panel__tab__treebank"
           v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')"
           data-alpheios-ignore="all">
-        <!-- TODO: Instead of this we need to create a universal mechanism for handling panel resizing for every tab's content change -->
-        <treebank @treebankcontentwidth="setTreebankContentWidth"></treebank>
+        <treebank/>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__status"
            v-show="$store.getters['ui/isActiveTab']('status')"
@@ -321,14 +319,6 @@ export default {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
     },
 
-    mainstyles: function () {
-      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
-      return {
-        zIndex: this.ui.zIndex
-//        width: `${this.panelWidth}px`
-      }
-    },
-
     attachToLeftVisible: function () {
       return this.$store.state.panel.position === 'right'
     },
@@ -340,7 +330,6 @@ export default {
 
   mounted: function () {
     this.$options.tabChangeUnwatch = this.$store.watch((state, getters) => state.ui.activeTab, (tabName) => {
-      this.setContentWidth({ width: 'auto', component: null })
     })
   },
 

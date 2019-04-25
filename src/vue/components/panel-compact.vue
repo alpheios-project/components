@@ -2,7 +2,7 @@
   <div
       :class="rootClasses"
       class="alpheios-panel alpheios-panel--compact alpheios-content"
-      :style="mainstyles"
+      :style="componentStyles"
       data-component="alpheios-panel"
       data-resizable="true"
       id="alpheios-panel-inner"
@@ -91,7 +91,7 @@
         >
           {{ l10n.getText('TITLE_INFLECTIONS_PANEL') }}
         </h1>
-        <inflections @contentwidth="setContentWidth" class="alpheios-panel-inflections"></inflections>
+        <inflections class="alpheios-panel-inflections"></inflections>
       </div>
 
       <div :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser"
@@ -102,8 +102,7 @@
         >
           {{ l10n.getText('TITLE_INFLECTIONS_BROWSER_PANEL') }}
         </h1>
-        <inflection-browser @contentwidth="setContentWidth">
-        </inflection-browser>
+        <inflection-browser/>
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
@@ -117,8 +116,7 @@
           class="alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding"
           v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')"
           data-alpheios-ignore="all">
-        <!-- TODO: Instead of this we need to create a universal mechanism for handling panel resizing for every tab's content change -->
-        <treebank @treebankcontentwidth="setTreebankContentWidth"></treebank>
+        <treebank/>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__status"
            v-show="$store.getters['ui/isActiveTab']('status')"
@@ -138,6 +136,7 @@
       <div
           class="alpheios-panel__tab-panel"
           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
+          data-alpheios-ignore="all"
         >
         <word-usage-examples/>
       </div>
@@ -373,7 +372,6 @@ export default {
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
-      panelWidth: null,
       resized: false
     }
   },
@@ -396,8 +394,7 @@ export default {
         : ''
     },
 
-    mainstyles: function () {
-      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
+    componentStyles: function () {
       return {
         zIndex: this.ui.zIndex
       }
@@ -476,34 +473,6 @@ export default {
 
     uiOptionChanged: function (name, value) {
       this.ui.optionChange(name, value)
-    },
-
-    setContentWidth: function (dataObj) {
-      if (dataObj.width === 'auto') {
-        this.panelWidth = null
-        return
-      }
-
-      this.calcWidthPaddings(dataObj.component)
-      this.calcScrollPadding()
-
-      let widthDelta = this.navbarWidth +
-          this.panelLeftPadding +
-          this.panelRightPadding +
-          this.scrollPadding
-
-      if (dataObj.width > this.$options.minWidth - widthDelta) {
-        let adjustedWidth = dataObj.width + widthDelta
-        // Max viewport width less some space to display page content
-        let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
-
-        if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
-        this.panelWidth = adjustedWidth
-      }
-    },
-
-    setTreebankContentWidth: function (width) {
-      this.panelWidth = width
     },
 
     attachTrackingClick: function () {

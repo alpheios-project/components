@@ -9424,7 +9424,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -9522,15 +9521,6 @@ __webpack_require__.r(__webpack_exports__);
       for (const lang of Object.keys(this.collapsed)) {
         this.collapsed[lang] = (lang === language) ? !this.collapsed[language] : true
       }
-    },
-
-    inflTableWidthUpd: function () {
-      vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick(() => {
-        this.$emit('contentwidth', {
-          width: this.htmlElements.content.offsetWidth + 1,
-          component: 'inflections-browser'
-        })
-      })
     }
   },
 
@@ -10235,7 +10225,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 // Subcomponents
 
@@ -10351,18 +10340,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    updateWidth: function () {
-      if (typeof this.$el.querySelector === 'function') {
-        /*
-        An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
-        use this information to adjust a width of a container that displays an inflection component.
-       */
-        vue_dist_vue__WEBPACK_IMPORTED_MODULE_5___default.a.nextTick(() => {
-          this.$emit('contentwidth', { width: this.$el.offsetWidth + 1, component: 'inflections' })
-        })
-      }
-    },
-
     navigate (reflink) {
       let panel = document.querySelector(`#${this.elementIDs.panelInner}`)
       if (!panel) {
@@ -10390,7 +10367,6 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$options.visibilityUnwatch = this.$store.watch((state) => state.ui.activeTab, (tabName) => {
       if (tabName === 'inflections') {
-        this.updateWidth()
         // Scroll to top if panel is reopened
         this.navigate('top')
       }
@@ -12453,7 +12429,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /*
   This is a mobile version of a panel
@@ -12537,7 +12512,6 @@ __webpack_require__.r(__webpack_exports__);
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
-      panelWidth: null,
       resized: false
     }
   },
@@ -12560,8 +12534,7 @@ __webpack_require__.r(__webpack_exports__);
         : ''
     },
 
-    mainstyles: function () {
-      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
+    componentStyles: function () {
       return {
         zIndex: this.ui.zIndex
       }
@@ -12640,34 +12613,6 @@ __webpack_require__.r(__webpack_exports__);
 
     uiOptionChanged: function (name, value) {
       this.ui.optionChange(name, value)
-    },
-
-    setContentWidth: function (dataObj) {
-      if (dataObj.width === 'auto') {
-        this.panelWidth = null
-        return
-      }
-
-      this.calcWidthPaddings(dataObj.component)
-      this.calcScrollPadding()
-
-      let widthDelta = this.navbarWidth +
-          this.panelLeftPadding +
-          this.panelRightPadding +
-          this.scrollPadding
-
-      if (dataObj.width > this.$options.minWidth - widthDelta) {
-        let adjustedWidth = dataObj.width + widthDelta
-        // Max viewport width less some space to display page content
-        let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
-
-        if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
-        this.panelWidth = adjustedWidth
-      }
-    },
-
-    setTreebankContentWidth: function (width) {
-      this.panelWidth = width
     },
 
     attachTrackingClick: function () {
@@ -13062,8 +13007,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /*
     This is a desktop version of a panel
@@ -13093,14 +13036,6 @@ __webpack_require__.r(__webpack_exports__);
       return this.$options.positionClassVariants[this.$store.state.panel.position]
     },
 
-    mainstyles: function () {
-      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
-      return {
-        zIndex: this.ui.zIndex
-//        width: `${this.panelWidth}px`
-      }
-    },
-
     attachToLeftVisible: function () {
       return this.$store.state.panel.position === 'right'
     },
@@ -13112,7 +13047,6 @@ __webpack_require__.r(__webpack_exports__);
 
   mounted: function () {
     this.$options.tabChangeUnwatch = this.$store.watch((state, getters) => state.ui.activeTab, (tabName) => {
-      this.setContentWidth({ width: 'auto', component: null })
     })
   },
 
@@ -14029,10 +13963,6 @@ __webpack_require__.r(__webpack_exports__);
   storeModules: ['app'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   computed: {
-    visible: function () {
-      return this.$store.getters[`app/hasTreebankData`]
-    },
-
     /*
     Returns a source URL of a treebank page. This computed prop will be cached by Vue.js.
     If caching will not work effectively, we shall prevent unnecessary page reloads manually.
@@ -14049,13 +13979,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       return newSrcUrl
-    }
-  },
-  watch: {
-    visible: function (val) {
-      if (val) {
-        this.$emit('treebankcontentwidth', '43em')
-      }
     }
   }
 });
@@ -15770,8 +15693,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_noun_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -15784,8 +15706,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_adjective_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -15809,8 +15730,7 @@ var render = function() {
                 viewID: "latin_conjugation_mood_voice_view",
                 title: "Conjugation-Mood-Voice"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15822,8 +15742,7 @@ var render = function() {
                 viewID: "latin_conjugation_voice_mood_view",
                 title: "Conjugation-Voice-Mood"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15835,8 +15754,7 @@ var render = function() {
                 viewID: "latin_mood_conjugation_voice_view",
                 title: "Mood-Conjugation-Voice"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15848,8 +15766,7 @@ var render = function() {
                 viewID: "latin_mood_voice_conjugation_view",
                 title: "Mood-Coice-Conjugation"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15861,8 +15778,7 @@ var render = function() {
                 viewID: "latin_voice_conjugation_mood_view",
                 title: "Voice-Conjugation-Mood"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15874,8 +15790,7 @@ var render = function() {
                 viewID: "latin_voice_mood_conjugation_view",
                 title: "Voice-Mood-Conjugation"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -15888,8 +15803,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_verb_participle_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15898,8 +15812,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_infinitive_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15908,8 +15821,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_imperative_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15918,8 +15830,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_supine_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -15936,8 +15847,7 @@ var render = function() {
                 form: "sum",
                 title: "Sum (esse,fui,futurus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15950,8 +15860,7 @@ var render = function() {
                 form: "fero",
                 title: "Fero (ferre, tuli, latus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15964,8 +15873,7 @@ var render = function() {
                 form: "malo",
                 title: "Malo (malle, malui)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15978,8 +15886,7 @@ var render = function() {
                 form: "nolo",
                 title: "Nolo (nolle, nolui)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15992,8 +15899,7 @@ var render = function() {
                 form: "volo",
                 title: "Volo (velle, volui)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16006,8 +15912,7 @@ var render = function() {
                 form: "eo",
                 title: "Eo (ire, ivi(ii), itus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16020,8 +15925,7 @@ var render = function() {
                 form: "absum",
                 title: "Absum (abesse, afui, afuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16034,8 +15938,7 @@ var render = function() {
                 form: "adsum",
                 title: "Adsum (adesse, adfui, adfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16048,8 +15951,7 @@ var render = function() {
                 form: "dēsum",
                 title: "Dēsum (dēesse, dēfui, dēfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16062,8 +15964,7 @@ var render = function() {
                 form: "insum",
                 title: "Insum (inesse, infui, infuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16076,8 +15977,7 @@ var render = function() {
                 form: "intersum",
                 title: "Intersum (interesse, interfui, interfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16090,8 +15990,7 @@ var render = function() {
                 form: "obsum",
                 title: "Obsum (obesse, obfui, obfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16104,8 +16003,7 @@ var render = function() {
                 form: "possum",
                 title: "Possum (posse, potui)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16118,8 +16016,7 @@ var render = function() {
                 form: "prosum",
                 title: "Prosum (prodesse, profui, profuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16132,8 +16029,7 @@ var render = function() {
                 form: "praesum",
                 title: "Praesum (praeesse, praefui, praefuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16146,8 +16042,7 @@ var render = function() {
                 form: "subsum",
                 title: "Subsum (subesse, subfui, subfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16160,8 +16055,7 @@ var render = function() {
                 form: "supersum",
                 title: "Supersum (superesse, superfui, superfuturus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16174,8 +16068,7 @@ var render = function() {
                 form: "queo",
                 title: "Queo (quire, quivi(ii), quitus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16188,8 +16081,7 @@ var render = function() {
                 form: "nequeo",
                 title: "Nequeo (nequire, nequivi(ii), nequitus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16202,8 +16094,7 @@ var render = function() {
                 form: "adeo",
                 title: "Adeo (adire, adivi(ii), aditus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16216,8 +16107,7 @@ var render = function() {
                 form: "ineo",
                 title: "Ineo (inire, inivi(ii), initus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16230,8 +16120,7 @@ var render = function() {
                 form: "veneo",
                 title: "Veneo (venire, venivi(ii), venitus)"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           })
         ],
         1
@@ -16307,8 +16196,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_noun_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16317,8 +16205,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_noun_simplified_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16331,8 +16218,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_adjective_view" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16343,8 +16229,7 @@ var render = function() {
               view: _vm.greekInflView({
                 viewID: "greek_adjective_simplified_view"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16361,8 +16246,7 @@ var render = function() {
                 form: "νώ",
                 title: "Personal Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16375,8 +16259,7 @@ var render = function() {
                 form: "ἡμᾶς",
                 title: "Reflexive Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16389,8 +16272,7 @@ var render = function() {
                 form: "ἀλλήλᾱ",
                 title: "Reciprocal Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16403,8 +16285,7 @@ var render = function() {
                 form: "τούτω",
                 title: "Demonstrative Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16417,8 +16298,7 @@ var render = function() {
                 form: "οἷς",
                 title: "Relative Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16431,8 +16311,7 @@ var render = function() {
                 form: "ὥτινε",
                 title: "General Relative Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16445,8 +16324,7 @@ var render = function() {
                 form: "τίνε",
                 title: "Interrogative Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16459,8 +16337,7 @@ var render = function() {
                 form: "τινοῖν",
                 title: "Indefinite Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16473,8 +16350,7 @@ var render = function() {
                 form: "αὐτά",
                 title: "Intensive Pronoun Declension"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16490,8 +16366,7 @@ var render = function() {
                 viewID: "greek_article_view",
                 form: "τοῦ"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16507,8 +16382,7 @@ var render = function() {
                 viewID: "greek_numeral_view",
                 form: "δύο"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16529,8 +16403,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm1" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16539,8 +16412,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm2" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16549,8 +16421,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm3" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16559,8 +16430,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm4" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16569,8 +16439,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm5" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16579,8 +16448,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm6" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16589,8 +16457,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm7" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16599,8 +16466,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm8" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16609,8 +16475,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm9" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16619,8 +16484,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm10" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16629,8 +16493,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm11" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16639,8 +16502,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm12" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16649,8 +16511,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm13" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16659,8 +16520,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm14" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16669,8 +16529,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm15" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16679,8 +16538,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm16" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16693,8 +16551,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16703,8 +16560,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17b" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16713,8 +16569,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17c" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16727,8 +16582,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm18" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16737,8 +16591,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm19" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16747,8 +16600,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm20" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16757,8 +16609,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm21" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16767,8 +16618,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm22" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16777,8 +16627,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm23" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16787,8 +16636,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm24" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16797,8 +16645,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm25" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16807,8 +16654,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm26" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16817,8 +16663,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm27" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -16835,8 +16680,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm28" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16845,8 +16689,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm29" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16855,8 +16698,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm30" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16865,8 +16707,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm31" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16879,8 +16720,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm32" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16889,8 +16729,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm33" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16899,8 +16738,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm34" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16909,8 +16747,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm35" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16923,8 +16760,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm36" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16933,8 +16769,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm37" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16943,8 +16778,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm38" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16953,8 +16787,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm39" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16967,8 +16800,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm40" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16977,8 +16809,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm41" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16987,8 +16818,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm42" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -17001,8 +16831,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm43" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17011,8 +16840,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm43b" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17021,8 +16849,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm44" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17031,8 +16858,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm45" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17041,8 +16867,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm46" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17051,8 +16876,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm47" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17061,8 +16885,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm48" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17071,8 +16894,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm49" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17081,8 +16903,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm50" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17091,8 +16912,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm51" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17101,8 +16921,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm52" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17111,8 +16930,7 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm53" })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -17127,8 +16945,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm54"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17139,8 +16956,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm55"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17151,8 +16967,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm56"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17163,8 +16978,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm57"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17175,8 +16989,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm58"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17187,8 +17000,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm59"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17199,8 +17011,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm60"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17211,8 +17022,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm61"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17223,8 +17033,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm62"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17235,8 +17044,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm63"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17247,8 +17055,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm64"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17259,8 +17066,7 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm65"
               })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+            }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17270,9 +17076,9 @@ var render = function() {
               "no-suffix-matches-hidden": false,
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm66"
-              })
-            },
-            on: { widthchange: _vm.inflTableWidthUpd }
+              }),
+              v: ""
+            }
           })
         ],
         1
@@ -18043,8 +17849,7 @@ var render = function() {
                   "div",
                   [
                     _c("main-table-wide-vue", {
-                      attrs: { collapsed: false, view: _vm.selectedView },
-                      on: { widthchange: _vm.updateWidth }
+                      attrs: { collapsed: false, view: _vm.selectedView }
                     }),
                     _vm._v(" "),
                     _vm.selectedView.linkedViews
@@ -18053,8 +17858,7 @@ var render = function() {
                         ) {
                           return _c("main-table-wide-vue", {
                             key: linkedView.id,
-                            attrs: { collapsed: false, view: linkedView },
-                            on: { widthchange: _vm.updateWidth }
+                            attrs: { collapsed: false, view: linkedView }
                           })
                         })
                       : _vm._e(),
@@ -20739,7 +20543,7 @@ var render = function() {
       ],
       staticClass: "alpheios-panel alpheios-panel--compact alpheios-content",
       class: _vm.rootClasses,
-      style: _vm.mainstyles,
+      style: _vm.componentStyles,
       attrs: {
         "data-component": "alpheios-panel",
         "data-resizable": "true",
@@ -20944,10 +20748,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("inflections", {
-                staticClass: "alpheios-panel-inflections",
-                on: { contentwidth: _vm.setContentWidth }
-              })
+              _c("inflections", { staticClass: "alpheios-panel-inflections" })
             ],
             1
           ),
@@ -20984,9 +20785,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("inflection-browser", {
-                on: { contentwidth: _vm.setContentWidth }
-              })
+              _c("inflection-browser")
             ],
             1
           ),
@@ -21026,11 +20825,7 @@ var render = function() {
                     "alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding",
                   attrs: { "data-alpheios-ignore": "all" }
                 },
-                [
-                  _c("treebank", {
-                    on: { treebankcontentwidth: _vm.setTreebankContentWidth }
-                  })
-                ],
+                [_c("treebank")],
                 1
               )
             : _vm._e(),
@@ -21092,7 +20887,8 @@ var render = function() {
                   expression: "$store.getters['ui/isActiveTab']('wordUsage')"
                 }
               ],
-              staticClass: "alpheios-panel__tab-panel"
+              staticClass: "alpheios-panel__tab-panel",
+              attrs: { "data-alpheios-ignore": "all" }
             },
             [_c("word-usage-examples")],
             1
@@ -21384,7 +21180,7 @@ var render = function() {
       ],
       staticClass: "alpheios-panel alpheios-panel--large alpheios-content",
       class: _vm.rootClasses,
-      style: _vm.mainstyles,
+      style: _vm.componentStyles,
       attrs: {
         "data-component": "alpheios-panel",
         "data-resizable": "true",
@@ -21623,10 +21419,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("inflections", {
-              staticClass: "alpheios-panel-inflections",
-              on: { contentwidth: _vm.setContentWidth }
-            })
+            _c("inflections", { staticClass: "alpheios-panel-inflections" })
           ],
           1
         ),
@@ -21661,9 +21454,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("inflection-browser", {
-              on: { contentwidth: _vm.setContentWidth }
-            })
+            _c("inflection-browser")
           ],
           1
         ),
@@ -21703,11 +21494,7 @@ var render = function() {
                   "alpheios-panel__tab-panel alpheios-panel__tab__treebank",
                 attrs: { "data-alpheios-ignore": "all" }
               },
-              [
-                _c("treebank", {
-                  on: { treebankcontentwidth: _vm.setTreebankContentWidth }
-                })
-              ],
+              [_c("treebank")],
               1
             )
           : _vm._e(),
