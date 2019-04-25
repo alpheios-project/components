@@ -2544,6 +2544,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples-post {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--alpheios-border-color);
+  white-space: nowrap;
 }
 .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-post {
   padding-bottom: 5px;

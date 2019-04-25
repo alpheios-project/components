@@ -305,7 +305,7 @@ import AttachRightIcon from '@/images/inline-icons/attach-right.svg'
 import CompactPanel from '@/vue/components/panel-compact.vue'
 
 export default {
-  name: 'Panel',
+  name: 'PanelLarge',
   extends: CompactPanel,
   components: {
     navbuttonsLarge: NavbuttonsLarge,

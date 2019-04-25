@@ -324,6 +324,7 @@ export default {
     &__examples-post {
       padding-bottom: 10px;
       border-bottom: 1px solid var(--alpheios-border-color);
+      white-space: nowrap;
     }
 
     &__examples--sources-visible &__examples-pre,
