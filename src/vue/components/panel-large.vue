@@ -294,6 +294,8 @@
 /*
     This is a desktop version of a panel
      */
+// JS imports
+import interact from 'interactjs'
 // UI components
 import NavbuttonsLarge from '@/vue/components/nav/navbuttons-large.vue'
 // SVG icons
@@ -312,7 +314,10 @@ export default {
     attachLeftIcon: AttachLeftIcon,
     attachRightIcon: AttachRightIcon
   },
-  tabChangeUnwatch: null, // Will hold a function for removal of a tab change watcher
+  // A minimal width of a panel, in pixels. It should be large enough to fit all the buttons of a large size into the panel
+  minWidth: 650,
+  // Maximum allowed size of a panel, as percentage of the viewport width.
+  maxWidthPct: 80,
 
   computed: {
     rootClasses () {
@@ -329,12 +334,38 @@ export default {
   },
 
   mounted: function () {
-    this.$options.tabChangeUnwatch = this.$store.watch((state, getters) => state.ui.activeTab, (tabName) => {
-    })
-  },
+    // Determine paddings and sidebar width for calculation of a panel width to fit content
+    if (typeof this.$el.querySelector === 'function') {
+      const maxWidth = Math.floor(document.documentElement.clientWidth / 100 * this.$options.maxWidthPct)
 
-  beforeDestroy: function () {
-    this.$options.tabChangeUnwatch()
+      // Initialize Interact.js: make panel resizable
+      interact(this.$el)
+        .resizable({
+          // resize from all edges and corners
+          edges: { left: true, right: true, bottom: false, top: false },
+
+          // keep the edges inside the parent
+          restrictEdges: {
+            outer: document.body,
+            endOnly: true
+          },
+
+          // minimum size
+          restrictSize: {
+            min: { width: this.$options.minWidth },
+            max: { width: maxWidth }
+          },
+
+          inertia: true
+        })
+        .on('resizemove', event => {
+          let target = event.target
+          // Indicate that panel received a custom size
+          this.resized = true
+          // update the element's style
+          target.style.width = `${event.rect.width}px`
+        })
+    }
   }
 }
 </script>

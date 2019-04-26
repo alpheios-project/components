@@ -319,8 +319,7 @@ import MenuIcon from '@/images/inline-icons/menu.svg'
 import CloseIcon from '@/images/inline-icons/x-close.svg'
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
-// JS imports
-import interact from 'interactjs'
+
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
@@ -361,9 +360,6 @@ export default {
   directives: {
     onClickaway: onClickaway
   },
-  // A minimal width of a panel, in pixels. This is high to fit all te buttons of a large size into the panel
-  minWidth: 650,
-  defaultScrollPadding: 20,
   data: function () {
     return {
       menuVisible: false,
@@ -477,82 +473,6 @@ export default {
 
     attachTrackingClick: function () {
       this.ui.closePanel()
-    },
-
-    calcScrollPadding: function () {
-      if (typeof this.$el.querySelector === 'function') {
-        this.scrollPadding = this.$el.scrollHeight > this.$el.offsetHeight
-          ? this.$options.defaultScrollPadding : 0
-      }
-    },
-
-    calcWidthPaddings: function (component) {
-      let panelTabId
-      if (component === 'inflections') {
-        panelTabId = this.inflectionsPanelID
-      } else if (component === 'inflections-browser') {
-        panelTabId = this.inflectionsBrowserPanelID
-      }
-
-      if (typeof this.$el.querySelector === 'function' && panelTabId && (this.panelLeftPadding === 0 || this.panelRightPadding === 0)) {
-        let navbar = this.$el.querySelector(`#${this.navbarID}`)
-        let panel = this.$el.querySelector(`#${panelTabId}`)
-        this.navbarWidth = 0
-        if (navbar) {
-          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
-          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
-        }
-
-        if (panel) {
-          let resPl1 = window.getComputedStyle(panel).getPropertyValue('padding-left').match(/\d+/)
-          if (Array.isArray(resPl1)) {
-            this.panelLeftPadding = parseInt(resPl1[0])
-          } else {
-            this.panelLeftPadding = 0
-          }
-
-          let resPl2 = window.getComputedStyle(panel).getPropertyValue('padding-right').match(/\d+/)
-          if (Array.isArray(resPl2)) {
-            this.panelRightPadding = parseInt(resPl2[0])
-          } else {
-            this.panelRightPadding = 0
-          }
-        }
-      }
-    }
-  },
-
-  mounted: function () {
-    // Determine paddings and sidebar width for calculation of a panel width to fit content
-    if (typeof this.$el.querySelector === 'function') {
-      this.calcWidthPaddings()
-
-      // Initialize Interact.js: make panel resizable
-      interact(this.$el)
-        .resizable({
-          // resize from all edges and corners
-          edges: { left: true, right: true, bottom: false, top: false },
-
-          // keep the edges inside the parent
-          restrictEdges: {
-            outer: document.body,
-            endOnly: true
-          },
-
-          // minimum size
-          restrictSize: {
-            min: { width: this.$options.minWidth }
-          },
-
-          inertia: true
-        })
-        .on('resizemove', event => {
-          let target = event.target
-          // Indicate that panel received a custom size
-          this.resized = true
-          // update the element's style
-          target.style.width = `${event.rect.width}px`
-        })
     }
   }
 }
