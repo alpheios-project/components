@@ -315,7 +315,7 @@ export default {
     attachRightIcon: AttachRightIcon
   },
   // A minimal width of a panel, in pixels. It should be large enough to fit all the buttons of a large size into the panel
-  minWidth: 650,
+  minWidth: 698,
   // Maximum allowed size of a panel, as percentage of the viewport width.
   maxWidthPct: 80,
 
