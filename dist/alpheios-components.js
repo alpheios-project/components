@@ -7727,10 +7727,10 @@ var singleton = jumper();
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/panel.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7885,6 +7885,17 @@ var singleton = jumper();
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-filters.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9424,6 +9435,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -9521,6 +9533,15 @@ __webpack_require__.r(__webpack_exports__);
       for (const lang of Object.keys(this.collapsed)) {
         this.collapsed[lang] = (lang === language) ? !this.collapsed[language] : true
       }
+    },
+
+    inflTableWidthUpd: function () {
+      vue_dist_vue__WEBPACK_IMPORTED_MODULE_4___default.a.nextTick(() => {
+        this.$emit('contentwidth', {
+          width: this.htmlElements.content.offsetWidth + 1,
+          component: 'inflections-browser'
+        })
+      })
     }
   },
 
@@ -10225,6 +10246,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Subcomponents
 
@@ -10340,6 +10362,18 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
+    updateWidth: function () {
+      if (typeof this.$el.querySelector === 'function') {
+        /*
+        An inflection component needs to notify its parent of how wide an inflection table content is. Parent will
+        use this information to adjust a width of a container that displays an inflection component.
+       */
+        vue_dist_vue__WEBPACK_IMPORTED_MODULE_5___default.a.nextTick(() => {
+          this.$emit('contentwidth', { width: this.$el.offsetWidth + 1, component: 'inflections' })
+        })
+      }
+    },
+
     navigate (reflink) {
       let panel = document.querySelector(`#${this.elementIDs.panelInner}`)
       if (!panel) {
@@ -10367,6 +10401,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$options.visibilityUnwatch = this.$store.watch((state) => state.ui.activeTab, (tabName) => {
       if (tabName === 'inflections') {
+        this.updateWidth()
         // Scroll to top if panel is reopened
         this.navigate('top')
       }
@@ -10497,6 +10532,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10516,7 +10561,18 @@ __webpack_require__.r(__webpack_exports__);
     return {
     }
   },
-
+  computed: {
+    loginLink: function () {
+      if (this.$store.state.auth.externalLoginUrl) {
+        return this.$store.state.auth.externalLoginUrl.replace('{FROM_URL}',window.location.href)
+      }
+    },
+    logoutLink: function () {
+      if (this.$store.state.auth.externalLoginUrl) {
+        return this.$store.state.auth.externalLogoutUrl.replace('{FROM_URL}',window.location.href)
+      }
+    }
+  },
   methods: {
     logIn: function () {
       this.auth.authenticate()
@@ -12081,13 +12137,9 @@ __webpack_require__.r(__webpack_exports__);
         : undefined
     },
 
-    // TODO: right now this prop sets a condition for displaying both the notification message and the login button.
-    //       However, sometimes we cannot obtain the login URL and thus cannot show the button.
-    //       Need to think how to handle such situations gracefully.
     showLoginNotification () {
       return Boolean(
         this.$store.state.auth.notification.visible &&
-        this.$store.state.auth.notification.showLogin &&
         (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
       )
     }
@@ -12135,7 +12187,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/images/inline-icons/menu.svg */ "./images/inline-icons/menu.svg");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
+/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
 //
 //
 //
@@ -12457,6 +12512,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Vue directives
 
+// JS imports
 
 // Modules support
 
@@ -12473,7 +12529,7 @@ __webpack_require__.r(__webpack_exports__);
     auth: 'auth'
   },
   storeModules: ['app', 'ui', 'panel', 'auth'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_23__["default"]],
   components: {
     menuIcon: _images_inline_icons_menu_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
     dropDownMenu: _vue_components_nav_drop_down_menu_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -12498,6 +12554,9 @@ __webpack_require__.r(__webpack_exports__);
   directives: {
     onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_21__["directive"]
   },
+  // A minimal width of a panel, in pixels. This is high to fit all te buttons of a large size into the panel
+  minWidth: 650,
+  defaultScrollPadding: 20,
   data: function () {
     return {
       menuVisible: false,
@@ -12506,7 +12565,7 @@ __webpack_require__.r(__webpack_exports__);
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
-      resized: false
+      panelWidth: null
     }
   },
 
@@ -12528,7 +12587,8 @@ __webpack_require__.r(__webpack_exports__);
         : ''
     },
 
-    componentStyles: function () {
+    mainstyles: function () {
+      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
       return {
         zIndex: this.ui.zIndex
       }
@@ -12609,8 +12669,110 @@ __webpack_require__.r(__webpack_exports__);
       this.ui.optionChange(name, value)
     },
 
+    setContentWidth: function (dataObj) {
+      if (dataObj.width === 'auto') {
+        this.panelWidth = null
+        return
+      }
+
+      this.calcWidthPaddings(dataObj.component)
+      this.calcScrollPadding()
+
+      let widthDelta = this.navbarWidth +
+          this.panelLeftPadding +
+          this.panelRightPadding +
+          this.scrollPadding
+
+      if (dataObj.width > this.$options.minWidth - widthDelta) {
+        let adjustedWidth = dataObj.width + widthDelta
+        // Max viewport width less some space to display page content
+        let maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 20
+
+        if (adjustedWidth > maxWidth) { adjustedWidth = maxWidth }
+        this.panelWidth = adjustedWidth
+      }
+    },
+
+    setTreebankContentWidth: function (width) {
+      this.panelWidth = width
+    },
+
     attachTrackingClick: function () {
       this.ui.closePanel()
+    },
+
+    calcScrollPadding: function () {
+      if (typeof this.$el.querySelector === 'function') {
+        this.scrollPadding = this.$el.scrollHeight > this.$el.offsetHeight
+          ? this.$options.defaultScrollPadding : 0
+      }
+    },
+
+    calcWidthPaddings: function (component) {
+      let panelTabId
+      if (component === 'inflections') {
+        panelTabId = this.inflectionsPanelID
+      } else if (component === 'inflections-browser') {
+        panelTabId = this.inflectionsBrowserPanelID
+      }
+
+      if (typeof this.$el.querySelector === 'function' && panelTabId && (this.panelLeftPadding === 0 || this.panelRightPadding === 0)) {
+        let navbar = this.$el.querySelector(`#${this.navbarID}`)
+        let panel = this.$el.querySelector(`#${panelTabId}`)
+        this.navbarWidth = 0
+        if (navbar) {
+          let width = window.getComputedStyle(navbar).getPropertyValue('width').match(/\d+/)
+          if (width && Array.isArray(width) && width.length > 0) { this.navbarWidth = width[0] }
+        }
+
+        if (panel) {
+          let resPl1 = window.getComputedStyle(panel).getPropertyValue('padding-left').match(/\d+/)
+          if (Array.isArray(resPl1)) {
+            this.panelLeftPadding = parseInt(resPl1[0])
+          } else {
+            this.panelLeftPadding = 0
+          }
+
+          let resPl2 = window.getComputedStyle(panel).getPropertyValue('padding-right').match(/\d+/)
+          if (Array.isArray(resPl2)) {
+            this.panelRightPadding = parseInt(resPl2[0])
+          } else {
+            this.panelRightPadding = 0
+          }
+        }
+      }
+    }
+  },
+
+  mounted: function () {
+    // Determine paddings and sidebar width for calculation of a panel width to fit content
+    if (typeof this.$el.querySelector === 'function') {
+      this.calcWidthPaddings()
+
+      // Initialize Interact.js: make panel resizable
+      interactjs__WEBPACK_IMPORTED_MODULE_22___default()(this.$el)
+        .resizable({
+          // resize from all edges and corners
+          edges: { left: true, right: true, bottom: false, top: false },
+
+          // keep the edges inside the parent
+          restrictEdges: {
+            outer: document.body,
+            endOnly: true
+          },
+
+          // minimum size
+          restrictSize: {
+            min: { width: this.$options.minWidth }
+          },
+
+          inertia: true
+        })
+        .on('resizemove', event => {
+          let target = event.target
+          // update the element's style
+          target.style.width = `${event.rect.width}px`
+        })
     }
   }
 });
@@ -12618,22 +12780,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/panel-large.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/panel-large.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/panel.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/panel.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
-/* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _vue_components_nav_navbuttons_large_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/nav/navbuttons-large.vue */ "./vue/components/nav/navbuttons-large.vue");
-/* harmony import */ var _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/alpheios/logo.svg */ "./images/alpheios/logo.svg");
-/* harmony import */ var _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/attach-left.svg */ "./images/inline-icons/attach-left.svg");
-/* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
-/* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+/* harmony import */ var _vue_components_nav_navbuttons_large_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/nav/navbuttons-large.vue */ "./vue/components/nav/navbuttons-large.vue");
+/* harmony import */ var _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/alpheios/logo.svg */ "./images/alpheios/logo.svg");
+/* harmony import */ var _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/attach-left.svg */ "./images/inline-icons/attach-left.svg");
+/* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
+/* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
+//
 //
 //
 //
@@ -12930,8 +13091,6 @@ __webpack_require__.r(__webpack_exports__);
 /*
     This is a desktop version of a panel
      */
-// JS imports
-
 // UI components
 
 // SVG icons
@@ -12942,22 +13101,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PanelLarge',
-  extends: _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  name: 'Panel',
+  extends: _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   components: {
-    navbuttonsLarge: _vue_components_nav_navbuttons_large_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    logoIcon: _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
-    attachLeftIcon: _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
-    attachRightIcon: _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+    navbuttonsLarge: _vue_components_nav_navbuttons_large_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    logoIcon: _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+    attachLeftIcon: _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
+    attachRightIcon: _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  // A minimal width of a panel, in pixels. It should be large enough to fit all the buttons of a large size into the panel
-  minWidth: 650,
-  // Maximum allowed size of a panel, as percentage of the viewport width.
-  maxWidthPct: 80,
+  tabChangeUnwatch: null, // Will hold a function for removal of a tab change watcher
 
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
+    },
+
+    mainstyles: function () {
+      this.panelWidth = this.panelWidth ? this.panelWidth : this.$options.minWidth
+      return {
+        zIndex: this.ui.zIndex,
+        width: `${this.panelWidth}px`
+      }
     },
 
     attachToLeftVisible: function () {
@@ -12970,38 +13134,13 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   mounted: function () {
-    // Determine paddings and sidebar width for calculation of a panel width to fit content
-    if (typeof this.$el.querySelector === 'function') {
-      const maxWidth = Math.floor(document.documentElement.clientWidth / 100 * this.$options.maxWidthPct)
+    this.$options.tabChangeUnwatch = this.$store.watch((state, getters) => state.ui.activeTab, (tabName) => {
+      this.setContentWidth({ width: 'auto', component: null })
+    })
+  },
 
-      // Initialize Interact.js: make panel resizable
-      interactjs__WEBPACK_IMPORTED_MODULE_0___default()(this.$el)
-        .resizable({
-          // resize from all edges and corners
-          edges: { left: true, right: true, bottom: false, top: false },
-
-          // keep the edges inside the parent
-          restrictEdges: {
-            outer: document.body,
-            endOnly: true
-          },
-
-          // minimum size
-          restrictSize: {
-            min: { width: this.$options.minWidth },
-            max: { width: maxWidth }
-          },
-
-          inertia: true
-        })
-        .on('resizemove', event => {
-          let target = event.target
-          // Indicate that panel received a custom size
-          this.resized = true
-          // update the element's style
-          target.style.width = `${event.rect.width}px`
-        })
-    }
+  beforeDestroy: function () {
+    this.$options.tabChangeUnwatch()
   }
 });
 
@@ -13913,6 +14052,10 @@ __webpack_require__.r(__webpack_exports__);
   storeModules: ['app'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   computed: {
+    visible: function () {
+      return this.$store.getters[`app/hasTreebankData`]
+    },
+
     /*
     Returns a source URL of a treebank page. This computed prop will be cached by Vue.js.
     If caching will not work effectively, we shall prevent unnecessary page reloads manually.
@@ -13929,6 +14072,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       return newSrcUrl
+    }
+  },
+  watch: {
+    visible: function (val) {
+      if (val) {
+        this.$emit('treebankcontentwidth', '43em')
+      }
     }
   }
 });
@@ -13947,21 +14097,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login.vue */ "./vue/components/login.vue");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -14867,6 +15002,84 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/source.svg */ "./images/inline-icons/source.svg");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'WordUsageExamplesItem',
+  components: {
+    sourceIcon: _images_inline_icons_source_svg__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    wordUsageItem: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+      showDataSource: false
+    }
+  },
+  computed: {
+    prefix () {
+      return this.wordUsageItem.prefix
+    },
+    suffix () {
+      return this.wordUsageItem.suffix
+    },
+    citFormatted () {
+      return `${this.wordUsageItem.cit} ${this.wordUsageItem.fullCit()}`
+    }
+  },
+  methods: {
+    changeShowDataSource () {
+      this.showDataSource = !this.showDataSource
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib??vue-loader-options!../node_modules/source-map-loader!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=script&lang=js& ***!
@@ -14956,9 +15169,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
-/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-item.vue */ "./vue/components/word-usage-examples/word-usage-examples-item.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
+/* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -14989,46 +15203,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -15039,19 +15214,18 @@ __webpack_require__.r(__webpack_exports__);
   name: 'WordUsageExamples',
   inject: ['ui', 'app', 'l10n'],
   storeModules: ['ui'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   components: {
-    wordUsageExamplesFilters: _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    wordUsageExamplesSorting: _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    wordUsageExamplesItem: _vue_components_word_usage_examples_word_usage_examples_item_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    wordUsageExamplesFilters: _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    wordUsageExamplesSorting: _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data () {
     return {
       sortBy: null,
       selectedAuthor: null,
       selectedTextWork: null,
-      needInnerFilter: false,
-      // Whether to show reference links on mobile layout or not
-      showDataSource: false
+      needInnerFilter: false
     }
   },
   computed: {
@@ -15062,7 +15236,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeader () {
-      return Boolean(this.selectedAuthor) ||
+      return Boolean(this.selectedAuthor) || 
              this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
              !this.showWordUsageExampleItems
     },
@@ -15146,9 +15320,6 @@ __webpack_require__.r(__webpack_exports__);
         }
         return 0
       })
-    },
-    changeShowDataSource () {
-      this.showDataSource = !this.showDataSource
     }
   },
   mounted () {
@@ -15643,7 +15814,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_noun_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -15656,7 +15828,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_adjective_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -15680,7 +15853,8 @@ var render = function() {
                 viewID: "latin_conjugation_mood_voice_view",
                 title: "Conjugation-Mood-Voice"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15692,7 +15866,8 @@ var render = function() {
                 viewID: "latin_conjugation_voice_mood_view",
                 title: "Conjugation-Voice-Mood"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15704,7 +15879,8 @@ var render = function() {
                 viewID: "latin_mood_conjugation_voice_view",
                 title: "Mood-Conjugation-Voice"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15716,7 +15892,8 @@ var render = function() {
                 viewID: "latin_mood_voice_conjugation_view",
                 title: "Mood-Coice-Conjugation"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15728,7 +15905,8 @@ var render = function() {
                 viewID: "latin_voice_conjugation_mood_view",
                 title: "Voice-Conjugation-Mood"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15740,7 +15918,8 @@ var render = function() {
                 viewID: "latin_voice_mood_conjugation_view",
                 title: "Voice-Mood-Conjugation"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -15753,7 +15932,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_verb_participle_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15762,7 +15942,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_infinitive_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15771,7 +15952,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_imperative_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15780,7 +15962,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.latinInflView({ viewID: "latin_supine_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -15797,7 +15980,8 @@ var render = function() {
                 form: "sum",
                 title: "Sum (esse,fui,futurus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15810,7 +15994,8 @@ var render = function() {
                 form: "fero",
                 title: "Fero (ferre, tuli, latus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15823,7 +16008,8 @@ var render = function() {
                 form: "malo",
                 title: "Malo (malle, malui)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15836,7 +16022,8 @@ var render = function() {
                 form: "nolo",
                 title: "Nolo (nolle, nolui)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15849,7 +16036,8 @@ var render = function() {
                 form: "volo",
                 title: "Volo (velle, volui)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15862,7 +16050,8 @@ var render = function() {
                 form: "eo",
                 title: "Eo (ire, ivi(ii), itus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15875,7 +16064,8 @@ var render = function() {
                 form: "absum",
                 title: "Absum (abesse, afui, afuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15888,7 +16078,8 @@ var render = function() {
                 form: "adsum",
                 title: "Adsum (adesse, adfui, adfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15901,7 +16092,8 @@ var render = function() {
                 form: "dēsum",
                 title: "Dēsum (dēesse, dēfui, dēfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15914,7 +16106,8 @@ var render = function() {
                 form: "insum",
                 title: "Insum (inesse, infui, infuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15927,7 +16120,8 @@ var render = function() {
                 form: "intersum",
                 title: "Intersum (interesse, interfui, interfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15940,7 +16134,8 @@ var render = function() {
                 form: "obsum",
                 title: "Obsum (obesse, obfui, obfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15953,7 +16148,8 @@ var render = function() {
                 form: "possum",
                 title: "Possum (posse, potui)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15966,7 +16162,8 @@ var render = function() {
                 form: "prosum",
                 title: "Prosum (prodesse, profui, profuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15979,7 +16176,8 @@ var render = function() {
                 form: "praesum",
                 title: "Praesum (praeesse, praefui, praefuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -15992,7 +16190,8 @@ var render = function() {
                 form: "subsum",
                 title: "Subsum (subesse, subfui, subfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16005,7 +16204,8 @@ var render = function() {
                 form: "supersum",
                 title: "Supersum (superesse, superfui, superfuturus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16018,7 +16218,8 @@ var render = function() {
                 form: "queo",
                 title: "Queo (quire, quivi(ii), quitus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16031,7 +16232,8 @@ var render = function() {
                 form: "nequeo",
                 title: "Nequeo (nequire, nequivi(ii), nequitus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16044,7 +16246,8 @@ var render = function() {
                 form: "adeo",
                 title: "Adeo (adire, adivi(ii), aditus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16057,7 +16260,8 @@ var render = function() {
                 form: "ineo",
                 title: "Ineo (inire, inivi(ii), initus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16070,7 +16274,8 @@ var render = function() {
                 form: "veneo",
                 title: "Veneo (venire, venivi(ii), venitus)"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           })
         ],
         1
@@ -16146,7 +16351,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_noun_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16155,7 +16361,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_noun_simplified_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16168,7 +16375,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekInflView({ viewID: "greek_adjective_view" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16179,7 +16387,8 @@ var render = function() {
               view: _vm.greekInflView({
                 viewID: "greek_adjective_simplified_view"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16196,7 +16405,8 @@ var render = function() {
                 form: "νώ",
                 title: "Personal Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16209,7 +16419,8 @@ var render = function() {
                 form: "ἡμᾶς",
                 title: "Reflexive Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16222,7 +16433,8 @@ var render = function() {
                 form: "ἀλλήλᾱ",
                 title: "Reciprocal Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16235,7 +16447,8 @@ var render = function() {
                 form: "τούτω",
                 title: "Demonstrative Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16248,7 +16461,8 @@ var render = function() {
                 form: "οἷς",
                 title: "Relative Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16261,7 +16475,8 @@ var render = function() {
                 form: "ὥτινε",
                 title: "General Relative Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16274,7 +16489,8 @@ var render = function() {
                 form: "τίνε",
                 title: "Interrogative Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16287,7 +16503,8 @@ var render = function() {
                 form: "τινοῖν",
                 title: "Indefinite Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16300,7 +16517,8 @@ var render = function() {
                 form: "αὐτά",
                 title: "Intensive Pronoun Declension"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16316,7 +16534,8 @@ var render = function() {
                 viewID: "greek_article_view",
                 form: "τοῦ"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16332,7 +16551,8 @@ var render = function() {
                 viewID: "greek_numeral_view",
                 form: "δύο"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title" }, [
@@ -16353,7 +16573,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm1" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16362,7 +16583,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm2" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16371,7 +16593,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm3" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16380,7 +16603,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm4" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16389,7 +16613,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm5" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16398,7 +16623,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm6" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16407,7 +16633,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm7" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16416,7 +16643,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm8" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16425,7 +16653,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm9" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16434,7 +16663,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm10" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16443,7 +16673,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm11" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16452,7 +16683,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm12" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16461,7 +16693,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm13" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16470,7 +16703,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm14" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16479,7 +16713,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm15" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16488,7 +16723,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm16" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16501,7 +16737,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16510,7 +16747,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17b" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16519,7 +16757,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm17c" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16532,7 +16771,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm18" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16541,7 +16781,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm19" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16550,7 +16791,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm20" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16559,7 +16801,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm21" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16568,7 +16811,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm22" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16577,7 +16821,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm23" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16586,7 +16831,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm24" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16595,7 +16841,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm25" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16604,7 +16851,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm26" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16613,7 +16861,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm27" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -16630,7 +16879,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm28" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16639,7 +16889,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm29" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16648,7 +16899,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm30" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16657,7 +16909,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm31" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16670,7 +16923,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm32" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16679,7 +16933,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm33" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16688,7 +16943,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm34" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16697,7 +16953,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm35" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16710,7 +16967,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm36" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16719,7 +16977,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm37" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16728,7 +16987,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm38" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16737,7 +16997,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm39" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16750,7 +17011,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm40" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16759,7 +17021,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm41" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16768,7 +17031,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm42" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l3" }, [
@@ -16781,7 +17045,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm43" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16790,7 +17055,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm43b" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16799,7 +17065,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm44" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16808,7 +17075,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm45" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16817,7 +17085,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm46" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16826,7 +17095,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm47" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16835,7 +17105,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm48" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16844,7 +17115,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm49" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16853,7 +17125,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm50" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16862,7 +17135,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm51" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16871,7 +17145,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm52" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16880,7 +17155,8 @@ var render = function() {
               "infl-browser-table": true,
               "no-suffix-matches-hidden": false,
               view: _vm.greekParadigmView({ paradigmID: "verbpdgm53" })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "alpheios-ib__pofs-title-l2" }, [
@@ -16895,7 +17171,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm54"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16906,7 +17183,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm55"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16917,7 +17195,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm56"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16928,7 +17207,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm57"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16939,7 +17219,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm58"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16950,7 +17231,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm59"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16961,7 +17243,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm60"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16972,7 +17255,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm61"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16983,7 +17267,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm62"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -16994,7 +17279,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm63"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17005,7 +17291,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm64"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17016,7 +17303,8 @@ var render = function() {
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm65"
               })
-            }
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           }),
           _vm._v(" "),
           _c("wide-table", {
@@ -17026,9 +17314,9 @@ var render = function() {
               "no-suffix-matches-hidden": false,
               view: _vm.greekParticipleParadigmView({
                 paradigmID: "verbpdgm66"
-              }),
-              v: ""
-            }
+              })
+            },
+            on: { widthchange: _vm.inflTableWidthUpd }
           })
         ],
         1
@@ -17799,7 +18087,8 @@ var render = function() {
                   "div",
                   [
                     _c("main-table-wide-vue", {
-                      attrs: { collapsed: false, view: _vm.selectedView }
+                      attrs: { collapsed: false, view: _vm.selectedView },
+                      on: { widthchange: _vm.updateWidth }
                     }),
                     _vm._v(" "),
                     _vm.selectedView.linkedViews
@@ -17808,7 +18097,8 @@ var render = function() {
                         ) {
                           return _c("main-table-wide-vue", {
                             key: linkedView.id,
-                            attrs: { collapsed: false, view: linkedView }
+                            attrs: { collapsed: false, view: linkedView },
+                            on: { widthchange: _vm.updateWidth }
                           })
                         })
                       : _vm._e(),
@@ -18085,8 +18375,11 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: !this.$store.state.auth.isAuthenticated,
-              expression: "! this.$store.state.auth.isAuthenticated"
+              value:
+                !this.$store.state.auth.isAuthenticated &&
+                !this.$store.state.auth.externalLoginUrl,
+              expression:
+                "! this.$store.state.auth.isAuthenticated && ! this.$store.state.auth.externalLoginUrl"
             }
           ],
           class: _vm.btnClass,
@@ -18100,14 +18393,44 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
+        "a",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                !this.$store.state.auth.isAuthenticated &&
+                this.$store.state.auth.externalLoginUrl,
+              expression:
+                "! this.$store.state.auth.isAuthenticated && this.$store.state.auth.externalLoginUrl"
+            }
+          ],
+          attrs: { href: _vm.loginLink }
+        },
+        [
+          _c("button", { class: _vm.btnClass }, [
+            _vm._v(
+              "\n      " +
+                _vm._s(_vm.l10n.getMsg("AUTH_LOGIN_BTN_LABEL")) +
+                "\n    "
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
         "button",
         {
           directives: [
             {
               name: "show",
               rawName: "v-show",
-              value: this.$store.state.auth.isAuthenticated,
-              expression: "this.$store.state.auth.isAuthenticated"
+              value:
+                this.$store.state.auth.isAuthenticated &&
+                !this.$store.state.auth.externalLogoutUrl,
+              expression:
+                "this.$store.state.auth.isAuthenticated && !this.$store.state.auth.externalLogoutUrl"
             }
           ],
           class: _vm.btnClass,
@@ -18117,6 +18440,33 @@ var render = function() {
           _vm._v(
             "\n    " + _vm._s(_vm.l10n.getMsg("AUTH_LOGOUT_BTN_LABEL")) + "\n  "
           )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                this.$store.state.auth.isAuthenticated &&
+                this.$store.state.auth.externalLogoutUrl,
+              expression:
+                "this.$store.state.auth.isAuthenticated && this.$store.state.auth.externalLogoutUrl"
+            }
+          ],
+          attrs: { href: _vm.logoutLink }
+        },
+        [
+          _c("button", { class: _vm.btnClass }, [
+            _vm._v(
+              "\n      " +
+                _vm._s(_vm.l10n.getMsg("AUTH_LOGOUT_BTN_LABEL")) +
+                "\n    "
+            )
+          ])
         ]
       )
     ]
@@ -19230,8 +19580,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.$store.state.auth.showUI,
-              expression: "$store.state.auth.showUI"
+              value: _vm.$store.state.auth.enableLogin,
+              expression: "$store.state.auth.enableLogin"
             }
           ],
           staticClass: "alpheios-navmenu__item",
@@ -19762,8 +20112,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.$store.state.auth.showUI,
-              expression: "$store.state.auth.showUI"
+              value: _vm.$store.state.auth.enableLogin,
+              expression: "$store.state.auth.enableLogin"
             }
           ],
           attrs: {
@@ -20243,7 +20593,7 @@ var render = function() {
                   staticClass: "alpheios-navbuttons__btn",
                   class: {
                     active: _vm.$store.getters["ui/isActiveTab"]("user"),
-                    disabled: !_vm.$store.state.auth.showUI
+                    disabled: !_vm.$store.state.auth.enableLogin
                   },
                   on: {
                     click: function($event) {
@@ -20493,7 +20843,7 @@ var render = function() {
       ],
       staticClass: "alpheios-panel alpheios-panel--compact alpheios-content",
       class: _vm.rootClasses,
-      style: _vm.componentStyles,
+      style: _vm.mainstyles,
       attrs: {
         "data-component": "alpheios-panel",
         "data-resizable": "true",
@@ -20698,7 +21048,10 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("inflections", { staticClass: "alpheios-panel-inflections" })
+              _c("inflections", {
+                staticClass: "alpheios-panel-inflections",
+                on: { contentwidth: _vm.setContentWidth }
+              })
             ],
             1
           ),
@@ -20735,7 +21088,9 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("inflection-browser")
+              _c("inflection-browser", {
+                on: { contentwidth: _vm.setContentWidth }
+              })
             ],
             1
           ),
@@ -20775,7 +21130,11 @@ var render = function() {
                     "alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding",
                   attrs: { "data-alpheios-ignore": "all" }
                 },
-                [_c("treebank")],
+                [
+                  _c("treebank", {
+                    on: { treebankcontentwidth: _vm.setTreebankContentWidth }
+                  })
+                ],
                 1
               )
             : _vm._e(),
@@ -20805,7 +21164,7 @@ var render = function() {
             0
           ),
           _vm._v(" "),
-          _vm.$store.state.auth.showUI
+          _vm.$store.state.auth.enableLogin
             ? _c(
                 "div",
                 {
@@ -20837,8 +21196,7 @@ var render = function() {
                   expression: "$store.getters['ui/isActiveTab']('wordUsage')"
                 }
               ],
-              staticClass: "alpheios-panel__tab-panel",
-              attrs: { "data-alpheios-ignore": "all" }
+              staticClass: "alpheios-panel__tab-panel"
             },
             [_c("word-usage-examples")],
             1
@@ -21096,10 +21454,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel-large.vue?vue&type=template&id=3375bb20&":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/panel-large.vue?vue&type=template&id=3375bb20& ***!
-  \*******************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel.vue?vue&type=template&id=02c7bc7c&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/panel.vue?vue&type=template&id=02c7bc7c& ***!
+  \*************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21130,11 +21488,10 @@ var render = function() {
       ],
       staticClass: "alpheios-panel alpheios-panel--large alpheios-content",
       class: _vm.rootClasses,
-      style: _vm.componentStyles,
+      style: _vm.mainstyles,
       attrs: {
         "data-component": "alpheios-panel",
         "data-resizable": "true",
-        "data-resized": _vm.resized,
         id: "alpheios-panel-inner"
       }
     },
@@ -21369,7 +21726,10 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("inflections", { staticClass: "alpheios-panel-inflections" })
+            _c("inflections", {
+              staticClass: "alpheios-panel-inflections",
+              on: { contentwidth: _vm.setContentWidth }
+            })
           ],
           1
         ),
@@ -21404,7 +21764,9 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("inflection-browser")
+            _c("inflection-browser", {
+              on: { contentwidth: _vm.setContentWidth }
+            })
           ],
           1
         ),
@@ -21444,7 +21806,11 @@ var render = function() {
                   "alpheios-panel__tab-panel alpheios-panel__tab__treebank",
                 attrs: { "data-alpheios-ignore": "all" }
               },
-              [_c("treebank")],
+              [
+                _c("treebank", {
+                  on: { treebankcontentwidth: _vm.setTreebankContentWidth }
+                })
+              ],
               1
             )
           : _vm._e(),
@@ -21474,7 +21840,7 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm.$store.state.auth.showUI
+        _vm.$store.state.auth.enableLogin
           ? _c(
               "div",
               {
@@ -21506,8 +21872,7 @@ var render = function() {
                 expression: "$store.getters['ui/isActiveTab']('wordUsage')"
               }
             ],
-            staticClass:
-              "alpheios-panel__tab-panel alpheios-panel__tab-panel--scroll"
+            staticClass: "alpheios-panel__tab-panel"
           },
           [_c("word-usage-examples")],
           1
@@ -21983,8 +22348,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.$store.state.app.wordUsageExamplesReady,
-                      expression: "$store.state.app.wordUsageExamplesReady"
+                      value: _vm.$store.state.app.wordUsageExampleEnabled,
+                      expression: "$store.state.app.wordUsageExampleEnabled"
                     }
                   ],
                   attrs: {
@@ -22616,53 +22981,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      attrs: {
-        "data-notification-visible": _vm.$store.state.auth.notification.visible
-      }
-    },
     [
       _c("login"),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.state.auth.notification.text,
-              expression: "$store.state.auth.notification.text"
-            }
-          ],
-          staticClass:
-            "alpheios-user-auth__notifications alpheios-notification-area__notification"
-        },
-        [
-          _c("div", {
-            staticClass: "alpheios-notification-area__msg",
-            domProps: {
-              innerHTML: _vm._s(
-                _vm.l10n.getMsg(_vm.$store.state.auth.notification.text)
-              )
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "alpheios-notification-area__close-btn",
-              on: {
-                click: function($event) {
-                  return _vm.$store.commit("auth/resetNotification")
-                }
-              }
-            },
-            [_c("close-icon")],
-            1
-          )
-        ]
-      ),
       _vm._v(" "),
       _c(
         "div",
@@ -23774,6 +24094,105 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "alpheios_word_usage_list_item" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios_word_usage_list_item__source-data-title" },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "alpheios_word_usage_list_item__source_link",
+            attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
+          },
+          [_vm._v(_vm._s(_vm.citFormatted))]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "alpheios_word_usage_list_item__text" }, [
+      _c("div", { staticClass: "alpheios_word_usage_list_item__source" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios_word_usage_list_item__source-link",
+            on: {
+              click: function($event) {
+                return _vm.changeShowDataSource()
+              }
+            }
+          },
+          [
+            _c("source-icon", {
+              staticClass: "alpheios_word_usage_list_item__source-link-svg"
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios_word_usage_list_item__text_prefix" }, [
+        _vm._v(_vm._s(_vm.prefix))
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "alpheios_word_usage_list_item__text_targetword",
+        domProps: { innerHTML: _vm._s(_vm.wordUsageItem.normalizedText) }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios_word_usage_list_item__text_suffix" }, [
+        _vm._v(_vm._s(_vm.suffix))
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showDataSource,
+            expression: "showDataSource"
+          }
+        ],
+        staticClass: "alpheios_word_usage_list_item__source-data"
+      },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "alpheios_word_usage_list_item__source_link",
+            attrs: { href: _vm.wordUsageItem.source, target: "_blank" }
+          },
+          [_vm._v(_vm._s(_vm.citFormatted))]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596&":
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-usage-examples/word-usage-examples-sorting.vue?vue&type=template&id=35b89596& ***!
@@ -23950,147 +24369,26 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.showWordUsageExampleItems
-      ? _c(
-          "div",
-          { staticClass: "alpheios_word_usage_list_mainblock" },
-          [
-            _vm.wordUsageListSorted.length > 0
-              ? [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-word-usage__examples-show-sources-btn alpheios-button-primary",
-                      on: { click: _vm.changeShowDataSource }
-                    },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(
-                            _vm.l10n.getText("WORDUSAGE_SHOw_SOURCE_LINKS")
-                          ) +
-                          "\n      "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "alpheios-word-usage__examples",
-                      class: {
-                        "alpheios-word-usage__examples--sources-visible":
-                          _vm.showDataSource
-                      }
-                    },
-                    [
-                      _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
-                        return [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "alpheios-word-usage__examples-source-link-large",
-                              attrs: {
-                                href: wordUsageItem.source,
-                                target: "_blank"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(
-                                    wordUsageItem.cit +
-                                      " " +
-                                      wordUsageItem.fullCit()
-                                  ) +
-                                  "\n          "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "alpheios-word-usage__examples-pre"
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(wordUsageItem.prefix) +
-                                  "\n          "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", {
-                            staticClass:
-                              "alpheios-word-usage__examples-target-word",
-                            domProps: {
-                              innerHTML: _vm._s(wordUsageItem.normalizedText)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "alpheios-word-usage__examples-post"
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(wordUsageItem.suffix) +
-                                  "\n          "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.showDataSource,
-                                  expression: "showDataSource"
-                                }
-                              ],
-                              staticClass:
-                                "alpheios-word-usage__examples-source-link-compact",
-                              attrs: {
-                                href: wordUsageItem.source,
-                                target: "_blank"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(
-                                    wordUsageItem.cit +
-                                      " " +
-                                      wordUsageItem.fullCit()
-                                  ) +
-                                  "\n          "
-                              )
-                            ]
-                          )
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                ]
-              : [
-                  _vm._v(
-                    "\n      " +
-                      _vm._s(_vm.l10n.getText("WORDUSAGE_NO_RESULTS")) +
-                      "\n    "
-                  )
-                ]
-          ],
-          2
-        )
+      ? _c("div", { staticClass: "alpheios_word_usage_list_mainblock" }, [
+          _vm.wordUsageListSorted.length > 0
+            ? _c(
+                "div",
+                _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
+                  return _c("word-usage-examples-item", {
+                    key: wordUsageItem.ID,
+                    attrs: { wordUsageItem: wordUsageItem }
+                  })
+                }),
+                1
+              )
+            : _c("div", [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(_vm.l10n.getText("WORDUSAGE_NO_RESULTS")) +
+                    "\n    "
+                )
+              ])
+        ])
       : _vm._e(),
     _vm._v(" "),
     _c(
@@ -37382,7 +37680,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M14 1l-8 9 8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M14 1l-8 9 8 9"}})])
           )
         }
       });
@@ -37422,7 +37720,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M6 1l8 9-8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M6 1l8 9-8 9"}})])
           )
         }
       });
@@ -37902,7 +38200,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -38022,7 +38320,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M1 3h18v1H1zM1 7h18v1H1zM1 11h18v1H1zM1 15h18v1H1z"}})])
           )
         }
       });
@@ -38099,10 +38397,10 @@ __webpack_require__.r(__webpack_exports__);
             {
               class: [classNames,staticClass],
               style: [style,staticStyle],
-              attrs: Object.assign({"viewBox":"0 0 24 24"}, attrs),
+              attrs: Object.assign({"viewBox":"0 0 252 205"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"rx":"11.405","ry":"11.405","fill":"none","cy":"12","cx":"12"}}),_c('path',{attrs:{"d":"M19.46 10.145q0 2.49-1.178 4.494-1.426 2.356-3.969 2.708V15.18q1.21-.217 1.984-1.246.683-.947.683-1.976-.434.108-.869.108-1.302 0-2.17-.839-.868-.84-.868-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.55 0 2.481 1.11.806.975.806 2.383zm-8.534 0q0 2.49-1.178 4.494-1.426 2.356-3.968 2.708V15.18q1.209-.217 1.984-1.246.682-.947.682-1.976-.434.108-.868.108-1.302 0-2.17-.839-.869-.84-.869-1.868 0-1.11.9-1.895.93-.813 2.2-.813 1.551 0 2.481 1.11.807.975.807 2.383z"}})])
+            children.concat([_c('path',{attrs:{"d":"M15.005 4.975v6.403H5a5 5 0 0 0-5 5v158.26a5 5 0 0 0 5 5h14.258v-.092c.266.045.539.068.817.07 27.785.166 78.066 4.897 95.725 23.086 1.047 1.078 2.453 1.77 3.955 1.77h12.192c1.663 0 3.189-.843 4.339-2.045 8.297-8.674 35.91-22.564 94.874-22.801.365-.002.72-.042 1.063-.116v.128h14.259a5 5 0 0 0 5-5V16.378a5 5 0 0 0-5-5h-10.26V4.965c0-2.761-2.294-4.993-5.055-4.965-63.984.65-90.15 13.593-100.02 21.175-2.871 2.205-8.202 2.417-11.148.313C109.463 13.964 82.145.688 20.054.002c-2.762-.03-5.05 2.211-5.05 4.973zm9.63 4.882v141.14c74.752 0 94.517 21.032 94.517 21.032H120V35.19h-.34S110.03 9.85 24.633 9.85zM131.684 35h.313v136.88c2.305-1.895 27.375-21.136 94.594-21.136V10.104c-77.342 0-93.44 22.54-94.908 24.89z","clip-rule":"evenodd","fill-rule":"evenodd"}})])
           )
         }
       });
@@ -38150,6 +38448,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./images/inline-icons/source.svg":
+/*!****************************************!*\
+  !*** ./images/inline-icons/source.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1000 1000","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M500 10C229.4 10 10 229.4 10 500s219.4 490 490 490 490-219.4 490-490S770.6 10 500 10zm-64.7 733.6c-49.3 49.3-129.6 49.3-179 0-49.3-49.3-49.3-129.6 0-178.9l126.8-126.8c49.3-49.3 129.6-49.3 179 0 1.3 1.3 2.6 2.7 3.9 4.1.7.6 1.5 1.3 2.2 2 2 2 3.6 4.2 5 6.5.2.2.3.4.5.6l-.1.1c6.1 11.5 4.3 26-5.4 35.6-9.7 9.7-24.4 11.5-35.9 5.2-.8.8-8.7-7.1-13-11.3-25.8-25.8-67.3-26-93.1-.2l-127 127c-25.8 25.8-25.8 67.5 0 93.3s67.5 25.8 93.3 0l76.4-76.4c26.5 13 57.7 13.4 84.5 1.1L435.3 743.6zm308.3-308.3L616.9 562.1c-49.3 49.3-129.6 49.3-179 0-1.3-1.3-2.6-2.7-3.9-4.1-.7-.6-1.5-1.3-2.1-2-2-2-3.6-4.2-5-6.5-.2-.2-.3-.4-.5-.6l.1-.1c-6.1-11.5-4.3-26 5.4-35.6 9.7-9.7 24.4-11.4 35.9-5.2.8-.8 8.7 7.1 13 11.3 25.8 25.8 67.3 26 93.1.2l127-127c25.8-25.8 25.8-67.5 0-93.3s-67.5-25.8-93.3 0L531 375.6c-26.4-12.9-57.7-13.4-84.5-1.1l118.1-118.1c49.3-49.3 129.6-49.3 179 0s49.4 129.6 0 178.9z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
 /***/ "./images/inline-icons/status.svg":
 /*!****************************************!*\
   !*** ./images/inline-icons/status.svg ***!
@@ -38182,7 +38520,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -39319,7 +39657,7 @@ class UIController {
     }
 
     this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
-      this.userDataManager = this.initUserDataManager(newValue)
+      this.initUserDataManager(newValue)
     })
 
     if (this.api.auth) {
@@ -39530,6 +39868,7 @@ class UIController {
     this.resetInflData()
     this.store.commit('ui/resetNotification')
     this.store.commit('ui/resetMessages')
+    this.store.commit('auth/resetNotification')
 
     // Set new data values
     this.store.commit(`app/setTextData`, { text: targetWord, languageID: languageID })
@@ -39855,7 +40194,7 @@ class UIController {
 
   onWordListUpdated (wordList) {
     this.store.commit('app/setWordLists', [wordList])
-    if (this.store.state.auth.promptLogin && !this.store.state.auth.isAuthenticated) {
+    if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
@@ -44217,10 +44556,10 @@ module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all importan
 /*!*************************************!*\
   !*** ./locales/en-us/messages.json ***!
   \*************************************/
-/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TITLE_HELP_PANEL, TITLE_INFLECTIONS_PANEL, TITLE_INFLECTIONS_BROWSER_PANEL, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_SUGGEST_LOGIN, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_CONTROL, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOGIN_BTN_LABEL, AUTH_LOGOUT_BTN_LABEL, AUTH_LOGIN_PROGRESS_MSG, AUTH_LOGIN_SUCCESS_MSG, AUTH_LOGIN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, AUTH_LOGOUT_SUCCESS_MSG, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, WORDUSAGE_FILTERS_HIDE, WORDUSAGE_FILTERS_SHOW, WORDUSAGE_GET_RESULTS, WORDUSAGE_NO_RESULTS, WORDUSAGE_SORT_BY, WORDUSAGE_SORT_BY_AUTHOR, WORDUSAGE_SORT_BY_TEXTWORK, WORDUSAGE_SORT_BY_PREFIX, WORDUSAGE_SORT_BY_SUFFIX, WORDUSAGE_FILTERS_TYPE_NO_FILTERS, WORDUSAGE_FILTERS_TYPE_MORE_RESULTS, WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS, WORDUSAGE_FILTERS_AUTHOR_CLEAR, WORDUSAGE_FILTERS_TEXTWORK_CLEAR, WORDUSAGE_SORTING_AUTHOR_CLEAR, WORDUSAGE_SHOw_SOURCE_LINKS, FONTSIZE_TEXT_SMALL, FONTSIZE_TEXT_MEDIUM, FONTSIZE_TEXT_LARGE, default */
+/*! exports provided: COOKIE_TEST_MESSAGE, NUM_LINES_TEST_MESSAGE, TITLE_HELP_PANEL, TITLE_INFLECTIONS_PANEL, TITLE_INFLECTIONS_BROWSER_PANEL, TOOLTIP_MOVE_PANEL_LEFT, TOOLTIP_MOVE_PANEL_RIGHT, TOOLTIP_CLOSE_PANEL, TOOLTIP_HELP, TOOLTIP_INFLECT, TOOLTIP_INFLECT_BROWSER, TOOLTIP_DEFINITIONS, TOOLTIP_GRAMMAR, TOOLTIP_TREEBANK, TOOLTIP_OPTIONS, TOOLTIP_STATUS, TOOLTIP_WORDLIST, TOOLTIP_USER, TOOLTIP_SHOW_INFLECTIONS, TOOLTIP_SHOW_DEFINITIONS, TOOLTIP_SHOW_OPTIONS, TOOLTIP_SHOW_USAGEEXAMPLES, TOOLTIP_MORPHOLOGY, PLACEHOLDER_DEFINITIONS, PLACEHOLDER_INFLECT_IN_PROGRESS, LABEL_INFLECT_SELECT_POFS, LABEL_INFLECT_SHOWFULL, LABEL_INFLECT_COLLAPSE, TOOLTIP_INFLECT_SHOWFULL, TOOLTIP_INFLECT_COLLAPSE, LABEL_INFLECT_HIDEEMPTY, LABEL_INFLECT_SHOWEMPTY, TOOLTIP_INFLECT_HIDEEMPTY, TOOLTIP_INFLECT_SHOWEMPTY, INFLECT_MSG_TABLE_NOT_IMPLEMENTED, TEXT_INFO_GETTINGSTARTED, TEXT_INFO_ACTIVATE, TEXT_INFO_CLICK, TEXT_INFO_LANGDETECT, LABEL_INFO_CURRENTLANGUAGE, TEXT_INFO_SETTINGS, TEXT_INFO_ARROW, TEXT_INFO_REOPEN, TEXT_INFO_DEACTIVATE, TOOLTIP_POPUP_CLOSE, LABEL_POPUP_TREEBANK, LABEL_POPUP_INFLECT, LABEL_POPUP_OPTIONS, LABEL_POPUP_DEFINE, LABEL_POPUP_USAGEEXAMPLES, PLACEHOLDER_POPUP_DATA, PLACEHOLDER_NO_LANGUAGE_POPUP_DATA, PLACEHOLDER_NO_DATA_POPUP_DATA, LABEL_POPUP_CREDITS, LABEL_POPUP_SHOWCREDITS, LABEL_POPUP_HIDECREDITS, TEXT_NOTICE_SUGGEST_LOGIN, TEXT_NOTICE_CHANGE_LANGUAGE, TEXT_NOTICE_LANGUAGE_UNKNOWN, TEXT_NOTICE_MORPHDATA_READY, TEXT_NOTICE_MORPHDATA_NOTFOUND, TEXT_NOTICE_INFLDATA_READY, TEXT_NOTICE_DEFSDATA_READY, TEXT_NOTICE_DEFSDATA_NOTFOUND, TEXT_NOTICE_NO_DEFS_FOUND, TEXT_NOTICE_LEXQUERY_COMPLETE, TEXT_NOTICE_GRAMMAR_READY, TEXT_NOTICE_GRAMMAR_COMPLETE, TEXT_NOTICE_RESQUERY_COMPLETE, TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS, TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS, LABEL_BROWSERACTION_DEACTIVATE, LABEL_BROWSERACTION_ACTIVATE, LABEL_BROWSERACTION_DISABLED, LABEL_CTXTMENU_DEACTIVATE, LABEL_CTXTMENU_ACTIVATE, LABEL_CTXTMENU_DISABLED, LABEL_CTXTMENU_OPENPANEL, LABEL_CTXTMENU_INFO, LABEL_CTXTMENU_SENDEXP, LABEL_LOOKUP_CONTROL, LABEL_LOOKUP_BUTTON, TOOLTIP_LOOKUP_BUTTON, LABEL_LOOKUP_SETTINGS, LABEL_RESKIN_SETTINGS, TOOLTIP_RESKIN_SMALLFONT, TOOLTIP_RESKIN_MEDIUMFONT, TOOLTIP_RESKIN_LARGEFONT, TOOLTIP_RESKIN_LIGHTBG, TOOLTIP_RESKIN_DARKBG, INFLECTIONS_CREDITS_TITLE, INFLECTIONS_PARADIGMS_EXPLANATORY_HINT, INFLECTIONS_MAIN_TABLE_LINK_TEXT, INFL_ATTRIBUTE_LINK_TEXT_SOURCE, EMBED_LIB_WARNING_TEXT, AUTH_LOGIN_BTN_LABEL, AUTH_LOGOUT_BTN_LABEL, AUTH_LOGIN_PROGRESS_MSG, AUTH_LOGIN_SUCCESS_MSG, AUTH_LOGIN_AUTH_FAILURE_MSG, AUTH_PROFILE_NICKNAME_LABEL, AUTH_PROFILE_NAME_LABEL, AUTH_LOGOUT_SUCCESS_MSG, TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, WORDUSAGE_FILTERS_HIDE, WORDUSAGE_FILTERS_SHOW, WORDUSAGE_GET_RESULTS, WORDUSAGE_NO_RESULTS, WORDUSAGE_SORT_BY, WORDUSAGE_SORT_BY_AUTHOR, WORDUSAGE_SORT_BY_TEXTWORK, WORDUSAGE_SORT_BY_PREFIX, WORDUSAGE_SORT_BY_SUFFIX, WORDUSAGE_FILTERS_TYPE_NO_FILTERS, WORDUSAGE_FILTERS_TYPE_MORE_RESULTS, WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS, WORDUSAGE_FILTERS_AUTHOR_CLEAR, WORDUSAGE_FILTERS_TEXTWORK_CLEAR, WORDUSAGE_SORTING_AUTHOR_CLEAR, FONTSIZE_TEXT_SMALL, FONTSIZE_TEXT_MEDIUM, FONTSIZE_TEXT_LARGE, default */
 /***/ (function(module) {
 
-module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TITLE_HELP_PANEL":{"message":"Help","description":"A title of a help panel","component":"Panel"},"TITLE_INFLECTIONS_PANEL":{"message":"Inflection tables","description":"A title of an inflections panel","component":"Panel"},"TITLE_INFLECTIONS_BROWSER_PANEL":{"message":"Browse inflection tables","description":"A title of an inflections browser panel","component":"Panel"},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Show","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_SUGGEST_LOGIN":{"message":"Login to save your words to your wordlist.","description":"login notification","component":"UI"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_CONTROL":{"message":"Show/Hide lookup","description":"A tooltip for the button that turns the lookup panel on and off","component":"Toolbar"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOGIN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOGOUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOGIN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOGIN_SUCCESS_MSG":{"message":"Congratulations! You are logged in successfully.","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOGIN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"AUTH_LOGOUT_SUCCESS_MSG":{"message":"You have been logged out.","description":"A message shown to the user if he or she logged out successfully","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"},"WORDUSAGE_FILTERS_HIDE":{"message":"hide","description":"Word Usage Examples Filters Hide link","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_SHOW":{"message":"show","description":"Word Usage Examples Filters Show Link","component":"WordUsageExamplesHeader"},"WORDUSAGE_GET_RESULTS":{"message":"Get results","description":"Word Usage Examples Filters Get results button","component":"WordUsageExamplesHeader"},"WORDUSAGE_NO_RESULTS":{"message":"There are no results.","description":"Word Usage Examples No results text","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY":{"message":"Sort by","description":"Word Usage Examples Sort by Title","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_AUTHOR":{"message":"By author","description":"Word Usage Examples Sort by author","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_TEXTWORK":{"message":"By text work","description":"Word Usage Examples Sort by text work","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_PREFIX":{"message":"By prefix","description":"Word Usage Examples Sort by prefix","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_SUFFIX":{"message":"By suffix","description":"Word Usage Examples Sort by suffix","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_TYPE_NO_FILTERS":{"message":"Get results without filters","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_MORE_RESULTS":{"message":"See more results for a specific Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS":{"message":"Filter these results by Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_AUTHOR_CLEAR":{"message":"Clear author filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TEXTWORK_CLEAR":{"message":"Clear textwork filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORTING_AUTHOR_CLEAR":{"message":"Clear sorting","description":"Word Usage Examples Sorting","component":"WordUsageExamplesSorting"},"WORDUSAGE_SHOw_SOURCE_LINKS":{"message":"Show/hide source links","description":"Message on a button that toggles source links on or off","component":"WordUsageExamples"},"FONTSIZE_TEXT_SMALL":{"message":"Small","description":"Description of a text size option within a button","component":"Font size component"},"FONTSIZE_TEXT_MEDIUM":{"message":"Medium","description":"Description of a text size option within a button","component":"Font size component"},"FONTSIZE_TEXT_LARGE":{"message":"Large","description":"Description of a text size option within a button","component":"Font size component"}};
+module.exports = {"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"},"NUM_LINES_TEST_MESSAGE":{"message":"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.","description":"A test message that is shown in a panel","component":"Panel","params":["numLines"]},"TITLE_HELP_PANEL":{"message":"Help","description":"A title of a help panel","component":"Panel"},"TITLE_INFLECTIONS_PANEL":{"message":"Inflection tables","description":"A title of an inflections panel","component":"Panel"},"TITLE_INFLECTIONS_BROWSER_PANEL":{"message":"Browse inflection tables","description":"A title of an inflections browser panel","component":"Panel"},"TOOLTIP_MOVE_PANEL_LEFT":{"message":"Move Panel to Left","description":"tooltip for moving the panel to the left","component":"Panel"},"TOOLTIP_MOVE_PANEL_RIGHT":{"message":"Move Panel to Right","description":"tooltip for moving the panel to the right","component":"Panel"},"TOOLTIP_CLOSE_PANEL":{"message":"Close Panel","description":"tooltip for closing the panel","component":"Panel"},"TOOLTIP_HELP":{"message":"Help","description":"tooltip for help tab","component":"Panel"},"TOOLTIP_INFLECT":{"message":"Inflections","description":"tooltip for inflections tab","component":"Panel"},"TOOLTIP_INFLECT_BROWSER":{"message":"Browse Inflection Tables","description":"tooltip for inflections browser tab","component":"Panel"},"TOOLTIP_DEFINITIONS":{"message":"Definitions","description":"tooltip for definitions tab","component":"Panel"},"TOOLTIP_GRAMMAR":{"message":"Browse Grammar","description":"tooltip for grammar tab","component":"Panel"},"TOOLTIP_TREEBANK":{"message":"Diagram","description":"tooltip for treebank tab","component":"Panel"},"TOOLTIP_OPTIONS":{"message":"Options","description":"tooltip for options tab","component":"Panel"},"TOOLTIP_STATUS":{"message":"Status Messages","description":"tooltip for status tab","component":"Panel"},"TOOLTIP_WORDLIST":{"message":"User word list","description":"tooltip for user word list tab","component":"Panel"},"TOOLTIP_USER":{"message":"User info","description":"tooltip for a user info tab","component":"Panel"},"TOOLTIP_SHOW_INFLECTIONS":{"message":"Show inflections","description":"tooltip for button inflections","component":"Popup"},"TOOLTIP_SHOW_DEFINITIONS":{"message":"Show definitions","description":"tooltip for button definitions","component":"Popup"},"TOOLTIP_SHOW_OPTIONS":{"message":"Show options","description":"tooltip for button options","component":"Popup"},"TOOLTIP_SHOW_USAGEEXAMPLES":{"message":"Show example usages of this word","description":"tooltop for word usage examples button","component":"Popup"},"TOOLTIP_MORPHOLOGY":{"message":"Show morphology","description":"tooltop for a morphology button","component":"Panel"},"PLACEHOLDER_DEFINITIONS":{"message":"Lookup a word to show definitions...","description":"placeholder for definitions panel","component":"Panel"},"PLACEHOLDER_INFLECT_IN_PROGRESS":{"message":"Lookup a word to show inflections...","description":"placeholder for inflections panel","component":"Panel"},"LABEL_INFLECT_SELECT_POFS":{"message":"Part of speech:","description":"label for part of speech selector on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWFULL":{"message":"Expand","description":"label for expand button on inflections panel","component":"Panel"},"LABEL_INFLECT_COLLAPSE":{"message":"Collapse","description":"label for collapse table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWFULL":{"message":"This table has been collapsed to show only columns with matching endings. Click 'Expand' to see the full table","description":"tooltip for show full table button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_COLLAPSE":{"message":"This table shows all its columns. Click 'Collapse' to show the ones with matching endings only","description":"tooltip for collapse table button on inflections panel","component":"Panel"},"LABEL_INFLECT_HIDEEMPTY":{"message":"Hide empty columns","description":"label for hide empty columns button on inflections panel","component":"Panel"},"LABEL_INFLECT_SHOWEMPTY":{"message":"Show empty columns","description":"label for show empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_HIDEEMPTY":{"message":"Show table without empty columns","description":"tooltip for hide empty columns button on inflections panel","component":"Panel"},"TOOLTIP_INFLECT_SHOWEMPTY":{"message":"Show table with empty columns","description":"tooltip for show empty columns button on inflections panel","component":"Panel"},"INFLECT_MSG_TABLE_NOT_IMPLEMENTED":{"message":"This table has not been implemented yet","description":"tooltip to show instead of inflection table if the latter is not implemented","component":"Panel"},"TEXT_INFO_GETTINGSTARTED":{"message":"Getting Started","description":"info text","component":"Panel"},"TEXT_INFO_ACTIVATE":{"message":"Activate on a page with Latin, Ancient Greek, Arabic or Persian text.","description":"info text","component":"Panel"},"TEXT_INFO_CLICK":{"message":"Double-click on a word to retrieve morphology and short definitions.","description":"info text","component":"Panel"},"TEXT_INFO_LANGDETECT":{"message":"Alpheios will try to detect the language of the word from the page markup. If it cannot it will use the default language.","description":"info text","component":"Panel"},"LABEL_INFO_CURRENTLANGUAGE":{"message":"Current language:","description":"label for current language in info text","component":"Panel"},"TEXT_INFO_SETTINGS":{"message":"Click the Options wheel to change the default language, default dictionaries or to disable the popup (set UI Type to 'panel').","description":"info text","component":"Panel"},"TEXT_INFO_ARROW":{"message":"Use the arrow at the top of this panel to move it from the right to left of your browser window.","description":"info text","component":"Panel"},"TEXT_INFO_REOPEN":{"message":"You can reopen this panel at any time by selecting 'Info' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TEXT_INFO_DEACTIVATE":{"message":"Deactivate Alpheios by clicking the toolbar icon or choosing 'Deactivate' from the Alpheios Reading Tools option in your browser's context menu.","description":"info text","component":"Panel"},"TOOLTIP_POPUP_CLOSE":{"message":"Close Popup","description":"tooltip for closing the popup","component":"Popup"},"LABEL_POPUP_TREEBANK":{"message":"Diagram","description":"label for treebank button on popup","component":"Popup"},"LABEL_POPUP_INFLECT":{"message":"Inflect","description":"label for inflect button on popup","component":"Popup"},"LABEL_POPUP_OPTIONS":{"message":"Options","description":"label for options button on popup","component":"Popup"},"LABEL_POPUP_DEFINE":{"message":"Define","description":"label for define button on popup","component":"Popup"},"LABEL_POPUP_USAGEEXAMPLES":{"message":"Examples","description":"label for usage examples button on popup","component":"Popup"},"PLACEHOLDER_POPUP_DATA":{"message":"Lexical data is loading","description":"placeholder text for popup data","component":"Popup"},"PLACEHOLDER_NO_LANGUAGE_POPUP_DATA":{"message":"Lexical data couldn't be populated because page language is not defined","description":"placeholder text for popup data when language is not defined","component":"Popup"},"PLACEHOLDER_NO_DATA_POPUP_DATA":{"message":"Lexical query produced no results","description":"placeholder text for popup data","component":"Popup"},"LABEL_POPUP_CREDITS":{"message":"Credits:","description":"label for credits on popup","component":"Popup"},"LABEL_POPUP_SHOWCREDITS":{"message":"Show","description":"label for show credits link on popup","component":"Popup"},"LABEL_POPUP_HIDECREDITS":{"message":"Hide","description":"label for hide credits link on popup","component":"Popup"},"TEXT_NOTICE_SUGGEST_LOGIN":{"message":"Login to save your words to your wordlist.","description":"login notification","component":"UI"},"TEXT_NOTICE_CHANGE_LANGUAGE":{"message":"Language: {languageName}<br>Wrong? Change to:","description":"language notification","component":"UI","params":["languageName"]},"TEXT_NOTICE_LANGUAGE_UNKNOWN":{"message":"unknown","description":"unknown language notification","component":"UI"},"TEXT_NOTICE_MORPHDATA_READY":{"message":"Morphological analyzer data is ready","description":"morph data ready notice","component":"UI"},"TEXT_NOTICE_MORPHDATA_NOTFOUND":{"message":"Morphological data not found. Definition queries pending.","description":"morph data not found notice","component":"UI"},"TEXT_NOTICE_INFLDATA_READY":{"message":"Inflection data is ready","description":"inflection data ready notice","component":"UI"},"TEXT_NOTICE_DEFSDATA_READY":{"message":"{requestType} request is completed successfully. Lemma: \"{lemma}\"","description":"definition request success notice","component":"UI","params":["requestType","lemma"]},"TEXT_NOTICE_DEFSDATA_NOTFOUND":{"message":"{requestType} request failed. Lemma not found for: \"{word}\"","description":"definition request success notice","component":"UI","params":["requestType","word"]},"TEXT_NOTICE_NO_DEFS_FOUND":{"message":"No definitions found","description":"displayed by the morph compoennt when there are no definition data exist","component":"UI"},"TEXT_NOTICE_LEXQUERY_COMPLETE":{"message":"All lexical queries complete.","description":"lexical queries complete notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_READY":{"message":"Grammar resource retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_GRAMMAR_COMPLETE":{"message":"All grammar resource data retrieved","description":"grammar retrieved notice","component":"UI"},"TEXT_NOTICE_RESQUERY_COMPLETE":{"message":"All resource data retrieved","description":"resource query complete notice","component":"UI"},"TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Data retrieval is in progress","component":"UI"},"TEXT_NOTICE_RESOURCE_RETRIEVAL_IN_PROGRESS":{"message":"Please wait while data is retrieved ...","description":"Resource retrieval is in progress","component":"UI"},"LABEL_BROWSERACTION_DEACTIVATE":{"message":"Deactivate Alpheios","description":"Deactivate browser action title","component":"UI"},"LABEL_BROWSERACTION_ACTIVATE":{"message":"Activate Alpheios","description":"Activate browser action title","component":"UI"},"LABEL_BROWSERACTION_DISABLED":{"message":"(Alpheios Extension Disabled For Page)","description":"Disabled browser action title","component":"UI"},"LABEL_CTXTMENU_DEACTIVATE":{"message":"Deactivate","description":"Deactivate context menu label","component":"UI"},"LABEL_CTXTMENU_ACTIVATE":{"message":"Activate","description":"Activate context menu label","component":"UI"},"LABEL_CTXTMENU_DISABLED":{"message":"(Disabled)","description":"Disabled context menu label","component":"UI"},"LABEL_CTXTMENU_OPENPANEL":{"message":"Open Panel","description":"Open Panel context menu label","component":"UI"},"LABEL_CTXTMENU_INFO":{"message":"Info","description":"Info context menu label","component":"UI"},"LABEL_CTXTMENU_SENDEXP":{"message":"Send Experiences to remote server","description":"send exp data context menu label","component":"UI"},"LABEL_LOOKUP_CONTROL":{"message":"Show/Hide lookup","description":"A tooltip for the button that turns the lookup panel on and off","component":"Toolbar"},"LABEL_LOOKUP_BUTTON":{"message":"Lookup","description":"lookup button in lookup.vue","component":"Popup"},"TOOLTIP_LOOKUP_BUTTON":{"message":"Lookup word","description":"Tooltip for the lookup button in lookup.vue","component":"Lookup"},"LABEL_LOOKUP_SETTINGS":{"message":"Using Language...","description":"Settings link-label in the lookup block in lookup.vue","component":"Lookup"},"LABEL_RESKIN_SETTINGS":{"message":"Reskin options","description":"Label for Reskin component","component":"ReskinFontColor"},"TOOLTIP_RESKIN_SMALLFONT":{"message":"Small font","description":"Tooltip for small font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_MEDIUMFONT":{"message":"Medium font","description":"Tooltip for medium font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LARGEFONT":{"message":"Large font","description":"Tooltip for large font icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_LIGHTBG":{"message":"Light background","description":"Tooltip for light colors schema icon","component":"ReskinFontColor"},"TOOLTIP_RESKIN_DARKBG":{"message":"Dark background","description":"Tooltip for dark colors schema icon","component":"ReskinFontColor"},"INFLECTIONS_CREDITS_TITLE":{"message":"Credits","description":"Title of credits section on inflection tables panel","component":"InflectionTables"},"INFLECTIONS_PARADIGMS_EXPLANATORY_HINT":{"message":"The following table(s) show conjugation patterns for verbs which are similar to those of <span>{word}</span>","description":"A hint that indicates that the current table is representative pattern for verbs similar to the one chosen","component":"InflectionTables","params":["word"]},"INFLECTIONS_MAIN_TABLE_LINK_TEXT":{"message":"Back to main","description":"A link pointing to a main inflection table","component":"InflectionTables"},"INFL_ATTRIBUTE_LINK_TEXT_SOURCE":{"message":"Source","description":"A link pointing to the source of a lemma or inflection","component":"InflAttribute"},"EMBED_LIB_WARNING_TEXT":{"message":"This pages embeds Alpheios directly. The Alpheios browser extension is not needed for it and will be deactivated until you navigate away from the page.","description":"A message that is shown when an Alpheios extension is disabled due to embedded library presence","component":"EmbedLibWarning"},"AUTH_LOGIN_BTN_LABEL":{"message":"Log In","description":"A message shown on a log in button","component":"UserAuth Vue Component"},"AUTH_LOGOUT_BTN_LABEL":{"message":"Log Out","description":"A message shown on a log out button","component":"UserAuth Vue Component"},"AUTH_LOGIN_PROGRESS_MSG":{"message":"Please be patient while we are logging you in ...","description":"A message shown to the user while he or she is waiting for an authentication to complete","component":"UserAuth Vue Component"},"AUTH_LOGIN_SUCCESS_MSG":{"message":"Congratulations! You are logged in successfully.","description":"A message shown to the user if he or she logged in successfully","component":"UserAuth Vue Component"},"AUTH_LOGIN_AUTH_FAILURE_MSG":{"message":"Authentication failed","description":"A message shown to the user if his or her authentication failed","component":"UserAuth Vue Component"},"AUTH_PROFILE_NICKNAME_LABEL":{"message":"Nickname","description":"A user's profile nickname filed label","component":"UserAuth Vue Component"},"AUTH_PROFILE_NAME_LABEL":{"message":"Name","description":"A user's profile name filed label","component":"UserAuth Vue Component"},"AUTH_LOGOUT_SUCCESS_MSG":{"message":"You have been logged out.","description":"A message shown to the user if he or she logged out successfully","component":"UserAuth Vue Component"},"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"},"WORDUSAGE_FILTERS_HIDE":{"message":"hide","description":"Word Usage Examples Filters Hide link","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_SHOW":{"message":"show","description":"Word Usage Examples Filters Show Link","component":"WordUsageExamplesHeader"},"WORDUSAGE_GET_RESULTS":{"message":"Get results","description":"Word Usage Examples Filters Get results button","component":"WordUsageExamplesHeader"},"WORDUSAGE_NO_RESULTS":{"message":"There are no results.","description":"Word Usage Examples No results text","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY":{"message":"Sort by","description":"Word Usage Examples Sort by Title","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_AUTHOR":{"message":"By author","description":"Word Usage Examples Sort by author","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_TEXTWORK":{"message":"By text work","description":"Word Usage Examples Sort by text work","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_PREFIX":{"message":"By prefix","description":"Word Usage Examples Sort by prefix","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_SUFFIX":{"message":"By suffix","description":"Word Usage Examples Sort by suffix","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_TYPE_NO_FILTERS":{"message":"Get results without filters","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_MORE_RESULTS":{"message":"See more results for a specific Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS":{"message":"Filter these results by Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_AUTHOR_CLEAR":{"message":"Clear author filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TEXTWORK_CLEAR":{"message":"Clear textwork filter","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORTING_AUTHOR_CLEAR":{"message":"Clear sorting","description":"Word Usage Examples Sorting","component":"WordUsageExamplesSorting"},"FONTSIZE_TEXT_SMALL":{"message":"Small","description":"Description of a text size option within a button","component":"Font size component"},"FONTSIZE_TEXT_MEDIUM":{"message":"Medium","description":"Description of a text size option within a button","component":"Font size component"},"FONTSIZE_TEXT_LARGE":{"message":"Large","description":"Description of a text size option within a button","component":"Font size component"}};
 
 /***/ }),
 
@@ -44312,8 +44651,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vue/components/popup.vue */ "./vue/components/popup.vue");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Popup", function() { return _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _vue_components_panel_large_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/components/panel-large.vue */ "./vue/components/panel-large.vue");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Panel", function() { return _vue_components_panel_large_vue__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/components/panel.vue */ "./vue/components/panel.vue");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Panel", function() { return _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
 /* harmony import */ var _lib_l10n_l10n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/l10n/l10n */ "./lib/l10n/l10n.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "L10n", function() { return _lib_l10n_l10n__WEBPACK_IMPORTED_MODULE_3__["default"]; });
@@ -46458,18 +46797,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/components/panel-large.vue":
-/*!****************************************!*\
-  !*** ./vue/components/panel-large.vue ***!
-  \****************************************/
+/***/ "./vue/components/panel.vue":
+/*!**********************************!*\
+  !*** ./vue/components/panel.vue ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./panel-large.vue?vue&type=template&id=3375bb20& */ "./vue/components/panel-large.vue?vue&type=template&id=3375bb20&");
-/* harmony import */ var _panel_large_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./panel-large.vue?vue&type=script&lang=js& */ "./vue/components/panel-large.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./panel-large.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./panel.vue?vue&type=template&id=02c7bc7c& */ "./vue/components/panel.vue?vue&type=template&id=02c7bc7c&");
+/* harmony import */ var _panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./panel.vue?vue&type=script&lang=js& */ "./vue/components/panel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./panel.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/panel.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -46480,9 +46819,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _panel_large_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -46492,54 +46831,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vue/components/panel-large.vue"
+component.options.__file = "vue/components/panel.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/components/panel-large.vue?vue&type=script&lang=js&":
-/*!*****************************************************************!*\
-  !*** ./vue/components/panel-large.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************/
+/***/ "./vue/components/panel.vue?vue&type=script&lang=js&":
+/*!***********************************************************!*\
+  !*** ./vue/components/panel.vue?vue&type=script&lang=js& ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_panel_large_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!../../../node_modules/source-map-loader!./panel-large.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/panel-large.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_panel_large_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!../../../node_modules/source-map-loader!./panel.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/panel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************!*\
-  !*** ./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************/
+/***/ "./vue/components/panel.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************!*\
+  !*** ./vue/components/panel.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src!../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../node_modules/vue-loader/lib??vue-loader-options!./panel-large.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel-large.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src!../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../node_modules/vue-loader/lib??vue-loader-options!./panel.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./vue/components/panel-large.vue?vue&type=template&id=3375bb20&":
-/*!***********************************************************************!*\
-  !*** ./vue/components/panel-large.vue?vue&type=template&id=3375bb20& ***!
-  \***********************************************************************/
+/***/ "./vue/components/panel.vue?vue&type=template&id=02c7bc7c&":
+/*!*****************************************************************!*\
+  !*** ./vue/components/panel.vue?vue&type=template&id=02c7bc7c& ***!
+  \*****************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./panel-large.vue?vue&type=template&id=3375bb20& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel-large.vue?vue&type=template&id=3375bb20&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./panel.vue?vue&type=template&id=02c7bc7c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/panel.vue?vue&type=template&id=02c7bc7c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_large_vue_vue_type_template_id_3375bb20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_panel_vue_vue_type_template_id_02c7bc7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -47765,6 +48104,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue":
+/*!*************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=template&id=7a523ef1& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&");
+/* harmony import */ var _word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=script&lang=js& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/components/word-usage-examples/word-usage-examples-item.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-usage-examples-item.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_usage_examples_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-item.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&":
+/*!********************************************************************************************************!*\
+  !*** ./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-usage-examples-item.vue?vue&type=template&id=7a523ef1& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-usage-examples/word-usage-examples-item.vue?vue&type=template&id=7a523ef1&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_word_usage_examples_item_vue_vue_type_template_id_7a523ef1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue":
 /*!****************************************************************************!*\
   !*** ./vue/components/word-usage-examples/word-usage-examples-sorting.vue ***!
@@ -48170,8 +48596,12 @@ class AuthModule extends _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_0_
   constructor (store, api, config) {
     super(store, api, config)
     this._auth = this.config.auth
-    // enable ui in initial unauthenticated state only if we have an auth object that allows login
-    this._showUIDefault = !!this._auth && this._auth.enableLogin()
+    this._externalLoginUrl = null
+    this._externalLogoutUrl = null
+    if (this._auth) {
+      this._externalLoginUrl = this._auth.loginUrl()
+      this._externalLogoutUrl = this._auth.logoutUrl()
+    }
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
     api[this.constructor.moduleName] = this.constructor.api(this, store)
   }
@@ -48192,22 +48622,20 @@ AuthModule.store = (moduleInstance) => {
         count: 0,
         text: null
       },
-      showUI: moduleInstance._showUIDefault,
-      enableLogin: moduleInstance._showUIDefault, // this doesn't change based upon auth
-      promptLogin: !!moduleInstance._auth // don't prompt for login if we have no auth object
+      externalLoginUrl: moduleInstance._externalLoginUrl,
+      externalLogoutUrl: moduleInstance._externalLogoutUrl,
+      enableLogin: Boolean(moduleInstance._auth) // don't enable login if we have no auth object
     },
     mutations: {
       setIsAuthenticated: (state, profile) => {
         state.isAuthenticated = true
         state.userId = profile.sub
         state.userNickName = profile.nickname
-        state.showUI = true
       },
       setIsNotAuthenticated: (state) => {
         state.isAuthenticated = false
         state.userId = ''
         state.userNickName = ''
-        state.showUI = moduleInstance._showUIDefault
       },
       setNotification (state, data) {
         state.notification.visible = true
@@ -48597,7 +49025,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
-/* harmony import */ var _vue_components_panel_large_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/panel-large.vue */ "./vue/components/panel-large.vue");
+/* harmony import */ var _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/panel.vue */ "./vue/components/panel.vue");
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
 /* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
  // Vue in a runtime + compiler configuration
@@ -48623,7 +49051,7 @@ class PanelModule extends _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1
        */
       api: api,
       components: {
-        largePanel: _vue_components_panel_large_vue__WEBPACK_IMPORTED_MODULE_2__["default"], // A desktop version of a panel
+        panel: _vue_components_panel_vue__WEBPACK_IMPORTED_MODULE_2__["default"], // A desktop version of a panel
         compactPanel: _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__["default"] // A mobile version of a panel
       }
     })
@@ -48639,7 +49067,7 @@ PanelModule.store = (moduleInstance) => {
       // Whether a panel is shown or hidden
       visible: false,
       // Choose mobile or desktop layout from the value of the `platform` prop of a configuration object
-      layout: moduleInstance.config.platform.isDesktop ? `largePanel` : 'compactPanel',
+      layout: moduleInstance.config.platform.isDesktop ? `panel` : 'compactPanel',
       // Where a panel is located. Possible values are `left` or `right`.
       position: 'left',
       // Device orientation

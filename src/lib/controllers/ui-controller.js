@@ -777,7 +777,7 @@ export default class UIController {
     }
 
     this.authUnwatch = this.store.watch((state) => state.auth.isAuthenticated, (newValue, oldValue) => {
-      this.userDataManager = this.initUserDataManager(newValue)
+      this.initUserDataManager(newValue)
     })
 
     if (this.api.auth) {
@@ -988,6 +988,7 @@ export default class UIController {
     this.resetInflData()
     this.store.commit('ui/resetNotification')
     this.store.commit('ui/resetMessages')
+    this.store.commit('auth/resetNotification')
 
     // Set new data values
     this.store.commit(`app/setTextData`, { text: targetWord, languageID: languageID })
@@ -1313,7 +1314,7 @@ export default class UIController {
 
   onWordListUpdated (wordList) {
     this.store.commit('app/setWordLists', [wordList])
-    if (this.store.state.auth.promptLogin && !this.store.state.auth.isAuthenticated) {
+    if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
