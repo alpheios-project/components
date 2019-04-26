@@ -735,6 +735,9 @@ export default class UIController {
       wordLists = await this.wordlistC.initLists(this.userDataManager)
       this.store.commit('app/setWordLists', wordLists)
     } else {
+      // TODO we need to make the UserDataManager a singleton that can
+      // handle switching users gracefully
+      this.userDataManager.clear()
       this.userDataManager = null
       wordLists = await this.wordlistC.initLists()
     }
