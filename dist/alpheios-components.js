@@ -26261,7 +26261,7 @@ var render = function() {
         "a",
         {
           staticClass: "alpheios-wordlists-tq-title",
-          attrs: { href: _vm.source }
+          attrs: { href: _vm.source, target: "_blank" }
         },
         [_vm._v(_vm._s(_vm.source))]
       ),
