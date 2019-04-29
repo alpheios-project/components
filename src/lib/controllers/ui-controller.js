@@ -1224,10 +1224,10 @@ export default class UIController {
     checkType
   }
 
-  getWordUsageExamplesQueryParams(textSelector) {
+  getWordUsageExamplesQueryParams (textSelector) {
     if (this.enableWordUsageExamples(textSelector, 'onLexicalQuery')) {
       return { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
-              paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
     } else {
       return null
     }
@@ -1376,8 +1376,8 @@ export default class UIController {
       homonym = wordItem.homonym
     }
 
-    this.newLexicalRequest(homonym.targetWord, homonym.languageID,true)
-    if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length == homonym.lexemes.length) {
+    this.newLexicalRequest(homonym.targetWord, homonym.languageID, true)
+    if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
