@@ -373,6 +373,9 @@ html {
   color: var(--alpheios-text-color) !important;
   box-sizing: border-box !important;
   margin: 0 !important;
+  text-size-adjust: none !important;
+  -webkit-text-size-adjust: none !important;
+  -ms-text-size-adjust: none !important;
 }
 .alpheios-content [lang=ara] {
   font-family: var(--alpheios-arabic-font-face) !important;
@@ -380,7 +383,6 @@ html {
 .alpheios-content h1, .alpheios-content h2, .alpheios-content h3, .alpheios-content h4, .alpheios-content h5, .alpheios-content h6, .alpheios-content p, .alpheios-content span, .alpheios-content a {
   line-height: 1.15 !important;
   text-align: left !important;
-  text-size-adjust: 100% !important;
   padding: 0 !important;
   font-family: var(--alpheios-sans-font-face) !important;
   font-style: normal !important;
