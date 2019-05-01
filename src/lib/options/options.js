@@ -44,9 +44,9 @@ export default class Options {
   /**
    * Reset all options to default values
    */
-  async reset() {
+  async reset () {
     await this.storageAdapter.clearAll()
-    this.items = Options.initItems(this.defaults.items,this.storageAdapter)
+    this.items = Options.initItems(this.defaults.items, this.storageAdapter)
   }
 
   /**

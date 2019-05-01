@@ -31,7 +31,7 @@ export default class ExtensionSyncStorage extends StorageAdapter {
     return browser.storage.sync.get(keys)
   }
 
-  clearAll() {
+  clearAll () {
     return browser.storage.sync.clear()
   }
 }

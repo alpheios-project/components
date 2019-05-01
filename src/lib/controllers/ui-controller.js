@@ -1391,14 +1391,14 @@ export default class UIController {
     }
   }
 
-  resetAllOptions() {
-      this.contentOptions.reset()
-      this.resourceOptions.reset()
-      this.uiOptions.reset()
-      // TODO this is a hack until we refactor settings to use the Vuex store
-      // what we really need to do here is make sure that any state handlers that need to be called
-      // in response to any setting change are called and that the ui components for the settings are redrawn
-      alert("Restart your browser now for setting reset to take affect")
+  resetAllOptions () {
+    this.contentOptions.reset()
+    this.resourceOptions.reset()
+    this.uiOptions.reset()
+    // TODO this is a hack until we refactor settings to use the Vuex store
+    // what we really need to do here is make sure that any state handlers that need to be called
+    // in response to any setting change are called and that the ui components for the settings are redrawn
+    alert('Restart your browser now for setting reset to take affect')
   }
 
   contentOptionChange (name, value) {
