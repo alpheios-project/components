@@ -495,6 +495,8 @@ export default {
     grid-template-rows: $alpheios-toolbar-height 1fr min-content;
     grid-template-areas: "header" "content" "notifications";
 
+    touch-action: pan-x pan-y;
+
     &[data-resized="true"] {
       grid-template-columns: auto;
     }

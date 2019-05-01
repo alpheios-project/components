@@ -2711,6 +2711,7 @@ h3.alpheios-inflections__credits-title {
   grid-template-columns: min-content;
   grid-template-rows: calc(var(--alpheios-base-ui-size) * 3.5) 1fr min-content;
   grid-template-areas: "header" "content" "notifications";
+  touch-action: pan-x pan-y;
 }
 .alpheios-panel[data-resized=true] {
   grid-template-columns: auto;
