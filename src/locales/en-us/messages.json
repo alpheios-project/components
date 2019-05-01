@@ -112,9 +112,14 @@
     "component": "Popup"
   },
   "TOOLTIP_MORPHOLOGY": {
-    "message": "Show morphology",
+    "message": "Morphology",
     "description": "tooltop for a morphology button",
     "component": "Panel"
+  },
+  "TOOLTIP_NOT_AVAIL_POSTFIX": {
+    "message": "not available",
+    "description": "A postix added to tooltips when they are not available",
+    "component": "Any"
   },
   "PLACEHOLDER_DEFINITIONS":  {
     "message": "Lookup a word to show definitions...",

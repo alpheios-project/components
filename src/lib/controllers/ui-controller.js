@@ -7,6 +7,7 @@ import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Vuex from 'vuex'
 // Modules and their support dependencies
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
+import ActionPanelModule from '@/vue/vuex-modules/ui/action-panel-module.js'
 import Locales from '@/locales/locales.js'
 
 import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
@@ -145,15 +146,17 @@ export default class UIController {
     but from within an environment that creates a UI controller
     (after a call to `create()` function, usually).
      */
-    // uiController.registerDataModule(AuthModule, undefined)
+    // uiController.registerModule(AuthModule, undefined)
 
     // Register UI modules. This is environment specific and thus shall be done after a `create()` call.
-    /* uiController.registerUiModule(PanelModule, {
+    /* uiController.registerModule(PanelModule, {
       mountPoint: '#alpheios-panel' // To what element a panel will be mounted
     })
-    uiController.registerUiModule(PopupModule, {
+    uiController.registerModule(PopupModule, {
       mountPoint: '#alpheios-popup'
     }) */
+
+    uiController.registerModule(ActionPanelModule, {})
 
     // Creates on configures an event listener
     uiController.evc = new UIEventController()
@@ -469,6 +472,10 @@ export default class UIController {
           // Treebank data is available if we have it for the word or the page
           return Boolean((state.treebankData.page && state.treebankData.page.src) ||
             (state.treebankData.word && state.treebankData.word.src))
+        },
+
+        lexicalRequestInProgress (state) {
+          return state.lexicalRequest.startTime > state.lexicalRequest.endTime
         }
       },
 

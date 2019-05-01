@@ -10,31 +10,42 @@
   >
 
     <div class="alpheios-panel__header" >
-      <div class="alpheios-panel__menu-btn" @click="menuItemClicked">
-        <menu-icon class="alpheios-panel__menu-icon"></menu-icon>
+      <div class="alpheios-panel__menu-btn" @click="menuItemSelected">
+        <menu-icon
+            class="alpheios-panel__menu-icon"
+            :class="{'menu-open': menuVisible}"
+        />
       </div>
-      <div class="alpheios-panel__header-btn-group--center">
-        <navbuttons-compact></navbuttons-compact>
+
+      <div class="alpheios-panel__header-title">
+        {{ panelTitle }}
       </div>
+
       <span class="alpheios-panel__header-btn-group--end">
         <alph-tooltip
             :tooltipText="l10n.getText('TOOLTIP_CLOSE_PANEL')"
             tooltipDirection="top">
-          <div @click="ui.closePanel" class="alpheios-panel__close-btn">
-              <close-icon></close-icon>
+          <div
+              @click="closePanel"
+              class="alpheios-panel__close-btn"
+          >
+              <close-icon/>
           </div>
         </alph-tooltip>
       </span>
     </div>
 
     <div class="alpheios-panel__content">
-      <drop-down-menu :visibility="menuVisible"/>
-
+      <drop-down-menu
+          v-show="menuVisible"
+          @drop-down-menu-item-selected="menuItemSelected"
+      />
       <div
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding"
-          v-show="$store.getters['ui/isActiveTab']('morphology')">
+          v-show="$store.getters['ui/isActiveTab']('morphology') && !menuVisible">
 
-        <div :id="'alpheios-panel-lexical-data-container'" class="alpheios-popup__morph-cont alpheios-text-small alpheios-popup__morph-cont-ready"
+        <div :id="'alpheios-panel-lexical-data-container'"
+             class="alpheios-popup__morph-cont alpheios-text-small alpheios-popup__morph-cont-ready"
              v-show="hasMorphologyData">
           <morph :id="'alpheios-panel-morph-component'"></morph>
 
@@ -49,7 +60,7 @@
 
       <div
           class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__definitions"
-          v-show="$store.getters['ui/isActiveTab']('definitions')"
+          v-show="$store.getters['ui/isActiveTab']('definitions') && !menuVisible"
           data-alpheios-ignore="all"
       >
         <div class="alpheios-lookup__panel">
@@ -83,7 +94,7 @@
       <div
           :id="inflectionsPanelID"
           class="alpheios-panel__tab-panel alpheios-panel__tab__inflections"
-           v-show="$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections')"
+          v-show="$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections') && !menuVisible"
           data-alpheios-ignore="all"
       >
         <h1
@@ -95,7 +106,7 @@
       </div>
 
       <div :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser"
-           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser')"
+           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser') && !menuVisible"
            data-alpheios-ignore="all">
         <h1
             class="alpheios-panel__title"
@@ -107,19 +118,19 @@
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
             alpheios-panel__tab-panel--no-padding"
-            data-alpheios-ignore="all"
-           v-show="$store.getters['ui/isActiveTab']('grammar')">
+           data-alpheios-ignore="all"
+           v-show="$store.getters['ui/isActiveTab']('grammar') && !menuVisible">
         <grammar></grammar>
       </div>
 
       <div
           class="alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding"
-          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')"
+          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank') && !menuVisible"
           data-alpheios-ignore="all">
         <treebank/>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__status"
-           v-show="$store.getters['ui/isActiveTab']('status')"
+           v-show="$store.getters['ui/isActiveTab']('status') && !menuVisible"
            data-alpheios-ignore="all">
         <!-- Messages to be displayed in a status panel -->
         <div v-for="message in $store.state.ui.messages">
@@ -128,21 +139,21 @@
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__user"
-          v-if="$store.state.auth.enableLogin" v-show="$store.getters['ui/isActiveTab']('user')"
+           v-if="$store.state.auth.enableLogin" v-show="$store.getters['ui/isActiveTab']('user') && !menuVisible"
            data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
 
       <div
           class="alpheios-panel__tab-panel"
-          v-show="$store.getters['ui/isActiveTab']('wordUsage')"
+          v-show="$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
           data-alpheios-ignore="all"
-        >
+      >
         <word-usage-examples/>
       </div>
 
       <div class="alpheios-panel__tab-panel"
-           v-show="$store.getters['ui/isActiveTab']('options')"
+           v-show="$store.getters['ui/isActiveTab']('options') && !menuVisible"
            data-alpheios-ignore="all"
       >
         <reskin-font-color></reskin-font-color>
@@ -261,7 +272,7 @@
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
-           v-show="$store.getters['ui/isActiveTab']('info')"
+           v-show="$store.getters['ui/isActiveTab']('info') && !menuVisible"
            data-alpheios-ignore="all">
         <h1
             class="alpheios-panel__title"
@@ -278,14 +289,16 @@
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
-           v-show="$store.getters['ui/isActiveTab']('wordlist')"
+           v-show="$store.getters['ui/isActiveTab']('wordlist') && !menuVisible"
            data-alpheios-ignore="all"
       >
         <word-list-panel/>
       </div>
     </div>
 
-    <notification-area/>
+    <notification-area
+      v-show="!menuVisible"
+    />
   </div>
 </template>
 <script>
@@ -296,7 +309,6 @@
 import HTMLPage from '@/lib/utility/html-page.js'
 // Vue components
 import DropDownMenu from '@/vue/components/nav/drop-down-menu.vue'
-import NavbuttonsCompact from '@/vue/components/nav/navbuttons-compact.vue'
 import NotificationArea from '@/vue/components//notification-area.vue'
 import Inflections from './inflections.vue'
 import Setting from './setting.vue'
@@ -314,7 +326,7 @@ import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-e
 import { Definition } from 'alpheios-data-models'
 import WordListPanel from '@/vue/components/word-list/word-list-panel.vue'
 // Embeddable SVG icons
-import MenuIcon from '@/images/inline-icons/menu.svg'
+import MenuIcon from '@/images/inline-icons/book-open.svg'
 import CloseIcon from '@/images/inline-icons/x-close.svg'
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
@@ -338,7 +350,6 @@ export default {
   components: {
     menuIcon: MenuIcon,
     dropDownMenu: DropDownMenu,
-    navbuttonsCompact: NavbuttonsCompact,
     notificationArea: NotificationArea,
     inflections: Inflections,
     inflectionBrowser: InflectionBrowser,
@@ -446,10 +457,53 @@ export default {
         }
       }
       return content
+    },
+
+    panelTitle () {
+      let title = ''
+      switch (this.$store.state.ui.activeTab) {
+        case 'info':
+          title = this.l10n.getText('TOOLTIP_HELP')
+          break
+        case 'morphology':
+          title = this.l10n.getText('TOOLTIP_MORPHOLOGY')
+          break
+        case 'definitions':
+          title = this.l10n.getText('TOOLTIP_DEFINITIONS')
+          break
+        case 'inflections':
+          title = this.l10n.getText('TOOLTIP_INFLECT')
+          break
+        case 'inflectionsbrowser':
+          title = this.l10n.getText('TOOLTIP_INFLECT_BROWSER')
+          break
+        case 'grammar':
+          title = this.l10n.getText('TOOLTIP_GRAMMAR')
+          break
+        case 'treebank':
+          title = this.l10n.getText('TOOLTIP_TREEBANK')
+          break
+        case 'options':
+          title = this.l10n.getText('TOOLTIP_OPTIONS')
+          break
+        case 'user':
+          title = this.l10n.getText('TOOLTIP_USER')
+          break
+        case 'wordUsage':
+          title = this.l10n.getText('TOOLTIP_WORD_USAGE')
+          break
+        case 'wordlist':
+          title = this.l10n.getText('TOOLTIP_WORDLIST')
+          break
+        case 'status':
+          title = this.l10n.getText('TOOLTIP_STATUS')
+          break
+      }
+      return title
     }
   },
   methods: {
-    menuItemClicked () {
+    menuItemSelected () {
       this.menuVisible = !this.menuVisible
     },
 
@@ -474,8 +528,10 @@ export default {
       this.ui.optionChange(name, value)
     },
 
-    attachTrackingClick: function () {
+    closePanel () {
       this.ui.closePanel()
+      // Close the menu if it was open during the panel closing
+      this.menuVisible = false
     }
   }
 }
@@ -568,7 +624,6 @@ export default {
     // Need to set element as an offset parent for panel content items
     position: relative;
     background: var(--alpheios-color-neutral-lightest);
-    padding-top: uisize(20px);
 
     [data-resized="true"] & {
       max-width: none;
@@ -588,7 +643,7 @@ export default {
   .alpheios-panel__tab-panel {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 40px 20px 20px;
     flex: 1 1 auto;
     box-sizing: border-box;
   }
@@ -619,12 +674,15 @@ export default {
     margin-bottom: 1em;
   }
 
-  .alpheios-panel__header-btn-group--center {
+  .alpheios-panel__header-title {
     direction: ltr;
     display: flex;
     flex-wrap: nowrap;
     box-sizing: border-box;
     align-items: stretch;
+    color: var(--alpheios-color-light);
+    font-family: var(--alpheios-serif-font-face);
+    font-size: uisize(24px);
   }
 
   .alpheios-panel__header-btn-group--end {
@@ -652,11 +710,14 @@ export default {
     width: 40px;
     height: 40px;
     fill: var(--alpheios-color-neutral-lightest);
-  }
 
-  .alpheios-panel__menu-icon:hover,
-  .alpheios-panel__menu-icon:focus {
-    fill: var(--alpheios-color-neutral-light);
+    &:hover {
+      fill: var(--alpheios-color-bright-hover);
+    }
+
+    &.menu-open {
+      fill: var(--alpheios-color-bright);
+    }
   }
 
   // Special styles for compact panel
