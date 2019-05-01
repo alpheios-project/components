@@ -3043,6 +3043,7 @@ h3.alpheios-inflections__credits-title {
   box-sizing: border-box !important;
   border-top-left-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
   border-top-right-radius: calc(var(--alpheios-base-ui-size) * 0.625) !important;
+  touch-action: none !important;
 }
 .alpheios-toolbar__logo-icon {
   width: 60% !important;
