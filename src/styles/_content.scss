@@ -8,9 +8,9 @@
   margin: 0;
 
   // Prevent mobile browsers from inflating font size
-  text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  -ms-text-size-adjust: none;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 
   [lang='ara'] {
     // `Important` below is required to override aggressive styling on pages
