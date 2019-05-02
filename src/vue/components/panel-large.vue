@@ -38,7 +38,7 @@
         </alph-tooltip>
       </div>
 
-      <span class="alpheios-panel__header-btn-group--end">
+      <div class="alpheios-panel__header-btn-group--end">
         <alph-tooltip
             :tooltipText="l10n.getText('TOOLTIP_CLOSE_PANEL')"
             tooltipDirection="bottom-right">
@@ -46,12 +46,12 @@
               <close-icon></close-icon>
           </div>
         </alph-tooltip>
-      </span>
+      </div>
     </div>
 
     <div class="alpheios-panel__content">
       <div
-          class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__definitions"
+          class="alpheios-panel__tab-panel alpheios-panel__tab__definitions"
           v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
           >
@@ -262,7 +262,7 @@
         </div>
       </div>
 
-      <div class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__info"
            v-show="$store.getters['ui/isActiveTab']('info')"
            data-alpheios-ignore="all">
         <h1

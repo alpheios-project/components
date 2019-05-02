@@ -5,7 +5,7 @@
       :style="componentStyles"
       data-component="alpheios-panel"
       data-resizable="true"
-      id="alpheios-panel-inner"
+      :id="panelId"
       v-show="$store.state.panel.visible"
   >
 
@@ -21,7 +21,7 @@
         {{ panelTitle }}
       </div>
 
-      <span class="alpheios-panel__header-btn-group--end">
+      <div class="alpheios-panel__header-btn-group--end">
         <alph-tooltip
             :tooltipText="l10n.getText('TOOLTIP_CLOSE_PANEL')"
             tooltipDirection="top">
@@ -32,7 +32,7 @@
               <close-icon/>
           </div>
         </alph-tooltip>
-      </span>
+      </div>
     </div>
 
     <div class="alpheios-panel__content">
@@ -41,7 +41,7 @@
           @drop-down-menu-item-selected="menuItemSelected"
       />
       <div
-          class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding"
+          class="alpheios-panel__tab-panel"
           v-show="$store.getters['ui/isActiveTab']('morphology') && !menuVisible">
 
         <div :id="'alpheios-panel-lexical-data-container'"
@@ -59,7 +59,7 @@
       </div>
 
       <div
-          class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__definitions"
+          class="alpheios-panel__tab-panel alpheios-panel__tab__definitions"
           v-show="$store.getters['ui/isActiveTab']('definitions') && !menuVisible"
           data-alpheios-ignore="all"
       >
@@ -271,7 +271,7 @@
         </div>
       </div>
 
-      <div class="alpheios-panel__tab-panel alpheios-panel__content_no_top_padding alpheios-panel__tab__info"
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab__info"
            v-show="$store.getters['ui/isActiveTab']('info') && !menuVisible"
            data-alpheios-ignore="all">
         <h1
@@ -305,6 +305,8 @@
 /*
   This is a mobile version of a panel
    */
+// JS imports
+import interact from 'interactjs'
 // Support libraries
 import HTMLPage from '@/lib/utility/html-page.js'
 // Vue components
@@ -370,8 +372,16 @@ export default {
   directives: {
     onClickaway: onClickaway
   },
+  // Custom props
+  // An HTML element that contains alpheios CSS custom props
+  customPropEl: undefined,
+  customPropStyle: undefined,
+  baseTextSize: undefined,
+  scaledTextSize: undefined,
+
   data: function () {
     return {
+      panelId: 'alpheios-panel-inner',
       menuVisible: false,
       inflectionsPanelID: 'alpheios-panel__inflections-panel',
       inflectionsBrowserPanelID: 'alpheios-panel__inflections-browser-panel',
@@ -516,7 +526,7 @@ export default {
       this.app.contentOptionChange(name, value)
     },
 
-    resetAllOptions: function() {
+    resetAllOptions: function () {
       this.app.resetAllOptions()
     },
 
@@ -530,9 +540,34 @@ export default {
 
     closePanel () {
       this.ui.closePanel()
+      // Reset a scaled font size
+      document.documentElement.style.removeProperty('--alpheios-base-text-size')
+
       // Close the menu if it was open during the panel closing
       this.menuVisible = false
+    },
+
+    gestureMoveListener: function (event) {
+      const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
+      document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
+    },
+
+    gestureEndListener: function (event) {
+      this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
     }
+  },
+
+  mounted: function () {
+    this.$options.customPropEl = document.querySelector('html')
+    this.$options.customPropStyle = window.getComputedStyle(this.$options.customPropEl, null)
+    this.$options.baseTextSize = this.$options.customPropStyle.getPropertyValue('font-size')
+    // Remove pixel units from the value string
+    this.$options.baseTextSize = this.$options.baseTextSize.replace(/px/, '')
+    this.$options.scaledTextSize = this.$options.baseTextSize
+
+    interact(`#${this.panelId}`).gesturable({})
+      .on('gesturemove', this.gestureMoveListener.bind(this))
+      .on('gestureend', this.gestureEndListener.bind(this))
   }
 }
 </script>
@@ -568,6 +603,8 @@ export default {
     box-sizing: border-box;
     grid-area: header;
     background: var(--alpheios-toolbar-bg-color);
+    // The rule below required to make sizes and positions of header element dependent on the UI base size
+    font-size: var(--alpheios-base-ui-size);
   }
 
   .alpheios-panel__header-selection {
@@ -654,10 +691,6 @@ export default {
 
   .alpheios-panel__tab-panel--no-padding {
     padding: 0;
-  }
-
-  .alpheios-panel__content_no_top_padding {
-    padding-top: 0;
   }
 
   .alpheios-panel__tab__inflections {
