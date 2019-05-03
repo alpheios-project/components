@@ -420,6 +420,8 @@ export default {
   customPropStyle: undefined,
   baseTextSize: undefined,
   scaledTextSize: undefined,
+  panelVisibilityUnwatch: undefined,
+  panelPositionUnwatch: undefined,
 
   data: function () {
     return {
@@ -593,6 +595,16 @@ export default {
       this.$store.commit('panel/setPosition', position)
     },
 
+    squeezePage () {
+      let propName = this.isAttachedToRight ? 'padding-right' : 'padding-left'
+      document.documentElement.style.setProperty(propName, '50%')
+    },
+
+    unsqueezePage () {
+      document.documentElement.style.removeProperty('padding-left')
+      document.documentElement.style.removeProperty('padding-right')
+    },
+
     contentOptionChanged: function (name, value) {
       this.app.contentOptionChange(name, value)
     },
@@ -631,16 +643,12 @@ export default {
     },
 
     gestureMoveListener: function (event) {
-      console.info(`Gesture in progress, scale is ${event.scale}, change is ${event.ds}`)
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
-      console.info(`Computed font size is ${computedFontSize}`)
       document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
     },
 
     gestureEndListener: function (event) {
-      console.info(`Gesture ended, scale ${event.scale}, change ${event.ds}`)
       this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
-      console.info(`Scaled font size is ${this.$options.scaledTextSize}`)
     }
   },
 
@@ -655,6 +663,32 @@ export default {
     interact(`#${this.panelId}`).gesturable({})
       .on('gesturemove', this.gestureMoveListener.bind(this))
       .on('gestureend', this.gestureEndListener.bind(this))
+
+    this.$options.panelVisibilityUnwatch = this.$store.watch((state) => state.panel.visible, (newValue) => {
+      if (this.app.platform.isMobile && this.isLandscape) {
+        if (newValue) {
+          // Panel became visible
+          this.squeezePage()
+        } else {
+          // Panel was hidden
+          this.unsqueezePage()
+        }
+      }
+    })
+
+    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, (newValue) => {
+      if (this.app.platform.isMobile && this.isLandscape && this.$store.state.panel.visible) {
+        // Clear previous values first, then set new ones
+        this.unsqueezePage()
+        this.squeezePage()
+      }
+    })
+  },
+
+  beforeDestroy () {
+    // Teardown the watcher
+    this.$options.panelVisibilityUnwatch()
+    this.$options.panelPositionUnwatch()
   }
 }
 </script>
@@ -922,8 +956,6 @@ export default {
     .alpheios-notification-area {
       border-left: 1px solid var(--alpheios-border-color);
     }
-
-
   }
 
   .alpheios-panel.alpheios-panel--expanded {

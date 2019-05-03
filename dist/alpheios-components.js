@@ -15245,6 +15245,8 @@ __webpack_require__.r(__webpack_exports__);
   customPropStyle: undefined,
   baseTextSize: undefined,
   scaledTextSize: undefined,
+  panelVisibilityUnwatch: undefined,
+  panelPositionUnwatch: undefined,
 
   data: function () {
     return {
@@ -15418,6 +15420,16 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('panel/setPosition', position)
     },
 
+    squeezePage () {
+      let propName = this.isAttachedToRight ? 'padding-right' : 'padding-left'
+      document.documentElement.style.setProperty(propName, '50%')
+    },
+
+    unsqueezePage () {
+      document.documentElement.style.removeProperty('padding-left')
+      document.documentElement.style.removeProperty('padding-right')
+    },
+
     contentOptionChanged: function (name, value) {
       this.app.contentOptionChange(name, value)
     },
@@ -15456,16 +15468,12 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     gestureMoveListener: function (event) {
-      console.info(`Gesture in progress, scale is ${event.scale}, change is ${event.ds}`)
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
-      console.info(`Computed font size is ${computedFontSize}`)
       document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
     },
 
     gestureEndListener: function (event) {
-      console.info(`Gesture ended, scale ${event.scale}, change ${event.ds}`)
       this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
-      console.info(`Scaled font size is ${this.$options.scaledTextSize}`)
     }
   },
 
@@ -15480,6 +15488,32 @@ __webpack_require__.r(__webpack_exports__);
     interactjs__WEBPACK_IMPORTED_MODULE_0___default()(`#${this.panelId}`).gesturable({})
       .on('gesturemove', this.gestureMoveListener.bind(this))
       .on('gestureend', this.gestureEndListener.bind(this))
+
+    this.$options.panelVisibilityUnwatch = this.$store.watch((state) => state.panel.visible, (newValue) => {
+      if (this.app.platform.isMobile && this.isLandscape) {
+        if (newValue) {
+          // Panel became visible
+          this.squeezePage()
+        } else {
+          // Panel was hidden
+          this.unsqueezePage()
+        }
+      }
+    })
+
+    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, (newValue) => {
+      if (this.app.platform.isMobile && this.isLandscape && this.$store.state.panel.visible) {
+        // Clear previous values first, then set new ones
+        this.unsqueezePage()
+        this.squeezePage()
+      }
+    })
+  },
+
+  beforeDestroy () {
+    // Teardown the watcher
+    this.$options.panelVisibilityUnwatch()
+    this.$options.panelPositionUnwatch()
   }
 });
 
@@ -15502,8 +15536,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_attach_left_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/attach-left.svg */ "./images/inline-icons/attach-left.svg");
 /* harmony import */ var _images_inline_icons_attach_right_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/attach-right.svg */ "./images/inline-icons/attach-right.svg");
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
-//
-//
 //
 //
 //
@@ -15825,14 +15857,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
-    },
-
-    attachToLeftVisible: function () {
-      return this.$store.state.panel.position === 'right'
-    },
-
-    attachToRightVisible: function () {
-      return this.$store.state.panel.position === 'left'
     }
   },
 
@@ -24411,8 +24435,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.attachToLeftVisible,
-                    expression: "attachToLeftVisible"
+                    value: _vm.isAttachedToRight,
+                    expression: "isAttachedToRight"
                   }
                 ],
                 attrs: {
@@ -24424,14 +24448,6 @@ var render = function() {
                 _c(
                   "span",
                   {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.attachToLeftVisible,
-                        expression: "attachToLeftVisible"
-                      }
-                    ],
                     staticClass:
                       "alpheios-navbuttons__btn alpheios-navbuttons__btn--attach",
                     on: {
@@ -24455,8 +24471,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.attachToRightVisible,
-                    expression: "attachToRightVisible"
+                    value: _vm.isAttachedToLeft,
+                    expression: "isAttachedToLeft"
                   }
                 ],
                 attrs: {
@@ -24468,14 +24484,6 @@ var render = function() {
                 _c(
                   "span",
                   {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.attachToRightVisible,
-                        expression: "attachToRightVisible"
-                      }
-                    ],
                     staticClass:
                       "alpheios-navbuttons__btn alpheios-navbuttons__btn--attach",
                     on: {
@@ -42251,6 +42259,7 @@ class UIController {
     this.api.app = {
       name: this.options.app.name, // A name of an application
       version: this.options.app.version, // An application's version
+      platform: this.platform,
       mode: this.options.mode, // Mode of an application: `production` or `development`
       defaultTab: this.defaultTab, // A name of a default tab (a string)
       state: this.state, // An app-level state

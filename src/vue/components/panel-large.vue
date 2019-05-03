@@ -18,10 +18,9 @@
 
       <div class="alpheios-panel__header-btn-group--center">
         <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_MOVE_PANEL_LEFT')" tooltipDirection="bottom-narrow"
-                      v-show="attachToLeftVisible">
+                      v-show="isAttachedToRight">
           <span @click="setPosition('left')"
-                class="alpheios-navbuttons__btn alpheios-navbuttons__btn--attach"
-                v-show="attachToLeftVisible">
+                class="alpheios-navbuttons__btn alpheios-navbuttons__btn--attach">
               <attach-left-icon></attach-left-icon>
           </span>
         </alph-tooltip>
@@ -29,10 +28,9 @@
         <navbuttons-large></navbuttons-large>
 
         <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_MOVE_PANEL_RIGHT')" tooltipDirection="bottom-narrow"
-                      v-show="attachToRightVisible">
+                      v-show="isAttachedToLeft">
           <span @click="setPosition('right')"
-                class="alpheios-navbuttons__btn alpheios-navbuttons__btn--attach"
-                v-show="attachToRightVisible">
+                class="alpheios-navbuttons__btn alpheios-navbuttons__btn--attach">
               <attach-right-icon></attach-right-icon>
           </span>
         </alph-tooltip>
@@ -321,14 +319,6 @@ export default {
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
-    },
-
-    attachToLeftVisible: function () {
-      return this.$store.state.panel.position === 'right'
-    },
-
-    attachToRightVisible: function () {
-      return this.$store.state.panel.position === 'left'
     }
   },
 

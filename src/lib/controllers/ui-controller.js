@@ -361,6 +361,7 @@ export default class UIController {
     this.api.app = {
       name: this.options.app.name, // A name of an application
       version: this.options.app.version, // An application's version
+      platform: this.platform,
       mode: this.options.mode, // Mode of an application: `production` or `development`
       defaultTab: this.defaultTab, // A name of a default tab (a string)
       state: this.state, // An app-level state
