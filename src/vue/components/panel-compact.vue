@@ -18,7 +18,41 @@
       </div>
 
       <div class="alpheios-panel__header-title">
-        {{ panelTitle }}
+        <div class="alpheios-panel__header-title-text">
+          {{ panelTitle }}
+        </div>
+
+        <div
+          class="alpheios-panel__header-btn"
+          @click="expand"
+          v-show="!isLandscape && !expanded"
+        >
+          <up-icon/>
+        </div>
+
+        <div
+            class="alpheios-panel__header-btn"
+            @click="contract"
+            v-show="!isLandscape && expanded"
+        >
+          <down-icon/>
+        </div>
+
+        <div
+            class="alpheios-panel__header-btn"
+            @click="expandOrContract"
+            v-show="isLandscape && leftBtnVisible"
+        >
+          <left-icon/>
+        </div>
+
+        <div
+            class="alpheios-panel__header-btn"
+            @click="expandOrContract"
+            v-show="isLandscape && rightBtnVisible"
+        >
+          <right-icon/>
+        </div>
       </div>
 
       <div class="alpheios-panel__header-btn-group--end">
@@ -330,6 +364,10 @@ import WordListPanel from '@/vue/components/word-list/word-list-panel.vue'
 // Embeddable SVG icons
 import MenuIcon from '@/images/inline-icons/book-open.svg'
 import CloseIcon from '@/images/inline-icons/x-close.svg'
+import UpIcon from '@/images/inline-icons/chevron-up.svg'
+import DownIcon from '@/images/inline-icons/chevron-down.svg'
+import LeftIcon from '@/images/inline-icons/chevron-left.svg'
+import RightIcon from '@/images/inline-icons/chevron-right.svg'
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
 
@@ -367,7 +405,11 @@ export default {
     lookup: Lookup,
     reskinFontColor: ReskinFontColor,
     wordListPanel: WordListPanel,
-    wordUsageExamples: WordUsageExamples
+    wordUsageExamples: WordUsageExamples,
+    upIcon: UpIcon,
+    downIcon: DownIcon,
+    leftIcon: LeftIcon,
+    rightIcon: RightIcon
   },
   directives: {
     onClickaway: onClickaway
@@ -388,6 +430,8 @@ export default {
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
+      // Whether the panel is expanded full width
+      expanded: false,
       resized: false
     }
   },
@@ -400,20 +444,47 @@ export default {
 
   computed: {
     rootClasses () {
+      let classes = []
+
       /*
       Position classes are needed for landscape orientations only as only those
       can have compact panel attached to either left or right.
       For portrait-oriented screens a compact panel will occupy full width.
        */
-      return (this.$store.state.panel.orientation === HTMLPage.orientations.LANDSCAPE)
-        ? this.$options.positionClassVariants[this.$store.state.panel.position]
-        : ''
+      if (this.isLandscape) {
+        classes.push(this.$options.positionClassVariants[this.$store.state.panel.position])
+      }
+
+      if (this.expanded) {
+        classes.push('alpheios-panel--expanded')
+      }
+      return classes
     },
 
     componentStyles: function () {
       return {
         zIndex: this.ui.zIndex
       }
+    },
+
+    isLandscape: function () {
+      return this.$store.state.panel.orientation === HTMLPage.orientations.LANDSCAPE
+    },
+
+    isAttachedToLeft: function () {
+      return this.$store.state.panel.position === 'left'
+    },
+
+    isAttachedToRight: function () {
+      return this.$store.state.panel.position === 'right'
+    },
+
+    leftBtnVisible: function () {
+      return (this.isAttachedToLeft && this.expanded) || (this.isAttachedToRight && !this.expanded)
+    },
+
+    rightBtnVisible: function () {
+      return (this.isAttachedToRight && this.expanded) || (this.isAttachedToLeft && !this.expanded)
     },
 
     hasMorphologyData: function () {
@@ -538,6 +609,18 @@ export default {
       this.ui.optionChange(name, value)
     },
 
+    expand () {
+      this.expanded = true
+    },
+
+    contract () {
+      this.expanded = false
+    },
+
+    expandOrContract () {
+      this.expanded = !this.expanded
+    },
+
     closePanel () {
       this.ui.closePanel()
       // Reset a scaled font size
@@ -548,12 +631,16 @@ export default {
     },
 
     gestureMoveListener: function (event) {
+      console.info(`Gesture in progress, scale is ${event.scale}, change is ${event.ds}`)
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
+      console.info(`Computed font size is ${computedFontSize}`)
       document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
     },
 
     gestureEndListener: function (event) {
+      console.info(`Gesture ended, scale ${event.scale}, change ${event.ds}`)
       this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
+      console.info(`Scaled font size is ${this.$options.scaledTextSize}`)
     }
   },
 
@@ -607,16 +694,62 @@ export default {
     font-size: var(--alpheios-base-ui-size);
   }
 
-  .alpheios-panel__header-selection {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--alpheios-color-muted);
+  .alpheios-panel__menu-icon {
+    width: 40px;
+    height: 40px;
+    fill: var(--alpheios-color-neutral-lightest);
+
+    &:hover {
+      fill: var(--alpheios-color-bright-hover);
+    }
+
+    &.menu-open {
+      fill: var(--alpheios-color-bright);
+    }
   }
 
-  .alpheios-panel__header-word {
-    font-size: 14px;
-    position: relative;
-    top: -1px;
+  .alpheios-panel__header-title {
+    direction: ltr;
+    display: flex;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    align-items: stretch;
+    color: var(--alpheios-color-light);
+    font-family: var(--alpheios-serif-font-face);
+    font-size: uisize(24px);
+  }
+
+  .alpheios-panel__header-title-text {
+    padding-top: uisize(8px);
+    margin: 0 uisize(20px);
+    white-space: nowrap;
+  }
+
+  .alpheios-panel__header-btn-group--end {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .alpheios-panel__header-btn {
+    & svg {
+      width: 40px;
+      height: 40px;
+      top: 50%;
+      position: relative;
+      transform: translateY(-50%);
+    }
+    fill: var(--alpheios-color-neutral-lightest);
+
+    &:hover {
+      fill: var(--alpheios-color-bright-hover);
+    }
+
+    &:active {
+      fill: var(--alpheios-color-bright-pressed);
+    }
   }
 
   .alpheios-panel__close-btn {
@@ -629,7 +762,7 @@ export default {
 
     svg {
       position: relative;
-      left: uisize(8px);
+      left: uisize(20px);
       width: uisize(28px);
       height: auto;
       top: 50%;
@@ -707,25 +840,6 @@ export default {
     margin-bottom: 1em;
   }
 
-  .alpheios-panel__header-title {
-    direction: ltr;
-    display: flex;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-    align-items: stretch;
-    color: var(--alpheios-color-light);
-    font-family: var(--alpheios-serif-font-face);
-    font-size: uisize(24px);
-  }
-
-  .alpheios-panel__header-btn-group--end {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    box-sizing: border-box;
-    align-items: stretch;
-  }
-
   .alpheios-panel__options-item {
     margin-bottom: textsize(10px);
     display: flex;
@@ -737,20 +851,6 @@ export default {
     height: 40px;
     margin: 10px 10px 10px 30px;
     cursor: pointer;
-  }
-
-  .alpheios-panel__menu-icon {
-    width: 40px;
-    height: 40px;
-    fill: var(--alpheios-color-neutral-lightest);
-
-    &:hover {
-      fill: var(--alpheios-color-bright-hover);
-    }
-
-    &.menu-open {
-      fill: var(--alpheios-color-bright);
-    }
   }
 
   // Special styles for compact panel
@@ -782,6 +882,56 @@ export default {
 
     & .alpheios-panel__content {
       overflow: auto;
+    }
+  }
+
+  .alpheios-panel--left {
+    &.alpheios-panel {
+      left: 0;
+    }
+
+    .alpheios-panel__header {
+      direction: ltr;
+      border-top-right-radius: uisize(10px);
+    }
+
+    .alpheios-panel__content,
+    .alpheios-notification-area {
+      border-right: 1px solid var(--alpheios-border-color);
+    }
+
+    .alpheios-panel__close-btn {
+      border-top-right-radius: uisize(10px);
+    }
+  }
+
+  .alpheios-panel--right {
+    &.alpheios-panel {
+      right: 0;
+    }
+
+    .alpheios-panel__header {
+      border-top-left-radius: uisize(10px);
+    }
+
+    .alpheios-panel__header-logo {
+      margin-left: uisize(16px);
+    }
+
+    .alpheios-panel__content,
+    .alpheios-notification-area {
+      border-left: 1px solid var(--alpheios-border-color);
+    }
+
+
+  }
+
+  .alpheios-panel.alpheios-panel--expanded {
+    width: 100vw;
+    height: 100vh;
+
+    .alpheios-panel__header {
+      border-radius: 0;
     }
   }
 </style>

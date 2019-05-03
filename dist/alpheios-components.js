@@ -14817,8 +14817,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_list_word_list_panel_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/vue/components/word-list/word-list-panel.vue */ "./vue/components/word-list/word-list-panel.vue");
 /* harmony import */ var _images_inline_icons_book_open_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/images/inline-icons/book-open.svg */ "./images/inline-icons/book-open.svg");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _images_inline_icons_chevron_up_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/images/inline-icons/chevron-up.svg */ "./images/inline-icons/chevron-up.svg");
+/* harmony import */ var _images_inline_icons_chevron_down_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/images/inline-icons/chevron-down.svg */ "./images/inline-icons/chevron-down.svg");
+/* harmony import */ var _images_inline_icons_chevron_left_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @/images/inline-icons/chevron-left.svg */ "./images/inline-icons/chevron-left.svg");
+/* harmony import */ var _images_inline_icons_chevron_right_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @/images/inline-icons/chevron-right.svg */ "./images/inline-icons/chevron-right.svg");
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15151,6 +15189,10 @@ __webpack_require__.r(__webpack_exports__);
 // Embeddable SVG icons
 
 
+
+
+
+
 // Vue directives
 
 
@@ -15169,7 +15211,7 @@ __webpack_require__.r(__webpack_exports__);
     auth: 'auth'
   },
   storeModules: ['app', 'ui', 'panel', 'auth'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_22__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_26__["default"]],
   components: {
     menuIcon: _images_inline_icons_book_open_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
     dropDownMenu: _vue_components_nav_drop_down_menu_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -15188,10 +15230,14 @@ __webpack_require__.r(__webpack_exports__);
     lookup: _lookup_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
     reskinFontColor: _font_size_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
     wordListPanel: _vue_components_word_list_word_list_panel_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    wordUsageExamples: _vue_components_word_usage_examples_word_usage_examples_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+    wordUsageExamples: _vue_components_word_usage_examples_word_usage_examples_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
+    upIcon: _images_inline_icons_chevron_up_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
+    downIcon: _images_inline_icons_chevron_down_svg__WEBPACK_IMPORTED_MODULE_22__["default"],
+    leftIcon: _images_inline_icons_chevron_left_svg__WEBPACK_IMPORTED_MODULE_23__["default"],
+    rightIcon: _images_inline_icons_chevron_right_svg__WEBPACK_IMPORTED_MODULE_24__["default"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_21__["directive"]
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_25__["directive"]
   },
   // Custom props
   // An HTML element that contains alpheios CSS custom props
@@ -15209,6 +15255,8 @@ __webpack_require__.r(__webpack_exports__);
       panelLeftPadding: 0,
       panelRightPadding: 0,
       scrollPadding: 0,
+      // Whether the panel is expanded full width
+      expanded: false,
       resized: false
     }
   },
@@ -15221,20 +15269,47 @@ __webpack_require__.r(__webpack_exports__);
 
   computed: {
     rootClasses () {
+      let classes = []
+
       /*
       Position classes are needed for landscape orientations only as only those
       can have compact panel attached to either left or right.
       For portrait-oriented screens a compact panel will occupy full width.
        */
-      return (this.$store.state.panel.orientation === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE)
-        ? this.$options.positionClassVariants[this.$store.state.panel.position]
-        : ''
+      if (this.isLandscape) {
+        classes.push(this.$options.positionClassVariants[this.$store.state.panel.position])
+      }
+
+      if (this.expanded) {
+        classes.push('alpheios-panel--expanded')
+      }
+      return classes
     },
 
     componentStyles: function () {
       return {
         zIndex: this.ui.zIndex
       }
+    },
+
+    isLandscape: function () {
+      return this.$store.state.panel.orientation === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE
+    },
+
+    isAttachedToLeft: function () {
+      return this.$store.state.panel.position === 'left'
+    },
+
+    isAttachedToRight: function () {
+      return this.$store.state.panel.position === 'right'
+    },
+
+    leftBtnVisible: function () {
+      return (this.isAttachedToLeft && this.expanded) || (this.isAttachedToRight && !this.expanded)
+    },
+
+    rightBtnVisible: function () {
+      return (this.isAttachedToRight && this.expanded) || (this.isAttachedToLeft && !this.expanded)
     },
 
     hasMorphologyData: function () {
@@ -15359,6 +15434,18 @@ __webpack_require__.r(__webpack_exports__);
       this.ui.optionChange(name, value)
     },
 
+    expand () {
+      this.expanded = true
+    },
+
+    contract () {
+      this.expanded = false
+    },
+
+    expandOrContract () {
+      this.expanded = !this.expanded
+    },
+
     closePanel () {
       this.ui.closePanel()
       // Reset a scaled font size
@@ -15369,12 +15456,16 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     gestureMoveListener: function (event) {
+      console.info(`Gesture in progress, scale is ${event.scale}, change is ${event.ds}`)
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
+      console.info(`Computed font size is ${computedFontSize}`)
       document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
     },
 
     gestureEndListener: function (event) {
+      console.info(`Gesture ended, scale ${event.scale}, change ${event.ds}`)
       this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
+      console.info(`Scaled font size is ${this.$options.scaledTextSize}`)
     }
   },
 
@@ -23546,7 +23637,81 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-panel__header-title" }, [
-          _vm._v("\n      " + _vm._s(_vm.panelTitle) + "\n    ")
+          _c("div", { staticClass: "alpheios-panel__header-title-text" }, [
+            _vm._v("\n        " + _vm._s(_vm.panelTitle) + "\n      ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLandscape && !_vm.expanded,
+                  expression: "!isLandscape && !expanded"
+                }
+              ],
+              staticClass: "alpheios-panel__header-btn",
+              on: { click: _vm.expand }
+            },
+            [_c("up-icon")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLandscape && _vm.expanded,
+                  expression: "!isLandscape && expanded"
+                }
+              ],
+              staticClass: "alpheios-panel__header-btn",
+              on: { click: _vm.contract }
+            },
+            [_c("down-icon")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isLandscape && _vm.leftBtnVisible,
+                  expression: "isLandscape && leftBtnVisible"
+                }
+              ],
+              staticClass: "alpheios-panel__header-btn",
+              on: { click: _vm.expandOrContract }
+            },
+            [_c("left-icon")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isLandscape && _vm.rightBtnVisible,
+                  expression: "isLandscape && rightBtnVisible"
+                }
+              ],
+              staticClass: "alpheios-panel__header-btn",
+              on: { click: _vm.expandOrContract }
+            },
+            [_c("right-icon")],
+            1
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -40603,6 +40768,166 @@ __webpack_require__.r(__webpack_exports__);
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M-128.4 305.8c74.8 53.3 146.8 110.5 215.7 171.3 0 0 348.4-399.4 557.1-477.1l27 53S277.2 418 150.5 757.4l-374.3-378.7 95.4-72.9z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/chevron-down.svg":
+/*!**********************************************!*\
+  !*** ./images/inline-icons/chevron-down.svg ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1683 808l-742 741q-19 19-45 19t-45-19L109 808q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/chevron-left.svg":
+/*!**********************************************!*\
+  !*** ./images/inline-icons/chevron-left.svg ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1427 301L896 832l531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19L429 877q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/chevron-right.svg":
+/*!***********************************************!*\
+  !*** ./images/inline-icons/chevron-right.svg ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45L531 45q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/chevron-up.svg":
+/*!********************************************!*\
+  !*** ./images/inline-icons/chevron-up.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 1792 1792","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1683 1331l-166 165q-19 19-45 19t-45-19L896 965l-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"}})])
           )
         }
       });

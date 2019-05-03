@@ -384,77 +384,32 @@ export default {
         width: uisize(28px);
       }
     }
-  }
 
-  .alpheios-panel__header-logo {
-    width: uisize(44px);
-    height: auto;
-  }
-
-  .alpheios-panel__header-btn-group--center {
-    direction: ltr;
-    display: flex;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-    align-items: stretch;
-  }
-
-  .alpheios-navbuttons__btn--attach {
-    stroke-width: 2.5;
-  }
-
-  .alpheios-panel__close-btn {
-    width: uisize(80px);
-  }
-
-  .alpheios-panel--left {
-    &.alpheios-panel {
-      left: 0;
-    }
-
-    .alpheios-panel__header {
-      direction: ltr;
-      border-top-right-radius: uisize(10px);
-      padding-left: uisize(14px);
-    }
-
-    .alpheios-panel__content,
-    .alpheios-notification-area {
-      border-right: 1px solid var(--alpheios-border-color);
-    }
-
-    .alpheios-panel__close-btn {
-      border-top-right-radius: uisize(10px);
-
-      svg {
-        left: uisize(20px);
+    &.alpheios-panel--left {
+      .alpheios-panel__header {
+        padding-left: uisize(14px);
       }
-    }
-  }
-
-  .alpheios-panel--right {
-    &.alpheios-panel {
-      right: 0;
-    }
-
-    .alpheios-panel__header {
-      border-top-left-radius: uisize(10px);
     }
 
     .alpheios-panel__header-logo {
-      margin-left: uisize(16px);
+      width: uisize(44px);
+      height: auto;
     }
 
-    .alpheios-panel__content,
-    .alpheios-notification-area {
-      border-left: 1px solid var(--alpheios-border-color);
+    .alpheios-panel__header-btn-group--center {
+      direction: ltr;
+      display: flex;
+      flex-wrap: nowrap;
+      box-sizing: border-box;
+      align-items: stretch;
+    }
+
+    .alpheios-navbuttons__btn--attach {
+      stroke-width: 2.5;
     }
 
     .alpheios-panel__close-btn {
-
-      svg {
-        left: uisize(28px);
-      }
+      width: uisize(80px);
     }
   }
 </style>
