@@ -2926,7 +2926,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel.alpheios-panel--expanded {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 .alpheios-panel.alpheios-panel--expanded .alpheios-panel__header {
   border-radius: 0;

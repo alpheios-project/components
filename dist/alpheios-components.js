@@ -15247,6 +15247,7 @@ __webpack_require__.r(__webpack_exports__);
   scaledTextSize: undefined,
   panelVisibilityUnwatch: undefined,
   panelPositionUnwatch: undefined,
+  panelOrientationUnwatch: undefined,
 
   data: function () {
     return {
@@ -15501,10 +15502,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     })
 
-    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, (newValue) => {
+    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, () => {
       if (this.app.platform.isMobile && this.isLandscape && this.$store.state.panel.visible) {
         // Clear previous values first, then set new ones
         this.unsqueezePage()
+        this.squeezePage()
+      }
+    })
+
+    this.$options.panelOrientationUnwatch = this.$store.watch((state) => state.panel.orientation, () => {
+      this.unsqueezePage()
+      if (this.app.platform.isMobile && this.isLandscape) {
         this.squeezePage()
       }
     })
@@ -15514,6 +15522,7 @@ __webpack_require__.r(__webpack_exports__);
     // Teardown the watcher
     this.$options.panelVisibilityUnwatch()
     this.$options.panelPositionUnwatch()
+    this.$options.panelOrientationUnwatch()
   }
 });
 
@@ -42016,6 +42025,15 @@ class UIController {
     this.evc = null
 
     this.wordlistC = {} // This is a word list controller
+
+    // Detect device's orientation change in order to update panel layout
+    window.addEventListener('orientationchange', () => {
+      // Update platform information
+      this.platform = new _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_21__["default"]()
+      if (this.hasModule('panel')) {
+        this.store.commit('panel/setOrientation', this.platform.orientation)
+      }
+    })
   }
 
   /**
@@ -52308,6 +52326,10 @@ PanelModule.store = (moduleInstance) => {
 
       setPosition (state, position) {
         state.position = position
+      },
+
+      setOrientation (state, orientation) {
+        state.orientation = orientation
       }
     }
   }

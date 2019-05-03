@@ -422,6 +422,7 @@ export default {
   scaledTextSize: undefined,
   panelVisibilityUnwatch: undefined,
   panelPositionUnwatch: undefined,
+  panelOrientationUnwatch: undefined,
 
   data: function () {
     return {
@@ -676,10 +677,17 @@ export default {
       }
     })
 
-    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, (newValue) => {
+    this.$options.panelPositionUnwatch = this.$store.watch((state) => state.panel.position, () => {
       if (this.app.platform.isMobile && this.isLandscape && this.$store.state.panel.visible) {
         // Clear previous values first, then set new ones
         this.unsqueezePage()
+        this.squeezePage()
+      }
+    })
+
+    this.$options.panelOrientationUnwatch = this.$store.watch((state) => state.panel.orientation, () => {
+      this.unsqueezePage()
+      if (this.app.platform.isMobile && this.isLandscape) {
         this.squeezePage()
       }
     })
@@ -689,6 +697,7 @@ export default {
     // Teardown the watcher
     this.$options.panelVisibilityUnwatch()
     this.$options.panelPositionUnwatch()
+    this.$options.panelOrientationUnwatch()
   }
 }
 </script>
@@ -960,7 +969,8 @@ export default {
 
   .alpheios-panel.alpheios-panel--expanded {
     width: 100vw;
-    height: 100vh;
+    // Do not use 100vh as it will go below the toolbar on Chrome and Safari
+    height: 100%;
 
     .alpheios-panel__header {
       border-radius: 0;
