@@ -666,8 +666,8 @@ export default {
       .on('gestureend', this.gestureEndListener.bind(this))
 
     this.$options.panelVisibilityUnwatch = this.$store.watch((state) => state.panel.visible, (newValue) => {
-      if (this.app.platform.isMobile && this.isLandscape) {
-        if (newValue) {
+      if (this.app.platform.isMobile) {
+        if (newValue && this.isLandscape) {
           // Panel became visible
           this.squeezePage()
         } else {
@@ -687,7 +687,7 @@ export default {
 
     this.$options.panelOrientationUnwatch = this.$store.watch((state) => state.panel.orientation, () => {
       this.unsqueezePage()
-      if (this.app.platform.isMobile && this.isLandscape) {
+      if (this.app.platform.isMobile && this.isLandscape && this.$store.state.panel.visible) {
         this.squeezePage()
       }
     })
