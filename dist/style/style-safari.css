@@ -398,7 +398,7 @@ html {
   margin: 0 0 calc(var(--alpheios-base-text-size) * 1) !important;
 }
 .alpheios-content a {
-  color: var(--alpheios-color-vivid) !important;
+  color: var(--alpheios-color-muted) !important;
   cursor: pointer !important;
 }
 .alpheios-content a:hover, .alpheios-content a:active {
@@ -1027,7 +1027,7 @@ p.alpheios-lemma__translations-value {
   padding-right: 0.25em !important;
 }
 .alpheios-content .alpheios-morph__linkedattr {
-  color: var(--alpheios-color-vivid) !important;
+  color: var(--alpheios-color-muted) !important;
   cursor: pointer !important;
   font-weight: 700 !important;
 }

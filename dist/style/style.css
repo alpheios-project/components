@@ -398,7 +398,7 @@ html {
   margin: 0 0 calc(var(--alpheios-base-text-size) * 1);
 }
 .alpheios-content a {
-  color: var(--alpheios-color-vivid);
+  color: var(--alpheios-color-muted);
   cursor: pointer;
 }
 .alpheios-content a:hover, .alpheios-content a:active {
@@ -1027,7 +1027,7 @@ p.alpheios-lemma__translations-value {
   padding-right: 0.25em;
 }
 .alpheios-content .alpheios-morph__linkedattr {
-  color: var(--alpheios-color-vivid);
+  color: var(--alpheios-color-muted);
   cursor: pointer;
   font-weight: 700;
 }
