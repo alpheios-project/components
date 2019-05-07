@@ -222,7 +222,8 @@ export default {
   computed: {
     componentStyles: function () {
       let styles = {
-        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`,
+        zIndex: this.ui.zIndex
       }
 
       if (this.moduleData.initialPos) {
@@ -307,8 +308,8 @@ export default {
             restriction: {
               x: 27,
               y: 22,
-              width: document.documentElement.clientWidth - 50,
-              height: document.documentElement.clientHeight - 50
+              width: this.app.platform.viewport.width - 44,
+              height: this.app.platform.viewport.height - 50
             },
             endOnly: true
           })
@@ -347,12 +348,12 @@ export default {
     border-bottom-right-radius: uisize(10px);
     cursor: pointer;
     background: var(--alpheios-text-bg-color);
+    text-align: center;
 
     svg {
       width: uisize(20px);
       height: auto;
       position: relative;
-      left: uisize(11px);
       top: uisize(-5px);
       fill: var(--alpheios-border-color);
     }

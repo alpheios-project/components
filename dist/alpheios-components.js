@@ -13788,7 +13788,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     componentStyles: function () {
       let styles = {
-        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`,
+        zIndex: this.ui.zIndex
       }
 
       if (this.$store.state.actionPanel.initialPos) {
@@ -14294,6 +14295,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 // Embeddable SVG icons
 
@@ -14313,6 +14315,14 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     toolbarIcon: _images_inline_icons_book_open_svg__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+
+  computed: {
+    componentStyles: function () {
+      return {
+        zIndex: this.ui.zIndex
+      }
+    }
   },
 
   methods: {
@@ -14578,7 +14588,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     componentStyles: function () {
       let styles = {
-        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`
+        transform: `translate(${this.shift.x}px, ${this.shift.y}px)`,
+        zIndex: this.ui.zIndex
       }
 
       if (this.moduleData.initialPos) {
@@ -14663,8 +14674,8 @@ __webpack_require__.r(__webpack_exports__);
             restriction: {
               x: 27,
               y: 22,
-              width: document.documentElement.clientWidth - 50,
-              height: document.documentElement.clientHeight - 50
+              width: this.app.platform.viewport.width - 44,
+              height: this.app.platform.viewport.height - 50
             },
             endOnly: true
           })
@@ -23132,6 +23143,7 @@ var render = function() {
       ],
       staticClass:
         "alpheios-content alpheios-toolbar alpheios-toolbar--compact",
+      style: _vm.componentStyles,
       attrs: { id: "alpheios-toolbar-inner" },
       on: { click: _vm.openActionPanel }
     },
@@ -42711,6 +42723,7 @@ class UIController {
     /**
      * This is a UI-level public API of a UI controller. All objects should use this public API only.
      */
+    console.info(`zIndex is ${this.zIndex}`)
     this.api.ui = {
       zIndex: this.zIndex, // A z-index of Alpheios UI elements
 
@@ -47749,6 +47762,16 @@ class Platform {
   constructor () {
     this.deviceType = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].getDeviceType()
     this.orientation = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].getOrientation()
+
+    this.viewport = {
+      width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
+        ? Math.min(window.innerWidth, document.documentElement.clientWidth, document.body.clientWidth)
+        : document.body.clientWidth || window.innerWidth || document.documentElement.clientWidth,
+
+      height: window.innerHeight && document.documentElement.clientHeight && document.body.clientHeight
+        ? Math.min(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
+        : document.body.clientHeight || window.innerHeight || document.documentElement.clientHeight
+    }
   }
 
   get isDesktop () {

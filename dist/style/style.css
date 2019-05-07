@@ -373,6 +373,7 @@ html {
   color: var(--alpheios-text-color);
   box-sizing: border-box;
   margin: 0;
+  text-align: left;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -2880,19 +2881,15 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel--compact.alpheios-panel {
   grid-template-columns: auto;
 }
-.alpheios-panel--compact.alpheios-panel--left {
-  height: 100vh;
+.alpheios-panel--compact.alpheios-panel--left, .alpheios-panel--compact.alpheios-panel--right {
+  height: 100%;
   width: 50vw;
   top: 0;
   bottom: auto;
 }
 .alpheios-panel--compact.alpheios-panel--right {
-  height: 100vh;
-  width: 50vw;
   right: 0;
   left: auto;
-  top: 0;
-  bottom: auto;
 }
 .alpheios-panel--compact .alpheios-panel__content {
   overflow: auto;
@@ -3112,7 +3109,6 @@ h3.alpheios-inflections__credits-title {
  */
 .alpheios-toolbar {
   position: fixed;
-  z-index: 1000000;
 }
 .alpheios-toolbar.alpheios-toolbar--compact {
   cursor: pointer;
@@ -3161,12 +3157,12 @@ h3.alpheios-inflections__credits-title {
   border-bottom-right-radius: calc(var(--alpheios-base-ui-size) * 0.625);
   cursor: pointer;
   background: var(--alpheios-text-bg-color);
+  text-align: center;
 }
 .alpheios-toolbar__header svg {
   width: calc(var(--alpheios-base-ui-size) * 1.25);
   height: auto;
   position: relative;
-  left: calc(var(--alpheios-base-ui-size) * 0.6875);
   top: calc(var(--alpheios-base-ui-size) * -0.3125);
   fill: var(--alpheios-border-color);
 }

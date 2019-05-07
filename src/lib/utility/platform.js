@@ -4,6 +4,16 @@ export default class Platform {
   constructor () {
     this.deviceType = HTMLPage.getDeviceType()
     this.orientation = HTMLPage.getOrientation()
+
+    this.viewport = {
+      width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
+        ? Math.min(window.innerWidth, document.documentElement.clientWidth, document.body.clientWidth)
+        : document.body.clientWidth || window.innerWidth || document.documentElement.clientWidth,
+
+      height: window.innerHeight && document.documentElement.clientHeight && document.body.clientHeight
+        ? Math.min(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
+        : document.body.clientHeight || window.innerHeight || document.documentElement.clientHeight
+    }
   }
 
   get isDesktop () {

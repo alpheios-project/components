@@ -946,20 +946,18 @@ export default {
       grid-template-columns: auto;
     }
 
-    &.alpheios-panel--left {
-      height: 100vh;
+    &.alpheios-panel--left,
+    &.alpheios-panel--right {
+      // 100vh does not work correctly on all sites
+      height: 100%;
       width: 50vw;
       top: 0;
       bottom: auto;
     }
 
     &.alpheios-panel--right {
-      height: 100vh;
-      width: 50vw;
       right: 0;
       left: auto;
-      top: 0;
-      bottom: auto;
     }
 
     & .alpheios-panel__content {
