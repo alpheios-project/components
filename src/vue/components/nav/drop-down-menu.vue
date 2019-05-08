@@ -1,13 +1,6 @@
 <template>
-  <div class="alpheios-navmenu">
-    <div class="alpheios-navmenu__item" :class="{ active: $store.getters['ui/isActiveTab']('info') }"
-         @click="changeTab('info')">
-      <div class="alpheios-navbuttons__icon-cont">
-        <info-icon class="alpheios-navbuttons__icon"></info-icon>
-      </div>
-      <div class="alpheios-navmenu__text">{{ l10n.getText('TOOLTIP_HELP') }}</div>
-    </div>
 
+  <div class="alpheios-navmenu">
     <div
         class="alpheios-navmenu__item"
         :class="{ active: $store.getters['ui/isActiveTab']('morphology') }"
@@ -115,7 +108,6 @@ import UserIcon from '@/images/inline-icons/user.svg'
 import OptionsIcon from '@/images/inline-icons/options.svg'
 import GrammarIcon from '@/images/inline-icons/resources.svg'
 import TreebankIcon from '@/images/inline-icons/sitemap.svg'
-import InfoIcon from '@/images/inline-icons/info.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
 import WordUsageIcon from '@/images/inline-icons/usage-examples-icon1.svg'
 
@@ -142,7 +134,6 @@ export default {
     statusIcon: StatusIcon,
     userIcon: UserIcon,
     optionsIcon: OptionsIcon,
-    infoIcon: InfoIcon,
     grammarIcon: GrammarIcon,
     treebankIcon: TreebankIcon,
     wordUsageIcon: WordUsageIcon,
