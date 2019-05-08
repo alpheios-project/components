@@ -22249,70 +22249,6 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "alpheios-navmenu__item",
-        class: {
-          active: _vm.$store.getters["ui/isActiveTab"]("inflectionsbrowser")
-        },
-        on: {
-          click: function($event) {
-            return _vm.changeTab("inflectionsbrowser")
-          }
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "alpheios-navbuttons__icon-cont" },
-          [
-            _c("inflections-browser-icon", {
-              staticClass: "alpheios-navbuttons__icon"
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "alpheios-navmenu__text" }, [
-          _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_INFLECT_BROWSER")))
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.$store.getters["app/hasGrammarRes"],
-            expression: "$store.getters[`app/hasGrammarRes`]"
-          }
-        ],
-        staticClass: "alpheios-navmenu__item",
-        class: { active: _vm.$store.getters["ui/isActiveTab"]("grammar") },
-        on: {
-          click: function($event) {
-            return _vm.changeTab("grammar")
-          }
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "alpheios-navbuttons__icon-cont" },
-          [_c("grammar-icon", { staticClass: "alpheios-navbuttons__icon" })],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "alpheios-navmenu__text" }, [
-          _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_GRAMMAR")))
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
         directives: [
           {
             name: "show",
@@ -22372,6 +22308,70 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-navmenu__text" }, [
           _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_WORD_USAGE")))
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "alpheios-navmenu__item",
+        class: {
+          active: _vm.$store.getters["ui/isActiveTab"]("inflectionsbrowser")
+        },
+        on: {
+          click: function($event) {
+            return _vm.changeTab("inflectionsbrowser")
+          }
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "alpheios-navbuttons__icon-cont" },
+          [
+            _c("inflections-browser-icon", {
+              staticClass: "alpheios-navbuttons__icon"
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-navmenu__text" }, [
+          _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_INFLECT_BROWSER")))
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.$store.getters["app/hasGrammarRes"],
+            expression: "$store.getters[`app/hasGrammarRes`]"
+          }
+        ],
+        staticClass: "alpheios-navmenu__item",
+        class: { active: _vm.$store.getters["ui/isActiveTab"]("grammar") },
+        on: {
+          click: function($event) {
+            return _vm.changeTab("grammar")
+          }
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "alpheios-navbuttons__icon-cont" },
+          [_c("grammar-icon", { staticClass: "alpheios-navbuttons__icon" })],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-navmenu__text" }, [
+          _vm._v(_vm._s(_vm.l10n.getText("TOOLTIP_GRAMMAR")))
         ])
       ]
     ),
@@ -22768,72 +22768,6 @@ var render = function() {
       _c(
         "alph-tooltip",
         {
-          attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_INFLECT_BROWSER"),
-            tooltipDirection: "bottom-narrow"
-          }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "alpheios-navbuttons__btn",
-              class: {
-                active: _vm.$store.getters["ui/isActiveTab"](
-                  "inflectionsbrowser"
-                )
-              },
-              on: {
-                click: function($event) {
-                  return _vm.ui.changeTab("inflectionsbrowser")
-                }
-              }
-            },
-            [_c("inflections-browser-icon")],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "alph-tooltip",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.$store.getters["app/hasGrammarRes"],
-              expression: "$store.getters[`app/hasGrammarRes`]"
-            }
-          ],
-          attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_GRAMMAR"),
-            tooltipDirection: "bottom-narrow"
-          }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "alpheios-navbuttons__btn",
-              class: {
-                active: _vm.$store.getters["ui/isActiveTab"]("grammar")
-              },
-              on: {
-                click: function($event) {
-                  return _vm.ui.changeTab("grammar")
-                }
-              }
-            },
-            [_c("grammar-icon")],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "alph-tooltip",
-        {
           directives: [
             {
               name: "show",
@@ -22898,6 +22832,72 @@ var render = function() {
               }
             },
             [_c("word-usage-icon")],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "alph-tooltip",
+        {
+          attrs: {
+            tooltipText: _vm.l10n.getText("TOOLTIP_INFLECT_BROWSER"),
+            tooltipDirection: "bottom-narrow"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "alpheios-navbuttons__btn",
+              class: {
+                active: _vm.$store.getters["ui/isActiveTab"](
+                  "inflectionsbrowser"
+                )
+              },
+              on: {
+                click: function($event) {
+                  return _vm.ui.changeTab("inflectionsbrowser")
+                }
+              }
+            },
+            [_c("inflections-browser-icon")],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "alph-tooltip",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.$store.getters["app/hasGrammarRes"],
+              expression: "$store.getters[`app/hasGrammarRes`]"
+            }
+          ],
+          attrs: {
+            tooltipText: _vm.l10n.getText("TOOLTIP_GRAMMAR"),
+            tooltipDirection: "bottom-narrow"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "alpheios-navbuttons__btn",
+              class: {
+                active: _vm.$store.getters["ui/isActiveTab"]("grammar")
+              },
+              on: {
+                click: function($event) {
+                  return _vm.ui.changeTab("grammar")
+                }
+              }
+            },
+            [_c("grammar-icon")],
             1
           )
         ]
@@ -40722,7 +40722,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M14 1l-8 9 8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M14 1l-8 9 8 9"}})])
           )
         }
       });
@@ -40762,7 +40762,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M6 1l8 9-8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M6 1l8 9-8 9"}})])
           )
         }
       });
@@ -41442,7 +41442,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41682,7 +41682,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -48053,7 +48053,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
 
 /***/ }),
 
