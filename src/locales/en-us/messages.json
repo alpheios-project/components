@@ -112,7 +112,7 @@
     "component": "Popup"
   },
   "TOOLTIP_MORPHOLOGY": {
-    "message": "Morphology",
+    "message": "Lemma",
     "description": "tooltop for a morphology button",
     "component": "Panel"
   },
