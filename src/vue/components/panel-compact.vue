@@ -117,6 +117,7 @@
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-defs`"
+              :show-results-in="`panel`"
           />
         </div>
         <div v-if="$store.getters['app/defDataReady']">

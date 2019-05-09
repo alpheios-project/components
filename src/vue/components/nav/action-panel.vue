@@ -17,6 +17,8 @@
           :use-page-lang-prefs="true"
           :show-language-settings-group="false"
           :show-results-in="`panel`"
+          @lookup-focus="onLookupFocus"
+          @lookup-blur="onLookupBlur"
       />
         <progress-bar
             class="alpheios-action-panel__progress-bar"
@@ -126,6 +128,8 @@ export default {
     closeIcon: CloseIcon
   },
 
+  focusClass: 'alpheios-action-panel--focused',
+
   data: function () {
     return {
       lookupVisible: false,
@@ -180,6 +184,16 @@ export default {
           : `${this.l10n.getText(messageID)} (${this.l10n.getText('TOOLTIP_NOT_AVAIL_POSTFIX')})`
       }
       return this.l10n.getText(messageID)
+    },
+
+    onLookupFocus () {
+      console.info(`onLookupFocus`)
+      this.$el.classList.add(this.$options.focusClass)
+    },
+
+    onLookupBlur () {
+      console.info(`onLookupBlur`)
+      this.$el.classList.remove(this.$options.focusClass)
     }
   }
 }
@@ -195,6 +209,20 @@ export default {
     @include alpheios-ui-border;
     background-color: var(--alpheios-text-bg-color);
     transition: display 0.4s;
+
+    &.alpheios-action-panel--focused {
+      transform: none !important;
+      bottom: 0 !important;
+      top: auto !important;
+      right: 0 !important;
+      left: auto;
+      height: 120px;
+      z-index: 1000001; // TODO: remove after the fix for zoom is merged
+    }
+
+    &.alpheios-action-panel--focused .alpheios-action-panel__nav-cont {
+      display: none;
+    }
   }
 
   .alpheios-action-panel__close-icon {
