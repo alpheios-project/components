@@ -7,9 +7,15 @@
     </sup>
     <div :style="[popupAlignmentStyles]" class="alpheios-inflections__footnote-popup" v-show="footnotesPopupVisible">
       <div class="alpheios-inflections__footnote-popup-title">Footnotes:</div>
-      <template v-for="footnote in footnotes">
-        <dt>{{footnote.index}}</dt>
-        <dd>{{footnote.text}}</dd>
+      <template
+          v-for="footnote in footnotes"
+      >
+        <dt>
+          {{footnote.index}}
+        </dt>
+        <dd>
+          {{footnote.text}}
+        </dd>
       </template>
       <div @click.stop.prevent="hidePopup"
            class="alpheios-inflections__footnote-popup-close-btn">
@@ -21,23 +27,39 @@
   </a>
 </template>
 <script>
+import uuidv4 from 'uuid/v4'
 import interact from 'interactjs'
 import Vue from 'vue/dist/vue'
 
+// Modules support
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 export default {
   name: 'InflFootnote',
+  // API modules that are required for this component
+  inject: {
+    app: 'app'
+  },
+  storeModules: ['panel'], // Store modules that are required by this component
+  mixins: [DependencyCheck],
+
+  visibleUnwatch: null,
+
   props: {
     footnotes: {
       type: Array,
       required: true
     }
   },
+  // An instance of interact.js
+  interactInstance: undefined,
+
   data () {
     return {
+      id: uuidv4(),
       target: null,
       footnotesPopupVisible: false,
-      draggable: true,
-      interactInstance: null,
+      draggable: false,
       popupAlignmentStyles: { transform: undefined },
       inflpopup: null,
       inflpanel: null,
@@ -48,15 +70,26 @@ export default {
   mounted () {
     this.inflpopup = this.$el.querySelector('.alpheios-inflections__footnote-popup')
     this.inflpanel = this.$el.closest('#alpheios-panel__inflections-panel')
+
+    if (this.app.platform.isMobile) {
+      this.$options.visibleUnwatch = this.$store.watch((state) => state.panel.visibleFootnoteId, (id) => {
+        if (this.footnotesPopupVisible && id !== this.id) {
+          this.hidePopup()
+        }
+      })
+    }
   },
   beforeDestroy () {
     this.$_alpheios_cleanup()
+    if (this.$options.visibleUnwatch) {
+      this.$options.visibleUnwatch()
+    }
   },
   methods: {
     // Named according to Vue style guide: https://vuejs.org/v2/style-guide/#Private-property-names-essential
     $_alpheios_init () {
-      if (this.draggable && !this.interactInstance) {
-        this.interactInstance = interact(this.inflpopup)
+      if (this.draggable && !this.$options.interactInstance) {
+        this.$options.interactInstance = interact(this.inflpopup)
           .draggable(this.draggableSettings())
 
         this.setTransformPopup('translate(-50%)')
@@ -64,9 +97,9 @@ export default {
     },
 
     $_alpheios_cleanup () {
-      if (this.interactInstance) {
-        this.interactInstance.unset()
-        this.interactInstance = null
+      if (this.$options.interactInstance) {
+        this.$options.interactInstance.unset()
+        this.$options.interactInstance = null
       }
     },
 
@@ -129,9 +162,13 @@ export default {
     },
 
     showPopup () {
-      this.$_alpheios_init()
+      if (this.app.platform.isDesktop) {
+        this.draggable = true
+        this.$_alpheios_init()
+        Vue.nextTick().then(() => this.checkBounds())
+      }
       this.footnotesPopupVisible = true
-      Vue.nextTick().then(() => this.checkBounds())
+      this.$store.commit('panel/setVisibleFootnote', this.id)
     },
 
     hidePopup () {
@@ -153,18 +190,12 @@ export default {
 
   .alpheios-inflections__footnote-popup {
     display: grid;
-    grid-template-columns: 20px 1fr;
+    grid-template-columns: max-content 1fr;
     grid-row-gap: 2px;
     background: #FFF;
     color: var(--alpheios-text-color);
-    position: absolute;
-    padding: 30px 15px 15px;
-    left: 0;
-    bottom: 20px;
     z-index: 10;
-    min-width: 200px;
-    border: 1px solid var(--alpheios-border-color);
-    cursor: move;
+    box-sizing: border-box;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -173,6 +204,45 @@ export default {
     -ms-user-select: none;
     user-select: none;
 
+    & dd {
+      // Reset browser's default styling
+      margin-inline-start: 0;
+      padding-left: textsize(10px);
+    }
+
+    [data-ap-layout-type="compact"] & {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 50vw;
+      border-top: 1px solid var(--alpheios-border-color);
+      padding: textsize(30px) 15px 15px uisize(50px);
+    }
+
+    [data-ap-layout-type="compact"] .alpheios-panel--left & {
+      border-right: 1px solid var(--alpheios-border-color);
+    }
+
+    [data-ap-layout-type="compact"] .alpheios-panel--right & {
+      left: auto;
+      right: 0;
+      border-left: 1px solid var(--alpheios-border-color);
+    }
+
+    [data-ap-screen-orientation="portrait"][data-ap-layout-type="compact"] &,
+    [data-ap-layout-type="compact"] .alpheios-panel--expanded & {
+      width: 100vw;
+    }
+
+    [data-ap-layout-type="large"] & {
+      position: absolute;
+      left: 0;
+      bottom: 20px;
+      min-width: 200px;
+      border: 1px solid var(--alpheios-border-color);
+      cursor: move;
+      padding: 30px 15px 15px;
+    }
   }
 
   .alpheios-inflections__footnote-popup.hidden {
@@ -184,20 +254,30 @@ export default {
     position: absolute;
     text-transform: uppercase;
     left: 15px;
-    top: 7px;
+    top: uisize(7px);
+
+    [data-ap-layout-type="large"] & {
+      left: 15px;
+      top: 7px;
+    }
   }
 
   .alpheios-inflections__footnote-popup-close-btn {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: uisize(5px);
+    top: uisize(5px);
     display: block;
-    width: 20px;
-    height: 20px;
+    width: uisize(44px);
+    height: uisize(44px);
     margin: 0;
     cursor: pointer;
     fill: var(--alpheios-color-neutral-dark);
     stroke: var(--alpheios-color-neutral-dark);
+
+    [data-ap-layout-type="large"] & {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .alpheios-inflections__footnote-popup-close-btn:hover,

@@ -322,23 +322,6 @@
         </div>
       </div>
 
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__info"
-           v-show="$store.getters['ui/isActiveTab']('info') && !menuVisible"
-           data-alpheios-ignore="all">
-        <h1
-            class="alpheios-panel__title"
-        >
-          {{ l10n.getText('TITLE_HELP_PANEL') }}
-        </h1>
-        <div class="alpheios-lookup__panel">
-          <lookup
-              :name-base="`panel-info`"
-              :show-results-in="`panel`"
-          />
-        </div>
-        <info></info>
-      </div>
-
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
            v-show="$store.getters['ui/isActiveTab']('wordlist') && !menuVisible"
            data-alpheios-ignore="all"
@@ -369,7 +352,6 @@ import ShortDef from './shortdef.vue'
 import Grammar from './grammar.vue'
 import Morph from './morph.vue'
 import Treebank from './treebank.vue'
-import Info from './info.vue'
 import InflectionBrowser from './inflections-browser.vue'
 import Lookup from './lookup.vue'
 import ReskinFontColor from './font-size.vue'
@@ -413,7 +395,6 @@ export default {
     inflectionBrowser: InflectionBrowser,
     setting: Setting,
     shortdef: ShortDef,
-    info: Info,
     grammar: Grammar,
     morph: Morph,
     treebank: Treebank,
@@ -437,6 +418,7 @@ export default {
   customPropStyle: undefined,
   baseTextSize: undefined,
   scaledTextSize: undefined,
+  currentTextSize: undefined,
   panelVisibilityUnwatch: undefined,
   panelPositionUnwatch: undefined,
   panelOrientationUnwatch: undefined,
@@ -625,11 +607,15 @@ export default {
 
     gestureMoveListener: function (event) {
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
-      document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
+      if (Math.abs(computedFontSize - this.$options.currentTextSize) > 1) {
+        // Update element's style only when size change is greater than 1px to avoid extra redraws
+        this.$options.currentTextSize = computedFontSize
+        document.documentElement.style.setProperty('--alpheios-base-text-size', `${this.$options.currentTextSize}px`, 'important')
+      }
     },
 
-    gestureEndListener: function (event) {
-      this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
+    gestureEndListener: function () {
+      this.$options.scaledTextSize = this.$options.currentTextSize
     },
 
     switchProviders: function () {
@@ -644,6 +630,7 @@ export default {
     // Remove pixel units from the value string
     this.$options.baseTextSize = this.$options.baseTextSize.replace(/px/, '')
     this.$options.scaledTextSize = this.$options.baseTextSize
+    this.$options.currentTextSize = this.$options.baseTextSize
 
     interact(`#${this.panelId}`).gesturable({})
       .on('gesturemove', this.gestureMoveListener.bind(this))
@@ -879,14 +866,14 @@ export default {
     }
 
     &.alpheios-panel--left {
-      height: 100vh;
+      height: 100%;
       width: 50vw;
       top: 0;
       bottom: auto;
     }
 
     &.alpheios-panel--right {
-      height: 100vh;
+      height: 100%;
       width: 50vw;
       right: 0;
       left: auto;
