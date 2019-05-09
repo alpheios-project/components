@@ -3049,18 +3049,6 @@ h3.alpheios-inflections__credits-title {
   background-color: var(--alpheios-text-bg-color);
   transition: display 0.4s;
 }
-.alpheios-action-panel.alpheios-action-panel--focused {
-  transform: none !important;
-  bottom: 0 !important;
-  top: auto !important;
-  right: 0 !important;
-  left: auto;
-  height: 120px;
-  z-index: 1000001;
-}
-.alpheios-action-panel.alpheios-action-panel--focused .alpheios-action-panel__nav-cont {
-  display: none;
-}
 .alpheios-action-panel__close-icon {
   position: absolute;
   top: 10px;
@@ -3186,7 +3174,6 @@ h3.alpheios-inflections__credits-title {
  */
 .alpheios-toolbar {
   position: fixed;
-  z-index: 1000000;
 }
 .alpheios-toolbar.alpheios-toolbar--compact {
   cursor: pointer;

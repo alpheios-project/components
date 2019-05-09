@@ -20,7 +20,6 @@
               class="alpheios-input"
               type="text"
               v-model="lookuptext"
-              ref="lookup"
           >
           <button
               @click.stop="lookup"
@@ -110,18 +109,6 @@ export default {
     }
   },
 
-  mounted: function () {
-    console.info(`mounted`)
-    this.$refs.lookup.addEventListener('focus', this.onFocus.bind(this))
-    this.$refs.lookup.addEventListener('blur', this.onBlur.bind(this))
-  },
-
-  beforeDestroy: function () {
-    console.info(`before destroy`)
-    this.$refs.lookup.removeEventListener('focus', this.onFocus.bind(this))
-    this.$refs.lookup.removeEventListener('blur', this.onBlur.bind(this))
-  },
-
   computed: {
     currentLanguage: function () {
       const selectedValue = this.$options.lookupLanguage.currentTextValue()
@@ -145,9 +132,6 @@ export default {
 
   methods: {
     lookup: function () {
-      // Remove focus to let parent component remove focused state
-      this.onBlur()
-
       if (this.lookuptext.length === 0) {
         return null
       }
@@ -200,16 +184,6 @@ export default {
     resourceSettingChange: function (name, value) {
       let keyinfo = this.settings.lookupResourceOptions.parseKey(name)
       this.settings.lookupResourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
-    },
-
-    onFocus: function () {
-      console.info(`On focus`)
-      this.$emit('lookup-focus')
-    },
-
-    onBlur: function () {
-      console.info(`On blur`)
-      this.$emit('lookup-blur')
     }
   }
 }

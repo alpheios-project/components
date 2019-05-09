@@ -3174,7 +3174,6 @@ h3.alpheios-inflections__credits-title {
  */
 .alpheios-toolbar {
   position: fixed !important;
-  z-index: 1000000 !important;
 }
 .alpheios-toolbar.alpheios-toolbar--compact {
   cursor: pointer !important;
