@@ -2346,7 +2346,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter label {
   padding-left: 5px;
-  font-size: 80%;
+  font-size: var(--alpheios-base-text-size);
   line-height: 100%;
   display: inline-block;
   vertical-align: middle;
@@ -2357,6 +2357,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-word-usage-header-filters .alpheios-word-usage-header-actions button:disabled {
   background-color: var(--alpheios-color-neutral-dark);
+  border-color: transparent;
 }
 .alpheios-word-usage-header .alpheios-word-usage-header-select-textwork {
   margin-top: 10px;
@@ -2490,6 +2491,36 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel--compact .alpheios-word-usage__examples-source-link-large {
   display: none;
+}
+.alpheios-word-usage .alpheios-word-usage-header-show-link {
+  cursor: pointer;
+  color: var(--alpheios-color-vivid);
+}
+.alpheios-word-usage .alpheios-word-usage-header-show-link:hover {
+  text-decoration: underline;
+  color: var(--alpheios-color-vivid-hover);
+}
+.alpheios-layout-compact .alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.alpheios-layout-compact .alpheios-word-usage-filters-select,
+.alpheios-layout-compact .alpheios-word-usage-header-actions {
+  display: inline-block;
+  vertical-align: middle;
+}
+.alpheios-layout-compact .alpheios-word-usage-filters-select {
+  width: 100%;
+  max-width: 450px;
+}
+.alpheios-layout-compact .alpheios-word-usage-header-actions {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 10px;
+}
+.alpheios-layout-compact .alpheios-word-usage__examples-show-sources-btn {
+  margin: 10px 0 20px;
 }
 /*
  Calculates a size of text elements relative to the base size.

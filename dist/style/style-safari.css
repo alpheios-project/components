@@ -2346,7 +2346,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter label {
   padding-left: 5px !important;
-  font-size: 80% !important;
+  font-size: var(--alpheios-base-text-size) !important;
   line-height: 100% !important;
   display: inline-block;
   vertical-align: middle !important;
@@ -2357,6 +2357,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-word-usage-header-filters .alpheios-word-usage-header-actions button:disabled {
   background-color: var(--alpheios-color-neutral-dark) !important;
+  border-color: transparent !important;
 }
 .alpheios-word-usage-header .alpheios-word-usage-header-select-textwork {
   margin-top: 10px !important;
@@ -2490,6 +2491,36 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel--compact .alpheios-word-usage__examples-source-link-large {
   display: none;
+}
+.alpheios-word-usage .alpheios-word-usage-header-show-link {
+  cursor: pointer !important;
+  color: var(--alpheios-color-vivid) !important;
+}
+.alpheios-word-usage .alpheios-word-usage-header-show-link:hover {
+  text-decoration: underline !important;
+  color: var(--alpheios-color-vivid-hover) !important;
+}
+.alpheios-layout-compact .alpheios-word-usage-header-select-type-filters-block .alpheios-word-usage-header-select-type-filter {
+  display: inline-block;
+  vertical-align: middle !important;
+  margin-right: 20px !important;
+}
+.alpheios-layout-compact .alpheios-word-usage-filters-select,
+.alpheios-layout-compact .alpheios-word-usage-header-actions {
+  display: inline-block;
+  vertical-align: middle !important;
+}
+.alpheios-layout-compact .alpheios-word-usage-filters-select {
+  width: 100% !important;
+  max-width: 450px !important;
+}
+.alpheios-layout-compact .alpheios-word-usage-header-actions {
+  border-top: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 10px !important;
+}
+.alpheios-layout-compact .alpheios-word-usage__examples-show-sources-btn {
+  margin: 10px 0 20px !important;
 }
 /*
  Calculates a size of text elements relative to the base size.
