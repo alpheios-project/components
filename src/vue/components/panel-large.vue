@@ -295,6 +295,7 @@
 import interact from 'interactjs'
 // UI components
 import NavbuttonsLarge from '@/vue/components/nav/navbuttons-large.vue'
+import Tooltip from '@/vue/components/tooltip.vue'
 // SVG icons
 import LogoIcon from '@/images/alpheios/logo.svg'
 import AttachLeftIcon from '@/images/inline-icons/attach-left.svg'
@@ -309,7 +310,8 @@ export default {
     navbuttonsLarge: NavbuttonsLarge,
     logoIcon: LogoIcon,
     attachLeftIcon: AttachLeftIcon,
-    attachRightIcon: AttachRightIcon
+    attachRightIcon: AttachRightIcon,
+    alphTooltip: Tooltip
   },
   // A minimal width of a panel, in pixels. It should be large enough to fit all the buttons of a large size into the panel
   minWidth: 698,

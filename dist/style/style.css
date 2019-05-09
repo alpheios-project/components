@@ -1577,6 +1577,10 @@ a.alpheios-popup__providers-link {
   display: inline-block;
   margin-bottom: calc(var(--alpheios-base-text-size) * 0.375);
   font-weight: 700;
+  color: var(--alpheios-color-vivid);
+}
+a.alpheios-popup__providers-link:hover {
+  color: var(--alpheios-color-vivid-hover);
 }
 .alpheios-popup__definitions--placeholder {
   padding: calc(var(--alpheios-base-text-size) * 0.625) 0;
