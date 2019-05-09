@@ -19,7 +19,7 @@
             class="alpheios-word-usage__examples-show-sources-btn alpheios-button-primary"
             @click="changeShowDataSource"
         >
-          {{ l10n.getText('WORDUSAGE_SHOw_SOURCE_LINKS') }}
+          {{ l10n.getText('WORDUSAGE_SHOW_SOURCE_LINKS') }}
         </div>
         <div
             class="alpheios-word-usage__examples"
@@ -142,7 +142,7 @@ export default {
       return []
     },
     collapsedHeaderTitle () {
-      return this.collapsedHeader ? 'show filters' : 'hide filters'
+      return this.collapsedHeader ? this.l10n.getText('WORDUSAGE_SHOW_FILTERS_TEXT') : this.l10n.getText('WORDUSAGE_HIDE_FILTERS_TEXT')
     }
   },
   methods: {
@@ -372,7 +372,7 @@ export default {
     }
 
     .alpheios-word-usage__examples-show-sources-btn {
-      margin: 10px 0 20px;
+      margin: 20px 0;
     }
   }
 
