@@ -15194,6 +15194,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /*
   This is a mobile version of a panel
@@ -24216,7 +24219,8 @@ var render = function() {
                     "$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
                 }
               ],
-              staticClass: "alpheios-panel__tab-panel"
+              staticClass: "alpheios-panel__tab-panel",
+              attrs: { "data-alpheios-ignore": "all" }
             },
             [_c("word-usage-examples")],
             1
@@ -24236,158 +24240,173 @@ var render = function() {
                     "$store.getters['ui/isActiveTab']('options') && !menuVisible"
                 }
               ],
-              staticClass: "alpheios-panel__tab-panel",
+              staticClass:
+                "alpheios-panel__tab-panel alpheios-panel__tab-panel--options",
               attrs: { "data-alpheios-ignore": "all" }
             },
             [
-              _c("reskin-font-color"),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.preferredLanguage
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.panelPosition
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.popupPosition
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.uiType
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.verboseMode
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.uiOptions.items.skin
-                },
-                on: { change: _vm.uiOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.app.isDevMode(),
-                    expression: "app.isDevMode()"
-                  }
+              _c(
+                "div",
+                { staticClass: "alpheios-panel__tab-panel-options-cont" },
+                [
+                  _c("reskin-font-color"),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.preferredLanguage
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.panelPosition
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.popupPosition
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.uiType
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.verboseMode
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.uiOptions.items.skin
+                    },
+                    on: { change: _vm.uiOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.app.isDevMode(),
+                        expression: "app.isDevMode()"
+                      }
+                    ],
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.uiOptions.items.panel
+                    },
+                    on: { change: _vm.uiOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.uiOptions.items.panelOnActivate
+                    },
+                    on: { change: _vm.uiOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.resourceSettingsLexicons, function(
+                    languageSetting
+                  ) {
+                    return _c("setting", {
+                      key: languageSetting.name,
+                      attrs: {
+                        classes: ["alpheios-panel__options-item"],
+                        data: languageSetting
+                      },
+                      on: { change: _vm.resourceSettingChanged }
+                    })
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.resourceSettingsLexiconsShort, function(
+                    languageSetting
+                  ) {
+                    return _c("setting", {
+                      key: languageSetting.name,
+                      attrs: {
+                        classes: ["alpheios-panel__options-item"],
+                        data: languageSetting
+                      },
+                      on: { change: _vm.resourceSettingChanged }
+                    })
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data:
+                        _vm.settings.contentOptions.items
+                          .enableWordUsageExamples
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data:
+                        _vm.settings.contentOptions.items.wordUsageExamplesON
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data:
+                        _vm.settings.contentOptions.items
+                          .wordUsageExamplesAuthMax
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data:
+                        _vm.settings.contentOptions.items.wordUsageExamplesMax
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data:
+                        _vm.settings.contentOptions.items
+                          .enableLemmaTranslations
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  }),
+                  _vm._v(" "),
+                  _c("setting", {
+                    attrs: {
+                      classes: ["alpheios-panel__options-item"],
+                      data: _vm.settings.contentOptions.items.locale
+                    },
+                    on: { change: _vm.contentOptionChanged }
+                  })
                 ],
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.uiOptions.items.panel
-                },
-                on: { change: _vm.uiOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.uiOptions.items.panelOnActivate
-                },
-                on: { change: _vm.uiOptionChanged }
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.resourceSettingsLexicons, function(languageSetting) {
-                return _c("setting", {
-                  key: languageSetting.name,
-                  attrs: {
-                    classes: ["alpheios-panel__options-item"],
-                    data: languageSetting
-                  },
-                  on: { change: _vm.resourceSettingChanged }
-                })
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.resourceSettingsLexiconsShort, function(
-                languageSetting
-              ) {
-                return _c("setting", {
-                  key: languageSetting.name,
-                  attrs: {
-                    classes: ["alpheios-panel__options-item"],
-                    data: languageSetting
-                  },
-                  on: { change: _vm.resourceSettingChanged }
-                })
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data:
-                    _vm.settings.contentOptions.items.enableWordUsageExamples
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.wordUsageExamplesON
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data:
-                    _vm.settings.contentOptions.items.wordUsageExamplesAuthMax
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.wordUsageExamplesMax
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data:
-                    _vm.settings.contentOptions.items.enableLemmaTranslations
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
-              _vm._v(" "),
-              _c("setting", {
-                attrs: {
-                  classes: ["alpheios-panel__options-item"],
-                  data: _vm.settings.contentOptions.items.locale
-                },
-                on: { change: _vm.contentOptionChanged }
-              }),
+                2
+              ),
               _vm._v(" "),
               _c("div", [
                 _c(
@@ -24404,8 +24423,7 @@ var render = function() {
                   ]
                 )
               ])
-            ],
-            2
+            ]
           ),
           _vm._v(" "),
           _c(
