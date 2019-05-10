@@ -2,7 +2,7 @@
   <div
       id="alpheios-toolbar-inner"
       class="alpheios-content alpheios-toolbar alpheios-toolbar--compact"
-      :style = "componentStyles"
+      :style="componentStyles"
       v-show="$store.state.toolbar.visible"
       @click="openActionPanel"
   >
@@ -11,7 +11,7 @@
 </template>
 <script>
 // Embeddable SVG icons
-import ToolbarIcon from '@/images/inline-icons/book-open.svg'
+import ToolbarIcon from '@/images/inline-icons/reading-tools.svg'
 
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'

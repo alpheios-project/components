@@ -17,15 +17,11 @@
         />
       </div>
 
-      <div class="alpheios-panel__header-title">
-        <div class="alpheios-panel__header-title-text">
-          {{ panelTitle }}
-        </div>
-
+      <div class="alpheios-panel__header-btn-group--end">
         <div
-          class="alpheios-panel__header-btn"
-          @click="expand"
-          v-show="!isLandscape && !expanded"
+            class="alpheios-panel__header-btn"
+            @click="expand"
+            v-show="!isLandscape && !expanded"
         >
           <up-icon/>
         </div>
@@ -53,19 +49,13 @@
         >
           <right-icon/>
         </div>
-      </div>
 
-      <div class="alpheios-panel__header-btn-group--end">
-        <alph-tooltip
-            :tooltipText="l10n.getText('TOOLTIP_CLOSE_PANEL')"
-            tooltipDirection="top">
-          <div
-              @click="closePanel"
-              class="alpheios-panel__close-btn"
-          >
-              <close-icon/>
-          </div>
-        </alph-tooltip>
+        <div
+            @click="closePanel"
+            class="alpheios-panel__close-btn"
+        >
+          <close-icon/>
+        </div>
       </div>
     </div>
 
@@ -127,6 +117,7 @@
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-defs`"
+              :show-results-in="`panel`"
           />
         </div>
         <div v-if="$store.getters['app/defDataReady']">
@@ -208,145 +199,130 @@
       <div
           class="alpheios-panel__tab-panel"
           v-show="$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
-          data-alpheios-ignore="all"
       >
         <word-usage-examples/>
       </div>
 
-      <div class="alpheios-panel__tab-panel"
+      <div class="alpheios-panel__tab-panel alpheios-panel__tab-panel--options"
            v-show="$store.getters['ui/isActiveTab']('options') && !menuVisible"
            data-alpheios-ignore="all"
       >
-        <reskin-font-color></reskin-font-color>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.preferredLanguage"
-            @change="contentOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.panelPosition"
-            @change="contentOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.popupPosition"
-            @change="contentOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.uiType"
-            @change="contentOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.verboseMode"
-            @change="contentOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.uiOptions.items.skin"
-            @change="uiOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.uiOptions.items.panel"
-            @change="uiOptionChanged"
-            v-show="app.isDevMode()"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.uiOptions.items.panelOnActivate"
-            @change="uiOptionChanged"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="languageSetting"
-            :key="languageSetting.name"
-            @change="resourceSettingChanged"
-            v-for="languageSetting in resourceSettingsLexicons"
-        >
-        </setting>
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="languageSetting"
-            :key="languageSetting.name"
-            @change="resourceSettingChanged"
-            v-for="languageSetting in resourceSettingsLexiconsShort"
-        >
-        </setting>
+        <!-- This extra container element is required for iOS browsers so that the flex option items will have height to match their content -->
+        <div class="alpheios-panel__tab-panel-options-cont">
+          <reskin-font-color></reskin-font-color>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.preferredLanguage"
+              @change="contentOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.panelPosition"
+              @change="contentOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.popupPosition"
+              @change="contentOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.uiType"
+              @change="contentOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.verboseMode"
+              @change="contentOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.uiOptions.items.skin"
+              @change="uiOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.uiOptions.items.panel"
+              @change="uiOptionChanged"
+              v-show="app.isDevMode()"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.uiOptions.items.panelOnActivate"
+              @change="uiOptionChanged"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="languageSetting"
+              :key="languageSetting.name"
+              @change="resourceSettingChanged"
+              v-for="languageSetting in resourceSettingsLexicons"
+          >
+          </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="languageSetting"
+              :key="languageSetting.name"
+              @change="resourceSettingChanged"
+              v-for="languageSetting in resourceSettingsLexiconsShort"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.enableWordUsageExamples"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.enableWordUsageExamples"
+              @change="contentOptionChanged"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.wordUsageExamplesON"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.wordUsageExamplesON"
+              @change="contentOptionChanged"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.wordUsageExamplesAuthMax"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.wordUsageExamplesAuthMax"
+              @change="contentOptionChanged"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.wordUsageExamplesMax"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.wordUsageExamplesMax"
+              @change="contentOptionChanged"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.enableLemmaTranslations"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.enableLemmaTranslations"
+              @change="contentOptionChanged"
+          >
+          </setting>
 
-        <setting
-            :classes="['alpheios-panel__options-item']"
-            :data="settings.contentOptions.items.locale"
-            @change="contentOptionChanged"
-        >
-        </setting>
+          <setting
+              :classes="['alpheios-panel__options-item']"
+              :data="settings.contentOptions.items.locale"
+              @change="contentOptionChanged"
+          >
+          </setting>
+        </div>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
           </button>
         </div>
-      </div>
-
-      <div class="alpheios-panel__tab-panel alpheios-panel__tab__info"
-           v-show="$store.getters['ui/isActiveTab']('info') && !menuVisible"
-           data-alpheios-ignore="all">
-        <h1
-            class="alpheios-panel__title"
-        >
-          {{ l10n.getText('TITLE_HELP_PANEL') }}
-        </h1>
-        <div class="alpheios-lookup__panel">
-          <lookup
-              :name-base="`panel-info`"
-              :show-results-in="`panel`"
-          />
-        </div>
-        <info></info>
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
@@ -379,9 +355,7 @@ import ShortDef from './shortdef.vue'
 import Grammar from './grammar.vue'
 import Morph from './morph.vue'
 import Treebank from './treebank.vue'
-import Info from './info.vue'
 import InflectionBrowser from './inflections-browser.vue'
-import Tooltip from './tooltip.vue'
 import Lookup from './lookup.vue'
 import ReskinFontColor from './font-size.vue'
 import UserAuth from './user-auth.vue'
@@ -390,7 +364,7 @@ import { Definition } from 'alpheios-data-models'
 import WordListPanel from '@/vue/components/word-list/word-list-panel.vue'
 import ProgressBar from '@/vue/components/progress-bar.vue'
 // Embeddable SVG icons
-import MenuIcon from '@/images/inline-icons/book-open.svg'
+import MenuIcon from '@/images/inline-icons/reading-tools.svg'
 import CloseIcon from '@/images/inline-icons/x-close.svg'
 import UpIcon from '@/images/inline-icons/chevron-up.svg'
 import DownIcon from '@/images/inline-icons/chevron-down.svg'
@@ -424,13 +398,11 @@ export default {
     inflectionBrowser: InflectionBrowser,
     setting: Setting,
     shortdef: ShortDef,
-    info: Info,
     grammar: Grammar,
     morph: Morph,
     treebank: Treebank,
     userAuth: UserAuth,
     closeIcon: CloseIcon,
-    alphTooltip: Tooltip,
     lookup: Lookup,
     reskinFontColor: ReskinFontColor,
     wordListPanel: WordListPanel,
@@ -449,6 +421,7 @@ export default {
   customPropStyle: undefined,
   baseTextSize: undefined,
   scaledTextSize: undefined,
+  currentTextSize: undefined,
   panelVisibilityUnwatch: undefined,
   panelPositionUnwatch: undefined,
   panelOrientationUnwatch: undefined,
@@ -574,49 +547,6 @@ export default {
       return content
     },
 
-    panelTitle () {
-      let title = ''
-      switch (this.$store.state.ui.activeTab) {
-        case 'info':
-          title = this.l10n.getText('TOOLTIP_HELP')
-          break
-        case 'morphology':
-          title = this.l10n.getText('TOOLTIP_MORPHOLOGY')
-          break
-        case 'definitions':
-          title = this.l10n.getText('TOOLTIP_DEFINITIONS')
-          break
-        case 'inflections':
-          title = this.l10n.getText('TOOLTIP_INFLECT')
-          break
-        case 'inflectionsbrowser':
-          title = this.l10n.getText('TOOLTIP_INFLECT_BROWSER')
-          break
-        case 'grammar':
-          title = this.l10n.getText('TOOLTIP_GRAMMAR')
-          break
-        case 'treebank':
-          title = this.l10n.getText('TOOLTIP_TREEBANK')
-          break
-        case 'options':
-          title = this.l10n.getText('TOOLTIP_OPTIONS')
-          break
-        case 'user':
-          title = this.l10n.getText('TOOLTIP_USER')
-          break
-        case 'wordUsage':
-          title = this.l10n.getText('TOOLTIP_WORD_USAGE')
-          break
-        case 'wordlist':
-          title = this.l10n.getText('TOOLTIP_WORDLIST')
-          break
-        case 'status':
-          title = this.l10n.getText('TOOLTIP_STATUS')
-          break
-      }
-      return title
-    },
-
     providersLinkText: function () {
       return this.showProviders ? this.l10n.getText('LABEL_POPUP_HIDECREDITS') : this.l10n.getText('LABEL_POPUP_SHOWCREDITS')
     }
@@ -680,11 +610,15 @@ export default {
 
     gestureMoveListener: function (event) {
       const computedFontSize = Math.round(this.$options.scaledTextSize * event.scale)
-      document.documentElement.style.setProperty('--alpheios-base-text-size', `${computedFontSize}px`, 'important')
+      if (Math.abs(computedFontSize - this.$options.currentTextSize) > 1) {
+        // Update element's style only when size change is greater than 1px to avoid extra redraws
+        this.$options.currentTextSize = computedFontSize
+        document.documentElement.style.setProperty('--alpheios-base-text-size', `${this.$options.currentTextSize}px`, 'important')
+      }
     },
 
-    gestureEndListener: function (event) {
-      this.$options.scaledTextSize = Math.round(this.$options.scaledTextSize * event.scale)
+    gestureEndListener: function () {
+      this.$options.scaledTextSize = this.$options.currentTextSize
     },
 
     switchProviders: function () {
@@ -699,6 +633,7 @@ export default {
     // Remove pixel units from the value string
     this.$options.baseTextSize = this.$options.baseTextSize.replace(/px/, '')
     this.$options.scaledTextSize = this.$options.baseTextSize
+    this.$options.currentTextSize = this.$options.baseTextSize
 
     interact(`#${this.panelId}`).gesturable({})
       .on('gesturemove', this.gestureMoveListener.bind(this))
@@ -777,8 +712,8 @@ export default {
   }
 
   .alpheios-panel__menu-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: auto;
     fill: var(--alpheios-color-neutral-lightest);
 
     &:hover {
@@ -788,23 +723,6 @@ export default {
     &.menu-open {
       fill: var(--alpheios-color-bright);
     }
-  }
-
-  .alpheios-panel__header-title {
-    direction: ltr;
-    display: flex;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-    align-items: stretch;
-    color: var(--alpheios-color-light);
-    font-family: var(--alpheios-serif-font-face);
-    font-size: uisize(24px);
-  }
-
-  .alpheios-panel__header-title-text {
-    padding-top: uisize(8px);
-    margin: 0 uisize(20px);
-    white-space: nowrap;
   }
 
   .alpheios-panel__header-btn-group--end {
@@ -922,16 +840,26 @@ export default {
     margin-bottom: 1em;
   }
 
+  .alpheios-panel__tab-panel--options {
+    display: block;
+  }
+
+  .alpheios-panel__tab-panel-options-cont {
+    display: flex;
+    flex-direction: column;
+  }
+
   .alpheios-panel__options-item {
     margin-bottom: textsize(10px);
     display: flex;
     align-items: flex-start;
+    flex: 1 1 auto;
   }
 
   .alpheios-panel__menu-btn {
     width: 40px;
     height: 40px;
-    margin: 10px 10px 10px 30px;
+    margin: 16px 10px 10px 30px;
     cursor: pointer;
   }
 
@@ -946,9 +874,11 @@ export default {
       grid-template-columns: auto;
     }
 
-    &.alpheios-panel--left,
-    &.alpheios-panel--right {
-      // 100vh does not work correctly on all sites
+    & .alpheios-panel__close-btn {
+      margin-left: uisize(20px);
+    }
+
+    &.alpheios-panel--left {
       height: 100%;
       width: 50vw;
       top: 0;
@@ -956,6 +886,8 @@ export default {
     }
 
     &.alpheios-panel--right {
+      height: 100%;
+      width: 50vw;
       right: 0;
       left: auto;
     }

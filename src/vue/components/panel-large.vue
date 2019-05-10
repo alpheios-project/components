@@ -301,15 +301,20 @@ import AttachLeftIcon from '@/images/inline-icons/attach-left.svg'
 import AttachRightIcon from '@/images/inline-icons/attach-right.svg'
 // Vue components
 import CompactPanel from '@/vue/components/panel-compact.vue'
+import Tooltip from '@/vue/components/tooltip.vue'
+import Info from '@/vue/components/info.vue'
 
 export default {
   name: 'PanelLarge',
   extends: CompactPanel,
   components: {
+    alphTooltip: Tooltip,
+    info: Info,
     navbuttonsLarge: NavbuttonsLarge,
     logoIcon: LogoIcon,
     attachLeftIcon: AttachLeftIcon,
-    attachRightIcon: AttachRightIcon
+    attachRightIcon: AttachRightIcon,
+    alphTooltip: Tooltip
   },
   // A minimal width of a panel, in pixels. It should be large enough to fit all the buttons of a large size into the panel
   minWidth: 698,

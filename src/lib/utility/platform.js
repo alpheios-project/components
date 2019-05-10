@@ -1,9 +1,13 @@
 import HTMLPage from '@/lib/utility/html-page.js'
 
 export default class Platform {
-  constructor () {
+  constructor (setRootAttributes = false) {
     this.deviceType = HTMLPage.getDeviceType()
     this.orientation = HTMLPage.getOrientation()
+
+    if (setRootAttributes) {
+      this.setRootAttributes()
+    }
 
     this.viewport = {
       width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
@@ -13,6 +17,15 @@ export default class Platform {
       height: window.innerHeight && document.documentElement.clientHeight && document.body.clientHeight
         ? Math.min(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
         : document.body.clientHeight || window.innerHeight || document.documentElement.clientHeight
+    }
+  }
+
+  setRootAttributes () {
+    if (document && document.documentElement) {
+      document.documentElement.dataset.apScreenOrientation = this.isPortrait ? 'portrait' : 'landscape'
+      document.documentElement.dataset.apLayoutType = this.isDesktop ? 'large' : 'compact'
+    } else {
+      console.warn(`Cannot set platform attributes because either document or documentElement are not defined`)
     }
   }
 

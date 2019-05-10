@@ -10,9 +10,6 @@
         id="alpheios-toolbar-drag-handle"
         class="alpheios-toolbar__drag-handle"
     >
-      <div class="alpheios-toolbar__logo-icon">
-        <logo-icon class="alpheios-logo-on-dark"/>
-      </div>
     </div>
     <div
         class="alpheios-toolbar__lookup-control"
@@ -33,8 +30,17 @@
         :class="{ expanded: contentVisible }"
         @click="contentVisible = !contentVisible"
     >
-      <collapsed-icon v-show="!contentVisible" />
-      <expanded-icon v-show="contentVisible" />
+      <reading-tools-icon
+        class="alpheios-toolbar__header-icon"
+      />
+      <collapsed-icon
+          class="alpheios-toolbar__header-icon-collapsed"
+          v-show="!contentVisible"
+      />
+      <expanded-icon
+          class="alpheios-toolbar__header-icon-expanded"
+          v-show="contentVisible"
+      />
     </div>
 
     <div
@@ -91,15 +97,15 @@
       </alph-tooltip>
 
       <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_OPTIONS')"
+          :tooltip-text="l10n.getText('TOOLTIP_WORDLIST')"
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('options') }"
+            :class="{ active: $store.getters['ui/isActiveTab']('wordlist'), disabled: !$store.state.app.hasWordListsData }"
             class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('options')"
+            @click="ui.togglePanelTab('wordlist')"
         >
-          <options-icon/>
+          <wordlist-icon/>
         </span>
       </alph-tooltip>
 
@@ -117,15 +123,15 @@
       </alph-tooltip>
 
       <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_WORDLIST')"
+          :tooltip-text="l10n.getText('TOOLTIP_OPTIONS')"
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('wordlist'), disabled: !$store.state.app.hasWordListsData }"
+            :class="{ active: $store.getters['ui/isActiveTab']('options') }"
             class="alpheios-navbuttons__btn"
-            @click="ui.togglePanelTab('wordlist')"
+            @click="ui.togglePanelTab('options')"
         >
-          <wordlist-icon/>
+          <options-icon/>
         </span>
       </alph-tooltip>
 
@@ -150,7 +156,6 @@ import interact from 'interactjs'
 
 import Tooltip from '@/vue/components/tooltip.vue'
 // Embeddable SVG icons
-import LogoIcon from '@/images/alpheios/logo.svg'
 import InflectionsBrowserIcon from '@/images/inline-icons/inflections-browser.svg'
 import StatusIcon from '@/images/inline-icons/status.svg'
 import UserIcon from '@/images/inline-icons/user.svg'
@@ -160,6 +165,7 @@ import InfoIcon from '@/images/inline-icons/info.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
 import CollapsedIcon from '@/images/inline-icons/collapsed.svg'
 import ExpandedIcon from '@/images/inline-icons/expanded.svg'
+import ReadingToolsIcon from '@/images/inline-icons/reading-tools.svg'
 import LookupIcon from '@/images/inline-icons/lookup.svg'
 // Vue components
 import ToolbarCompact from '@/vue/components/nav/toolbar-compact.vue'
@@ -182,7 +188,6 @@ export default {
   components: {
     lookup: Lookup,
     alphTooltip: Tooltip,
-    logoIcon: LogoIcon,
     inflectionsBrowserIcon: InflectionsBrowserIcon,
     statusIcon: StatusIcon,
     userIcon: UserIcon,
@@ -192,6 +197,7 @@ export default {
     wordlistIcon: WordlistIcon,
     collapsedIcon: CollapsedIcon,
     expandedIcon: ExpandedIcon,
+    readingToolsIcon: ReadingToolsIcon,
     lookupIcon: LookupIcon
   },
   interactInstance: null,
@@ -341,35 +347,9 @@ export default {
     }
   }
 
-  .alpheios-toolbar__header {
-    box-sizing: border-box;
-    border: 1px solid var(--alpheios-border-color);
-    border-bottom-left-radius: uisize(10px);
-    border-bottom-right-radius: uisize(10px);
-    cursor: pointer;
-    background: var(--alpheios-text-bg-color);
-    text-align: center;
-
-    svg {
-      width: uisize(20px);
-      height: auto;
-      position: relative;
-      top: uisize(-5px);
-      fill: var(--alpheios-border-color);
-    }
-
-    &.expanded svg {
-      top: uisize(5px);
-    }
-
-    &:hover svg {
-      fill: var(--alpheios-icon-color-hover);
-    }
-  }
-
   .alpheios-toolbar__drag-handle {
     width: uisize($alpheios-toolbar-base-width);
-    height: uisize($alpheios-toolbar-base-width);
+    height: uisize(24px);
     border-bottom: none;
     background: var(--alpheios-toolbar-bg-color);
     box-sizing: border-box;
@@ -377,15 +357,6 @@ export default {
     border-top-right-radius: uisize(10px);
     // Need this for interact.js to work more reliably
     touch-action: none;
-  }
-
-  .alpheios-toolbar__logo-icon {
-    width: 60%;
-    height: auto;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-45%, -45%);
   }
 
   .alpheios-toolbar__lookup-control {
@@ -399,11 +370,63 @@ export default {
     }
   }
 
+  .alpheios-toolbar__header {
+    width: uisize($alpheios-toolbar-base-width);
+    height: uisize(54px);
+    border-bottom: none;
+    background: var(--alpheios-toolbar-bg-color);
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom-left-radius: uisize(10px);
+    border-bottom-right-radius: uisize(10px);
+    position: relative;
+    // Need this for interact.js to work more reliably
+    touch-action: none;
+  }
+
+  .alpheios-toolbar__header-icon {
+    width: uisize(24px);
+    height: auto;
+    position: relative;
+    top: uisize(4px);
+    left: 1px;
+  }
+
+  .alpheios-toolbar__header-icon-collapsed,
+  .alpheios-toolbar__header-icon-expanded {
+    width: uisize(22px);
+    height: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    fill: var(--alpheios-color-neutral-lightest);
+    stroke: var(--alpheios-color-neutral-lightest);
+    cursor: pointer;
+
+    &:hover {
+      fill: var(--alpheios-color-bright-hover);
+      stroke: var(--alpheios-color-bright-hover);
+    }
+
+    .expanded & {
+      fill: var(--alpheios-color-bright);
+      stroke: var(--alpheios-color-bright);
+    }
+  }
+
+  .alpheios-toolbar__header-icon-collapsed {
+    top: uisize(24px);
+  }
+
+  .alpheios-toolbar__header-icon-expanded {
+    top: uisize(34px);
+  }
+
   .alpheios-toolbar__lookup {
     display: flex;
     position: absolute;
     width: uisize(330px);
-    height: uisize(90px);
+    height: uisize(122px);
     background: var(--alpheios-text-bg-color);
     left: uisize(-320px);
     top: 0;
@@ -421,7 +444,7 @@ export default {
     }
 
     .alpheios-lookup__form {
-      justify-content: flex-end;
+      justify-content: center;
     }
 
     .alph_tooltip {
