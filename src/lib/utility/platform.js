@@ -9,15 +9,30 @@ export default class Platform {
       this.setRootAttributes()
     }
 
+    console.info(`Viewport detection`)
+    let viewport = {}
+    viewport.x = {
+      windowInner: window.innerWidth,
+      document: document.documentElement.clientWidth,
+      documentBody: document.body.clientWidth
+    }
+    viewport.y = {
+      windowInner: window.innerHeight,
+      document: document.documentElement.clientHeight,
+      documentBody: document.body.clientHeight
+    }
+    console.table(viewport)
+
     this.viewport = {
       width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
         ? Math.min(window.innerWidth, document.documentElement.clientWidth, document.body.clientWidth)
         : document.body.clientWidth || window.innerWidth || document.documentElement.clientWidth,
 
-      height: window.innerHeight && document.documentElement.clientHeight && document.body.clientHeight
-        ? Math.min(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
-        : document.body.clientHeight || window.innerHeight || document.documentElement.clientHeight
+      height: window.innerHeight && document.documentElement.clientHeight
+        ? Math.min(window.innerHeight, document.documentElement.clientHeight)
+        : window.innerHeight || document.documentElement.clientHeight
     }
+    console.info(`Viewport dimensions are: width ${this.viewport.width}, height ${this.viewport.height}`)
   }
 
   setRootAttributes () {

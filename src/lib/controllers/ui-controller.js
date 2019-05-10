@@ -628,7 +628,6 @@ export default class UIController {
     /**
      * This is a UI-level public API of a UI controller. All objects should use this public API only.
      */
-    console.info(`zIndex is ${this.zIndex}`)
     this.api.ui = {
       zIndex: this.zIndex, // A z-index of Alpheios UI elements
 

@@ -10,6 +10,7 @@ export default class ToolbarModule extends Module {
     super(store, api, config)
 
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
+    console.info(`InitialShift is ${this.config.initialShift.x}, ${this.config.initialShift.y}`)
 
     this._vi = new Vue({
       el: this.config.mountPoint,

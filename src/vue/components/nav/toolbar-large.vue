@@ -227,6 +227,7 @@ export default {
 
   computed: {
     componentStyles: function () {
+      console.info(`Component styles ${this.shift.x}, ${this.shift.y}`)
       let styles = {
         transform: `translate(${this.shift.x}px, ${this.shift.y}px)`,
         zIndex: this.ui.zIndex
@@ -305,6 +306,10 @@ export default {
   },
 
   mounted: function () {
+    // TODO: add safety check if out of bounds
+//    this.shift.x = 0
+//    this.shift.y = 0
+
     this.$options.interactInstance = interact(this.$el.querySelector('#alpheios-toolbar-drag-handle'))
       .draggable({
         inertia: true,
@@ -314,8 +319,8 @@ export default {
             restriction: {
               x: 27,
               y: 22,
-              width: this.app.platform.viewport.width - 44,
-              height: this.app.platform.viewport.height - 50
+              width: this.app.platform.viewport.width - 54,
+              height: this.app.platform.viewport.height - 80
             },
             endOnly: true
           })
