@@ -199,7 +199,6 @@
       <div
           class="alpheios-panel__tab-panel"
           v-show="$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
-          data-alpheios-ignore="all"
       >
         <word-usage-examples/>
       </div>
