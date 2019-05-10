@@ -24219,8 +24219,7 @@ var render = function() {
                     "$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
                 }
               ],
-              staticClass: "alpheios-panel__tab-panel",
-              attrs: { "data-alpheios-ignore": "all" }
+              staticClass: "alpheios-panel__tab-panel"
             },
             [_c("word-usage-examples")],
             1
