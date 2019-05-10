@@ -2896,10 +2896,18 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel__contentitem {
   margin-bottom: 1em;
 }
+.alpheios-panel__tab-panel--options {
+  display: block;
+}
+.alpheios-panel__tab-panel-options-cont {
+  display: flex;
+  flex-direction: column;
+}
 .alpheios-panel__options-item {
   margin-bottom: calc(var(--alpheios-base-text-size) * 0.625);
   display: flex;
   align-items: flex-start;
+  flex: 1 1 auto;
 }
 .alpheios-panel__menu-btn {
   width: 40px;
