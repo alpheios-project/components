@@ -11,14 +11,9 @@
       <div class="alpheios-popup__logo">
         <logo-icon class="alpheios-logo-on-dark"/>
       </div>
-      <alph-tooltip
-          :tooltipText="l10n.getText('TOOLTIP_POPUP_CLOSE')"
-          tooltipDirection="left"
-      >
-        <div @click="ui.closePopup" class="alpheios-popup__close-btn">
-          <close-icon></close-icon>
-        </div>
-      </alph-tooltip>
+      <div @click="ui.closePopup" class="alpheios-popup__close-btn">
+        <close-icon></close-icon>
+      </div>
     </div>
 
     <div class="alpheios-popup__body">
@@ -77,6 +72,7 @@
 
           </alph-tooltip>
 
+          </alph-tooltip>
         </div>
       </div>
 
@@ -106,8 +102,9 @@
             class="alpheios-popup__providers"
             v-show="$store.state.app.morphDataReady && app.hasMorphData()"
         >
-          <div class="alpheios-popup__providers-title">{{ l10n.getText('LABEL_PROVIDERS_CREDITS') }}</div>
-          <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{ providersLinkText }}</a>
+          <div class="alpheios-popup__providers-title">
+            <a class="alpheios-popup__providers-link" v-on:click="switchProviders">{{ l10n.getText('LABEL_PROVIDERS_CREDITS') }}</a>
+          </div>
           <div v-if="showProviders">
             <div
                 class="alpheios-popup__providers-item"
@@ -225,9 +222,6 @@ export default {
     },
     noLanguage: function () {
       return Boolean(!this.$store.state.app.currentLanguageName)
-    },
-    providersLinkText: function () {
-      return this.showProviders ? this.l10n.getText('LABEL_POPUP_HIDECREDITS') : this.l10n.getText('LABEL_POPUP_SHOWCREDITS')
     },
 
     positionLeftDm: function () {
@@ -697,11 +691,6 @@ export default {
 
   .alpheios-popup__providers {
     margin-left: textsize(40px);
-  }
-
-  .alpheios-popup__providers-title {
-    font-weight: 700;
-    color: var(--alpheios-color-neutral-dark);
   }
 
   a.alpheios-popup__providers-link,

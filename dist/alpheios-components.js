@@ -15888,10 +15888,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /*
     This is a desktop version of a panel
@@ -15991,15 +15987,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -16224,9 +16211,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     noLanguage: function () {
       return Boolean(!this.$store.state.app.currentLanguageName)
-    },
-    providersLinkText: function () {
-      return this.showProviders ? this.l10n.getText('LABEL_POPUP_HIDECREDITS') : this.l10n.getText('LABEL_POPUP_SHOWCREDITS')
     },
 
     positionLeftDm: function () {
@@ -24633,33 +24617,17 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "alpheios-panel__header-btn-group--end" },
-          [
-            _c(
-              "alph-tooltip",
-              {
-                attrs: {
-                  tooltipText: _vm.l10n.getText("TOOLTIP_CLOSE_PANEL"),
-                  tooltipDirection: "bottom-right"
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "alpheios-panel__close-btn",
-                    on: { click: _vm.ui.closePanel }
-                  },
-                  [_c("close-icon")],
-                  1
-                )
-              ]
-            )
-          ],
-          1
-        )
+        _c("div", { staticClass: "alpheios-panel__header-btn-group--end" }, [
+          _c(
+            "div",
+            {
+              staticClass: "alpheios-panel__close-btn",
+              on: { click: _vm.ui.closePanel }
+            },
+            [_c("close-icon")],
+            1
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-panel__content" }, [
@@ -25185,40 +25153,24 @@ var render = function() {
       attrs: { id: "alpheios-popup-inner" }
     },
     [
-      _c(
-        "div",
-        { staticClass: "alpheios-popup__header" },
-        [
-          _c(
-            "div",
-            { staticClass: "alpheios-popup__logo" },
-            [_c("logo-icon", { staticClass: "alpheios-logo-on-dark" })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getText("TOOLTIP_POPUP_CLOSE"),
-                tooltipDirection: "left"
-              }
-            },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "alpheios-popup__close-btn",
-                  on: { click: _vm.ui.closePopup }
-                },
-                [_c("close-icon")],
-                1
-              )
-            ]
-          )
-        ],
-        1
-      ),
+      _c("div", { staticClass: "alpheios-popup__header" }, [
+        _c(
+          "div",
+          { staticClass: "alpheios-popup__logo" },
+          [_c("logo-icon", { staticClass: "alpheios-logo-on-dark" })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "alpheios-popup__close-btn",
+            on: { click: _vm.ui.closePopup }
+          },
+          [_c("close-icon")],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-popup__body" }, [
         _c("div", { staticClass: "alpheios-popup__toolbar" }, [
@@ -25448,37 +25400,6 @@ var render = function() {
                     ]
                   )
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_OPTIONS"),
-                    tooltipDirection: "bottom-right"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("options")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getText("LABEL_POPUP_OPTIONS")) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
               )
             ],
             1
@@ -25587,17 +25508,15 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "alpheios-popup__providers-title" }, [
-                _vm._v(_vm._s(_vm.l10n.getText("LABEL_PROVIDERS_CREDITS")))
+                _c(
+                  "a",
+                  {
+                    staticClass: "alpheios-popup__providers-link",
+                    on: { click: _vm.switchProviders }
+                  },
+                  [_vm._v(_vm._s(_vm.l10n.getText("LABEL_PROVIDERS_CREDITS")))]
+                )
               ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "alpheios-popup__providers-link",
-                  on: { click: _vm.switchProviders }
-                },
-                [_vm._v(_vm._s(_vm.providersLinkText))]
-              ),
               _vm._v(" "),
               _vm.showProviders
                 ? _c(
@@ -40765,7 +40684,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M14 1l-8 9 8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M14 1l-8 9 8 9"}})])
           )
         }
       });
@@ -40805,7 +40724,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"fill":"none","d":"M6 1l8 9-8 9"}})])
+            children.concat([_c('path',{attrs:{"fill":"none","stroke-width":"1.6","d":"M6 1l8 9-8 9"}})])
           )
         }
       });
@@ -41445,7 +41364,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41725,7 +41644,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });

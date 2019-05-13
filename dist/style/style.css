@@ -374,6 +374,9 @@ html {
   box-sizing: border-box;
   margin: 0;
   text-align: left;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 .alpheios-content [lang=ara] {
   font-family: var(--alpheios-arabic-font-face) !important;
@@ -1573,10 +1576,6 @@ h3.alpheios-popup__toolbar-selection {
 }
 .alpheios-popup__providers {
   margin-left: calc(var(--alpheios-base-text-size) * 2.5);
-}
-.alpheios-popup__providers-title {
-  font-weight: 700;
-  color: var(--alpheios-color-neutral-dark);
 }
 a.alpheios-popup__providers-link,
 a:not([href]):not([tabindex]).alpheios-popup__providers-link {
