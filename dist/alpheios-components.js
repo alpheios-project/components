@@ -15199,10 +15199,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /*
   This is a mobile version of a panel
@@ -15561,10 +15557,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
 /* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
 /* harmony import */ var _vue_components_info_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/components/info.vue */ "./vue/components/info.vue");
-//
-//
-//
-//
 //
 //
 //
@@ -24021,13 +24013,7 @@ var render = function() {
                         _vm._s(_vm.l10n.getText("PLACEHOLDER_DEFINITIONS")) +
                         "\n      "
                     )
-                  ]),
-              _vm._v(" "),
-              _c("div", {
-                staticClass:
-                  "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
-                domProps: { innerHTML: _vm._s(_vm.formattedFullDefinitions) }
-              })
+                  ])
             ]
           ),
           _vm._v(" "),
@@ -24689,13 +24675,7 @@ var render = function() {
                       _vm._s(_vm.l10n.getText("PLACEHOLDER_DEFINITIONS")) +
                       "\n      "
                   )
-                ]),
-            _vm._v(" "),
-            _c("div", {
-              staticClass:
-                "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
-              domProps: { innerHTML: _vm._s(_vm.formattedFullDefinitions) }
-            })
+                ])
           ]
         ),
         _vm._v(" "),
