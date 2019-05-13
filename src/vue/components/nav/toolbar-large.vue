@@ -205,6 +205,8 @@ export default {
   // Whether there is an error with Interact.js drag coordinates in the corresponding direction
   dragErrorX: false,
   dragErrorY: false,
+  visibleUnwatch: null,
+
   props: {
     moduleData: {
       type: Object,
@@ -227,7 +229,6 @@ export default {
 
   computed: {
     componentStyles: function () {
-      console.info(`Component styles ${this.shift.x}, ${this.shift.y}`)
       let styles = {
         transform: `translate(${this.shift.x}px, ${this.shift.y}px)`,
         zIndex: this.ui.zIndex
@@ -302,13 +303,29 @@ export default {
     dragEndListener () {
       this.settings.contentOptions.items.toolbarShiftX.setValue(this.shift.x)
       this.settings.contentOptions.items.toolbarShiftY.setValue(this.shift.y)
+    },
+
+    isWithinViewport () {
+      const rect = this.$el.getBoundingClientRect()
+      return (
+        rect.x >= 0 && (rect.x + rect.width) <= this.app.platform.viewport.width &&
+        rect.y >= 0 && (rect.y + rect.height) <= this.app.platform.viewport.height
+      )
     }
   },
 
   mounted: function () {
-    // TODO: add safety check if out of bounds
-//    this.shift.x = 0
-//    this.shift.y = 0
+    this.$options.visibleUnwatch = this.$store.watch((state) => state.toolbar.visible, (value) => {
+      if (value) {
+        // Check if the viewport is within the bounds of the viewport
+        if (!this.isWithinViewport()) {
+          // Reset the toolbar to its default position
+          this.shift.x = 0
+          this.shift.y = 0
+          console.warn(`Toolbar has been reset to its default position to stay within the viewport`)
+        }
+      }
+    })
 
     this.$options.interactInstance = interact(this.$el.querySelector('#alpheios-toolbar-drag-handle'))
       .draggable({
@@ -329,6 +346,10 @@ export default {
       })
       .on('dragmove', this.dragMoveListener)
       .on('dragend', this.dragEndListener)
+  },
+
+  beforeDestroy () {
+    this.visibleUnwatch()
   }
 }
 </script>
