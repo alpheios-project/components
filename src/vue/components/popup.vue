@@ -77,12 +77,6 @@
 
           </alph-tooltip>
 
-          <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_OPTIONS')" tooltipDirection="bottom-right">
-            <button @click="ui.showPanelTab('options')"
-                    class="alpheios-button-primary alpheios-popup__toolbar-button">
-              {{ l10n.getText('LABEL_POPUP_OPTIONS') }}
-            </button>
-          </alph-tooltip>
         </div>
       </div>
 

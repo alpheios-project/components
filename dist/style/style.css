@@ -374,9 +374,6 @@ html {
   box-sizing: border-box;
   margin: 0;
   text-align: left;
-  text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 }
 .alpheios-content [lang=ara] {
   font-family: var(--alpheios-arabic-font-face) !important;
