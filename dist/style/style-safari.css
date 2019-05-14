@@ -3032,9 +3032,6 @@ h3.alpheios-inflections__credits-title {
   box-sizing: border-box !important;
   align-items: stretch !important;
 }
-.alpheios-panel--large .alpheios-navbuttons__btn--attach {
-  stroke-width: 2.5 !important;
-}
 .alpheios-panel--large .alpheios-panel__close-btn {
   width: calc(var(--alpheios-base-ui-size) * 5) !important;
 }

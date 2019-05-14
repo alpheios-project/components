@@ -25,14 +25,9 @@
     "description": "A title of an inflections browser panel",
     "component": "Panel"
   },
-  "TOOLTIP_MOVE_PANEL_LEFT": {
-    "message": "Move Panel to Left",
-    "description": "tooltip for moving the panel to the left",
-    "component": "Panel"
-  },
-  "TOOLTIP_MOVE_PANEL_RIGHT": {
-    "message": "Move Panel to Right",
-    "description": "tooltip for moving the panel to the right",
+  "TOOLTIP_SWAP_PANEL_POSITION": {
+    "message": "Swap panel position between left and right",
+    "description": "tooltip for moving the panel to the left or to the right",
     "component": "Panel"
   },
   "TOOLTIP_CLOSE_PANEL": {
