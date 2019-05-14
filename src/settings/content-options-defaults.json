@@ -51,7 +51,7 @@
       ]
     },
     "enableWordUsageExamples": {
-      "defaultValue": false,
+      "defaultValue": true,
       "labelText": "Experimental: Enable Latin Word Usage Examples (Concordance)",
       "boolean": true,
       "values": [
@@ -66,7 +66,7 @@
       ]
     },
     "wordUsageExamplesON": {
-      "defaultValue": "onDemand",
+      "defaultValue": "onLexicalQuery",
       "labelText": "Get word usage examples:",
       "values": [
         {
