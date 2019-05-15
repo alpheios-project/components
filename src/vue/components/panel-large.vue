@@ -20,7 +20,7 @@
 
         <navbuttons-large></navbuttons-large>
 
-        <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SWAP_PANEL_POSITION')" tooltipDirection="bottom-narrow">
+        <alph-tooltip :tooltipText="swapTooltip" tooltipDirection="bottom-narrow">
           <span @click="swapPosition()"
                 class="alpheios-navbuttons__btn">
               <swap-position></swap-position>
@@ -308,6 +308,12 @@ export default {
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
+    },
+
+    swapTooltip () {
+      return this.isAttachedToLeft
+        ? this.l10n.getText('TOOLTIP_MOVE_PANEL_RIGHT')
+        : this.l10n.getText('TOOLTIP_MOVE_PANEL_LEFT')
     }
   },
 
