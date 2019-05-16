@@ -1036,6 +1036,7 @@ export default class UIController {
   }
 
   newLexicalRequest (targetWord, languageID, data = null) {
+    console.info('************newLexicalRequest')
     // Reset old word-related data
     this.api.app.homonym = null
     this.store.commit('app/resetWordData')
@@ -1244,7 +1245,7 @@ export default class UIController {
       this.store.commit('app/setHtmlSelector', htmlSelector)
       let textSelector = htmlSelector.createTextSelector()
 
-      if (!textSelector.isEmpty()) {
+      if (textSelector && !textSelector.isEmpty()) {
         // TODO: disable experience monitor as it might cause memory leaks
         /* ExpObjMon.track(
           LexicalQuery.create(textSelector, {
@@ -1277,6 +1278,8 @@ export default class UIController {
 
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)
         lexQuery.getData()
+      } else {
+        this.closePopup() // because we open popup before any check, but selection could be incorrect
       }
     }
   }
