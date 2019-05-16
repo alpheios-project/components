@@ -1381,6 +1381,7 @@ export default class UIController {
   }
 
   onHomonymReady (homonym) {
+    console.info('**************onHomonymReady', homonym)
     homonym.lexemes.sort(Lexeme.getSortByTwoLemmaFeatures(Feature.types.frequency, Feature.types.part))
 
     // Update status info with data from a morphological analyzer
@@ -1462,7 +1463,7 @@ export default class UIController {
     } else {
       homonym = wordItem.homonym
     }
-
+    this.open()
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
     if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
