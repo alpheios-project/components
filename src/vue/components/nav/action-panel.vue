@@ -21,7 +21,7 @@
       />
         <progress-bar
             class="alpheios-action-panel__progress-bar"
-            v-if="$store.getters['app/lexicalRequestInProgress']"
+            v-if="!$store.state.app.morphDataReady"
         />
     </div>
 

@@ -22017,7 +22017,7 @@ var render = function() {
             on: { "lookup-started": _vm.lookupStarted }
           }),
           _vm._v(" "),
-          _vm.$store.getters["app/lexicalRequestInProgress"]
+          !_vm.$store.state.app.morphDataReady
             ? _c("progress-bar", {
                 staticClass: "alpheios-action-panel__progress-bar"
               })
@@ -43367,7 +43367,6 @@ class UIController {
   }
 
   async onWordItemSelected (wordItem) {
-    console.info('************onWordItemSelected')
     if (!this.userDataManager && !wordItem.homonym) {
       console.warn('UserDataManager is not defined, data couldn\'t be loaded from the storage')
       return
@@ -43381,21 +43380,19 @@ class UIController {
       homonym = wordItem.homonym
     }
     this.open()
-    console.info('************onWordItemSelected homonym', homonym.targetWord, homonym.languageID)
-
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
     if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
-      console.info('************onWordItemSelected homonym1')
+      console.info('********$store.state.app.morphDataReady', !this.store.state.app.morphDataReady)
+      console.info('********Boolean(!this.$store.state.app.currentLanguageName)', !!this.store.state.app.currentLanguageName)
     } else {
       // otherwise we can query for it as usual
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_17__["default"].createObjectFromText(homonym.targetWord, homonym.languageID)
       let wordUsageExamples = this.getWordUsageExamplesQueryParams(textSelector)
       let lexQuery = _lib_queries_lexical_query_lookup_js__WEBPACK_IMPORTED_MODULE_11__["default"].create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples)
-      console.info('************onWordItemSelected homonym2')
       lexQuery.getData()
     }
   }
