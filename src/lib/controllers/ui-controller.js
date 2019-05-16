@@ -1381,7 +1381,6 @@ export default class UIController {
   }
 
   onHomonymReady (homonym) {
-    console.info('**************onHomonymReady', homonym)
     homonym.lexemes.sort(Lexeme.getSortByTwoLemmaFeatures(Feature.types.frequency, Feature.types.part))
 
     // Update status info with data from a morphological analyzer
@@ -1470,8 +1469,6 @@ export default class UIController {
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
-      console.info('********$store.state.app.morphDataReady', !this.store.state.app.morphDataReady)
-      console.info('********Boolean(!this.$store.state.app.currentLanguageName)', !!this.store.state.app.currentLanguageName)
     } else {
       // otherwise we can query for it as usual
       let textSelector = TextSelector.createObjectFromText(homonym.targetWord, homonym.languageID)
