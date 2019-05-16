@@ -43958,7 +43958,6 @@ class PointerEvt {
   static alpheiosIgnoreAllTest (dataset) {
     const attrName = 'alpheiosIgnore'
     const attrValue = 'all'
-    console.info('***********alpheiosIgnoreAllTest dataset', dataset)
     return dataset.hasOwnProperty(attrName) && dataset[attrName] === attrValue
   }
 
@@ -44052,6 +44051,7 @@ class PointerEvt {
   }
 
   static pointerDownListener (event, domEvt) {
+    console.info('**********pointerDownListener', event, domEvt)
     event.setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
   }
 

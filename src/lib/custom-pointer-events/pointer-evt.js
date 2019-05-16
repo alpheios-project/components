@@ -10,7 +10,6 @@ export default class PointerEvt {
   static alpheiosIgnoreAllTest (dataset) {
     const attrName = 'alpheiosIgnore'
     const attrValue = 'all'
-    console.info('***********alpheiosIgnoreAllTest dataset', dataset)
     return dataset.hasOwnProperty(attrName) && dataset[attrName] === attrValue
   }
 
