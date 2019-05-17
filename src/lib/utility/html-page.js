@@ -138,10 +138,9 @@ export default class HTMLPage {
    * @return {string} - A name of the screen orientation as defined in {@link HTMLPage@orientations}.
    */
   static getOrientation () {
-    // Screen dimensions are not updated on iOS devices when rotated/
-    // TODO: Shall we use window.innerWidth/innerHeight instead?
+    // windows.screen.width/height dimensions are not updated on iOS devices when the device is rotated.
+    // Because of this we'd better use window.innerWidth and window.innerHeight instead.
     return (window.innerWidth <= window.innerHeight) ? HTMLPage.orientations.PORTRAIT : HTMLPage.orientations.LANDSCAPE
-    // return (window.screen.width <= window.screen.height) ? HTMLPage.orientations.PORTRAIT : HTMLPage.orientations.LANDSCAPE
   }
 }
 

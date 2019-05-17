@@ -25,14 +25,8 @@ export default class Platform {
         ? Math.min(window.innerHeight, document.documentElement.clientHeight)
         : window.innerHeight || document.documentElement.clientHeight
     }
-    console.info(`window.screen (CSS pixels): width is ${window.screen.width}, height is ${window.screen.height}`)
-    console.info(`window.inner: width is ${window.innerWidth}, height is ${window.innerHeight}`)
-    console.info(`html: width is ${document.documentElement.clientWidth}, height is ${document.documentElement.clientHeight} (smaller because of the toolbar)`)
-    console.info(`body: width is ${document.body.clientWidth}, height is ${document.body.clientHeight} (larger because content is longer)`)
-    // console.info(`Viewport dimensions are: width ${this.viewport.width}, height ${this.viewport.height}`)
 
     this.dpr = window.devicePixelRatio
-    console.info(`DPR is: ${this.dpr}`)
   }
 
   setRootAttributes () {
