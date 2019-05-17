@@ -129,8 +129,9 @@ export default class HTMLPage {
    * @return {string} - A name of one of the deviceTypes defined in {@link HTMLPage@deviceTypes}.
    */
   static getDeviceType () {
-    const screenWidthThreshold = 720
-    return window.screen.width <= screenWidthThreshold ? HTMLPage.deviceTypes.MOBILE : HTMLPage.deviceTypes.DESKTOP
+    // TODO: Probably need a more complex algorithm for the future
+    const screenWidthThreshold = 900
+    return Math.max(window.screen.width, window.screen.width) <= screenWidthThreshold ? HTMLPage.deviceTypes.MOBILE : HTMLPage.deviceTypes.DESKTOP
   }
 
   /**
