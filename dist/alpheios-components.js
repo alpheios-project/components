@@ -22017,7 +22017,7 @@ var render = function() {
             on: { "lookup-started": _vm.lookupStarted }
           }),
           _vm._v(" "),
-          !_vm.$store.state.app.morphDataReady
+          _vm.$store.getters["app/lexicalRequestInProgress"]
             ? _c("progress-bar", {
                 staticClass: "alpheios-action-panel__progress-bar"
               })
@@ -23823,7 +23823,7 @@ var render = function() {
               staticClass: "alpheios-panel__tab-panel"
             },
             [
-              !_vm.$store.state.app.morphDataReady &&
+              _vm.$store.getters["app/lexicalRequestInProgress"] &&
               Boolean(this.$store.state.app.currentLanguageName)
                 ? _c(
                     "div",
@@ -25385,7 +25385,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-popup__content" }, [
-          !_vm.$store.state.app.morphDataReady && !_vm.noLanguage
+          _vm.$store.getters["app/lexicalRequestInProgress"] && !_vm.noLanguage
             ? _c(
                 "div",
                 { staticClass: "alpheios-popup__definitions--placeholder" },
@@ -41274,7 +41274,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41554,7 +41554,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -43385,6 +43385,7 @@ class UIController {
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
+      this.store.commit('app/lexicalRequestFinished')
     } else {
       // otherwise we can query for it as usual
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_17__["default"].createObjectFromText(homonym.targetWord, homonym.languageID)
@@ -43758,6 +43759,7 @@ class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"]
    */
   static listen (selector, evtHandler, evtType) {
     let elements = document.querySelectorAll(selector)
+
     for (const element of elements) {
       let listener = new this(element, evtHandler, evtType)
       listener.set()
@@ -44051,7 +44053,6 @@ class PointerEvt {
   }
 
   static pointerDownListener (event, domEvt) {
-    console.info('**********pointerDownListener', event, domEvt)
     event.setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
   }
 
@@ -44161,6 +44162,7 @@ class Swipe extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Swipe (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
         `direction: ${this.direction}, duration: ${this.duration}`)
     }
+
     return completed && !this.start.excluded && !this.end.excluded
   }
 

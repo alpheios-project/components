@@ -1469,6 +1469,7 @@ export default class UIController {
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
+      this.store.commit('app/lexicalRequestFinished')
     } else {
       // otherwise we can query for it as usual
       let textSelector = TextSelector.createObjectFromText(homonym.targetWord, homonym.languageID)
