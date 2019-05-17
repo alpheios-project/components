@@ -23829,7 +23829,7 @@ var render = function() {
               staticClass: "alpheios-panel__tab-panel"
             },
             [
-              !_vm.$store.state.app.morphDataReady &&
+              _vm.$store.getters["app/lexicalRequestInProgress"] &&
               Boolean(this.$store.state.app.currentLanguageName)
                 ? _c(
                     "div",
@@ -25386,7 +25386,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-popup__content" }, [
-          !_vm.$store.state.app.morphDataReady && !_vm.noLanguage
+          _vm.$store.getters["app/lexicalRequestInProgress"] && !_vm.noLanguage
             ? _c(
                 "div",
                 { staticClass: "alpheios-popup__definitions--placeholder" },
@@ -42869,7 +42869,8 @@ class UIController {
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
-      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose'
+      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose',
+      wordlist: () => this.store.state.app.hasWordListsData
     }
     return tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()
   }
@@ -43149,7 +43150,7 @@ class UIController {
       this.store.commit('app/setHtmlSelector', htmlSelector)
       let textSelector = htmlSelector.createTextSelector()
 
-      if (!textSelector.isEmpty()) {
+      if (textSelector && !textSelector.isEmpty()) {
         // TODO: disable experience monitor as it might cause memory leaks
         /* ExpObjMon.track(
           LexicalQuery.create(textSelector, {
@@ -43182,6 +43183,8 @@ class UIController {
 
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)
         lexQuery.getData()
+      } else {
+        this.closePopup() // because we open popup before any check, but selection could be incorrect
       }
     }
   }
@@ -43365,13 +43368,14 @@ class UIController {
     } else {
       homonym = wordItem.homonym
     }
-
+    this.open()
     this.newLexicalRequest(homonym.targetWord, homonym.languageID)
     if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
+      this.store.commit('app/lexicalRequestFinished')
     } else {
       // otherwise we can query for it as usual
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_17__["default"].createObjectFromText(homonym.targetWord, homonym.languageID)
@@ -43745,6 +43749,7 @@ class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"]
    */
   static listen (selector, evtHandler, evtType) {
     let elements = document.querySelectorAll(selector)
+
     for (const element of elements) {
       let listener = new this(element, evtHandler, evtType)
       listener.set()
@@ -44147,6 +44152,7 @@ class Swipe extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       _log_html_console_js__WEBPACK_IMPORTED_MODULE_1__["default"].instance.log(`Swipe (${completed ? 'completed' : 'not completed'}), [x,y]: [${this.end.client.x}, ${this.end.client.y}], movement: ${this.mvmntDist},` +
         `direction: ${this.direction}, duration: ${this.duration}`)
     }
+
     return completed && !this.start.excluded && !this.end.excluded
   }
 
