@@ -91,7 +91,6 @@ export default {
       this.important = this.worditem.important
     },
     selectWordItem () {
-      console.info('************selectWordItem')
       this.app.selectWordItem(this.worditem.languageCode, this.worditem.targetWord)
     },
     deleteItem () {
