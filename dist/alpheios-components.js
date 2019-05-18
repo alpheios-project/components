@@ -17092,6 +17092,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -17214,7 +17216,7 @@ __webpack_require__.r(__webpack_exports__);
       this.clickFilterBy()
     },
     clickFilterBy () {
-      if (this.currentTypeFilter.onClick && this.textInput) {
+      if (this.currentTypeFilter && this.currentTypeFilter.onClick && this.textInput) {
         if (this.selectedFilterBy === 'byExactForm' && this.wordExactForms.indexOf(this.textInput) === -1) {
           return
         }
@@ -17238,17 +17240,22 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('changedFilterBy', null)
     },
     setClickedLemmaFilter () {
-      this.selectedFilterBy = 'byLemmaFull'
+      this.selectedFilterBy = 'byLemma'
       this.textInput = this.clickedLemma
       this.clickFilterBy()
       this.$emit('clearClickedLemma')
     },
     filterVariants () {
-      if (this.textInput.length > 0) {
+      if (this.textInput && this.textInput.length > 0) {
         this.shownVariantsSelect = true
       } else {
         this.shownVariantsSelect = false
       }
+    },
+    hideAutocomplete () {
+      setTimeout(() => {
+        this.shownVariantsSelect = false
+      }, 300)
     }
   }
 });
@@ -26355,7 +26362,9 @@ var render = function() {
                           _vm.textInput = $event.target.value
                         },
                         _vm.filterVariants
-                      ]
+                      ],
+                      focus: _vm.filterVariants,
+                      blur: _vm.hideAutocomplete
                     }
                   }),
                   _vm._v(" "),

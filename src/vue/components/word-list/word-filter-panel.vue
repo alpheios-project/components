@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-wordlist-filters">
+    <div class="alpheios-wordlist-filters" >
         <p class="alpheios-wordlist-header-title">{{ l10n.getText('WORDLIST_FILTER_BY') }}</p>
         <div>
         <div class="alpheios-wordlist-header-select-filterBy-block">
@@ -29,6 +29,8 @@
                   :placeholder="currentTypeFilter.textInputPlaceholder"
                   v-on:keyup.enter = "clickFilterBy"
                   v-on:input = "filterVariants"
+                  v-on:focus = "filterVariants"
+                  v-on:blur = "hideAutocomplete"
                   >
             
             <ul class="alpheios-select-list"
@@ -192,7 +194,7 @@
         this.clickFilterBy()
       },
       clickFilterBy () {
-        if (this.currentTypeFilter.onClick && this.textInput) {
+        if (this.currentTypeFilter && this.currentTypeFilter.onClick && this.textInput) {
           if (this.selectedFilterBy === 'byExactForm' && this.wordExactForms.indexOf(this.textInput) === -1) {
             return
           }
@@ -216,17 +218,22 @@
         this.$emit('changedFilterBy', null)
       },
       setClickedLemmaFilter () {
-        this.selectedFilterBy = 'byLemmaFull'
+        this.selectedFilterBy = 'byLemma'
         this.textInput = this.clickedLemma
         this.clickFilterBy()
         this.$emit('clearClickedLemma')
       },
       filterVariants () {
-        if (this.textInput.length > 0) {
+        if (this.textInput && this.textInput.length > 0) {
           this.shownVariantsSelect = true
         } else {
           this.shownVariantsSelect = false
         }
+      },
+      hideAutocomplete () {
+        setTimeout(() => {
+          this.shownVariantsSelect = false
+        }, 300)
       }
     }
   }
