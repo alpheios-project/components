@@ -45,6 +45,9 @@
             @changedFilterBy="changedFilterBy"
             @clearClickedLemma = "clearClickedLemma"
             :clickedLemma = "clickedLemma"
+            :wordExactForms = "wordExactForms"
+            :wordLemmaForms = "wordLemmaForms"
+            v-show = "hasFilterPanel"
           ></word-filter-panel>
         </div>
         <div
@@ -97,14 +100,15 @@ export default {
       filterMethods: {
         'byCurrentSession': (wordItem) => wordItem.currentSession,
         'byImportant': (wordItem) => wordItem.important,
-        'byWordFormFull': (wordItem) => wordItem.targetWord.toLowerCase() === this.textInput.toLowerCase(),
-        'byWordFormPart': (wordItem) => wordItem.targetWord.toLowerCase().indexOf(this.textInput.toLowerCase()) > -1,
-        'byLemmaFull': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase() === this.textInput.toLowerCase()),
-        'byLemmaPart': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase().indexOf(this.textInput.toLowerCase()) > -1)
+        'byExactForm': (wordItem) => wordItem.targetWord.toLowerCase() === this.textInput.toLowerCase(),
+        'byLemma': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase() === this.textInput.toLowerCase())
       }
     }
   },
   computed: {
+    hasFilterPanel () {
+      return this.wordlist && this.wordlist.values && this.wordlist.values.length > 1
+    },
     wordlist () {
       return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : {}
     },
@@ -120,6 +124,31 @@ export default {
         }
       }
       return []
+    },
+    wordExactForms () {
+      let exactForms = []
+      this.wordlist.values.map(wordItem => {
+        let exactForm = wordItem.targetWord.toLowerCase()
+        if (exactForms.indexOf(exactForm) === -1) {
+          exactForms.push(exactForm)
+        }
+      })
+      exactForms.sort()
+      return exactForms
+    },
+    wordLemmaForms () {
+      let lemmaForms = []
+      this.wordlist.values.map(wordItem => {
+        let currentLemmaForms = wordItem.lemmasList.split(', ')
+        currentLemmaForms.forEach(lemmaForm => {
+          if (lemmaForms.indexOf(lemmaForm) === -1) {
+            lemmaForms.push(lemmaForm)
+          }
+        })
+        
+      })
+      lemmaForms.sort()
+      return lemmaForms
     },
     languageName () {
       // TODO with upcoming merge, this can be retrived from utility library
