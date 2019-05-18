@@ -17728,7 +17728,6 @@ __webpack_require__.r(__webpack_exports__);
           this.lastTextWorksList.unshift(null)
 
           this.typeFilter = 'filterCurrentResults'
-          // this.setDisabledToType(['noFilters'])          
         }
       } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
         this.typeFilter = 'noFilters'
