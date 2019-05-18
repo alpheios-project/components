@@ -89,19 +89,9 @@
         "description": "Placeholder for the text input for filter by word form (full)",
         "component": "WordFilterPanel"
     },
-    "WORDLIST_FILTER_BYWORDFORM_PART_PLACEHOLDER": {
-        "message": "type part of word form here",
-        "description": "Placeholder for the text input for filter by word form (part)",
-        "component": "WordFilterPanel"
-    },
     "WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER": {
         "message": "type lemma here",
         "description": "Placeholder for the text input for filter by lemma (full)",
-        "component": "WordFilterPanel"
-    },
-    "WORDLIST_FILTER_BYLEMMA_PART_PLACEHOLDER": {
-        "message": "type part of lemma here",
-        "description": "Placeholder for the text input for filter by lemma (part)",
         "component": "WordFilterPanel"
     },
     "WORDLIST_FILTER_BY": {
