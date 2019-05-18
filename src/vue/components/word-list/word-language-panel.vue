@@ -47,6 +47,7 @@
             :clickedLemma = "clickedLemma"
             :wordExactForms = "wordExactForms"
             :wordLemmaForms = "wordLemmaForms"
+            :clearFilters = "clearFilters"
             v-show = "hasFilterPanel"
           ></word-filter-panel>
         </div>
@@ -102,7 +103,8 @@ export default {
         'byImportant': (wordItem) => wordItem.important,
         'byExactForm': (wordItem) => wordItem.targetWord.toLowerCase() === this.textInput.toLowerCase(),
         'byLemma': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase() === this.textInput.toLowerCase())
-      }
+      }, 
+      clearFilters: 0
     }
   },
   computed: {
@@ -110,10 +112,12 @@ export default {
       return this.wordlist && this.wordlist.values && this.wordlist.values.length > 1
     },
     wordlist () {
+      this.clearFilters = this.clearFilters + 1
+      this.changedFilterBy(null, null)
       return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : {}
     },
     wordItems () {
-      if (this.$store.state.app.wordListUpdateTime && this.reloadList) {
+      if (this.$store.state.app.wordListUpdateTime && this.reloadList) {        
         if (!this.selectedFilterBy) {
           return this.wordlist.values
         }
@@ -122,7 +126,7 @@ export default {
         } else {
           console.warn(`The current filter method - ${this.selectedFilterBy} - is not defined, that's why empty result is returned!`)
         }
-      }
+      }      
       return []
     },
     wordExactForms () {

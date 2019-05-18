@@ -97,6 +97,10 @@
         type: Array,
         required: false,
         default: []
+      },
+      clearFilters: {
+        type: Number,
+        required: true
       }
     },
     data () {
@@ -159,6 +163,12 @@
           }
         }
         return []
+      }
+    },
+    watch: {
+      clearFilters (value) {
+        this.selectedFilterBy = null
+        this.textInput = null
       }
     },
     methods: {
