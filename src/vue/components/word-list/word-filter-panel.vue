@@ -126,7 +126,11 @@
           }
         ],
         textInput: null,
-        shownVariantsSelect: false
+        shownVariantsSelect: false,
+        markLayout: {
+          start: '<span class="alpheios-select-input-filter-part">',
+          end: '</span>'
+        }
       }
     },
     computed: {
@@ -145,7 +149,7 @@
           if (this.textInput && this.textInput.length > 0) {
             return this.wordExactForms.filter(exactForm => exactForm.indexOf(this.textInput) > -1).map(exactForm => {
               let startIndex = exactForm.indexOf(this.textInput)
-              return exactForm.substr(0, startIndex) + '<span class="alpheios-select-input-filter-part">' + this.textInput + '</span>' + exactForm.substr(startIndex + this.textInput.length)
+              return exactForm.substr(0, startIndex) + this.markLayout.start + this.textInput + this.markLayout.end + exactForm.substr(startIndex + this.textInput.length)
             })
           } else {
             return this.wordExactForms
@@ -158,7 +162,7 @@
           if (this.textInput && this.textInput.length > 0) {
             return this.wordLemmaForms.filter(lemmaForm => lemmaForm.indexOf(this.textInput) > -1).map(lemmaForm => {
               let startIndex = lemmaForm.indexOf(this.textInput)
-              return lemmaForm.substr(0, startIndex) + '<span class="alpheios-select-input-filter-part">' + this.textInput + '</span>' + lemmaForm.substr(startIndex + this.textInput.length)
+              return lemmaForm.substr(0, startIndex) + this.markLayout.start + this.textInput + this.markLayout.end + lemmaForm.substr(startIndex + this.textInput.length)
             })
           } else {
             return this.wordLemmaForms
