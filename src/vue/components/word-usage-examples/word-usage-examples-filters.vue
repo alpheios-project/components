@@ -4,18 +4,20 @@
         <div class="alpheios-word-usage-header-select-type-filter"
             v-for="typeFilterItem of typeFiltersList" v-bind:key="typeFilterItem.value"
             :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
-            v-if="!typeFilterItem.skip"
+            v-if="checkVisibilityFilterOption(typeFilterItem)"
         >
           <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter" :disabled = "typeFilterItem.disabled === true">
           <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
         </div>
       </div>
 
-      <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
+      <div v-show="authorsList && typeFilter !== 'noFilters' && !collapsedHeader" class="alpheios-word-usage-filters-select">
         <select class="alpheios-select alpheios-word-usage-header-select-author" v-model="selectedAuthor">
             <option
-                v-for="authorItem in lastAuthorsList" v-bind:key="authorItem.ID"
-                v-bind:value="authorItem">{{ calcTitle(authorItem) }}</option>
+                v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
+                v-bind:value="authorItem"
+                :class='{ "alpheios-select-disabled-option": !authorItem}'
+                >{{ calcTitle(authorItem, 'author') }}</option>
         </select>
         <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
           <span class="alpheios-word-usage-header-clear-icon"
@@ -27,12 +29,14 @@
         </alph-tooltip>
       </div>
 
-      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
+      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters' && !collapsedHeader" class="alpheios-word-usage-filters-select">
         <select class="alpheios-select alpheios-word-usage-header-select-textwork"
                 v-model="selectedTextWork">
           <option
-              v-for="workItem in filteredWorkList" v-bind:key="workItem.ID"
-              v-bind:value="workItem">{{ calcTitle(workItem) }}</option>
+              v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
+              v-bind:value="workItem"
+              :class='{ "alpheios-select-disabled-option": !workItem}'
+              >{{ calcTitle(workItem, 'textwork') }}</option>
         </select>
         <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right">
           <span class="alpheios-word-usage-header-clear-icon"
@@ -62,6 +66,13 @@ export default {
     clearFiltersIcon: ClearFilters,
     alphTooltip: Tooltip
   },
+  props: {
+    collapsedHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
   data () {
     return {
       typeFilter: 'noFilters',
@@ -76,7 +87,8 @@ export default {
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
       ],
-      disabledButton: false
+      disabledButton: false,
+      noMoreResults: true
     }
   },
   computed: {
@@ -98,13 +110,16 @@ export default {
             .filter((item, pos, self) => self.indexOf(item) == pos)
             .slice()
 
+          this.lastAuthorsList.unshift(null)
+
           this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
             .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
             .filter((item, pos, self) => item && self.indexOf(item) == pos)
             .slice()
 
+          this.lastTextWorksList.unshift(null)
+
           this.typeFilter = 'filterCurrentResults'
-          this.setDisabledToType(['noFilters'])
         }
       } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
         this.typeFilter = 'noFilters'
@@ -117,13 +132,25 @@ export default {
     filteredWorkList () {
       if (this.selectedAuthor) {
         this.selectedTextWork = null
-
-        return this.lastTextWorksList.filter(textwork => textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
+        let resArray = this.lastTextWorksList.filter(textwork => textwork && textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
+        if (resArray.length > 0) {
+          resArray.unshift(null)
+        }
+        return resArray
       }
       return []
     }
   },
   methods: {
+    checkVisibilityFilterOption(typeFilterItem) {
+      if (typeFilterItem.skip) {
+        return false
+      }
+      if (typeFilterItem.value !== this.typeFilter && this.collapsedHeader) {
+        return false
+      }
+      return true
+    },
     setDisabledToType (typeValues) {
       this.typeFiltersList.forEach(item => {
         if (typeValues.indexOf(item.value) > -1) {
@@ -139,12 +166,16 @@ export default {
 
         this.$emit('getAllResults')
 
-        await this.getResultsNoFilters()
+        if (this.noMoreResults && this.lastAuthorsList.length > 0) {
+          this.removeFiltersFromResults()
+        } else {
+          await this.getResultsNoFilters()
+        }
 
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'
-        this.setDisabledToType(['noFilters'])
+        this.setDisabledToType([])
 
         this.disabledButton = false
         
@@ -172,7 +203,11 @@ export default {
         textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
       })
     },
-    calcTitle (item) {
+    removeFiltersFromResults () {
+      this.$emit('filterCurrentByAuthor', null, null)
+      this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
+    },
+    calcTitle (item, type) {
       if (item) {
         if (item.title() && item.abbreviation()) {
           return `${item.title()} (${item.abbreviation()})`
@@ -182,6 +217,13 @@ export default {
         }
         if (item.abbreviation()) {
           return item.abbreviation()
+        }
+      } else {
+        if (type === 'author') {
+          return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER')
+        }
+        if (type === 'textwork') {
+          return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER')
         }
       }
       return ''
@@ -200,6 +242,12 @@ export default {
 </script>
 <style lang="scss">
   @import "../../../styles/variables";
+
+  .alpheios-word-usage-filters-select .alpheios-select {
+    option.alpheios-select-disabled-option {
+      color: var(--alpheios-color-placehoder);
+    }
+  }
 
   .alpheios-word-usage-header-select-type-filters-block {
     margin-bottom: 10px;
