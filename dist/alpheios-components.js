@@ -17804,6 +17804,13 @@ __webpack_require__.r(__webpack_exports__);
     clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  props: {
+    collapsedHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
   data () {
     return {
       typeFilter: 'noFilters',
@@ -17818,7 +17825,8 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
       ],
-      disabledButton: false
+      disabledButton: false,
+      noMoreResults: true
     }
   },
   computed: {
@@ -17850,7 +17858,6 @@ __webpack_require__.r(__webpack_exports__);
           this.lastTextWorksList.unshift(null)
 
           this.typeFilter = 'filterCurrentResults'
-          this.setDisabledToType(['noFilters'])          
         }
       } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
         this.typeFilter = 'noFilters'
@@ -17873,6 +17880,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    checkVisibilityFilterOption(typeFilterItem) {
+      if (typeFilterItem.skip) {
+        return false
+      }
+      if (typeFilterItem.value !== this.typeFilter && this.collapsedHeader) {
+        return false
+      }
+      return true
+    },
     setDisabledToType (typeValues) {
       this.typeFiltersList.forEach(item => {
         if (typeValues.indexOf(item.value) > -1) {
@@ -17888,12 +17904,16 @@ __webpack_require__.r(__webpack_exports__);
 
         this.$emit('getAllResults')
 
-        await this.getResultsNoFilters()
+        if (this.noMoreResults && this.lastAuthorsList.length > 0) {
+          this.removeFiltersFromResults()
+        } else {
+          await this.getResultsNoFilters()
+        }
 
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'
-        this.setDisabledToType(['noFilters'])
+        this.setDisabledToType([])
 
         this.disabledButton = false
         
@@ -17920,6 +17940,10 @@ __webpack_require__.r(__webpack_exports__);
         author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
         textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
       })
+    },
+    removeFiltersFromResults () {
+      this.$emit('filterCurrentByAuthor', null, null)
+      this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
     },
     calcTitle (item, type) {
       if (item) {
@@ -18002,6 +18026,13 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    collapsedHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
   },
   data () {
     return {
@@ -18125,6 +18156,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -18148,7 +18183,7 @@ __webpack_require__.r(__webpack_exports__);
       needInnerFilter: false,
       // Whether to show reference links on mobile layout or not
       showDataSource: false,
-      collapsedHeader: false
+      collapsedHeader: true
     }
   },
   computed: {
@@ -18219,6 +18254,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedAuthor = null
       this.selectedTextWork = null
       this.needInnerFilter = false
+      this.collapsedHeader = false
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
@@ -27045,7 +27081,7 @@ var render = function() {
       "div",
       { staticClass: "alpheios-word-usage-header-select-type-filters-block" },
       _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
-        return !typeFilterItem.skip
+        return _vm.checkVisibilityFilterOption(typeFilterItem)
           ? _c(
               "div",
               {
@@ -27099,8 +27135,12 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.authorsList && _vm.typeFilter !== "noFilters",
-            expression: "authorsList && typeFilter !== 'noFilters'"
+            value:
+              _vm.authorsList &&
+              _vm.typeFilter !== "noFilters" &&
+              !_vm.collapsedHeader,
+            expression:
+              "authorsList && typeFilter !== 'noFilters' && !collapsedHeader"
           }
         ],
         staticClass: "alpheios-word-usage-filters-select"
@@ -27181,7 +27221,9 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    this.selectedAuthor && _vm.typeFilter !== "noFilters"
+    this.selectedAuthor &&
+    _vm.typeFilter !== "noFilters" &&
+    !_vm.collapsedHeader
       ? _c(
           "div",
           { staticClass: "alpheios-word-usage-filters-select" },
@@ -27312,8 +27354,8 @@ var render = function() {
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.availableSortBy,
-          expression: "availableSortBy"
+          value: _vm.availableSortBy && !_vm.collapsedHeader,
+          expression: "availableSortBy && !collapsedHeader"
         }
       ],
       staticClass: "alpheios-word-usage-header-sorting"
@@ -27465,8 +27507,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.collapsedHeader && _vm.showHeader,
-            expression: "!collapsedHeader && showHeader"
+            value: _vm.showHeader,
+            expression: "showHeader"
           }
         ],
         staticClass: "alpheios-word-usage-header",
@@ -27474,6 +27516,7 @@ var render = function() {
       },
       [
         _c("word-usage-examples-filters", {
+          attrs: { collapsedHeader: _vm.collapsedHeader },
           on: {
             filterCurrentByAuthor: _vm.filterCurrentByAuthor,
             getMoreResults: _vm.getMoreResults,
@@ -27482,6 +27525,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("word-usage-examples-sorting", {
+          attrs: { collapsedHeader: _vm.collapsedHeader },
           on: { changedSortBy: _vm.changedSortBy }
         })
       ],
