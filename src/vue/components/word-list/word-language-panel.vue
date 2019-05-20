@@ -130,29 +130,26 @@ export default {
       return []
     },
     wordExactForms () {
-      let exactForms = []
-      this.wordlist.values.map(wordItem => {
-        let exactForm = wordItem.targetWord.toLowerCase()
-        if (exactForms.indexOf(exactForm) === -1) {
-          exactForms.push(exactForm)
+      let exactForms = this.wordlist.values.reduce((acc, wordItem) => {
+          let exactForm = wordItem.targetWord.toLowerCase()
+          if (!acc.includes(exactForm)) {
+            acc.push(exactForm)
         }
-      })
-      exactForms.sort()
-      return exactForms
+        return acc
+      }, [])
+      return exactForms.sort()
     },
     wordLemmaForms () {
-      let lemmaForms = []
-      this.wordlist.values.map(wordItem => {
+      let lemmaForms = this.wordlist.values.reduce((acc, wordItem) => {
         let currentLemmaForms = wordItem.lemmasList.split(', ')
         currentLemmaForms.forEach(lemmaForm => {
-          if (lemmaForms.indexOf(lemmaForm) === -1) {
-            lemmaForms.push(lemmaForm)
+          if (!acc.includes(lemmaForm)) {
+            acc.push(lemmaForm)
           }
         })
-        
-      })
-      lemmaForms.sort()
-      return lemmaForms
+        return acc
+      }, [])
+      return lemmaForms.sort()
     },
     languageName () {
       // TODO with upcoming merge, this can be retrived from utility library
