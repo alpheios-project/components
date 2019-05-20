@@ -41578,7 +41578,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41858,7 +41858,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -46693,18 +46693,22 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
+      console.info('******var2')
       start = doc.caretRangeFromPoint(startX, startY)
       end = doc.caretRangeFromPoint(endX, endY)
       range = doc.createRange()
       range.setStart(start.startContainer, start.startOffset)
       range.setEnd(end.startContainer, end.startOffset)
+      console.info('*********range', range)
     }
 
     if (range && typeof window.getSelection === 'function') {
+      console.info('******var3')
       let sel = window.getSelection()
       sel.removeAllRanges()
       sel.addRange(range)
     } else if (typeof doc.body.createTextRange === 'function') {
+      console.info('******var4')
       range = doc.body.createTextRange()
       range.moveToPoint(startX, startY)
       let endRange = range.duplicate()
@@ -46886,7 +46890,8 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
         selection.setBaseAndExtent(anchor, wordStart, focus, wordEnd)
       }
     }
-    textSelector.createTextQuoteSelector(this)
+
+    textSelector.createTextQuoteSelector(this.target)
     return textSelector
   }
 
@@ -47098,9 +47103,9 @@ class TextSelector {
     return Models.LanguageModelFactory.getLanguageForCode(languageCode)
   } */
 
-  createTextQuoteSelector (htmlSelector) {
+  createTextQuoteSelector (target) {
     this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText)
-    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(htmlSelector.target)
+    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(target)
     this.textQuoteSelector.createContext(selection, this)
   }
 }
