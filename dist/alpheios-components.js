@@ -17221,10 +17221,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     clickFilterBy () {
       if (this.currentTypeFilter && this.currentTypeFilter.onClick && this.textInput) {
-        if (this.selectedFilterBy === 'byExactForm' && this.wordExactForms.indexOf(this.textInput) === -1) {
+        if (this.selectedFilterBy === 'byExactForm' && !this.wordExactForms.includes(this.textInput)) {
           return
         }
-        if (this.selectedFilterBy === 'byLemma' && this.wordLemmaForms.indexOf(this.textInput) === -1) {
+        if (this.selectedFilterBy === 'byLemma' && !this.wordLemmaForms.includes(this.textInput)) {
           return
         }
         this.$emit('changedFilterBy', this.selectedFilterBy, this.textInput)
@@ -17245,7 +17245,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     setClickedLemmaFilter () {
       this.selectedFilterBy = 'byLemma'
-      this.textInput = this.clickedLemma
+      this.textInput = this.clickedLemma.trim()
       this.clickFilterBy()
       this.$emit('clearClickedLemma')
     },
@@ -46693,22 +46693,18 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
-      console.info('******var2')
       start = doc.caretRangeFromPoint(startX, startY)
       end = doc.caretRangeFromPoint(endX, endY)
       range = doc.createRange()
       range.setStart(start.startContainer, start.startOffset)
       range.setEnd(end.startContainer, end.startOffset)
-      console.info('*********range', range)
     }
 
     if (range && typeof window.getSelection === 'function') {
-      console.info('******var3')
       let sel = window.getSelection()
       sel.removeAllRanges()
       sel.addRange(range)
     } else if (typeof doc.body.createTextRange === 'function') {
-      console.info('******var4')
       range = doc.body.createTextRange()
       range.moveToPoint(startX, startY)
       let endRange = range.duplicate()
@@ -46726,7 +46722,12 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    */
   setDataAttributes () {
     let tbSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_tb_src]')
+    console.info('******this.target.ownerDocument.querySelector', this.target.ownerDocument.querySelector('meta'))
+    console.info('******this.target.ownerDocument.querySelector', this.target.ownerDocument.querySelector('[data-alpheios_tb_src]'))
+    console.info('******tbSrcElem', tbSrcElem)
     let tbRef = this.target.dataset.alpheios_tb_ref
+    console.info('******this.target.dataset', this.target.dataset)
+    console.info('******tbRef', tbRef)
     let alignSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_align_src]')
     let alignRef = this.target.dataset.alpheios_align_ref
     this.data = {}
