@@ -14896,7 +14896,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! interactjs */ "../node_modules/interactjs/dist/interact.js");
 /* harmony import */ var interactjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(interactjs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
 /* harmony import */ var _vue_components_nav_drop_down_menu_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/nav/drop-down-menu.vue */ "./vue/components/nav/drop-down-menu.vue");
 /* harmony import */ var _vue_components_notification_area_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components//notification-area.vue */ "./vue/components/notification-area.vue");
 /* harmony import */ var _inflections_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./inflections.vue */ "./vue/components/inflections.vue");
@@ -15391,7 +15391,8 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     isLandscape: function () {
-      return this.$store.state.panel.orientation === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE
+      // Have to use store prop to keep orientation reactive
+      return this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE
     },
 
     isAttachedToLeft: function () {
@@ -39853,7 +39854,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
@@ -39861,7 +39862,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
 /**
- * vuex v3.1.1
+ * vuex v3.1.0
  * (c) 2019 Evan You
  * @license MIT
  */
@@ -39901,12 +39902,9 @@ function applyMixin (Vue) {
   }
 }
 
-var target = typeof window !== 'undefined'
-  ? window
-  : typeof global !== 'undefined'
-    ? global
-    : {};
-var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+var devtoolHook =
+  typeof window !== 'undefined' &&
+  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
 function devtoolPlugin (store) {
   if (!devtoolHook) { return }
@@ -39950,12 +39948,6 @@ function isPromise (val) {
 
 function assert (condition, msg) {
   if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-function partial (fn, arg) {
-  return function () {
-    return fn(arg)
-  }
 }
 
 // Base data struct for store's module, package with some attribute and method
@@ -40419,9 +40411,7 @@ function resetStoreVM (store, state, hot) {
   var computed = {};
   forEachValue(wrappedGetters, function (fn, key) {
     // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure enviroment.
-    computed[key] = partial(fn, store);
+    computed[key] = function () { return fn(store); };
     Object.defineProperty(store.getters, key, {
       get: function () { return store._vm[key]; },
       enumerable: true // for local getters
@@ -40860,7 +40850,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store: Store,
   install: install,
-  version: '3.1.1',
+  version: '3.1.0',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -40871,7 +40861,6 @@ var index_esm = {
 /* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "../node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -41578,7 +41567,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41858,7 +41847,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -42341,15 +42330,6 @@ class UIController {
     this.evc = null
 
     this.wordlistC = {} // This is a word list controller
-
-    // Detect device's orientation change in order to update panel layout
-    window.addEventListener('orientationchange', () => {
-      // Update platform information
-      this.platform.getData()
-      if (this.hasModule('panel')) {
-        this.store.commit('panel/setOrientation', this.platform.orientation)
-      }
-    })
   }
 
   /**
@@ -47881,26 +47861,6 @@ class HTMLPage {
     const attrValue = window.document.body.getAttribute('alpheios-embed-lib-status')
     return attrValue === 'active'
   }
-
-  /**
-   * Determines what version of a UI shall be used.
-   * @return {string} - A name of one of the deviceTypes defined in {@link HTMLPage@deviceTypes}.
-   */
-  static getDeviceType () {
-    // TODO: Probably need a more complex algorithm for the future
-    const screenWidthThreshold = 900
-    return Math.max(window.screen.width, window.screen.width) <= screenWidthThreshold ? HTMLPage.deviceTypes.MOBILE : HTMLPage.deviceTypes.DESKTOP
-  }
-
-  /**
-   * Determines a screen orientation of a device.
-   * @return {string} - A name of the screen orientation as defined in {@link HTMLPage@orientations}.
-   */
-  static getOrientation () {
-    // windows.screen.width/height dimensions are not updated on iOS devices when the device is rotated.
-    // Because of this we'd better use window.innerWidth and window.innerHeight instead.
-    return (window.innerWidth <= window.innerHeight) ? HTMLPage.orientations.PORTRAIT : HTMLPage.orientations.LANDSCAPE
-  }
 }
 
 HTMLPage.targetRequirements = {
@@ -47914,11 +47874,136 @@ HTMLPage.targetRequirements = {
   ]
 }
 
+
+/***/ }),
+
+/***/ "./lib/utility/platform.js":
+/*!*********************************!*\
+  !*** ./lib/utility/platform.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Platform; });
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class Platform {
+  constructor (setRootAttributes = false) {
+    this.getData()
+
+    if (setRootAttributes) {
+      this.setRootAttributes()
+    }
+
+    // Detect device's orientation change in order to update panel layout
+    window.addEventListener('orientationchange', () => {
+      // Update platform information
+      console.info(`Orientation change browser callback, before: ${this.orientation}`)
+      this.getData()
+      console.info(`After getData(): ${this.orientation}`)
+      this.constructor.evt.ORIENTATION_CHANGE.pub({ orientation: this.orientation })
+    })
+  }
+
+  /**
+   * Retrieves data about a platform.
+   */
+  getData () {
+    this.deviceType = this.constructor.getDeviceType()
+    this.orientation = this.constructor.getOrientation()
+
+    this.viewport = {
+      width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
+        ? Math.min(window.innerWidth, document.documentElement.clientWidth, document.body.clientWidth)
+        : document.body.clientWidth || window.innerWidth || document.documentElement.clientWidth,
+
+      height: window.innerHeight && document.documentElement.clientHeight
+        ? Math.min(window.innerHeight, document.documentElement.clientHeight)
+        : window.innerHeight || document.documentElement.clientHeight
+    }
+
+    this.dpr = window.devicePixelRatio
+  }
+
+  /**
+   * Determines what version of a UI shall be used.
+   * @return {string} - A name of one of the deviceTypes defined in {@link Platform@deviceTypes}.
+   */
+  static getDeviceType () {
+    // TODO: Probably need a more complex algorithm for the future
+    const screenWidthThreshold = 900
+    return Math.max(window.screen.width, window.screen.width) <= screenWidthThreshold
+      ? this.deviceTypes.MOBILE
+      : this.deviceTypes.DESKTOP
+  }
+
+  /**
+   * Determines a screen orientation of a device.
+   * @return {string} - A name of the screen orientation as defined in {@link Platform@orientations}.
+   */
+  static getOrientation () {
+    if (typeof window.screen.orientation === 'object') {
+      // ScreenOrienation API is supported
+      return window.screen.orientation.type
+    } else if ('orientation' in window) {
+      // This is most likely an iOS or MacOS device. There is no ScreenOrienation API support.
+      // We'll use the `orientation` property which returns an angole of rotation.
+      return (Math.abs(parseInt(window.orientation, 10)) === 90) ? this.orientations.LANDSCAPE : this.orientations.PORTRAIT
+    } else {
+      console.error(`Cannot determine orientation of a device, returning a default value of "portrait"`)
+      return this.orientations.PORTRAIT
+    }
+  }
+
+  setRootAttributes () {
+    if (document && document.documentElement) {
+      document.documentElement.dataset.apScreenOrientation = this.isPortrait ? 'portrait' : 'landscape'
+      document.documentElement.dataset.apLayoutType = this.isDesktop ? 'large' : 'compact'
+    } else {
+      console.warn(`Cannot set platform attributes because either document or documentElement are not defined`)
+    }
+  }
+
+  get isDesktop () {
+    return this.deviceType === this.constructor.deviceTypes.DESKTOP
+  }
+
+  get isMobile () {
+    return this.deviceType === this.constructor.deviceTypes.MOBILE
+  }
+
+  get isAny () {
+    return this.deviceType === this.constructor.deviceTypes.ANY
+  }
+
+  get isPortrait () {
+    // Portrait is a default orientation, so we assume that if it is not a landscape, it is a portrait
+    return !this.isLandscape
+  }
+
+  get isLandscape () {
+    return /landscape/.test(this.orientation)
+  }
+
+  /**
+   * Returns orientation in its simple form (either "portrait" or "landscape"), not taking into
+   * consideration an exact rotation angle (as in "primary" or "secondary").
+   * @return {string} Orientation string which is either "portrait" or "landscape"
+   */
+  get simpleOrientation () {
+    return this.isLandscape ? this.constructor.orientations.LANDSCAPE : this.constructor.orientations.PORTRAIT
+  }
+}
+
 /**
  * Constants that determines types of devices where an app is running.
  * Used by modules and components to tweak their appearance.
  */
-HTMLPage.deviceTypes = {
+Platform.deviceTypes = {
   /**
    * An environment with limited screen estate with finger-based interactions.
    */
@@ -47938,84 +48023,22 @@ HTMLPage.deviceTypes = {
 /**
  * Constants for screen orientations.
  */
-HTMLPage.orientations = {
+Platform.orientations = {
   PORTRAIT: 'portrait',
   LANDSCAPE: 'landscape'
 }
 
-
-/***/ }),
-
-/***/ "./lib/utility/platform.js":
-/*!*********************************!*\
-  !*** ./lib/utility/platform.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Platform; });
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
-
-
-class Platform {
-  constructor (setRootAttributes = false) {
-    this.getData()
-
-    if (setRootAttributes) {
-      this.setRootAttributes()
-    }
-  }
-
+/**
+ * Description of a Platform event interface.
+ */
+Platform.evt = {
   /**
-   * Retrieves data about a platform.
+   * Published when device orientation is changed.
+   * Data: {
+   *  {Platform.orientations} orientation - A device orientation string.
+   * }
    */
-  getData () {
-    this.deviceType = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].getDeviceType()
-    this.orientation = _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].getOrientation()
-
-    this.viewport = {
-      width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
-        ? Math.min(window.innerWidth, document.documentElement.clientWidth, document.body.clientWidth)
-        : document.body.clientWidth || window.innerWidth || document.documentElement.clientWidth,
-
-      height: window.innerHeight && document.documentElement.clientHeight
-        ? Math.min(window.innerHeight, document.documentElement.clientHeight)
-        : window.innerHeight || document.documentElement.clientHeight
-    }
-
-    this.dpr = window.devicePixelRatio
-  }
-
-  setRootAttributes () {
-    if (document && document.documentElement) {
-      document.documentElement.dataset.apScreenOrientation = this.isPortrait ? 'portrait' : 'landscape'
-      document.documentElement.dataset.apLayoutType = this.isDesktop ? 'large' : 'compact'
-    } else {
-      console.warn(`Cannot set platform attributes because either document or documentElement are not defined`)
-    }
-  }
-
-  get isDesktop () {
-    return this.deviceType === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].deviceTypes.DESKTOP
-  }
-
-  get isMobile () {
-    return this.deviceType === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].deviceTypes.MOBILE
-  }
-
-  get isAny () {
-    return this.deviceType === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].deviceTypes.ANY
-  }
-
-  get isPortrait () {
-    return this.orientation === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].orientations.PORTRAIT
-  }
-
-  get isLandscape () {
-    return this.orientation === _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_0__["default"].orientations.LANDSCAPE
-  }
+  ORIENTATION_CHANGE: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"]('Platform Orientation Change', Platform)
 }
 
 
@@ -52101,7 +52124,7 @@ let directive = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AuthModule; });
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
 
 
 
@@ -52235,7 +52258,7 @@ AuthModule.api = (moduleInstance, store) => {
 AuthModule._configDefaults = {
   _moduleName: 'auth',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.DATA,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY],
   auth: null
 }
 
@@ -52255,7 +52278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
 /* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
 
 
 
@@ -52366,7 +52389,7 @@ L10nModule.api = (moduleInstance, store) => {
 L10nModule._configDefaults = {
   _moduleName: 'l10n',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.DATA,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.ANY],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.ANY],
   defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_2__["default"].en_US,
   messageBundles: []
 }
@@ -52386,7 +52409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Module; });
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue/dist/vue */ "../node_modules/vue/dist/vue.js");
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
  // Vue in a runtime + compiler configuration
 
 // This is a root Vue instance that is a common parent for all modules, and correspondingly, all UI components.
@@ -52455,11 +52478,11 @@ class Module {
 
   /**
    * Checks whether a specified platform is supported by the module.
-   * @param {HTMLPage.deviceTypes} platform - A name of a deviceTypes.
+   * @param {Platform.deviceTypes} platform - A name of a deviceTypes.
    * @return {boolean} True if platform is supported, false otherwise.
    */
   static isSupportedPlatform (platform) {
-    if (this._configDefaults._supportedDeviceTypes.includes(_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY)) {
+    if (this._configDefaults._supportedDeviceTypes.includes(_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY)) {
       return true
     } else if (this._configDefaults._supportedDeviceTypes.includes(platform.deviceType)) {
       return true
@@ -52515,9 +52538,9 @@ Module._configDefaults = {
   _moduleType: Module.types.DATA,
 
   /**
-   * A list of deviceTypes supported by a module according to HTMLPage.deviceTypes list.
+   * A list of deviceTypes supported by a module according to Platform.deviceTypes list.
    */
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY]
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].deviceTypes.ANY]
 }
 
 
@@ -52566,7 +52589,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
 /* harmony import */ var _vue_components_nav_action_panel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/nav/action-panel.vue */ "./vue/components/nav/action-panel.vue");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
  // Vue in a runtime + compiler configuration
 
 
@@ -52645,7 +52668,7 @@ ActionPanelModule.store = (moduleInstance) => {
 ActionPanelModule._configDefaults = {
   _moduleName: 'actionPanel',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.UI,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.DESKTOP, _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.MOBILE],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.DESKTOP, _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.MOBILE],
   // A selector that specifies to what DOM element a nav will be mounted.
   // This element will be replaced with the root element of the panel component.
   mountInto: 'body',
@@ -52689,7 +52712,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
 /* harmony import */ var _vue_components_panel_large_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/panel-large.vue */ "./vue/components/panel-large.vue");
 /* harmony import */ var _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/panel-compact.vue */ "./vue/components/panel-compact.vue");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
  // Vue in a runtime + compiler configuration
 
 
@@ -52717,6 +52740,10 @@ class PanelModule extends _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1
         compactPanel: _vue_components_panel_compact_vue__WEBPACK_IMPORTED_MODULE_3__["default"] // A mobile version of a panel
       }
     })
+
+    _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__["default"].evt.ORIENTATION_CHANGE.sub(() => {
+      this._vi.$store.commit('panel/setOrientation', this.config.platform.simpleOrientation)
+    })
   }
 }
 
@@ -52733,7 +52760,7 @@ PanelModule.store = (moduleInstance) => {
       // Where a panel is located. Possible values are `left` or `right`.
       position: 'left',
       // Device orientation
-      orientation: moduleInstance.config.platform.orientation,
+      orientation: moduleInstance.config.platform.simpleOrientation,
       // An ID of the last opened footnote. Required for the modal footnote popup mode on mobile
       visibleFootnoteId: false
     },
@@ -52776,7 +52803,7 @@ PanelModule.store = (moduleInstance) => {
 PanelModule._configDefaults = {
   _moduleName: 'panel',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.UI,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.DESKTOP, _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.MOBILE],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.DESKTOP, _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.MOBILE],
   // A selector that specifies to what DOM element a panel will be mounted.
   // This element will be replaced with the root element of the panel component.
   mountPoint: '#alpheios-panel'
@@ -52799,7 +52826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_dist_vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
 /* harmony import */ var _vue_components_popup_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/popup.vue */ "./vue/components/popup.vue");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
  // Vue in a runtime + compiler configuration
 
 
@@ -52906,7 +52933,7 @@ PopupModule.store = (moduleInstance) => {
 PopupModule._configDefaults = {
   _moduleName: 'popup',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.UI,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.DESKTOP],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_3__["default"].deviceTypes.DESKTOP],
 
   // A selector that specifies to what DOM element a popup will be mounted.
   // This element will be replaced with the root element of the popup component.
@@ -52954,7 +52981,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/module.js */ "./vue/vuex-modules/module.js");
 /* harmony import */ var _vue_components_nav_toolbar_compact_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/nav/toolbar-compact.vue */ "./vue/components/nav/toolbar-compact.vue");
 /* harmony import */ var _vue_components_nav_toolbar_large_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/components/nav/toolbar-large.vue */ "./vue/components/nav/toolbar-large.vue");
-/* harmony import */ var _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/utility/html-page.js */ "./lib/utility/html-page.js");
+/* harmony import */ var _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/utility/platform.js */ "./lib/utility/platform.js");
  // Vue in a runtime + compiler configuration
 
 
@@ -53037,7 +53064,7 @@ ToolbarModule.store = (moduleInstance) => {
 ToolbarModule._configDefaults = {
   _moduleName: 'toolbar',
   _moduleType: _vue_vuex_modules_module_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.UI,
-  _supportedDeviceTypes: [_lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.DESKTOP, _lib_utility_html_page_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.MOBILE],
+  _supportedDeviceTypes: [_lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.DESKTOP, _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_4__["default"].deviceTypes.MOBILE],
   // A selector that specifies to what DOM element a nav will be mounted.
   // This element will be replaced with the root element of the panel component.
   mountPoint: '#alpheios-toolbar',
