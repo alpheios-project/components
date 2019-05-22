@@ -46722,12 +46722,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    */
   setDataAttributes () {
     let tbSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_tb_src]')
-    console.info('******this.target.ownerDocument.querySelector', this.target.ownerDocument.querySelector('meta'))
-    console.info('******this.target.ownerDocument.querySelector', this.target.ownerDocument.querySelector('[data-alpheios_tb_src]'))
-    console.info('******tbSrcElem', tbSrcElem)
     let tbRef = this.target.dataset.alpheios_tb_ref
-    console.info('******this.target.dataset', this.target.dataset)
-    console.info('******tbRef', tbRef)
     let alignSrcElem = this.target.ownerDocument.querySelector('[data-alpheios_align_src]')
     let alignRef = this.target.dataset.alpheios_align_ref
     this.data = {}
@@ -46780,7 +46775,15 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
+    console.info('**************doSpaceSeparatedWordSelection start ***********')
+    console.info('*************textSelector.text', textSelector.text)
+    console.info('*************textSelector.start', textSelector.start)
+    console.info('*************textSelector.end', textSelector.end)
+    console.info('*************textSelector.context', textSelector.context)
+    console.info('*************textSelector.position', textSelector.position)
+
     let selection = HTMLSelector.getSelection(this.target)
+    console.info('***********selection', selection)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     let focus = selection.focusNode // A node where the end of a selection
@@ -46792,6 +46795,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     // and sometimes the focus data and anchor text is just whitespaces
     // in these cases we just use the target textContent
 
+    console.info('***********focus.data', focus.data)
+    console.info('***********anchorText', anchorText)
+
     if ((focus.data && !anchorText.match(this._escapeRegExp(focus.data))) ||
       (focus.data && focus.data.match(/^\s*$/))) {
       anchorText = this.target.textContent
@@ -46799,8 +46805,10 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       invalidAnchor = true
       anchor = this.target
       focus = this.target
+      console.info('***********anchorText 1', ro)
     } else {
       ro = selection.anchorOffset
+      console.info('***********anchorText 2', ro)
     }
 
     if (!anchorText) {
@@ -46827,6 +46835,8 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       wordEnd = anchorText.length
     }
 
+    console.info('*************wordStart', wordStart)
+    console.info('*************wordEnd', wordEnd)
     // if empty, nothing to do
     if (wordStart === wordEnd) {
       return textSelector
@@ -46841,11 +46851,16 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     * nodes that are broken up by formatting tags (<br/> etc))
     */
 
+    console.info('*************word', word)
+
     let contextStr = null
     let contextPos = 0
 
     let contextForward = textSelector.model.contextForward
     let contextBackward = textSelector.model.contextBackward
+
+    console.info('*************contextForward', contextForward)
+    console.info('*************contextBackward', contextBackward)
 
     if (contextForward || contextBackward) {
       let startstr = anchorText.substring(0, wordEnd)
@@ -46880,7 +46895,14 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     textSelector.context = contextStr
     textSelector.position = contextPos
 
+    console.info('*************textSelector.text', textSelector.text)
+    console.info('*************textSelector.start', textSelector.start)
+    console.info('*************textSelector.end', textSelector.end)
+    console.info('*************textSelector.context', textSelector.context)
+    console.info('*************textSelector.position', textSelector.position)
+
     if (!textSelector.isEmpty()) {
+      console.info('******!isEmpty')
       // Reset a selection
       if (invalidAnchor) {
         selection.removeAllRanges()

@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 
 import HTMLSelector from '@/lib/selection/media/html-selector'
+import TextSelector from '@/lib/selection/text-selector'
 import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
-import { Constants, TextQuoteSelector } from 'alpheios-data-models'
+import { Constants, TextQuoteSelector, LanguageModelFactory } from 'alpheios-data-models'
 
 describe('html-selector.test.js', () => {
   // console.error = function () {}
@@ -30,9 +31,6 @@ describe('html-selector.test.js', () => {
           data: 'a bene placito'
         },
         focusOffset: 14,
-        focusNode: {
-          data: 'a bene placito'
-        },
         baseNode: {
           data: 'a bene placito'
         },
@@ -86,6 +84,36 @@ describe('html-selector.test.js', () => {
   afterAll(() => {
     jest.clearAllMocks()
   })
+
+  function createEventWithSelection (text, start) {
+    let testElement2 = document.createElement("p")
+    let node = document.createTextNode(text)
+    testElement2.appendChild(node)
+    document.body.appendChild(testElement2)
+
+    let evtHandler = jest.fn(() => {})
+    let eventEl2 = new MouseDblClick(testElement2, evtHandler)
+    eventEl2.start = eventEl.start
+    eventEl2.start = eventEl.end
+    eventEl2.end.target = testElement2
+
+    testElement2.ownerDocument.getSelection = jest.fn(() => {
+      return {
+        anchorNode: {
+          data: text
+        },
+        anchorOffset: start,
+        focusNode: {
+          data: text
+        },
+        setBaseAndExtent: () => {},
+        removeAllRanges: () => {},
+        addRange: () => {}
+      }
+    })
+
+    return eventEl2
+  }
 
   it('1 HTMLSelector - constructor creates an object with event, target, targetRect, location, languageID, wordSeparator', () => {
     let htmlSel = new HTMLSelector(eventEl, 'lat')
@@ -219,6 +247,82 @@ describe('html-selector.test.js', () => {
     expect(testElement.ownerDocument.getSelection).toHaveBeenCalled()
   })
 
+  it('12 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, context, position and executes createTextQuoteSelector ', () => {
+    let eventEl2 = createEventWithSelection('mare cupidinibus cepit differ', 0) 
 
+    let htmlSel = new HTMLSelector(eventEl2, 'lat')
+    let textSelector = new TextSelector(Constants.LANG_LATIN)
+    textSelector.model = LanguageModelFactory.getLanguageModel(Constants.LANG_LATIN)
+    textSelector.location = htmlSel.location
+    textSelector.data = htmlSel.data
+
+    jest.spyOn(textSelector, 'createTextQuoteSelector')
+
+    expect(textSelector.text).toEqual('')
+    expect(textSelector.start).toEqual(0)
+    expect(textSelector.end).toEqual(0)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+    htmlSel.doSpaceSeparatedWordSelection(textSelector)
+
+    expect(textSelector.text).toEqual('mare')
+    expect(textSelector.start).toEqual(0)
+    expect(textSelector.end).toEqual(4)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+    expect(textSelector.createTextQuoteSelector).toHaveBeenCalledWith(eventEl2.element)
+  })
+
+  it('13 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, ignore punctuation ', () => {
+    let eventEl2 = createEventWithSelection('mare,cupidinibus,cepit differ', 6) 
+
+    let htmlSel = new HTMLSelector(eventEl2, 'lat')
+    let textSelector = new TextSelector(Constants.LANG_LATIN)
+    textSelector.model = LanguageModelFactory.getLanguageModel(Constants.LANG_LATIN)
+    textSelector.location = htmlSel.location
+    textSelector.data = htmlSel.data
+
+    expect(textSelector.text).toEqual('')
+    expect(textSelector.start).toEqual(0)
+    expect(textSelector.end).toEqual(0)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+    htmlSel.doSpaceSeparatedWordSelection(textSelector)
+
+    expect(textSelector.text).toEqual('cupidinibus')
+    expect(textSelector.start).toEqual(5)
+    expect(textSelector.end).toEqual(16)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+  })
+
+  it('14 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - if selection is null, then textSelector is null too ', () => {
+    let eventEl2 = createEventWithSelection('', 0) 
+
+    let htmlSel = new HTMLSelector(eventEl2, 'lat')
+    let textSelector = new TextSelector(Constants.LANG_LATIN)
+    textSelector.model = LanguageModelFactory.getLanguageModel(Constants.LANG_LATIN)
+    textSelector.location = htmlSel.location
+    textSelector.data = htmlSel.data
+
+    expect(textSelector.text).toEqual('')
+    expect(textSelector.start).toEqual(0)
+    expect(textSelector.end).toEqual(0)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+    htmlSel.doSpaceSeparatedWordSelection(textSelector)
+
+    expect(textSelector.text).toEqual('')
+    expect(textSelector.start).toEqual(0)
+    expect(textSelector.end).toEqual(0)
+    expect(textSelector.context).toBeNull()
+    expect(textSelector.position).toEqual(0)
+
+  })
   
 })
