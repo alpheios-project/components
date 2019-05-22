@@ -47902,9 +47902,7 @@ class Platform {
     // Detect device's orientation change in order to update panel layout
     window.addEventListener('orientationchange', () => {
       // Update platform information
-      console.info(`Orientation change browser callback, before: ${this.orientation}`)
       this.getData()
-      console.info(`After getData(): ${this.orientation}`)
       this.constructor.evt.ORIENTATION_CHANGE.pub({ orientation: this.orientation })
     })
   }
