@@ -275,8 +275,8 @@ describe('html-selector.test.js', () => {
     expect(textSelector.createTextQuoteSelector).toHaveBeenCalledWith(eventEl2.element)
   })
 
-  it('13 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, ignore punctuation ', () => {
-    let eventEl2 = createEventWithSelection('mare,cupidinibus,cepit differ', 6) 
+  it('13 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, escapes punctuation ', () => {
+    let eventEl2 = createEventWithSelection('(mare[cupidinibus]cepit|differ)', 6) 
 
     let htmlSel = new HTMLSelector(eventEl2, 'lat')
     let textSelector = new TextSelector(Constants.LANG_LATIN)
@@ -293,8 +293,8 @@ describe('html-selector.test.js', () => {
     htmlSel.doSpaceSeparatedWordSelection(textSelector)
 
     expect(textSelector.text).toEqual('cupidinibus')
-    expect(textSelector.start).toEqual(5)
-    expect(textSelector.end).toEqual(16)
+    expect(textSelector.start).toEqual(6)
+    expect(textSelector.end).toEqual(17)
     expect(textSelector.context).toBeNull()
     expect(textSelector.position).toEqual(0)
 
@@ -322,7 +322,18 @@ describe('html-selector.test.js', () => {
     expect(textSelector.end).toEqual(0)
     expect(textSelector.context).toBeNull()
     expect(textSelector.position).toEqual(0)
-
   })
-  
+
+  it('15 HTMLSelector - _escapeRegExp method escapes punctuation from the string', () => {
+    let htmlSel = new HTMLSelector(eventEl, 'lat')
+    let res = htmlSel._escapeRegExp('(mare[cupidinibus]cepit|differ)')
+    expect(res).toEqual('\\(mare\\[cupidinibus\\]cepit\\|differ\\)')
+  })
+
+  it('16 HTMLSelector - static getDumpHTMLSelector method returns minimal object (for lookups)', () => {
+    let res = HTMLSelector.getDumpHTMLSelector()
+    expect(res.targetRect).toEqual({
+      top: 0, left: 0
+    })
+  })
 })
