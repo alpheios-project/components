@@ -9,19 +9,26 @@ export default class Platform {
     }
 
     // Detect device's orientation change in order to update panel layout
-    window.addEventListener('orientationchange', () => {
-      // Update platform information
-      this.getData()
-      this.constructor.evt.ORIENTATION_CHANGE.pub({ orientation: this.orientation })
-    })
+    window.addEventListener('orientationchange', this.getData.bind(this), { passive: true })
+
+    // Some platforms fires no `orientationchange` event
+    // For them, a `resize` event can provide a substitute
+    window.addEventListener('resize', this.getData.bind(this), { passive: true })
   }
 
   /**
-   * Retrieves data about a platform.
+   * Retrieves data about a platform. Need to run it after each on of platform characteristics
+   * may change (such as orientation, viewport size, etc.).
    */
   getData () {
     this.deviceType = this.constructor.getDeviceType()
+
+    const prevOrientation = this.orientation
     this.orientation = this.constructor.getOrientation()
+    if (this.orientation !== prevOrientation) {
+      // Orientation has been changed
+      this.constructor.evt.ORIENTATION_CHANGE.pub({ orientation: this.orientation })
+    }
 
     this.viewport = {
       width: window.innerWidth && document.documentElement.clientWidth && document.body.clientWidth
