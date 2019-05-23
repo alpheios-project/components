@@ -17865,6 +17865,8 @@ __webpack_require__.r(__webpack_exports__);
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
         this.selectedTextWork = null
+        this.lastAuthorsList = []
+        this.lastTextWorksList = []
       }
       return true
     },
@@ -18200,9 +18202,12 @@ __webpack_require__.r(__webpack_exports__);
              !this.showWordUsageExampleItems
     },
     showWordUsageExampleItems () {
+      if (!this.$store.state.app.wordUsageExamplesReady) {
+        this.collapsedHeader = true
+      }
       return this.$store.state.app.wordUsageExamplesReady
     },
-    wordUsageExamples () {
+    wordUsageExamples () {     
       if (!this.$store.state.app.wordUsageExamplesReady) {
         return []
       }
