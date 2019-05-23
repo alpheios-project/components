@@ -17575,9 +17575,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showDeleteAllBox = true
     },
     async makeAllImportant () {
-      console.info('*****makeAllImportant start')
       await this.app.updateAllImportant(this.languageCode, true)
-      console.info('*****makeAllImportant after')
       this.$emit('eventChangeImportant')
     },
     async removeAllImportant () {
