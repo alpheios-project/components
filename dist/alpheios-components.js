@@ -17527,7 +17527,7 @@ __webpack_require__.r(__webpack_exports__);
     wordlist () {
       this.clearFilters = this.clearFilters + 1
       this.changedFilterBy(null, null)
-      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : {}
+      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : { items: {} }
     },
     wordItems () {
       if (this.$store.state.app.wordListUpdateTime && this.reloadList) {        
@@ -17866,6 +17866,8 @@ __webpack_require__.r(__webpack_exports__);
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
         this.selectedTextWork = null
+        this.lastAuthorsList = []
+        this.lastTextWorksList = []
       }
       return true
     },
@@ -18201,9 +18203,12 @@ __webpack_require__.r(__webpack_exports__);
              !this.showWordUsageExampleItems
     },
     showWordUsageExampleItems () {
+      if (!this.$store.state.app.wordUsageExamplesReady) {
+        this.collapsedHeader = true
+      }
       return this.$store.state.app.wordUsageExamplesReady
     },
-    wordUsageExamples () {
+    wordUsageExamples () {     
       if (!this.$store.state.app.wordUsageExamplesReady) {
         return []
       }
@@ -46878,7 +46883,8 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
         selection.setBaseAndExtent(anchor, wordStart, focus, wordEnd)
       }
     }
-    textSelector.createTextQuoteSelector(this)
+
+    textSelector.createTextQuoteSelector(this.target)
     return textSelector
   }
 
@@ -47090,9 +47096,9 @@ class TextSelector {
     return Models.LanguageModelFactory.getLanguageForCode(languageCode)
   } */
 
-  createTextQuoteSelector (htmlSelector) {
+  createTextQuoteSelector (target) {
     this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText)
-    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(htmlSelector.target)
+    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(target)
     this.textQuoteSelector.createContext(selection, this)
   }
 }
