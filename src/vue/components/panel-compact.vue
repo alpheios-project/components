@@ -36,6 +36,12 @@
           <word-usage-icon @click="changeTab('wordUsage')" class="alpheios-navbuttons__icon"/>
         </div>
         <div class="alpheios-panel__header-btn" 
+           v-show="$store.getters['app/hasTreebankData'] && showMainTabIcons"
+           :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'treebank' }"
+        >
+          <treebank-icon @click="changeTab('treebank')" class="alpheios-navbuttons__icon"/>
+        </div>
+        <div class="alpheios-panel__header-btn" 
           v-show="currentTab === 'inflectionsbrowser'"
         >
           <inflections-browser-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
@@ -409,6 +415,7 @@ import UserIcon from '@/images/inline-icons/user.svg'
 import OptionsIcon from '@/images/inline-icons/options.svg'
 import GrammarIcon from '@/images/inline-icons/resources.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
+import TreebankIcon from '@/images/inline-icons/sitemap.svg'
 
 // Vue directives
 import { directive as onClickaway } from '../directives/clickaway.js'
@@ -459,7 +466,8 @@ export default {
     userIcon: UserIcon,
     optionsIcon: OptionsIcon,
     grammarIcon: GrammarIcon,
-    wordlistIcon: WordlistIcon
+    wordlistIcon: WordlistIcon,
+    treebankIcon: TreebankIcon
   },
   directives: {
     onClickaway: onClickaway
@@ -500,11 +508,10 @@ export default {
 
   computed: {
     currentTab () {
-      console.info('****activeTab', this.$store.state.ui.activeTab)
       return this.$store.state.ui.activeTab
     },
     showMainTabIcons () {
-      let mainTabArray = ['morphology', 'definitions', 'inflections', 'wordUsage']
+      let mainTabArray = ['morphology', 'definitions', 'inflections', 'wordUsage', 'treebank']
       if (mainTabArray.includes(this.currentTab)) {
         return true
       }
@@ -1024,12 +1031,19 @@ export default {
     }
   }
 
-  .alpheios-panel__tab__inflections {
-    h1 {
-      margin-bottom: 0!important;
+  .alpheios-panel--compact {
+    .alpheios-panel__tab__inflections {
+      h1 {
+        margin-bottom: 0!important;
+      }
+      .alpheios-inflections__forms-cont {
+        margin-bottom: 0;
+      }
     }
-    .alpheios-inflections__forms-cont {
-      margin-bottom: 0;
+
+    .alpheios-panel__close-btn {
+      margin-left: calc(var(--alpheios-base-ui-size) * 0.75);
     }
   }
+
 </style>
