@@ -2553,11 +2553,11 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-worditem__targetWord {
   font-weight: bold;
-  width: 30%;
+  width: 28%;
   cursor: pointer;
 }
 .alpheios-worditem__lemmasList {
-  width: 38%;
+  width: 34%;
 }
 .alpheios-visibility__hidden {
   visibility: hidden;
@@ -2994,6 +2994,9 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel.alpheios-panel--expanded .alpheios-panel__header {
   border-radius: 0;
+}
+.alpheios-panel__tab__inflections h1, .alpheios-panel__tab__inflections .alpheios-inflections__forms-cont {
+  margin-bottom: 0;
 }
 /*
  Calculates a size of text elements relative to the base size.

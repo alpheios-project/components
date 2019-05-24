@@ -1025,4 +1025,13 @@ export default {
       border-radius: 0;
     }
   }
+
+  .alpheios-panel__tab__inflections {
+    h1 {
+      margin-bottom: 0!important;
+    }
+    .alpheios-inflections__forms-cont {
+      margin-bottom: 0;
+    }
+  }
 </style>
