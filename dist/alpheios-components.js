@@ -15224,8 +15224,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /*
   This is a mobile version of a panel
@@ -23848,11 +23846,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("morphology") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('morphology') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("morphology"),
+                expression: "$store.getters['ui/isActiveTab']('morphology')"
               }
             ],
             staticClass: "alpheios-panel__tab-panel"
@@ -24017,11 +24012,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("definitions") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('definitions') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("definitions"),
+                expression: "$store.getters['ui/isActiveTab']('definitions')"
               }
             ],
             staticClass:
@@ -24095,10 +24087,9 @@ var render = function() {
                 rawName: "v-show",
                 value:
                   _vm.$store.state.app.hasInflData &&
-                  _vm.$store.getters["ui/isActiveTab"]("inflections") &&
-                  !_vm.menuVisible,
+                  _vm.$store.getters["ui/isActiveTab"]("inflections"),
                 expression:
-                  "$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections') && !menuVisible"
+                  "$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections')"
               }
             ],
             staticClass:
@@ -24126,11 +24117,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("inflectionsbrowser") &&
-                  !_vm.menuVisible,
+                value: _vm.$store.getters["ui/isActiveTab"](
+                  "inflectionsbrowser"
+                ),
                 expression:
-                  "$store.getters['ui/isActiveTab']('inflectionsbrowser') && !menuVisible"
+                  "$store.getters['ui/isActiveTab']('inflectionsbrowser')"
               }
             ],
             staticClass:
@@ -24161,11 +24152,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("grammar") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('grammar') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("grammar"),
+                expression: "$store.getters['ui/isActiveTab']('grammar')"
               }
             ],
             staticClass:
@@ -24184,11 +24172,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value:
-                      _vm.$store.getters["ui/isActiveTab"]("treebank") &&
-                      !_vm.menuVisible,
-                    expression:
-                      "$store.getters['ui/isActiveTab']('treebank') && !menuVisible"
+                    value: _vm.$store.getters["ui/isActiveTab"]("treebank"),
+                    expression: "$store.getters['ui/isActiveTab']('treebank')"
                   }
                 ],
                 staticClass:
@@ -24207,11 +24192,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("status") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('status') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("status"),
+                expression: "$store.getters['ui/isActiveTab']('status')"
               }
             ],
             staticClass:
@@ -24236,11 +24218,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value:
-                      _vm.$store.getters["ui/isActiveTab"]("user") &&
-                      !_vm.menuVisible,
-                    expression:
-                      "$store.getters['ui/isActiveTab']('user') && !menuVisible"
+                    value: _vm.$store.getters["ui/isActiveTab"]("user"),
+                    expression: "$store.getters['ui/isActiveTab']('user')"
                   }
                 ],
                 staticClass:
@@ -24259,11 +24238,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("wordUsage") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("wordUsage"),
+                expression: "$store.getters['ui/isActiveTab']('wordUsage')"
               }
             ],
             staticClass: "alpheios-panel__tab-panel"
@@ -24279,11 +24255,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("options") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('options') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("options"),
+                expression: "$store.getters['ui/isActiveTab']('options')"
               }
             ],
             staticClass:
@@ -24472,11 +24445,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value:
-                  _vm.$store.getters["ui/isActiveTab"]("wordlist") &&
-                  !_vm.menuVisible,
-                expression:
-                  "$store.getters['ui/isActiveTab']('wordlist') && !menuVisible"
+                value: _vm.$store.getters["ui/isActiveTab"]("wordlist"),
+                expression: "$store.getters['ui/isActiveTab']('wordlist')"
               }
             ],
             staticClass:
@@ -24488,16 +24458,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("notification-area", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.menuVisible,
-            expression: "!menuVisible"
-          }
-        ]
-      })
+      _c("notification-area")
     ],
     1
   )

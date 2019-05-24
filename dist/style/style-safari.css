@@ -2995,7 +2995,10 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel.alpheios-panel--expanded .alpheios-panel__header {
   border-radius: 0 !important;
 }
-.alpheios-panel__tab__inflections h1, .alpheios-panel__tab__inflections .alpheios-inflections__forms-cont {
+.alpheios-panel__tab__inflections h1 {
+  margin-bottom: 0 !important;
+}
+.alpheios-panel__tab__inflections .alpheios-inflections__forms-cont {
   margin-bottom: 0 !important;
 }
 /*

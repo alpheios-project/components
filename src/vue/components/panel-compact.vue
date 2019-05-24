@@ -106,7 +106,7 @@
     <div class="alpheios-panel__content">
       <div
           class="alpheios-panel__tab-panel"
-          v-show="$store.getters['ui/isActiveTab']('morphology') && !menuVisible">
+          v-show="$store.getters['ui/isActiveTab']('morphology')">
 
         <div class="alpheios-popup__definitions--placeholder"
              v-if="$store.getters['app/lexicalRequestInProgress'] && Boolean(this.$store.state.app.currentLanguageName)">
@@ -147,7 +147,7 @@
 
       <div
           class="alpheios-panel__tab-panel alpheios-panel__tab__definitions"
-          v-show="$store.getters['ui/isActiveTab']('definitions') && !menuVisible"
+          v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
       >
         <div class="alpheios-lookup__panel">
@@ -178,7 +178,7 @@
       <div
           :id="inflectionsPanelID"
           class="alpheios-panel__tab-panel alpheios-panel__tab__inflections"
-          v-show="$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections') && !menuVisible"
+          v-show="$store.state.app.hasInflData && $store.getters['ui/isActiveTab']('inflections')"
           data-alpheios-ignore="all"
       >
         <h1
@@ -190,7 +190,7 @@
       </div>
 
       <div :id="inflectionsBrowserPanelID" class="alpheios-panel__tab-panel alpheios-panel__tab__inflectionsbrowser"
-           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser') && !menuVisible"
+           v-show="$store.getters['ui/isActiveTab']('inflectionsbrowser')"
            data-alpheios-ignore="all">
         <h1
             class="alpheios-panel__title"
@@ -203,18 +203,18 @@
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__grammar
             alpheios-panel__tab-panel--no-padding"
            data-alpheios-ignore="all"
-           v-show="$store.getters['ui/isActiveTab']('grammar') && !menuVisible">
+           v-show="$store.getters['ui/isActiveTab']('grammar')">
         <grammar></grammar>
       </div>
 
       <div
           class="alpheios-panel__tab-panel alpheios-panel__tab__treebank alpheios-panel__tab-panel--no-padding"
-          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank') && !menuVisible"
+          v-if="$store.getters['app/hasTreebankData']" v-show="$store.getters['ui/isActiveTab']('treebank')"
           data-alpheios-ignore="all">
         <treebank/>
       </div>
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__status"
-           v-show="$store.getters['ui/isActiveTab']('status') && !menuVisible"
+           v-show="$store.getters['ui/isActiveTab']('status')"
            data-alpheios-ignore="all">
         <!-- Messages to be displayed in a status panel -->
         <div v-for="message in $store.state.ui.messages">
@@ -223,20 +223,20 @@
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__user"
-           v-if="$store.state.auth.enableLogin" v-show="$store.getters['ui/isActiveTab']('user') && !menuVisible"
+           v-if="$store.state.auth.enableLogin" v-show="$store.getters['ui/isActiveTab']('user')"
            data-alpheios-ignore="all">
         <user-auth></user-auth>
       </div>
 
       <div
           class="alpheios-panel__tab-panel"
-          v-show="$store.getters['ui/isActiveTab']('wordUsage') && !menuVisible"
+          v-show="$store.getters['ui/isActiveTab']('wordUsage')"
       >
         <word-usage-examples/>
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab-panel--options"
-           v-show="$store.getters['ui/isActiveTab']('options') && !menuVisible"
+           v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
         <!-- This extra container element is required for iOS browsers so that the flex option items will have height to match their content -->
@@ -358,16 +358,14 @@
       </div>
 
       <div class="alpheios-panel__tab-panel alpheios-panel__tab__wordlist"
-           v-show="$store.getters['ui/isActiveTab']('wordlist') && !menuVisible"
+           v-show="$store.getters['ui/isActiveTab']('wordlist')"
            data-alpheios-ignore="all"
       >
         <word-list-panel/>
       </div>
     </div>
 
-    <notification-area
-      v-show="!menuVisible"
-    />
+    <notification-area />
   </div>
 </template>
 <script>
