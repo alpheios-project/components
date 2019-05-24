@@ -512,10 +512,7 @@ export default {
     },
     showMainTabIcons () {
       let mainTabArray = ['morphology', 'definitions', 'inflections', 'wordUsage', 'treebank']
-      if (mainTabArray.includes(this.currentTab)) {
-        return true
-      }
-      return false
+      return mainTabArray.includes(this.currentTab)
     },
     rootClasses () {
       let classes = []
