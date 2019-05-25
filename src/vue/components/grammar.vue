@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-grammar">
+  <div class="alpheios-grammar" :class="{ 'alpheios-has-notification': showNotification || showLoginNotification }">
     <div class="alpheios-grammar__frame-cont" v-if="this.hasGrammarResUrl">
       <iframe :src="$store.state.app.grammarRes.url" class="alpheios-grammar__frame" scrolling="yes"></iframe>
     </div>
@@ -12,7 +12,7 @@ import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 export default {
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app'],
+  storeModules: ['app', 'ui'],
   mixins: [DependencyCheck],
   computed: {
     hasGrammarResUrl: function () {
@@ -25,12 +25,24 @@ export default {
 
     grammarProvider: function () {
       return this.hasGrammarProvider ? this.$store.state.app.grammarRes.provider.toString() : ''
+    },
+
+    showNotification () {
+      return this.$store.state.ui.notification.visible && this.$store.state.ui.notification.important
+    },
+
+    showLoginNotification () {
+      return Boolean(
+        this.$store.state.auth.notification.visible &&
+        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
+      )
     }
   }
 }
 </script>
 <style lang="scss">
-  @import "../../styles/variables";
+  @import 
+  "../../styles/variables";
 
   .alpheios-grammar {
     display: flex;
@@ -52,6 +64,11 @@ export default {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     height: 85vh;
+  }
+
+  .alpheios-has-notification 
+  .alpheios-grammar__frame-cont {
+    height: 80vh;
   }
 
   .alpheios-grammar__frame {

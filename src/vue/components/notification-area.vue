@@ -1,6 +1,6 @@
 <template>
   <div
-    class="alpheios-notification-area"
+    class="alpheios-notification-area test-ira"
   >
     <div
         class="alpheios-notification-area__notification"

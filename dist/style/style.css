@@ -2110,6 +2110,9 @@ h3.alpheios-inflections__credits-title {
   overflow-y: auto;
   height: 85vh;
 }
+.alpheios-has-notification .alpheios-grammar__frame-cont {
+  height: 80vh;
+}
 .alpheios-grammar__frame {
   position: absolute;
   top: 0;

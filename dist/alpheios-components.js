@@ -11192,7 +11192,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app'],
+  storeModules: ['app', 'ui'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   computed: {
     hasGrammarResUrl: function () {
@@ -11205,6 +11205,17 @@ __webpack_require__.r(__webpack_exports__);
 
     grammarProvider: function () {
       return this.hasGrammarProvider ? this.$store.state.app.grammarRes.provider.toString() : ''
+    },
+
+    showNotification () {
+      return this.$store.state.ui.notification.visible && this.$store.state.ui.notification.important
+    },
+
+    showLoginNotification () {
+      return Boolean(
+        this.$store.state.auth.notification.visible &&
+        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
+      )
     }
   }
 });
@@ -18529,35 +18540,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-grammar" }, [
-    this.hasGrammarResUrl
-      ? _c("div", { staticClass: "alpheios-grammar__frame-cont" }, [
-          _c("iframe", {
-            staticClass: "alpheios-grammar__frame",
-            attrs: {
-              src: _vm.$store.state.app.grammarRes.url,
-              scrolling: "yes"
+  return _c(
+    "div",
+    {
+      staticClass: "alpheios-grammar",
+      class: {
+        "alpheios-has-notification":
+          _vm.showNotification || _vm.showLoginNotification
+      }
+    },
+    [
+      this.hasGrammarResUrl
+        ? _c("div", { staticClass: "alpheios-grammar__frame-cont" }, [
+            _c("iframe", {
+              staticClass: "alpheios-grammar__frame",
+              attrs: {
+                src: _vm.$store.state.app.grammarRes.url,
+                scrolling: "yes"
+              }
+            })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: this.hasGrammarProvider,
+              expression: "this.hasGrammarProvider"
             }
-          })
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: this.hasGrammarProvider,
-            expression: "this.hasGrammarProvider"
-          }
-        ],
-        staticClass: "alpheios-grammar__provider"
-      },
-      [_vm._v(_vm._s(_vm.grammarProvider))]
-    )
-  ])
+          ],
+          staticClass: "alpheios-grammar__provider"
+        },
+        [_vm._v(_vm._s(_vm.grammarProvider))]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23357,7 +23378,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-notification-area" }, [
+  return _c("div", { staticClass: "alpheios-notification-area test-ira" }, [
     _c(
       "div",
       {
