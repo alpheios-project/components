@@ -12,7 +12,7 @@ import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 export default {
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app', 'ui'],
+  storeModules: ['app', 'ui', 'auth'],
   mixins: [DependencyCheck],
   computed: {
     hasGrammarResUrl: function () {

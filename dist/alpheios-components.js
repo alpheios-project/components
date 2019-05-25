@@ -11192,7 +11192,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app', 'ui'],
+  storeModules: ['app', 'ui', 'auth'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   computed: {
     hasGrammarResUrl: function () {
