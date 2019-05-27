@@ -12,7 +12,7 @@ import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 export default {
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app', 'ui', 'auth'],
+  storeModules: ['app'],
   mixins: [DependencyCheck],
   computed: {
     hasGrammarResUrl: function () {
@@ -25,13 +25,6 @@ export default {
 
     grammarProvider: function () {
       return this.hasGrammarProvider ? this.$store.state.app.grammarRes.provider.toString() : ''
-    },
-
-    showLoginNotification () {
-      return Boolean(
-        this.$store.state.auth.notification.visible &&
-        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
-      )
     }
   }
 }
@@ -48,7 +41,6 @@ export default {
   .alpheios-grammar__provider {
     flex: none;
     font-weight: normal;
-
     padding: 20px 25px 20px;
     font-size: 80%;
   }

@@ -39,16 +39,6 @@ describe('grammar.test.js', () => {
           state: {
             grammarRes: {}
           }
-        },
-        ui: {
-          state: {
-            notification: {}
-          }
-        },
-        auth: {
-          state: {
-            notification: {}
-          }
         }
       }
     })
@@ -85,16 +75,6 @@ describe('grammar.test.js', () => {
               return state.grammarRes !== null
             }
           }
-        },
-        ui: {
-          state: {
-            notification: {}
-          }
-        },
-        auth: {
-          state: {
-            notification: {}
-          }
         }
       }
     })
@@ -128,16 +108,6 @@ describe('grammar.test.js', () => {
             hasGrammarRes (state) {
               return state.grammarRes !== null
             }
-          }
-        },
-        ui: {
-          state: {
-            notification: {}
-          }
-        },
-        auth: {
-          state: {
-            notification: {}
           }
         }
       }

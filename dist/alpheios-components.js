@@ -11258,7 +11258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Grammar',
   inject: ['l10n'],
-  storeModules: ['app', 'ui', 'auth'],
+  storeModules: ['app'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   computed: {
     hasGrammarResUrl: function () {
@@ -11271,13 +11271,6 @@ __webpack_require__.r(__webpack_exports__);
 
     grammarProvider: function () {
       return this.hasGrammarProvider ? this.$store.state.app.grammarRes.provider.toString() : ''
-    },
-
-    showLoginNotification () {
-      return Boolean(
-        this.$store.state.auth.notification.visible &&
-        (this.$store.state.auth.notification.count === 1 || this.$store.state.auth.notification.count % 10 === 0)
-      )
     }
   }
 });
