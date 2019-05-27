@@ -18230,6 +18230,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -27536,7 +27537,8 @@ var render = function() {
                                 "alpheios-word-usage__examples-source-link-compact",
                               attrs: {
                                 href: wordUsageItem.source,
-                                target: "_blank"
+                                target: "_blank",
+                                "data-alpheios-ignore": "all"
                               }
                             },
                             [

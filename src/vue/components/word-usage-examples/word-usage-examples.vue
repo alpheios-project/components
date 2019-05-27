@@ -59,6 +59,7 @@
                 :href="wordUsageItem.source"
                 target="_blank"
                 v-show="showDataSource"
+                data-alpheios-ignore="all"
             >
               {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
             </a>
