@@ -166,14 +166,12 @@ export default {
       if (this.typeFilter === 'noFilters') {
         this.disabledButton = true
 
-        this.$emit('getAllResults')
-
         if (this.noMoreResults && this.lastAuthorsList.length > 0) {
           this.removeFiltersFromResults()
         } else {
           await this.getResultsNoFilters()
         }
-
+        this.$emit('getAllResults')
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'

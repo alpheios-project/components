@@ -17972,14 +17972,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.typeFilter === 'noFilters') {
         this.disabledButton = true
 
-        this.$emit('getAllResults')
-
         if (this.noMoreResults && this.lastAuthorsList.length > 0) {
           this.removeFiltersFromResults()
         } else {
           await this.getResultsNoFilters()
         }
-
+        this.$emit('getAllResults')
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'
@@ -18264,10 +18262,13 @@ __webpack_require__.r(__webpack_exports__);
     language () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
+    showHeaderFilters () {
+      return this.$store.state.app.wordUsageExamplesReady
+    },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
-             !this.showWordUsageExampleItems
+             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0  ||
+             !this.$store.state.app.wordUsageExamplesReady
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
@@ -27374,9 +27375,9 @@ var render = function() {
       },
       [
         _vm._v(
-          _vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")\n    ("
+          _vm._s(_vm.targetWord) + " (" + _vm._s(_vm.language) + ")\n    "
         ),
-        _vm.showHeader
+        _vm.showHeaderFilters
           ? _c(
               "span",
               {
@@ -27387,10 +27388,9 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v(_vm._s(_vm.collapsedHeaderTitle))]
+              [_vm._v(" (" + _vm._s(_vm.collapsedHeaderTitle) + ")")]
             )
-          : _vm._e(),
-        _vm._v(")\n  ")
+          : _vm._e()
       ]
     ),
     _vm._v(" "),
