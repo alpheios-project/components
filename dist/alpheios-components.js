@@ -17861,6 +17861,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -27076,6 +27078,7 @@ var render = function() {
               {
                 key: authorIndex,
                 class: { "alpheios-select-disabled-option": !authorItem },
+                attrs: { disabled: !authorItem },
                 domProps: { value: authorItem }
               },
               [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
@@ -27158,6 +27161,7 @@ var render = function() {
                   {
                     key: workIndex,
                     class: { "alpheios-select-disabled-option": !workItem },
+                    attrs: { disabled: !workItem },
                     domProps: { value: workItem }
                   },
                   [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
