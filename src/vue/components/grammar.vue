@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-grammar" :class="{ 'alpheios-has-notification': showNotification || showLoginNotification }">
+  <div class="alpheios-grammar">
     <div class="alpheios-grammar__frame-cont" v-if="this.hasGrammarResUrl">
       <iframe :src="$store.state.app.grammarRes.url" class="alpheios-grammar__frame" scrolling="yes"></iframe>
     </div>
@@ -25,10 +25,6 @@ export default {
 
     grammarProvider: function () {
       return this.hasGrammarProvider ? this.$store.state.app.grammarRes.provider.toString() : ''
-    },
-
-    showNotification () {
-      return this.$store.state.ui.notification.visible && this.$store.state.ui.notification.important
     },
 
     showLoginNotification () {
@@ -62,12 +58,7 @@ export default {
     position: relative;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
-    height: 85vh;
-  }
-
-  .alpheios-has-notification 
-  .alpheios-grammar__frame-cont {
-    height: 80vh;
+    flex-direction: column;
   }
 
   .alpheios-grammar__frame {
