@@ -2915,6 +2915,9 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel__contentitem {
   margin-bottom: 1em;
 }
+.alpheios-panel__tab__word-usage {
+  width: 100%;
+}
 .alpheios-panel__tab-panel--options {
   display: block;
 }

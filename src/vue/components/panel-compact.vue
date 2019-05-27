@@ -12,7 +12,7 @@
     <div class="alpheios-panel__header" :data-tab="currentTab">
       <div class="alpheios-panel__header-btn-group--start" >
         <div class="alpheios-panel__header-btn">
-          <morphology-icon @click="changeTab('morphology')" class="alpheios-navbuttons__icon" 
+          <morphology-icon @click="changeTab('morphology')" class="alpheios-navbuttons__icon"
             v-show="$store.state.app.morphDataReady && app.hasMorphData() && showMainTabIcons"
             :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'morphology' }"
           />
@@ -23,45 +23,45 @@
         >
           <definitions-icon @click="changeTab('definitions')" class="alpheios-navbuttons__icon" />
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
            v-show="$store.state.app.hasInflData && showMainTabIcons"
            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'inflections' }"
         >
           <inflections-icon @click="changeTab('inflections')" class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
            v-show="$store.state.app.wordUsageExampleEnabled && showMainTabIcons"
            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'wordUsage' }"
         >
           <word-usage-icon @click="changeTab('wordUsage')" class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
            v-show="$store.getters['app/hasTreebankData'] && showMainTabIcons"
            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'treebank' }"
         >
           <treebank-icon @click="changeTab('treebank')" class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
           v-show="currentTab === 'inflectionsbrowser'"
         >
           <inflections-browser-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
           v-show="currentTab === 'grammar'"
         >
           <grammar-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
           v-show="currentTab === 'wordlist'"
         >
           <wordlist-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
           v-show="currentTab === 'user'"
         >
           <user-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
         </div>
-        <div class="alpheios-panel__header-btn" 
+        <div class="alpheios-panel__header-btn"
           v-show="currentTab === 'options'"
         >
           <options-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
@@ -235,7 +235,7 @@
       </div>
 
       <div
-          class="alpheios-panel__tab-panel"
+          class="alpheios-panel__tab-panel alpheios-panel__tab__word-usage"
           v-show="$store.getters['ui/isActiveTab']('wordUsage')"
       >
         <word-usage-examples/>
@@ -920,6 +920,10 @@ export default {
 
   .alpheios-panel__contentitem {
     margin-bottom: 1em;
+  }
+
+  .alpheios-panel__tab__word-usage {
+    width: 100%;
   }
 
   .alpheios-panel__tab-panel--options {
