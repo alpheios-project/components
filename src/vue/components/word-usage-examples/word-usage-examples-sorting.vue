@@ -7,7 +7,7 @@
         <select class="alpheios-select alpheios-word-usage-header-select-sortBy"
                 v-model="selectedSortBy" @change="changedSortBy">
           <option v-for="typeSorting in typeSortingList" v-bind:key="typeSorting.value"
-                  v-bind:value="typeSorting.value"
+                  v-bind:value="typeSorting.value" v-bind:disabled="typeSorting.disabled"
                   :class='{ "alpheios-select-disabled-option": typeSorting.disabled }'
                   >{{ typeSorting.title }}</option>
         </select>
