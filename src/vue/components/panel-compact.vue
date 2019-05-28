@@ -828,7 +828,7 @@ export default {
     }
 
     &:active,
-    .alpheios-navbuttons__icon-active {
+    &.alpheios-navbuttons__icon-active {
       fill: var(--alpheios-color-bright-pressed);
       stroke: var(--alpheios-color-bright-pressed);
     }

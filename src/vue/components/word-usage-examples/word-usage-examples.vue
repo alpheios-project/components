@@ -167,6 +167,7 @@ export default {
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
       this.needInnerFilter = true
+      this.collapsedHeader = true
     },
     getMoreResults (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)

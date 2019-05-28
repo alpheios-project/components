@@ -18322,6 +18322,7 @@ __webpack_require__.r(__webpack_exports__);
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
       this.needInnerFilter = true
+      this.collapsedHeader = true
     },
     getMoreResults (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
