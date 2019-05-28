@@ -13220,7 +13220,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/queries/lexical-query-lookup */ "./lib/queries/lexical-query-lookup.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
+/* harmony import */ var _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/lookup.svg */ "./images/inline-icons/lookup.svg");
+/* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
 //
 //
 //
@@ -13274,6 +13275,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -13285,7 +13288,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
   components: {
-    alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    lookupIcon: _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data () {
     return {
@@ -14921,7 +14925,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @/images/inline-icons/sitemap.svg */ "./images/inline-icons/sitemap.svg");
 /* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
 //
 //
 //
@@ -18322,6 +18325,7 @@ __webpack_require__.r(__webpack_exports__);
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
       this.needInnerFilter = true
+      this.collapsedHeader = true
     },
     getMoreResults (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
@@ -18331,7 +18335,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedAuthor = null
       this.selectedTextWork = null
       this.needInnerFilter = false
-      this.collapsedHeader = false
+      this.collapsedHeader = true
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
@@ -21498,10 +21502,20 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.l10n.getMsg("LABEL_LOOKUP_BUTTON")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-lookup__search-control-label" },
+                    [_vm._v(_vm._s(_vm.l10n.getMsg("LABEL_LOOKUP_BUTTON")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-lookup__search-control-icon alpheios-navbuttons__btn"
+                    },
+                    [_c("lookup-icon")],
+                    1
                   )
                 ]
               )
@@ -23586,7 +23600,13 @@ var render = function() {
             [
               _c(
                 "div",
-                { staticClass: "alpheios-panel__header-btn" },
+                {
+                  staticClass: "alpheios-panel__header-btn",
+                  class: {
+                    "alpheios-navbuttons__icon-active":
+                      _vm.currentTab === "morphology"
+                  }
+                },
                 [
                   _c("morphology-icon", {
                     directives: [
@@ -23602,10 +23622,6 @@ var render = function() {
                       }
                     ],
                     staticClass: "alpheios-navbuttons__icon",
-                    class: {
-                      "alpheios-navbuttons__icon-active":
-                        _vm.currentTab === "morphology"
-                    },
                     on: {
                       click: function($event) {
                         return _vm.changeTab("morphology")
@@ -23759,12 +23775,12 @@ var render = function() {
                       expression: "currentTab === 'inflectionsbrowser'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("inflections-browser-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23781,12 +23797,12 @@ var render = function() {
                       expression: "currentTab === 'grammar'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("grammar-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23803,12 +23819,12 @@ var render = function() {
                       expression: "currentTab === 'wordlist'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("wordlist-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23825,14 +23841,10 @@ var render = function() {
                       expression: "currentTab === 'user'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
-                [
-                  _c("user-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
-                  })
-                ],
+                [_c("user-icon", { staticClass: "alpheios-navbuttons__icon" })],
                 1
               ),
               _vm._v(" "),
@@ -23847,12 +23859,12 @@ var render = function() {
                       expression: "currentTab === 'options'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("options-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -24131,7 +24143,10 @@ var render = function() {
           [
             _c(
               "div",
-              { staticClass: "alpheios-lookup__panel" },
+              {
+                staticClass: "alpheios-lookup__panel",
+                class: { "alpheios-landscape": _vm.isLandscape }
+              },
               [
                 _c("lookup", {
                   attrs: {
@@ -27311,6 +27326,7 @@ var render = function() {
                   class: {
                     "alpheios-select-disabled-option": typeSorting.disabled
                   },
+                  attrs: { disabled: typeSorting.disabled },
                   domProps: { value: typeSorting.value }
                 },
                 [_vm._v(_vm._s(typeSorting.title))]
@@ -41237,7 +41253,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -41437,7 +41453,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 25 21"}, attrs),
               ...rest,
             },
-            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005","stroke-width":".794"}})])])
+            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])
           )
         }
       });
@@ -41477,7 +41493,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}})])
+            children.concat([_c('path',{attrs:{"d":"M12.13 11.59c-.16 1.25-1.78 2.53-3.03 2.57-2.93.04.79-4.7-.36-5.79.56-.21 1.88-.54 1.88.44 0 .82-.5 1.74-.74 2.51-1.22 3.84 2.25-.17 2.26-.14.02.03.02.17-.01.41-.05.36.03-.24 0 0zm-.57-5.92c0 1-2.2 1.48-2.2.36 0-1.03 2.2-1.49 2.2-.36z"}}),_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}})])
           )
         }
       });
@@ -41757,7 +41773,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -48000,7 +48016,7 @@ module.exports = {"Number":{"message":"Number"},"Case":{"message":"Case"},"Decle
 /*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, WORDLIST_FILTER_PLACEHOLDER, default */
 /***/ (function(module) {
 
-module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"by this session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BYIMPORTANT":{"message":"by important","description":"Filter only those words that has an important flag","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL":{"message":"by exact form","description":"Filter only those words that has this word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART":{"message":"by word form (part)","description":"Filter only those words that has this part of word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL":{"message":"by lemma","description":"Filter only those words that has this lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART":{"message":"by lemma (part)","description":"Filter only those words that has this part of lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER":{"message":"type exact form here","description":"Placeholder for the text input for filter by word form (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER":{"message":"type lemma here","description":"Placeholder for the text input for filter by lemma (full)","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_FILTER":{"message":"Filter","description":"Tooltip for filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"},"WORDLIST_FILTER_PLACEHOLDER":{"message":"Select a filter","description":"Placeholder for filter selection","component":"WordFilterPanel"}};
+module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all important ","description":"Make all words inside language block important","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_NO_IMPORTANT":{"message":"Remove all important ","description":"Remove important mark from all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_REMOVE_ALL":{"message":"Remove all word items","description":"Remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CHANGE_IMPORTANT":{"message":"Change important status","description":"Change important status for the WordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_REMOVE":{"message":"Remove word item","description":"Remove the WordItem form the list","component":"WordItemPanel"},"WORDLIST_TOOLTIP_TEXT_CONTEXT":{"message":"Show contexts","description":"Show panle with contexts for the wordItem","component":"WordItemPanel"},"WORDLIST_TOOLTIP_BACK":{"message":"Back to word list","description":"Back to the WordList Tab","component":"WordContextPanel"},"WORDLIST_DELETE_CONFIRM_MESSAGE":{"message":"Do you really want to delete all word items from the list?","description":"Delete all confirmation message","component":"WordLanguagePanel"},"WORDLIST_BUTTON_DELETE":{"message":"Delete","description":"Button title for delete all","component":"WordLanguagePanel"},"WORDLIST_BUTTON_CANCEL_DELETE":{"message":"Cancel","description":"Button title for cancel delete all","component":"WordLanguagePanel"},"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL":{"message":"Cancel remove all word items","description":"Cancel remove all words inside language block","component":"WordLanguagePanel"},"WORDLIST_FILTER_BYCURRENTSESSION":{"message":"by this session","description":"Filter only those words that were selected in the current session","component":"WordFilterPanel"},"WORDLIST_FILTER_BYIMPORTANT":{"message":"by important","description":"Filter only those words that has an important flag","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL":{"message":"by exact word","description":"Filter only those words that has this word word","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_PART":{"message":"by word form (part)","description":"Filter only those words that has this part of word form","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL":{"message":"by lemma","description":"Filter only those words that has this lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_PART":{"message":"by lemma (part)","description":"Filter only those words that has this part of lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER":{"message":"type exact word here","description":"Placeholder for the text input for filter by word","component":"WordFilterPanel"},"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER":{"message":"type lemma here","description":"Placeholder for the text input for filter by lemma","component":"WordFilterPanel"},"WORDLIST_FILTER_BY":{"message":"Filter by","description":"Filter by label on the panel","component":"WordFilterPanel"},"WORDLIST_FILTER_CLEAR":{"message":"Clear filter by","description":"Tooltip for clear filter icon","component":"WordFilterPanel"},"WORDLIST_FILTER":{"message":"Filter","description":"Tooltip for filter icon","component":"WordFilterPanel"},"WORDLIST_CURRENT_SESSION":{"message":"Added in the current session","description":"Icon indicates, thats it was retrieved durent the current session","component":"WordItemPanel"},"WORDLIST_FILTER_PLACEHOLDER":{"message":"Select a filter","description":"Placeholder for filter selection","component":"WordFilterPanel"}};
 
 /***/ }),
 
