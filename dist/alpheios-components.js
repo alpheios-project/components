@@ -15555,11 +15555,13 @@ __webpack_require__.r(__webpack_exports__);
     squeezePage () {
       let propName = this.isAttachedToRight ? 'padding-right' : 'padding-left'
       document.documentElement.style.setProperty(propName, '50%')
+      document.body.classList.add('alpheios-layout-landscape-open-panel')
     },
 
     unsqueezePage () {
       document.documentElement.style.removeProperty('padding-left')
       document.documentElement.style.removeProperty('padding-right')
+      document.body.classList.remove('alpheios-layout-landscape-open-panel')
     },
 
     contentOptionChanged: function (name, value) {
