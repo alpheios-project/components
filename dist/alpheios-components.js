@@ -13220,7 +13220,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/queries/lexical-query-lookup */ "./lib/queries/lexical-query-lookup.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! alpheios-data-models */ "alpheios-data-models");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
+/* harmony import */ var _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/lookup.svg */ "./images/inline-icons/lookup.svg");
+/* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
 //
 //
 //
@@ -13274,6 +13275,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -13285,7 +13288,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
   components: {
-    alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    lookupIcon: _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data () {
     return {
@@ -21498,10 +21502,20 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.l10n.getMsg("LABEL_LOOKUP_BUTTON")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-lookup__search-control-label" },
+                    [_vm._v(_vm._s(_vm.l10n.getMsg("LABEL_LOOKUP_BUTTON")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-lookup__search-control-icon alpheios-navbuttons__btn"
+                    },
+                    [_c("lookup-icon")],
+                    1
                   )
                 ]
               )
@@ -24129,7 +24143,10 @@ var render = function() {
           [
             _c(
               "div",
-              { staticClass: "alpheios-lookup__panel" },
+              {
+                staticClass: "alpheios-lookup__panel",
+                class: { "alpheios-landscape": _vm.isLandscape }
+              },
               [
                 _c("lookup", {
                   attrs: {

@@ -155,7 +155,7 @@
           v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
       >
-        <div class="alpheios-lookup__panel">
+        <div class="alpheios-lookup__panel" :class="{ 'alpheios-landscape': isLandscape }">
           <lookup
               :name-base="`panel-defs`"
               :show-results-in="`panel`"
