@@ -268,7 +268,7 @@
       }
 
       .alpheios-wordlist-header-input-filterBy-block {
-        margin-left: 2%;
+        margin-left: 1%;
       }
 
       .alpheios-wordlist-header-select-filterBy{
@@ -343,6 +343,23 @@
       }
     }
   }
-
+  .alpheios-layout-compact {
+    .alpheios-wordlist-filters {
+      padding: 10px 2px;
+    }
+    .alpheios-wordlist-header-select-filterBy-block {
+      width: 42%;
+    }
+    .alpheios-wordlist-header-select-filterBy,
+    .alpheios-wordlist-header-input-filterBy {
+      font-size: 85%;
+    }
+    .alpheios-wordlist-header-input-filterBy-block {
+      width: 52%;
+    }
+    .alpheios-select-input-group {
+      width: 68%;
+    }
+  }
   
 </style>

@@ -11,10 +11,9 @@
 
     <div class="alpheios-panel__header" :data-tab="currentTab">
       <div class="alpheios-panel__header-btn-group--start" >
-        <div class="alpheios-panel__header-btn">
+        <div class="alpheios-panel__header-btn" :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'morphology' }">
           <morphology-icon @click="changeTab('morphology')" class="alpheios-navbuttons__icon"
             v-show="$store.state.app.morphDataReady && app.hasMorphData() && showMainTabIcons"
-            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'morphology' }"
           />
         </div>
         <div class="alpheios-panel__header-btn"
@@ -41,30 +40,30 @@
         >
           <treebank-icon @click="changeTab('treebank')" class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn alpheios-navbuttons__icon-active"
           v-show="currentTab === 'inflectionsbrowser'"
         >
-          <inflections-browser-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
+          <inflections-browser-icon class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
           v-show="currentTab === 'grammar'"
         >
-          <grammar-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
+          <grammar-icon class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
           v-show="currentTab === 'wordlist'"
         >
-          <wordlist-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
+          <wordlist-icon class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn alpheios-navbuttons__icon-active"
           v-show="currentTab === 'user'"
         >
-          <user-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
+          <user-icon class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn alpheios-navbuttons__icon-active"
           v-show="currentTab === 'options'"
         >
-          <options-icon class="alpheios-navbuttons__icon alpheios-navbuttons__icon-active"/>
+          <options-icon class="alpheios-navbuttons__icon"/>
         </div>
       </div>
       <div class="alpheios-panel__header-btn-group--end">
@@ -156,7 +155,7 @@
           v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
       >
-        <div class="alpheios-lookup__panel">
+        <div class="alpheios-lookup__panel" :class="{ 'alpheios-landscape': isLandscape }">
           <lookup
               :name-base="`panel-defs`"
               :show-results-in="`panel`"
@@ -828,7 +827,7 @@ export default {
     }
 
     &:active,
-    .alpheios-navbuttons__icon-active {
+    &.alpheios-navbuttons__icon-active {
       fill: var(--alpheios-color-bright-pressed);
       stroke: var(--alpheios-color-bright-pressed);
     }
