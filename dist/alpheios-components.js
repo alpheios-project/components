@@ -15296,7 +15296,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /*
   This is a mobile version of a panel
@@ -23587,7 +23586,13 @@ var render = function() {
             [
               _c(
                 "div",
-                { staticClass: "alpheios-panel__header-btn" },
+                {
+                  staticClass: "alpheios-panel__header-btn",
+                  class: {
+                    "alpheios-navbuttons__icon-active":
+                      _vm.currentTab === "morphology"
+                  }
+                },
                 [
                   _c("morphology-icon", {
                     directives: [
@@ -23603,10 +23608,6 @@ var render = function() {
                       }
                     ],
                     staticClass: "alpheios-navbuttons__icon",
-                    class: {
-                      "alpheios-navbuttons__icon-active":
-                        _vm.currentTab === "morphology"
-                    },
                     on: {
                       click: function($event) {
                         return _vm.changeTab("morphology")
@@ -23760,12 +23761,12 @@ var render = function() {
                       expression: "currentTab === 'inflectionsbrowser'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("inflections-browser-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23782,12 +23783,12 @@ var render = function() {
                       expression: "currentTab === 'grammar'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("grammar-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23804,12 +23805,12 @@ var render = function() {
                       expression: "currentTab === 'wordlist'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("wordlist-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1
@@ -23826,14 +23827,10 @@ var render = function() {
                       expression: "currentTab === 'user'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
-                [
-                  _c("user-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
-                  })
-                ],
+                [_c("user-icon", { staticClass: "alpheios-navbuttons__icon" })],
                 1
               ),
               _vm._v(" "),
@@ -23848,12 +23845,12 @@ var render = function() {
                       expression: "currentTab === 'options'"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn"
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
                   _c("options-icon", {
-                    staticClass:
-                      "alpheios-navbuttons__icon alpheios-navbuttons__icon-active"
+                    staticClass: "alpheios-navbuttons__icon"
                   })
                 ],
                 1

@@ -2840,8 +2840,7 @@ h3.alpheios-inflections__credits-title {
   fill: var(--alpheios-color-bright-hover);
   stroke: var(--alpheios-color-bright-hover);
 }
-.alpheios-panel__header-btn:active,
-.alpheios-panel__header-btn .alpheios-navbuttons__icon-active {
+.alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
   fill: var(--alpheios-color-bright-pressed);
   stroke: var(--alpheios-color-bright-pressed);
 }
