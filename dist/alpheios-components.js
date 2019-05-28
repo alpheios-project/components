@@ -18331,7 +18331,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedAuthor = null
       this.selectedTextWork = null
       this.needInnerFilter = false
-      this.collapsedHeader = false
+      this.collapsedHeader = true
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
