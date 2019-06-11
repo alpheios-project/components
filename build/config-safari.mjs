@@ -1,4 +1,5 @@
-import VueLoaderPlugin from 'vue-loader/lib/plugin'
+import VueLoaderPlugin from '../node_modules/vue-loader/lib/plugin.js'
+
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import path from 'path'

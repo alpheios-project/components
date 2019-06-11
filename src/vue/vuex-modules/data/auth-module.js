@@ -73,6 +73,10 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance, store) => {
   return {
     session: () => {
+      if (!moduleInstance._auth) {
+        console.warn('Session unavailable - _auth is not defined')
+        return
+      }
       moduleInstance._auth.session().then((data) => {
         store.commit('auth/setIsAuthenticated', data)
       }).catch((error) => {
