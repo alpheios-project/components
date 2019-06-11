@@ -86,6 +86,10 @@ AuthModule.api = (moduleInstance, store) => {
       })
     },
     authenticate: () => {
+      if (!moduleInstance._auth) {
+        console.warn('Authenticate unavailable - _auth is not defined')
+        return
+      }
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate().then(() => {
         return moduleInstance._auth.getProfileData()
@@ -101,6 +105,10 @@ AuthModule.api = (moduleInstance, store) => {
       })
     },
     logout: () => {
+      if (!moduleInstance._auth) {
+        console.warn('Logout unavailable - _auth is not defined')
+        return
+      }
       moduleInstance._auth.logout().then(() => {
         store.commit('auth/setIsNotAuthenticated')
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
