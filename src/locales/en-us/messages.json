@@ -580,12 +580,12 @@
     "component": "WordUsageExamplesFilters"
   },
   "WORDUSAGE_SORT_BY_PREFIX": {
-    "message": "By prefix",
+    "message": "By preceding word",
     "description": "Word Usage Examples Sort by prefix",
     "component": "WordUsageExamplesHeader"
   },
   "WORDUSAGE_SORT_BY_SUFFIX": {
-    "message": "By suffix",
+    "message": "By following word",
     "description": "Word Usage Examples Sort by suffix",
     "component": "WordUsageExamplesHeader"
   },
