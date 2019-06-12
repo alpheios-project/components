@@ -130,6 +130,7 @@ export default {
         this.selectedTextWork = null
         this.lastAuthorsList = []
         this.lastTextWorksList = []
+        this.lastTargetWord = null
       }
       return true
     },
