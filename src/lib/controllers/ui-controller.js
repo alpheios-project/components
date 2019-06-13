@@ -48,6 +48,11 @@ const injectionClasses = {
   DISABLE_TEXT_SELECTION: 'alpheios-disable-user-selection'
 }
 
+const tabs = {
+  DEFAULT: 'info',
+  DISABLED: 'disabled'
+}
+
 // Enable Vuex
 Vue.use(Vuex)
 
@@ -86,7 +91,6 @@ export default class UIController {
     this.resourceOptions = null
     this.uiOptions = null
     this.siteOptions = null // Will be set during an `init` phase
-    this.defaultTab = 'info'
 
     this.irregularBaseFontSize = !UIController.hasRegularBaseFontSize()
     this.isInitialized = false
@@ -368,7 +372,7 @@ export default class UIController {
       version: this.options.app.version, // An application's version
       platform: this.platform,
       mode: this.options.mode, // Mode of an application: `production` or `development`
-      defaultTab: this.defaultTab, // A name of a default tab (a string)
+      defaultTab: tabs.DEFAULT, // A name of a default tab (a string)
       state: this.state, // An app-level state
       homonym: null,
       inflectionsViewSet: null,
@@ -652,7 +656,7 @@ export default class UIController {
       namespaced: true,
 
       state: {
-        activeTab: this.defaultTab, // A currently selected panel's tab
+        activeTab: tabs.DEFAULT, // A currently selected panel's tab
 
         messages: [],
         // Panel and popup notifications
@@ -675,9 +679,9 @@ export default class UIController {
           state.activeTab = tabName
         },
 
-        // Set active tab name to nothing when panel is closed so that no selected tab be shown in a toolbar
+        // Set active tab name to `disabled` when panel is closed so that no selected tab be shown in a toolbar
         resetActiveTab (state) {
-          state.activeTab = ''
+          state.activeTab = tabs.DISABLED
         },
 
         setNotification (state, data) {
@@ -796,7 +800,7 @@ export default class UIController {
 
     if (this.state.tab) {
       if (this.state.isTabStateDefault()) {
-        this.state.tab = this.defaultTab
+        this.state.tab = tabs.DEFAULT
       }
       this.changeTab(this.state.tab)
     }
@@ -833,7 +837,9 @@ export default class UIController {
 
     this.isActivated = false
     this.isDeactivated = true
-    this.authUnwatch()
+    if (this.authUnwatch) {
+      this.authUnwatch()
+    }
     this.state.deactivate()
 
     return this
@@ -971,7 +977,7 @@ export default class UIController {
     // If tab is disabled, switch to a default one
     if (this.isDisabledTab(tabName)) {
       console.warn(`Attempting to switch to a ${tabName} tab which is not available`)
-      tabName = this.defaultTab
+      tabName = tabs.DEFAULT
     }
     this.store.commit('ui/setActiveTab', tabName) // Reflect a tab change in a state
     // This is for compatibility with watchers in webextension that track tab changes
@@ -1151,6 +1157,10 @@ export default class UIController {
   openPanel (forceOpen = false) {
     if (this.api.ui.hasModule('panel')) {
       if (forceOpen || !this.state.isPanelOpen()) {
+        // If an active tab has been disabled previously, set it to a default one
+        if (this.store.getters['ui/isActiveTab'](tabs.DISABLED)) {
+          this.changeTab(tabs.DEFAULT)
+        }
         this.store.commit('panel/open')
         this.state.setPanelOpen()
       }
