@@ -2538,8 +2538,8 @@ h3.alpheios-inflections__credits-title {
   vertical-align: middle !important;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon {
-  width: 15px !important;
-  height: 15px !important;
+  width: 25px !important;
+  height: 25px !important;
   text-align: center !important;
   cursor: pointer !important;
   fill: var(--alpheios-link-color-on-dark) !important;
@@ -2547,8 +2547,8 @@ h3.alpheios-inflections__credits-title {
   margin: 5px !important;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon svg {
-  width: 15px !important;
-  height: 15px !important;
+  width: 25px !important;
+  height: 25px !important;
   display: inline-block;
   vertical-align: top !important;
 }
@@ -2575,7 +2575,7 @@ h3.alpheios-inflections__credits-title {
   cursor: pointer !important;
 }
 .alpheios-worditem__lemmasList {
-  width: 34% !important;
+  width: 29% !important;
 }
 .alpheios-visibility__hidden {
   visibility: hidden !important;

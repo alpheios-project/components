@@ -1,10 +1,11 @@
 <template>
   <div class="alph_tooltip">
     <slot></slot>
-    <span class="tooltiptext alpheios-text__smaller"
-          v-bind:class="directionClass"
-          v-bind:style="additionalStyles"
-          v-show="tooltipText"
+    <span class = "tooltiptext alpheios-text__smaller"
+          v-bind:class = "directionClass"
+          v-bind:style = "additionalStyles"
+          v-show = "tooltipText"
+          v-if = "!app.platform.isMobile"
     >
       {{ tooltipText }}
     </span>
@@ -13,6 +14,7 @@
 <script>
 export default {
   name: 'tooltip',
+  inject: ['app'],
   props: {
     tooltipDirection: {
       type: String,

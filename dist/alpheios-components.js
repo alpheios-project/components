@@ -16866,9 +16866,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tooltip',
+  inject: ['app'],
   props: {
     tooltipDirection: {
       type: String,
@@ -25949,23 +25951,25 @@ var render = function() {
     [
       _vm._t("default"),
       _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
+      !_vm.app.platform.isMobile
+        ? _c(
+            "span",
             {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.tooltipText,
-              expression: "tooltipText"
-            }
-          ],
-          staticClass: "tooltiptext alpheios-text__smaller",
-          class: _vm.directionClass,
-          style: _vm.additionalStyles
-        },
-        [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
-      )
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.tooltipText,
+                  expression: "tooltipText"
+                }
+              ],
+              staticClass: "tooltiptext alpheios-text__smaller",
+              class: _vm.directionClass,
+              style: _vm.additionalStyles
+            },
+            [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
+          )
+        : _vm._e()
     ],
     2
   )
