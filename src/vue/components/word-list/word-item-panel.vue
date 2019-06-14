@@ -111,7 +111,7 @@ export default {
 
   .alpheios-wordlist-language__worditem {
       border-bottom: 1px solid var(--alpheios-border-color);
-      padding: 2px 0;
+      padding: 7px 0;
   }
 
   .alpheios-worditem__data {
