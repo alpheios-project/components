@@ -5,7 +5,7 @@
           v-bind:class = "directionClass"
           v-bind:style = "additionalStyles"
           v-show = "tooltipText"
-          v-if = "!app.platform.isMobile"
+          v-if = "renderTooltip"
     >
       {{ tooltipText }}
     </span>
@@ -31,7 +31,10 @@ export default {
     }
   },
   computed: {
-    directionClass: function () {
+    renderTooltip () {
+      return !this.app || (this.app && this.app.platform && !this.app.platform.isMobile)
+    },
+    directionClass () {
       const tooltipDirection = this.tooltipDirection.toLowerCase()
 
       switch (tooltipDirection) {

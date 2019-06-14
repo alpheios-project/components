@@ -16876,7 +16876,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    directionClass: function () {
+    renderTooltip () {
+      return !this.app || (this.app && this.app.platform && !this.app.platform.isMobile)
+    },
+    directionClass () {
       const tooltipDirection = this.tooltipDirection.toLowerCase()
 
       switch (tooltipDirection) {
@@ -18153,6 +18156,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
+//
 //
 //
 //
@@ -25940,7 +25946,7 @@ var render = function() {
     [
       _vm._t("default"),
       _vm._v(" "),
-      !_vm.app.platform.isMobile
+      _vm.renderTooltip
         ? _c(
             "span",
             {
@@ -27443,11 +27449,6 @@ var render = function() {
             getMoreResults: _vm.getMoreResults,
             getAllResults: _vm.getAllResults
           }
-        }),
-        _vm._v(" "),
-        _c("word-usage-examples-sorting", {
-          attrs: { collapsedHeader: _vm.collapsedHeader },
-          on: { changedSortBy: _vm.changedSortBy }
         })
       ],
       1

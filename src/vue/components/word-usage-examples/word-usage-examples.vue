@@ -5,16 +5,19 @@
     </div>
 
     <div class="alpheios-word-usage-header" data-alpheios-ignore="all" v-show="showHeader">
+      
       <word-usage-examples-filters
         :collapsedHeader = "collapsedHeader"
         @filterCurrentByAuthor = "filterCurrentByAuthor"
         @getMoreResults = "getMoreResults"
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
+      <!--
       <word-usage-examples-sorting
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
       ></word-usage-examples-sorting>
+      -->
     </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
