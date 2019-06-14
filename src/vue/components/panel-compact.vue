@@ -13,7 +13,7 @@
       <div class="alpheios-panel__header-btn-group--start" >
         <div class="alpheios-panel__header-btn" :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'morphology' }">
           <morphology-icon @click="changeTab('morphology')" class="alpheios-navbuttons__icon"
-            v-show="$store.state.app.morphDataReady && app.hasMorphData() && showMainTabIcons"
+            v-show="showMorphologyIcon"
           />
         </div>
         <div class="alpheios-panel__header-btn"
@@ -512,6 +512,9 @@ export default {
     showMainTabIcons () {
       let mainTabArray = ['morphology', 'definitions', 'inflections', 'wordUsage', 'treebank']
       return mainTabArray.includes(this.currentTab)
+    },
+    showMorphologyIcon () {
+      return this.$store.state.app.morphDataReady && this.app.hasMorphData() && (this.showMainTabIcons || this.currentTab === 'grammar')
     },
     rootClasses () {
       let classes = []
