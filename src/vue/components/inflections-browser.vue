@@ -13,7 +13,7 @@
       </div>
       <div v-show="!collapsed[constants.LANG_LATIN.toString()]">
         <div class="alpheios-ib__pofs-title">Nouns</div>
-        <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
+       <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
                     :no-suffix-matches-hidden="false" :view="latinInflView({ viewID: 'latin_noun_view' })"
                     ></wide-table>
         <div class="alpheios-ib__pofs-title">Adjectives</div>
@@ -23,7 +23,7 @@
         <div class="alpheios-ib__pofs-title">Verbs</div>
         <div class="alpheios-ib__pofs-title-l2">Regular verbs</div>
         <div class="alpheios-ib__pofs-title-l3">Sorted by...</div>
-        <wide-table
+         <wide-table
             :collapsed="inflBrowserTablesCollapsed"
             :infl-browser-table="true" :no-suffix-matches-hidden="false"
             :view="latinInflView({ viewID: 'latin_conjugation_mood_voice_view', title: 'Conjugation-Mood-Voice' })"
@@ -479,7 +479,8 @@
                     :no-suffix-matches-hidden="false" :view="greekParticipleParadigmView({ paradigmID: 'verbpdgm65' })"
                     ></wide-table>
         <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
-                    :no-suffix-matches-hidden="false" :view="greekParticipleParadigmView({ paradigmID: 'verbpdgm66' })"v></wide-table>
+                    :no-suffix-matches-hidden="false" :view="greekParticipleParadigmView({ paradigmID: 'verbpdgm66' })"
+                    ></wide-table>
       </div>
     </div>
 
@@ -552,11 +553,16 @@ export default {
           Vue rendering algorithm may call this method more then once. To avoid unnecessary re-rendering,
           which might sometimes trigger an infinite loop, rendered views are cached with `options` as a key.
            */
+      console.info(`inflView start`)
+      console.time(`inflView duration`)
       const key = Comparable.key(options)
       if (!this.views.has(key)) {
+        console.info(`Getting the ${key} view`)
         let view = ViewSetFactory.getStandardForm(languageID, options)
         this.views.set(key, view)
       }
+      console.info(`inflView end`)
+      console.timeEnd(`inflView duration`)
       return this.views.get(key)
     },
 
@@ -586,7 +592,14 @@ export default {
     }
   },
 
+  beforeMount () {
+    console.info(`IB beforeMount`)
+    console.time('IB mounting')
+  },
+
   mounted: function () {
+    console.info(`IB mounted start`)
+    console.timeEnd('IB mounting')
     if (this.languageId) {
       // Set a group that will be opened initially
       this.collapsed[this.languageId.toString()] = false
@@ -598,6 +611,7 @@ export default {
     this.$options.lexrqStartedUnwatch = this.$store.watch((state) => state.app.lexicalRequest.startTime, () => {
       this.inflBrowserTablesCollapsed = true
     })
+    console.info(`IB mounted end`)
   },
 
   beforeDestroy () {

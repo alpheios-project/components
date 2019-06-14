@@ -1,14 +1,14 @@
 <template>
 
   <div>
-    <div @click="collapse"
+    <!--<div @click="collapse"
         class="alpheios-inflections__title alpheios-clickable">
       {{view.title}}
       <span v-show="state.collapsed">[+]</span>
       <span v-show="!state.collapsed">[-]</span>
-    </div>
+    </div>-->
 
-    <template v-if="!state.collapsed">
+    <!--<template v-if="!state.collapsed">
       <h4
           v-show="view.additionalTitle"
           class="alpheios-inflections__additional_title"
@@ -26,25 +26,25 @@
         >
           <div
               v-if="view.canCollapse && state.noSuffixGroupsHidden"
-              class="alpheios-inflections__table-ctrl-cell--btn"
+              class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
           >
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
                           tooltipDirection="bottom-right">
               <button
                   @click="showNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn&#45;&#45;right">
                 {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
               </button>
             </alph-tooltip>
           </div>
 
-          <div class="alpheios-inflections__table-ctrl-cell--btn"
+          <div class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
                v-show="view.canCollapse && !state.noSuffixGroupsHidden">
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
                           tooltipDirection="bottom-right">
               <button
                   @click="hideNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn&#45;&#45;right">
                 {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
               </button>
             </alph-tooltip>
@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <div :style="tableStyles" class="infl-table infl-table--wide" id="alpheios-wide-vue-table" v-if="!view.hasPrerenderedTables">
+        <div :style="tableStyles" class="infl-table infl-table&#45;&#45;wide" id="alpheios-wide-vue-table" v-if="!view.hasPrerenderedTables">
           <template v-for="row in view.wideView.rows">
             <div :class="cellClasses(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)"
                  @mouseover.stop.prevent="cellMouseOver(cell)" v-for="cell in row.cells">
@@ -86,7 +86,7 @@
       >
         {{l10n.getMsg('INFLECT_MSG_TABLE_NOT_IMPLEMENTED')}}
       </div>
-    </template>
+    </template>-->
   </div>
 </template>
 <script>
@@ -102,7 +102,7 @@ export default {
   },
   props: {
     // An inflection table view
-    view: {
+    /*view: {
       type: [Object, Boolean],
       required: true
     },
@@ -116,7 +116,7 @@ export default {
       type: [Boolean],
       default: false,
       required: false
-    }
+    }*/
   },
 
   data: function () {
@@ -136,7 +136,7 @@ export default {
   },
 
   computed: {
-    tableStyles: function () {
+    /*tableStyles: function () {
       return {
         gridTemplateColumns: `repeat(${this.view.wideView.visibleColumnQty + this.view.wideView.titleColumnQty}, 1fr)`
       }
@@ -148,12 +148,14 @@ export default {
         this.view.wideView &&
         this.view.wideView.rows.length > 0
       )
-    }
+    }*/
   },
 
   methods: {
-    collapse: function () {
+    /*collapse: function () {
+      console.info(`TW collapse`)
       if (!this.view.isRendered) {
+        console.info('TW Rendering the view')
         this.view.render(this.options)
       }
       this.state.collapsed = !this.state.collapsed
@@ -239,11 +241,11 @@ export default {
       if (cell.isDataCell) {
         cell.clearRowAndColumnHighlighting()
       }
-    }
+    }*/
   },
 
   watch: {
-    view: function () {
+    /*view: function () {
       this.state.noSuffixGroupsHidden = this.view.isNoSuffixMatchesGroupsHidden
     },
 
@@ -251,18 +253,26 @@ export default {
       if (this.collapsed !== null) {
         this.state.collapsed = state
       }
-    }
+    }*/
+  },
+
+  beforeMount () {
+    console.info(`WT beforeMount`)
+//    console.time(`WT mounting`)
   },
 
   mounted: function () {
-    if (this.inflBrowserTable) {
+    console.info(`WT mounted start`)
+    /*if (this.inflBrowserTable) {
       this.options.noSuffixMatchesHidden = false
     }
 
     // Set a default value by the parent component
     if (this.collapsed !== null) {
       this.state.collapsed = this.collapsed
-    }
+    }*/
+    console.info(`WT mounted end`)
+//    console.timeEnd(`WT mounting`)
   }
 }
 </script>

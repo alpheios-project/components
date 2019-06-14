@@ -318,6 +318,7 @@ export default {
   },
 
   mounted: function () {
+    console.info(`panel mounted start`)
     // Determine paddings and sidebar width for calculation of a panel width to fit content
     if (typeof this.$el.querySelector === 'function') {
       const maxWidth = Math.floor(document.documentElement.clientWidth / 100 * this.$options.maxWidthPct)
@@ -350,6 +351,19 @@ export default {
           target.style.width = `${event.rect.width}px`
         })
     }
+    console.info(`panel mounted end`)
+  },
+
+  beforeCreate () {
+    console.info(`beforeCreate`)
+  },
+
+  created () {
+    console.info(`created`)
+  },
+
+  beforeMount () {
+    console.info(`beforeMount`)
   }
 }
 </script>

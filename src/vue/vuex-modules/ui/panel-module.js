@@ -8,9 +8,13 @@ import Platform from '@/lib/utility/platform.js'
 export default class PanelModule extends Module {
   constructor (store, api, config) {
     super(store, api, config)
+    console.info('Panel module constructor')
 
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
+    console.info('Panel module constructor, store module has been registered')
 
+    console.log(`Panel's Vue instance creation started`)
+    console.time(`Panel's Vue instance creation`)
     this._vi = new Vue({
       el: this.config.mountPoint,
       store: store, // Install store into the panel
@@ -25,10 +29,13 @@ export default class PanelModule extends Module {
         compactPanel: CompactPanel // A mobile version of a panel
       }
     })
+    console.log(`Panel's Vue instance creation ended`)
+    console.timeEnd(`Panel's Vue instance creation`)
 
     Platform.evt.ORIENTATION_CHANGE.sub(() => {
       this._vi.$store.commit('panel/setOrientation', this.config.platform.simpleOrientation)
     })
+    console.info('Panel module constructor ended')
   }
 }
 
