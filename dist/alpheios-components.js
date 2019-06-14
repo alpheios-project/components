@@ -23686,7 +23686,8 @@ var render = function() {
                         "$store.state.app.hasInflData && showMainTabIcons"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn",
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-panel__header-btn--infl-data",
                   class: {
                     "alpheios-navbuttons__icon-active":
                       _vm.currentTab === "inflections"
@@ -23752,7 +23753,8 @@ var render = function() {
                         "$store.getters['app/hasTreebankData'] && showMainTabIcons"
                     }
                   ],
-                  staticClass: "alpheios-panel__header-btn",
+                  staticClass:
+                    "alpheios-panel__header-btn alpheios-panel__header-btn--treebank-data",
                   class: {
                     "alpheios-navbuttons__icon-active":
                       _vm.currentTab === "treebank"
