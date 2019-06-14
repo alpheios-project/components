@@ -15430,6 +15430,9 @@ __webpack_require__.r(__webpack_exports__);
       let mainTabArray = ['morphology', 'definitions', 'inflections', 'wordUsage', 'treebank']
       return mainTabArray.includes(this.currentTab)
     },
+    showMorphologyIcon () {
+      return this.$store.state.app.morphDataReady && this.app.hasMorphData() && (this.showMainTabIcons || this.currentTab === 'grammar')
+    },
     rootClasses () {
       let classes = []
 
@@ -23621,12 +23624,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value:
-                          _vm.$store.state.app.morphDataReady &&
-                          _vm.app.hasMorphData() &&
-                          _vm.showMainTabIcons,
-                        expression:
-                          "$store.state.app.morphDataReady && app.hasMorphData() && showMainTabIcons"
+                        value: _vm.showMorphologyIcon,
+                        expression: "showMorphologyIcon"
                       }
                     ],
                     staticClass: "alpheios-navbuttons__icon",
