@@ -27449,6 +27449,11 @@ var render = function() {
             getMoreResults: _vm.getMoreResults,
             getAllResults: _vm.getAllResults
           }
+        }),
+        _vm._v(" "),
+        _c("word-usage-examples-sorting", {
+          attrs: { collapsedHeader: _vm.collapsedHeader },
+          on: { changedSortBy: _vm.changedSortBy }
         })
       ],
       1
