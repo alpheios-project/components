@@ -3,17 +3,17 @@
   <div>
     <!--<div @click="collapse"
         class="alpheios-inflections__title alpheios-clickable">
-      {{view.title}}
+<!--      {{state.view.title}}-->
       <span v-show="state.collapsed">[+]</span>
       <span v-show="!state.collapsed">[-]</span>
     </div>-->
 
     <!--<template v-if="!state.collapsed">
       <h4
-          v-show="view.additionalTitle"
+          v-show="state.view.additionalTitle"
           class="alpheios-inflections__additional_title"
       >
-        {{ view.additionalTitle }}
+        {{ state.view.additionalTitle }}
       </h4>
 
       <div
@@ -21,11 +21,11 @@
           class="alpheios-inflections__wide-view"
       >
         <div
-            v-if="!view.hasPrerenderedTables && !inflBrowserTable"
+            v-if="!state.view.hasPrerenderedTables && !inflBrowserTable"
             class="alpheios-inflections__table-ctrl-cont"
         >
           <div
-              v-if="view.canCollapse && state.noSuffixGroupsHidden"
+              v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
               class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
           >
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
@@ -39,7 +39,7 @@
           </div>
 
           <div class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
-               v-show="view.canCollapse && !state.noSuffixGroupsHidden">
+               v-show="state.view.canCollapse && !state.noSuffixGroupsHidden">
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
                           tooltipDirection="bottom-right">
               <button
@@ -51,16 +51,16 @@
           </div>
         </div>
 
-        <div class="infl-prdgm-tbl" v-if="view.hasPrerenderedTables">
-          <div class="infl-prdgm-tbl__row" v-for="row in view.wideTable.rows">
+        <div class="infl-prdgm-tbl" v-if="state.view.hasPrerenderedTables">
+          <div class="infl-prdgm-tbl__row" v-for="row in state.view.wideTable.rows">
             <div :class="prerenderedCellClasses(cell)" class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
               {{cell.value}}
             </div>
           </div>
         </div>
 
-        <div :style="tableStyles" class="infl-table infl-table&#45;&#45;wide" id="alpheios-wide-vue-table" v-if="!view.hasPrerenderedTables">
-          <template v-for="row in view.wideView.rows">
+        <div :style="tableStyles" class="infl-table infl-table&#45;&#45;wide" id="alpheios-wide-vue-table" v-if="!state.view.hasPrerenderedTables">
+          <template v-for="row in state.view.wideView.rows">
             <div :class="cellClasses(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)"
                  @mouseover.stop.prevent="cellMouseOver(cell)" v-for="cell in row.cells">
               <template v-if="cell.isDataCell">
@@ -90,6 +90,10 @@
   </div>
 </template>
 <script>
+import { Constants } from 'alpheios-data-models'
+import { ViewSetFactory } from 'alpheios-inflection-tables'
+import Comparable from '@/lib/utility/comparable.js'
+
 import InflFootnote from './infl-footnote.vue'
 import Tooltip from './tooltip.vue'
 
@@ -104,7 +108,13 @@ export default {
     // An inflection table view
     /*view: {
       type: [Object, Boolean],
-      required: true
+      default: false,
+      required: false
+    },
+    viewOrData: {
+      type: [Object, Boolean],
+      default: false,
+      required: false
     },
     collapsed: {
       type: [Boolean],
@@ -121,7 +131,9 @@ export default {
 
   data: function () {
     return {
+      standardFormView: null,
       state: {
+        view: null,
         collapsed: true,
         noSuffixGroupsHidden: true
       },
@@ -138,39 +150,75 @@ export default {
   computed: {
     /*tableStyles: function () {
       return {
-        gridTemplateColumns: `repeat(${this.view.wideView.visibleColumnQty + this.view.wideView.titleColumnQty}, 1fr)`
+        gridTemplateColumns: `repeat(${this.state.view.wideView.visibleColumnQty + this.state.view.wideView.titleColumnQty}, 1fr)`
       }
     },
 
     isAvailable: function () {
       return (
-        this.view.isImplemented &&
-        this.view.wideView &&
-        this.view.wideView.rows.length > 0
+        this.state.view.isImplemented &&
+        this.state.view.wideView &&
+        this.state.view.wideView.rows.length > 0
       )
     }*/
   },
 
   methods: {
-    /*collapse: function () {
-      console.info(`TW collapse`)
+    collapse: function () {
       if (!this.view.isRendered) {
-        console.info('TW Rendering the view')
         this.view.render(this.options)
       }
+    },
+
+    latinInflView: function (options) {
+      return ViewSetFactory.getStandardForm(Constants.LANG_LATIN, options)
+    },
+
+    greekInflView: function (options) {
+      return ViewSetFactory.getStandardForm(Constants.LANG_GREEK, options)
+    },
+
+    greekParadigmView: function (paradigmOptions) {
+      paradigmOptions.viewID = 'greek_verb_paradigm_view'
+      return this.greekInflView(paradigmOptions)
+    },
+
+    greekParticipleParadigmView: function (paradigmOptions) {
+      paradigmOptions.viewID = 'greek_verb_participle_paradigm_view'
+      return this.greekInflView(paradigmOptions)
+    },
+
+    getStandardFormView: function (viewOrData) {
+      console.info('getStandardFormView')
+      let view
+      if (viewOrData.langID === Constants.LANG_LATIN) {
+        console.info('This is a latin language view')
+        view = this.latinInflView({ viewID: viewOrData.viewID, title: viewOrData.title })
+      }
+      return view
+    },
+
+    collapse: function () {
       this.state.collapsed = !this.state.collapsed
-      if (this.view.isImplemented) {
-        this.view.wideView.collapsed = this.state.collapsed
+      if (!this.state.collapsed) {
+        console.info('A view has been expanded, may need to render')
+        if (!this.state.view) {
+          this.state.view = this.getRenderedView()
+        }
+      }
+
+      if (this.state.view.isImplemented) {
+        this.state.view.wideView.collapsed = this.state.collapsed
       }
     },
 
     hideNoSuffixGroups: function () {
-      this.view.noSuffixMatchesGroupsHidden(true)
+      this.state.view.noSuffixMatchesGroupsHidden(true)
       this.state.noSuffixGroupsHidden = true
     },
 
     showNoSuffixGroups: function () {
-      this.view.noSuffixMatchesGroupsHidden(false)
+      this.state.view.noSuffixMatchesGroupsHidden(false)
       this.state.noSuffixGroupsHidden = false
     },
 
@@ -246,7 +294,7 @@ export default {
 
   watch: {
     /*view: function () {
-      this.state.noSuffixGroupsHidden = this.view.isNoSuffixMatchesGroupsHidden
+      this.state.noSuffixGroupsHidden = this.state.view.isNoSuffixMatchesGroupsHidden
     },
 
     collapsed: function (state) {
@@ -261,9 +309,25 @@ export default {
 //    console.time(`WT mounting`)
   },
 
+  beforeMount () {
+    console.info(`TW beforeMount`)
+    if (this.viewOrData) {
+      console.info('This is a standard form view')
+      console.info(this.viewOrData)
+    }
+
+    // Set data that is absolutely required for the initial view rendering
+  },
+
   mounted: function () {
-    console.info(`WT mounted start`)
-    /*if (this.inflBrowserTable) {
+    console.info('TW mounted')
+    if (this.collapsed) {
+      console.info('Initial state is collapsed')
+    } else {
+      console.info('Initial state is expanded, need to render the view')
+      this.state.view = this.getRenderedView()
+    }
+    if (this.inflBrowserTable) {
       this.options.noSuffixMatchesHidden = false
     }
 

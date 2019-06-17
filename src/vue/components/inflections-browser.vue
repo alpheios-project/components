@@ -13,22 +13,24 @@
       </div>
       <div v-show="!collapsed[constants.LANG_LATIN.toString()]">
         <div class="alpheios-ib__pofs-title">Nouns</div>
-       <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
-                    :no-suffix-matches-hidden="false" :view="latinInflView({ viewID: 'latin_noun_view' })"
+       <wide-table :collapsed="inflBrowserTablesCollapsed"
+                    :infl-browser-table="true"
+                    :no-suffix-matches-hidden="false"
+                    :standard-form-view-data="{ langID: constants.LANG_LATIN, viewID: 'latin_noun_view' }"
                     ></wide-table>
         <div class="alpheios-ib__pofs-title">Adjectives</div>
-        <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
+        <!--<wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
                     :no-suffix-matches-hidden="false" :view="latinInflView({ viewID: 'latin_adjective_view'})"
-                    ></wide-table>
+                    ></wide-table>-->
         <div class="alpheios-ib__pofs-title">Verbs</div>
         <div class="alpheios-ib__pofs-title-l2">Regular verbs</div>
         <div class="alpheios-ib__pofs-title-l3">Sorted by...</div>
-         <wide-table
+         <!--<wide-table
             :collapsed="inflBrowserTablesCollapsed"
             :infl-browser-table="true" :no-suffix-matches-hidden="false"
-            :view="latinInflView({ viewID: 'latin_conjugation_mood_voice_view', title: 'Conjugation-Mood-Voice' })"
-            ></wide-table>
-        <wide-table
+            :standard-form-view-data="{ langID: constants.LANG_LATIN, viewID: 'latin_conjugation_mood_voice_view', title: 'Conjugation-Mood-Voice' }"
+            ></wide-table>-->
+        <!--<wide-table
             :collapsed="inflBrowserTablesCollapsed"
             :infl-browser-table="true" :no-suffix-matches-hidden="false"
             :view="latinInflView({ viewID: 'latin_conjugation_voice_mood_view', title: 'Conjugation-Voice-Mood' })"
@@ -176,7 +178,7 @@
             :collapsed="inflBrowserTablesCollapsed"
             :infl-browser-table="true" :no-suffix-matches-hidden="false"
             :view="latinInflView({ viewID: 'latin_verb_irregular_view', form: 'veneo', title: 'Veneo (venire, venivi(ii), venitus)' })"
-            ></wide-table>
+            ></wide-table>-->
       </div>
     </div>
 
@@ -192,7 +194,7 @@
       </div>
       <div v-show="!collapsed[constants.LANG_GREEK.toString()]">
         <div class="alpheios-ib__pofs-title">Nouns</div>
-        <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
+        <!--<wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
                     :no-suffix-matches-hidden="false" :view="greekInflView({ viewID: 'greek_noun_view'})"
                     ></wide-table>
         <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
@@ -480,7 +482,7 @@
                     ></wide-table>
         <wide-table :collapsed="inflBrowserTablesCollapsed" :infl-browser-table="true"
                     :no-suffix-matches-hidden="false" :view="greekParticipleParadigmView({ paradigmID: 'verbpdgm66' })"
-                    ></wide-table>
+                    ></wide-table>-->
       </div>
     </div>
 
@@ -493,7 +495,6 @@ import { ViewSetFactory } from 'alpheios-inflection-tables'
 import Comparable from '@/lib/utility/comparable.js'
 
 import WideTable from './inflections-table-wide.vue'
-import Vue from 'vue/dist/vue'
 
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
