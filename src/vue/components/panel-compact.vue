@@ -22,7 +22,7 @@
         >
           <definitions-icon @click="changeTab('definitions')" class="alpheios-navbuttons__icon" />
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn alpheios-panel__header-btn--infl-data"
            v-show="$store.state.app.hasInflData && showMainTabIcons"
            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'inflections' }"
         >
@@ -34,7 +34,7 @@
         >
           <word-usage-icon @click="changeTab('wordUsage')" class="alpheios-navbuttons__icon"/>
         </div>
-        <div class="alpheios-panel__header-btn"
+        <div class="alpheios-panel__header-btn alpheios-panel__header-btn--treebank-data"
            v-show="$store.getters['app/hasTreebankData'] && showMainTabIcons"
            :class="{ 'alpheios-navbuttons__icon-active': currentTab === 'treebank' }"
         >
@@ -1048,6 +1048,13 @@ export default {
 
     .alpheios-panel__close-btn {
       margin-left: calc(var(--alpheios-base-ui-size) * 0.75);
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .alpheios-panel__header-btn--infl-data,
+    .alpheios-panel__header-btn--treebank-data {
+      display: none;
     }
   }
 

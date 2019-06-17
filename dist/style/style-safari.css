@@ -3018,6 +3018,12 @@ h3.alpheios-inflections__credits-title {
 .alpheios-panel--compact .alpheios-panel__close-btn {
   margin-left: calc(var(--alpheios-base-ui-size) * 0.75) !important;
 }
+@media screen and (max-width: 360px) {
+.alpheios-panel__header-btn--infl-data,
+.alpheios-panel__header-btn--treebank-data {
+    display: none;
+}
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
