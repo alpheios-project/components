@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-ib">
+  <div class="alpheios-ib" v-if="this.app.queryParams.showInflBrowser">
 
     <div class="alpheios-ib__lang-cont">
       <div
@@ -502,6 +502,9 @@ export default {
   components: {
     wideTable: WideTable
   },
+  inject: {
+    app: 'app'
+  },
   storeModules: ['app'], // Store modules that are required by this component
   mixins: [DependencyCheck],
   lexrqStartedUnwatch: null,
@@ -587,6 +590,7 @@ export default {
   },
 
   mounted: function () {
+    console.info(`Inflection browser views are ${this.app.queryParams.showInflBrowser ? 'enabled' : 'disabled'}`)
     if (this.languageId) {
       // Set a group that will be opened initially
       this.collapsed[this.languageId.toString()] = false

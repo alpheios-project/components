@@ -196,6 +196,18 @@ export default class UIController {
     return uiController
   }
 
+  static getQueryParams () {
+    let params = {
+      showInflBrowser: true
+    }
+    let query = window.location.search.substring(1)
+    let vars = query.split('&')
+    if (vars.includes('inflbrowser=no')) {
+      params.showInflBrowser = false
+    }
+    return params
+  }
+
   /**
    * Returns an object with default options of a UIController.
    * Can be redefined to provide other default values.
@@ -332,6 +344,8 @@ export default class UIController {
   }
 
   async init () {
+    console.time('UI controller initialization')
+    this.queryParams = this.constructor.getQueryParams()
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
     this.contentOptions = new Options(this.contentOptionsDefaults, this.options.storageAdapter)
@@ -378,6 +392,7 @@ export default class UIController {
       inflectionsViewSet: null,
       wordUsageExamples: null,
       wordUsageAuthors: [],
+      queryParams: this.queryParams,
 
       isDevMode: () => {
         return this.options.mode === 'development'
@@ -745,7 +760,7 @@ export default class UIController {
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
-
+    console.timeEnd('UI controller initialization')
     return this
   }
 
