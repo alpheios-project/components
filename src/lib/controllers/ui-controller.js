@@ -336,7 +336,6 @@ export default class UIController {
   }
 
   async init () {
-    console.info('init start')
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
     this.contentOptions = new Options(this.contentOptionsDefaults, this.options.storageAdapter)
@@ -352,16 +351,13 @@ export default class UIController {
 
     // Will add morph adapter options to the `options` object of UI controller constructor as needed.
 
-    console.info('before HTML injection')
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
     let container = document.createElement('div')
     document.body.insertBefore(container, null)
     container.outerHTML = this.options.template.html
-    console.info('after HTML injection')
 
     await Promise.all(optionLoadPromises)
-    console.info('all options has been loaded')
     // All options has been loaded after this point
 
     /**
@@ -719,7 +715,6 @@ export default class UIController {
     this.api.language = {
       resourceSettingChange: this.resourceSettingChange.bind(this)
     }
-    console.info('API objects has been defined and registered')
 
     // Set options of modules before modules are created
     if (this.hasModule('popup')) {
@@ -738,12 +733,9 @@ export default class UIController {
         y: this.contentOptions.items.toolbarShiftY.currentValue
       }
     }
-    console.info('before createModules')
 
     // Create all registered modules
     this.createModules()
-
-    console.info('after createModules')
 
     // Adjust configuration of modules according to content options
     if (this.hasModule('panel')) {
@@ -751,16 +743,12 @@ export default class UIController {
     }
 
     const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
-    console.info('before updateLanguage')
     this.updateLanguage(currentLanguageID)
-    console.info('after updateLanguage')
     this.updateLemmaTranslations()
-    console.info('after updateLemmaTranslations')
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
     this.isInitialized = true
-    console.info('init end')
 
     return this
   }
@@ -787,12 +775,10 @@ export default class UIController {
    * @returns {Promise<UIController>}
    */
   async activate () {
-    console.info('activation started')
     if (this.isActivated) { return `Already activated` }
     if (this.state.isDisabled()) { return `UI controller is disabled` }
 
     if (!this.isInitialized) { await this.init() }
-    console.info('activation body')
 
     // Inject Alpheios CSS rules
     this.addPageInjections()
@@ -832,7 +818,6 @@ export default class UIController {
       // if we have an active session
       this.api.auth.session()
     }
-    console.info('activation end')
     return this
   }
 

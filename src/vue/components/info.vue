@@ -24,17 +24,7 @@ export default {
   name: 'Info',
   inject: ['app', 'l10n'],
   storeModules: ['app'],
-  mixins: [DependencyCheck],
-
-  beforeMount () {
-    console.info(`info beforeMount`)
-    console.time(`info component mounted in `)
-  },
-
-  mounted () {
-    console.info(`info mounted`)
-    console.timeEnd(`info component mounted in `)
-  }
+  mixins: [DependencyCheck]
 }
 </script>
 <style lang="scss">

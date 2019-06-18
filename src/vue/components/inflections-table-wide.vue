@@ -1,19 +1,19 @@
 <template>
 
   <div>
-    <!--<div @click="collapse"
+    <div @click="collapse"
         class="alpheios-inflections__title alpheios-clickable">
-<!--      {{state.view.title}}-->
+      {{title}}
       <span v-show="state.collapsed">[+]</span>
       <span v-show="!state.collapsed">[-]</span>
-    </div>-->
+    </div>
 
-    <!--<template v-if="!state.collapsed">
+    <template v-if="!state.collapsed">
       <h4
-          v-show="state.view.additionalTitle"
+          v-show="additionalTitle"
           class="alpheios-inflections__additional_title"
       >
-        {{ state.view.additionalTitle }}
+        {{ additionalTitle }}
       </h4>
 
       <div
@@ -26,25 +26,25 @@
         >
           <div
               v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
-              class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
+              class="alpheios-inflections__table-ctrl-cell--btn"
           >
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
                           tooltipDirection="bottom-right">
               <button
                   @click="showNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn&#45;&#45;right">
+                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
                 {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
               </button>
             </alph-tooltip>
           </div>
 
-          <div class="alpheios-inflections__table-ctrl-cell&#45;&#45;btn"
+          <div class="alpheios-inflections__table-ctrl-cell--btn"
                v-show="state.view.canCollapse && !state.noSuffixGroupsHidden">
             <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
                           tooltipDirection="bottom-right">
               <button
                   @click="hideNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn&#45;&#45;right">
+                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
                 {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
               </button>
             </alph-tooltip>
@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <div :style="tableStyles" class="infl-table infl-table&#45;&#45;wide" id="alpheios-wide-vue-table" v-if="!state.view.hasPrerenderedTables">
+        <div :style="tableStyles" class="infl-table infl-table--wide" id="alpheios-wide-vue-table" v-if="!state.view.hasPrerenderedTables">
           <template v-for="row in state.view.wideView.rows">
             <div :class="cellClasses(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)"
                  @mouseover.stop.prevent="cellMouseOver(cell)" v-for="cell in row.cells">
@@ -86,13 +86,12 @@
       >
         {{l10n.getMsg('INFLECT_MSG_TABLE_NOT_IMPLEMENTED')}}
       </div>
-    </template>-->
+    </template>
   </div>
 </template>
 <script>
 import { Constants } from 'alpheios-data-models'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
-import Comparable from '@/lib/utility/comparable.js'
 
 import InflFootnote from './infl-footnote.vue'
 import Tooltip from './tooltip.vue'
@@ -105,28 +104,35 @@ export default {
     alphTooltip: Tooltip
   },
   props: {
-    // An inflection table view
-    /*view: {
+    /*
+    This component shall receive either a fully initialized (but not necessarily rendered) view prop
+    or a standard form data object, which will be used later to construct a standard form view.
+    If none is provided, a component will fail to render an inflection table.
+     */
+    view: {
       type: [Object, Boolean],
       default: false,
       required: false
     },
-    viewOrData: {
+    standardFormData: {
       type: [Object, Boolean],
       default: false,
       required: false
     },
+
+    // Initial state of the component: collapsed or expanded.
     collapsed: {
       type: [Boolean],
       default: true,
       required: false
     },
-    // Indicate if this is a table for the inflection browser
+
+    // Indicates if this is a table rendered for the inflection browser.
     inflBrowserTable: {
       type: [Boolean],
       default: false,
       required: false
-    }*/
+    }
   },
 
   data: function () {
@@ -148,7 +154,15 @@ export default {
   },
 
   computed: {
-    /*tableStyles: function () {
+    title: function () {
+      return this.view.title || this.standardFormData.title || ''
+    },
+
+    additionalTitle: function () {
+      return this.view.additionalTitle || this.standardFormData.additionalTitle || ''
+    },
+
+    tableStyles: function () {
       return {
         gridTemplateColumns: `repeat(${this.state.view.wideView.visibleColumnQty + this.state.view.wideView.titleColumnQty}, 1fr)`
       }
@@ -156,52 +170,35 @@ export default {
 
     isAvailable: function () {
       return (
+        this.state.view &&
         this.state.view.isImplemented &&
         this.state.view.wideView &&
         this.state.view.wideView.rows.length > 0
       )
-    }*/
+    }
   },
 
   methods: {
-    collapse: function () {
-      if (!this.view.isRendered) {
-        this.view.render(this.options)
+    getRenderedView: function () {
+      if (!this.state.view) {
+        let view
+        if (this.view) {
+          // This component has an instance of an initialized view supplied
+          view = this.view.render()
+        } else if (this.standardFormData) {
+          // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
+          view = ViewSetFactory.getStandardForm(this.standardFormData).render()
+        } else {
+          console.error(`There is neither view nor standard form data is provided. A view will not be rendered`)
+        }
+        return view
       }
-    },
-
-    latinInflView: function (options) {
-      return ViewSetFactory.getStandardForm(Constants.LANG_LATIN, options)
-    },
-
-    greekInflView: function (options) {
-      return ViewSetFactory.getStandardForm(Constants.LANG_GREEK, options)
-    },
-
-    greekParadigmView: function (paradigmOptions) {
-      paradigmOptions.viewID = 'greek_verb_paradigm_view'
-      return this.greekInflView(paradigmOptions)
-    },
-
-    greekParticipleParadigmView: function (paradigmOptions) {
-      paradigmOptions.viewID = 'greek_verb_participle_paradigm_view'
-      return this.greekInflView(paradigmOptions)
-    },
-
-    getStandardFormView: function (viewOrData) {
-      console.info('getStandardFormView')
-      let view
-      if (viewOrData.langID === Constants.LANG_LATIN) {
-        console.info('This is a latin language view')
-        view = this.latinInflView({ viewID: viewOrData.viewID, title: viewOrData.title })
-      }
-      return view
     },
 
     collapse: function () {
       this.state.collapsed = !this.state.collapsed
       if (!this.state.collapsed) {
-        console.info('A view has been expanded, may need to render')
+        // A view has been expanded, we need to check if it needs to be rendered.
         if (!this.state.view) {
           this.state.view = this.getRenderedView()
         }
@@ -289,11 +286,13 @@ export default {
       if (cell.isDataCell) {
         cell.clearRowAndColumnHighlighting()
       }
-    }*/
+    }
   },
 
   watch: {
-    /*view: function () {
+    view: function (view) {
+      // A new view data has been provided to the component
+      this.state.view = view
       this.state.noSuffixGroupsHidden = this.state.view.isNoSuffixMatchesGroupsHidden
     },
 
@@ -301,32 +300,10 @@ export default {
       if (this.collapsed !== null) {
         this.state.collapsed = state
       }
-    }*/
-  },
-
-  beforeMount () {
-    console.info(`WT beforeMount`)
-//    console.time(`WT mounting`)
-  },
-
-  beforeMount () {
-    console.info(`TW beforeMount`)
-    if (this.viewOrData) {
-      console.info('This is a standard form view')
-      console.info(this.viewOrData)
     }
-
-    // Set data that is absolutely required for the initial view rendering
   },
 
   mounted: function () {
-    console.info('TW mounted')
-    if (this.collapsed) {
-      console.info('Initial state is collapsed')
-    } else {
-      console.info('Initial state is expanded, need to render the view')
-      this.state.view = this.getRenderedView()
-    }
     if (this.inflBrowserTable) {
       this.options.noSuffixMatchesHidden = false
     }
@@ -334,9 +311,7 @@ export default {
     // Set a default value by the parent component
     if (this.collapsed !== null) {
       this.state.collapsed = this.collapsed
-    }*/
-    console.info(`WT mounted end`)
-//    console.timeEnd(`WT mounting`)
+    }
   }
 }
 </script>
