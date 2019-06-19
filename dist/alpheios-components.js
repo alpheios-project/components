@@ -12694,27 +12694,22 @@ __webpack_require__.r(__webpack_exports__);
 
   methods: {
     getRenderedView: function () {
-      if (!this.state.view) {
-        let view
-        if (this.view) {
-          // This component has an instance of an initialized view supplied
-          view = this.view.render()
-        } else if (this.standardFormData) {
-          // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
-          this.state.standardFormTable = true
-          view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_0__["ViewSetFactory"].getStandardForm(this.standardFormData).render()
-        } else {
-          console.error(`There is neither view nor standard form data is provided. A view will not be rendered`)
-        }
-        return view
+      if (this.view) {
+        // This component has an instance of an initialized view supplied
+        return this.view.render()
+      } else if (this.standardFormData) {
+        // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
+        this.state.standardFormTable = true
+        return alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_0__["ViewSetFactory"].getStandardForm(this.standardFormData).render()
+      } else {
+        console.error(`There is neither view nor standard form data is provided. A view will not be rendered`)
       }
     },
-
     collapse: function () {
       this.state.collapsed = !this.state.collapsed
       if (!this.state.collapsed) {
         // A view has been expanded, we need to check if it needs to be rendered.
-        if (!this.state.view) {
+        if (!this.state.view || !this.state.view.isRendered) {
           this.state.view = this.getRenderedView()
         }
       }
@@ -12805,9 +12800,8 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   watch: {
-    view: function (view) {
-      // A new view data has been provided to the component
-      this.state.view = view
+    'view.id': function () {
+      this.state.view = this.view
       this.state.noSuffixGroupsHidden = this.state.view.isNoSuffixMatchesGroupsHidden
     },
 
