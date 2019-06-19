@@ -2136,6 +2136,12 @@ h3.alpheios-inflections__credits-title {
   flex-direction: column;
 }
 .alpheios-treebank__frame {
+  /*
+  A minimal height of the treebank's iframe, shall be no less than 43em,
+  but no more than that because max width of panel's content is 800px and
+  treebank frame will not if in if too wide
+  */
+  width: 690px;
   flex: 1 1 100vh;
 }
 /*
@@ -2931,6 +2937,9 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel__tab-panel--options {
   display: block;
+}
+.alpheios-panel__tab__treebank {
+  width: 100%;
 }
 .alpheios-panel__tab-panel-options-cont {
   display: flex;

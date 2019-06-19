@@ -398,7 +398,6 @@ import { Definition } from 'alpheios-data-models'
 import WordListPanel from '@/vue/components/word-list/word-list-panel.vue'
 import ProgressBar from '@/vue/components/progress-bar.vue'
 // Embeddable SVG icons
-import MenuIcon from '@/images/inline-icons/reading-tools.svg'
 import CloseIcon from '@/images/inline-icons/x-close.svg'
 import UpIcon from '@/images/inline-icons/chevron-up.svg'
 import DownIcon from '@/images/inline-icons/chevron-down.svg'
@@ -436,7 +435,6 @@ export default {
   storeModules: ['app', 'ui', 'panel', 'auth'], // Store modules that are required by this component
   mixins: [DependencyCheck],
   components: {
-    menuIcon: MenuIcon,
     progressBar: ProgressBar,
     notificationArea: NotificationArea,
     inflections: Inflections,
@@ -932,6 +930,10 @@ export default {
 
   .alpheios-panel__tab-panel--options {
     display: block;
+  }
+
+  .alpheios-panel__tab__treebank {
+    width: 100%;
   }
 
   .alpheios-panel__tab-panel-options-cont {
