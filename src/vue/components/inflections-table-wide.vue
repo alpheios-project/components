@@ -20,7 +20,7 @@
         class="alpheios-inflections__wide-view"
     >
       <div
-          v-if="hasInflectionTables && !inflBrowserTable"
+          v-if="hasInflectionTables && !state.standardFormTable"
           class="alpheios-inflections__table-ctrl-cont"
       >
         <div
@@ -126,13 +126,6 @@ export default {
       type: [Boolean],
       default: true,
       required: false
-    },
-
-    // Indicates if this is a table rendered for the inflection browser.
-    inflBrowserTable: {
-      type: [Boolean],
-      default: false,
-      required: false
     }
   },
 
@@ -141,15 +134,12 @@ export default {
       standardFormView: null,
       state: {
         view: null,
+        standardFormTable: false,
         collapsed: true,
         noSuffixGroupsHidden: true
       },
       classes: {
         fullMorphologyMatch: 'infl-cell--morph-match'
-      },
-      options: {
-        emptyColumnsHidden: true,
-        noSuffixMatchesHidden: true
       }
     }
   },
@@ -196,6 +186,7 @@ export default {
           view = this.view.render()
         } else if (this.standardFormData) {
           // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
+          this.state.standardFormTable = true
           view = ViewSetFactory.getStandardForm(this.standardFormData).render()
         } else {
           console.error(`There is neither view nor standard form data is provided. A view will not be rendered`)
@@ -252,7 +243,7 @@ export default {
         }
       }
 
-      if (this.inflBrowserTable) {
+      if (this.state.standardFormTable) {
         // Do not show full morphology matches in an inflection browser
         classes['infl-cell--morph-match'] = false
       }
@@ -272,7 +263,7 @@ export default {
     },
 
     morphemeClasses: function (morpheme) {
-      if (this.inflBrowserTable) {
+      if (this.state.standardFormTable) {
         return {
           'infl-suff': true
         }
@@ -313,10 +304,6 @@ export default {
   },
 
   mounted: function () {
-    if (this.inflBrowserTable) {
-      this.options.noSuffixMatchesHidden = false
-    }
-
     // Set a default value by the parent component
     if (this.collapsed !== null) {
       this.state.collapsed = this.collapsed

@@ -12115,206 +12115,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -12841,13 +12641,6 @@ __webpack_require__.r(__webpack_exports__);
       type: [Boolean],
       default: true,
       required: false
-    },
-
-    // Indicates if this is a table rendered for the inflection browser.
-    inflBrowserTable: {
-      type: [Boolean],
-      default: false,
-      required: false
     }
   },
 
@@ -12856,15 +12649,12 @@ __webpack_require__.r(__webpack_exports__);
       standardFormView: null,
       state: {
         view: null,
+        standardFormTable: false,
         collapsed: true,
         noSuffixGroupsHidden: true
       },
       classes: {
         fullMorphologyMatch: 'infl-cell--morph-match'
-      },
-      options: {
-        emptyColumnsHidden: true,
-        noSuffixMatchesHidden: true
       }
     }
   },
@@ -12911,6 +12701,7 @@ __webpack_require__.r(__webpack_exports__);
           view = this.view.render()
         } else if (this.standardFormData) {
           // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
+          this.state.standardFormTable = true
           view = alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_0__["ViewSetFactory"].getStandardForm(this.standardFormData).render()
         } else {
           console.error(`There is neither view nor standard form data is provided. A view will not be rendered`)
@@ -12967,7 +12758,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      if (this.inflBrowserTable) {
+      if (this.state.standardFormTable) {
         // Do not show full morphology matches in an inflection browser
         classes['infl-cell--morph-match'] = false
       }
@@ -12987,7 +12778,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     morphemeClasses: function (morpheme) {
-      if (this.inflBrowserTable) {
+      if (this.state.standardFormTable) {
         return {
           'infl-suff': true
         }
@@ -13028,10 +12819,6 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   mounted: function () {
-    if (this.inflBrowserTable) {
-      this.options.noSuffixMatchesHidden = false
-    }
-
     // Set a default value by the parent component
     if (this.collapsed !== null) {
       this.state.collapsed = this.collapsed
@@ -19127,8 +18914,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_noun_view",
@@ -19144,8 +18929,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_adjective_view",
@@ -19169,8 +18952,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_conjugation_mood_voice_view",
@@ -19182,8 +18963,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_conjugation_voice_mood_view",
@@ -19195,8 +18974,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_mood_conjugation_voice_view",
@@ -19208,8 +18985,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_mood_voice_conjugation_view",
@@ -19221,8 +18996,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_voice_conjugation_mood_view",
@@ -19234,8 +19007,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_voice_mood_conjugation_view",
@@ -19251,8 +19022,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_participle_view",
@@ -19264,8 +19033,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_infinitive_view",
@@ -19277,8 +19044,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_imperative_view",
@@ -19290,8 +19055,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_supine_view",
@@ -19307,8 +19070,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19321,8 +19082,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_voice_view",
@@ -19335,8 +19094,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19349,8 +19106,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19363,8 +19118,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19377,8 +19130,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19391,8 +19142,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19405,8 +19154,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19419,8 +19166,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19433,8 +19178,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19447,8 +19190,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19461,8 +19202,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19475,8 +19214,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19489,8 +19226,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19503,8 +19238,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19517,8 +19250,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19531,8 +19262,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19545,8 +19274,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_voice_view",
@@ -19559,8 +19286,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19573,8 +19298,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_voice_view",
@@ -19587,8 +19310,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_voice_view",
@@ -19601,8 +19322,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_LATIN,
                 viewID: "latin_verb_irregular_view",
@@ -19682,8 +19401,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_noun_view",
@@ -19695,8 +19412,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_noun_simplified_view",
@@ -19712,8 +19427,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_adjective_view",
@@ -19725,8 +19438,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_adjective_simplified_view",
@@ -19742,8 +19453,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_person_pronoun_view",
@@ -19756,8 +19465,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_person_gender_pronoun_view",
@@ -19770,8 +19477,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19784,8 +19489,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_lemma_gender_pronoun_view",
@@ -19798,8 +19501,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19812,8 +19513,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19826,8 +19525,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19840,8 +19537,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19854,8 +19549,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_gender_pronoun_view",
@@ -19872,8 +19565,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_article_view",
@@ -19890,8 +19581,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_numeral_view",
@@ -19916,8 +19605,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -19930,8 +19617,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -19944,8 +19629,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -19958,8 +19641,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -19973,8 +19654,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -19987,8 +19666,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20001,8 +19678,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20015,8 +19690,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20029,8 +19702,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20043,8 +19714,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20057,8 +19726,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20071,8 +19738,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20086,8 +19751,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20101,8 +19764,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20116,8 +19777,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20130,8 +19789,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20148,8 +19805,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20163,8 +19818,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20178,8 +19831,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20197,8 +19848,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20211,8 +19860,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20226,8 +19873,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20240,8 +19885,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20255,8 +19898,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20269,8 +19910,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20284,8 +19923,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20298,8 +19935,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20313,8 +19948,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20327,8 +19960,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20349,8 +19980,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20363,8 +19992,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20377,8 +20004,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20391,8 +20016,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20409,8 +20032,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20423,8 +20044,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20437,8 +20056,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20451,8 +20068,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20469,8 +20084,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20483,8 +20096,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20497,8 +20108,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20511,8 +20120,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20529,8 +20136,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20543,8 +20148,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20557,8 +20160,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20575,8 +20176,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20589,8 +20188,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20603,8 +20200,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20617,8 +20212,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20631,8 +20224,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20645,8 +20236,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20659,8 +20248,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20673,8 +20260,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20687,8 +20272,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20701,8 +20284,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20715,8 +20296,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20729,8 +20308,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_paradigm_view",
@@ -20747,8 +20324,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20762,8 +20337,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20777,8 +20350,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20792,8 +20363,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20807,8 +20376,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20821,8 +20388,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20836,8 +20401,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20850,8 +20413,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20864,8 +20425,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20878,8 +20437,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20892,8 +20449,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20906,8 +20461,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -20921,8 +20474,6 @@ var render = function() {
           _c("wide-table", {
             attrs: {
               collapsed: _vm.inflBrowserTablesCollapsed,
-              "infl-browser-table": true,
-              "no-suffix-matches-hidden": false,
               "standard-form-data": {
                 langID: _vm.constants.LANG_GREEK,
                 viewID: "greek_verb_participle_paradigm_view",
@@ -21281,7 +20832,7 @@ var render = function() {
         staticClass: "alpheios-inflections__wide-view"
       },
       [
-        _vm.hasInflectionTables && !_vm.inflBrowserTable
+        _vm.hasInflectionTables && !_vm.state.standardFormTable
           ? _c(
               "div",
               { staticClass: "alpheios-inflections__table-ctrl-cont" },
