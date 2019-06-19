@@ -610,7 +610,7 @@
     "component": "WordUsageExamplesFilters"
   },
   "WORDUSAGE_FILTERS_TEXTWORK_CLEAR": {
-    "message": "Clear textwork limit",
+    "message": "Clear work limit",
     "description": "Word Usage Examples Type filter",
     "component": "WordUsageExamplesFilters"
   },

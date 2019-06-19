@@ -95,12 +95,12 @@
         "component": "WordFilterPanel"
     },
     "WORDLIST_FILTER_BY": {
-        "message": "Limit by",
+        "message": "Limit to",
         "description": "Filter by label on the panel",
         "component": "WordFilterPanel"
     },
     "WORDLIST_FILTER_CLEAR": {
-        "message": "Clear limit by",
+        "message": "Clear limits",
         "description": "Tooltip for clear filter icon",
         "component": "WordFilterPanel"
     },
