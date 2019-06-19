@@ -85,5 +85,7 @@ export default {
 
   .alpheios-word-usage-header-sorting {
     padding-bottom: 10px;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--alpheios-border-color);
   }
 </style>
