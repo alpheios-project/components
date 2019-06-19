@@ -17864,10 +17864,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -17896,7 +17892,7 @@ __webpack_require__.r(__webpack_exports__);
       lastAuthorsList: [],
       lastTextWorksList: [],
       typeFiltersList: [
-        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
+        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
       ],
@@ -17904,13 +17900,28 @@ __webpack_require__.r(__webpack_exports__);
       noMoreResults: true
     }
   },
+  watch: {
+    '$store.state.ui.activeTab' (activeTab) {
+      if (activeTab === 'wordUsage') {
+        if (!this.$store.state.app.wordUsageExamplesReady && this.homonym) {
+          this.getResults()
+        }
+      }
+    },
+    selectedAuthor (value) {
+      this.getResults()
+    },
+    selectedTextWork (value) {
+      this.getResults()
+    }
+  },
   computed: {
     homonym () {
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
     authorsList () {
-      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
-        this.lastTargetWord = this.app.homonym.targetWord
+      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
+        this.lastTargetWord = this.homonym.targetWord
         if (!this.app.wordUsageExamples.wordUsageExamples) {
           this.lastAuthorsList = []
           this.lastTextWorksList = []
@@ -17934,7 +17945,7 @@ __webpack_require__.r(__webpack_exports__);
 
           this.typeFilter = 'filterCurrentResults'
         }
-      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
+      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.homonym) {
         this.typeFilter = 'noFilters'
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
@@ -17960,9 +17971,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     checkVisibilityFilterOption(typeFilterItem) {
       if (typeFilterItem.skip) {
-        return false
-      }
-      if (typeFilterItem.value !== this.typeFilter && this.collapsedHeader) {
         return false
       }
       return true
@@ -27002,256 +27010,246 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-word-usage-header-filters" }, [
-    _c(
-      "div",
-      { staticClass: "alpheios-word-usage-header-select-type-filters-block" },
-      _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
-        return _vm.checkVisibilityFilterOption(typeFilterItem)
-          ? _c(
-              "div",
-              {
-                key: typeFilterItem.value,
-                staticClass: "alpheios-word-usage-header-select-type-filter",
-                class: {
-                  "alpheios-word-usage-header-select-type-filter-disabled":
-                    typeFilterItem.disabled === true
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: !_vm.collapsedHeader,
+          expression: "!collapsedHeader"
+        }
+      ],
+      staticClass: "alpheios-word-usage-header-filters"
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "alpheios-word-usage-header-select-type-filters-block" },
+        _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
+          return _vm.checkVisibilityFilterOption(typeFilterItem)
+            ? _c(
+                "div",
+                {
+                  key: typeFilterItem.value,
+                  staticClass: "alpheios-word-usage-header-select-type-filter",
+                  class: {
+                    "alpheios-word-usage-header-select-type-filter-disabled":
+                      typeFilterItem.disabled === true
+                  }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.typeFilter,
+                        expression: "typeFilter"
+                      }
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: typeFilterItem.value,
+                      disabled: typeFilterItem.disabled === true
+                    },
+                    domProps: {
+                      value: typeFilterItem.value,
+                      checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.typeFilter = typeFilterItem.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: typeFilterItem.value } }, [
+                    _vm._v(_vm._s(typeFilterItem.label))
+                  ])
+                ]
+              )
+            : _vm._e()
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.authorsList && _vm.typeFilter !== "noFilters",
+              expression: "authorsList && typeFilter !== 'noFilters'"
+            }
+          ],
+          staticClass: "alpheios-word-usage-filters-select"
+        },
+        [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedAuthor,
+                  expression: "selectedAuthor"
                 }
-              },
-              [
-                _c("input", {
+              ],
+              staticClass:
+                "alpheios-select alpheios-word-usage-header-select-author",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedAuthor = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
+              return _c(
+                "option",
+                {
+                  key: authorIndex,
+                  class: { "alpheios-select-disabled-option": !authorItem },
+                  attrs: { disabled: !authorItem },
+                  domProps: { value: authorItem }
+                },
+                [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsg("WORDUSAGE_FILTERS_AUTHOR_CLEAR"),
+                tooltipDirection: "top-right"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-word-usage-header-clear-icon",
+                  class: {
+                    "alpheios-word-usage-header-clear-disabled":
+                      _vm.selectedAuthor === null
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.clearFilter("author")
+                    }
+                  }
+                },
+                [_c("clear-filters-icon")],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      this.selectedAuthor && _vm.typeFilter !== "noFilters"
+        ? _c(
+            "div",
+            { staticClass: "alpheios-word-usage-filters-select" },
+            [
+              _c(
+                "select",
+                {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.typeFilter,
-                      expression: "typeFilter"
+                      value: _vm.selectedTextWork,
+                      expression: "selectedTextWork"
                     }
                   ],
-                  attrs: {
-                    type: "radio",
-                    id: typeFilterItem.value,
-                    disabled: typeFilterItem.disabled === true
-                  },
-                  domProps: {
-                    value: typeFilterItem.value,
-                    checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
-                  },
+                  staticClass:
+                    "alpheios-select alpheios-word-usage-header-select-textwork",
                   on: {
                     change: function($event) {
-                      _vm.typeFilter = typeFilterItem.value
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedTextWork = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
                     }
                   }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: typeFilterItem.value } }, [
-                  _vm._v(_vm._s(typeFilterItem.label))
-                ])
-              ]
-            )
-          : _vm._e()
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value:
-              _vm.authorsList &&
-              _vm.typeFilter !== "noFilters" &&
-              !_vm.collapsedHeader,
-            expression:
-              "authorsList && typeFilter !== 'noFilters' && !collapsedHeader"
-          }
-        ],
-        staticClass: "alpheios-word-usage-filters-select"
-      },
-      [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedAuthor,
-                expression: "selectedAuthor"
-              }
-            ],
-            staticClass:
-              "alpheios-select alpheios-word-usage-header-select-author",
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selectedAuthor = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
-            return _c(
-              "option",
-              {
-                key: authorIndex,
-                class: { "alpheios-select-disabled-option": !authorItem },
-                attrs: { disabled: !authorItem },
-                domProps: { value: authorItem }
-              },
-              [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c(
-          "alph-tooltip",
-          {
-            attrs: {
-              tooltipText: _vm.l10n.getMsg("WORDUSAGE_FILTERS_AUTHOR_CLEAR"),
-              tooltipDirection: "top-right"
-            }
-          },
-          [
-            _c(
-              "span",
-              {
-                staticClass: "alpheios-word-usage-header-clear-icon",
-                class: {
-                  "alpheios-word-usage-header-clear-disabled":
-                    _vm.selectedAuthor === null
                 },
-                on: {
-                  click: function($event) {
-                    return _vm.clearFilter("author")
-                  }
-                }
-              },
-              [_c("clear-filters-icon")],
-              1
-            )
-          ]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    this.selectedAuthor &&
-    _vm.typeFilter !== "noFilters" &&
-    !_vm.collapsedHeader
-      ? _c(
-          "div",
-          { staticClass: "alpheios-word-usage-filters-select" },
-          [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedTextWork,
-                    expression: "selectedTextWork"
-                  }
-                ],
-                staticClass:
-                  "alpheios-select alpheios-word-usage-header-select-textwork",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.selectedTextWork = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              _vm._l(_vm.filteredWorkList, function(workItem, workIndex) {
-                return _c(
-                  "option",
-                  {
-                    key: workIndex,
-                    class: { "alpheios-select-disabled-option": !workItem },
-                    attrs: { disabled: !workItem },
-                    domProps: { value: workItem }
-                  },
-                  [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "alph-tooltip",
-              {
-                attrs: {
-                  tooltipText: _vm.l10n.getMsg(
-                    "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
-                  ),
-                  tooltipDirection: "top-right"
-                }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    staticClass: "alpheios-word-usage-header-clear-icon",
-                    class: {
-                      "alpheios-word-usage-header-clear-disabled":
-                        _vm.selectedTextWork === null
+                _vm._l(_vm.filteredWorkList, function(workItem, workIndex) {
+                  return _c(
+                    "option",
+                    {
+                      key: workIndex,
+                      class: { "alpheios-select-disabled-option": !workItem },
+                      attrs: { disabled: !workItem },
+                      domProps: { value: workItem }
                     },
-                    on: {
-                      click: function($event) {
-                        return _vm.clearFilter("textwork")
+                    [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "alph-tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsg(
+                      "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
+                    ),
+                    tooltipDirection: "top-right"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-word-usage-header-clear-icon",
+                      class: {
+                        "alpheios-word-usage-header-clear-disabled":
+                          _vm.selectedTextWork === null
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.clearFilter("textwork")
+                        }
                       }
-                    }
-                  },
-                  [_c("clear-filters-icon")],
-                  1
-                )
-              ]
-            )
-          ],
-          1
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "alpheios-word-usage-header-actions" }, [
-      _c(
-        "button",
-        {
-          staticClass: "alpheios-button-primary",
-          attrs: { disabled: _vm.disabledButton },
-          on: { click: _vm.getResults }
-        },
-        [
-          _vm._v(
-            "\n          " +
-              _vm._s(_vm.l10n.getText("WORDUSAGE_GET_RESULTS")) +
-              "\n      "
+                    },
+                    [_c("clear-filters-icon")],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
           )
-        ]
-      )
-    ])
-  ])
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

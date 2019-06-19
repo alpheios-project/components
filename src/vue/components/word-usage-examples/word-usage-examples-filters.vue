@@ -1,8 +1,9 @@
 <template>
-    <div class="alpheios-word-usage-header-filters">
+    <div class="alpheios-word-usage-header-filters" v-show="!collapsedHeader">
         <div class="alpheios-word-usage-header-select-type-filters-block" >
         <div class="alpheios-word-usage-header-select-type-filter"
-            v-for="typeFilterItem of typeFiltersList" v-bind:key="typeFilterItem.value"
+            v-for="typeFilterItem of typeFiltersList" 
+            v-bind:key="typeFilterItem.value"
             :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
             v-if="checkVisibilityFilterOption(typeFilterItem)"
         >
@@ -11,7 +12,7 @@
         </div>
       </div>
 
-      <div v-show="authorsList && typeFilter !== 'noFilters' && !collapsedHeader" class="alpheios-word-usage-filters-select">
+      <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
         <select class="alpheios-select alpheios-word-usage-header-select-author" v-model="selectedAuthor">
             <option
                 v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
@@ -30,7 +31,7 @@
         </alph-tooltip>
       </div>
 
-      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters' && !collapsedHeader" class="alpheios-word-usage-filters-select">
+      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
         <select class="alpheios-select alpheios-word-usage-header-select-textwork"
                 v-model="selectedTextWork">
           <option
@@ -50,11 +51,6 @@
         </alph-tooltip>
       </div>
 
-      <div class="alpheios-word-usage-header-actions">
-          <button @click="getResults" class="alpheios-button-primary" :disabled="disabledButton">
-              {{ l10n.getText('WORDUSAGE_GET_RESULTS') }}
-          </button>
-      </div>
     </div>
 </template>
 <script>
@@ -85,7 +81,7 @@ export default {
       lastAuthorsList: [],
       lastTextWorksList: [],
       typeFiltersList: [
-        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS') },
+        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
       ],
@@ -93,13 +89,28 @@ export default {
       noMoreResults: true
     }
   },
+  watch: {
+    '$store.state.ui.activeTab' (activeTab) {
+      if (activeTab === 'wordUsage') {
+        if (!this.$store.state.app.wordUsageExamplesReady && this.homonym) {
+          this.getResults()
+        }
+      }
+    },
+    selectedAuthor (value) {
+      this.getResults()
+    },
+    selectedTextWork (value) {
+      this.getResults()
+    }
+  },
   computed: {
     homonym () {
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
     authorsList () {
-      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.app.homonym.targetWord)) {
-        this.lastTargetWord = this.app.homonym.targetWord
+      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
+        this.lastTargetWord = this.homonym.targetWord
         if (!this.app.wordUsageExamples.wordUsageExamples) {
           this.lastAuthorsList = []
           this.lastTextWorksList = []
@@ -123,7 +134,7 @@ export default {
 
           this.typeFilter = 'filterCurrentResults'
         }
-      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.app.homonym) {
+      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.homonym) {
         this.typeFilter = 'noFilters'
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
@@ -149,9 +160,6 @@ export default {
   methods: {
     checkVisibilityFilterOption(typeFilterItem) {
       if (typeFilterItem.skip) {
-        return false
-      }
-      if (typeFilterItem.value !== this.typeFilter && this.collapsedHeader) {
         return false
       }
       return true
@@ -287,11 +295,5 @@ export default {
     margin-top: 10px;
   }
 
-  .alpheios-word-usage-header-actions {
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-top: 1px solid var(--alpheios-border-color);
-  }
 
 </style>

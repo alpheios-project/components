@@ -254,10 +254,6 @@ export default {
       font-size: 80%;
     }
 
-    .alpheios-word-usage-header  {
-      border-bottom: 1px solid var(--alpheios-border-color);
-    }
-
     .alpheios-word-usage-header-select-author,
     .alpheios-word-usage-header-select-textwork,
     .alpheios-word-usage-header-select-sortBy {
