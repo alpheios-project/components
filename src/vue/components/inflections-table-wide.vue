@@ -8,89 +8,90 @@
       <span v-show="!state.collapsed">[-]</span>
     </div>
 
-    <template v-if="!state.collapsed">
-      <h4
-          v-show="additionalTitle"
-          class="alpheios-inflections__additional_title"
-      >
-        {{ additionalTitle }}
-      </h4>
+    <h4
+        v-show="!state.collapsed && additionalTitle"
+        class="alpheios-inflections__additional_title"
+    >
+      {{ additionalTitle }}
+    </h4>
 
+    <div
+        v-show="!state.collapsed"
+        class="alpheios-inflections__wide-view"
+    >
       <div
-          v-if="isAvailable"
-          class="alpheios-inflections__wide-view"
+          v-if="hasInflectionTables && !inflBrowserTable"
+          class="alpheios-inflections__table-ctrl-cont"
       >
         <div
-            v-if="!state.view.hasPrerenderedTables && !inflBrowserTable"
-            class="alpheios-inflections__table-ctrl-cont"
+            v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
+            class="alpheios-inflections__table-ctrl-cell--btn"
         >
-          <div
-              v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
-              class="alpheios-inflections__table-ctrl-cell--btn"
-          >
-            <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
-                          tooltipDirection="bottom-right">
-              <button
-                  @click="showNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
-                {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
-              </button>
-            </alph-tooltip>
-          </div>
-
-          <div class="alpheios-inflections__table-ctrl-cell--btn"
-               v-show="state.view.canCollapse && !state.noSuffixGroupsHidden">
-            <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
-                          tooltipDirection="bottom-right">
-              <button
-                  @click="hideNoSuffixGroups"
-                  class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
-                {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
-              </button>
-            </alph-tooltip>
-          </div>
+          <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
+                        tooltipDirection="bottom-right">
+            <button
+                @click="showNoSuffixGroups"
+                class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+              {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
+            </button>
+          </alph-tooltip>
         </div>
 
-        <div class="infl-prdgm-tbl" v-if="state.view.hasPrerenderedTables">
-          <div class="infl-prdgm-tbl__row" v-for="row in state.view.wideTable.rows">
-            <div :class="prerenderedCellClasses(cell)" class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
-              {{cell.value}}
-            </div>
-          </div>
+        <div class="alpheios-inflections__table-ctrl-cell--btn"
+             v-show="state.view.canCollapse && !state.noSuffixGroupsHidden">
+          <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
+                        tooltipDirection="bottom-right">
+            <button
+                @click="hideNoSuffixGroups"
+                class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+              {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
+            </button>
+          </alph-tooltip>
         </div>
+      </div>
 
-        <div :style="tableStyles" class="infl-table infl-table--wide" id="alpheios-wide-vue-table" v-if="!state.view.hasPrerenderedTables">
-          <template v-for="row in state.view.wideView.rows">
-            <div :class="cellClasses(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)"
-                 @mouseover.stop.prevent="cellMouseOver(cell)" v-for="cell in row.cells">
-              <template v-if="cell.isDataCell">
-                <template v-for="(morpheme, index) in cell.morphemes">
+      <div
+          :style="tableStyles"
+          class="infl-table infl-table--wide"
+          id="alpheios-wide-vue-table"
+          v-if="hasInflectionTables">
+        <template v-for="row in state.view.wideView.rows">
+          <div :class="cellClasses(cell)" @mouseleave.stop.prevent="cellMouseLeave(cell)"
+               @mouseover.stop.prevent="cellMouseOver(cell)" v-for="cell in row.cells">
+            <template v-if="cell.isDataCell">
+              <template v-for="(morpheme, index) in cell.morphemes">
                                     <span :class="morphemeClasses(morpheme)">
                                         <template v-if="morpheme.value">{{morpheme.value}}</template>
                                         <template v-else>-</template>
                                     </span>
-                  <infl-footnote :footnotes="morpheme.footnotes" v-if="morpheme.hasFootnotes"></infl-footnote>
-                  <template v-if="index < cell.morphemes.length-1">,</template>
-                </template>
+                <infl-footnote :footnotes="morpheme.footnotes" v-if="morpheme.hasFootnotes"></infl-footnote>
+                <template v-if="index < cell.morphemes.length-1">,</template>
               </template>
-              <span v-else v-html="l10n.getText(cell.value)"></span>
-            </div>
-          </template>
+            </template>
+            <span v-else v-html="l10n.getText(cell.value)"></span>
+          </div>
+        </template>
+      </div>
+
+      <div class="infl-prdgm-tbl" v-if="hasPrerenderedTables">
+        <div class="infl-prdgm-tbl__row" v-for="row in state.view.wideTable.rows">
+          <div :class="prerenderedCellClasses(cell)" class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
+            {{cell.value}}
+          </div>
         </div>
-
       </div>
 
-      <div
-          class="alpheios-inflections__not-impl-msg"
-          v-show="!isAvailable"
-      >
-        {{l10n.getMsg('INFLECT_MSG_TABLE_NOT_IMPLEMENTED')}}
-      </div>
-    </template>
+    </div>
+
+    <div
+        class="alpheios-inflections__not-impl-msg"
+        v-show="!state.collapsed && !isAvailable"
+    >
+      {{l10n.getMsg('INFLECT_MSG_TABLE_NOT_IMPLEMENTED')}}
+    </div>
   </div>
 </template>
 <script>
-import { Constants } from 'alpheios-data-models'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 
 import InflFootnote from './infl-footnote.vue'
@@ -160,6 +161,14 @@ export default {
 
     additionalTitle: function () {
       return this.view.additionalTitle || this.standardFormData.additionalTitle || ''
+    },
+
+    hasInflectionTables: function () {
+      return this.isAvailable && !this.state.view.hasPrerenderedTables
+    },
+
+    hasPrerenderedTables: function () {
+      return this.isAvailable && this.state.view.hasPrerenderedTables
     },
 
     tableStyles: function () {
