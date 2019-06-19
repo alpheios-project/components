@@ -307,8 +307,12 @@ export default class UIController {
 
   createModules () {
     // Create data modules fist, UI modules after that because UI modules are dependent on data ones
-    this.dataModules.forEach((m) => { m.instance = new m.ModuleClass(this.store, this.api, m.options) })
-    this.uiModules.forEach((m) => { m.instance = new m.ModuleClass(this.store, this.api, m.options) })
+    this.dataModules.forEach((m) => {
+      m.instance = new m.ModuleClass(this.store, this.api, m.options)
+    })
+    this.uiModules.forEach((m) => {
+      m.instance = new m.ModuleClass(this.store, this.api, m.options)
+    })
   }
 
   activateModules () {
