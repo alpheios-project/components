@@ -575,7 +575,7 @@
     "component": "WordUsageExamplesFilters"
   },
   "WORDUSAGE_SORT_BY_TEXTWORK": {
-    "message": "By text work",
+    "message": "By work",
     "description": "Word Usage Examples Sort by text work",
     "component": "WordUsageExamplesFilters"
   },
