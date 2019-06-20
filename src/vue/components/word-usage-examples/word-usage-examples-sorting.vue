@@ -55,15 +55,9 @@ export default {
   computed: {
     availableSortBy () {
       return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.wordUsageExamples && this.app.wordUsageExamples.wordUsageExamples.length > 0
-    },
-    showHideTitleSort () {
-      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
     }
   },
   methods: {
-    showHideSort () {
-      this.visibleSortBy = !this.visibleSortBy
-    },
     changedSortBy () {
       this.$emit('changedSortBy', this.selectedSortBy)
     },

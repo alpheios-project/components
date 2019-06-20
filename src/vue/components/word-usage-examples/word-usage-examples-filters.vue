@@ -84,9 +84,7 @@ export default {
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
-      ],
-      disabledButton: false,
-      noMoreResults: true
+      ]
     }
   },
   watch: {
@@ -111,6 +109,7 @@ export default {
     authorsList () {
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
+
         if (!this.app.wordUsageExamples.wordUsageExamples) {
           this.lastAuthorsList = []
           this.lastTextWorksList = []
@@ -134,7 +133,7 @@ export default {
 
           this.typeFilter = 'filterCurrentResults'
         }
-      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.homonym) {
+      } else if (!this.$store.state.app.wordUsageExamplesReady || !this.homonym) {
         this.typeFilter = 'noFilters'
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
@@ -142,11 +141,12 @@ export default {
         this.lastAuthorsList = []
         this.lastTextWorksList = []
         this.lastTargetWord = null
+        this.lastAuthorID = null
       }
       return true
     },
     filteredWorkList () {
-      if (this.selectedAuthor) {
+      if (this.selectedAuthor) {        
         this.selectedTextWork = null
         let resArray = this.lastTextWorksList.filter(textwork => textwork && textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
         if (resArray.length > 0) {
@@ -175,31 +175,21 @@ export default {
     },
     async getResults () {
       if (this.typeFilter === 'noFilters') {
-        this.disabledButton = true
-
-        if (this.noMoreResults && this.lastAuthorsList.length > 0) {
-          this.removeFiltersFromResults()
-        } else {
-          await this.getResultsNoFilters()
-        }
+        await this.getResultsNoFilters()
+        
         this.$emit('getAllResults')
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'
         this.setDisabledToType([])
-
-        this.disabledButton = false
         
       } else if (this.typeFilter === 'moreResults') {
-        this.disabledButton = true
         this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
         await this.getResultsWithFilters()
 
         this.setDisabledToType(['filterCurrentResults'])
-        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
 
-        this.disabledButton = false
-        
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null        
       } else if (this.typeFilter === 'filterCurrentResults') {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null

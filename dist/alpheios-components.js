@@ -17931,9 +17931,7 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
-      ],
-      disabledButton: false,
-      noMoreResults: true
+      ]
     }
   },
   watch: {
@@ -17958,6 +17956,7 @@ __webpack_require__.r(__webpack_exports__);
     authorsList () {
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
+
         if (!this.app.wordUsageExamples.wordUsageExamples) {
           this.lastAuthorsList = []
           this.lastTextWorksList = []
@@ -17981,7 +17980,7 @@ __webpack_require__.r(__webpack_exports__);
 
           this.typeFilter = 'filterCurrentResults'
         }
-      } else if (!this.$store.state.app.wordUsageExamplesReady && !this.homonym) {
+      } else if (!this.$store.state.app.wordUsageExamplesReady || !this.homonym) {
         this.typeFilter = 'noFilters'
         this.setDisabledToType(['moreResults', 'filterCurrentResults'])
         this.selectedAuthor = null
@@ -17989,11 +17988,12 @@ __webpack_require__.r(__webpack_exports__);
         this.lastAuthorsList = []
         this.lastTextWorksList = []
         this.lastTargetWord = null
+        this.lastAuthorID = null
       }
       return true
     },
     filteredWorkList () {
-      if (this.selectedAuthor) {
+      if (this.selectedAuthor) {        
         this.selectedTextWork = null
         let resArray = this.lastTextWorksList.filter(textwork => textwork && textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
         if (resArray.length > 0) {
@@ -18022,31 +18022,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     async getResults () {
       if (this.typeFilter === 'noFilters') {
-        this.disabledButton = true
-
-        if (this.noMoreResults && this.lastAuthorsList.length > 0) {
-          this.removeFiltersFromResults()
-        } else {
-          await this.getResultsNoFilters()
-        }
+        await this.getResultsNoFilters()
+        
         this.$emit('getAllResults')
         this.clearFilter('author')
         this.lastAuthorID = null
         this.typeFilter = 'filterCurrentResults'
         this.setDisabledToType([])
-
-        this.disabledButton = false
         
       } else if (this.typeFilter === 'moreResults') {
-        this.disabledButton = true
         this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
         await this.getResultsWithFilters()
 
         this.setDisabledToType(['filterCurrentResults'])
-        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
 
-        this.disabledButton = false
-        
+        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null        
       } else if (this.typeFilter === 'filterCurrentResults') {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
@@ -18169,15 +18159,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     availableSortBy () {
       return this.$store.state.app.wordUsageExamplesReady && this.app.wordUsageExamples.wordUsageExamples && this.app.wordUsageExamples.wordUsageExamples.length > 0
-    },
-    showHideTitleSort () {
-      return this.visibleSortBy ? this.l10n.getText('WORDUSAGE_FILTERS_HIDE') : this.l10n.getText('WORDUSAGE_FILTERS_SHOW')
     }
   },
   methods: {
-    showHideSort () {
-      this.visibleSortBy = !this.visibleSortBy
-    },
     changedSortBy () {
       this.$emit('changedSortBy', this.selectedSortBy)
     },
@@ -18327,8 +18311,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
-             !this.$store.state.app.wordUsageExamplesReady
+             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
@@ -18361,7 +18344,7 @@ __webpack_require__.r(__webpack_exports__);
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
       if (this.showWordUsageExampleItems && this.wordUsageExamples) {
-        return this.sortWordUSageExamplesBy()
+        return this.sortWordUsageExamplesBy()
       }
       return []
     },
@@ -18387,8 +18370,7 @@ __webpack_require__.r(__webpack_exports__);
       this.needInnerFilter = false
     },
     getAllResults () {
-      this.selectedAuthor = null
-      this.selectedTextWork = null
+      this.setAuthorTextWork(null, null)
       this.needInnerFilter = false
       this.collapsedHeader = true
     },
@@ -18406,7 +18388,7 @@ __webpack_require__.r(__webpack_exports__);
           return a.fullCit().toUpperCase()
       }
     },
-    sortWordUSageExamplesBy () {
+    sortWordUsageExamplesBy () {
       return this.wordUsageExamples.sort((a, b) => {
         let aU = this.getPropertyBySortBy(a, this.sortBy)
         let bU = this.getPropertyBySortBy(b, this.sortBy)

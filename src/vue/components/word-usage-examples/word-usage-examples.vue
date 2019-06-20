@@ -155,7 +155,7 @@ export default {
       // eventually sorting should also take language into account but
       // for now we will probably only show Latin author and work names anyway
       if (this.showWordUsageExampleItems && this.wordUsageExamples) {
-        return this.sortWordUSageExamplesBy()
+        return this.sortWordUsageExamplesBy()
       }
       return []
     },
@@ -181,8 +181,7 @@ export default {
       this.needInnerFilter = false
     },
     getAllResults () {
-      this.selectedAuthor = null
-      this.selectedTextWork = null
+      this.setAuthorTextWork(null, null)
       this.needInnerFilter = false
       this.collapsedHeader = true
     },
@@ -200,7 +199,7 @@ export default {
           return a.fullCit().toUpperCase()
       }
     },
-    sortWordUSageExamplesBy () {
+    sortWordUsageExamplesBy () {
       return this.wordUsageExamples.sort((a, b) => {
         let aU = this.getPropertyBySortBy(a, this.sortBy)
         let bU = this.getPropertyBySortBy(b, this.sortBy)

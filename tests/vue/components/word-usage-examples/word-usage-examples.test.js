@@ -15,10 +15,10 @@ import enGB from '@/locales/en-gb/messages.json'
 
 import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
 
-describe('word-usage-examples-block.test.js', () => {
+describe('word-usage-examples.test.js', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
-  let testWordUsageList, testWord1, mockProvider, store, l10nModule
+  let testWordUsageList, testWord1, mockProvider, store, l10nModule, testWordUsageList2
 
   let testAuthor, testTextWork
   let api = {}
@@ -58,6 +58,13 @@ describe('word-usage-examples-block.test.js', () => {
     })
 
     testWordUsageList = adapterConcordanceRes.result
+
+    let adapterConcordanceRes2 = await ClientAdapters.wordusageExamples.concordance({
+      method: 'getWordUsageExamples',
+      params: { homonym: adapterTuftsRes.result, filters: {}, pagination: paginationOptions }
+    })
+
+    testWordUsageList2 = adapterConcordanceRes2.result
 
   })
 
@@ -382,8 +389,254 @@ describe('word-usage-examples-block.test.js', () => {
     store.commit('app/setWordUsageExamplesReady')
     api.app.wordUsageExamples = testWordUsageList
 
-    jest.spyOn(cmp.vm, 'sortWordUSageExamplesBy')
+    jest.spyOn(cmp.vm, 'sortWordUsageExamplesBy')
     expect(cmp.vm.wordUsageListSorted.length).toEqual(testWordUsageList.wordUsageExamples.length)
-    expect(cmp.vm.sortWordUSageExamplesBy).toHaveBeenCalled()
+    expect(cmp.vm.sortWordUsageExamplesBy).toHaveBeenCalled()
   })
+
+  it('16 WordUsageExamples - computed collapsedHeaderTitle returns shows if collapsedHeader=true and hide otherwise ', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+    cmp.vm.collapsedHeader = true
+    expect(cmp.vm.collapsedHeaderTitle).toEqual(expect.stringContaining('show'))
+
+    cmp.vm.collapsedHeader = false
+    expect(cmp.vm.collapsedHeaderTitle).toEqual(expect.stringContaining('hide'))
+  })
+
+  it('17 WordUsageExamples - method changedSortBy sets the value of the property - sortBy', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    expect(cmp.vm.sortBy).toBeNull()
+    cmp.vm.changedSortBy('fooSortBy')
+    expect(cmp.vm.sortBy).toEqual('fooSortBy')
+  })
+
+  it('18 WordUsageExamples - method setAuthorTextWork sets values to selectedAuthor and selectedTextWork', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    expect(cmp.vm.selectedAuthor).toBeNull()
+    expect(cmp.vm.selectedTextWork).toBeNull()
+    cmp.vm.setAuthorTextWork('fooAuthor', 'fooTextWork')
+
+    expect(cmp.vm.selectedAuthor).toEqual('fooAuthor')
+    expect(cmp.vm.selectedTextWork).toEqual('fooTextWork')
+  })
+
+  it('19 WordUsageExamples - method filterCurrentByAuthor executes setAuthorTextWork and sets needInnerFilter and collapsedHeader truthy', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    jest.spyOn(cmp.vm, 'setAuthorTextWork')
+
+    cmp.vm.needInnerFilter = false
+    cmp.vm.collapsedHeader = false
+
+    cmp.vm.filterCurrentByAuthor('fooAuthor', 'fooTextWork')
+
+    expect(cmp.vm.setAuthorTextWork).toHaveBeenCalledWith('fooAuthor', 'fooTextWork')
+    expect(cmp.vm.needInnerFilter).toBeTruthy()
+    expect(cmp.vm.collapsedHeader).toBeTruthy()
+  })
+
+  it('20 WordUsageExamples - method getMoreResults executes setAuthorTextWork  and sets needInnerFilter falsy', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    jest.spyOn(cmp.vm, 'setAuthorTextWork')
+
+    cmp.vm.needInnerFilter = true
+
+    cmp.vm.getMoreResults('fooAuthor', 'fooTextWork')
+
+    expect(cmp.vm.setAuthorTextWork).toHaveBeenCalledWith('fooAuthor', 'fooTextWork')
+    expect(cmp.vm.needInnerFilter).toBeFalsy()
+  })
+
+  it('21 WordUsageExamples - method getAllResults executes setAuthorTextWork with nulls and sets needInnerFilter - falsy, collapsedHeader - truthy ', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    jest.spyOn(cmp.vm, 'setAuthorTextWork')
+
+    cmp.vm.needInnerFilter = true
+    cmp.vm.collapsedHeader = false
+
+    cmp.vm.getAllResults()
+
+    expect(cmp.vm.setAuthorTextWork).toHaveBeenCalledWith(null, null)
+    expect(cmp.vm.needInnerFilter).toBeFalsy()
+    expect(cmp.vm.collapsedHeader).toBeTruthy()
+  })
+
+  it('22 WordUsageExamples - method getAllResults executes setAuthorTextWork with nulls and sets needInnerFilter - falsy, collapsedHeader - truthy ', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    jest.spyOn(cmp.vm, 'setAuthorTextWork')
+
+    cmp.vm.needInnerFilter = true
+    cmp.vm.collapsedHeader = false
+
+    cmp.vm.getAllResults()
+
+    expect(cmp.vm.setAuthorTextWork).toHaveBeenCalledWith(null, null)
+    expect(cmp.vm.needInnerFilter).toBeFalsy()
+    expect(cmp.vm.collapsedHeader).toBeTruthy()
+  })
+
+  it('23 WordUsageExamples - method getPropertyBySortBy defines sort order, if type = byAuthor, then returns author property of the given usage example', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    let wordUsageEx = testWordUsageList.wordUsageExamples[0]
+    let res = cmp.vm.getPropertyBySortBy(wordUsageEx, 'byAuthor')
+    expect(res).toEqual(wordUsageEx.authorForSort())
+  })
+
+  it('24 WordUsageExamples - method getPropertyBySortBy defines sort order, if type = byTextWork, then returns texWork property of the given usage example', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    let wordUsageEx = testWordUsageList.wordUsageExamples[0]
+    let res = cmp.vm.getPropertyBySortBy(wordUsageEx, 'byTextWork')
+    expect(res).toEqual(wordUsageEx.textWorkForSort())
+  })
+
+  it('25 WordUsageExamples - method getPropertyBySortBy defines sort order, if type = byPrefix, then returns the preceeding word of the given usage example', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    let wordUsageEx = testWordUsageList.wordUsageExamples[0]
+    let res = cmp.vm.getPropertyBySortBy(wordUsageEx, 'byPrefix')
+    expect(res).toEqual(wordUsageEx.prefixForSort)
+  })
+
+  it('26 WordUsageExamples - method getPropertyBySortBy defines sort order, if type = bySuffix, then returns the following word of the given usage example', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    let wordUsageEx = testWordUsageList.wordUsageExamples[0]
+    let res = cmp.vm.getPropertyBySortBy(wordUsageEx, 'bySuffix')
+    expect(res).toEqual(wordUsageEx.suffixForSort)
+  })
+
+  it('27 WordUsageExamples - method getPropertyBySortBy defines sort order, if type is not defined, then by default it returns fullCit (Author + TextWork)', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    let wordUsageEx = testWordUsageList.wordUsageExamples[0]
+    let res = cmp.vm.getPropertyBySortBy(wordUsageEx)
+    expect(res).toEqual(wordUsageEx.fullCit().toUpperCase())
+  })
+
+  it('28 WordUsageExamples - method sortWordUsageExamplesBy returns wordUsageExamples sorted by sortBy property - by default', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('app/setWordUsageExamplesReady')
+    api.app.wordUsageExamples = testWordUsageList
+
+    let checkArrayWithoutSort, sortedRes
+    // by default
+
+    checkArrayWithoutSort = cmp.vm.wordUsageExamples.map(item => cmp.vm.getPropertyBySortBy(item))
+    //
+    // checkArrayWithoutSort = [
+    // 0  'GAIUS SALLUSTIUS CRISPUS BELLUM IUGURTHINUM 1',
+    // 1  'CORNELIUS TACITUS ANNALES 3',
+    // 2  'CORNELIUS TACITUS HISTORIAE 4',
+    // 3  'CORNELIUS TACITUS ANNALES 13',
+    // 4  'CORNELIUS TACITUS HISTORIAE 1'
+    // ]
+    
+    
+    
+    sortedRes = cmp.vm.sortWordUsageExamplesBy().map(item => cmp.vm.getPropertyBySortBy(item))
+    expect(sortedRes[0]).toEqual('CORNELIUS TACITUS ANNALES 13')
+    expect(sortedRes[1]).toEqual('CORNELIUS TACITUS ANNALES 3')
+    expect(sortedRes[2]).toEqual('CORNELIUS TACITUS HISTORIAE 1')
+    expect(sortedRes[3]).toEqual('CORNELIUS TACITUS HISTORIAE 4')
+    expect(sortedRes[4]).toEqual('GAIUS SALLUSTIUS CRISPUS BELLUM IUGURTHINUM 1')
+  })
+
+  it('29 WordUsageExamples - method sortWordUsageExamplesBy returns wordUsageExamples sorted by sortBy property - by defined sortBy', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('app/setWordUsageExamplesReady')
+    api.app.wordUsageExamples = testWordUsageList2
+   
+    //byPrefix
+    cmp.vm.sortBy = 'byPrefix'   
+    //
+    // [ 'DOMINATIONIS', 'FORTUNA', 'LUXU', 'LONGA', 'PRAVIS' ]
+    //
+
+    let sortedRes = cmp.vm.sortWordUsageExamplesBy().map(item => cmp.vm.getPropertyBySortBy(item, 'byPrefix'))
+    expect(sortedRes).toEqual([ 'DOMINATIONIS', 'FORTUNA', 'LONGA', 'LUXU', 'PRAVIS' ])
+  })
+
+  it('30 WordUsageExamples - method changeShowDataSource reverses showDataSource property', () => {
+    let cmp = shallowMount(WordUsageExamples, {
+      store: store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('app/setWordUsageExamplesReady')
+    api.app.wordUsageExamples = testWordUsageList
+    cmp.vm.showDataSource = false
+    
+    cmp.vm.changeShowDataSource()
+    expect(cmp.vm.showDataSource).toBeTruthy()
+
+    cmp.vm.changeShowDataSource()
+    expect(cmp.vm.showDataSource).toBeFalsy()
+  })
+  
 })
