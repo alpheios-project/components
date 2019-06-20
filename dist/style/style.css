@@ -2134,6 +2134,7 @@ h3.alpheios-inflections__credits-title {
 .alpheios-treebank {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .alpheios-treebank__frame {
   /*
@@ -2143,6 +2144,7 @@ h3.alpheios-inflections__credits-title {
   */
   width: 690px;
   flex: 1 1 100vh;
+  height: 100%;
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2940,6 +2942,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-panel__tab__treebank {
   width: 100%;
+  height: 100%;
 }
 .alpheios-panel__tab-panel-options-cont {
   display: flex;

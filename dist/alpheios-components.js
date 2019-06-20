@@ -16973,13 +16973,6 @@ __webpack_require__.r(__webpack_exports__);
   storeModules: ['app', 'ui'],
   mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
 
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
-
   computed: {
     /*
     Returns a source URL of a treebank page. This computed prop will be cached by Vue.js.
@@ -16987,6 +16980,7 @@ __webpack_require__.r(__webpack_exports__);
     */
     srcURL: function () {
       if (this.$store.getters['ui/isActiveTab']('treebank')) {
+        console.log(this.$store.getters['ui/isActiveTab'])
         /*
         The arethusa application can't initialize itself properly
         if it's not visible, so we wait to update the src url of the

@@ -934,6 +934,7 @@ export default {
 
   .alpheios-panel__tab__treebank {
     width: 100%;
+    height: 100%;
   }
 
   .alpheios-panel__tab-panel-options-cont {

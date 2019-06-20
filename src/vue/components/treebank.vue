@@ -12,13 +12,6 @@ export default {
   storeModules: ['app', 'ui'],
   mixins: [DependencyCheck],
 
-  props: {
-    visible: {
-      type: Boolean,
-      required: true
-    }
-  },
-
   computed: {
     /*
     Returns a source URL of a treebank page. This computed prop will be cached by Vue.js.
@@ -59,6 +52,7 @@ export default {
   .alpheios-treebank {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   .alpheios-treebank__frame {
@@ -69,5 +63,6 @@ export default {
     */
     width: 690px;
     flex: 1 1 100vh;
+    height: 100%;
   }
 </style>
