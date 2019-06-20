@@ -719,18 +719,18 @@ export default class UIController {
     // Set options of modules before modules are created
     if (this.hasModule('popup')) {
       let popupOptions = this.modules.get('popup').options
-      popupOptions.positioning = this.contentOptions.items.popupPosition.currentValue
+      popupOptions.positioning = this.uiOptions.items.popupPosition.currentValue
       popupOptions.initialShift = {
-        x: this.contentOptions.items.popupShiftX.currentValue,
-        y: this.contentOptions.items.popupShiftY.currentValue
+        x: this.uiOptions.items.popupShiftX.currentValue,
+        y: this.uiOptions.items.popupShiftY.currentValue
       }
     }
 
     if (this.hasModule('toolbar')) {
       let toolbarOptions = this.modules.get('toolbar').options
       toolbarOptions.initialShift = {
-        x: this.contentOptions.items.toolbarShiftX.currentValue,
-        y: this.contentOptions.items.toolbarShiftY.currentValue
+        x: this.uiOptions.items.toolbarShiftX.currentValue,
+        y: this.uiOptions.items.toolbarShiftY.currentValue
       }
     }
 
@@ -739,7 +739,7 @@ export default class UIController {
 
     // Adjust configuration of modules according to content options
     if (this.hasModule('panel')) {
-      this.store.commit('panel/setPosition', this.contentOptions.items.panelPosition.currentValue)
+      this.store.commit('panel/setPosition', this.uiOptions.items.panelPosition.currentValue)
     }
 
     const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
@@ -964,7 +964,7 @@ export default class UIController {
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
-      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose',
+      status: () => this.api.settings.uiOptions.items.verboseMode.currentValue === 'verbose',
       wordlist: () => this.store.state.app.hasWordListsData
     }
     return tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()
@@ -1515,12 +1515,6 @@ export default class UIController {
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
         break
-      case 'panelPosition':
-        this.store.commit('panel/setPosition', this.api.settings.contentOptions.items.panelPosition.currentValue)
-        break
-      case 'popupPosition':
-        this.store.commit('popup/setPositioning', this.api.settings.contentOptions.items.popupPosition.currentValue)
-        break
     }
   }
 
@@ -1534,7 +1528,7 @@ export default class UIController {
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
-    if (name === 'fontSize' || name === 'panelOnActivate') {
+    if (name === 'fontSize') {
       this.api.settings.uiOptions.items[name].setValue(value)
     } else {
       this.api.settings.uiOptions.items[name].setTextValue(value)
@@ -1554,6 +1548,12 @@ export default class UIController {
         } catch (error) {
           console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
         }
+        break
+      case 'panelPosition':
+        this.store.commit('panel/setPosition', this.api.settings.uiOptions.items.panelPosition.currentValue)
+        break
+      case 'popupPosition':
+        this.store.commit('popup/setPositioning', this.api.settings.uiOptions.items.popupPosition.currentValue)
         break
     }
   }

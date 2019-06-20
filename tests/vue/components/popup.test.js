@@ -20,6 +20,7 @@ import enGB from '@/locales/en-gb/messages.json'
 import Options from '@/lib/options/options.js'
 import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import ContentOptionDefaults from '@/settings/content-options-defaults.json'
+import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import LocalStorageArea from '@/lib/options/local-storage-area.js'
 import TempStorageArea from '@/lib/options/temp-storage-area.js'
 
@@ -30,6 +31,7 @@ describe('popup.test.js', () => {
   let api = {}
   let contentOptions
   let resourceOptions
+  let uiOptions
   let l10nModule
   let authModule
   const uiAPI = {
@@ -47,6 +49,7 @@ describe('popup.test.js', () => {
 
     contentOptions = new Options(ContentOptionDefaults, TempStorageArea)
     resourceOptions = new Options(LanguageOptionDefaults, TempStorageArea)
+    uiOptions = new Options(UIOptionDefaults, TempStorageArea)
 
     store = new Vuex.Store({
       modules: {
@@ -87,7 +90,8 @@ describe('popup.test.js', () => {
       auth:authModule,
       settings: {
         contentOptions,
-        resourceOptions
+        resourceOptions,
+        uiOptions
       }
     }
 

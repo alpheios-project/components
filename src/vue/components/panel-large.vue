@@ -140,26 +140,20 @@
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.panelPosition"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.panelPosition"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.popupPosition"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.popupPosition"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.uiType"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.verboseMode"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.verboseMode"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting

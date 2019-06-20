@@ -255,26 +255,20 @@
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.panelPosition"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.panelPosition"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.popupPosition"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.popupPosition"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting
               :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.uiType"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.verboseMode"
-              @change="contentOptionChanged"
+              :data="settings.uiOptions.items.verboseMode"
+              @change="uiOptionChanged"
           >
           </setting>
           <setting
@@ -582,7 +576,7 @@ export default {
     },
 
     verboseMode () {
-      return this.settings.contentOptions.items.verboseMode.currentValue === `verbose`
+      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
     },
 
     formattedShortDefinitions () {
@@ -622,7 +616,7 @@ export default {
     },
 
     setPosition (position) {
-      this.settings.contentOptions.items.panelPosition.setValue(position)
+      this.settings.uiOptions.items.panelPosition.setValue(position)
       this.$store.commit('panel/setPosition', position)
     },
 
