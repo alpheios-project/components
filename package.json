@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Alpheios UI Components",
   "main": "dist/alpheios-components.min.js",
   "scripts": {
