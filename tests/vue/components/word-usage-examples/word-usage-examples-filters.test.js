@@ -229,7 +229,7 @@ describe('word-usage-examples-filters.test.js', () => {
     expect(cmp.vm.lastAuthorsList.length).toEqual(0)
     expect(cmp.vm.lastTextWorksList.length).toEqual(0)
     expect(cmp.vm.typeFilter).toEqual('noFilters')
-  })
+  }, 50000)
   
   it('5 WordUsageExamplesFilters - computed authorsList defines lastAuthorsList (with first null to remove filtering), lastTextWorksList (with first null to remove filtering), typeFilter, when there is a new homonym and wordUsageExamples is retrieved', async () => {
     let cmp = shallowMount(WordUsageExamplesFilters, {
