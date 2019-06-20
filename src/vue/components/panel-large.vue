@@ -129,53 +129,8 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <!-- This extra container element is required for Safari so that the flex option items will have height to match their content -->
-        <div class="alpheios-panel__tab-panel-options-cont">
-          <reskin-font-color></reskin-font-color>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.preferredLanguage"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panelPosition"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.popupPosition"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.verboseMode"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.skin"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panel"
-              @change="uiOptionChanged"
-              v-show="app.isDevMode()"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panelOnActivate"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
+        <ui-settings></ui-settings>
+         <setting
               :classes="['alpheios-panel__options-item']"
               :data="languageSetting"
               :key="languageSetting.name"
@@ -233,7 +188,6 @@
               @change="contentOptionChanged"
           >
           </setting>
-        </div>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}

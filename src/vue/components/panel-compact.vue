@@ -246,44 +246,7 @@
       >
         <!-- This extra container element is required for iOS browsers so that the flex option items will have height to match their content -->
         <div class="alpheios-panel__tab-panel-options-cont">
-          <reskin-font-color></reskin-font-color>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.preferredLanguage"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panelPosition"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.popupPosition"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.verboseMode"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.skin"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panel"
-              @change="uiOptionChanged"
-              v-show="app.isDevMode()"
-          >
-          </setting>
+          <ui-settings></ui-settings>
           <setting
               :classes="['alpheios-panel__options-item']"
               :data="settings.uiOptions.items.panelOnActivate"
@@ -378,14 +341,13 @@ import Platform from '@/lib/utility/platform.js'
 // Vue components
 import NotificationArea from '@/vue/components//notification-area.vue'
 import Inflections from './inflections.vue'
-import Setting from './setting.vue'
 import ShortDef from './shortdef.vue'
 import Grammar from './grammar.vue'
 import Morph from './morph.vue'
 import Treebank from './treebank.vue'
 import InflectionBrowser from './inflections-browser.vue'
 import Lookup from './lookup.vue'
-import ReskinFontColor from './font-size.vue'
+import UISettings from './ui-settings.vue'
 import UserAuth from './user-auth.vue'
 import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
 import { Definition } from 'alpheios-data-models'
@@ -397,7 +359,6 @@ import UpIcon from '@/images/inline-icons/chevron-up.svg'
 import DownIcon from '@/images/inline-icons/chevron-down.svg'
 import LeftIcon from '@/images/inline-icons/chevron-left.svg'
 import RightIcon from '@/images/inline-icons/chevron-right.svg'
-
 import MorphologyIcon from '@/images/inline-icons/language.svg'
 import DefinitionsIcon from '@/images/inline-icons/definitions.svg'
 import InflectionsIcon from '@/images/inline-icons/inflections.svg'
@@ -433,7 +394,6 @@ export default {
     notificationArea: NotificationArea,
     inflections: Inflections,
     inflectionBrowser: InflectionBrowser,
-    setting: Setting,
     shortdef: ShortDef,
     grammar: Grammar,
     morph: Morph,
@@ -441,14 +401,13 @@ export default {
     userAuth: UserAuth,
     closeIcon: CloseIcon,
     lookup: Lookup,
-    reskinFontColor: ReskinFontColor,
+    uiSettings: UISettings,
     wordListPanel: WordListPanel,
     wordUsageExamples: WordUsageExamples,
     upIcon: UpIcon,
     downIcon: DownIcon,
     leftIcon: LeftIcon,
     rightIcon: RightIcon,
-
     morphologyIcon: MorphologyIcon,
     definitionsIcon: DefinitionsIcon,
     inflectionsIcon: InflectionsIcon,
@@ -642,10 +601,6 @@ export default {
 
     resourceSettingChanged: function (name, value) {
       this.language.resourceSettingChange(name, value)
-    },
-
-    uiOptionChanged: function (name, value) {
-      this.ui.optionChange(name, value)
     },
 
     expand () {

@@ -2305,6 +2305,24 @@ h3.alpheios-inflections__credits-title {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
+.alpheios-ui-options__cont {
+  display: flex;
+  flex-direction: column;
+}
+.alpheios-ui-options__item {
+  margin-bottom: calc(var(--alpheios-base-text-size) * 0.625);
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 auto;
+}
+/*
+ Calculates a size of text elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
+ */
+/*
+ Calculates a size of UI elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
+ */
 .alpheios-user-auth__user-info-box {
   margin-top: calc(var(--alpheios-base-ui-size) * 1.25);
   display: flex;
