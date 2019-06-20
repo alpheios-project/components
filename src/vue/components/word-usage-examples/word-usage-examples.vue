@@ -122,8 +122,7 @@ export default {
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 ||
-             !this.$store.state.app.wordUsageExamplesReady
+             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
