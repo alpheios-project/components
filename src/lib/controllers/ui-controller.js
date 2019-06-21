@@ -270,12 +270,7 @@ export default class UIController {
 
   setDefaultPanelState () {
     if (!this.hasModule('panel')) { return this }
-    if (this.uiOptions.items.panelOnActivate.currentValue) {
-      // If option value of panelOnActivate is true
-      this.state.setPanelOpen()
-    } else {
-      this.state.setPanelClosed()
-    }
+    this.state.setPanelClosed()
     return this
   }
 

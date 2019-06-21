@@ -16993,25 +16993,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -26099,38 +26080,6 @@ var render = function() {
         attrs: {
           classes: ["alpheios-ui-options__item"],
           data: _vm.settings.uiOptions.items.verboseMode
-        },
-        on: { change: _vm.uiOptionChanged }
-      }),
-      _vm._v(" "),
-      _c("setting", {
-        attrs: {
-          classes: ["alpheios-ui-options__item"],
-          data: _vm.settings.uiOptions.items.skin
-        },
-        on: { change: _vm.uiOptionChanged }
-      }),
-      _vm._v(" "),
-      _c("setting", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.app.isDevMode(),
-            expression: "app.isDevMode()"
-          }
-        ],
-        attrs: {
-          classes: ["alpheios-ui-options__item"],
-          data: _vm.settings.uiOptions.items.panel
-        },
-        on: { change: _vm.uiOptionChanged }
-      }),
-      _vm._v(" "),
-      _c("setting", {
-        attrs: {
-          classes: ["alpheios-ui-options__item"],
-          data: _vm.settings.uiOptions.items.panelOnActivate
         },
         on: { change: _vm.uiOptionChanged }
       })
@@ -42557,12 +42506,7 @@ class UIController {
 
   setDefaultPanelState () {
     if (!this.hasModule('panel')) { return this }
-    if (this.uiOptions.items.panelOnActivate.currentValue) {
-      // If option value of panelOnActivate is true
-      this.state.setPanelOpen()
-    } else {
-      this.state.setPanelClosed()
-    }
+    this.state.setPanelClosed()
     return this
   }
 
