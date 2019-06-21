@@ -2271,6 +2271,42 @@ h3.alpheios-inflections__credits-title {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
+.alpheios-resource-options__cont {
+  display: flex;
+  flex-direction: column;
+}
+.alpheios-resource-options__item {
+  margin-bottom: calc(var(--alpheios-base-text-size) * 0.625);
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 auto;
+}
+/*
+ Calculates a size of text elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
+ */
+/*
+ Calculates a size of UI elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
+ */
+.alpheios-feature-options__cont {
+  display: flex;
+  flex-direction: column;
+}
+.alpheios-feature-options__item {
+  margin-bottom: calc(var(--alpheios-base-text-size) * 0.625);
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 auto;
+}
+/*
+ Calculates a size of text elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
+ */
+/*
+ Calculates a size of UI elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
+ */
 .alpheios-setting__button-group {
   color: var(--alpheios-text-color-vivid);
   border: 1px solid var(--alpheios-text-color-vivid);

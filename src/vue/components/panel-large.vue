@@ -130,64 +130,8 @@
            data-alpheios-ignore="all"
       >
         <ui-settings></ui-settings>
-         <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexicons"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexiconsShort"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableWordUsageExamples"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesON"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesAuthMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableLemmaTranslations"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.locale"
-              @change="contentOptionChanged"
-          >
-          </setting>
+        <feature-settings></feature-settings>
+        <resource-settings></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}

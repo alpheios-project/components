@@ -244,74 +244,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <!-- This extra container element is required for iOS browsers so that the flex option items will have height to match their content -->
-        <div class="alpheios-panel__tab-panel-options-cont">
-          <ui-settings></ui-settings>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panelOnActivate"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexicons"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexiconsShort"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableWordUsageExamples"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesON"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesAuthMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableLemmaTranslations"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.locale"
-              @change="contentOptionChanged"
-          >
-          </setting>
-        </div>
+        <ui-settings></ui-settings>
+        <feature-settings></feature-settings>
+        <resource-settings></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -347,6 +282,8 @@ import Morph from './morph.vue'
 import Treebank from './treebank.vue'
 import InflectionBrowser from './inflections-browser.vue'
 import Lookup from './lookup.vue'
+import ResourceSettings from './resource-settings.vue'
+import FeatureSettings from './feature-settings.vue'
 import UISettings from './ui-settings.vue'
 import UserAuth from './user-auth.vue'
 import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
@@ -402,6 +339,8 @@ export default {
     closeIcon: CloseIcon,
     lookup: Lookup,
     uiSettings: UISettings,
+    resourceSettings: ResourceSettings,
+    featureSettings: FeatureSettings,
     wordListPanel: WordListPanel,
     wordUsageExamples: WordUsageExamples,
     upIcon: UpIcon,
@@ -516,17 +455,6 @@ export default {
       return this.$store.state.app.morphDataReady && this.app.hasMorphData()
     },
 
-    resourceSettingsLexicons: function () {
-      return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexicons
-        ? this.settings.resourceOptions.items.lexicons.filter(item => item.values.length > 0)
-        : []
-    },
-    resourceSettingsLexiconsShort: function () {
-      return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexiconsShort
-        ? this.settings.resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
-        : []
-    },
-
     additionalStylesTootipCloseIcon: function () {
       return {
         top: '2px',
@@ -597,10 +525,6 @@ export default {
 
     resetAllOptions: function () {
       this.app.resetAllOptions()
-    },
-
-    resourceSettingChanged: function (name, value) {
-      this.language.resourceSettingChange(name, value)
     },
 
     expand () {

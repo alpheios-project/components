@@ -1,5 +1,5 @@
 {
-  "domain": "alpheios-content-options",
+  "domain": "alpheios-feature-options",
   "items": {
     "enableLemmaTranslations": {
       "defaultValue": false,

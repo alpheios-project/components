@@ -19,25 +19,6 @@
         @change="uiOptionChanged"
     >
     </setting>
-    <setting
-        :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.skin"
-        @change="uiOptionChanged"
-    >
-    </setting>
-    <setting
-        :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.panel"
-        @change="uiOptionChanged"
-        v-show="app.isDevMode()"
-    >
-    </setting>
-    <setting
-        :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.panelOnActivate"
-        @change="uiOptionChanged"
-    >
-    </setting>
   </div>
 </template>
 <script>
