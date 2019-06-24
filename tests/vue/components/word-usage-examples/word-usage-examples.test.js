@@ -568,7 +568,7 @@ describe('word-usage-examples.test.js', () => {
     expect(res).toEqual(wordUsageEx.fullCit().toUpperCase())
   })
 
-  it('28 WordUsageExamples - method sortWordUsageExamplesBy returns wordUsageExamples sorted by sortBy property - by default', () => {
+  it.skip('28 WordUsageExamples - method sortWordUsageExamplesBy returns wordUsageExamples sorted by sortBy property - by default', () => {
     let cmp = shallowMount(WordUsageExamples, {
       store: store,
       localVue,
