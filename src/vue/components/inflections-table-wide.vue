@@ -5,8 +5,35 @@
         class="alpheios-inflections__title alpheios-clickable">
       {{title}}
       <span v-show="state.collapsed">[+]</span>
-      <span v-show="!state.collapsed">[-]</span>
+      <span v-show="!state.collapsed">[-]</span>     
     </div>
+    <div
+            v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
+            v-show="!state.collapsed"
+            class="alpheios-inflections__table-ctrl-cell--btn"
+        >
+          <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
+                        tooltipDirection="bottom-right" >
+            <button
+                @click="showNoSuffixGroups"
+                class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+              {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
+            </button>
+          </alph-tooltip>
+      </div>
+
+      <div class="alpheios-inflections__table-ctrl-cell--btn"
+            v-if="hasInflectionTables && !state.standardFormTable"
+            v-show="!state.collapsed && state.view.canCollapse && !state.noSuffixGroupsHidden">
+        <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
+                      tooltipDirection="bottom-right">
+          <button
+              @click="hideNoSuffixGroups"
+              class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
+            {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
+          </button>
+        </alph-tooltip>
+      </div>
 
     <h4
         v-show="!state.collapsed && additionalTitle"
@@ -19,37 +46,6 @@
         v-show="!state.collapsed"
         class="alpheios-inflections__wide-view"
     >
-      <div
-          v-if="hasInflectionTables && !state.standardFormTable"
-          class="alpheios-inflections__table-ctrl-cont"
-      >
-        <div
-            v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
-            class="alpheios-inflections__table-ctrl-cell--btn"
-        >
-          <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_SHOWFULL')"
-                        tooltipDirection="bottom-right">
-            <button
-                @click="showNoSuffixGroups"
-                class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
-              {{l10n.getMsg('LABEL_INFLECT_SHOWFULL')}}
-            </button>
-          </alph-tooltip>
-        </div>
-
-        <div class="alpheios-inflections__table-ctrl-cell--btn"
-             v-show="state.view.canCollapse && !state.noSuffixGroupsHidden">
-          <alph-tooltip :tooltipText="l10n.getMsg('TOOLTIP_INFLECT_COLLAPSE')"
-                        tooltipDirection="bottom-right">
-            <button
-                @click="hideNoSuffixGroups"
-                class="alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right">
-              {{l10n.getMsg('LABEL_INFLECT_COLLAPSE')}}
-            </button>
-          </alph-tooltip>
-        </div>
-      </div>
-
       <div
           :style="tableStyles"
           class="infl-table infl-table--wide"
@@ -335,6 +331,11 @@ export default {
     justify-content: flex-end;
     position: absolute;
     top: textsize(-50px);
+  }
+
+  .alpheios-inflections__table-ctrl-cell--btn {
+    display: inline-block;
+    margin: 0 0 15px 20px;
   }
 
   .alpheios-inflections__table-ctrl-cell {

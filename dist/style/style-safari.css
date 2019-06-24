@@ -1767,6 +1767,10 @@ a:not([href]):not([tabindex]).alpheios-popup__providers-link:hover {
   position: absolute !important;
   top: calc(var(--alpheios-base-text-size) * -3.125) !important;
 }
+.alpheios-inflections__table-ctrl-cell--btn {
+  display: inline-block;
+  margin: 0 0 15px 20px !important;
+}
 .alpheios-inflections__table-ctrl-cell {
   flex-grow: 1 !important;
 }

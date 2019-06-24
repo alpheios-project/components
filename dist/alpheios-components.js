@@ -12602,10 +12602,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -20799,6 +20795,102 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _vm.state.view.canCollapse && _vm.state.noSuffixGroupsHidden
+      ? _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.state.collapsed,
+                expression: "!state.collapsed"
+              }
+            ],
+            staticClass: "alpheios-inflections__table-ctrl-cell--btn"
+          },
+          [
+            _c(
+              "alph-tooltip",
+              {
+                attrs: {
+                  tooltipText: _vm.l10n.getMsg("TOOLTIP_INFLECT_SHOWFULL"),
+                  tooltipDirection: "bottom-right"
+                }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
+                    on: { click: _vm.showNoSuffixGroups }
+                  },
+                  [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.l10n.getMsg("LABEL_INFLECT_SHOWFULL")) +
+                        "\n          "
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.hasInflectionTables && !_vm.state.standardFormTable
+      ? _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  !_vm.state.collapsed &&
+                  _vm.state.view.canCollapse &&
+                  !_vm.state.noSuffixGroupsHidden,
+                expression:
+                  "!state.collapsed && state.view.canCollapse && !state.noSuffixGroupsHidden"
+              }
+            ],
+            staticClass: "alpheios-inflections__table-ctrl-cell--btn"
+          },
+          [
+            _c(
+              "alph-tooltip",
+              {
+                attrs: {
+                  tooltipText: _vm.l10n.getMsg("TOOLTIP_INFLECT_COLLAPSE"),
+                  tooltipDirection: "bottom-right"
+                }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
+                    on: { click: _vm.hideNoSuffixGroups }
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.l10n.getMsg("LABEL_INFLECT_COLLAPSE")) +
+                        "\n        "
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "h4",
       {
@@ -20829,108 +20921,6 @@ var render = function() {
         staticClass: "alpheios-inflections__wide-view"
       },
       [
-        _vm.hasInflectionTables && !_vm.state.standardFormTable
-          ? _c(
-              "div",
-              { staticClass: "alpheios-inflections__table-ctrl-cont" },
-              [
-                _vm.state.view.canCollapse && _vm.state.noSuffixGroupsHidden
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "alpheios-inflections__table-ctrl-cell--btn"
-                      },
-                      [
-                        _c(
-                          "alph-tooltip",
-                          {
-                            attrs: {
-                              tooltipText: _vm.l10n.getMsg(
-                                "TOOLTIP_INFLECT_SHOWFULL"
-                              ),
-                              tooltipDirection: "bottom-right"
-                            }
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
-                                on: { click: _vm.showNoSuffixGroups }
-                              },
-                              [
-                                _vm._v(
-                                  "\n            " +
-                                    _vm._s(
-                                      _vm.l10n.getMsg("LABEL_INFLECT_SHOWFULL")
-                                    ) +
-                                    "\n          "
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.state.view.canCollapse &&
-                          !_vm.state.noSuffixGroupsHidden,
-                        expression:
-                          "state.view.canCollapse && !state.noSuffixGroupsHidden"
-                      }
-                    ],
-                    staticClass: "alpheios-inflections__table-ctrl-cell--btn"
-                  },
-                  [
-                    _c(
-                      "alph-tooltip",
-                      {
-                        attrs: {
-                          tooltipText: _vm.l10n.getMsg(
-                            "TOOLTIP_INFLECT_COLLAPSE"
-                          ),
-                          tooltipDirection: "bottom-right"
-                        }
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "alpheios-button-secondary alpheios-inflections__control-btn alpheios-inflections__control-btn--right",
-                            on: { click: _vm.hideNoSuffixGroups }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(
-                                  _vm.l10n.getMsg("LABEL_INFLECT_COLLAPSE")
-                                ) +
-                                "\n          "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
         _vm.hasInflectionTables
           ? _c(
               "div",
