@@ -153,7 +153,7 @@ function polyfill(window) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
- * interact.js 1.4.10
+ * interact.js 1.4.11
  *
  * Copyright (c) 2012-2019 Taye Adeyemi <dev@taye.me>
  * Released under the MIT License.
@@ -8881,15 +8881,15 @@ function __install_39(scope) {
       type: 'hold',
       targets: [],
       path: path,
-      element: null
+      node: null
     };
 
     for (var _i2 = 0; _i2 < path.length; _i2++) {
       var _ref7;
 
       _ref7 = path[_i2];
-      var element = _ref7;
-      signalArg.element = element;
+      var node = _ref7;
+      signalArg.node = node;
       signals.fire('collect-targets', signalArg);
     }
 
@@ -9801,7 +9801,7 @@ function __init_27(window) {
 } // eslint-disable-next-line no-undef
 
 
-_interact["default"].version = "1.4.10";
+_interact["default"].version = "1.4.11";
 var ___default_27 = _interact["default"];
 _$interact_27["default"] = ___default_27;
 
@@ -13313,6 +13313,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
+  storeModules: ['app'],
   components: {
     alphSetting: _setting_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     lookupIcon: _images_inline_icons_lookup_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -13363,7 +13364,7 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
-    currentLanguage: function () {
+    currentLanguage () {
       const selectedValue = this.$options.lookupLanguage.currentTextValue()
       // langUpdated is included into the condition to force Vue to recalculate value
       // every time language settings are updated
@@ -13372,7 +13373,7 @@ __webpack_require__.r(__webpack_exports__);
         : this.$options.lookupLanguage.currentItem()
     },
 
-    lexiconsFiltered: function () {
+    lexiconsFiltered () {
       let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.currentLanguage.text)
       let settingName
       if (lang.length > 0) {
@@ -13382,7 +13383,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.$options.resourceOptions.items.lexiconsShort.filter((item) => item.name === settingName)
     }
   },
-
+  watch: {
+    '$store.state.app.morphDataReady' (morphDataReady) {
+      if (morphDataReady && this.app.hasMorphData()) {
+        this.lookuptext = ''
+      }
+    }
+  },
   methods: {
     lookup: function () {
       if (this.lookuptext.length === 0) {
@@ -13426,9 +13433,6 @@ __webpack_require__.r(__webpack_exports__);
         default:
           console.warn(`Unknown afterLookupAction value: ${this.showResultsIn}`)
       }
-
-      // Clear the lookup text when the lookup started
-      this.lookuptext = ''
     },
 
     settingChange: function (name, value) {
@@ -48543,7 +48547,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"skin":{"defaultValue"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
 
 /***/ }),
 
