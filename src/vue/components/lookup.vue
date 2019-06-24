@@ -183,10 +183,6 @@ export default {
         default:
           console.warn(`Unknown afterLookupAction value: ${this.showResultsIn}`)
       }
-
-      console.info('******Lookup end', this.lookuptext)
-      // Clear the lookup text when the lookup started
-      // this.lookuptext = ''
     },
 
     settingChange: function (name, value) {
