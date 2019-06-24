@@ -353,7 +353,7 @@ export default {
     },
 
     verboseMode () {
-      return this.settings.contentOptions.items.verboseMode.currentValue === `verbose`
+      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
     }
   },
 
@@ -442,8 +442,8 @@ export default {
     dragEndListener () {
       if (this.$store.getters['popup/isFixedPositioned']) {
         // Do not store shift values for flexible positioning as they will be erased after each lexical query
-        this.settings.contentOptions.items.popupShiftX.setValue(this.shift.x)
-        this.settings.contentOptions.items.popupShiftY.setValue(this.shift.y)
+        this.settings.uiOptions.items.popupShiftX.setValue(this.shift.x)
+        this.settings.uiOptions.items.popupShiftY.setValue(this.shift.y)
       }
     },
 
@@ -531,8 +531,8 @@ export default {
         this.shift = { x: 0, y: 0 }
       } else if (this.$store.getters['popup/isFixedPositioned']) {
         this.shift = {
-          x: this.settings.contentOptions.items.popupShiftX.currentValue,
-          y: this.settings.contentOptions.items.popupShiftY.currentValue
+          x: this.settings.uiOptions.items.popupShiftX.currentValue,
+          y: this.settings.uiOptions.items.popupShiftY.currentValue
         }
       }
     })

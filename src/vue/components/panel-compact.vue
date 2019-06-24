@@ -244,117 +244,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <!-- This extra container element is required for iOS browsers so that the flex option items will have height to match their content -->
-        <div class="alpheios-panel__tab-panel-options-cont">
-          <reskin-font-color></reskin-font-color>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.preferredLanguage"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.panelPosition"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.popupPosition"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.uiType"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.verboseMode"
-              @change="contentOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.skin"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panel"
-              @change="uiOptionChanged"
-              v-show="app.isDevMode()"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.uiOptions.items.panelOnActivate"
-              @change="uiOptionChanged"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexicons"
-          >
-          </setting>
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="languageSetting"
-              :key="languageSetting.name"
-              @change="resourceSettingChanged"
-              v-for="languageSetting in resourceSettingsLexiconsShort"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableWordUsageExamples"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesON"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesAuthMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.wordUsageExamplesMax"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.enableLemmaTranslations"
-              @change="contentOptionChanged"
-          >
-          </setting>
-
-          <setting
-              :classes="['alpheios-panel__options-item']"
-              :data="settings.contentOptions.items.locale"
-              @change="contentOptionChanged"
-          >
-          </setting>
-        </div>
+        <ui-settings></ui-settings>
+        <feature-settings></feature-settings>
+        <resource-settings></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -384,14 +276,15 @@ import Platform from '@/lib/utility/platform.js'
 // Vue components
 import NotificationArea from '@/vue/components//notification-area.vue'
 import Inflections from './inflections.vue'
-import Setting from './setting.vue'
 import ShortDef from './shortdef.vue'
 import Grammar from './grammar.vue'
 import Morph from './morph.vue'
 import Treebank from './treebank.vue'
 import InflectionBrowser from './inflections-browser.vue'
 import Lookup from './lookup.vue'
-import ReskinFontColor from './font-size.vue'
+import ResourceSettings from './resource-settings.vue'
+import FeatureSettings from './feature-settings.vue'
+import UISettings from './ui-settings.vue'
 import UserAuth from './user-auth.vue'
 import WordUsageExamples from '@/vue/components/word-usage-examples/word-usage-examples.vue'
 import { Definition } from 'alpheios-data-models'
@@ -403,7 +296,6 @@ import UpIcon from '@/images/inline-icons/chevron-up.svg'
 import DownIcon from '@/images/inline-icons/chevron-down.svg'
 import LeftIcon from '@/images/inline-icons/chevron-left.svg'
 import RightIcon from '@/images/inline-icons/chevron-right.svg'
-
 import MorphologyIcon from '@/images/inline-icons/language.svg'
 import DefinitionsIcon from '@/images/inline-icons/definitions.svg'
 import InflectionsIcon from '@/images/inline-icons/inflections.svg'
@@ -439,7 +331,6 @@ export default {
     notificationArea: NotificationArea,
     inflections: Inflections,
     inflectionBrowser: InflectionBrowser,
-    setting: Setting,
     shortdef: ShortDef,
     grammar: Grammar,
     morph: Morph,
@@ -447,14 +338,15 @@ export default {
     userAuth: UserAuth,
     closeIcon: CloseIcon,
     lookup: Lookup,
-    reskinFontColor: ReskinFontColor,
+    uiSettings: UISettings,
+    resourceSettings: ResourceSettings,
+    featureSettings: FeatureSettings,
     wordListPanel: WordListPanel,
     wordUsageExamples: WordUsageExamples,
     upIcon: UpIcon,
     downIcon: DownIcon,
     leftIcon: LeftIcon,
     rightIcon: RightIcon,
-
     morphologyIcon: MorphologyIcon,
     definitionsIcon: DefinitionsIcon,
     inflectionsIcon: InflectionsIcon,
@@ -563,17 +455,6 @@ export default {
       return this.$store.state.app.morphDataReady && this.app.hasMorphData()
     },
 
-    resourceSettingsLexicons: function () {
-      return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexicons
-        ? this.settings.resourceOptions.items.lexicons.filter(item => item.values.length > 0)
-        : []
-    },
-    resourceSettingsLexiconsShort: function () {
-      return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexiconsShort
-        ? this.settings.resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
-        : []
-    },
-
     additionalStylesTootipCloseIcon: function () {
       return {
         top: '2px',
@@ -582,7 +463,7 @@ export default {
     },
 
     verboseMode () {
-      return this.settings.contentOptions.items.verboseMode.currentValue === `verbose`
+      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
     },
 
     formattedShortDefinitions () {
@@ -622,7 +503,7 @@ export default {
     },
 
     setPosition (position) {
-      this.settings.contentOptions.items.panelPosition.setValue(position)
+      this.settings.uiOptions.items.panelPosition.setValue(position)
       this.$store.commit('panel/setPosition', position)
     },
 
@@ -644,14 +525,6 @@ export default {
 
     resetAllOptions: function () {
       this.app.resetAllOptions()
-    },
-
-    resourceSettingChanged: function (name, value) {
-      this.language.resourceSettingChange(name, value)
-    },
-
-    uiOptionChanged: function (name, value) {
-      this.ui.optionChange(name, value)
     },
 
     expand () {
