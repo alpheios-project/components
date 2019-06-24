@@ -17,7 +17,7 @@ import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup.js'
 import ResourceQuery from '@/lib/queries/resource-query.js'
 import AnnotationQuery from '@/lib/queries/annotation-query.js'
 import SiteOptions from '@/settings/site-options.json'
-import ContentOptionDefaults from '@/settings/content-options-defaults.json'
+import FeatureOptionDefaults from '@/settings/feature-options-defaults.json'
 import UIOptionDefaults from '@/settings/ui-options-defaults.json'
 import TextSelector from '@/lib/selection/text-selector'
 import HTMLSelector from '@/lib/selection/media/html-selector.js'
@@ -78,7 +78,7 @@ export default class UIController {
     Define defaults for resource options. If a UI controller creator
     needs to provide its own defaults, they shall be defined in a `create()` function.
      */
-    this.contentOptionsDefaults = ContentOptionDefaults
+    this.featureOptionsDefaults = FeatureOptionDefaults
     this.resourceOptionsDefaults = LanguageOptionDefaults
     this.uiOptionsDefaults = UIOptionDefaults
     this.siteOptionsDefaults = SiteOptions
@@ -87,7 +87,7 @@ export default class UIController {
     This will allow creators of UI controller to provide their own options defaults
     inside a `create()` builder function.
      */
-    this.contentOptions = null
+    this.featureOptions = null
     this.resourceOptions = null
     this.uiOptions = null
     this.siteOptions = null // Will be set during an `init` phase
@@ -270,12 +270,7 @@ export default class UIController {
 
   setDefaultPanelState () {
     if (!this.hasModule('panel')) { return this }
-    if (this.uiOptions.items.panelOnActivate.currentValue) {
-      // If option value of panelOnActivate is true
-      this.state.setPanelOpen()
-    } else {
-      this.state.setPanelClosed()
-    }
+    this.state.setPanelClosed()
     return this
   }
 
@@ -338,12 +333,12 @@ export default class UIController {
   async init () {
     if (this.isInitialized) { return `Already initialized` }
     // Start loading options as early as possible
-    this.contentOptions = new Options(this.contentOptionsDefaults, this.options.storageAdapter)
+    this.featureOptions = new Options(this.featureOptionsDefaults, this.options.storageAdapter)
     this.resourceOptions = new Options(this.resourceOptionsDefaults, this.options.storageAdapter)
     // Create a copy of resource options for the lookup UI component
     this.lookupResourceOptions = new Options(this.resourceOptionsDefaults, this.options.storageAdapter)
     this.uiOptions = new Options(this.uiOptionsDefaults, this.options.storageAdapter)
-    let optionLoadPromises = [this.contentOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
+    let optionLoadPromises = [this.featureOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
     // TODO: Site options should probably be initialized the same way as other options objects
     this.siteOptions = this.loadSiteOptions(this.siteOptionsDefaults)
 
@@ -364,7 +359,7 @@ export default class UIController {
      * This is a settings API. It exposes different options to modules and UI components.
      */
     this.api.settings = {
-      contentOptions: this.contentOptions,
+      featureOptions: this.featureOptions,
       resourceOptions: this.resourceOptions,
       lookupResourceOptions: this.lookupResourceOptions,
       uiOptions: this.uiOptions,
@@ -388,7 +383,7 @@ export default class UIController {
       },
 
       // TODO: Some of the functions below should probably belong to other API groups.
-      contentOptionChange: this.contentOptionChange.bind(this),
+      featureOptionChange: this.featureOptionChange.bind(this),
       resetAllOptions: this.resetAllOptions.bind(this),
       updateLanguage: this.updateLanguage.bind(this),
       getLanguageName: UIController.getLanguageName,
@@ -719,30 +714,30 @@ export default class UIController {
     // Set options of modules before modules are created
     if (this.hasModule('popup')) {
       let popupOptions = this.modules.get('popup').options
-      popupOptions.positioning = this.contentOptions.items.popupPosition.currentValue
+      popupOptions.positioning = this.uiOptions.items.popupPosition.currentValue
       popupOptions.initialShift = {
-        x: this.contentOptions.items.popupShiftX.currentValue,
-        y: this.contentOptions.items.popupShiftY.currentValue
+        x: this.uiOptions.items.popupShiftX.currentValue,
+        y: this.uiOptions.items.popupShiftY.currentValue
       }
     }
 
     if (this.hasModule('toolbar')) {
       let toolbarOptions = this.modules.get('toolbar').options
       toolbarOptions.initialShift = {
-        x: this.contentOptions.items.toolbarShiftX.currentValue,
-        y: this.contentOptions.items.toolbarShiftY.currentValue
+        x: this.uiOptions.items.toolbarShiftX.currentValue,
+        y: this.uiOptions.items.toolbarShiftY.currentValue
       }
     }
 
     // Create all registered modules
     this.createModules()
 
-    // Adjust configuration of modules according to content options
+    // Adjust configuration of modules according to feature options
     if (this.hasModule('panel')) {
-      this.store.commit('panel/setPosition', this.contentOptions.items.panelPosition.currentValue)
+      this.store.commit('panel/setPosition', this.uiOptions.items.panelPosition.currentValue)
     }
 
-    const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.contentOptions.items.preferredLanguage.currentValue)
+    const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.featureOptions.items.preferredLanguage.currentValue)
     this.updateLanguage(currentLanguageID)
     this.updateLemmaTranslations()
 
@@ -964,7 +959,7 @@ export default class UIController {
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
-      status: () => this.api.settings.contentOptions.items.verboseMode.currentValue === 'verbose',
+      status: () => this.api.settings.uiOptions.items.verboseMode.currentValue === 'verbose',
       wordlist: () => this.store.state.app.hasWordListsData
     }
     return tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()
@@ -1130,8 +1125,8 @@ export default class UIController {
   }
 
   updateLemmaTranslations () {
-    if (this.contentOptions.items.enableLemmaTranslations.currentValue && !this.contentOptions.items.locale.currentValue.match(/en-/)) {
-      this.state.setItem('lemmaTranslationLang', this.contentOptions.items.locale.currentValue)
+    if (this.featureOptions.items.enableLemmaTranslations.currentValue && !this.featureOptions.items.locale.currentValue.match(/en-/)) {
+      this.state.setItem('lemmaTranslationLang', this.featureOptions.items.locale.currentValue)
     } else {
       this.state.setItem('lemmaTranslationLang', null)
     }
@@ -1245,7 +1240,7 @@ export default class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new HTMLSelector(event, this.contentOptions.items.preferredLanguage.currentValue)
+      let htmlSelector = new HTMLSelector(event, this.featureOptions.items.preferredLanguage.currentValue)
       this.store.commit('app/setHtmlSelector', htmlSelector)
       let textSelector = htmlSelector.createTextSelector()
 
@@ -1259,7 +1254,7 @@ export default class UIController {
             lexicons: Lexicons,
             resourceOptions: this.resourceOptions,
             siteOptions: [],
-            lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.contentOptions.items.locale.currentValue } : null,
+            lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { adapter: LemmaTranslations, locale: this.featureOptions.items.locale.currentValue } : null,
             langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
           }),
           {
@@ -1275,7 +1270,7 @@ export default class UIController {
           htmlSelector: htmlSelector,
           resourceOptions: this.resourceOptions,
           siteOptions: [],
-          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.contentOptions.items.locale.currentValue } : null,
+          lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.getWordUsageExamplesQueryParams(textSelector),
           langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
         })
@@ -1292,8 +1287,8 @@ export default class UIController {
     this.store.commit('app/setWordUsageExamplesReady', false)
 
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
-      ? { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
-        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      ? { paginationMax: this.featureOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.featureOptions.items.wordUsageExamplesAuthMax.currentValue }
       : null
 
     await LexicalQuery.getWordUsageData(homonym, wordUsageExamples, params)
@@ -1305,21 +1300,21 @@ export default class UIController {
    */
   enableLemmaTranslations (textSelector) {
     return textSelector.languageID === Constants.LANG_LATIN &&
-      this.contentOptions.items.enableLemmaTranslations.currentValue &&
-      !this.contentOptions.items.locale.currentValue.match(/^en-/)
+      this.featureOptions.items.enableLemmaTranslations.currentValue &&
+      !this.featureOptions.items.locale.currentValue.match(/^en-/)
   }
 
   enableWordUsageExamples (textSelector, requestType) {
-    let checkType = requestType === 'onLexicalQuery' ? this.contentOptions.items.wordUsageExamplesON.currentValue === requestType : true
+    let checkType = requestType === 'onLexicalQuery' ? this.featureOptions.items.wordUsageExamplesON.currentValue === requestType : true
     return textSelector.languageID === Constants.LANG_LATIN &&
-    this.contentOptions.items.enableWordUsageExamples.currentValue &&
+    this.featureOptions.items.enableWordUsageExamples.currentValue &&
     checkType
   }
 
   getWordUsageExamplesQueryParams (textSelector) {
     if (this.enableWordUsageExamples(textSelector, 'onLexicalQuery')) {
-      return { paginationMax: this.contentOptions.items.wordUsageExamplesMax.currentValue,
-        paginationAuthMax: this.contentOptions.items.wordUsageExamplesAuthMax.currentValue }
+      return { paginationMax: this.featureOptions.items.wordUsageExamplesMax.currentValue,
+        paginationAuthMax: this.featureOptions.items.wordUsageExamplesAuthMax.currentValue }
     } else {
       return null
     }
@@ -1392,7 +1387,7 @@ export default class UIController {
     this.store.commit(`app/setTextData`, { text: homonym.targetWord, languageID: homonym.languageID })
 
     // Update inflections data
-    let inflectionsViewSet = ViewSetFactory.create(homonym, this.contentOptions.items.locale.currentValue)
+    let inflectionsViewSet = ViewSetFactory.create(homonym, this.featureOptions.items.locale.currentValue)
     if (inflectionsViewSet.hasMatchingViews) {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
@@ -1485,7 +1480,7 @@ export default class UIController {
   }
 
   resetAllOptions () {
-    this.contentOptions.reset()
+    this.featureOptions.reset()
     this.resourceOptions.reset()
     this.uiOptions.reset()
     // TODO this is a hack until we refactor settings to use the Vuex store
@@ -1494,32 +1489,26 @@ export default class UIController {
     alert('Restart your browser now for setting reset to take affect')
   }
 
-  contentOptionChange (name, value) {
+  featureOptionChange (name, value) {
     // TODO we need to refactor handling of boolean options
     if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name === 'wordUsageExamplesAuthMax') {
-      this.api.settings.contentOptions.items[name].setValue(value)
+      this.api.settings.featureOptions.items[name].setValue(value)
     } else {
-      this.api.settings.contentOptions.items[name].setTextValue(value)
+      this.api.settings.featureOptions.items[name].setTextValue(value)
     }
     switch (name) {
       case 'locale':
         // TODO: It seems that presenter is never defined. Do we need it?
         if (this.presenter) {
-          this.presenter.setLocale(this.api.settings.contentOptions.items.locale.currentValue)
+          this.presenter.setLocale(this.api.settings.featureOptions.items.locale.currentValue)
         }
         this.updateLemmaTranslations()
         break
       case 'preferredLanguage':
-        this.updateLanguage(this.api.settings.contentOptions.items.preferredLanguage.currentValue)
+        this.updateLanguage(this.api.settings.featureOptions.items.preferredLanguage.currentValue)
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
-        break
-      case 'panelPosition':
-        this.store.commit('panel/setPosition', this.api.settings.contentOptions.items.panelPosition.currentValue)
-        break
-      case 'popupPosition':
-        this.store.commit('popup/setPositioning', this.api.settings.contentOptions.items.popupPosition.currentValue)
         break
     }
   }
@@ -1534,7 +1523,7 @@ export default class UIController {
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
-    if (name === 'fontSize' || name === 'panelOnActivate') {
+    if (name === 'fontSize') {
       this.api.settings.uiOptions.items[name].setValue(value)
     } else {
       this.api.settings.uiOptions.items[name].setTextValue(value)
@@ -1554,6 +1543,12 @@ export default class UIController {
         } catch (error) {
           console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
         }
+        break
+      case 'panelPosition':
+        this.store.commit('panel/setPosition', this.api.settings.uiOptions.items.panelPosition.currentValue)
+        break
+      case 'popupPosition':
+        this.store.commit('popup/setPositioning', this.api.settings.uiOptions.items.popupPosition.currentValue)
         break
     }
   }
