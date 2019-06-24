@@ -63,6 +63,7 @@ import Setting from './setting.vue'
 export default {
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
+  storeModules: ['app'],
   components: {
     alphSetting: Setting,
     lookupIcon: LookupIcon
@@ -113,7 +114,7 @@ export default {
   },
 
   computed: {
-    currentLanguage: function () {
+    currentLanguage () {
       const selectedValue = this.$options.lookupLanguage.currentTextValue()
       // langUpdated is included into the condition to force Vue to recalculate value
       // every time language settings are updated
@@ -122,7 +123,7 @@ export default {
         : this.$options.lookupLanguage.currentItem()
     },
 
-    lexiconsFiltered: function () {
+    lexiconsFiltered () {
       let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.currentLanguage.text)
       let settingName
       if (lang.length > 0) {
@@ -132,7 +133,13 @@ export default {
       return this.$options.resourceOptions.items.lexiconsShort.filter((item) => item.name === settingName)
     }
   },
-
+  watch: {
+    '$store.state.app.morphDataReady' (morphDataReady) {
+      if (morphDataReady && this.app.hasMorphData()) {
+        this.lookuptext = ''
+      }
+    }
+  },
   methods: {
     lookup: function () {
       if (this.lookuptext.length === 0) {
@@ -177,8 +184,9 @@ export default {
           console.warn(`Unknown afterLookupAction value: ${this.showResultsIn}`)
       }
 
+      console.info('******Lookup end', this.lookuptext)
       // Clear the lookup text when the lookup started
-      this.lookuptext = ''
+      // this.lookuptext = ''
     },
 
     settingChange: function (name, value) {
