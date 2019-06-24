@@ -8,7 +8,7 @@
       <span v-show="!state.collapsed">[-]</span>     
     </div>
     <div
-            v-if="state.view.canCollapse && state.noSuffixGroupsHidden"
+            v-if="hasInflectionTables && state.view.canCollapse && state.noSuffixGroupsHidden"
             v-show="!state.collapsed"
             class="alpheios-inflections__table-ctrl-cell--btn"
         >

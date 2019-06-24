@@ -20795,7 +20795,9 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.state.view.canCollapse && _vm.state.noSuffixGroupsHidden
+    _vm.hasInflectionTables &&
+    _vm.state.view.canCollapse &&
+    _vm.state.noSuffixGroupsHidden
       ? _c(
           "div",
           {
