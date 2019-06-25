@@ -19,13 +19,6 @@ export default {
   components: {
     homeIcon: HomeIcon
   },
-  props: {
-    needReload: {
-      type: Boolean,
-      required: false,
-      default: true
-    }
-  },
   computed: {
     hasGrammarResUrl: function () {
       return Boolean(this.$store.state.app.grammarRes && this.$store.state.app.grammarRes.url)
