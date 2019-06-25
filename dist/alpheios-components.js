@@ -41632,7 +41632,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 25 21"}, attrs),
               ...rest,
             },
-            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005","stroke-width":".794"}})])])
+            children.concat([_c('g',{attrs:{"fill":"none"}},[_c('rect',{attrs:{"ry":"2.901","height":"20","width":"24","y":".5","x":".5"}}),_c('path',{attrs:{"d":"M16.492 5.479v14.505M8.5 5.476v14.505M.993 15.458h23.005M.993 10.478h23.005M.993 5.498h23.005"}})])])
           )
         }
       });
@@ -48520,7 +48520,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"fontSize":{"defaultVa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
 
 /***/ }),
 
