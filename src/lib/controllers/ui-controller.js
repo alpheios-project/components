@@ -415,7 +415,9 @@ export default class UIController {
       getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : [],
 
       enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
-      newLexicalRequest: this.newLexicalRequest.bind(this)
+      newLexicalRequest: this.newLexicalRequest.bind(this),
+
+      restoreGrammarIndex: this.restoreGrammarIndex.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -1122,6 +1124,11 @@ export default class UIController {
       this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     }
     this.resetInflData()
+  }
+
+  restoreGrammarIndex () {
+    let currentLanguageID = this.store.state.app.currentLanguageID
+    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
   }
 
   updateLemmaTranslations () {
