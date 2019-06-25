@@ -2127,6 +2127,23 @@ h3.alpheios-inflections__credits-title {
   padding: 0;
   overflow: scroll;
 }
+.alpheios-grammar__to-index-btn {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  z-index: 1000;
+}
+.alpheios-svg-index {
+  display: inline-block;
+  padding: 4px;
+  border-radius: 15px;
+  opacity: 0.5;
+}
+.alpheios-svg-index svg {
+  width: 22px;
+  height: auto;
+  fill: var(--alpheios-btn-primary-font-color);
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.

@@ -415,7 +415,9 @@ export default class UIController {
       getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : [],
 
       enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
-      newLexicalRequest: this.newLexicalRequest.bind(this)
+      newLexicalRequest: this.newLexicalRequest.bind(this),
+
+      restoreGrammarIndex: this.restoreGrammarIndex.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -1124,6 +1126,11 @@ export default class UIController {
     this.resetInflData()
   }
 
+  restoreGrammarIndex () {
+    let currentLanguageID = this.store.state.app.currentLanguageID
+    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
+  }
+
   updateLemmaTranslations () {
     if (this.featureOptions.items.enableLemmaTranslations.currentValue && !this.featureOptions.items.locale.currentValue.match(/en-/)) {
       this.state.setItem('lemmaTranslationLang', this.featureOptions.items.locale.currentValue)
@@ -1345,6 +1352,7 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
+    console.info('Starts resource query', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars
@@ -1436,6 +1444,7 @@ export default class UIController {
   }
 
   onGrammarAvailable (data) {
+    console.info('**************onGrammarAvailable', data)
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_READY'))
     this.updateGrammar(data.url)
   }
