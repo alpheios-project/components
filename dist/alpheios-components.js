@@ -15975,9 +15975,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_bar_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./progress-bar.vue */ "./vue/components/progress-bar.vue");
 /* harmony import */ var _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/images/alpheios/logo.svg */ "./images/alpheios/logo.svg");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
+/* harmony import */ var _images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/images/inline-icons/definitions.svg */ "./images/inline-icons/definitions.svg");
+/* harmony import */ var _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/images/inline-icons/usage-examples-icon1.svg */ "./images/inline-icons/usage-examples-icon1.svg");
+/* harmony import */ var _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/images/inline-icons/inflections.svg */ "./images/inline-icons/inflections.svg");
+/* harmony import */ var _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/images/inline-icons/sitemap.svg */ "./images/inline-icons/sitemap.svg");
+/* harmony import */ var _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../directives/clickaway.js */ "./vue/directives/clickaway.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -16109,6 +16112,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 // Modules support
 
 
@@ -16116,17 +16123,21 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Popup',
   inject: ['app', 'ui', 'l10n', 'settings', 'auth'],
   storeModules: ['app', 'ui', 'popup', 'auth'],
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_13__["default"]],
   components: {
     morph: _morph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     logoIcon: _images_alpheios_logo_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
     closeIcon: _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     progressBar: _progress_bar_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    notificationArea: _notification_area_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    notificationArea: _notification_area_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    definitionsIcon: _images_inline_icons_definitions_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
+    wordUsageIcon: _images_inline_icons_usage_examples_icon1_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
+    inflectionsIcon: _images_inline_icons_inflections_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
+    treebankIcon: _images_inline_icons_sitemap_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
   directives: {
-    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_8__["directive"]
+    onClickaway: _directives_clickaway_js__WEBPACK_IMPORTED_MODULE_12__["directive"]
   },
   // Custom props to store unwatch functions
   visibleUnwatch: null,
@@ -25224,10 +25235,167 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "alpheios-popup__close-btn",
-            on: { click: _vm.ui.closePopup }
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.moduleData,
+                expression: "moduleData"
+              }
+            ],
+            staticClass: "alpheios-popup__toolbar-buttons"
           },
-          [_c("close-icon")],
+          [
+            _c(
+              "alph-tooltip",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.getters["app/defDataReady"],
+                    expression: "$store.getters['app/defDataReady']"
+                  }
+                ],
+                attrs: {
+                  tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_DEFINITIONS"),
+                  tooltipDirection: "bottom-wide"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  [
+                    _c("definitions-icon", {
+                      staticClass: "alpheios-navbuttons__icon",
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.showPanelTab("definitions")
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.state.app.hasInflData,
+                    expression: "$store.state.app.hasInflData"
+                  }
+                ],
+                attrs: {
+                  tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_INFLECTIONS"),
+                  tooltipDirection: "bottom-wide"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  [
+                    _c("inflections-icon", {
+                      staticClass: "alpheios-navbuttons__icon",
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.showPanelTab("inflections")
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.state.app.wordUsageExampleEnabled,
+                    expression: "$store.state.app.wordUsageExampleEnabled"
+                  }
+                ],
+                attrs: {
+                  tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_USAGEEXAMPLES"),
+                  tooltipDirection: "bottom-wide"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  [
+                    _c("word-usage-icon", {
+                      staticClass: "alpheios-navbuttons__icon",
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.showPanelTab("wordUsage")
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.getters["app/hasTreebankData"],
+                    expression: "$store.getters['app/hasTreebankData']"
+                  }
+                ],
+                attrs: {
+                  tooltipText: _vm.l10n.getText("TOOLTIP_TREEBANK"),
+                  tooltipDirection: "bottom-wide"
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  [
+                    _c("treebank-icon", {
+                      staticClass: "alpheios-navbuttons__icon",
+                      on: {
+                        click: function($event) {
+                          return _vm.ui.showPanelTab("treebank")
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "alpheios-popup__close-btn",
+                on: { click: _vm.ui.closePopup }
+              },
+              [_c("close-icon")],
+              1
+            )
+          ],
           1
         )
       ]),
@@ -25288,181 +25456,6 @@ var render = function() {
                 ]
               )
             ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.moduleData,
-                  expression: "moduleData"
-                }
-              ],
-              staticClass: "alpheios-popup__toolbar-buttons"
-            },
-            [
-              _c(
-                "alph-tooltip",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.$store.getters["app/defDataReady"],
-                      expression: "$store.getters['app/defDataReady']"
-                    }
-                  ],
-                  attrs: {
-                    tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_DEFINITIONS"),
-                    tooltipDirection: "bottom-wide"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("definitions")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getText("LABEL_POPUP_DEFINE")) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.$store.state.app.hasInflData,
-                      expression: "$store.state.app.hasInflData"
-                    }
-                  ],
-                  attrs: {
-                    tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_INFLECTIONS"),
-                    tooltipDirection: "bottom-wide"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("inflections")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getText("LABEL_POPUP_INFLECT")) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.$store.state.app.wordUsageExampleEnabled,
-                      expression: "$store.state.app.wordUsageExampleEnabled"
-                    }
-                  ],
-                  attrs: {
-                    tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_USAGEEXAMPLES"),
-                    tooltipDirection: "bottom-wide"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("wordUsage")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(
-                            _vm.l10n.getText("LABEL_POPUP_USAGEEXAMPLES")
-                          ) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.$store.getters["app/hasTreebankData"],
-                      expression: "$store.getters['app/hasTreebankData']"
-                    }
-                  ],
-                  attrs: {
-                    tooltipText: _vm.l10n.getText("TOOLTIP_TREEBANK"),
-                    tooltipDirection: "bottom-wide"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-button-primary alpheios-popup__toolbar-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("treebank")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getText("LABEL_POPUP_TREEBANK")) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
           )
         ]),
         _vm._v(" "),

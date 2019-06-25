@@ -1515,13 +1515,38 @@ select.alpheios-setting__control,
   width: calc(var(--alpheios-base-ui-size) * 1.75) !important;
   height: auto !important;
 }
-.alpheios-popup__close-btn {
+.alpheios-popup__toolbar-top__btn {
   width: calc(var(--alpheios-base-ui-size) * 3.5) !important;
   height: 100% !important;
   cursor: pointer !important;
   fill: var(--alpheios-icon-color) !important;
   stroke: var(--alpheios-icon-color) !important;
   stroke-width: 0 !important;
+}
+.alpheios-popup__toolbar-top__btn svg {
+  position: relative !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  left: calc(var(--alpheios-base-ui-size) * 1) !important;
+  width: calc(var(--alpheios-base-ui-size) * 2) !important;
+  height: auto !important;
+}
+.alpheios-popup__toolbar-top__btn:hover, .alpheios-popup__toolbar-top__btn:focus {
+  fill: var(--alpheios-icon-color-hover) !important;
+  stroke: var(--alpheios-icon-color-hover) !important;
+  background: var(--alpheios-icon-bg-color-hover) !important;
+}
+.alpheios-popup__toolbar-top__btn:active {
+  fill: var(--alpheios-icon-color-active) !important;
+  stroke: var(--alpheios-icon-color-active) !important;
+  background: var(--alpheios-icon-bg-color-active) !important;
+}
+.alpheios-popup__close-btn {
+  width: calc(var(--alpheios-base-ui-size) * 3.5) !important;
+  height: 100% !important;
+  cursor: pointer !important;
+  fill: var(--alpheios-icon-color) !important;
+  stroke: var(--alpheios-icon-color) !important;
 }
 .alpheios-popup__close-btn svg {
   position: relative !important;
