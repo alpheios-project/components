@@ -27627,11 +27627,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n            " +
-                                  _vm._s(
-                                    wordUsageItem.cit +
-                                      " " +
-                                      wordUsageItem.fullCit()
-                                  ) +
+                                  _vm._s("" + wordUsageItem.fullCit()) +
                                   "\n          "
                               )
                             ]
@@ -27702,11 +27698,7 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n              " +
-                                      _vm._s(
-                                        wordUsageItem.cit +
-                                          " " +
-                                          wordUsageItem.fullCit()
-                                      ) +
+                                      _vm._s("" + wordUsageItem.fullCit()) +
                                       "\n            "
                                   )
                                 ]
