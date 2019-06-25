@@ -1352,7 +1352,6 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
-    console.info('Starts resource query', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars
@@ -1444,7 +1443,6 @@ export default class UIController {
   }
 
   onGrammarAvailable (data) {
-    console.info('**************onGrammarAvailable', data)
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_READY'))
     this.updateGrammar(data.url)
   }
