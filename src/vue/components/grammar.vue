@@ -1,6 +1,10 @@
 <template>
   <div class="alpheios-grammar">
-    <div class="alpheios-grammar__to-index-btn" @click="returnToIndex"><button @click="returnToIndex" class="alpheios-button-primary alpheios-svg-index"><home-icon /></button></div>
+    <div class="alpheios-grammar__button--back-block">
+      <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_BACK_TO_INDEX')" tooltipDirection="bottom-left">
+        <button @click="returnToIndex" class="alpheios-button-primary alpheios-svg-index"><home-icon /></button>
+      </alph-tooltip>
+    </div>
     <div class="alpheios-grammar__frame-cont" v-if="this.hasGrammarResUrl">
       <iframe :src="$store.state.app.grammarRes.url" class="alpheios-grammar__frame" scrolling="yes"></iframe>
     </div>
@@ -10,6 +14,7 @@
 <script>
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 import HomeIcon from '@/images/inline-icons/home.svg'
+import Tooltip from './tooltip.vue'
 
 export default {
   name: 'Grammar',
@@ -17,7 +22,8 @@ export default {
   storeModules: ['app'],
   mixins: [DependencyCheck],
   components: {
-    homeIcon: HomeIcon
+    homeIcon: HomeIcon,
+    alphTooltip: Tooltip
   },
   computed: {
     hasGrammarResUrl: function () {
@@ -34,7 +40,6 @@ export default {
   },
   methods: {
     returnToIndex () {
-      console.info('Return to index')
       this.app.restoreGrammarIndex()
     }
   }
@@ -78,15 +83,14 @@ export default {
     overflow: scroll;
   }
 
-  .alpheios-grammar__to-index-btn {
+  .alpheios-grammar__button--back-block {
     position: absolute;
     top: 5px;
     right: 20px;
-    z-index: 1000;    
+    z-index: 1000; 
   }
-
   .alpheios-svg-index {
-    display: inline-block;
+    display: block;
     padding: 4px;
     border-radius: 15px;
     opacity: 0.5;

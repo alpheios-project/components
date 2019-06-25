@@ -1400,6 +1400,21 @@ select.alpheios-setting__control,
   border-style: solid;
   border-color: transparent transparent var(--alpheios-border-color) transparent;
 }
+.alph_tooltip-bottom-left {
+  top: 135%;
+  right: 0;
+  left: auto;
+}
+.alph_tooltip-bottom-left::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 15%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--alpheios-border-color) transparent;
+}
 .alpheios-panel--right .alph_tooltip-bottom-right {
   top: 135%;
   right: auto;
@@ -2127,14 +2142,14 @@ h3.alpheios-inflections__credits-title {
   padding: 0;
   overflow: scroll;
 }
-.alpheios-grammar__to-index-btn {
+.alpheios-grammar__button--back-block {
   position: absolute;
   top: 5px;
   right: 20px;
   z-index: 1000;
 }
 .alpheios-svg-index {
-  display: inline-block;
+  display: block;
   padding: 4px;
   border-radius: 15px;
   opacity: 0.5;
