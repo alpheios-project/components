@@ -48520,7 +48520,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"fontSize":{"defaultVa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
 
 /***/ }),
 
