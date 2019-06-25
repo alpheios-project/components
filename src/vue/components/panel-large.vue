@@ -178,9 +178,9 @@ import NavbuttonsLarge from '@/vue/components/nav/navbuttons-large.vue'
 import LogoIcon from '@/images/alpheios/logo.svg'
 import SwapPosition from '@/images/inline-icons/swap-horizontally.svg'
 // Vue components
-import CompactPanel from '@/vue/components/panel-compact.vue'
-import Tooltip from '@/vue/components/tooltip.vue'
-import Info from '@/vue/components/info.vue'
+import CompactPanel from '../../vue/components/panel-compact.vue'
+import Tooltip from '../../vue/components/tooltip.vue'
+import Info from '../../vue/components/info.vue'
 
 export default {
   name: 'PanelLarge',

@@ -1,6 +1,6 @@
 // The following import will not probably used by any client directly,
 // but is required to include Scss file specified in there to a MiniCssExtractPlugin bundle
-import Style from './styles/style.scss'
+//import Style from './styles/style.scss'
 
 import Popup from './vue/components/popup.vue'
 import Panel from './vue/components/panel-large.vue'
@@ -43,5 +43,5 @@ import ActionPanelModule from '@/vue/vuex-modules/ui/action-panel-module.js'
 export { Popup, Panel, L10n, Locales, enUS, enGB, UIController, UIEventController,
   Language, HTMLSelector, AnnotationQuery, LexicalQuery, ResourceQuery,
   LocalStorageArea, ExtensionSyncStorage, FeatureOptionDefaults, LanguageOptionDefaults, UIOptionDefaults,
-  DefaultsLoader, Options, UIStateAPI, Style, Logger, HTMLConsole, MouseDblClick, LongTap, Swipe, GenericEvt, AlignmentSelector,
+  DefaultsLoader, Options, UIStateAPI, /*Style,*/ Logger, HTMLConsole, MouseDblClick, LongTap, Swipe, GenericEvt, AlignmentSelector,
   HTMLPage, Tab, TabScript, L10nModule, AuthModule, PanelModule, PopupModule, ToolbarModule, ActionPanelModule }

@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Module from '@/vue/vuex-modules/module.js'
-import LargePanel from '@/vue/components/panel-large.vue'
-import CompactPanel from '@/vue/components/panel-compact.vue'
+import LargePanel from '../../../vue/components/panel-large.vue'
+import CompactPanel from '../../../vue/components/panel-compact.vue'
 import Platform from '@/lib/utility/platform.js'
 
 // TODO: Add a check for required modules

@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Module from '@/vue/vuex-modules/module.js'
-import ToolbarCompact from '@/vue/components/nav/toolbar-compact.vue'
-import ToolbarLarge from '@/vue/components/nav/toolbar-large.vue'
+import ToolbarCompact from '../../../vue/components/nav/toolbar-compact.vue'
+import ToolbarLarge from '../../../vue/components/nav/toolbar-large.vue'
 import Platform from '@/lib/utility/platform.js'
 
 // TODO: Add a check for required modules

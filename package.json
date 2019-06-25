@@ -14,6 +14,7 @@
     "build-safari": "eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all all vue-postcss config-safari.mjs",
     "build-prod": "eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all production vue",
     "build-dev": "eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs all development vue",
+    "build-rollup": "node --experimental-modules ./build/rollup.mjs",
     "lint": "eslint --fix src/**/*.js && eslint --fix-dry-run src/**/*.vue"
   },
   "repository": {
@@ -66,6 +67,12 @@
     "jest": "^24.8.0",
     "jump.js": "^1.0.2",
     "raw-loader": "^2.0.0",
+    "rollup-plugin-html": "^0.2.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.1.0",
+    "rollup-plugin-vue": "^5.0.0",
+    "rollup-plugin-vue-inline-svg": "^1.0.1",
+    "rollup-plugin-vue-svg": "^0.1.1",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
     "sinon": "^7.3.2",
@@ -136,5 +143,8 @@
   "eslintIgnore": [
     "**/dist",
     "**/support"
-  ]
+  ],
+  "dependencies": {
+    "rollup-plugin-alias": "^1.5.2"
+  }
 }

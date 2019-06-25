@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 import Module from '@/vue/vuex-modules/module.js'
-import ActionPanel from '@/vue/components/nav/action-panel.vue'
+import ActionPanel from '../../../vue/components/nav/action-panel.vue'
 import Platform from '@/lib/utility/platform.js'
 
 export default class ActionPanelModule extends Module {
