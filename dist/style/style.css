@@ -1530,13 +1530,38 @@ select.alpheios-setting__control,
   width: calc(var(--alpheios-base-ui-size) * 1.75);
   height: auto;
 }
-.alpheios-popup__close-btn {
+.alpheios-popup__toolbar-top__btn {
   width: calc(var(--alpheios-base-ui-size) * 3.5);
   height: 100%;
   cursor: pointer;
   fill: var(--alpheios-icon-color);
   stroke: var(--alpheios-icon-color);
   stroke-width: 0;
+}
+.alpheios-popup__toolbar-top__btn svg {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(var(--alpheios-base-ui-size) * 1);
+  width: calc(var(--alpheios-base-ui-size) * 2);
+  height: auto;
+}
+.alpheios-popup__toolbar-top__btn:hover, .alpheios-popup__toolbar-top__btn:focus {
+  fill: var(--alpheios-icon-color-hover);
+  stroke: var(--alpheios-icon-color-hover);
+  background: var(--alpheios-icon-bg-color-hover);
+}
+.alpheios-popup__toolbar-top__btn:active {
+  fill: var(--alpheios-icon-color-active);
+  stroke: var(--alpheios-icon-color-active);
+  background: var(--alpheios-icon-bg-color-active);
+}
+.alpheios-popup__close-btn {
+  width: calc(var(--alpheios-base-ui-size) * 3.5);
+  height: 100%;
+  cursor: pointer;
+  fill: var(--alpheios-icon-color);
+  stroke: var(--alpheios-icon-color);
 }
 .alpheios-popup__close-btn svg {
   position: relative;
