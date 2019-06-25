@@ -548,5 +548,10 @@
     "message": "Large",
     "description": "Description of a text size option within a button",
     "component": "Font size component"
+  },
+  "TOOLTIP_BACK_TO_INDEX": {
+    "message": "Back to index",
+    "description": "Description of back to index button",
+    "component": "Grammar Tab"
   }
 }
