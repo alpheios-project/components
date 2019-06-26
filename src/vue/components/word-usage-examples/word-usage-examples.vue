@@ -42,7 +42,7 @@
                 :href="wordUsageItem.source"
                 target="_blank"
             >
-              {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
+              {{ `${wordUsageItem.fullCit()}` }}
             </a>
             <div
                 class="alpheios-word-usage__examples-pre"
@@ -68,7 +68,7 @@
                  :href="wordUsageItem.source"
                  target="_blank"
               >
-                {{ `${wordUsageItem.cit} ${wordUsageItem.fullCit()}` }}
+                {{ `${wordUsageItem.fullCit()}` }}
               </a>
             </div>
           </template>
