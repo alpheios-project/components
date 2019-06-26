@@ -1054,7 +1054,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 359px) {
     .alpheios-panel__header-btn--infl-data,
     .alpheios-panel__header-btn--treebank-data {
       display: none;
