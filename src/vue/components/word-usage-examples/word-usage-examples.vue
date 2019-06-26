@@ -58,19 +58,7 @@
             >
               {{ wordUsageItem.suffix }}
             </div>
-            <div
-                class="alpheios-word-usage__examples-source-link-compact-cont"
-                v-show="showDataSource"
-                data-alpheios-ignore="all"
-            >
-              <a
-                  class="alpheios-word-usage__examples-source-link-compact-text"
-                 :href="wordUsageItem.source"
-                 target="_blank"
-              >
-                {{ `${wordUsageItem.fullCit()}` }}
-              </a>
-            </div>
+
           </template>
         </div>
       </template>
@@ -290,9 +278,6 @@ export default {
       margin: 40px 0  20px;
     }
 
-    .alpheios-panel--large &__examples-show-sources-btn {
-      display: none;
-    }
 
     a#{&}__examples-source-link-large {
       grid-column: 1/4;
@@ -333,24 +318,7 @@ export default {
       border-bottom: 1px solid var(--alpheios-border-color);
     }
 
-    &__examples-pre,
-    &__examples-target-word,
-    &__examples-post {
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--alpheios-border-color);
-      white-space: nowrap;
-    }
 
-    &__examples--sources-visible &__examples-pre,
-    &__examples--sources-visible &__examples-target-word,
-    &__examples--sources-visible &__examples-post {
-      padding-bottom: 5px;
-      border-bottom: none;
-    }
-
-    .alpheios-panel--compact &__examples-source-link-large {
-      display: none;
-    }
 
     .alpheios-word-usage-header-show-link {
       cursor: pointer;
@@ -360,6 +328,10 @@ export default {
         color: var(--alpheios-color-vivid-hover);
       }
     }
+  }
+
+  .alpheios-word-usage__examples-show-sources-btn {
+    display: none;
   }
 
   .alpheios-layout-compact {
@@ -389,6 +361,17 @@ export default {
 
     .alpheios-word-usage__examples-show-sources-btn {
       margin: 20px 0;
+    }
+
+    .alpheios-word-usage__examples-show-sources-btn,
+    .alpheios-word-usage__examples-source-link-large {
+        display: none;
+      }
+
+    .alpheios-word-usage__examples--sources-visible {
+      .alpheios-word-usage__examples-source-link-large {
+        display: block;
+      }
     }
   }
 
