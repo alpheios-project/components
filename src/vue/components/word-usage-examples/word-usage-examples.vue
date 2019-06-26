@@ -297,6 +297,14 @@ export default {
       color: var(--alpheios-link-color-on-light);
     }
 
+    &__examples-pre,	
+    &__examples-target-word,	
+    &__examples-post {	
+      padding-bottom: 10px;	
+      border-bottom: 1px solid var(--alpheios-border-color);	
+      white-space: nowrap;	
+    }
+
     &__examples-pre {
       grid-column: 1;
       text-align: right;
@@ -334,6 +342,8 @@ export default {
     display: none;
   }
 
+
+
   .alpheios-layout-compact {
     .alpheios-word-usage-header-select-type-filters-block
     .alpheios-word-usage-header-select-type-filter {
@@ -363,15 +373,18 @@ export default {
       margin: 20px 0;
     }
 
-    .alpheios-word-usage__examples-show-sources-btn,
+    
     .alpheios-word-usage__examples-source-link-large {
         display: none;
       }
+    
+    .alpheios-word-usage__examples-show-sources-btn {
+      display: inline-block;
+    }
 
-    .alpheios-word-usage__examples--sources-visible {
-      .alpheios-word-usage__examples-source-link-large {
-        display: block;
-      }
+    .alpheios-word-usage__examples--sources-visible 
+      .alpheios-word-usage__examples-source-link-large{
+      display: block;
     }
   }
 
