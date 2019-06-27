@@ -22995,7 +22995,7 @@ var render = function() {
             }
           ],
           attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_DEFINITIONS"),
+            tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_DEFINITIONS"),
             tooltipDirection: "bottom-narrow"
           }
         },
@@ -23031,7 +23031,7 @@ var render = function() {
             }
           ],
           attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_INFLECT"),
+            tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_INFLECTIONS"),
             tooltipDirection: "bottom-narrow"
           }
         },
@@ -23103,7 +23103,7 @@ var render = function() {
             }
           ],
           attrs: {
-            tooltipText: _vm.l10n.getText("TOOLTIP_WORD_USAGE"),
+            tooltipText: _vm.l10n.getText("TOOLTIP_SHOW_USAGEEXAMPLES"),
             tooltipDirection: "bottom-narrow"
           }
         },
@@ -48504,7 +48504,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"fontSize":{"defaultVa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
 
 /***/ }),
 
