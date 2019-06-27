@@ -1,5 +1,5 @@
 <template>
-    <div v-show="availableSortBy && !collapsedHeader" class="alpheios-word-usage-header-sorting">
+    <div v-show="showHeader && availableSortBy && !collapsedHeader" class="alpheios-word-usage-header-sorting">
       <p class="alpheios-word-usage-header-title">
         {{ l10n.getText('WORDUSAGE_SORT_BY') }}
       </p>
@@ -35,6 +35,11 @@ export default {
   },
   props: {
     collapsedHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showHeader: {
       type: Boolean,
       required: false,
       default: true

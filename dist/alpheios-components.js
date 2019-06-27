@@ -17959,6 +17959,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -17972,6 +17975,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     collapsedHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showHeader: {
       type: Boolean,
       required: false,
       default: true
@@ -17990,7 +17998,8 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
-      ]
+      ],
+      gettingResult: false
     }
   },
   watch: {
@@ -18074,6 +18083,7 @@ __webpack_require__.r(__webpack_exports__);
       })
     },
     async getResults () {
+      this.gettingResult = true
       if (this.typeFilter === 'noFilters') {
         await this.getResultsNoFilters()
         
@@ -18094,6 +18104,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
       }
+      this.gettingResult = false
     },
     async getResultsNoFilters () {
       await this.app.getWordUsageData(this.homonym)
@@ -18195,6 +18206,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: true
+    },
+    showHeader: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -18238,6 +18254,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
+//
 //
 //
 //
@@ -27114,252 +27132,274 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: !_vm.collapsedHeader,
-          expression: "!collapsedHeader"
-        }
-      ],
-      staticClass: "alpheios-word-usage-header-filters"
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "alpheios-word-usage-header-select-type-filters-block" },
-        _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
-          return _vm.checkVisibilityFilterOption(typeFilterItem)
-            ? _c(
-                "div",
-                {
-                  key: typeFilterItem.value,
-                  staticClass: "alpheios-word-usage-header-select-type-filter",
-                  class: {
-                    "alpheios-word-usage-header-select-type-filter-disabled":
-                      typeFilterItem.disabled === true
+  return _c("div", { staticClass: "alpheios-word-usage-header-filters" }, [
+    _c(
+      "p",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.gettingResult,
+            expression: "gettingResult"
+          }
+        ],
+        staticClass: "alpheios-word-usage-get-data-progress"
+      },
+      [_vm._v("We are getting results ...")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showHeader && !_vm.collapsedHeader,
+            expression: "showHeader && !collapsedHeader"
+          }
+        ]
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "alpheios-word-usage-header-select-type-filters-block"
+          },
+          _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
+            return _vm.checkVisibilityFilterOption(typeFilterItem)
+              ? _c(
+                  "div",
+                  {
+                    key: typeFilterItem.value,
+                    staticClass:
+                      "alpheios-word-usage-header-select-type-filter",
+                    class: {
+                      "alpheios-word-usage-header-select-type-filter-disabled":
+                        typeFilterItem.disabled === true
+                    }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.typeFilter,
+                          expression: "typeFilter"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        id: typeFilterItem.value,
+                        disabled: typeFilterItem.disabled === true
+                      },
+                      domProps: {
+                        value: typeFilterItem.value,
+                        checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.typeFilter = typeFilterItem.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: typeFilterItem.value } }, [
+                      _vm._v(_vm._s(typeFilterItem.label))
+                    ])
+                  ]
+                )
+              : _vm._e()
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.authorsList && _vm.typeFilter !== "noFilters",
+                expression: "authorsList && typeFilter !== 'noFilters'"
+              }
+            ],
+            staticClass: "alpheios-word-usage-filters-select"
+          },
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedAuthor,
+                    expression: "selectedAuthor"
                   }
-                },
-                [
-                  _c("input", {
+                ],
+                staticClass:
+                  "alpheios-select alpheios-word-usage-header-select-author",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedAuthor = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.getResults
+                  ]
+                }
+              },
+              _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
+                return _c(
+                  "option",
+                  {
+                    key: authorIndex,
+                    class: { "alpheios-select-disabled-option": !authorItem },
+                    attrs: { disabled: !authorItem },
+                    domProps: { value: authorItem }
+                  },
+                  [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "alph-tooltip",
+              {
+                attrs: {
+                  tooltipText: _vm.l10n.getMsg(
+                    "WORDUSAGE_FILTERS_AUTHOR_CLEAR"
+                  ),
+                  tooltipDirection: "top-right"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "alpheios-word-usage-header-clear-icon",
+                    class: {
+                      "alpheios-word-usage-header-clear-disabled":
+                        _vm.selectedAuthor === null
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.clearFilter("author")
+                      }
+                    }
+                  },
+                  [_c("clear-filters-icon")],
+                  1
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        this.selectedAuthor && _vm.typeFilter !== "noFilters"
+          ? _c(
+              "div",
+              { staticClass: "alpheios-word-usage-filters-select" },
+              [
+                _c(
+                  "select",
+                  {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.typeFilter,
-                        expression: "typeFilter"
+                        value: _vm.selectedTextWork,
+                        expression: "selectedTextWork"
                       }
                     ],
-                    attrs: {
-                      type: "radio",
-                      id: typeFilterItem.value,
-                      disabled: typeFilterItem.disabled === true
-                    },
-                    domProps: {
-                      value: typeFilterItem.value,
-                      checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
-                    },
+                    staticClass:
+                      "alpheios-select alpheios-word-usage-header-select-textwork",
                     on: {
-                      change: function($event) {
-                        _vm.typeFilter = typeFilterItem.value
-                      }
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedTextWork = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getResults
+                      ]
                     }
+                  },
+                  _vm._l(_vm.filteredWorkList, function(workItem, workIndex) {
+                    return _c(
+                      "option",
+                      {
+                        key: workIndex,
+                        class: { "alpheios-select-disabled-option": !workItem },
+                        attrs: { disabled: !workItem },
+                        domProps: { value: workItem }
+                      },
+                      [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
+                    )
                   }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: typeFilterItem.value } }, [
-                    _vm._v(_vm._s(typeFilterItem.label))
-                  ])
-                ]
-              )
-            : _vm._e()
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.authorsList && _vm.typeFilter !== "noFilters",
-              expression: "authorsList && typeFilter !== 'noFilters'"
-            }
-          ],
-          staticClass: "alpheios-word-usage-filters-select"
-        },
-        [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedAuthor,
-                  expression: "selectedAuthor"
-                }
-              ],
-              staticClass:
-                "alpheios-select alpheios-word-usage-header-select-author",
-              on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.selectedAuthor = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  _vm.getResults
-                ]
-              }
-            },
-            _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
-              return _c(
-                "option",
-                {
-                  key: authorIndex,
-                  class: { "alpheios-select-disabled-option": !authorItem },
-                  attrs: { disabled: !authorItem },
-                  domProps: { value: authorItem }
-                },
-                [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "alph-tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsg("WORDUSAGE_FILTERS_AUTHOR_CLEAR"),
-                tooltipDirection: "top-right"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-word-usage-header-clear-icon",
-                  class: {
-                    "alpheios-word-usage-header-clear-disabled":
-                      _vm.selectedAuthor === null
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.clearFilter("author")
+                  0
+                ),
+                _vm._v(" "),
+                _c(
+                  "alph-tooltip",
+                  {
+                    attrs: {
+                      tooltipText: _vm.l10n.getMsg(
+                        "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
+                      ),
+                      tooltipDirection: "top-right"
                     }
-                  }
-                },
-                [_c("clear-filters-icon")],
-                1
-              )
-            ]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      this.selectedAuthor && _vm.typeFilter !== "noFilters"
-        ? _c(
-            "div",
-            { staticClass: "alpheios-word-usage-filters-select" },
-            [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedTextWork,
-                      expression: "selectedTextWork"
-                    }
-                  ],
-                  staticClass:
-                    "alpheios-select alpheios-word-usage-header-select-textwork",
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.selectedTextWork = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.getResults
-                    ]
-                  }
-                },
-                _vm._l(_vm.filteredWorkList, function(workItem, workIndex) {
-                  return _c(
-                    "option",
-                    {
-                      key: workIndex,
-                      class: { "alpheios-select-disabled-option": !workItem },
-                      attrs: { disabled: !workItem },
-                      domProps: { value: workItem }
-                    },
-                    [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
-                  )
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getMsg(
-                      "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
-                    ),
-                    tooltipDirection: "top-right"
-                  }
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "alpheios-word-usage-header-clear-icon",
-                      class: {
-                        "alpheios-word-usage-header-clear-disabled":
-                          _vm.selectedTextWork === null
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.clearFilter("textwork")
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "alpheios-word-usage-header-clear-icon",
+                        class: {
+                          "alpheios-word-usage-header-clear-disabled":
+                            _vm.selectedTextWork === null
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.clearFilter("textwork")
+                          }
                         }
-                      }
-                    },
-                    [_c("clear-filters-icon")],
-                    1
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ]
-  )
+                      },
+                      [_c("clear-filters-icon")],
+                      1
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          : _vm._e()
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27390,8 +27430,8 @@ var render = function() {
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.availableSortBy && !_vm.collapsedHeader,
-          expression: "availableSortBy && !collapsedHeader"
+          value: _vm.showHeader && _vm.availableSortBy && !_vm.collapsedHeader,
+          expression: "showHeader && availableSortBy && !collapsedHeader"
         }
       ],
       staticClass: "alpheios-word-usage-header-sorting"
@@ -27539,20 +27579,15 @@ var render = function() {
     _c(
       "div",
       {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showHeader,
-            expression: "showHeader"
-          }
-        ],
         staticClass: "alpheios-word-usage-header",
         attrs: { "data-alpheios-ignore": "all" }
       },
       [
         _c("word-usage-examples-filters", {
-          attrs: { collapsedHeader: _vm.collapsedHeader },
+          attrs: {
+            collapsedHeader: _vm.collapsedHeader,
+            showHeader: _vm.showHeader
+          },
           on: {
             filterCurrentByAuthor: _vm.filterCurrentByAuthor,
             getMoreResults: _vm.getMoreResults,
@@ -27561,7 +27596,10 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("word-usage-examples-sorting", {
-          attrs: { collapsedHeader: _vm.collapsedHeader },
+          attrs: {
+            showHeader: _vm.showHeader,
+            collapsedHeader: _vm.collapsedHeader
+          },
           on: { changedSortBy: _vm.changedSortBy }
         })
       ],
@@ -42640,6 +42678,7 @@ class UIController {
       state: this.state, // An app-level state
       homonym: null,
       inflectionsViewSet: null,
+      wordUsageExamplesCached: null,
       wordUsageExamples: null,
       wordUsageAuthors: [],
       // Exposes parsed query parameters to other components
@@ -43408,7 +43447,12 @@ class UIController {
 
   async updateWordUsageExamples (wordUsageExamplesData) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_WORDUSAGE_READY'))
+    console.info('*********************updateWordUsageExamples', wordUsageExamplesData)
     this.api.app.wordUsageExamples = wordUsageExamplesData
+
+    if (!this.api.app.wordUsageExamplesCached || this.api.app.wordUsageExamplesCached.targetWord !== this.api.app.wordUsageExamples.targetWord) {
+      this.api.app.wordUsageExamplesCached = wordUsageExamplesData
+    }
     this.store.commit('app/setWordUsageExamplesReady')
   }
 
@@ -43558,6 +43602,19 @@ class UIController {
   }
 
   async getWordUsageData (homonym, params = {}) {
+    console.info('******getWordUsageData homonym', homonym.targetWord)
+    console.info('******getWordUsageData this.api.app.homonym', this.api.app.homonym ? this.api.app.targetWord : null)
+    console.info('******getWordUsageData this.api.wordUsageExamples', this.api.wordUsageExamples)
+
+    if (this.api.app.wordUsageExamplesCached && (this.api.app.wordUsageExamplesCached.targetWord === homonym.targetWord) && (Object.keys(params).length === 0)) {
+      this.store.commit('app/setWordUsageExamplesReady', false)
+      this.api.app.wordUsageExamples = this.api.app.wordUsageExamplesCached
+      this.store.commit('app/setWordUsageExamplesReady', true)
+      return
+    }
+
+    console.info('******getWordUsageData rerequest wordUsageExamples')
+
     this.store.commit('app/setWordUsageExamplesReady', false)
 
     let wordUsageExamples = this.enableWordUsageExamples({ languageID: homonym.languageID }, 'onDemand')
@@ -48504,7 +48561,7 @@ module.exports = {"domain":"alpheios-ui-options","items":{"fontSize":{"defaultVa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\r\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\r\n</div>\r\n<div id=\"alpheios-panel\">\r\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\r\n</div>\r\n<div id=\"alpheios-toolbar\">\r\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\r\n</div>\r\n";
+module.exports = "<div id=\"alpheios-popup\" data-alpheios-ignore=\"all\">\n  <component v-bind:is=\"uiComponentName\" :module-data=\"moduleData\"></component>\n</div>\n<div id=\"alpheios-panel\">\n  <component v-bind:is=\"$store.state.panel.layout\"></component>\n</div>\n<div id=\"alpheios-toolbar\">\n  <component v-bind:is=\"$store.state.toolbar.layout\" :module-data=\"moduleData\"></component>\n</div>\n";
 
 /***/ }),
 

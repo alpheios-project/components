@@ -1,61 +1,64 @@
 <template>
-    <div class="alpheios-word-usage-header-filters" v-show="!collapsedHeader">
+    <div class="alpheios-word-usage-header-filters">
+      <p class="alpheios-word-usage-get-data-progress" v-show="gettingResult">We are getting results ...</p>
+
+      <div v-show="showHeader && !collapsedHeader">
         <div class="alpheios-word-usage-header-select-type-filters-block" >
-        <div class="alpheios-word-usage-header-select-type-filter"
-            v-for="typeFilterItem of typeFiltersList" 
-            v-bind:key="typeFilterItem.value"
-            :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
-            v-if="checkVisibilityFilterOption(typeFilterItem)"
-        >
-          <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter" :disabled = "typeFilterItem.disabled === true">
-          <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
+          <div class="alpheios-word-usage-header-select-type-filter"
+              v-for="typeFilterItem of typeFiltersList" 
+              v-bind:key="typeFilterItem.value"
+              :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
+              v-if="checkVisibilityFilterOption(typeFilterItem)"
+          >
+            <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter" :disabled = "typeFilterItem.disabled === true">
+            <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
+          </div>
+        </div>
+
+        <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
+          <select class="alpheios-select alpheios-word-usage-header-select-author" 
+                  v-model="selectedAuthor"
+                  @change = "getResults"
+          >
+              <option
+                  v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
+                  v-bind:value="authorItem"
+                  :class='{ "alpheios-select-disabled-option": !authorItem}'
+                  v-bind:disabled="!authorItem"
+                  >{{ calcTitle(authorItem, 'author') }}</option>
+          </select>
+          <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
+            <span class="alpheios-word-usage-header-clear-icon"
+                  @click="clearFilter('author')"
+                  :class = '{ "alpheios-word-usage-header-clear-disabled": selectedAuthor === null }'
+                  >
+              <clear-filters-icon></clear-filters-icon>
+            </span>
+          </alph-tooltip>
+        </div>
+
+        <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
+          <select class="alpheios-select alpheios-word-usage-header-select-textwork"
+                  v-model="selectedTextWork"
+                  @change = "getResults"
+          >
+            <option
+                v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
+                v-bind:value="workItem"
+                :class='{ "alpheios-select-disabled-option": !workItem}'
+                v-bind:disabled="!workItem"
+                >{{ calcTitle(workItem, 'textwork') }}</option>
+          </select>
+          <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right">
+            <span class="alpheios-word-usage-header-clear-icon"
+                  @click="clearFilter('textwork')"
+                  :class = '{ "alpheios-word-usage-header-clear-disabled": selectedTextWork === null }'
+            >
+              <clear-filters-icon></clear-filters-icon>
+            </span>
+          </alph-tooltip>
         </div>
       </div>
-
-      <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
-        <select class="alpheios-select alpheios-word-usage-header-select-author" 
-                v-model="selectedAuthor"
-                @change = "getResults"
-        >
-            <option
-                v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
-                v-bind:value="authorItem"
-                :class='{ "alpheios-select-disabled-option": !authorItem}'
-                v-bind:disabled="!authorItem"
-                >{{ calcTitle(authorItem, 'author') }}</option>
-        </select>
-        <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
-          <span class="alpheios-word-usage-header-clear-icon"
-                @click="clearFilter('author')"
-                :class = '{ "alpheios-word-usage-header-clear-disabled": selectedAuthor === null }'
-                >
-            <clear-filters-icon></clear-filters-icon>
-          </span>
-        </alph-tooltip>
-      </div>
-
-      <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
-        <select class="alpheios-select alpheios-word-usage-header-select-textwork"
-                v-model="selectedTextWork"
-                @change = "getResults"
-        >
-          <option
-              v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
-              v-bind:value="workItem"
-              :class='{ "alpheios-select-disabled-option": !workItem}'
-              v-bind:disabled="!workItem"
-              >{{ calcTitle(workItem, 'textwork') }}</option>
-        </select>
-        <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right">
-          <span class="alpheios-word-usage-header-clear-icon"
-                @click="clearFilter('textwork')"
-                :class = '{ "alpheios-word-usage-header-clear-disabled": selectedTextWork === null }'
-          >
-            <clear-filters-icon></clear-filters-icon>
-          </span>
-        </alph-tooltip>
-      </div>
-
     </div>
 </template>
 <script>
@@ -74,6 +77,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    showHeader: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -89,7 +97,8 @@ export default {
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
         { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
         { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
-      ]
+      ],
+      gettingResult: false
     }
   },
   watch: {
@@ -173,6 +182,7 @@ export default {
       })
     },
     async getResults () {
+      this.gettingResult = true
       if (this.typeFilter === 'noFilters') {
         await this.getResultsNoFilters()
         
@@ -193,6 +203,7 @@ export default {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
       }
+      this.gettingResult = false
     },
     async getResultsNoFilters () {
       await this.app.getWordUsageData(this.homonym)
@@ -284,5 +295,16 @@ export default {
     margin-top: 10px;
   }
 
+  @include keyframes(progresscolor) {
+    0% { color: var(--alpheios-color-vivid); }
+    30% { color: var(--alpheios-color-vivid-hover); }
+    60% { color: var(--alpheios-color-bright); }
+    90% { color: var(--alpheios-color-vivid-hover); }
+  }
+
+  .alpheios-word-usage-get-data-progress {
+    @include animation('progresscolor 4s infinite linear');
+    font-weight: bold;
+  }
 
 </style>

@@ -4,16 +4,18 @@
       <span class="alpheios-word-usage-header-show-link" v-if="showHeaderFilters" @click="collapsedHeader = !collapsedHeader"> ({{ collapsedHeaderTitle }})</span>
     </div>
 
-    <div class="alpheios-word-usage-header" data-alpheios-ignore="all" v-show="showHeader">
+    <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
       
       <word-usage-examples-filters
         :collapsedHeader = "collapsedHeader"
+        :showHeader = "showHeader"
         @filterCurrentByAuthor = "filterCurrentByAuthor"
         @getMoreResults = "getMoreResults"
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
 
       <word-usage-examples-sorting
+        :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
       ></word-usage-examples-sorting>
