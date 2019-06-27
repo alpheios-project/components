@@ -17962,6 +17962,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17992,7 +18009,7 @@ __webpack_require__.r(__webpack_exports__);
       selectedTextWork: null,
       lastTargetWord: null,
       lastAuthorID: null,
-      lastAuthorsList: [],
+      lastAuthorsList: null,
       lastTextWorksList: [],
       typeFiltersList: [
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
@@ -18016,6 +18033,25 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
     authorsList () {
+      console.info('*******this.$store.state.app.wordUsageExamplesReady', this.$store.state.app.wordUsageExamplesReady)
+      console.info('*******this.lastTargetWord', this.lastTargetWord)
+      console.info('*******this.homonym.targetWord', this.homonym ? this.homonym.targetWord : null)
+
+      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
+        this.lastTargetWord = this.homonym.targetWord
+        this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+          .filter(wordUsageExampleItem => wordUsageExampleItem.author)
+          .map(wordUsageExampleItem => wordUsageExampleItem.author)
+          .filter((item, pos, self) => self.indexOf(item) == pos)
+          .slice()
+
+        console.info('*******this.lastAuthorsList', this.lastAuthorsList)
+        console.info('*******this.lastTargetWord', this.lastTargetWord)
+
+        this.lastAuthorsList.unshift(null)
+      } 
+      return true
+      /*
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
 
@@ -18053,6 +18089,7 @@ __webpack_require__.r(__webpack_exports__);
         this.lastAuthorID = null
       }
       return true
+      */
     },
     filteredWorkList () {
       if (this.selectedAuthor) {        
@@ -18067,23 +18104,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    checkVisibilityFilterOption(typeFilterItem) {
-      if (typeFilterItem.skip) {
-        return false
-      }
-      return true
-    },
-    setDisabledToType (typeValues) {
-      this.typeFiltersList.forEach(item => {
-        if (typeValues.indexOf(item.value) > -1) {
-          item.disabled = true
-        } else {
-          item.disabled = false
-        }
-      })
-    },
+
     async getResults () {
       this.gettingResult = true
+      
+      if (this.selectedAuthor) {
+        await this.app.getWordUsageData(this.homonym, {
+          author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
+          textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
+        })
+      } else {
+        await this.app.getWordUsageData(this.homonym)
+      }
+      /*
       if (this.typeFilter === 'noFilters') {
         await this.getResultsNoFilters()
         
@@ -18104,21 +18137,10 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
       }
+      */
       this.gettingResult = false
     },
-    async getResultsNoFilters () {
-      await this.app.getWordUsageData(this.homonym)
-    },
-    async getResultsWithFilters () {
-      await this.app.getWordUsageData(this.homonym, {
-        author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
-        textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
-      })
-    },
-    removeFiltersFromResults () {
-      this.$emit('filterCurrentByAuthor', null, null)
-      this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
-    },
+
     calcTitle (item, type) {
       if (item) {
         if (item.title() && item.abbreviation()) {
@@ -18132,22 +18154,21 @@ __webpack_require__.r(__webpack_exports__);
         }
       } else {
         if (type === 'author') {
-          return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER')
+          if (this.selectedAuthor) {
+            return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_CLEAR')
+          } else {
+            return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER')
+          }
         }
         if (type === 'textwork') {
-          return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER')
+          if (this.selectedTextWork) {
+            return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')
+          } else {
+            return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER')
+          }
         }
       }
       return ''
-    },
-    clearFilter (type) {
-      if (type === 'author') {
-        this.selectedAuthor = null
-        this.selectedTextWork = null
-      }
-      if (type === 'textwork') {
-        this.selectedTextWork = null
-      }
     }
   }
 });
@@ -18254,6 +18275,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_filters_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-filters.vue */ "./vue/components/word-usage-examples/word-usage-examples-filters.vue");
 /* harmony import */ var _vue_components_word_usage_examples_word_usage_examples_sorting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/word-usage-examples/word-usage-examples-sorting.vue */ "./vue/components/word-usage-examples/word-usage-examples-sorting.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+//
 //
 //
 //
@@ -27162,240 +27184,58 @@ var render = function() {
         ]
       },
       [
-        _c(
-          "div",
-          {
-            staticClass: "alpheios-word-usage-header-select-type-filters-block"
-          },
-          _vm._l(_vm.typeFiltersList, function(typeFilterItem) {
-            return _vm.checkVisibilityFilterOption(typeFilterItem)
-              ? _c(
-                  "div",
-                  {
-                    key: typeFilterItem.value,
-                    staticClass:
-                      "alpheios-word-usage-header-select-type-filter",
-                    class: {
-                      "alpheios-word-usage-header-select-type-filter-disabled":
-                        typeFilterItem.disabled === true
+        _vm.authorsList
+          ? _c("div", { staticClass: "alpheios-word-usage-filters-select" }, [
+              _c("p", { staticClass: "alpheios-word-usage-filter-title" }, [
+                _vm._v("Author focus")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedAuthor,
+                      expression: "selectedAuthor"
                     }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.typeFilter,
-                          expression: "typeFilter"
-                        }
-                      ],
-                      attrs: {
-                        type: "radio",
-                        id: typeFilterItem.value,
-                        disabled: typeFilterItem.disabled === true
+                  ],
+                  staticClass:
+                    "alpheios-select alpheios-word-usage-header-select-author",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedAuthor = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       },
-                      domProps: {
-                        value: typeFilterItem.value,
-                        checked: _vm._q(_vm.typeFilter, typeFilterItem.value)
-                      },
-                      on: {
-                        change: function($event) {
-                          _vm.typeFilter = typeFilterItem.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: typeFilterItem.value } }, [
-                      _vm._v(_vm._s(typeFilterItem.label))
-                    ])
-                  ]
-                )
-              : _vm._e()
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.authorsList && _vm.typeFilter !== "noFilters",
-                expression: "authorsList && typeFilter !== 'noFilters'"
-              }
-            ],
-            staticClass: "alpheios-word-usage-filters-select"
-          },
-          [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedAuthor,
-                    expression: "selectedAuthor"
+                      _vm.getResults
+                    ]
                   }
-                ],
-                staticClass:
-                  "alpheios-select alpheios-word-usage-header-select-author",
-                on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.selectedAuthor = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
+                },
+                _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
+                  return _c(
+                    "option",
+                    {
+                      key: authorIndex,
+                      class: { "alpheios-select-disabled-option": !authorItem },
+                      domProps: { value: authorItem }
                     },
-                    _vm.getResults
-                  ]
-                }
-              },
-              _vm._l(_vm.lastAuthorsList, function(authorItem, authorIndex) {
-                return _c(
-                  "option",
-                  {
-                    key: authorIndex,
-                    class: { "alpheios-select-disabled-option": !authorItem },
-                    attrs: { disabled: !authorItem },
-                    domProps: { value: authorItem }
-                  },
-                  [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "alph-tooltip",
-              {
-                attrs: {
-                  tooltipText: _vm.l10n.getMsg(
-                    "WORDUSAGE_FILTERS_AUTHOR_CLEAR"
-                  ),
-                  tooltipDirection: "top-right"
-                }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    staticClass: "alpheios-word-usage-header-clear-icon",
-                    class: {
-                      "alpheios-word-usage-header-clear-disabled":
-                        _vm.selectedAuthor === null
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.clearFilter("author")
-                      }
-                    }
-                  },
-                  [_c("clear-filters-icon")],
-                  1
-                )
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        this.selectedAuthor && _vm.typeFilter !== "noFilters"
-          ? _c(
-              "div",
-              { staticClass: "alpheios-word-usage-filters-select" },
-              [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedTextWork,
-                        expression: "selectedTextWork"
-                      }
-                    ],
-                    staticClass:
-                      "alpheios-select alpheios-word-usage-header-select-textwork",
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.selectedTextWork = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                        _vm.getResults
-                      ]
-                    }
-                  },
-                  _vm._l(_vm.filteredWorkList, function(workItem, workIndex) {
-                    return _c(
-                      "option",
-                      {
-                        key: workIndex,
-                        class: { "alpheios-select-disabled-option": !workItem },
-                        attrs: { disabled: !workItem },
-                        domProps: { value: workItem }
-                      },
-                      [_vm._v(_vm._s(_vm.calcTitle(workItem, "textwork")))]
-                    )
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c(
-                  "alph-tooltip",
-                  {
-                    attrs: {
-                      tooltipText: _vm.l10n.getMsg(
-                        "WORDUSAGE_FILTERS_TEXTWORK_CLEAR"
-                      ),
-                      tooltipDirection: "top-right"
-                    }
-                  },
-                  [
-                    _c(
-                      "span",
-                      {
-                        staticClass: "alpheios-word-usage-header-clear-icon",
-                        class: {
-                          "alpheios-word-usage-header-clear-disabled":
-                            _vm.selectedTextWork === null
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.clearFilter("textwork")
-                          }
-                        }
-                      },
-                      [_c("clear-filters-icon")],
-                      1
-                    )
-                  ]
-                )
-              ],
-              1
-            )
+                    [_vm._v(_vm._s(_vm.calcTitle(authorItem, "author")))]
+                  )
+                }),
+                0
+              )
+            ])
           : _vm._e()
       ]
     )
@@ -27593,14 +27433,6 @@ var render = function() {
             getMoreResults: _vm.getMoreResults,
             getAllResults: _vm.getAllResults
           }
-        }),
-        _vm._v(" "),
-        _c("word-usage-examples-sorting", {
-          attrs: {
-            showHeader: _vm.showHeader,
-            collapsedHeader: _vm.collapsedHeader
-          },
-          on: { changedSortBy: _vm.changedSortBy }
         })
       ],
       1

@@ -14,12 +14,13 @@
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
 
+      <!--
       <word-usage-examples-sorting
         :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
       ></word-usage-examples-sorting>
-
+      -->
     </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">

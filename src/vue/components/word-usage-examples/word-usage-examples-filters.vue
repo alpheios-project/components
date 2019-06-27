@@ -3,6 +3,7 @@
       <p class="alpheios-word-usage-get-data-progress" v-show="gettingResult">We are getting results ...</p>
 
       <div v-show="showHeader && !collapsedHeader">
+        <!--
         <div class="alpheios-word-usage-header-select-type-filters-block" >
           <div class="alpheios-word-usage-header-select-type-filter"
               v-for="typeFilterItem of typeFiltersList" 
@@ -14,7 +15,22 @@
             <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
           </div>
         </div>
-
+        -->
+       
+        <div class="alpheios-word-usage-filters-select" v-if="authorsList">
+          <p class="alpheios-word-usage-filter-title">Author focus</p>
+          <select class="alpheios-select alpheios-word-usage-header-select-author" 
+                    v-model="selectedAuthor"
+                    @change = "getResults"
+            >
+                <option
+                    v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
+                    v-bind:value="authorItem"
+                    :class='{ "alpheios-select-disabled-option": !authorItem}'
+                    >{{ calcTitle(authorItem, 'author') }}</option>
+          </select>
+        </div>
+        <!--
         <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
           <select class="alpheios-select alpheios-word-usage-header-select-author" 
                   v-model="selectedAuthor"
@@ -58,6 +74,7 @@
             </span>
           </alph-tooltip>
         </div>
+        -->
       </div>
     </div>
 </template>
@@ -91,7 +108,7 @@ export default {
       selectedTextWork: null,
       lastTargetWord: null,
       lastAuthorID: null,
-      lastAuthorsList: [],
+      lastAuthorsList: null,
       lastTextWorksList: [],
       typeFiltersList: [
         { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
@@ -115,6 +132,25 @@ export default {
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
     authorsList () {
+      console.info('*******this.$store.state.app.wordUsageExamplesReady', this.$store.state.app.wordUsageExamplesReady)
+      console.info('*******this.lastTargetWord', this.lastTargetWord)
+      console.info('*******this.homonym.targetWord', this.homonym ? this.homonym.targetWord : null)
+
+      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
+        this.lastTargetWord = this.homonym.targetWord
+        this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
+          .filter(wordUsageExampleItem => wordUsageExampleItem.author)
+          .map(wordUsageExampleItem => wordUsageExampleItem.author)
+          .filter((item, pos, self) => self.indexOf(item) == pos)
+          .slice()
+
+        console.info('*******this.lastAuthorsList', this.lastAuthorsList)
+        console.info('*******this.lastTargetWord', this.lastTargetWord)
+
+        this.lastAuthorsList.unshift(null)
+      } 
+      return true
+      /*
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
 
@@ -152,6 +188,7 @@ export default {
         this.lastAuthorID = null
       }
       return true
+      */
     },
     filteredWorkList () {
       if (this.selectedAuthor) {        
@@ -166,23 +203,19 @@ export default {
     }
   },
   methods: {
-    checkVisibilityFilterOption(typeFilterItem) {
-      if (typeFilterItem.skip) {
-        return false
-      }
-      return true
-    },
-    setDisabledToType (typeValues) {
-      this.typeFiltersList.forEach(item => {
-        if (typeValues.indexOf(item.value) > -1) {
-          item.disabled = true
-        } else {
-          item.disabled = false
-        }
-      })
-    },
+
     async getResults () {
       this.gettingResult = true
+      
+      if (this.selectedAuthor) {
+        await this.app.getWordUsageData(this.homonym, {
+          author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
+          textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
+        })
+      } else {
+        await this.app.getWordUsageData(this.homonym)
+      }
+      /*
       if (this.typeFilter === 'noFilters') {
         await this.getResultsNoFilters()
         
@@ -203,21 +236,10 @@ export default {
         this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
         this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
       }
+      */
       this.gettingResult = false
     },
-    async getResultsNoFilters () {
-      await this.app.getWordUsageData(this.homonym)
-    },
-    async getResultsWithFilters () {
-      await this.app.getWordUsageData(this.homonym, {
-        author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
-        textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
-      })
-    },
-    removeFiltersFromResults () {
-      this.$emit('filterCurrentByAuthor', null, null)
-      this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
-    },
+
     calcTitle (item, type) {
       if (item) {
         if (item.title() && item.abbreviation()) {
@@ -231,22 +253,21 @@ export default {
         }
       } else {
         if (type === 'author') {
-          return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER')
+          if (this.selectedAuthor) {
+            return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_CLEAR')
+          } else {
+            return this.l10n.getText('WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER')
+          }
         }
         if (type === 'textwork') {
-          return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER')
+          if (this.selectedTextWork) {
+            return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')
+          } else {
+            return this.l10n.getText('WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER')
+          }
         }
       }
       return ''
-    },
-    clearFilter (type) {
-      if (type === 'author') {
-        this.selectedAuthor = null
-        this.selectedTextWork = null
-      }
-      if (type === 'textwork') {
-        this.selectedTextWork = null
-      }
     }
   }
 }
