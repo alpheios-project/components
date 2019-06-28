@@ -14,13 +14,16 @@
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
 
-      <!--
+      
       <word-usage-examples-sorting
         :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
+        :hasSelectedAuthor = "Boolean(selectedAuthor)"
+        :hasSelectedTextWork = "Boolean(selectedTextWork)"
+        :reloadSorting = "reloadSorting"
       ></word-usage-examples-sorting>
-      -->
+
     </div>
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
@@ -98,7 +101,8 @@ export default {
       needInnerFilter: false,
       // Whether to show reference links on mobile layout or not
       showDataSource: false,
-      collapsedHeader: true
+      collapsedHeader: true,
+      reloadSorting: 0
     }
   },
   computed: {
@@ -113,7 +117,7 @@ export default {
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 
+             this.showWordUsageExampleItems 
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
@@ -170,11 +174,13 @@ export default {
     getMoreResults (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
       this.needInnerFilter = false
+      this.reloadSorting = this.reloadSorting + 1
     },
     getAllResults () {
       this.setAuthorTextWork(null, null)
       this.needInnerFilter = false
       this.collapsedHeader = true
+      this.reloadSorting = this.reloadSorting + 1
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
@@ -243,15 +249,14 @@ export default {
       font-size: 80%;
     }
 
-    .alpheios-word-usage-header-select-author,
-    .alpheios-word-usage-header-select-textwork,
+    .alpheios-word-usage-header-filter-select,
     .alpheios-word-usage-header-select-sortBy {
       width: 88%;
       max-width: 400px;
     }
 
     & .alpheios-select:not([multiple]):not([size]) {
-      background-size: 10%;
+      background-size: calc(var(--alpheios-base-text-size) * 2);
     }
 
     .alpheios-word-usage-header-clear-icon {

@@ -1,25 +1,11 @@
 <template>
     <div class="alpheios-word-usage-header-filters">
-      <p class="alpheios-word-usage-get-data-progress" v-show="gettingResult">We are getting results ...</p>
+      <p class="alpheios-word-usage-get-data-progress" v-show="gettingResult">{{ l10n.getText('WORDUSAGE_GETTING_RESULT') }}</p>
 
-      <div v-show="showHeader && !collapsedHeader">
-        <!--
-        <div class="alpheios-word-usage-header-select-type-filters-block" >
-          <div class="alpheios-word-usage-header-select-type-filter"
-              v-for="typeFilterItem of typeFiltersList" 
-              v-bind:key="typeFilterItem.value"
-              :class="{ 'alpheios-word-usage-header-select-type-filter-disabled': typeFilterItem.disabled === true }"
-              v-if="checkVisibilityFilterOption(typeFilterItem)"
-          >
-            <input type="radio" :id="typeFilterItem.value" :value="typeFilterItem.value" v-model="typeFilter" :disabled = "typeFilterItem.disabled === true">
-            <label :for="typeFilterItem.value">{{ typeFilterItem.label }}</label>
-          </div>
-        </div>
-        -->
-       
+      <div v-show="showHeader && !collapsedHeader">      
         <div class="alpheios-word-usage-filters-select" v-if="authorsList">
           <p class="alpheios-word-usage-filter-title">Author focus</p>
-          <select class="alpheios-select alpheios-word-usage-header-select-author" 
+          <select class="alpheios-select alpheios-word-usage-header-filter-select" 
                     v-model="selectedAuthor"
                     @change = "getResults"
             >
@@ -30,51 +16,20 @@
                     >{{ calcTitle(authorItem, 'author') }}</option>
           </select>
         </div>
-        <!--
-        <div v-show="authorsList && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
-          <select class="alpheios-select alpheios-word-usage-header-select-author" 
-                  v-model="selectedAuthor"
-                  @change = "getResults"
-          >
-              <option
-                  v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
-                  v-bind:value="authorItem"
-                  :class='{ "alpheios-select-disabled-option": !authorItem}'
-                  v-bind:disabled="!authorItem"
-                  >{{ calcTitle(authorItem, 'author') }}</option>
-          </select>
-          <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_AUTHOR_CLEAR')" tooltipDirection="top-right">
-            <span class="alpheios-word-usage-header-clear-icon"
-                  @click="clearFilter('author')"
-                  :class = '{ "alpheios-word-usage-header-clear-disabled": selectedAuthor === null }'
-                  >
-              <clear-filters-icon></clear-filters-icon>
-            </span>
-          </alph-tooltip>
-        </div>
-
-        <div v-if="this.selectedAuthor && typeFilter !== 'noFilters'" class="alpheios-word-usage-filters-select">
-          <select class="alpheios-select alpheios-word-usage-header-select-textwork"
-                  v-model="selectedTextWork"
-                  @change = "getResults"
-          >
-            <option
-                v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
-                v-bind:value="workItem"
-                :class='{ "alpheios-select-disabled-option": !workItem}'
-                v-bind:disabled="!workItem"
-                >{{ calcTitle(workItem, 'textwork') }}</option>
-          </select>
-          <alph-tooltip :tooltipText="l10n.getMsg('WORDUSAGE_FILTERS_TEXTWORK_CLEAR')" tooltipDirection="top-right">
-            <span class="alpheios-word-usage-header-clear-icon"
-                  @click="clearFilter('textwork')"
-                  :class = '{ "alpheios-word-usage-header-clear-disabled": selectedTextWork === null }'
+        <div class="alpheios-word-usage-filters-select" v-if="filteredWorkList">
+          <p class="alpheios-word-usage-filter-title">Work focus</p>
+          <select class="alpheios-select alpheios-word-usage-header-filter-select" 
+                    v-model="selectedTextWork"
+                    @change = "getResults"
             >
-              <clear-filters-icon></clear-filters-icon>
-            </span>
-          </alph-tooltip>
+                <option
+                  v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
+                  :class='{ "alpheios-select-disabled-option": !workItem}'
+                  v-bind:value="workItem"
+                >{{ calcTitle(workItem, 'textwork') }}
+                </option>
+          </select>
         </div>
-        -->
       </div>
     </div>
 </template>
@@ -103,18 +58,10 @@ export default {
   },
   data () {
     return {
-      typeFilter: 'noFilters',
       selectedAuthor: null,
       selectedTextWork: null,
       lastTargetWord: null,
-      lastAuthorID: null,
       lastAuthorsList: null,
-      lastTextWorksList: [],
-      typeFiltersList: [
-        { value: 'noFilters', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_NO_FILTERS'), skip: true },
-        { value: 'moreResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_MORE_RESULTS'), disabled: true, skip: true },
-        { value: 'filterCurrentResults', label: this.l10n.getText('WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS'), disabled: true }
-      ],
       gettingResult: false
     }
   },
@@ -132,10 +79,6 @@ export default {
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
     authorsList () {
-      console.info('*******this.$store.state.app.wordUsageExamplesReady', this.$store.state.app.wordUsageExamplesReady)
-      console.info('*******this.lastTargetWord', this.lastTargetWord)
-      console.info('*******this.homonym.targetWord', this.homonym ? this.homonym.targetWord : null)
-
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
         this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
@@ -143,67 +86,25 @@ export default {
           .map(wordUsageExampleItem => wordUsageExampleItem.author)
           .filter((item, pos, self) => self.indexOf(item) == pos)
           .slice()
-
-        console.info('*******this.lastAuthorsList', this.lastAuthorsList)
-        console.info('*******this.lastTargetWord', this.lastTargetWord)
-
         this.lastAuthorsList.unshift(null)
       } 
       return true
-      /*
-      if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
-        this.lastTargetWord = this.homonym.targetWord
-
-        if (!this.app.wordUsageExamples.wordUsageExamples) {
-          this.lastAuthorsList = []
-          this.lastTextWorksList = []
-          this.typeFilter = 'noFilters'
-          this.setDisabledToType(['moreResults', 'filterCurrentResults'])
-        } else {
-          this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
-            .filter(wordUsageExampleItem => wordUsageExampleItem.author)
-            .map(wordUsageExampleItem => wordUsageExampleItem.author)
-            .filter((item, pos, self) => self.indexOf(item) == pos)
-            .slice()
-
-          this.lastAuthorsList.unshift(null)
-
-          this.lastTextWorksList = this.app.wordUsageExamples.wordUsageExamples
-            .map(wordUsageExampleItem => wordUsageExampleItem.textWork)
-            .filter((item, pos, self) => item && self.indexOf(item) == pos)
-            .slice()
-
-          this.lastTextWorksList.unshift(null)
-
-          this.typeFilter = 'filterCurrentResults'
-        }
-      } else if (!this.$store.state.app.wordUsageExamplesReady || !this.homonym) {
-        this.typeFilter = 'noFilters'
-        this.setDisabledToType(['moreResults', 'filterCurrentResults'])
-        this.selectedAuthor = null
-        this.selectedTextWork = null
-        this.lastAuthorsList = []
-        this.lastTextWorksList = []
-        this.lastTargetWord = null
-        this.lastAuthorID = null
-      }
-      return true
-      */
     },
     filteredWorkList () {
       if (this.selectedAuthor) {        
         this.selectedTextWork = null
-        let resArray = this.lastTextWorksList.filter(textwork => textwork && textwork.author && (textwork.author.ID === this.selectedAuthor.ID))
-        if (resArray.length > 0) {
+        let resArray = this.selectedAuthor.works
+        if (resArray.length > 1) {
           resArray.unshift(null)
+        } else if (resArray.length === 1) {
+          this.selectedTextWork = resArray[0]
         }
         return resArray
       }
-      return []
+      return null
     }
   },
   methods: {
-
     async getResults () {
       this.gettingResult = true
       
@@ -212,34 +113,13 @@ export default {
           author: this.selectedAuthor && this.selectedAuthor.ID !== 0 ? this.selectedAuthor : null,
           textWork: this.selectedTextWork && this.selectedTextWork.ID !== 0 ? this.selectedTextWork : null
         })
+        this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
       } else {
         await this.app.getWordUsageData(this.homonym)
+        this.$emit('getAllResults', this.selectedAuthor, this.selectedTextWork)
       }
-      /*
-      if (this.typeFilter === 'noFilters') {
-        await this.getResultsNoFilters()
-        
-        this.$emit('getAllResults')
-        this.clearFilter('author')
-        this.lastAuthorID = null
-        this.typeFilter = 'filterCurrentResults'
-        this.setDisabledToType([])
-        
-      } else if (this.typeFilter === 'moreResults') {
-        this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
-        await this.getResultsWithFilters()
-
-        this.setDisabledToType(['filterCurrentResults'])
-
-        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null        
-      } else if (this.typeFilter === 'filterCurrentResults') {
-        this.$emit('filterCurrentByAuthor', this.selectedAuthor, this.selectedTextWork)
-        this.lastAuthorID = this.selectedAuthor ? this.selectedAuthor.ID : null
-      }
-      */
       this.gettingResult = false
     },
-
     calcTitle (item, type) {
       if (item) {
         if (item.title() && item.abbreviation()) {
@@ -328,4 +208,11 @@ export default {
     font-weight: bold;
   }
 
+  p.alpheios-word-usage-filter-title {
+    margin: 0 0 calc(var(--alpheios-base-text-size) * 0.5);
+  }
+
+  .alpheios-word-usage-filters-select {
+    margin-bottom: 10px;
+  }
 </style>

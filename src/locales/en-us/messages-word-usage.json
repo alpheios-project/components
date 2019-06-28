@@ -113,5 +113,15 @@
         "message": "Author+Work",
         "description": "Placeholder for sorting selection",
         "component": "WordUsageExamples"
+    },
+    "WORDUSAGE_SORT_BY_TEXTWORK": {
+        "message": "Work",
+        "description": "Placeholder for sorting selection",
+        "component": "WordUsageExamples"
+    },
+    "WORDUSAGE_GETTING_RESULT": {
+        "message": "We are getting results ...",
+        "description": "Placeholder for getting data",
+        "component": "WordUsageExamples"
     }
 }

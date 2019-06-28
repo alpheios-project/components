@@ -2559,6 +2559,12 @@ h3.alpheios-inflections__credits-title {
   animation: progresscolor 4s infinite linear;
   font-weight: bold !important;
 }
+p.alpheios-word-usage-filter-title {
+  margin: 0 0 calc(var(--alpheios-base-text-size) * 0.5) !important;
+}
+.alpheios-word-usage-filters-select {
+  margin-bottom: 10px !important;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
@@ -2606,14 +2612,13 @@ h3.alpheios-inflections__credits-title {
   padding: 10px 0 !important;
   font-size: 80% !important;
 }
-.alpheios-word-usage .alpheios-word-usage-header-select-author,
-.alpheios-word-usage .alpheios-word-usage-header-select-textwork,
+.alpheios-word-usage .alpheios-word-usage-header-filter-select,
 .alpheios-word-usage .alpheios-word-usage-header-select-sortBy {
   width: 88% !important;
   max-width: 400px !important;
 }
 .alpheios-word-usage .alpheios-select:not([multiple]):not([size]) {
-  background-size: 10% !important;
+  background-size: calc(var(--alpheios-base-text-size) * 2) !important;
 }
 .alpheios-word-usage .alpheios-word-usage-header-clear-icon {
   width: 20px !important;
