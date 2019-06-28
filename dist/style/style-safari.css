@@ -2723,6 +2723,9 @@ p.alpheios-word-usage-filter-title {
 .alpheios-layout-compact .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-source-link-large {
   display: block;
 }
+.alpheios_word_usage_list_mainblock i {
+  font-style: italic !important;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.

@@ -18278,7 +18278,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -18417,6 +18416,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeShowDataSource () {
       this.showDataSource = !this.showDataSource
+    },
+    formattedFullCit (wordUsageItem) {
+      return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
     }
   },
   mounted () {
@@ -27451,24 +27453,19 @@ var render = function() {
                     [
                       _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
                         return [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "alpheios-word-usage__examples-source-link-large",
-                              attrs: {
-                                href: wordUsageItem.source,
-                                target: "_blank"
-                              }
+                          _c("a", {
+                            staticClass:
+                              "alpheios-word-usage__examples-source-link-large",
+                            attrs: {
+                              href: wordUsageItem.source,
+                              target: "_blank"
                             },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s("" + wordUsageItem.fullCit()) +
-                                  "\n          "
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.formattedFullCit(wordUsageItem)
                               )
-                            ]
-                          ),
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
                             "div",

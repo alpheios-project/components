@@ -46,9 +46,8 @@
             <a
                 class="alpheios-word-usage__examples-source-link-large"
                 :href="wordUsageItem.source"
-                target="_blank"
+                target="_blank" v-html="formattedFullCit(wordUsageItem)"
             >
-              {{ `${wordUsageItem.fullCit()}` }}
             </a>
             <div
                 class="alpheios-word-usage__examples-pre"
@@ -216,6 +215,9 @@ export default {
     },
     changeShowDataSource () {
       this.showDataSource = !this.showDataSource
+    },
+    formattedFullCit (wordUsageItem) {
+      return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
     }
   },
   mounted () {
@@ -399,6 +401,10 @@ export default {
       .alpheios-word-usage__examples-source-link-large{
       display: block;
     }
+  }
+
+  .alpheios_word_usage_list_mainblock i {
+    font-style: italic;
   }
 
 </style>
