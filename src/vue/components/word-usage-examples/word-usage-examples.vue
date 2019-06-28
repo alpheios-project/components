@@ -19,8 +19,8 @@
         :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
-        :hasSelectedAuthor = "Boolean(selectedAuthor)"
-        :hasSelectedTextWork = "Boolean(selectedTextWork)"
+        :hasSelectedAuthor = "hasSelectedAuthor"
+        :hasSelectedTextWork = "hasSelectedTextWork"
         :reloadSorting = "reloadSorting"
       ></word-usage-examples-sorting>
 
@@ -102,7 +102,9 @@ export default {
       // Whether to show reference links on mobile layout or not
       showDataSource: false,
       collapsedHeader: true,
-      reloadSorting: 0
+      reloadSorting: 0,
+      hasSelectedAuthor: false,
+      hasSelectedTextWork: false
     }
   },
   computed: {
@@ -165,6 +167,9 @@ export default {
     setAuthorTextWork (selectedAuthor, selectedTextWork) {
       this.selectedAuthor = selectedAuthor
       this.selectedTextWork = selectedTextWork
+
+      this.hasSelectedAuthor = Boolean(selectedAuthor)
+      this.hasSelectedTextWork = Boolean(selectedTextWork)
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)

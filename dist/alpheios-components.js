@@ -17970,6 +17970,8 @@ __webpack_require__.r(__webpack_exports__);
     '$store.state.ui.activeTab' (activeTab) {
       if (activeTab === 'wordUsage') {
         if (!this.$store.state.app.wordUsageExamplesReady && this.homonym) {
+          this.selectedAuthor = null
+          this.selectedTextWork = null
           this.getResults()
         }
       }
@@ -18017,7 +18019,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
       } else {
         await this.app.getWordUsageData(this.homonym)
-        this.$emit('getAllResults', this.selectedAuthor, this.selectedTextWork)
+        this.$emit('getAllResults', null, null)
       }
       this.gettingResult = false
     },
@@ -18293,7 +18295,9 @@ __webpack_require__.r(__webpack_exports__);
       // Whether to show reference links on mobile layout or not
       showDataSource: false,
       collapsedHeader: true,
-      reloadSorting: 0
+      reloadSorting: 0,
+      hasSelectedAuthor: false,
+      hasSelectedTextWork: false
     }
   },
   computed: {
@@ -18356,6 +18360,9 @@ __webpack_require__.r(__webpack_exports__);
     setAuthorTextWork (selectedAuthor, selectedTextWork) {
       this.selectedAuthor = selectedAuthor
       this.selectedTextWork = selectedTextWork
+
+      this.hasSelectedAuthor = Boolean(selectedAuthor)
+      this.hasSelectedTextWork = Boolean(selectedTextWork)
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
@@ -27384,8 +27391,8 @@ var render = function() {
           attrs: {
             showHeader: _vm.showHeader,
             collapsedHeader: _vm.collapsedHeader,
-            hasSelectedAuthor: Boolean(_vm.selectedAuthor),
-            hasSelectedTextWork: Boolean(_vm.selectedTextWork),
+            hasSelectedAuthor: _vm.hasSelectedAuthor,
+            hasSelectedTextWork: _vm.hasSelectedTextWork,
             reloadSorting: _vm.reloadSorting
           },
           on: { changedSortBy: _vm.changedSortBy }

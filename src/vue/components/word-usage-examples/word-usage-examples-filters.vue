@@ -69,6 +69,8 @@ export default {
     '$store.state.ui.activeTab' (activeTab) {
       if (activeTab === 'wordUsage') {
         if (!this.$store.state.app.wordUsageExamplesReady && this.homonym) {
+          this.selectedAuthor = null
+          this.selectedTextWork = null
           this.getResults()
         }
       }
@@ -116,7 +118,7 @@ export default {
         this.$emit('getMoreResults', this.selectedAuthor, this.selectedTextWork)
       } else {
         await this.app.getWordUsageData(this.homonym)
-        this.$emit('getAllResults', this.selectedAuthor, this.selectedTextWork)
+        this.$emit('getAllResults', null, null)
       }
       this.gettingResult = false
     },
