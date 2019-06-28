@@ -207,13 +207,6 @@ export default {
   dragErrorY: false,
   visibleUnwatch: null,
 
-  props: {
-    moduleData: {
-      type: Object,
-      required: true
-    }
-  },
-
   data: function () {
     return {
       lookupVisible: false,
@@ -221,13 +214,19 @@ export default {
 
       // How much a toolbar has been dragged from its initial position, in pixels
       shift: {
-        x: this.moduleData.initialShift.x,
-        y: this.moduleData.initialShift.y
+        x: 0,
+        y: 0
       },
 
       // An X position of the central point of a toolbar
       xCenter: undefined
     }
+  },
+
+  created () {
+    // This is the earliest moment when data props are available
+    this.shift.x = this.moduleConfig.initialShift.x
+    this.shift.y = this.moduleConfig.initialShift.y
   },
 
   computed: {
@@ -237,18 +236,18 @@ export default {
         zIndex: this.ui.zIndex
       }
 
-      if (this.moduleData.initialPos) {
-        if (this.moduleData.initialPos.top) {
-          styles.top = this.moduleData.initialPos.top
+      if (this.moduleConfig) {
+        if (this.moduleConfig.initialPos.top) {
+          styles.top = this.moduleConfig.initialPos.top
         }
-        if (this.moduleData.initialPos.right) {
-          styles.right = this.moduleData.initialPos.right
+        if (this.moduleConfig.initialPos.right) {
+          styles.right = this.moduleConfig.initialPos.right
         }
-        if (this.moduleData.initialPos.bottom) {
-          styles.bottom = this.moduleData.initialPos.bottom
+        if (this.moduleConfig.initialPos.bottom) {
+          styles.bottom = this.moduleConfig.initialPos.bottom
         }
-        if (this.moduleData.initialPos.left) {
-          styles.left = this.moduleData.initialPos.left
+        if (this.moduleConfig.initialPos.left) {
+          styles.left = this.moduleConfig.initialPos.left
         }
       }
       return styles

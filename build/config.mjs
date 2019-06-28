@@ -1,4 +1,4 @@
-import VueLoaderPlugin from '../node_modules/vue-loader/lib/plugin.js'
+import VueLoaderPlugin from 'vue-loader/lib/plugin.js'
 
 import path from 'path'
 const projectRoot = process.cwd()
@@ -17,8 +17,9 @@ const webpack = {
       alias: {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-data-models/dist/alpheios-data-models.js'),
-        'alpheios-wordlist': path.join(projectRoot, 'node_modules/wordlist/dist/alpheios-wordlist.js'),
+        'alpheios-wordlist': path.join(projectRoot, 'node_modules/alpheios-wordlist/dist/alpheios-wordlist.js'),
         'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
+        '@vue-runtime': path.join(projectRoot, 'node_modules/vue/dist/vue.runtime.esm.js'),
         '@': path.join(projectRoot, 'src')
       }
     },
@@ -29,8 +30,7 @@ const webpack = {
       'alpheios-inflection-tables': 'alpheios-inflection-tables',
       'alpheios-experience': 'alpheios-experience',
       'alpheios-res-client': 'alpheios-res-client',
-      'intl-messageformat': 'intl-messageformat',
-      'uuid': 'uuid'
+      'intl-messageformat': 'intl-messageformat'
     },
     plugins: [
       new VueLoaderPlugin()

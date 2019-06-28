@@ -1,5 +1,4 @@
-import VueLoaderPlugin from '../node_modules/vue-loader/lib/plugin.js'
-
+import VueLoaderPlugin from 'vue-loader/lib/plugin.js'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import path from 'path'
@@ -14,6 +13,7 @@ const webpack = {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-data-models/dist/alpheios-data-models.js'),
         'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
+        '@vue-runtime': path.join(projectRoot, 'node_modules/vue/dist/vue.runtime.esm.js'),
         '@': path.join(projectRoot, 'src')
       }
     },

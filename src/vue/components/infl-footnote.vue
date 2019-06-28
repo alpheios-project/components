@@ -29,7 +29,7 @@
 <script>
 import uuidv4 from 'uuid/v4'
 import interact from 'interactjs'
-import Vue from 'vue/dist/vue'
+import Vue from '@vue-runtime'
 
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'

@@ -3,7 +3,7 @@ import { Grammars } from 'alpheios-res-client'
 import { ViewSetFactory } from 'alpheios-inflection-tables'
 import { WordlistController, UserDataManager } from 'alpheios-wordlist'
 // import {ObjectMonitor as ExpObjMon} from 'alpheios-experience'
-import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
+import Vue from '@vue-runtime'
 import Vuex from 'vuex'
 // Modules and their support dependencies
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
@@ -11,7 +11,6 @@ import Locales from '@/locales/locales.js'
 
 import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
 
-import Template from '@/templates/template.htmlf'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup.js'
 import ResourceQuery from '@/lib/queries/resource-query.js'
@@ -235,10 +234,7 @@ export default class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       // Whether to disable text selection on mobile devices
-      disableTextSelection: false,
-      template: {
-        html: Template
-      }
+      disableTextSelection: false
     }
   }
 
@@ -351,9 +347,6 @@ export default class UIController {
 
     // Inject HTML code of a plugin. Should go in reverse order.
     document.body.classList.add('alpheios')
-    let container = document.createElement('div')
-    document.body.insertBefore(container, null)
-    container.outerHTML = this.options.template.html
 
     await Promise.all(optionLoadPromises)
     // All options has been loaded after this point

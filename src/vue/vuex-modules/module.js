@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
+import Vue from '@vue-runtime'
 import Platform from '@/lib/utility/platform.js'
 // This is a root Vue instance that is a common parent for all modules, and correspondingly, all UI components.
 // It is used to share information across all Vue instances created.
