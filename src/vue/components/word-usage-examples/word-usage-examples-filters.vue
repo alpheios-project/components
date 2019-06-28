@@ -7,7 +7,7 @@
           <p class="alpheios-word-usage-filter-title">Author focus</p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select" 
                     v-model="selectedAuthor"
-                    @change = "getResults"
+                    @change = "getResults('author')"
             >
                 <option
                     v-for="(authorItem, authorIndex) in lastAuthorsList" v-bind:key="authorIndex"
@@ -20,7 +20,7 @@
           <p class="alpheios-word-usage-filter-title">Work focus</p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select" 
                     v-model="selectedTextWork"
-                    @change = "getResults"
+                    @change = "getResults('textWork')"
             >
                 <option
                   v-for="(workItem, workIndex) in filteredWorkList" v-bind:key="workIndex"
@@ -95,8 +95,13 @@ export default {
     filteredWorkList () {
       if (this.selectedAuthor) {        
         this.selectedTextWork = null
-        let resArray = this.selectedAuthor.works
+        let resArray = this.selectedAuthor.works.slice()
         if (resArray.length > 1) {
+          resArray.sort((a,b) => {
+            let aT = this.calcTitle(a, 'textwork')
+            let bT = this.calcTitle(b, 'textwork')
+            return (aT < bT) ? -1 : (aT > bT) ? 1 : 0
+          })
           resArray.unshift(null)
         } else if (resArray.length === 1) {
           this.selectedTextWork = resArray[0]
@@ -107,7 +112,10 @@ export default {
     }
   },
   methods: {
-    async getResults () {
+    async getResults (type) {
+      if (type === 'author') {
+        this.selectedTextWork = null
+      }
       this.gettingResult = true
       
       if (this.selectedAuthor) {

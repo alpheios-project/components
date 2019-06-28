@@ -17996,8 +17996,13 @@ __webpack_require__.r(__webpack_exports__);
     filteredWorkList () {
       if (this.selectedAuthor) {        
         this.selectedTextWork = null
-        let resArray = this.selectedAuthor.works
+        let resArray = this.selectedAuthor.works.slice()
         if (resArray.length > 1) {
+          resArray.sort((a,b) => {
+            let aT = this.calcTitle(a, 'textwork')
+            let bT = this.calcTitle(b, 'textwork')
+            return (aT < bT) ? -1 : (aT > bT) ? 1 : 0
+          })
           resArray.unshift(null)
         } else if (resArray.length === 1) {
           this.selectedTextWork = resArray[0]
@@ -18008,7 +18013,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    async getResults () {
+    async getResults (type) {
+      if (type === 'author') {
+        this.selectedTextWork = null
+      }
       this.gettingResult = true
       
       if (this.selectedAuthor) {
@@ -27145,7 +27153,9 @@ var render = function() {
                           ? $$selectedVal
                           : $$selectedVal[0]
                       },
-                      _vm.getResults
+                      function($event) {
+                        return _vm.getResults("author")
+                      }
                     ]
                   }
                 },
@@ -27199,7 +27209,9 @@ var render = function() {
                           ? $$selectedVal
                           : $$selectedVal[0]
                       },
-                      _vm.getResults
+                      function($event) {
+                        return _vm.getResults("textWork")
+                      }
                     ]
                   }
                 },
