@@ -1543,7 +1543,7 @@ select.alpheios-setting__control,
   top: 50%;
   transform: translateY(-50%);
   left: calc(var(--alpheios-base-ui-size) * 1);
-  width: calc(var(--alpheios-base-ui-size) * 2);
+  width: calc(var(--alpheios-base-ui-size) * 1.375);
   height: auto;
   stroke-width: 1;
 }
@@ -1665,7 +1665,7 @@ a:not([href]):not([tabindex]).alpheios-popup__providers-link:hover {
   background-color: var(--alpheios-icon-bg-color);
 }
 .alpheios-navbuttons__btn svg {
-  width: 60%;
+  width: 52%;
   height: auto;
   position: relative;
   top: 50%;
@@ -3046,12 +3046,16 @@ p.alpheios-word-usage-filter-title {
   fill: var(--alpheios-color-neutral-lightest);
   stroke: var(--alpheios-color-neutral-lightest);
 }
+.alpheios-panel__header-btn .alpheios-navbuttons__icon-span {
+  display: inline-block;
+  padding: calc(var(--alpheios-base-ui-size) * 0.5);
+  position: relative;
+}
 .alpheios-panel__header-btn svg {
-  width: 40px;
-  height: 40px;
+  width: calc(var(--alpheios-base-ui-size) * 1.375);
+  height: calc(var(--alpheios-base-ui-size) * 1.375);
   top: 50%;
   position: relative;
-  transform: translateY(-50%);
 }
 .alpheios-panel__header-btn:hover {
   fill: var(--alpheios-color-bright-hover);
@@ -3060,6 +3064,9 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
   fill: var(--alpheios-color-bright-pressed);
   stroke: var(--alpheios-color-bright-pressed);
+}
+.alpheios-panel__header-btn-group--end .alpheios-panel__header-btn svg {
+  transform: translateY(-50%);
 }
 .alpheios-panel__close-btn {
   width: calc(var(--alpheios-base-ui-size) * 3.75);
@@ -3072,7 +3079,7 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__close-btn svg {
   position: relative;
   left: calc(var(--alpheios-base-ui-size) * 1.25);
-  width: calc(var(--alpheios-base-ui-size) * 1.75);
+  width: calc(var(--alpheios-base-ui-size) * 1.375);
   height: auto;
   top: 50%;
   transform: translateY(-50%);
@@ -3266,7 +3273,7 @@ p.alpheios-word-usage-filter-title {
   max-width: 80vw;
 }
 .alpheios-panel--large .alpheios-navbuttons__btn svg {
-  width: calc(var(--alpheios-base-ui-size) * 1.75);
+  width: calc(var(--alpheios-base-ui-size) * 1.375);
 }
 .alpheios-panel--large.alpheios-panel--left .alpheios-panel__header {
   padding-left: calc(var(--alpheios-base-ui-size) * 0.875);
@@ -3400,7 +3407,7 @@ p.alpheios-word-usage-filter-title {
   touch-action: none;
 }
 .alpheios-toolbar__header-icon {
-  width: calc(var(--alpheios-base-ui-size) * 1.5);
+  width: calc(var(--alpheios-base-ui-size) * 1.375);
   height: auto;
   position: relative;
   top: calc(var(--alpheios-base-ui-size) * 0.25);
