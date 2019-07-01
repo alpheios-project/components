@@ -15350,6 +15350,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
   This is a mobile version of a panel
@@ -23912,24 +23932,32 @@ var render = function() {
                   }
                 },
                 [
-                  _c("morphology-icon", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.showMorphologyIcon,
-                        expression: "showMorphologyIcon"
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("morphology")
+                        }
                       }
+                    },
+                    [
+                      _c("morphology-icon", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showMorphologyIcon,
+                            expression: "showMorphologyIcon"
+                          }
+                        ],
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
                     ],
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("morphology")
-                      }
-                    }
-                  })
-                ],
-                1
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -23953,16 +23981,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("definitions-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("definitions")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("definitions")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("definitions-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -23987,16 +24023,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("inflections-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("inflections")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("inflections")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("inflections-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24020,16 +24064,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("word-usage-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("wordUsage")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("wordUsage")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("word-usage-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24054,16 +24106,29 @@ var render = function() {
                   }
                 },
                 [
-                  _c("treebank-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("treebank")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("treebank")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("treebank-icon", {
+                        staticClass: "alpheios-navbuttons__icon",
+                        on: {
+                          click: function($event) {
+                            return _vm.changeTab("treebank")
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24081,11 +24146,17 @@ var render = function() {
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("inflections-browser-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("inflections-browser-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24103,11 +24174,17 @@ var render = function() {
                     "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("grammar-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("grammar-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24125,11 +24202,17 @@ var render = function() {
                     "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("wordlist-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("wordlist-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24146,8 +24229,18 @@ var render = function() {
                   staticClass:
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
-                [_c("user-icon", { staticClass: "alpheios-navbuttons__icon" })],
-                1
+                [
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("user-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24165,11 +24258,17 @@ var render = function() {
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("options-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("options-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               )
             ]
           ),
