@@ -55,6 +55,7 @@
 <script>
 import TextSelector from '@/lib/selection/text-selector'
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
+import Options from '@/lib/options/options'
 import { LanguageModelFactory } from 'alpheios-data-models'
 import LookupIcon from '@/images/inline-icons/lookup.svg'
 
@@ -125,12 +126,12 @@ export default {
 
     lexiconsFiltered () {
       let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.currentLanguage.text)
-      let settingName
+      let settingGroup
       if (lang.length > 0) {
-        settingName = `lexiconsShort-${lang[0].value}`
+        settingGroup = lang[0].value
       }
 
-      return this.$options.resourceOptions.items.lexiconsShort.filter((item) => item.name === settingName)
+      return this.$options.resourceOptions.items.lexiconsShort.filter((item) => Options.parseKey(item.name).group === settingGroup)
     }
   },
   watch: {
@@ -191,8 +192,9 @@ export default {
     },
 
     resourceSettingChange: function (name, value) {
-      let keyinfo = this.settings.lookupResourceOptions.parseKey(name)
-      this.settings.lookupResourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+      let keyinfo = Options.parseKey(name)
+      console.info("KEY",keyinfo)
+      this.settings.lookupResourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
     }
   }
 }

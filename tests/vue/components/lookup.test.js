@@ -189,9 +189,9 @@ describe('lookup.test.js', () => {
       defaultValue: ['https://github.com/alpheios-project/lsj'],
       labelText: 'Greek Lexicons (short)',
       multiValue: true,
-      name: 'lexiconsShort-grc',
+      name: 'alpheios-resource-options__2__lexiconsShort__grc',
       storageAdapter: {
-        domain: 'alpheios-resource-options'
+        domain: 'alpheios-resource-options',
       },
       values: [
         {
@@ -335,9 +335,8 @@ describe('lookup.test.js', () => {
     cmp.vm.settingChange('', 'Greek')
     expect(cmp.vm.$options.lookupLanguage.currentTextValue()).toEqual('Greek')
 
-    cmp.vm.resourceSettingChange('lexiconsShort-grc', ['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
-    let keyinfo = resourceOptions.parseKey('lexiconsShort-grc')
+    cmp.vm.resourceSettingChange('alpheios-resource-options__2__lexiconsShort__grc', ['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
 
-    expect(cmp.vm.$options.resourceOptions.items[keyinfo.setting][0].currentTextValue()).toEqual(['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
+    expect(cmp.vm.$options.resourceOptions.items.lexiconsShort[0].currentTextValue()).toEqual(['Liddell, Scott, Jones', 'Autenrieth Homeric Lexicon'])
   })
 })

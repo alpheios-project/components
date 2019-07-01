@@ -1,5 +1,6 @@
 {
   "domain": "alpheios-ui-options",
+  "version": 2,
   "items": {
     "fontSize": {
       "defaultValue": "medium",

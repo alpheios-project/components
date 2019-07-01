@@ -13,8 +13,8 @@ export default class Options {
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
    */
   constructor (defaults, StorageAdapter) {
-    if (!defaults || !defaults.domain || !defaults.items) {
-      throw new Error(`Defaults have no obligatory "domain" and "items" properties`)
+    if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
+      throw new Error(`Defaults have no obligatory "domain", "version" and "items" properties`)
     }
     if (!StorageAdapter) {
       throw new Error(`No storage adapter implementation provided`)
@@ -22,20 +22,23 @@ export default class Options {
 
     this.defaults = defaults
     this.domain = defaults.domain
+    this.version = defaults.version
     this.storageAdapter = new StorageAdapter(defaults.domain)
-    this.items = Options.initItems(this.defaults.items, this.storageAdapter)
+    this.items = Options.initItems(this.defaults.items, this.storageAdapter, this.domain, this.version)
   }
 
-  static initItems (defaults, storageAdapter) {
+  static initItems (defaults, storageAdapter, domain, version) {
     let items = {}
     for (let [option, value] of Object.entries(defaults)) {
       if (value.group) {
         items[option] = []
-        for (let [key, item] of Object.entries(value.group)) {
-          items[option].push(new OptionItem(item, `${option}-${key}`, storageAdapter))
+        for (let [group, item] of Object.entries(value.group)) {
+          let key = Options.constructKey(domain,version,option,group)
+          items[option].push(new OptionItem(item, key, storageAdapter))
         }
       } else {
-        items[option] = new OptionItem(value, option, storageAdapter)
+        let key = Options.constructKey(domain,version,option)
+        items[option] = new OptionItem(value, key, storageAdapter)
       }
     }
     return items
@@ -86,29 +89,29 @@ export default class Options {
     try {
       let values = await this.storageAdapter.get()
       for (let key in values) {
-        if (this.items.hasOwnProperty(key)) {
-          let value
-          try {
-            value = JSON.parse(values[key])
-          } catch (e) {
-            // backwards compatibility
-            value = values[key]
-          }
-          this.items[key].currentValue = value
-        } else {
-          let keyinfo = this.parseKey(key)
-          if (this.items.hasOwnProperty(keyinfo.setting)) {
-            this.items[keyinfo.setting].forEach((f) => {
+        let parsedKey = Options.parseKey(key)
+        if (this.items.hasOwnProperty(parsedKey.name)) {
+          if (parsedKey.group) {
+            this.items[parsedKey.name].forEach((f) => {
               if (f.name === key) {
                 try {
                   f.currentValue = JSON.parse(values[key])
                 } catch (e) {
-                  // backwards compatibility
-                  f.currentValue = values[key]
+                  console.warn(`Unable to parse option value for  ${parsedKey.name} from ${values[parsedKey.name]}`, e)
                 }
               }
             })
+          } else {
+            let value
+            try {
+              this.items[parsedKey.name].currentValue = JSON.parse(values[key])
+            } catch (e) {
+              // invalid value
+              console.warn(`Unable to parse option value for  ${parsedKey.name} from ${values[parsedKey.name]}`, e)
+            }
           }
+        } else {
+          console.warn(`Unrecognized setting ${parsedKey.name}`)
         }
       }
       return this
@@ -121,15 +124,38 @@ export default class Options {
   }
 
   /**
+   * Construct a key for a stored setting
+   * @param {String} domain - the setting domain
+   * @param {String} version - the setting version
+   * @param {String} name - the setting name
+   * @param {String} group - optional setting group
+   */
+  static constructKey (domain, version, name, group=null) {
+    let key = `${domain}__${version}__${name}`
+    if (group) {
+      key = `${key}__${group}`
+    }
+    return key
+  }
+
+  /**
   * Parse a stored setting name into its component parts
   * (for simplicity of the data structure, setting names are stored under
   * keys which combine the setting and the language)
   */
-  parseKey (name) {
-    let [setting, group] = name.split('-', 2)
-    return {
-      setting: setting,
-      group: group
+  static parseKey (key) {
+    let [domain, version, name, group] = key.split('__', 4)
+    let parsed
+    try {
+      parsed = {
+        domain: domain,
+        version: parseInt(version),
+        name: name,
+        group: group
+      }
+    } catch (e) {
+      console.warn(`Unable to parse options key ${key}`)
     }
+    return parsed
   }
 }
