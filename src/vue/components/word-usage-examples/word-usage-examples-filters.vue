@@ -4,7 +4,7 @@
 
       <div v-show="showHeader && !collapsedHeader">      
         <div class="alpheios-word-usage-filters-select" v-if="authorsList">
-          <p class="alpheios-word-usage-filter-title">Author focus</p>
+          <p class="alpheios-word-usage-filter-title">{{ l10n.getText('WORDUSAGE_FOCUS_AUTHOR') }}</p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select" 
                     v-model="selectedAuthor"
                     @change = "getResults('author')"
@@ -17,7 +17,7 @@
           </select>
         </div>
         <div class="alpheios-word-usage-filters-select" v-if="filteredWorkList">
-          <p class="alpheios-word-usage-filter-title">Work focus</p>
+          <p class="alpheios-word-usage-filter-title">{{ l10n.getText('WORDUSAGE_FOCUS_WORK') }}</p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select" 
                     v-model="selectedTextWork"
                     @change = "getResults('textWork')"

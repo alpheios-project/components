@@ -123,5 +123,15 @@
         "message": "We are getting results ...",
         "description": "Placeholder for getting data",
         "component": "WordUsageExamples"
+    },
+    "WORDUSAGE_FOCUS_AUTHOR": {
+        "message": "Author focus",
+        "description": "Title for the author's filter",
+        "component": "WordUsageExamples"
+    },
+    "WORDUSAGE_FOCUS_WORK": {
+        "message": "Work focus",
+        "description": "Title for the textwork's filter",
+        "component": "WordUsageExamples"
     }
 }
