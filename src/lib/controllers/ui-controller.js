@@ -715,7 +715,6 @@ export default class UIController {
     // Set options of modules before modules are created
     if (this.hasModule('popup')) {
       let popupOptions = this.modules.get('popup').options
-      popupOptions.positioning = this.uiOptions.items.popupPosition.currentValue
       popupOptions.initialShift = {
         x: this.uiOptions.items.popupShiftX.currentValue,
         y: this.uiOptions.items.popupShiftY.currentValue
@@ -1563,9 +1562,6 @@ export default class UIController {
         break
       case 'panelPosition':
         this.store.commit('panel/setPosition', this.api.settings.uiOptions.items.panelPosition.currentValue)
-        break
-      case 'popupPosition':
-        this.store.commit('popup/setPositioning', this.api.settings.uiOptions.items.popupPosition.currentValue)
         break
     }
   }

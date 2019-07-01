@@ -33,20 +33,6 @@
         }
       ]
     },
-    "popupPosition": {
-      "defaultValue": "fixed",
-      "labelText": "Popup position:",
-      "values": [
-        {
-          "value": "flexible",
-          "text": "Flexible"
-        },
-        {
-          "value": "fixed",
-          "text": "Fixed"
-        }
-      ]
-    },
     "popupShiftX": {
       "defaultValue": 0,
       "labelText": "Popup shift, x axe:",
