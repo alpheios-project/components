@@ -14540,7 +14540,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_user_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/user.svg */ "./images/inline-icons/user.svg");
 /* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/images/inline-icons/options.svg */ "./images/inline-icons/options.svg");
 /* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/images/inline-icons/resources.svg */ "./images/inline-icons/resources.svg");
-/* harmony import */ var _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/info.svg */ "./images/inline-icons/info.svg");
+/* harmony import */ var _images_inline_icons_help_icon_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/help-icon.svg */ "./images/inline-icons/help-icon.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
 /* harmony import */ var _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/images/inline-icons/collapsed.svg */ "./images/inline-icons/collapsed.svg");
 /* harmony import */ var _images_inline_icons_expanded_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/images/inline-icons/expanded.svg */ "./images/inline-icons/expanded.svg");
@@ -14712,6 +14712,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import InfoIcon from '@/images/inline-icons/info.svg'
 
 
 
@@ -14743,7 +14744,7 @@ __webpack_require__.r(__webpack_exports__);
     statusIcon: _images_inline_icons_status_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     userIcon: _images_inline_icons_user_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     optionsIcon: _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-    infoIcon: _images_inline_icons_info_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
+    helpIcon: _images_inline_icons_help_icon_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
     wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
     collapsedIcon: _images_inline_icons_collapsed_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
@@ -23550,7 +23551,7 @@ var render = function() {
                     }
                   }
                 },
-                [_c("info-icon")],
+                [_c("help-icon")],
                 1
               )
             ]
@@ -37934,6 +37935,46 @@ __webpack_require__.r(__webpack_exports__);
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M10 500c0 270.6 219.4 490 490 490s490-219.4 490-490c0-270.7-219.4-490-490-490S10 229.3 10 500zm61.3 0c0-236.8 192-428.8 428.8-428.8 236.9 0 428.8 192 428.8 428.8 0 236.7-191.9 428.8-428.8 428.8-236.8 0-428.8-192.1-428.8-428.8z"}}),_c('path',{attrs:{"d":"M211 454.1h490V546H211v-91.9z"}}),_c('path',{attrs:{"d":"M452.2 285.6h122.5l214.4 219-214.4 209.8H452.2l214.4-209.8-214.4-219z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/help-icon.svg":
+/*!*******************************************!*\
+  !*** ./images/inline-icons/help-icon.svg ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none","stroke-width":"1.1"}})])
           )
         }
       });
