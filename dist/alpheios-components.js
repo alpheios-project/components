@@ -15349,6 +15349,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
   This is a mobile version of a panel
@@ -23911,24 +23931,32 @@ var render = function() {
                   }
                 },
                 [
-                  _c("morphology-icon", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.showMorphologyIcon,
-                        expression: "showMorphologyIcon"
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("morphology")
+                        }
                       }
+                    },
+                    [
+                      _c("morphology-icon", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showMorphologyIcon,
+                            expression: "showMorphologyIcon"
+                          }
+                        ],
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
                     ],
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("morphology")
-                      }
-                    }
-                  })
-                ],
-                1
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -23952,16 +23980,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("definitions-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("definitions")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("definitions")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("definitions-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -23986,16 +24022,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("inflections-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("inflections")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("inflections")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("inflections-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24019,16 +24063,24 @@ var render = function() {
                   }
                 },
                 [
-                  _c("word-usage-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("wordUsage")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("wordUsage")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("word-usage-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24053,16 +24105,29 @@ var render = function() {
                   }
                 },
                 [
-                  _c("treebank-icon", {
-                    staticClass: "alpheios-navbuttons__icon",
-                    on: {
-                      click: function($event) {
-                        return _vm.changeTab("treebank")
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-navbuttons__icon-span",
+                      on: {
+                        click: function($event) {
+                          return _vm.changeTab("treebank")
+                        }
                       }
-                    }
-                  })
-                ],
-                1
+                    },
+                    [
+                      _c("treebank-icon", {
+                        staticClass: "alpheios-navbuttons__icon",
+                        on: {
+                          click: function($event) {
+                            return _vm.changeTab("treebank")
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24080,11 +24145,17 @@ var render = function() {
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("inflections-browser-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("inflections-browser-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24102,11 +24173,17 @@ var render = function() {
                     "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("grammar-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("grammar-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24124,11 +24201,17 @@ var render = function() {
                     "alpheios-panel__header-btn  alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("wordlist-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("wordlist-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24145,8 +24228,18 @@ var render = function() {
                   staticClass:
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
-                [_c("user-icon", { staticClass: "alpheios-navbuttons__icon" })],
-                1
+                [
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("user-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -24164,11 +24257,17 @@ var render = function() {
                     "alpheios-panel__header-btn alpheios-navbuttons__icon-active"
                 },
                 [
-                  _c("options-icon", {
-                    staticClass: "alpheios-navbuttons__icon"
-                  })
-                ],
-                1
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-navbuttons__icon-span" },
+                    [
+                      _c("options-icon", {
+                        staticClass: "alpheios-navbuttons__icon"
+                      })
+                    ],
+                    1
+                  )
+                ]
               )
             ]
           ),
@@ -37653,7 +37752,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -37813,7 +37912,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none"}})])
+            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none","stroke-width":"1.1"}})])
           )
         }
       });
@@ -38173,7 +38272,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -44456,7 +44555,7 @@ module.exports = {"WORDLIST_TOOLTIP_ALL_IMPORTANT":{"message":"Make all importan
 /*! exports provided: TEXT_NOTICE_WORDUSAGE_READY, TOOLTIP_WORD_USAGE, WORDUSAGE_FILTERS_HIDE, WORDUSAGE_FILTERS_SHOW, WORDUSAGE_GET_RESULTS, WORDUSAGE_NO_RESULTS, WORDUSAGE_SORT_BY, WORDUSAGE_SORT_BY_AUTHOR, WORDUSAGE_SORT_BY_TEXTWORK, WORDUSAGE_SORT_BY_PREFIX, WORDUSAGE_SORT_BY_SUFFIX, WORDUSAGE_FILTERS_TYPE_NO_FILTERS, WORDUSAGE_FILTERS_TYPE_MORE_RESULTS, WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS, WORDUSAGE_FILTERS_AUTHOR_CLEAR, WORDUSAGE_FILTERS_TEXTWORK_CLEAR, WORDUSAGE_SORTING_AUTHOR_CLEAR, WORDUSAGE_SHOW_SOURCE_LINKS, WORDUSAGE_SHOW_FILTERS_TEXT, WORDUSAGE_HIDE_FILTERS_TEXT, WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER, WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER, WORDUSAGE_SORT_BY_PLACEHOLDER, WORDUSAGE_GETTING_RESULT, WORDUSAGE_FOCUS_AUTHOR, WORDUSAGE_FOCUS_WORK, default */
 /***/ (function(module) {
 
-module.exports = {"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"},"WORDUSAGE_FILTERS_HIDE":{"message":"hide","description":"Word Usage Examples Filters Hide link","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_SHOW":{"message":"show","description":"Word Usage Examples Filters Show Link","component":"WordUsageExamplesHeader"},"WORDUSAGE_GET_RESULTS":{"message":"Get results","description":"Word Usage Examples Filters Get results button","component":"WordUsageExamplesHeader"},"WORDUSAGE_NO_RESULTS":{"message":"There are no results.","description":"Word Usage Examples No results text","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY":{"message":"Sort by","description":"Word Usage Examples Sort by Title","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_AUTHOR":{"message":"Author","description":"Word Usage Examples Sort by author","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_TEXTWORK":{"message":"Work","description":"Placeholder for sorting selection","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY_PREFIX":{"message":"Preceding word","description":"Word Usage Examples Sort by prefix","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_SUFFIX":{"message":"Following word","description":"Word Usage Examples Sort by suffix","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_TYPE_NO_FILTERS":{"message":"Get results without limits","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_MORE_RESULTS":{"message":"See more results for a specific Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS":{"message":"Limit these results by Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_AUTHOR_CLEAR":{"message":"Clear author limit","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TEXTWORK_CLEAR":{"message":"Clear work limit","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORTING_AUTHOR_CLEAR":{"message":"Clear sorting","description":"Word Usage Examples Sorting","component":"WordUsageExamplesSorting"},"WORDUSAGE_SHOW_SOURCE_LINKS":{"message":"Show/hide source links","description":"Message on a button that toggles source links on or off","component":"WordUsageExamples"},"WORDUSAGE_SHOW_FILTERS_TEXT":{"message":"Show Focus/Sort","description":"Show filters/sorting block","component":"WordUsageExamples"},"WORDUSAGE_HIDE_FILTERS_TEXT":{"message":"Hide Focus/Sort","description":"Hide filters/sorting block","component":"WordUsageExamples"},"WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER":{"message":"Select an author","description":"Placeholder for author selection","component":"WordUsageExamples"},"WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER":{"message":"Select a work","description":"Placeholder for textwork selection","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY_PLACEHOLDER":{"message":"Author+Work","description":"Placeholder for sorting selection","component":"WordUsageExamples"},"WORDUSAGE_GETTING_RESULT":{"message":"Retrieving results ...","description":"Placeholder for getting data","component":"WordUsageExamples"},"WORDUSAGE_FOCUS_AUTHOR":{"message":"Focus on Author:","description":"Title for the author's filter","component":"WordUsageExamples"},"WORDUSAGE_FOCUS_WORK":{"message":"Focus on Work:","description":"Title for the textwork's filter","component":"WordUsageExamples"}};
+module.exports = {"TEXT_NOTICE_WORDUSAGE_READY":{"message":"Word Usage Examples are recieved","description":"Word Usage Examples recieved flag","component":"UIController onWordUsageExamplesReady"},"TOOLTIP_WORD_USAGE":{"message":"Word Usage Examples","description":"Word Usage Examples tooltip","component":"Panel"},"WORDUSAGE_FILTERS_HIDE":{"message":"hide","description":"Word Usage Examples Filters Hide link","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_SHOW":{"message":"show","description":"Word Usage Examples Filters Show Link","component":"WordUsageExamplesHeader"},"WORDUSAGE_GET_RESULTS":{"message":"Get results","description":"Word Usage Examples Filters Get results button","component":"WordUsageExamplesHeader"},"WORDUSAGE_NO_RESULTS":{"message":"There are no results.","description":"Word Usage Examples No results text","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY":{"message":"Sort by:","description":"Word Usage Examples Sort by Title","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_AUTHOR":{"message":"Author","description":"Word Usage Examples Sort by author","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORT_BY_TEXTWORK":{"message":"Work","description":"Placeholder for sorting selection","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY_PREFIX":{"message":"Preceding word","description":"Word Usage Examples Sort by prefix","component":"WordUsageExamplesHeader"},"WORDUSAGE_SORT_BY_SUFFIX":{"message":"Following word","description":"Word Usage Examples Sort by suffix","component":"WordUsageExamplesHeader"},"WORDUSAGE_FILTERS_TYPE_NO_FILTERS":{"message":"Get results without limits","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_MORE_RESULTS":{"message":"See more results for a specific Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TYPE_FILTER_CURRENT_RESULTS":{"message":"Limit these results by Author and/or Work","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_AUTHOR_CLEAR":{"message":"Clear author limit","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_FILTERS_TEXTWORK_CLEAR":{"message":"Clear work limit","description":"Word Usage Examples Type filter","component":"WordUsageExamplesFilters"},"WORDUSAGE_SORTING_AUTHOR_CLEAR":{"message":"Clear sorting","description":"Word Usage Examples Sorting","component":"WordUsageExamplesSorting"},"WORDUSAGE_SHOW_SOURCE_LINKS":{"message":"Show/hide source links","description":"Message on a button that toggles source links on or off","component":"WordUsageExamples"},"WORDUSAGE_SHOW_FILTERS_TEXT":{"message":"Show Focus/Sort","description":"Show filters/sorting block","component":"WordUsageExamples"},"WORDUSAGE_HIDE_FILTERS_TEXT":{"message":"Hide Focus/Sort","description":"Hide filters/sorting block","component":"WordUsageExamples"},"WORDUSAGE_FILTERS_AUTHOR_PLACEHOLDER":{"message":"Select an author","description":"Placeholder for author selection","component":"WordUsageExamples"},"WORDUSAGE_FILTERS_TEXTWORK_PLACEHOLDER":{"message":"Select a work","description":"Placeholder for textwork selection","component":"WordUsageExamples"},"WORDUSAGE_SORT_BY_PLACEHOLDER":{"message":"Author+Work","description":"Placeholder for sorting selection","component":"WordUsageExamples"},"WORDUSAGE_GETTING_RESULT":{"message":"Retrieving results ...","description":"Placeholder for getting data","component":"WordUsageExamples"},"WORDUSAGE_FOCUS_AUTHOR":{"message":"Focus on Author:","description":"Title for the author's filter","component":"WordUsageExamples"},"WORDUSAGE_FOCUS_WORK":{"message":"Focus on Work:","description":"Title for the textwork's filter","component":"WordUsageExamples"}};
 
 /***/ }),
 

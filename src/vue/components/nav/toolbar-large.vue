@@ -426,7 +426,7 @@ export default {
   }
 
   .alpheios-toolbar__header-icon {
-    width: uisize(24px);
+    width: uisize(22px);
     height: auto;
     position: relative;
     top: uisize(4px);
