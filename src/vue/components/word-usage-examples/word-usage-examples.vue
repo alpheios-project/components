@@ -4,18 +4,24 @@
       <span class="alpheios-word-usage-header-show-link" v-if="showHeaderFilters" @click="collapsedHeader = !collapsedHeader"> ({{ collapsedHeaderTitle }})</span>
     </div>
 
-    <div class="alpheios-word-usage-header" data-alpheios-ignore="all" v-show="showHeader">
+    <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
       
       <word-usage-examples-filters
         :collapsedHeader = "collapsedHeader"
+        :showHeader = "showHeader"
         @filterCurrentByAuthor = "filterCurrentByAuthor"
         @getMoreResults = "getMoreResults"
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
 
+      
       <word-usage-examples-sorting
+        :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
         :collapsedHeader = "collapsedHeader"
+        :hasSelectedAuthor = "hasSelectedAuthor"
+        :hasSelectedTextWork = "hasSelectedTextWork"
+        :reloadSorting = "reloadSorting"
       ></word-usage-examples-sorting>
 
     </div>
@@ -40,9 +46,8 @@
             <a
                 class="alpheios-word-usage__examples-source-link-large"
                 :href="wordUsageItem.source"
-                target="_blank"
+                target="_blank" v-html="formattedFullCit(wordUsageItem)"
             >
-              {{ `${wordUsageItem.fullCit()}` }}
             </a>
             <div
                 class="alpheios-word-usage__examples-pre"
@@ -95,7 +100,10 @@ export default {
       needInnerFilter: false,
       // Whether to show reference links on mobile layout or not
       showDataSource: false,
-      collapsedHeader: true
+      collapsedHeader: true,
+      reloadSorting: 0,
+      hasSelectedAuthor: false,
+      hasSelectedTextWork: false
     }
   },
   computed: {
@@ -110,7 +118,7 @@ export default {
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems && this.wordUsageListSorted.length > 0 
+             this.showWordUsageExampleItems 
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
@@ -158,6 +166,9 @@ export default {
     setAuthorTextWork (selectedAuthor, selectedTextWork) {
       this.selectedAuthor = selectedAuthor
       this.selectedTextWork = selectedTextWork
+
+      this.hasSelectedAuthor = Boolean(selectedAuthor)
+      this.hasSelectedTextWork = Boolean(selectedTextWork)
     },
     filterCurrentByAuthor (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
@@ -167,11 +178,13 @@ export default {
     getMoreResults (selectedAuthor, selectedTextWork) {
       this.setAuthorTextWork(selectedAuthor, selectedTextWork)
       this.needInnerFilter = false
+      this.reloadSorting = this.reloadSorting + 1
     },
     getAllResults () {
       this.setAuthorTextWork(null, null)
       this.needInnerFilter = false
       this.collapsedHeader = true
+      this.reloadSorting = this.reloadSorting + 1
     },
     getPropertyBySortBy (a, type) {
       switch (type) {
@@ -202,6 +215,9 @@ export default {
     },
     changeShowDataSource () {
       this.showDataSource = !this.showDataSource
+    },
+    formattedFullCit (wordUsageItem) {
+      return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
     }
   },
   mounted () {
@@ -240,15 +256,14 @@ export default {
       font-size: 80%;
     }
 
-    .alpheios-word-usage-header-select-author,
-    .alpheios-word-usage-header-select-textwork,
+    .alpheios-word-usage-header-filter-select,
     .alpheios-word-usage-header-select-sortBy {
       width: 88%;
       max-width: 400px;
     }
 
     & .alpheios-select:not([multiple]):not([size]) {
-      background-size: 10%;
+      background-size: calc(var(--alpheios-base-text-size) * 2);
     }
 
     .alpheios-word-usage-header-clear-icon {
@@ -386,6 +401,10 @@ export default {
       .alpheios-word-usage__examples-source-link-large{
       display: block;
     }
+  }
+
+  .alpheios_word_usage_list_mainblock i {
+    font-style: italic;
   }
 
 </style>

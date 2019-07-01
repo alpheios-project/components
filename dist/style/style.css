@@ -2481,6 +2481,90 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage-header .alpheios-word-usage-header-select-textwork {
   margin-top: 10px;
 }
+@-webkit-keyframes progresscolor {
+0% {
+    color: var(--alpheios-color-vivid);
+}
+30% {
+    color: var(--alpheios-color-vivid-hover);
+}
+60% {
+    color: var(--alpheios-color-bright);
+}
+90% {
+    color: var(--alpheios-color-vivid-hover);
+}
+}
+@-moz-keyframes progresscolor {
+0% {
+    color: var(--alpheios-color-vivid);
+}
+30% {
+    color: var(--alpheios-color-vivid-hover);
+}
+60% {
+    color: var(--alpheios-color-bright);
+}
+90% {
+    color: var(--alpheios-color-vivid-hover);
+}
+}
+@-ms-keyframes progresscolor {
+0% {
+    color: var(--alpheios-color-vivid);
+}
+30% {
+    color: var(--alpheios-color-vivid-hover);
+}
+60% {
+    color: var(--alpheios-color-bright);
+}
+90% {
+    color: var(--alpheios-color-vivid-hover);
+}
+}
+@-o-keyframes progresscolor {
+0% {
+    color: var(--alpheios-color-vivid);
+}
+30% {
+    color: var(--alpheios-color-vivid-hover);
+}
+60% {
+    color: var(--alpheios-color-bright);
+}
+90% {
+    color: var(--alpheios-color-vivid-hover);
+}
+}
+@keyframes progresscolor {
+0% {
+    color: var(--alpheios-color-vivid);
+}
+30% {
+    color: var(--alpheios-color-vivid-hover);
+}
+60% {
+    color: var(--alpheios-color-bright);
+}
+90% {
+    color: var(--alpheios-color-vivid-hover);
+}
+}
+.alpheios-word-usage-get-data-progress {
+  -webkit-animation: progresscolor 4s infinite linear;
+  -moz-animation: progresscolor 4s infinite linear;
+  -ms-animation: progresscolor 4s infinite linear;
+  -o-animation: progresscolor 4s infinite linear;
+  animation: progresscolor 4s infinite linear;
+  font-weight: bold;
+}
+p.alpheios-word-usage-filter-title {
+  margin: 0 0 calc(var(--alpheios-base-text-size) * 0.5);
+}
+.alpheios-word-usage-filters-select {
+  margin-bottom: 10px;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
@@ -2528,14 +2612,13 @@ h3.alpheios-inflections__credits-title {
   padding: 10px 0;
   font-size: 80%;
 }
-.alpheios-word-usage .alpheios-word-usage-header-select-author,
-.alpheios-word-usage .alpheios-word-usage-header-select-textwork,
+.alpheios-word-usage .alpheios-word-usage-header-filter-select,
 .alpheios-word-usage .alpheios-word-usage-header-select-sortBy {
   width: 88%;
   max-width: 400px;
 }
 .alpheios-word-usage .alpheios-select:not([multiple]):not([size]) {
-  background-size: 10%;
+  background-size: calc(var(--alpheios-base-text-size) * 2);
 }
 .alpheios-word-usage .alpheios-word-usage-header-clear-icon {
   width: 20px;
@@ -2639,6 +2722,9 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-layout-compact .alpheios-word-usage__examples--sources-visible .alpheios-word-usage__examples-source-link-large {
   display: block;
+}
+.alpheios_word_usage_list_mainblock i {
+  font-style: italic;
 }
 /*
  Calculates a size of text elements relative to the base size.
