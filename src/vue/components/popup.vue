@@ -160,7 +160,6 @@ export default {
   // Custom props to store unwatch functions
   visibleUnwatch: null,
   lexrqStartedUnwatch: null,
-  positioningUnwatch: null,
 
   data: function () {
     return {
@@ -234,32 +233,7 @@ export default {
         return '0px'
       }
 
-      if (this.$store.getters['popup/isFixedPositioned']) {
-        return this.moduleConfig.initialPos.left
-      }
-
-      let left = this.positionLeftValue
-      let placementTargetX = this.$store.state.app.selectionTarget.x
-      let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-      let verticalScrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-      let leftSide = placementTargetX - this.exactWidth / 2
-      let rightSide = placementTargetX + this.exactWidth / 2
-      if (this.widthDm !== 'auto') {
-        // Popup is too wide and was restricted in height
-        this.logger.log(`Setting position left for a set width`)
-        left = this.moduleConfig.viewportMargin
-      } else if (rightSide < viewportWidth - verticalScrollbarWidth - this.moduleConfig.viewportMargin &&
-          leftSide > this.moduleConfig.viewportMargin) {
-        // We can center it with the target
-        left = placementTargetX - Math.floor(this.exactWidth / 2)
-      } else if (leftSide > this.moduleConfig.viewportMargin) {
-        // There is space at the left, move it there
-        left = viewportWidth - verticalScrollbarWidth - this.moduleConfig.viewportMargin - this.exactWidth
-      } else if (rightSide < viewportWidth - verticalScrollbarWidth - this.moduleConfig.viewportMargin) {
-        // There is space at the right, move it there
-        left = this.moduleConfig.viewportMargin
-      }
-      return `${left}px`
+      return this.moduleConfig.initialPos.left
     },
 
     positionTopDm: function () {
@@ -268,39 +242,7 @@ export default {
         return '0px'
       }
 
-      if (this.$store.getters['popup/isFixedPositioned']) {
-        return this.moduleConfig.initialPos.top
-      }
-
-      let time = Date.now()
-      this.logger.log(`${time}: position top calculation, offsetHeight is ${this.exactHeight}`)
-      let top = this.positionTopValue
-      let placementTargetY = this.$store.state.app.selectionTarget.y
-      let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-      let horizontalScrollbarWidth = window.innerHeight - document.documentElement.clientHeight
-      if (this.heightDm !== 'auto') {
-        // Popup is too wide and was restricted in height
-        this.logger.log(`Setting position top for a set height`)
-        top = this.moduleConfig.viewportMargin
-      } else if (placementTargetY + this.moduleConfig.placementMargin + this.exactHeight < viewportHeight - this.moduleConfig.viewportMargin - horizontalScrollbarWidth) {
-        // Place it below a selection
-        top = placementTargetY + this.moduleConfig.placementMargin
-      } else if (placementTargetY - this.moduleConfig.placementMargin - this.exactHeight > this.moduleConfig.viewportMargin) {
-        // Place it above a selection
-        top = placementTargetY - this.moduleConfig.placementMargin - this.exactHeight
-      } else if (placementTargetY < viewportHeight - horizontalScrollbarWidth - placementTargetY) {
-        // There is no space neither above nor below. Word is shifted to the top. Place a popup at the bottom.
-        top = viewportHeight - horizontalScrollbarWidth - this.moduleConfig.viewportMargin - this.exactHeight
-      } else if (placementTargetY > viewportHeight - horizontalScrollbarWidth - placementTargetY) {
-        // There is no space neither above nor below. Word is shifted to the bottom. Place a popup at the top.
-        top = this.moduleConfig.viewportMargin
-      } else {
-        // There is no space neither above nor below. Center it vertically.
-        top = Math.round((viewportHeight - horizontalScrollbarWidth - this.exactHeight) / 2)
-      }
-      time = Date.now()
-      this.logger.log(`${time}: position top getter, return value is ${top}, offsetHeight is ${this.exactHeight}`)
-      return `${top}px`
+      return this.moduleConfig.initialPos.top
     },
 
     widthDm: {
@@ -447,11 +389,8 @@ export default {
     },
 
     dragEndListener () {
-      if (this.$store.getters['popup/isFixedPositioned']) {
-        // Do not store shift values for flexible positioning as they will be erased after each lexical query
-        this.settings.uiOptions.items.popupShiftX.setValue(this.shift.x)
-        this.settings.uiOptions.items.popupShiftY.setValue(this.shift.y)
-      }
+      this.settings.uiOptions.items.popupShiftX.setValue(this.shift.x)
+      this.settings.uiOptions.items.popupShiftY.setValue(this.shift.y)
     },
 
     /**
@@ -505,11 +444,6 @@ export default {
       this.exactHeight = 0
       this.resizedWidth = null
       this.resizedHeight = null
-      if (this.$store.getters['popup/isFlexPositioned']) {
-        // Reset positioning shift for a `flexible` position of popup only. For a `fixed` position we must retain it
-        // so that the popup will open at its last position.
-        this.shift = { x: 0, y: 0 }
-      }
     },
 
     attachTrackingClick: function () {
@@ -532,24 +466,12 @@ export default {
       this.resetPopupDimensions()
       this.showProviders = false
     })
-
-    this.$options.positioningUnwatch = this.$store.watch((state) => state.popup.positioning, () => {
-      if (this.$store.getters['popup/isFlexPositioned']) {
-        this.shift = { x: 0, y: 0 }
-      } else if (this.$store.getters['popup/isFixedPositioned']) {
-        this.shift = {
-          x: this.settings.uiOptions.items.popupShiftX.currentValue,
-          y: this.settings.uiOptions.items.popupShiftY.currentValue
-        }
-      }
-    })
   },
 
   beforeDestroy () {
     // Teardown the watch function
     // this.$options.visibleUnwatch()
     this.$options.lexrqStartedUnwatch()
-    this.$options.positioningUnwatch()
   },
 
   updated () {

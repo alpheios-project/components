@@ -9,12 +9,6 @@
     </setting>
     <setting
         :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.popupPosition"
-        @change="uiOptionChanged"
-    >
-    </setting>
-    <setting
-        :classes="['alpheios-ui-options__item']"
         :data="settings.uiOptions.items.verboseMode"
         @change="uiOptionChanged"
     >
