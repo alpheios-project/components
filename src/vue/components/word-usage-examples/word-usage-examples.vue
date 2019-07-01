@@ -1,11 +1,11 @@
 <template>
   <div class="alpheios-word-usage">
-    <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }} ({{ language }})
+    <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }}
       <span class="alpheios-word-usage-header-show-link" v-if="showHeaderFilters" @click="collapsedHeader = !collapsedHeader"> ({{ collapsedHeaderTitle }})</span>
     </div>
 
     <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
-      
+
       <word-usage-examples-filters
         :collapsedHeader = "collapsedHeader"
         :showHeader = "showHeader"
@@ -14,7 +14,7 @@
         @getAllResults = "getAllResults"
       ></word-usage-examples-filters>
 
-      
+
       <word-usage-examples-sorting
         :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
@@ -118,7 +118,7 @@ export default {
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
-             this.showWordUsageExampleItems 
+             this.showWordUsageExampleItems
     },
     showWordUsageExampleItems () {
       if (!this.$store.state.app.wordUsageExamplesReady) {
@@ -312,12 +312,12 @@ export default {
       color: var(--alpheios-link-color-on-light);
     }
 
-    &__examples-pre,	
-    &__examples-target-word,	
-    &__examples-post {	
-      padding-bottom: 10px;	
-      border-bottom: 1px solid var(--alpheios-border-color);	
-      white-space: nowrap;	
+    &__examples-pre,
+    &__examples-target-word,
+    &__examples-post {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--alpheios-border-color);
+      white-space: nowrap;
     }
 
     &__examples-pre {
@@ -388,16 +388,16 @@ export default {
       margin: 20px 0;
     }
 
-    
+
     .alpheios-word-usage__examples-source-link-large {
         display: none;
       }
-    
+
     .alpheios-word-usage__examples-show-sources-btn {
       display: inline-block;
     }
 
-    .alpheios-word-usage__examples--sources-visible 
+    .alpheios-word-usage__examples--sources-visible
       .alpheios-word-usage__examples-source-link-large{
       display: block;
     }
