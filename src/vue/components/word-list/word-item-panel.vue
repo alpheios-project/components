@@ -119,7 +119,7 @@ export default {
       vertical-align: middle;
   }
 
-  $iconsize: 25px;
+  $iconsize: 22px;
 
   .alpheios-wordlist-language__worditem {
     .alpheios-worditem__icon {
@@ -135,6 +135,7 @@ export default {
           height: $iconsize;
           display: inline-block;
           vertical-align: top;
+          padding: 2px;
         }
 
         &.alpheios-worditem__delete_icon {
@@ -166,7 +167,7 @@ export default {
       cursor: pointer;
   }
   .alpheios-worditem__lemmasList {
-      width: 29%;
+      width: 26%;
   }
 
   .alpheios-visibility__hidden {
