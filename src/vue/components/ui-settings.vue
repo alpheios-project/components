@@ -3,13 +3,13 @@
     <font-size></font-size>
     <setting
         :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.panelPosition"
+        :data="uiOptions.items.panelPosition"
         @change="uiOptionChanged"
     >
     </setting>
     <setting
         :classes="['alpheios-ui-options__item']"
-        :data="settings.uiOptions.items.verboseMode"
+        :data="uiOptions.items.verboseMode"
         @change="uiOptionChanged"
     >
     </setting>
@@ -33,6 +33,11 @@
     components: {
       setting: Setting,
       fontSize: FontSize
+    },
+    computed: {
+      uiOptions: function() {
+        return this.settings.getUiOptions()
+      }
     },
     methods: {
       uiOptionChanged: function (name, value) {

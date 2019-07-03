@@ -495,10 +495,6 @@ export default {
       }
     },
 
-    verboseMode () {
-      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
-    },
-
     formattedShortDefinitions () {
       let definitions = []
       if (this.$store.getters['app/defDataReady'] && this.$store.state.app.homonymDataReady) {
@@ -536,7 +532,7 @@ export default {
     },
 
     setPosition (position) {
-      this.settings.uiOptions.items.panelPosition.setValue(position)
+      this.settings.getUiOptions().items.panelPosition.setValue(position)
       this.$store.commit('panel/setPosition', position)
     },
 

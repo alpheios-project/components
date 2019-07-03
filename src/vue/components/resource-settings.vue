@@ -35,13 +35,15 @@
     },
     computed: {
       resourceSettingsLexicons: function () {
-        return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexicons
-          ? this.settings.resourceOptions.items.lexicons.filter(item => item.values.length > 0)
+        let resourceOptions = this.settings.getResourceOptions()
+        return resourceOptions.items && resourceOptions.items.lexicons
+          ? resourceOptions.items.lexicons.filter(item => item.values.length > 0)
           : []
       },
       resourceSettingsLexiconsShort: function () {
-        return this.settings.resourceOptions.items && this.settings.resourceOptions.items.lexiconsShort
-          ? this.settings.resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
+        let resourceOptions = this.settings.getResourceOptions()
+        return resourceOptions.items && resourceOptions.items.lexiconsShort
+          ? resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
           : []
       }
     },

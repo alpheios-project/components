@@ -28,6 +28,7 @@ import LongTap from '@/lib/custom-pointer-events/long-tap.js'
 import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
 import Options from '@/lib/options/options.js'
 import LocalStorage from '@/lib/options/local-storage-area.js'
+import RemoteAuthStorageArea from '@/lib/options/remote-auth-storage-area.js'
 import UIEventController from '@/lib/controllers/ui-event-controller.js'
 import QueryParams from '@/lib/utility/query-params.js'
 
@@ -332,12 +333,10 @@ export default class UIController {
     // Get query parameters from the URL
     this.queryParams = QueryParams.parse()
     // Start loading options as early as possible
-    this.featureOptions = new Options(this.featureOptionsDefaults, this.options.storageAdapter)
-    this.resourceOptions = new Options(this.resourceOptionsDefaults, this.options.storageAdapter)
+    let optionLoadPromises = this.initOptions(this.options.storageAdapter)
     // Create a copy of resource options for the lookup UI component
-    this.lookupResourceOptions = new Options(this.resourceOptionsDefaults, this.options.storageAdapter)
-    this.uiOptions = new Options(this.uiOptionsDefaults, this.options.storageAdapter)
-    let optionLoadPromises = [this.featureOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
+    // this doesn't get reloaded from the storage adapter though
+    this.lookupResourceOptions = new Options(this.resourceOptionsDefaults, new this.options.storageAdapter(this.resourceOptionsDefaults.domain))
     // TODO: Site options should probably be initialized the same way as other options objects
     this.siteOptions = this.loadSiteOptions(this.siteOptionsDefaults)
 
@@ -355,11 +354,13 @@ export default class UIController {
      * This is a settings API. It exposes different options to modules and UI components.
      */
     this.api.settings = {
-      featureOptions: this.featureOptions,
-      resourceOptions: this.resourceOptions,
+      getFeatureOptions: this.getFeatureOptions.bind(this),
+      getResourceOptions: this.getResourceOptions.bind(this),
+      getUiOptions: this.getUiOptions.bind(this),
+      // TODO we need to bind this to getters
       lookupResourceOptions: this.lookupResourceOptions,
-      uiOptions: this.uiOptions,
-      siteOptions: this.siteOptions
+      siteOptions: this.siteOptions,
+      verboseMode: this.verboseMode.bind(this)
     }
     this.store.registerModule('settings', {
       // All stores of modules are namespaced
@@ -773,20 +774,40 @@ export default class UIController {
     return this
   }
 
+  /**
+   * initialize the options using the supplied storage adapter class
+   * @param {Function<StorageAdapter>} StorageAdapter the adapter class to instantiate
+   * @param {Object} authData optional authentication data if the adapter is one that requires it
+   * @return Promise[] an array of promises to load the options data from the adapter
+   */
+  initOptions(StorageAdapter,authData=null) {
+    this.featureOptions = new Options(this.featureOptionsDefaults, new StorageAdapter(this.featureOptionsDefaults.domain,authData))
+    this.resourceOptions = new Options(this.resourceOptionsDefaults, new StorageAdapter(this.resourceOptionsDefaults.domain,authData))
+    this.uiOptions = new Options(this.uiOptionsDefaults, new StorageAdapter(this.uiOptionsDefaults.domain,authData))
+    return [this.featureOptions.load(), this.resourceOptions.load(), this.uiOptions.load()]
+  }
+
   async initUserDataManager (isAuthenticated) {
     let wordLists
+    let optionLoadPromises
     if (isAuthenticated) {
       let authData = await this.api.auth.getUserData()
       this.userDataManager = new UserDataManager(authData, WordlistController.evt)
       wordLists = await this.wordlistC.initLists(this.userDataManager)
       this.store.commit('app/setWordLists', wordLists)
+      optionLoadPromises = this.initOptions(RemoteAuthStorageArea,authData)
     } else {
       // TODO we need to make the UserDataManager a singleton that can
       // handle switching users gracefully
       this.userDataManager.clear()
       this.userDataManager = null
       wordLists = await this.wordlistC.initLists()
+
+      // reload the shared options
+      optionLoadPromises = this.initOptions(this.options.storageAdapter)
     }
+    await Promise.all(optionLoadPromises)
+    this.updateUIForOptionsReset()
     this.store.commit('app/setWordLists', wordLists)
   }
 
@@ -909,7 +930,7 @@ export default class UIController {
     let allSiteOptions = []
     for (let site of siteOptions) {
       for (let domain of site.options) {
-        let siteOpts = new Options(domain, this.options.storageAdapter)
+        let siteOpts = new Options(domain, new this.options.storageAdapter(domain.domain))
         allSiteOptions.push({ uriMatch: site.uriMatch, resourceOptions: siteOpts })
       }
     }
@@ -984,7 +1005,7 @@ export default class UIController {
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
-      status: () => this.api.settings.uiOptions.items.verboseMode.currentValue === 'verbose',
+      status: () => this.api.settings.getUiOptions().items.verboseMode.currentValue === 'verbose',
       wordlist: () => this.store.state.app.hasWordListsData
     }
     return tabsCheck.hasOwnProperty(tabName) && !tabsCheck[tabName]()
@@ -1302,7 +1323,7 @@ export default class UIController {
 
         let lexQuery = LexicalQuery.create(textSelector, {
           htmlSelector: htmlSelector,
-          resourceOptions: this.resourceOptions,
+          resourceOptions: this.api.settings.getResourceOptions(),
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.getWordUsageExamplesQueryParams(textSelector),
@@ -1315,6 +1336,22 @@ export default class UIController {
         this.closePopup() // because we open popup before any check, but selection could be incorrect
       }
     }
+  }
+
+  getFeatureOptions() {
+    return this.featureOptions
+  }
+
+  getResourceOptions() {
+    return this.resourceOptions
+  }
+
+  getUiOptions() {
+    return this.uiOptions
+  }
+
+  verboseMode() {
+    return this.uiOptions.items.verboseMode.currentValue === "verbose"
   }
 
   async getWordUsageData (homonym, params = {}) {
@@ -1520,18 +1557,25 @@ export default class UIController {
     }
   }
 
+  async reloadAllOptions(){
+
+  }
   async resetAllOptions () {
     await this.featureOptions.reset()
+    await this.resourceOptions.reset()
+    await this.uiOptions.reset()
+    this.updateUIForOptionsReset()
+  }
+
+  updateUIForOptionsReset() {
     for (let name of this.featureOptions.names) {
       this.updateFeatureOptionUI(name)
       this.store.commit('settings/incrementFeatureResetCounter')
     }
-    await this.resourceOptions.reset()
     for (let name of this.resourceOptions.names) {
       this.updateResourceOptionUI(name)
       this.store.commit('settings/incrementResourceResetCounter')
     }
-    await this.uiOptions.reset()
     for (let name of this.uiOptions.names) {
       this.updateUIOptionUI(name)
       this.store.commit('settings/incrementUiResetCounter')
@@ -1541,14 +1585,15 @@ export default class UIController {
 
   featureOptionChange (key, value) {
     let keyinfo = Options.parseKey(key)
+    let featureOptions =  this.api.settings.getFeatureOptions()
     // TODO we need to refactor handling of boolean options
     if (keyinfo.name === 'enableLemmaTranslations' ||
       keyinfo.name === 'enableWordUsageExamples' ||
       keyinfo.name === 'wordUsageExamplesMax' ||
       keyinfo.name === 'wordUsageExamplesAuthMax') {
-      this.api.settings.featureOptions.items[keyinfo.name].setValue(value)
+      featureOptions.items[keyinfo.name].setValue(value)
     } else {
-      this.api.settings.featureOptions.items[keyinfo.name].setTextValue(value)
+      featureOptions.items[keyinfo.name].setTextValue(value)
     }
     this.updateFeatureOptionUI(keyinfo.name)
   }
@@ -1559,7 +1604,7 @@ export default class UIController {
         this.updateLemmaTranslations()
         break
       case 'preferredLanguage':
-        this.updateLanguage(this.api.settings.featureOptions.items.preferredLanguage.currentValue)
+        this.updateLanguage(this.api.settings.getFeatureOptions().items.preferredLanguage.currentValue)
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
@@ -1574,23 +1619,25 @@ export default class UIController {
    */
   uiOptionChange (key, value) {
     let keyinfo = Options.parseKey(key)
+    let uiOptions = this.api.settings.getUiOptions()
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
     if (keyinfo.name === 'fontSize') {
-      this.api.settings.uiOptions.items[keyinfo.name].setValue(value)
+      uiOptions.items[keyinfo.name].setValue(value)
     } else {
-      this.api.settings.uiOptions.items[keyinfo.name].setTextValue(value)
+      uiOptions.items[keyinfo.name].setTextValue(value)
     }
     this.updateUIOptionUI(keyinfo.name)
   }
 
   updateUIOptionUI(name) {
+    let uiOptions = this.api.settings.getUiOptions()
     const FONT_SIZE_PROP = '--alpheios-base-text-size'
     switch (name) {
       case 'fontSize':
         try {
-          let value = this.api.settings.uiOptions.items.fontSize.currentValue
+          let value = uiOptions.items.fontSize.currentValue
           let px
           switch(value) {
             case 'small':
@@ -1609,7 +1656,7 @@ export default class UIController {
         }
         break
       case 'panelPosition':
-        this.store.commit('panel/setPosition', this.api.settings.uiOptions.items.panelPosition.currentValue)
+        this.store.commit('panel/setPosition', uiOptions.items.panelPosition.currentValue)
         break
     }
   }
@@ -1620,7 +1667,7 @@ export default class UIController {
 
   resourceSettingChange (key, value) {
     let keyinfo = Options.parseKey(key)
-    this.api.settings.resourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+    this.api.settings.getResourceOptions().items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
     this.updateResourceOptionUI(keyinfo.name)
   }
 

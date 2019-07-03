@@ -105,11 +105,11 @@ export default {
   created: function () {
     if (this.usePageLangPrefs) {
       // Use language settings of a page
-      this.$options.lookupLanguage = this.settings.featureOptions.items.preferredLanguage
-      this.$options.resourceOptions = this.settings.resourceOptions
+      this.$options.lookupLanguage = this.settings.getFeatureOptions().items.preferredLanguage
+      this.$options.resourceOptions = this.settings.getResourceOptions()
     } else {
       // Use lookup language settings
-      this.$options.lookupLanguage = this.settings.featureOptions.items.lookupLanguage
+      this.$options.lookupLanguage = this.settings.getFeatureOptions().items.lookupLanguage
       this.$options.resourceOptions = this.settings.lookupResourceOptions
     }
   },
@@ -120,7 +120,7 @@ export default {
       // langUpdated is included into the condition to force Vue to recalculate value
       // every time language settings are updated
       return (this.langUpdated && selectedValue === 'Default')
-        ? this.settings.featureOptions.items.preferredLanguage.currentItem()
+        ? this.settings.getFeatureOptions().items.preferredLanguage.currentItem()
         : this.$options.lookupLanguage.currentItem()
     },
 
@@ -159,10 +159,11 @@ export default {
 
       const resourceOptions = this.$options.resourceOptions
       const lemmaTranslationLang = this.app.state.lemmaTranslationLang
+      let featureOptions = this.settings.getFeatureOptions()
 
       const wordUsageExamples = this.app.enableWordUsageExamples(textSelector, 'onLexicalQuery')
-        ? { paginationMax: this.settings.featureOptions.items.wordUsageExamplesMax.currentValue,
-          paginationAuthMax: this.settings.featureOptions.items.wordUsageExamplesAuthMax.currentValue }
+        ? { paginationMax: featureOptions.items.wordUsageExamplesMax.currentValue,
+          paginationAuthMax: featureOptions.items.wordUsageExamplesAuthMax.currentValue }
         : null
 
       let lexQuery = LexicalQueryLookup

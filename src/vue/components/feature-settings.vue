@@ -2,41 +2,41 @@
   <div class="alpheios-feature-options__cont">
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.preferredLanguage"
+        :data="featureOptions.items.preferredLanguage"
         @change="featureOptionChanged"
     >
     </setting>
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.enableWordUsageExamples"
-        @change="featureOptionChanged"
-    >
-    </setting>
-
-    <setting
-        :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesON"
+        :data="featureOptions.items.enableWordUsageExamples"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesAuthMax"
+        :data="featureOptions.items.wordUsageExamplesON"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesMax"
+        :data="featureOptions.items.wordUsageExamplesAuthMax"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.enableLemmaTranslations"
+        :data="featureOptions.items.wordUsageExamplesMax"
+        @change="featureOptionChanged"
+    >
+    </setting>
+
+    <setting
+        :classes="['alpheios-feature-options-item']"
+        :data="featureOptions.items.enableLemmaTranslations"
         @change="featureOptionChanged"
     >
     </setting>
@@ -44,7 +44,7 @@
     <setting
         :key="$store.state.app.settingsResetCounter"
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.locale"
+        :data="featureOptions.items.locale"
         @change="featureOptionChanged"
     >
     </setting>
@@ -65,6 +65,11 @@
     mixins: [DependencyCheck],
     components: {
       setting: Setting,
+    },
+    computed: {
+      featureOptions: function() {
+        return this.settings.getFeatureOptions()
+      }
     },
     methods: {
       featureOptionChanged: function (name, value) {

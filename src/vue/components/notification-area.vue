@@ -13,7 +13,7 @@
       />
       <setting
           :classes="['alpheios-notification-area__control']"
-          :data="settings.featureOptions.items.preferredLanguage"
+          :data="settings.getFeatureOptions().items.preferredLanguage"
           :show-title="false" @change="featureOptionChanged"
           v-show="$store.state.ui.notification.showLanguageSwitcher"
       />

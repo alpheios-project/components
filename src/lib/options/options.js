@@ -10,21 +10,21 @@ export default class Options {
    * Mandatory fields:
    *    {string} domain - A domain name that defines options context
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
-   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
+   * @param {StorageAdapter} storageAdapter - A storage adapter implementation
    * @param {Object} adapterInitObj - an object which can be passed to the Storage Adapter to provide additional application state
    */
-  constructor (defaults, StorageAdapter, adapterInitObj=null) {
+  constructor (defaults, storageAdapter) {
     if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
       throw new Error(`Defaults have no obligatory "domain", "version" and "items" properties`)
     }
-    if (!StorageAdapter) {
+    if (!storageAdapter) {
       throw new Error(`No storage adapter implementation provided`)
     }
 
     this.defaults = defaults
     this.domain = defaults.domain
     this.version = defaults.version
-    this.storageAdapter = new StorageAdapter(defaults.domain,adapterInitObj)
+    this.storageAdapter = storageAdapter
     this.items = Options.initItems(this.defaults.items, this.storageAdapter, this.domain, this.version)
   }
 
@@ -51,30 +51,6 @@ export default class Options {
   async reset () {
     await this.storageAdapter.clearAll()
     this.items = Options.initItems(this.defaults.items, this.storageAdapter)
-  }
-
-  /**
-   * Clone an existing Options object applying a new StorageAdapter
-   * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
-   * @return {Options} the cloned Options object
-   */
-  clone (StorageAdapter) {
-    let obj = new Options(this.defaults, StorageAdapter)
-    obj.storageAdapter = new StorageAdapter(this.domain)
-    obj.domain = this.domain
-    obj.items = {}
-
-    for (let item of this.names) {
-      if (Array.isArray(this.items[item])) {
-        obj.items[item] = []
-        for (let option of this.items[item]) {
-          obj.items[item].push(option.clone(option.name, option.labelText, obj.storageAdapter))
-        }
-      } else {
-        obj.items[item] = this.items[item].clone(item, this.items[item].labelText, obj.storageAdapter)
-      }
-    }
-    return obj
   }
 
   get names () {
