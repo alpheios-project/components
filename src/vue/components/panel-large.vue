@@ -203,15 +203,15 @@ export default {
     },
 
     uiSettingsKey() {
-      return `panel-large-settings-ui-${this.$store.state.app.uiSettingsResetCounter}`
+      return `panel-large-settings-ui-${this.$store.state.settings.uiResetCounter}`
     },
 
     resourceSettingsKey() {
-      return `panel-large-settings-resource-${this.$store.state.app.resourceSettingsResetCounter}`
+      return `panel-large-settings-resource-${this.$store.state.settings.resourceResetCounter}`
     },
 
     featureSettingsKey() {
-      return `panel-large-settings-feature-${this.$store.state.app.featureSettingsResetCounter}`
+      return `panel-large-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     swapTooltip () {

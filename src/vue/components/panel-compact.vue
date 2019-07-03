@@ -445,15 +445,15 @@ export default {
     },
 
     uiSettingsKey() {
-      return `panel-compact-settings-ui-${this.$store.state.app.uiSettingsResetCounter}`
+      return `panel-compact-settings-ui-${this.$store.state.settings.uiResetCounter}`
     },
 
     resourceSettingsKey() {
-      return `panel-compact-settings-resource-${this.$store.state.app.resourceSettingsResetCounter}`
+      return `panel-compact-settings-resource-${this.$store.state.settings.resourceResetCounter}`
     },
 
     featureSettingsKey() {
-      return `panel-compact-settings-feature-${this.$store.state.app.featureSettingsResetCounter}`
+      return `panel-compact-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     componentStyles: function () {

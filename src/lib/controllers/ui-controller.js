@@ -361,6 +361,28 @@ export default class UIController {
       uiOptions: this.uiOptions,
       siteOptions: this.siteOptions
     }
+    this.store.registerModule('settings', {
+      // All stores of modules are namespaced
+      namespaced: true,
+      state: {
+        uiResetCounter: 0,
+        featureResetCounter: 0,
+        resourceResetCounter: 0
+      },
+      mutations: {
+        incrementUiResetCounter (state){
+          state.uiResetCounter += 1
+        },
+
+        incrementFeatureResetCounter (state){
+          state.featureResetCounter += 1
+        },
+
+        incrementResourceResetCounter (state){
+          state.resourceResetCounter += 1
+        }
+      }
+    })
 
     this.api.app = {
       name: this.options.app.name, // A name of an application
@@ -624,18 +646,6 @@ export default class UIController {
 
         setTranslDataReady (state, value = true) {
           state.translationsDataReady = value
-        },
-
-        incrementUiSettingsResetCounter (state){
-          state.uiSettingsResetCounter += 1
-        },
-
-        incrementFeatureSettingsResetCounter (state){
-          state.featureSettingsResetCounter += 1
-        },
-
-        incrementResourceSettingsResetCounter (state){
-          state.resourceSettingsResetCounter += 1
         }
       }
     })
@@ -1514,17 +1524,17 @@ export default class UIController {
     await this.featureOptions.reset()
     for (let name of this.featureOptions.names) {
       this.updateFeatureOptionUI(name)
-      this.store.commit('app/incrementFeatureSettingsResetCounter')
+      this.store.commit('settings/incrementFeatureResetCounter')
     }
     await this.resourceOptions.reset()
     for (let name of this.resourceOptions.names) {
       this.updateResourceOptionUI(name)
-      this.store.commit('app/incrementResourceSettingsResetCounter')
+      this.store.commit('settings/incrementResourceResetCounter')
     }
     await this.uiOptions.reset()
     for (let name of this.uiOptions.names) {
       this.updateUIOptionUI(name)
-      this.store.commit('app/incrementUiSettingsResetCounter')
+      this.store.commit('settings/incrementUiResetCounter')
     }
   }
 
