@@ -3,20 +3,20 @@
     <label class="alpheios-setting__label">{{ l10n.getMsg('LABEL_RESKIN_SETTINGS') }}:</label>
     <div class="alpheios-setting__button-group alpheios-setting__control">
       <button
-          :class="{ active: activeButton === 12 }"
-          @click="changeFontSize(12)"
+          :class="{ active: activeButton === 'small' }"
+          @click="changeFontSize('small')"
       >
         {{ l10n.getMsg('FONTSIZE_TEXT_SMALL') }}
       </button>
       <button
-          :class="{ active: activeButton === 16 }"
-          @click="changeFontSize(16)"
+          :class="{ active: activeButton === 'medium' }"
+          @click="changeFontSize('medium')"
       >
         {{ l10n.getMsg('FONTSIZE_TEXT_MEDIUM') }}
       </button>
       <button
-          :class="{ active: activeButton === 20 }"
-          @click="changeFontSize(20)"
+          :class="{ active: activeButton === 'large' }"
+          @click="changeFontSize('large')"
       >
         {{ l10n.getMsg('FONTSIZE_TEXT_LARGE') }}
       </button>
@@ -30,12 +30,12 @@ export default {
   inject: ['ui', 'l10n'],
   data () {
     return {
-      activeButton: 16
+      activeButton: 'medium'
     }
   },
   methods: {
     changeFontSize (size) {
-      this.ui.optionChange('fontSize', size)
+      this.ui.optionChange('alpheios-ui-settings__v2__fontSize', size)
       this.activeButton = size
     }
   }

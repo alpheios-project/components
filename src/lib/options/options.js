@@ -11,8 +11,9 @@ export default class Options {
    *    {string} domain - A domain name that defines options context
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {Function<StorageAdapter>} StorageAdapter - A storage adapter implementation
+   * @param {Object} adapterInitObj - an object which can be passed to the Storage Adapter to provide additional application state
    */
-  constructor (defaults, StorageAdapter) {
+  constructor (defaults, StorageAdapter, adapterInitObj=null) {
     if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
       throw new Error(`Defaults have no obligatory "domain", "version" and "items" properties`)
     }
@@ -23,7 +24,7 @@ export default class Options {
     this.defaults = defaults
     this.domain = defaults.domain
     this.version = defaults.version
-    this.storageAdapter = new StorageAdapter(defaults.domain)
+    this.storageAdapter = new StorageAdapter(defaults.domain,adapterInitObj)
     this.items = Options.initItems(this.defaults.items, this.storageAdapter, this.domain, this.version)
   }
 

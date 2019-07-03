@@ -457,7 +457,10 @@ export default class UIController {
         wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
-        providers: [] // A list of resource providers
+        providers: [], // A list of resource providers
+        uiSettingsResetCounter: 0,
+        featureSettingsResetCounter: 0,
+        resourceSettingsResetCounter: 0
       },
 
       getters: {
@@ -621,6 +624,18 @@ export default class UIController {
 
         setTranslDataReady (state, value = true) {
           state.translationsDataReady = value
+        },
+
+        incrementUiSettingsResetCounter (state){
+          state.uiSettingsResetCounter += 1
+        },
+
+        incrementFeatureSettingsResetCounter (state){
+          state.featureSettingsResetCounter += 1
+        },
+
+        incrementResourceSettingsResetCounter (state){
+          state.resourceSettingsResetCounter += 1
         }
       }
     })
@@ -1495,29 +1510,42 @@ export default class UIController {
     }
   }
 
-  resetAllOptions () {
-    this.featureOptions.reset()
-    this.resourceOptions.reset()
-    this.uiOptions.reset()
-    // TODO this is a hack until we refactor settings to use the Vuex store
-    // what we really need to do here is make sure that any state handlers that need to be called
-    // in response to any setting change are called and that the ui components for the settings are redrawn
-    alert('Restart your browser now for setting reset to take affect')
+  async resetAllOptions () {
+    await this.featureOptions.reset()
+    for (let name of this.featureOptions.names) {
+      this.updateFeatureOptionUI(name)
+      this.store.commit('app/incrementFeatureSettingsResetCounter')
+    }
+    await this.resourceOptions.reset()
+    for (let name of this.resourceOptions.names) {
+      this.updateResourceOptionUI(name)
+      this.store.commit('app/incrementResourceSettingsResetCounter')
+    }
+    await this.uiOptions.reset()
+    for (let name of this.uiOptions.names) {
+      this.updateUIOptionUI(name)
+      this.store.commit('app/incrementUiSettingsResetCounter')
+    }
   }
 
-  featureOptionChange (name, value) {
+
+  featureOptionChange (key, value) {
+    let keyinfo = Options.parseKey(key)
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' || name === 'enableWordUsageExamples' || name === 'wordUsageExamplesMax' || name === 'wordUsageExamplesAuthMax') {
-      this.api.settings.featureOptions.items[name].setValue(value)
+    if (keyinfo.name === 'enableLemmaTranslations' ||
+      keyinfo.name === 'enableWordUsageExamples' ||
+      keyinfo.name === 'wordUsageExamplesMax' ||
+      keyinfo.name === 'wordUsageExamplesAuthMax') {
+      this.api.settings.featureOptions.items[keyinfo.name].setValue(value)
     } else {
-      this.api.settings.featureOptions.items[name].setTextValue(value)
+      this.api.settings.featureOptions.items[keyinfo.name].setTextValue(value)
     }
+    this.updateFeatureOptionUI(keyinfo.name)
+  }
+
+  updateFeatureOptionUI(name) {
     switch (name) {
       case 'locale':
-        // TODO: It seems that presenter is never defined. Do we need it?
-        if (this.presenter) {
-          this.presenter.setLocale(this.api.settings.featureOptions.items.locale.currentValue)
-        }
         this.updateLemmaTranslations()
         break
       case 'preferredLanguage':
@@ -1534,28 +1562,38 @@ export default class UIController {
    * @param {string} name - A name of an option.
    * @param {string | value} value - A new value of an options.
    */
-  uiOptionChange (name, value) {
-    const FONT_SIZE_PROP = '--alpheios-base-text-size'
+  uiOptionChange (key, value) {
+    let keyinfo = Options.parseKey(key)
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
-    if (name === 'fontSize') {
-      this.api.settings.uiOptions.items[name].setValue(value)
+    if (keyinfo.name === 'fontSize') {
+      this.api.settings.uiOptions.items[keyinfo.name].setValue(value)
     } else {
-      this.api.settings.uiOptions.items[name].setTextValue(value)
+      this.api.settings.uiOptions.items[keyinfo.name].setTextValue(value)
     }
+    this.updateUIOptionUI(keyinfo.name)
+  }
 
+  updateUIOptionUI(name) {
+    const FONT_SIZE_PROP = '--alpheios-base-text-size'
     switch (name) {
-      case 'panel':
-        if (this.api.ui.hasModule('panel')) {
-          this.store.commit('panel/close')
-          this.store.commit('panel/setPanelLayout', this.api.settings.uiOptions.items[name].currentValue)
-          this.store.commit('panel/open')
-        }
-        break
       case 'fontSize':
         try {
-          document.documentElement.style.setProperty(FONT_SIZE_PROP, `${value}px`)
+          let value = this.api.settings.uiOptions.items.fontSize.currentValue
+          let px
+          switch(value) {
+            case 'small':
+              px = '12px'
+              break
+            case 'medium':
+              px = '16px'
+              break
+            case 'large':
+              px = '20px'
+              break
+          }
+          document.documentElement.style.setProperty(FONT_SIZE_PROP, `${px}`)
         } catch (error) {
           console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
         }
@@ -1566,9 +1604,14 @@ export default class UIController {
     }
   }
 
-  resourceSettingChange (name, value) {
-    let keyinfo = this.api.settings.resourceOptions.parseKey(name)
-    this.api.settings.resourceOptions.items[keyinfo.setting].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+  updateResourceOptionUI(name) {
+    // no op for now
+  }
+
+  resourceSettingChange (key, value) {
+    let keyinfo = Options.parseKey(key)
+    this.api.settings.resourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+    this.updateResourceOptionUI(keyinfo.name)
   }
 
   registerGetSelectedText (listenerName, selector) {

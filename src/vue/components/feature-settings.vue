@@ -2,6 +2,12 @@
   <div class="alpheios-feature-options__cont">
     <setting
         :classes="['alpheios-feature-options-item']"
+        :data="settings.featureOptions.items.preferredLanguage"
+        @change="featureOptionChanged"
+    >
+    </setting>
+    <setting
+        :classes="['alpheios-feature-options-item']"
         :data="settings.featureOptions.items.enableWordUsageExamples"
         @change="featureOptionChanged"
     >
@@ -36,6 +42,7 @@
     </setting>
 
     <setting
+        :key="$store.state.app.settingsResetCounter"
         :classes="['alpheios-feature-options-item']"
         :data="settings.featureOptions.items.locale"
         @change="featureOptionChanged"

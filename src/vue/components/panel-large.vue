@@ -129,9 +129,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <ui-settings></ui-settings>
-        <feature-settings></feature-settings>
-        <resource-settings></resource-settings>
+        <ui-settings :key="uiSettingsKey"></ui-settings>
+        <feature-settings :key="featureSettingsKey"></feature-settings>
+        <resource-settings :key="resourceSettingsKey"></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -200,6 +200,18 @@ export default {
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
+    },
+
+    uiSettingsKey() {
+      return `panel-large-settings-ui-${this.$store.state.app.uiSettingsResetCounter}`
+    },
+
+    resourceSettingsKey() {
+      return `panel-large-settings-resource-${this.$store.state.app.resourceSettingsResetCounter}`
+    },
+
+    featureSettingsKey() {
+      return `panel-large-settings-feature-${this.$store.state.app.featureSettingsResetCounter}`
     },
 
     swapTooltip () {

@@ -264,9 +264,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <ui-settings></ui-settings>
-        <feature-settings></feature-settings>
-        <resource-settings></resource-settings>
+        <ui-settings :key="uiSettingsKey"></ui-settings>
+        <feature-settings :key="featureSettingsKey"></feature-settings>
+        <resource-settings :key="resourceSettingsKey"></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -442,6 +442,18 @@ export default {
         classes.push('alpheios-panel--expanded')
       }
       return classes
+    },
+
+    uiSettingsKey() {
+      return `panel-compact-settings-ui-${this.$store.state.app.uiSettingsResetCounter}`
+    },
+
+    resourceSettingsKey() {
+      return `panel-compact-settings-resource-${this.$store.state.app.resourceSettingsResetCounter}`
+    },
+
+    featureSettingsKey() {
+      return `panel-compact-settings-feature-${this.$store.state.app.featureSettingsResetCounter}`
     },
 
     componentStyles: function () {
@@ -735,12 +747,12 @@ export default {
     }
   }
 
-  .alpheios-panel__header-btn-group--end 
+  .alpheios-panel__header-btn-group--end
   .alpheios-panel__header-btn {
     & svg {
       transform: translateY(-50%);
     }
-  } 
+  }
 
   .alpheios-panel__close-btn {
     width: uisize(60px);
