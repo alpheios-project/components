@@ -93,4 +93,23 @@ html {
   // Those colors are not defined in a style guide
   --alpheios-highlight-color: #F6D918;
   --alpheios-highlight-dark-color: #E49A0D;
+
+
+  //SKIN
+  //Floating toolbar
+  --alpheios-desktop-toolbar-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-compact-toolbar-bg: var(--alpheios-toolbar-bg-color);
+
+  //Popup
+  --alpheios-desktop-popup-header-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-popup-header-icon-active-bg: var(--alpheios-toolbar-bg-color);
+
+  --alpheios-desktop-popup-progress-bar-line: var(--alpheios-toolbar-bg-color);
+
+
+  //Panel
+  --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-compact-panel-header-icon-active-bg: var(--alpheios-toolbar-bg-color);
+  
 }

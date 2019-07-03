@@ -381,7 +381,7 @@ export default {
       margin: uisize(8px) 0;
       box-sizing: border-box;
       position: relative;
-      background-color: var(--alpheios-toolbar-bg-color);
+      background-color: var(--alpheios-desktop-toolbar-bg);
       border: uisize(1px) solid var(--alpheios-border-color);
       border-radius: uisize(10px);
     }
@@ -391,7 +391,7 @@ export default {
     width: uisize($alpheios-toolbar-base-width);
     height: uisize(24px);
     border-bottom: none;
-    background: var(--alpheios-toolbar-bg-color);
+    background: var(--alpheios-desktop-toolbar-bg);
     box-sizing: border-box;
     border-top-left-radius: uisize(10px);
     border-top-right-radius: uisize(10px);
@@ -415,7 +415,7 @@ export default {
     width: uisize($alpheios-toolbar-base-width);
     height: uisize(54px);
     border-bottom: none;
-    background: var(--alpheios-toolbar-bg-color);
+    background: var(--alpheios-desktop-toolbar-bg);
     box-sizing: border-box;
     text-align: center;
     border-bottom-left-radius: uisize(10px);

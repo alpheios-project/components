@@ -47,7 +47,7 @@ export default {
 
     &.alpheios-toolbar--compact {
       cursor: pointer;
-      background-color: var(--alpheios-toolbar-bg-color);
+      background-color: var(--alpheios-compact-toolbar-bg);
       border-radius: 50%;
       right: 15px;
       bottom: 60px;

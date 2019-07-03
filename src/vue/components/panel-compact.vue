@@ -671,7 +671,7 @@ export default {
     flex-wrap: nowrap;
     box-sizing: border-box;
     grid-area: header;
-    background: var(--alpheios-toolbar-bg-color);
+    background: var(--alpheios-compact-panel-header-bg);
     // The rule below required to make sizes and positions of header element dependent on the UI base size
     font-size: var(--alpheios-base-ui-size);
   }
@@ -763,13 +763,13 @@ export default {
     &:focus {
       fill: var(--alpheios-icon-color-hover);
       stroke: var(--alpheios-icon-color-hover);
-      background: var(--alpheios-icon-bg-color-hover);
+      background: var(--alpheios-compact-panel-header-icon-active-bg);
     }
 
     &:active {
       fill: var(--alpheios-icon-color-pressed);
       stroke: var(--alpheios-icon-color-pressed);
-      background: var(--alpheios-icon-bg-color-pressed);
+      background: var(--alpheios-compact-panel-header-icon-active-bg);
     }
   }
 

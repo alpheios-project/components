@@ -284,5 +284,25 @@ export default {
     .alpheios-panel__close-btn {
       width: uisize(80px);
     }
+
+    .alpheios-panel__header {
+      background: var(--alpheios-desktop-panel-header-bg);
+    }
+
+    .alpheios-navbuttons__btn,
+    .alpheios-panel__close-btn {
+        &:hover,
+        &:focus {
+          fill: var(--alpheios-icon-color-hover);
+          stroke: var(--alpheios-icon-color-hover);
+          background: var(--alpheios-desktop-panel-header-icon-active-bg);
+        }
+
+        &:active {
+          fill: var(--alpheios-icon-color-pressed);
+          stroke: var(--alpheios-icon-color-pressed);
+          background: var(--alpheios-desktop-panel-header-icon-active-bg);
+        }
+    }
   }
 </style>

@@ -75,7 +75,8 @@
 
       <div class="alpheios-popup__content">
         <div class="alpheios-popup__definitions--placeholder"
-             v-if="$store.getters['app/lexicalRequestInProgress'] && !noLanguage">
+             v-show="$store.getters['app/lexicalRequestInProgress'] && !noLanguage"
+             >
           <progress-bar :text="l10n.getText('PLACEHOLDER_LEX_DATA_LOADING')"></progress-bar>
         </div>
 
@@ -518,7 +519,7 @@ export default {
     display: flex;
     justify-content: space-between;
     height: uisize(44px);
-    background: var(--alpheios-toolbar-bg-color);
+    background: var(--alpheios-desktop-popup-header-bg);
   }
 
   .alpheios-popup__logo {
@@ -554,13 +555,13 @@ export default {
     &:focus {
       fill: var(--alpheios-icon-color-hover);
       stroke: var(--alpheios-icon-color-hover);
-      background: var(--alpheios-icon-bg-color-hover);
+      background: var(--alpheios-desktop-popup-header-icon-active-bg);
     }
 
     &:active {
       fill: var(--alpheios-icon-color-active);
       stroke: var(--alpheios-icon-color-active);
-      background: var(--alpheios-icon-bg-color-active);
+      background: var(--alpheios-desktop-popup-header-icon-active-bg);
     }
   }
 
@@ -584,13 +585,13 @@ export default {
     &:focus {
       fill: var(--alpheios-icon-color-hover);
       stroke: var(--alpheios-icon-color-hover);
-      background: var(--alpheios-icon-bg-color-hover);
+      background: var(--alpheios-desktop-popup-header-icon-active-bg);
     }
 
     &:active {
       fill: var(--alpheios-icon-color-active);
       stroke: var(--alpheios-icon-color-active);
-      background: var(--alpheios-icon-bg-color-active);
+      background: var(--alpheios-desktop-popup-header-icon-active-bg);
     }
   }
 

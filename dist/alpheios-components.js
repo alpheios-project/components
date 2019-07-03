@@ -16149,6 +16149,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -25593,20 +25594,31 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-popup__content" }, [
-          _vm.$store.getters["app/lexicalRequestInProgress"] && !_vm.noLanguage
-            ? _c(
-                "div",
-                { staticClass: "alpheios-popup__definitions--placeholder" },
-                [
-                  _c("progress-bar", {
-                    attrs: {
-                      text: _vm.l10n.getText("PLACEHOLDER_LEX_DATA_LOADING")
-                    }
-                  })
-                ],
-                1
-              )
-            : _vm._e(),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.$store.getters["app/lexicalRequestInProgress"] &&
+                    !_vm.noLanguage,
+                  expression:
+                    "$store.getters['app/lexicalRequestInProgress'] && !noLanguage"
+                }
+              ],
+              staticClass: "alpheios-popup__definitions--placeholder"
+            },
+            [
+              _c("progress-bar", {
+                attrs: {
+                  text: _vm.l10n.getText("PLACEHOLDER_LEX_DATA_LOADING")
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -27050,7 +27062,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-wordlist-filter-panel" },
+        { staticClass: "alpheios-wordlist-sorting-panel" },
         [
           _c("word-sorting-panel", {
             directives: [
