@@ -35,6 +35,11 @@ export default {
       font-weight: bold;
       padding: 5px 0;
       color: var(--alpheios-word-list-context-source-link-color);
+
+      &:hover,
+      &:focus {
+        color: var(--alpheios-word-list-context-source-link-color-hover);
+      }
     }
 
     .alpheios-wordlists-tq-contextHTML-block {

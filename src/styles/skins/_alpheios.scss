@@ -85,10 +85,7 @@ html {
   --alpheios-btn-tertiary-border-color-pressed: var(--alpheios-color-muted);
 
   // Notifications
-  --alpheios-notification-bg-color: rgba(255, 193, 77, 0.5);
-  --alpheios-notification-border-color: var(--alpheios-color-bright);
-  --alpheios-notification-important-bg-color: rgba(198, 73, 6, 0.31);
-  --alpheios-notification-important-border-color: var(--alpheios-color-vivid);
+
 
   // Those colors are not defined in a style guide
   --alpheios-highlight-color: #F6D918;
@@ -103,6 +100,12 @@ html {
 
   --alpheios-link-special-color: var(--alpheios-color-vivid);
   --alpheios-link-special-color-hover: var(--alpheios-color-vivid-hover);
+
+  --alpheios-notification-color: var(--alpheios-color-bright);
+  --alpheios-notification-color-hover: var(--alpheios-color-bright-hover);
+
+  --alpheios-important-notification-color: var(--alpheios-color-vivid);
+  --alpheios-important-notification-color-hover: var(--alpheios-color-vivid-hover);
 
   --alpheios-highlight-border-color: var(--alpheios-color-light);
   --alpheios-highlight-light-color: var(--alpheios-color-light);
@@ -231,6 +234,19 @@ html {
   --alpheios-word-list-sorting-link-color-hover: var(--alpheios-link-color);
 
   --alpheios-word-list-context-back-link-color: var(--alpheios-link-color);
+
   --alpheios-word-list-context-source-link-color: var(--alpheios-link-color);
+  --alpheios-word-list-context-source-link-color-hover: var(--alpheios-link-color-hover);
+
   --alpheios-word-list-context-incontext-bg: var(--alpheios-highlight-color);
+
+  //Notifications
+
+  --alpheios-notification-color: var(--alpheios-text-color);
+  --alpheios-notification-bg: rgba(255, 193, 77, 0.5);
+  --alpheios-notification-border-color: var(--alpheios-notification-color);
+
+  --alpheios-notification-important-color: var(--alpheios-important-notification-color);
+  --alpheios-notification-important-bg: rgba(198, 73, 6, 0.31);
+  --alpheios-notification-important-border-color: var(--alpheios-important-notification-color);
 }
