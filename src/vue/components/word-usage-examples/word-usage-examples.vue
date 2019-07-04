@@ -296,9 +296,13 @@ export default {
 
     a#{&}__examples-source-link-large {
       grid-column: 1/4;
-      color: var(--alpheios-link-color-on-light);
+      color: var(--alpheios-usage-link-color);
       padding-top: 10px;
       padding-bottom: 5px;
+
+      &:hover {
+        color: var(--alpheios-usage-link-color-hover);
+      }
     }
 
     &__examples-source-link-compact-cont {
@@ -309,7 +313,11 @@ export default {
     }
 
     a#{&}__examples-source-link-compact-text {
-      color: var(--alpheios-link-color-on-light);
+      color: var(--alpheios-usage-link-color);
+
+      &:hover {
+        color: var(--alpheios-usage-link-color-hover);
+      }
     }
 
     &__examples-pre,
@@ -330,7 +338,7 @@ export default {
       grid-column: 2;
       text-align: center;
       padding: 0 3px;
-      color: var(--alpheios-highlight-dark-color);
+      color: var(--alpheios-usage-target-color);
       font-weight: 700;
       border-bottom: 1px solid var(--alpheios-border-color);
     }
@@ -345,10 +353,10 @@ export default {
 
     .alpheios-word-usage-header-show-link {
       cursor: pointer;
-      color: var(--alpheios-color-vivid);
+      color: var(--alpheios-usage-link-color);
       &:hover {
         text-decoration: underline;
-        color: var(--alpheios-color-vivid-hover);
+        color: var(--alpheios-usage-link-color-hover);
       }
     }
   }

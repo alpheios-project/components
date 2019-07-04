@@ -537,8 +537,8 @@ export default {
     width: uisize(56px);
     height: 100%;
     cursor: pointer;
-    fill: var(--alpheios-icon-color);
-    stroke: var(--alpheios-icon-color);
+    fill: var(--alpheios-desktop-popup-icon-color);
+    stroke: var(--alpheios-desktop-popup-icon-color);
     stroke-width: 0;
 
     svg {
@@ -553,15 +553,21 @@ export default {
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-icon-color-hover);
-      stroke: var(--alpheios-icon-color-hover);
-      background: var(--alpheios-desktop-popup-header-icon-active-bg);
+      fill: var(--alpheios-desktop-popup-icon-color-hover);
+      stroke: var(--alpheios-desktop-popup-icon-color-hover);
+      background: var(--alpheios-desktop-popup-header-icon-bg-active);
     }
 
     &:active {
-      fill: var(--alpheios-icon-color-active);
-      stroke: var(--alpheios-icon-color-active);
-      background: var(--alpheios-desktop-popup-header-icon-active-bg);
+      fill: var(--alpheios-desktop-popup-icon-color-active);
+      stroke: var(--alpheios-desktop-popup-icon-color-active);
+      background: var(--alpheios-desktop-popup-header-icon-bg-active);
+    }
+
+    &.disabled {
+      fill: var(--alpheios-desktop-popup-icon-color-disabled);
+      stroke: var(--alpheios-desktop-popup-icon-color-disabled);
+      background: var(--alpheios-desktop-popup-header-icon-bg-disabled);
     }
   }
 
@@ -569,8 +575,8 @@ export default {
     width: uisize(56px);
     height: 100%;
     cursor: pointer;
-    fill: var(--alpheios-icon-color);
-    stroke: var(--alpheios-icon-color);
+    fill: var(--alpheios-desktop-popup-icon-color);
+    stroke: var(--alpheios-desktop-popup-icon-color);
 
     svg {
       position: relative;
@@ -583,15 +589,21 @@ export default {
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-icon-color-hover);
-      stroke: var(--alpheios-icon-color-hover);
+      fill: var(--alpheios-desktop-popup-icon-color-hover);
+      stroke: var(--alpheios-desktop-popup-icon-color-hover);
       background: var(--alpheios-desktop-popup-header-icon-active-bg);
     }
 
     &:active {
-      fill: var(--alpheios-icon-color-active);
-      stroke: var(--alpheios-icon-color-active);
+      fill: var(--alpheios-desktop-popup-icon-color-active);
+      stroke: var(--alpheios-desktop-popup-icon-color-active);
       background: var(--alpheios-desktop-popup-header-icon-active-bg);
+    }
+
+    &.disabled {
+      fill: var(--alpheios-desktop-popup-icon-color-disabled);
+      stroke: var(--alpheios-desktop-popup-icon-color-disabled);
+      background: var(--alpheios-desktop-popup-header-icon-bg-disabled);
     }
   }
 
@@ -599,7 +611,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: textsize(16px);
-    background: var(--alpheios-text-bg-color);
+    background: var(--alpheios-desktop-popup-body-bg);
     overflow: auto;
     flex: 1 0;
   }
@@ -640,7 +652,7 @@ export default {
     padding: uisize(20px);
     // This is to solve a problem when part of content is transparent in Chrome.
     // However, this can be fixed with flex parameters
-    background: var(--alpheios-text-bg-color);
+    background: var(--alpheios-desktop-popup-content-bg);
 
     @include alpheios-ui-border;
   }
@@ -655,9 +667,9 @@ export default {
     display: inline-block;
     margin-bottom: textsize(6px);
     font-weight: 700;
-    color: var(--alpheios-color-vivid);
+    color: var(--alpheios-desktop-popup-credit-link-color);
     &:hover {
-      color: var(--alpheios-color-vivid-hover);
+      color: var(--alpheios-desktop-popup-credit-link-color-hover);
     }
   }
 
@@ -666,6 +678,6 @@ export default {
   }
 
   .alpheios-popup__providers-item {
-    color: var(--alpheios-color-neutral-dark);
+    color: var(--alpheios-desktop-popup-credit-providers-color);
   }
 </style>

@@ -77,9 +77,7 @@
 
       .alpheios-worditem__targetWord {
           width: 28%;
-
           
-
           svg {
             width: $iconsize;
             height: $iconsize;
@@ -88,10 +86,12 @@
 
             cursor: pointer;
             padding: 7px;
-            fill: var(--alpheios-color-neutral-dark);
+            fill: var(--alpheios-word-list-sorting-link-color);
             
+            box-sizing: content-box;
+
             &.alpheios-icon-active {
-                fill: var(--alpheios-color-vivid);
+                fill: var(--alpheios-word-list-sorting-link-color-hover);
             }
           }
           

@@ -357,14 +357,95 @@ html {
   --alpheios-notification-important-border-color: var(--alpheios-color-vivid);
   --alpheios-highlight-color: #F6D918;
   --alpheios-highlight-dark-color: #E49A0D;
+  --alpheios-icon-color-disabled: var(--alpheios-color-neutral-dark);
+  --alpheios-link-color: var(--alpheios-color-muted);
+  --alpheios-link-color-hover: var(--alpheios-color-muted-hover);
+  --alpheios-link-special-color: var(--alpheios-color-vivid);
+  --alpheios-link-special-color-hover: var(--alpheios-color-vivid-hover);
+  --alpheios-highlight-border-color: var(--alpheios-color-light);
+  --alpheios-highlight-light-color: var(--alpheios-color-light);
+  --alpheios-highlight-dark-color: var(--alpheios-color-vivid);
+  --alpheios-highlight-dark-color-hover: var(--alpheios-color-vivid-hover);
   --alpheios-desktop-toolbar-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-toolbar-border-color: var(--alpheios-border-color);
   --alpheios-compact-toolbar-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-toolbar-icon-color: var(--alpheios-icon-color);
+  --alpheios-compact-toolbar-icon-color: var(--alpheios-icon-color);
+  --alpheios-desktop-toolbar-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-desktop-toolbar-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-desktop-toolbar-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-desktop-toolbar-icon-bg-disabled: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-popup-header-bg: var(--alpheios-toolbar-bg-color);
-  --alpheios-desktop-popup-header-icon-active-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-popup-header-icon-bg-active: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-popup-icon-color: var(--alpheios-icon-color);
+  --alpheios-desktop-popup-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-desktop-popup-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-desktop-popup-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-desktop-popup-icon-bg-disabled: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-popup-progress-bar-line: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-popup-link-color: var(--alpheios-link-color);
+  --alpheios-desktop-popup-link-color-hover: var(--alpheios-link-color-hover);
+  --alpheios-desktop-popup-credit-link-color: var(--alpheios-link-special-color);
+  --alpheios-desktop-popup-credit-link-color-hover: var(--alpheios-link-special-color-hover);
+  --alpheios-desktop-popup-credit-providers-color: var(--alpheios-text-color);
+  --alpheios-desktop-popup-body-bg: var(--alpheios-text-bg-color);
+  --alpheios-desktop-popup-content-bg: var(--alpheios-text-bg-color);
   --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
-  --alpheios-compact-panel-header-icon-active-bg: var(--alpheios-toolbar-bg-color);
+  --alpheios-compact-panel-header-icon-bg-active: var(--alpheios-toolbar-bg-color);
+  --alpheios-lookup-border-color: var(--alpheios-border-color);
+  --alpheios-lookup-bg: var(--alpheios-text-bg-color);
+  --alpheios-lookup-input-border-color: var(--alpheios-border-color);
+  --alpheios-lookup-button-color: var(--alpheios-btn-primary-font-color);
+  --alpheios-lookup-button-bg: var(--alpheios-btn-primary-bg-color);
+  --alpheios-lookup-button-border-color: var(--alpheios-btn-primary-border-color);
+  --alpheios-lookup-button-color-hover: var(--alpheios-btn-primary-font-color-hover);
+  --alpheios-lookup-button-bg-hover: var(--alpheios-btn-primary-bg-color-hover);
+  --alpheios-lookup-button-border-color-hover: var(--alpheios-btn-primary-border-color-hover);
+  --alpheios-inflect-browser-title-color: var(--alpheios-link-color-on-light);
+  --alpheios-inflect-button-control-color: var(--alpheios-btn-secondary-font-color);
+  --alpheios-inflect-button-control-bg: var(--alpheios-btn-secondary-bg-color);
+  --alpheios-inflect-button-control-border-color: var(--alpheios-btn-secondary-border-color);
+  --alpheios-inflect-button-control-color-hover: var(--alpheios-btn-secondary-font-color-hover);
+  --alpheios-inflect-button-control-bg-hover: var(--alpheios-btn-secondary-bg-color-hover);
+  --alpheios-inflect-button-control-border-color-hover: var(--alpheios-btn-secondary-border-color-hover);
+  --alpheios-inflect-match-cell-border-color: var(--alpheios-highlight-border-color);
+  --alpheios-inflect-match-suff-bg: var(--alpheios-highlight-light-color);
+  --alpheios-inflect-match-suff-color: var(--alpheios-text-color);
+  --alpheios-inflect-full-match-suff-bg: var(--alpheios-highlight-color);
+  --alpheios-inflect-full-match-suff-color: var(--alpheios-text-color);
+  --alpheios-usage-progress-color: var(--alpheios-highlight-dark-color);
+  --alpheios-usage-link-color: var(--alpheios-highlight-dark-color);
+  --alpheios-usage-link-color-hover: var(--alpheios-highlight-dark-color-hover);
+  --alpheios-usage-target-color: var(--alpheios-highlight-dark-color);
+  --alpheios-grammar-back-button-color: var(--alpheios-btn-primary-font-color);
+  --alpheios-grammar-back-button-bg: var(--alpheios-btn-primary-bg-color);
+  --alpheios-grammar-back-button-border-color: var(--alpheios-btn-primary-border-color);
+  --alpheios-grammar-back-button-color-hover: var(--alpheios-btn-primary-font-color-hover);
+  --alpheios-grammar-back-button-bg-hover: var(--alpheios-btn-primary-bg-color-hover);
+  --alpheios-grammar-back-button-border-color-hover: var(--alpheios-btn-primary-border-color-hover);
+  --alpheios-settings-font-size-dark-color: var(--alpheios-btn-primary-bg-color);
+  --alpheios-settings-font-size-light-color: var(--alpheios-color-neutral-lightest);
+  --alpheios-settings-font-multiselect-bg: var(--alpheios-btn-primary-bg-color);
+  --alpheios-settings-font-multiselect-font-color: var(--alpheios-btn-primary-font-color);
+  --alpheios-settings-reset-button-color: var(--alpheios-btn-primary-font-color);
+  --alpheios-settings-reset-button-bg: var(--alpheios-btn-primary-bg-color);
+  --alpheios-settings-reset-button-border-color: var(--alpheios-btn-primary-border-color);
+  --alpheios-settings-reset-button-color-hover: var(--alpheios-btn-primary-font-color-hover);
+  --alpheios-settings-reset-button-bg-hover: var(--alpheios-btn-primary-bg-color-hover);
+  --alpheios-settings-reset-button-border-color-hover: var(--alpheios-btn-primary-border-color-hover);
+  --alpheios-word-list-important-item-color: var(--alpheios-link-color);
+  --alpheios-word-list-delete-item-color: var(--alpheios-text-color);
+  --alpheios-word-list-current-item-color: var(--alpheios-highlight-color);
+  --alpheios-word-list-default-item-color: var(--alpheios-highlight-color);
+  --alpheios-word-list-select-item-bg: var(--alpheios-text-bg-color);
+  --alpheios-word-list-select-item-bg-hover: var(--alpheios-highlight-color);
+  --alpheios-word-list-select-item-input-part-color: var(--alpheios-link-special-color);
+  --alpheios-word-list-sorting-link-color: var(--alpheios-text-color);
+  --alpheios-word-list-sorting-link-color-hover: var(--alpheios-link-color);
+  --alpheios-word-list-context-back-link-color: var(--alpheios-link-color);
+  --alpheios-word-list-context-source-link-color: var(--alpheios-link-color);
+  --alpheios-word-list-context-incontext-bg: var(--alpheios-highlight-color);
 }
 
 /*
@@ -648,7 +729,7 @@ input.alpheios-input::-ms-input-placeholder {
   padding: calc(var(--alpheios-base-text-size) * 0.5) calc(var(--alpheios-base-text-size) * 2.5) 0 calc(var(--alpheios-base-text-size) * 0.5);
 }
 .alpheios-content .multiselect__tag {
-  background-color: var(--alpheios-btn-primary-bg-color);
+  background-color: var(--alpheios-settings-font-multiselect-bg);
   display: inline-block;
   border-radius: calc(var(--alpheios-base-text-size) * 0.3125);
   padding: calc(var(--alpheios-base-text-size) * 0.25) calc(var(--alpheios-base-text-size) * 1.625) calc(var(--alpheios-base-text-size) * 0.25) calc(var(--alpheios-base-text-size) * 0.625);
@@ -658,7 +739,7 @@ input.alpheios-input::-ms-input-placeholder {
   min-height: calc(var(--alpheios-base-text-size) * 1.5);
 }
 .alpheios-content .multiselect__tag span {
-  color: var(--alpheios-btn-primary-font-color);
+  color: var(--alpheios-settings-font-multiselect-font-color);
 }
 .alpheios-content .multiselect__select {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
@@ -687,26 +768,26 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-content .multiselect__tag,
 .alpheios-content .multiselect__tag-icon:focus,
 .alpheios-content .multiselect__tag-icon:hover {
-  background: var(--alpheios-btn-primary-bg-color);
+  background: var(--alpheios-settings-font-multiselect-bg);
 }
 .alpheios-content .multiselect__option.multiselect__option--highlight {
-  background-color: var(--alpheios-btn-primary-bg-color);
+  background-color: var(--alpheios-settings-font-multiselect-bg);
 }
 .alpheios-content .multiselect__option.multiselect__option--highlight:after {
   display: none;
 }
 .alpheios-content .multiselect__option.multiselect__option--highlight span {
-  color: var(--alpheios-btn-primary-font-color);
+  color: var(--alpheios-settings-font-multiselect-font-color);
 }
 .alpheios-content .multiselect__option--highlight span,
 .alpheios-content .multiselect__tag span,
 .alpheios-content .multiselect__tag-icon:focus span,
 .alpheios-content .multiselect__tag-icon:hover span {
-  color: var(--alpheios-btn-primary-font-color);
+  color: var(--alpheios-settings-font-multiselect-font-color);
 }
 .alpheios-content .multiselect__tag-icon:after {
   content: "×";
-  color: var(--alpheios-btn-primary-font-color);
+  color: var(--alpheios-settings-font-multiselect-font-color);
   font-size: calc(var(--alpheios-base-text-size) * 1.5);
 }
 .alpheios-content .multiselect__tag-icon {
@@ -723,10 +804,10 @@ input.alpheios-input::-ms-input-placeholder {
   top: 0;
   transition: all 0.2s ease;
   width: calc(var(--alpheios-base-text-size) * 1.5);
-  color: var(--alpheios-btn-primary-font-color);
+  color: var(--alpheios-settings-font-multiselect-font-color);
 }
 .alpheios-content .multiselect__tag-icon:hover {
-  background-color: var(--alpheios-btn-primary-bg-color);
+  background-color: var(--alpheios-settings-font-multiselect-bg);
 }
 
 div.alpheios-checkbox-block {
@@ -1033,8 +1114,11 @@ p.alpheios-lemma__translations-value {
 }
 .alpheios-morph__source {
   font-size: smaller;
-  color: var(--alpheios-color-muted);
+  color: var(--alpheios-desktop-popup-link-color);
   font-style: italic;
+}
+.alpheios-morph__source:hover {
+  color: var(--alpheios-desktop-popup-link-color-hover);
 }
 .alpheios-morph__dial {
   font-size: smaller;
@@ -1047,9 +1131,13 @@ p.alpheios-lemma__translations-value {
   color: var(--alpheios-color-muted);
   cursor: pointer;
   font-weight: 700;
+  color: var(--alpheios-desktop-popup-link-color);
 }
 .alpheios-content .alpheios-morph__linkedattr:hover, .alpheios-content .alpheios-morph__linkedattr:active {
   text-decoration: underline;
+}
+.alpheios-content .alpheios-morph__linkedattr:hover {
+  color: var(--alpheios-desktop-popup-link-color-hover);
 }
 .alpheios-morph__pofs span:last-child:after {
   content: ";";
@@ -1058,15 +1146,19 @@ p.alpheios-lemma__translations-value {
   margin-left: 0.5em;
   margin-top: 0.5em;
 }
-.alpheios-morph__inflset h5 {
-  display: none;
-  line-height: 1;
-  margin-bottom: 0.5em;
-}
-.alpheios-morph__inflset:first-child h5 {
-  color: var(--alpheios-color-muted);
-  display: block;
-}
+
+/*
+  .alpheios-morph__inflset h5 {
+    display: none;
+    line-height: 1;
+    margin-bottom: .5em;
+  }
+
+  .alpheios-morph__inflset:first-child h5 {
+    color: var(--alpheios-color-muted);
+    display: block;
+  }
+*/
 .alpheios-morph__morphdata {
   display: inline;
 }
@@ -1173,6 +1265,7 @@ h4.alpheios-morph__groupitem {
   display: inline-block;
   font-weight: bold;
   vertical-align: top;
+  padding-top: 4px;
 }
 .alpheios-morph__dictentry .alpheios-morph__definition_list .definition_index {
   display: inline-block;
@@ -1542,8 +1635,8 @@ select.alpheios-setting__control,
   width: calc(var(--alpheios-base-ui-size) * 3.5);
   height: 100%;
   cursor: pointer;
-  fill: var(--alpheios-icon-color);
-  stroke: var(--alpheios-icon-color);
+  fill: var(--alpheios-desktop-popup-icon-color);
+  stroke: var(--alpheios-desktop-popup-icon-color);
   stroke-width: 0;
 }
 .alpheios-popup__toolbar-top__btn svg {
@@ -1556,21 +1649,26 @@ select.alpheios-setting__control,
   stroke-width: 1;
 }
 .alpheios-popup__toolbar-top__btn:hover, .alpheios-popup__toolbar-top__btn:focus {
-  fill: var(--alpheios-icon-color-hover);
-  stroke: var(--alpheios-icon-color-hover);
-  background: var(--alpheios-desktop-popup-header-icon-active-bg);
+  fill: var(--alpheios-desktop-popup-icon-color-hover);
+  stroke: var(--alpheios-desktop-popup-icon-color-hover);
+  background: var(--alpheios-desktop-popup-header-icon-bg-active);
 }
 .alpheios-popup__toolbar-top__btn:active {
-  fill: var(--alpheios-icon-color-active);
-  stroke: var(--alpheios-icon-color-active);
-  background: var(--alpheios-desktop-popup-header-icon-active-bg);
+  fill: var(--alpheios-desktop-popup-icon-color-active);
+  stroke: var(--alpheios-desktop-popup-icon-color-active);
+  background: var(--alpheios-desktop-popup-header-icon-bg-active);
+}
+.alpheios-popup__toolbar-top__btn.disabled {
+  fill: var(--alpheios-desktop-popup-icon-color-disabled);
+  stroke: var(--alpheios-desktop-popup-icon-color-disabled);
+  background: var(--alpheios-desktop-popup-header-icon-bg-disabled);
 }
 .alpheios-popup__close-btn {
   width: calc(var(--alpheios-base-ui-size) * 3.5);
   height: 100%;
   cursor: pointer;
-  fill: var(--alpheios-icon-color);
-  stroke: var(--alpheios-icon-color);
+  fill: var(--alpheios-desktop-popup-icon-color);
+  stroke: var(--alpheios-desktop-popup-icon-color);
 }
 .alpheios-popup__close-btn svg {
   position: relative;
@@ -1581,20 +1679,25 @@ select.alpheios-setting__control,
   height: auto;
 }
 .alpheios-popup__close-btn:hover, .alpheios-popup__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover);
-  stroke: var(--alpheios-icon-color-hover);
+  fill: var(--alpheios-desktop-popup-icon-color-hover);
+  stroke: var(--alpheios-desktop-popup-icon-color-hover);
   background: var(--alpheios-desktop-popup-header-icon-active-bg);
 }
 .alpheios-popup__close-btn:active {
-  fill: var(--alpheios-icon-color-active);
-  stroke: var(--alpheios-icon-color-active);
+  fill: var(--alpheios-desktop-popup-icon-color-active);
+  stroke: var(--alpheios-desktop-popup-icon-color-active);
   background: var(--alpheios-desktop-popup-header-icon-active-bg);
+}
+.alpheios-popup__close-btn.disabled {
+  fill: var(--alpheios-desktop-popup-icon-color-disabled);
+  stroke: var(--alpheios-desktop-popup-icon-color-disabled);
+  background: var(--alpheios-desktop-popup-header-icon-bg-disabled);
 }
 .alpheios-popup__body {
   display: flex;
   flex-direction: column;
   padding: calc(var(--alpheios-base-text-size) * 1);
-  background: var(--alpheios-text-bg-color);
+  background: var(--alpheios-desktop-popup-body-bg);
   overflow: auto;
   flex: 1 0;
 }
@@ -1627,7 +1730,7 @@ h3.alpheios-popup__toolbar-selection {
 .alpheios-popup__content {
   flex: 1 0;
   padding: calc(var(--alpheios-base-ui-size) * 1.25);
-  background: var(--alpheios-text-bg-color);
+  background: var(--alpheios-desktop-popup-content-bg);
   border: 1px solid var(--alpheios-border-color);
   border-radius: calc(var(--alpheios-base-ui-size) * 0.625);
 }
@@ -1639,17 +1742,17 @@ a:not([href]):not([tabindex]).alpheios-popup__providers-link {
   display: inline-block;
   margin-bottom: calc(var(--alpheios-base-text-size) * 0.375);
   font-weight: 700;
-  color: var(--alpheios-color-vivid);
+  color: var(--alpheios-desktop-popup-credit-link-color);
 }
 a.alpheios-popup__providers-link:hover,
 a:not([href]):not([tabindex]).alpheios-popup__providers-link:hover {
-  color: var(--alpheios-color-vivid-hover);
+  color: var(--alpheios-desktop-popup-credit-link-color-hover);
 }
 .alpheios-popup__definitions--placeholder {
   padding: calc(var(--alpheios-base-text-size) * 0.625) 0;
 }
 .alpheios-popup__providers-item {
-  color: var(--alpheios-color-neutral-dark);
+  color: var(--alpheios-desktop-popup-credit-providers-color);
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -1792,7 +1895,7 @@ a:not([href]):not([tabindex]).alpheios-popup__providers-link:hover {
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
 .alpheios-inflections__title {
-  color: var(--alpheios-text-color-vivid);
+  color: var(--alpheios-inflect-browser-title-color);
   font-size: calc(var(--alpheios-base-text-size) * 1.375);
   font-family: var(--alpheios-serif-font-face);
   line-height: 1;
@@ -1982,7 +2085,7 @@ div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-c
 }
 .infl-cell--morph-match,
 .infl-table .infl-cell.infl-cell--morph-match {
-  border: 3px solid #bce6f0;
+  border: 3px solid var(--alpheios-inflect-match-cell-border-color);
 }
 .infl-cell__conj-stem {
   text-transform: none;
@@ -1995,14 +2098,26 @@ div.alpheios-inflections__table-ctrl-cont div.alpheios-inflections__table-ctrl-c
   text-transform: capitalize;
 }
 .infl-suff.infl-suff--suffix-match {
-  background-color: #bce6f0;
+  background-color: var(--alpheios-inflect-match-suff-bg);
 }
 .infl-suff--full-match {
-  background-color: lightgray;
+  background-color: var(--alpheios-inflect-match-suff-bg);
+  color: var(--alpheios-inflect-match-suff-color);
 }
 .infl-suff.infl-suff--suffix-match.infl-suff--full-match {
-  background-color: var(--alpheios-highlight-color);
+  background-color: var(--alpheios-inflect-full-match-suff-bg);
+  color: var(--alpheios-inflect-full-match-suff-color);
   font-weight: 700;
+}
+.alpheios-inflections__control-btn {
+  color: var(--alpheios-inflect-button-control-color);
+  background-color: var(--alpheios-inflect-button-control-bg);
+  border-color: var(--alpheios-inflect-button-control-border-color);
+}
+.alpheios-inflections__control-btn:hover {
+  color: var(--alpheios-inflect-button-control-color-hover);
+  background-color: var(--alpheios-inflect-button-control-bg-hover);
+  border-color: var(--alpheios-inflect-button-control-border-color-hover);
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2193,6 +2308,16 @@ h3.alpheios-inflections__credits-title {
   height: auto;
   fill: var(--alpheios-btn-primary-font-color);
 }
+.alpheios-grammar__button--back-block button {
+  color: var(--alpheios-grammar-back-button-color);
+  background-color: var(--alpheios-grammar-back-button-bg);
+  border-color: var(--alpheios-grammar-back-button-border-color);
+}
+.alpheios-grammar__button--back-block button:hover {
+  color: var(--alpheios-grammar-back-button-color-hover);
+  background-color: var(--alpheios-grammar-back-button-bg-hover);
+  border-color: var(--alpheios-grammar-back-button-border-color-hover);
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
@@ -2233,7 +2358,7 @@ h3.alpheios-inflections__credits-title {
   margin: 0 0 calc(var(--alpheios-base-text-size) * 1.25) calc(var(--alpheios-base-text-size) * 3);
 }
 .alpheios-ib__title {
-  color: var(--alpheios-text-color-vivid);
+  color: var(--alpheios-inflect-browser-title-color);
   font-size: calc(var(--alpheios-base-text-size) * 1.5);
   font-family: var(--alpheios-serif-font-face);
   font-weight: 700;
@@ -2241,7 +2366,7 @@ h3.alpheios-inflections__credits-title {
   display: inline-block;
 }
 .alpheios-ib__title.open {
-  border-bottom: calc(var(--alpheios-base-text-size) * 0.125) solid var(--alpheios-text-color-vivid);
+  border-bottom: calc(var(--alpheios-base-text-size) * 0.125) solid var(--alpheios-inflect-browser-title-color);
 }
 .alpheios-ib__pofs-title {
   font-weight: 700;
@@ -2304,10 +2429,22 @@ h3.alpheios-inflections__credits-title {
   width: 70%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  height: 40px;
+  min-width: 0;
+  border-color: var(--alpheios-lookup-input-border-color);
 }
 .alpheios-lookup__search-control button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  height: 40px;
+  background-color: var(--alpheios-lookup-button-bg);
+  color: var(--alpheios-lookup-button-color);
+  border-color: var(--alpheios-lookup-button-border-color);
+}
+.alpheios-lookup__search-control button:hover, .alpheios-lookup__search-control button:active, .alpheios-lookup__search-control button:focus {
+  background-color: var(--alpheios-lookup-button-bg-hover);
+  color: var(--alpheios-lookup-button-color-hover);
+  border-color: var(--alpheios-lookup-button-border-color-hover);
 }
 .alpheios-lookup__resource-control {
   display: flex;
@@ -2378,8 +2515,8 @@ h3.alpheios-inflections__credits-title {
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
 .alpheios-setting__button-group {
-  color: var(--alpheios-text-color-vivid);
-  border: 1px solid var(--alpheios-text-color-vivid);
+  color: var(--alpheios-settings-font-size-dark-color);
+  border: 1px solid var(--alpheios-settings-font-size-dark-color);
   border-radius: calc(var(--alpheios-base-text-size) * 0.625);
   max-width: calc(var(--alpheios-base-text-size) * 12.5);
   display: flex;
@@ -2387,7 +2524,7 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-setting__button-group button {
   border: none;
-  border-right: 1px solid var(--alpheios-text-color-vivid);
+  border-right: 1px solid var(--alpheios-settings-font-size-dark-color);
   background: transparent;
   padding: calc(var(--alpheios-base-text-size) * 0.375) calc(var(--alpheios-base-text-size) * 0.75);
   font-size: calc(var(--alpheios-base-text-size) * 0.5);
@@ -2399,8 +2536,8 @@ h3.alpheios-inflections__credits-title {
   border-right: none;
 }
 .alpheios-setting__button-group button.active {
-  color: var(--alpheios-color-neutral-lightest);
-  background: var(--alpheios-text-color-vivid);
+  color: var(--alpheios-settings-font-size-light-color);
+  background: var(--alpheios-settings-font-size-dark-color);
   box-shadow: inset 0 calc(var(--alpheios-base-text-size) * 0.25) calc(var(--alpheios-base-text-size) * 0.25) rgba(0, 0, 0, 0.1);
 }
 /*
@@ -2489,82 +2626,8 @@ h3.alpheios-inflections__credits-title {
 .alpheios-word-usage-header .alpheios-word-usage-header-select-textwork {
   margin-top: 10px;
 }
-@-webkit-keyframes progresscolor {
-0% {
-    color: var(--alpheios-color-vivid);
-}
-30% {
-    color: var(--alpheios-color-vivid-hover);
-}
-60% {
-    color: var(--alpheios-color-bright);
-}
-90% {
-    color: var(--alpheios-color-vivid-hover);
-}
-}
-@-moz-keyframes progresscolor {
-0% {
-    color: var(--alpheios-color-vivid);
-}
-30% {
-    color: var(--alpheios-color-vivid-hover);
-}
-60% {
-    color: var(--alpheios-color-bright);
-}
-90% {
-    color: var(--alpheios-color-vivid-hover);
-}
-}
-@-ms-keyframes progresscolor {
-0% {
-    color: var(--alpheios-color-vivid);
-}
-30% {
-    color: var(--alpheios-color-vivid-hover);
-}
-60% {
-    color: var(--alpheios-color-bright);
-}
-90% {
-    color: var(--alpheios-color-vivid-hover);
-}
-}
-@-o-keyframes progresscolor {
-0% {
-    color: var(--alpheios-color-vivid);
-}
-30% {
-    color: var(--alpheios-color-vivid-hover);
-}
-60% {
-    color: var(--alpheios-color-bright);
-}
-90% {
-    color: var(--alpheios-color-vivid-hover);
-}
-}
-@keyframes progresscolor {
-0% {
-    color: var(--alpheios-color-vivid);
-}
-30% {
-    color: var(--alpheios-color-vivid-hover);
-}
-60% {
-    color: var(--alpheios-color-bright);
-}
-90% {
-    color: var(--alpheios-color-vivid-hover);
-}
-}
-.alpheios-word-usage-get-data-progress {
-  -webkit-animation: progresscolor 4s infinite linear;
-  -moz-animation: progresscolor 4s infinite linear;
-  -ms-animation: progresscolor 4s infinite linear;
-  -o-animation: progresscolor 4s infinite linear;
-  animation: progresscolor 4s infinite linear;
+.alpheios-word-usage-header-filters .alpheios-word-usage-get-data-progress {
+  color: var(--alpheios-usage-progress-color);
   font-weight: bold;
 }
 p.alpheios-word-usage-filter-title {
@@ -2653,9 +2716,12 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-word-usage a.alpheios-word-usage__examples-source-link-large {
   grid-column: 1/4;
-  color: var(--alpheios-link-color-on-light);
+  color: var(--alpheios-usage-link-color);
   padding-top: 10px;
   padding-bottom: 5px;
+}
+.alpheios-word-usage a.alpheios-word-usage__examples-source-link-large:hover {
+  color: var(--alpheios-usage-link-color-hover);
 }
 .alpheios-word-usage__examples-source-link-compact-cont {
   grid-column: 1/4;
@@ -2664,7 +2730,10 @@ p.alpheios-word-usage-filter-title {
   border-bottom: 1px solid var(--alpheios-border-color);
 }
 .alpheios-word-usage a.alpheios-word-usage__examples-source-link-compact-text {
-  color: var(--alpheios-link-color-on-light);
+  color: var(--alpheios-usage-link-color);
+}
+.alpheios-word-usage a.alpheios-word-usage__examples-source-link-compact-text:hover {
+  color: var(--alpheios-usage-link-color-hover);
 }
 .alpheios-word-usage__examples-pre, .alpheios-word-usage__examples-target-word, .alpheios-word-usage__examples-post {
   padding-bottom: 10px;
@@ -2680,7 +2749,7 @@ p.alpheios-word-usage-filter-title {
   grid-column: 2;
   text-align: center;
   padding: 0 3px;
-  color: var(--alpheios-highlight-dark-color);
+  color: var(--alpheios-usage-target-color);
   font-weight: 700;
   border-bottom: 1px solid var(--alpheios-border-color);
 }
@@ -2691,11 +2760,11 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-word-usage .alpheios-word-usage-header-show-link {
   cursor: pointer;
-  color: var(--alpheios-color-vivid);
+  color: var(--alpheios-usage-link-color);
 }
 .alpheios-word-usage .alpheios-word-usage-header-show-link:hover {
   text-decoration: underline;
-  color: var(--alpheios-color-vivid-hover);
+  color: var(--alpheios-usage-link-color-hover);
 }
 .alpheios-word-usage__examples-show-sources-btn {
   display: none;
@@ -2755,8 +2824,8 @@ p.alpheios-word-usage-filter-title {
   height: 22px;
   text-align: center;
   cursor: pointer;
-  fill: var(--alpheios-link-color-on-dark);
-  stroke: var(--alpheios-link-color-on-dark);
+  fill: var(--alpheios-word-list-default-item-color);
+  stroke: var(--alpheios-word-list-default-item-color);
   margin: 5px;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon svg {
@@ -2767,21 +2836,21 @@ p.alpheios-word-usage-filter-title {
   padding: 2px;
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon.alpheios-worditem__delete_icon {
-  fill: var(--alpheios-color-dark);
-  stroke: var(--alpheios-color-dark);
+  fill: var(--alpheios-word-list-delete-item-color);
+  stroke: var(--alpheios-word-list-delete-item-color);
 }
 .alpheios-wordlist-language__worditem .alpheios-worditem__icon.alpheios-worditem__current_session_icon {
-  stroke: var(--alpheios-color-bright-hover);
-  fill: var(--alpheios-color-bright-hover);
+  stroke: var(--alpheios-word-list-current-item-color);
+  fill: var(--alpheios-word-list-current-item-color);
 }
 .alpheios-wordlist-language__worditem__active .alpheios-worditem__data {
-  fill: var(--alpheios-color-light);
-  stroke: var(--alpheios-color-light);
-  color: var(--alpheios-color-light);
+  fill: var(--alpheios-word-list-important-item-color);
+  stroke: var(--alpheios-word-list-important-item-color);
+  color: var(--alpheios-word-list-important-item-color);
 }
 .alpheios-wordlist-language__worditem__active .alpheios-worditem__data.alpheios-worditem__delete_icon {
-  fill: var(--alpheios-color-dark);
-  stroke: var(--alpheios-color-dark);
+  fill: var(--alpheios-word-list-delete-item-color);
+  stroke: var(--alpheios-word-list-delete-item-color);
 }
 .alpheios-worditem__targetWord {
   font-weight: bold;
@@ -2866,7 +2935,7 @@ p.alpheios-word-usage-filter-title {
   box-sizing: border-box;
   width: 100%;
   margin: 0;
-  background: var(--alpheios-color-neutral-lightest);
+  background: var(--alpheios-word-list-select-item-bg);
   padding: 5px 0;
   border: 1px solid var(--alpheios-border-color);
   border-top: 0;
@@ -2880,7 +2949,7 @@ p.alpheios-word-usage-filter-title {
   padding: 0 5px;
 }
 .alpheios-wordlist-filters .alpheios-select-list li:hover {
-  background-color: var(--alpheios-color-bright-hover);
+  background-color: var(--alpheios-word-list-select-item-bg-hover);
 }
 .alpheios-wordlist-filters .alpheios-select-list li .alpheios-select-input-filter-part {
   font-weight: bold;
@@ -2928,10 +2997,11 @@ p.alpheios-word-usage-filter-title {
   vertical-align: top;
   cursor: pointer;
   padding: 7px;
-  fill: var(--alpheios-color-neutral-dark);
+  fill: var(--alpheios-word-list-sorting-link-color);
+  box-sizing: content-box;
 }
 .alpheios-wordlist-sorting .alpheios-worditem__targetWord svg.alpheios-icon-active {
-  fill: var(--alpheios-color-vivid);
+  fill: var(--alpheios-word-list-sorting-link-color-hover);
 }
 .alpheios-layout-compact .alpheios-wordlist-sorting .alpheios-worditem__targetWord {
   width: 25%;
@@ -2964,16 +3034,16 @@ p.alpheios-word-usage-filter-title {
   padding: 2px;
 }
 .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-no-important {
-  fill: var(--alpheios-link-color-on-dark);
-  stroke: var(--alpheios-link-color-on-dark);
+  fill: var(--alpheios-word-list-default-item-color);
+  stroke: var(--alpheios-word-list-default-item-color);
 }
 .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-all-important {
-  fill: var(--alpheios-color-light);
-  stroke: var(--alpheios-color-light);
+  fill: var(--alpheios-word-list-important-item-color);
+  stroke: var(--alpheios-word-list-important-item-color);
 }
 .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-remove-all {
-  fill: var(--alpheios-color-dark);
-  stroke: var(--alpheios-color-dark);
+  fill: var(--alpheios-word-list-delete-item-color);
+  stroke: var(--alpheios-word-list-delete-item-color);
 }
 .alpheios-wordlist-delete-all-confirmation {
   margin-top: 10px;
@@ -2989,7 +3059,7 @@ p.alpheios-word-usage-filter-title {
 .alpheios-wordlists-tq a.alpheios-wordlists-tq-title {
   font-weight: bold;
   padding: 5px 0;
-  color: #3E8D9C;
+  color: var(--alpheios-word-list-context-source-link-color);
 }
 .alpheios-wordlists-tq .alpheios-wordlists-tq-contextHTML-block {
   padding: 5px 0 5px 10px;
@@ -3000,9 +3070,13 @@ p.alpheios-word-usage-filter-title {
 .alpheios-wordlists-tq .alpheios_worditem_incontext,
 .alpheios-wordlists-tq .alpheios_worditem_incontext_add {
   font-weight: bold;
-  background: var(--alpheios-color-bright);
+  background: var(--alpheios-word-list-context-incontext-bg);
   display: inline-block;
   padding: 0 5px;
+}
+.alpheios-wordlist-commands__item-back {
+  fill: var(--alpheios-word-list-context-back-link-color);
+  stroke: var(--alpheios-word-list-context-back-link-color);
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -3021,9 +3095,6 @@ p.alpheios-word-usage-filter-title {
   font-size: 120%;
   display: inline-block;
   vertical-align: middle;
-}
-.alpheios-wordlist-language__worditem.active {
-  color: var(--alpheios-color-light);
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -3352,6 +3423,16 @@ p.alpheios-word-usage-filter-title {
   stroke: var(--alpheios-icon-color-pressed);
   background: var(--alpheios-desktop-panel-header-icon-active-bg);
 }
+.alpheios-panel--large .alpheios-reset-button {
+  color: var(--alpheios-settings-reset-button-color);
+  background-color: var(--alpheios-settings-reset-button-bg);
+  border-color: var(--alpheios-settings-reset-button-border-color);
+}
+.alpheios-panel--large .alpheios-reset-button:hover, .alpheios-panel--large .alpheios-reset-button:focus, .alpheios-panel--large .alpheios-reset-button:active {
+  color: var(--alpheios-settings-reset-button-color-hover);
+  background-color: var(--alpheios-settings-reset-button-bg-hover);
+  border-color: var(--alpheios-settings-reset-button-border-color-hover);
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
@@ -3407,8 +3488,8 @@ p.alpheios-word-usage-filter-title {
   width: calc(var(--alpheios-base-ui-size) * 1.25);
   height: auto;
   position: relative;
-  fill: var(--alpheios-icon-color);
-  stroke: var(--alpheios-icon-color);
+  fill: var(--alpheios-compact-toolbar-icon-color);
+  stroke: var(--alpheios-compact-toolbar-icon-color);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -3431,8 +3512,19 @@ p.alpheios-word-usage-filter-title {
   box-sizing: border-box;
   position: relative;
   background-color: var(--alpheios-desktop-toolbar-bg);
-  border: calc(var(--alpheios-base-ui-size) * 0.0625) solid var(--alpheios-border-color);
+  border: calc(var(--alpheios-base-ui-size) * 0.0625) solid var(--alpheios-desktop-toolbar-border-color);
   border-radius: calc(var(--alpheios-base-ui-size) * 0.625);
+  fill: var(--alpheios-desktop-toolbar-icon-color);
+  stroke: var(--alpheios-desktop-toolbar-icon-color);
+}
+.alpheios-toolbar .alpheios-navbuttons__btn:hover, .alpheios-toolbar .alpheios-navbuttons__btn.active {
+  background-color: var(--alpheios-desktop-toolbar-bg);
+  fill: var(--alpheios-desktop-toolbar-icon-color-hover);
+  stroke: var(--alpheios-desktop-toolbar-icon-color-hover);
+}
+.alpheios-toolbar .alpheios-navbuttons__btn.disabled {
+  fill: var(--alpheios-desktop-toolbar-icon-color-disabled);
+  stroke: var(--alpheios-desktop-toolbar-icon-color-disabled);
 }
 .alpheios-toolbar__drag-handle {
   width: calc(var(--alpheios-base-ui-size) * 2.75);
@@ -3472,6 +3564,8 @@ p.alpheios-word-usage-filter-title {
   position: relative;
   top: calc(var(--alpheios-base-ui-size) * 0.25);
   left: 1px;
+  fill: var(--alpheios-desktop-toolbar-icon-color);
+  stroke: var(--alpheios-desktop-toolbar-icon-color);
 }
 .alpheios-toolbar__header-icon-collapsed,
 .alpheios-toolbar__header-icon-expanded {
@@ -3480,19 +3574,19 @@ p.alpheios-word-usage-filter-title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  fill: var(--alpheios-color-neutral-lightest);
-  stroke: var(--alpheios-color-neutral-lightest);
+  fill: var(--alpheios-desktop-toolbar-icon-color);
+  stroke: var(--alpheios-desktop-toolbar-icon-color);
   cursor: pointer;
 }
 .alpheios-toolbar__header-icon-collapsed:hover,
 .alpheios-toolbar__header-icon-expanded:hover {
-  fill: var(--alpheios-color-bright-hover);
-  stroke: var(--alpheios-color-bright-hover);
+  fill: var(--alpheios-desktop-toolbar-icon-color-hover);
+  stroke: var(--alpheios-desktop-toolbar-icon-color-hover);
 }
 .expanded .alpheios-toolbar__header-icon-collapsed,
 .expanded .alpheios-toolbar__header-icon-expanded {
-  fill: var(--alpheios-color-bright);
-  stroke: var(--alpheios-color-bright);
+  fill: var(--alpheios-desktop-toolbar-icon-color-active);
+  stroke: var(--alpheios-desktop-toolbar-icon-color-active);
 }
 .alpheios-toolbar__header-icon-collapsed {
   top: calc(var(--alpheios-base-ui-size) * 1.5);
@@ -3505,10 +3599,10 @@ p.alpheios-word-usage-filter-title {
   position: absolute;
   width: calc(var(--alpheios-base-ui-size) * 20.625);
   height: calc(var(--alpheios-base-ui-size) * 7.625);
-  background: var(--alpheios-text-bg-color);
+  background: var(--alpheios-lookup-bg);
   left: calc(var(--alpheios-base-ui-size) * -20);
   top: 0;
-  border: calc(var(--alpheios-base-ui-size) * 0.0625) solid var(--alpheios-border-color);
+  border: calc(var(--alpheios-base-ui-size) * 0.0625) solid var(--alpheios-lookup-border-color);
   border-radius: calc(var(--alpheios-base-ui-size) * 0.625) 0 0 calc(var(--alpheios-base-ui-size) * 0.625);
   box-sizing: border-box;
   padding: calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 1.25) calc(var(--alpheios-base-ui-size) * 0.625) calc(var(--alpheios-base-ui-size) * 0.625);
@@ -3530,8 +3624,9 @@ p.alpheios-word-usage-filter-title {
   flex-direction: column;
 }
 .alpheios-toolbar__buttons .alpheios-navbuttons__btn.disabled {
-  fill: var(--alpheios-color-neutral-dark);
-  stroke: var(--alpheios-color-neutral-dark);
+  fill: var(--alpheios-desktop-toolbar-icon-color-disabled);
+  stroke: var(--alpheios-desktop-toolbar-icon-color-disabled);
+  background-color: var(--alpheios-desktop-toolbar-icon-bg-disabled);
   cursor: default;
 }
 /*

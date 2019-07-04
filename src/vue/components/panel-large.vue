@@ -134,7 +134,7 @@
         <resource-settings></resource-settings>
         <div>
           <button @click="resetAllOptions"
-              class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
+              class="alpheios-button-primary alpheios-reset-button">{{l10n.getText('LABEL_RESET_OPTIONS')}}
           </button>
         </div>
       </div>
@@ -303,6 +303,20 @@ export default {
           stroke: var(--alpheios-icon-color-pressed);
           background: var(--alpheios-desktop-panel-header-icon-active-bg);
         }
+    }
+
+    .alpheios-reset-button {
+      color: var(--alpheios-settings-reset-button-color);
+      background-color: var(--alpheios-settings-reset-button-bg);
+      border-color: var(--alpheios-settings-reset-button-border-color);
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: var(--alpheios-settings-reset-button-color-hover);
+        background-color: var(--alpheios-settings-reset-button-bg-hover);
+        border-color: var(--alpheios-settings-reset-button-border-color-hover);
+      }
     }
   }
 </style>
