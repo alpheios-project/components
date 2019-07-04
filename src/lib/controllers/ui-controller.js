@@ -1214,9 +1214,13 @@ export default class UIController {
     }
   }
 
-  openActionPanel () {
+  /**
+   * Opens an action panel.
+   * @param {boolean} showNav - Whether to show nav toolbar when the action panel is opened.
+   */
+  openActionPanel (showNav) {
     if (this.api.ui.hasModule('actionPanel')) {
-      this.store.commit('actionPanel/open')
+      this.store.commit('actionPanel/open', showNav)
     } else {
       console.warn(`Action panel cannot be opened because its module is not registered`)
     }

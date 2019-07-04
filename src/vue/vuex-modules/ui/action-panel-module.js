@@ -50,6 +50,8 @@ ActionPanelModule.store = (moduleInstance) => {
     state: {
       // Whether an action panel is shown or hidden
       visible: false,
+      // If nav buttons shall be shown when a panel is open
+      showNav: moduleInstance.config.showNav,
       // Initial position of an action panel
       initialPos: moduleInstance.config.initialPos
     },
@@ -57,9 +59,11 @@ ActionPanelModule.store = (moduleInstance) => {
       /**
        * Opens an action panel
        * @param state
+       * @param {boolean} [showNav=true] - Whether to show navigational buttons
        */
-      open (state) {
+      open (state, showNav = moduleInstance.config.showNav) {
         state.visible = true
+        state.showNav = showNav
       },
 
       /**
@@ -68,6 +72,8 @@ ActionPanelModule.store = (moduleInstance) => {
        */
       close (state) {
         state.visible = false
+        // Set showNav to its default value
+        state.showNav = moduleInstance.config.showNav
       }
     }
   }
@@ -99,5 +105,7 @@ ActionPanelModule._configDefaults = {
   initialShift: {
     x: 0,
     y: 0
-  }
+  },
+  // Whether to show nave buttons when the panel is opened
+  showNav: true
 }

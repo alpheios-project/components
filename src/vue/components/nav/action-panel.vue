@@ -1,7 +1,7 @@
 <template>
   <div
       :id="config.rootElementId"
-      class="alpheios-action-panel alpheios-content"
+      :class="['alpheios-action-panel', 'alpheios-content', $store.state.actionPanel.showNav ? 'alpheios-action-panel--nav-visible' : '']"
       :style="componentStyles"
       v-show="showPanel"
   >
@@ -25,7 +25,10 @@
         />
     </div>
 
-    <div class="alpheios-action-panel__nav-cont">
+    <div
+        class="alpheios-action-panel__nav-cont"
+        v-show="$store.state.actionPanel.showNav"
+    >
       <alph-tooltip
           :tooltip-text="tooltipText('TOOLTIP_INFLECT_BROWSER')"
           :tooltip-direction="tooltipDirection"
@@ -217,12 +220,16 @@ export default {
 
   .alpheios-action-panel {
     width: 300px;
-    height: 190px;
+    height: 130px;
     position: fixed;
     padding: 10px 20px;
     @include alpheios-ui-border;
     background-color: var(--alpheios-text-bg-color);
     transition: display 0.4s;
+  }
+
+  .alpheios-action-panel.alpheios-action-panel--nav-visible {
+    height: 190px;
   }
 
   .alpheios-action-panel__close-icon {
