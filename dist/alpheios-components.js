@@ -25398,15 +25398,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("definitions")
+                      }
+                    }
+                  },
                   [
                     _c("definitions-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("definitions")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25433,15 +25435,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("inflections")
+                      }
+                    }
+                  },
                   [
                     _c("inflections-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("inflections")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25468,15 +25472,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("wordUsage")
+                      }
+                    }
+                  },
                   [
                     _c("word-usage-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("wordUsage")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25498,6 +25504,11 @@ var render = function() {
                 attrs: {
                   tooltipText: _vm.l10n.getText("TOOLTIP_TREEBANK"),
                   tooltipDirection: "bottom-wide"
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.ui.showPanelTab("treebank")
+                  }
                 }
               },
               [
@@ -25506,12 +25517,7 @@ var render = function() {
                   { staticClass: "alpheios-popup__toolbar-top__btn" },
                   [
                     _c("treebank-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("treebank")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -27050,7 +27056,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-wordlist-filter-panel" },
+        { staticClass: "alpheios-wordlist-sorting-panel" },
         [
           _c("word-sorting-panel", {
             directives: [
