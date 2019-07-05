@@ -1,8 +1,9 @@
 /* eslint-env jest */
 import RemoteAuthStorageArea from '@/lib/options/remote-auth-storage-area'
+import axios from 'axios'
 // import Vue from 'vue/dist/vue' // Vue in a runtime + compiler configuration
 
-describe('local-storage-area.test.js', () => {
+describe('remote-auth-storage-area.test.js', () => {
   let auth
   beforeAll(() => {
     auth  = {
@@ -11,6 +12,16 @@ describe('local-storage-area.test.js', () => {
         usersettings: process.env.ENDPOINT
       }
     }
+    // if the environment doesn't have authentication details then
+    // mock the axios interface
+    if (! process.env.AUTH_TOKEN) {
+      axios.post = jest.fn(() => { return { status: 200 } })
+      axios.get = jest.fn(() => { return { status: 201,  data:{'alpheios-feature-settings__2__mode': JSON.stringify('verbose')}} })
+      axios.delete = jest.fn(() => { return { status: 200 } })
+    }
+    jest.spyOn(axios,'get')
+    jest.spyOn(axios,'post')
+    jest.spyOn(axios,'delete')
   })
   beforeEach(() => {
   })
@@ -24,17 +35,52 @@ describe('local-storage-area.test.js', () => {
   it('gets user settings', async() => {
     let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
     let res = await stAdapter.get()
-    expect(res).toEqual({})
+    expect(axios.get).toHaveBeenCalled()
   })
 
   it('sets user settings', async() => {
     let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
-    await stAdapter.set({'alpheios-feature-settings__2__mode': JSON.stringify('verbose')})
-    let res = await stAdapter.get()
-    expect(res).toEqual({'alpheios-feature-settings__2__mode': JSON.stringify('verbose')})
-    await stAdapter.clearAll()
-    res = await stAdapter.get()
-    expect(res).toEqual({})
+    let mockSetting = { domain__version__setting: JSON.stringify('setting_value')}
+    let res = await stAdapter.set(mockSetting)
+    expect(axios.post).toHaveBeenCalled()
+  })
 
+  it('clears user settings', async() => {
+    let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
+    let res = await stAdapter.clearAll()
+    expect(axios.delete).toHaveBeenCalled()
+  })
+
+  it('handles errors on get', async() => {
+      expect.assertions(1);
+      axios.get = jest.fn(() => { return { status: 401 } })
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
+      try {
+      let res = await stAdapter.get()
+      } catch (e) {
+        expect(e.message).toEqual('Unexpected result status from settings api: 401')
+      }
+  })
+
+  it('handles errors on set', async() => {
+      expect.assertions(1);
+      axios.post = jest.fn(() => { return { status: 401 } })
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
+      try {
+      let res = await stAdapter.set({any:'any'})
+      } catch (e) {
+        expect(e.message).toEqual('Unexpected result status from settings api: 401')
+      }
+  })
+
+  it('handles errors on clearAll', async() => {
+      expect.assertions(1);
+      axios.delete = jest.fn(() => { return { status: 401 } })
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',auth)
+      try {
+      let res = await stAdapter.clearAll()
+      } catch (e) {
+        expect(e.message).toEqual('Unexpected result status from settings api: 401')
+      }
   })
 })

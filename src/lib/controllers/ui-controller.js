@@ -335,7 +335,8 @@ export default class UIController {
     // Start loading options as early as possible
     let optionLoadPromises = this.initOptions(this.options.storageAdapter)
     // Create a copy of resource options for the lookup UI component
-    // this doesn't get reloaded from the storage adapter though
+    // this doesn't get reloaded from the storage adapter because
+    // we don't expose it to the user via preferences
     this.lookupResourceOptions = new Options(this.resourceOptionsDefaults, new this.options.storageAdapter(this.resourceOptionsDefaults.domain))
     // TODO: Site options should probably be initialized the same way as other options objects
     this.siteOptions = this.loadSiteOptions(this.siteOptionsDefaults)
@@ -357,10 +358,12 @@ export default class UIController {
       getFeatureOptions: this.getFeatureOptions.bind(this),
       getResourceOptions: this.getResourceOptions.bind(this),
       getUiOptions: this.getUiOptions.bind(this),
-      // TODO we need to bind this to getters
+      verboseMode: this.verboseMode.bind(this),
+      // we don't offer UI to change to lookupResourceOptions or siteOptions
+      // so they remain out of dynamic state for now - should eventually
+      // refactor
       lookupResourceOptions: this.lookupResourceOptions,
       siteOptions: this.siteOptions,
-      verboseMode: this.verboseMode.bind(this)
     }
     this.store.registerModule('settings', {
       // All stores of modules are namespaced
@@ -368,7 +371,7 @@ export default class UIController {
       state: {
         // these counters are used to enable the settings ui components
         // to redraw themselves when settings are reset or reloaded
-        // it would not be necessary if all settings were made into
+        // it might be better if all settings were made into
         // state variables but for now state is monitored at the domain level
         uiResetCounter: 0,
         featureResetCounter: 0,
@@ -804,7 +807,7 @@ export default class UIController {
       this.userDataManager = null
       wordLists = await this.wordlistC.initLists()
 
-      // reload the shared options
+      // reload the user-configurable options
       optionLoadPromises = this.initOptions(this.options.storageAdapter)
     }
     await Promise.all(optionLoadPromises)
@@ -1556,10 +1559,6 @@ export default class UIController {
       let lexQuery = LexicalQueryLookup.create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples)
       lexQuery.getData()
     }
-  }
-
-  async reloadAllOptions(){
-
   }
 
   /**

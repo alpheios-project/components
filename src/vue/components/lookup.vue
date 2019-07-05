@@ -194,7 +194,6 @@ export default {
 
     resourceSettingChange: function (name, value) {
       let keyinfo = Options.parseKey(name)
-      console.info("KEY",keyinfo)
       this.settings.lookupResourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
     }
   }

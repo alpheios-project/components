@@ -42,7 +42,6 @@
     </setting>
 
     <setting
-        :key="$store.state.app.settingsResetCounter"
         :classes="['alpheios-feature-options-item']"
         :data="featureOptions.items.locale"
         @change="featureOptionChanged"

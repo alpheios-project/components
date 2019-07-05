@@ -102,7 +102,8 @@ describe('options.test.js', () => {
     let key =  Options.constructKey('alpheios-test-options',2,'locale6')
     window.localStorage.values['alpheios-test-options-keys'] = `["${key}"]`
     window.localStorage.values[key] = JSON.stringify('Foo')
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options')
+    let opt = new Options(testDefaults, storageArea)
     expect(opt.items.locale6.currentValue).toEqual('en-US')
 
     let callBackFn = jest.fn(() => { console.log('I am callBackFn') })
@@ -123,7 +124,8 @@ describe('options.test.js', () => {
     let key =  Options.constructKey('alpheios-test-options7',2,'locale7','foo')
     window.localStorage.values['alpheios-test-options7-keys'] = `["${key}"]`
     window.localStorage.values[key] = JSON.stringify('foo7')
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options7')
+    let opt = new Options(testDefaults, storageArea)
 
     let callBackFn = () => { console.log('I am callBackFn') }
     await opt.load(callBackFn)
@@ -140,7 +142,8 @@ describe('options.test.js', () => {
     }
     window.localStorage.values['alpheios-test-options9-keys'] = '["localeN-foo"]'
     window.localStorage.values['localeN-foo'] = 'foo9'
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options7')
+    let opt = new Options(testDefaults, storageArea)
 
     let callBackFn = () => { console.log('I am callBackFn') }
 
@@ -160,7 +163,8 @@ describe('options.test.js', () => {
 
     window.localStorage.values['alpheios-test-options-keys'] = '["locale6"]'
     window.localStorage.values.locale6 = 'Foo'
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options')
+    let opt = new Options(testDefaults, storageArea)
     let testError = new Error('storageAdapter reject error')
 
     opt.storageAdapter.get = function () { return new Promise((resolve, reject) => { reject(testError) }) }
@@ -180,43 +184,6 @@ describe('options.test.js', () => {
     expect(res).toEqual({ domain:domain, version: version, name: name, group: group })
   })
 
-  it('11 Options - clone method returns cloned object (single items)', () => {
-    let testOption = { defaultValue: 'en-US', labelText: 'UI Locale:', values: [ { text: 'English (US)', value: 'en-US' } ] }
-    let testDefaults = {
-      domain: 'alpheios-content-options',
-      version: 2,
-      items: { locale: testOption },
-      fooProperty: 'bar'
-    }
-    let opt = new Options(testDefaults, StorageAdapter)
-
-    let res = opt.clone(StorageAdapter)
-
-    expect(res.domain).toEqual(opt.domain)
-    expect(res.storageAdapter.constructor.name).toEqual('StorageAdapter')
-    expect(res.storageAdapter.domain).toEqual(opt.domain)
-    expect(res.items.locale.defaultValue).toEqual('en-US')
-    expect(res.items.locale.labelText).toEqual('UI Locale:')
-    expect(res.items.locale.values).toEqual([ { text: 'English (US)', value: 'en-US' } ])
-    expect(res.items.locale.currentValue).toEqual(opt.items.locale.currentValue)
-  })
-
-  it('12 Options - clone method returns cloned object (single items)', () => {
-    let testOption = { defaultValue: 'en-US', labelText: 'UI Locale:', group: { foo: { defaultValue: 'en-US', text: 'English (US)', value: 'en-US' } } }
-    let testDefaults = {
-      domain: 'alpheios-content-options',
-      version: 2,
-      items: { locale: testOption },
-      fooProperty: 'bar'
-    }
-    let opt = new Options(testDefaults, StorageAdapter)
-
-    let res = opt.clone(StorageAdapter)
-
-    expect(Array.isArray(res.items.locale)).toBeTruthy()
-    expect(res.items.locale[0].name).toEqual('alpheios-content-options__2__locale__foo')
-  })
-
   it('13 Options - reset sets everything back to defaults',async () => {
     let testOption = { defaultValue: 'en-US', labelText: 'UI Locale:', values: [ { text: 'English (US)', value: 'en-US' } ] }
     let testDefaults = {
@@ -228,7 +195,8 @@ describe('options.test.js', () => {
     let key =  Options.constructKey('alpheios-test-options',2,'locale6')
     window.localStorage.values['alpheios-test-options-keys'] = `["${key}"]`
     window.localStorage.values.locale6 = JSON.stringify('Foo')
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options')
+    let opt = new Options(testDefaults, storageArea)
     let callBackFn = jest.fn(() => { })
     let returnedOptions = await opt.load(callBackFn)
     expect(opt.items.locale6.currentValue).toEqual('Foo')
@@ -262,7 +230,8 @@ describe('options.test.js', () => {
     let key =  Options.constructKey('alpheios-test-options',2,'locale6')
     window.localStorage.values['alpheios-test-options-keys'] = `["${key}"]`
     window.localStorage.values[key] = 'Foo'
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options')
+    let opt = new Options(testDefaults, storageArea)
     expect(opt.items.locale6.currentValue).toEqual('en-US')
 
     let callBackFn = jest.fn(() => { console.log('I am callBackFn') })
@@ -281,7 +250,8 @@ describe('options.test.js', () => {
       fooProperty: 'bar'
     }
     let key =  Options.constructKey('alpheios-test-options7',2,'locale7','foo')
-    let opt = new Options(testDefaults, LocalStorageArea)
+    let storageArea = new LocalStorageArea('alpheios-test-options7')
+    let opt = new Options(testDefaults, storageArea)
     expect(opt.items.locale7[0].currentValue).toEqual('en-US')
     let callBackFn = () => { console.log('I am callBackFn') }
     window.localStorage.values['alpheios-test-options7-keys'] = `["${key}"]`

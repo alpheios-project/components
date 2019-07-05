@@ -102,6 +102,8 @@ export default class Options {
 
   /**
    * Construct a key for a stored setting
+   * To future proof the stored settings, we include domain and version
+   * in the key name. Grouped settings are also flattened.
    * @param {String} domain - the setting domain
    * @param {String} version - the setting version
    * @param {String} name - the setting name
@@ -116,9 +118,7 @@ export default class Options {
   }
 
   /**
-  * Parse a stored setting name into its component parts
-  * (for simplicity of the data structure, setting names are stored under
-  * keys which combine the setting and the language)
+  * Parse a stored setting name into a semantically meaningful object
   */
   static parseKey (key) {
     let [domain, version, name, group] = key.split('__', 4)
