@@ -18,6 +18,7 @@
 <script>
   import FontSize from './font-size.vue'
   import Setting from './setting.vue'
+  import Options from '@/lib/options/options.js'
   import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
   export default {
     name: 'UISettings',
@@ -41,7 +42,8 @@
     },
     methods: {
       uiOptionChanged: function (name, value) {
-        this.ui.optionChange(name, value)
+        let keyinfo = Options.parseKey(name)
+        this.ui.optionChange(keyinfo.name, value)
       }
     }
   }

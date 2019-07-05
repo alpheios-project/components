@@ -52,6 +52,7 @@
 </template>
 <script>
   import Setting from './setting.vue'
+  import Options from '@/lib/options/options.js'
   import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
   export default {
     name: 'FeatureSettings',
@@ -73,7 +74,8 @@
     },
     methods: {
       featureOptionChanged: function (name, value) {
-        this.app.featureOptionChange(name, value)
+        let keyinfo = Options.parseKey(name)
+        this.app.featureOptionChange(keyinfo.name, value)
       }
     }
   }

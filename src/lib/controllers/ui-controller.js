@@ -366,6 +366,10 @@ export default class UIController {
       // All stores of modules are namespaced
       namespaced: true,
       state: {
+        // these counters are used to enable the settings ui components
+        // to redraw themselves when settings are reset or reloaded
+        // it would not be necessary if all settings were made into
+        // state variables but for now state is monitored at the domain level
         uiResetCounter: 0,
         featureResetCounter: 0,
         resourceResetCounter: 0
@@ -480,10 +484,7 @@ export default class UIController {
         wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
-        providers: [], // A list of resource providers
-        uiSettingsResetCounter: 0,
-        featureSettingsResetCounter: 0,
-        resourceSettingsResetCounter: 0
+        providers: [] // A list of resource providers
       },
 
       getters: {
@@ -807,7 +808,7 @@ export default class UIController {
       optionLoadPromises = this.initOptions(this.options.storageAdapter)
     }
     await Promise.all(optionLoadPromises)
-    this.updateUIForOptionsReset()
+    this.onOptionsReset()
     this.store.commit('app/setWordLists', wordLists)
   }
 
@@ -1560,46 +1561,62 @@ export default class UIController {
   async reloadAllOptions(){
 
   }
+
+  /**
+   * Resets all configurable options to the defaults, replacing user preferences
+   */
   async resetAllOptions () {
     await this.featureOptions.reset()
     await this.resourceOptions.reset()
     await this.uiOptions.reset()
-    this.updateUIForOptionsReset()
+    // we don't reload lookupResourceOptions or siteOptions
+    // because we don't currently allow user configuration of these
+    this.onOptionsReset()
   }
 
-  updateUIForOptionsReset() {
+  /**
+   * Updates the Application State after settings have been reset or reloaded
+   */
+  onOptionsReset() {
     for (let name of this.featureOptions.names) {
-      this.updateFeatureOptionUI(name)
+      this.featureOptionStateChange(name)
       this.store.commit('settings/incrementFeatureResetCounter')
     }
     for (let name of this.resourceOptions.names) {
-      this.updateResourceOptionUI(name)
       this.store.commit('settings/incrementResourceResetCounter')
     }
     for (let name of this.uiOptions.names) {
-      this.updateUIOptionUI(name)
+      this.uiOptionStateChange(name)
       this.store.commit('settings/incrementUiResetCounter')
     }
   }
 
 
-  featureOptionChange (key, value) {
-    let keyinfo = Options.parseKey(key)
+  /**
+   * Handle a change to a single feature option
+   * @param {String} name the setting name
+   * @param {String} value the new value
+   */
+  featureOptionChange (name, value) {
     let featureOptions =  this.api.settings.getFeatureOptions()
     // TODO we need to refactor handling of boolean options
-    if (keyinfo.name === 'enableLemmaTranslations' ||
-      keyinfo.name === 'enableWordUsageExamples' ||
-      keyinfo.name === 'wordUsageExamplesMax' ||
-      keyinfo.name === 'wordUsageExamplesAuthMax') {
-      featureOptions.items[keyinfo.name].setValue(value)
+    if (name === 'enableLemmaTranslations' ||
+        name === 'enableWordUsageExamples' ||
+        name === 'wordUsageExamplesMax' ||
+        name === 'wordUsageExamplesAuthMax') {
+      featureOptions.items[name].setValue(value)
     } else {
-      featureOptions.items[keyinfo.name].setTextValue(value)
+      featureOptions.items[name].setTextValue(value)
     }
-    this.updateFeatureOptionUI(keyinfo.name)
+    this.featureOptionStateChange(name)
   }
 
-  updateFeatureOptionUI(name) {
-    switch (name) {
+  /**
+   * Updates the state of a feature to correspond to current options
+   * @param {String} settingName the name of the setting
+   */
+  featureOptionStateChange(settingName) {
+    switch (settingName) {
       case 'locale':
         this.updateLemmaTranslations()
         break
@@ -1613,28 +1630,31 @@ export default class UIController {
   }
 
   /**
-   * Handles a UI options in settings.
+   * Handle a change to a single ui option
    * @param {string} name - A name of an option.
    * @param {string | value} value - A new value of an options.
    */
-  uiOptionChange (key, value) {
-    let keyinfo = Options.parseKey(key)
+  uiOptionChange (name, value) {
     let uiOptions = this.api.settings.getUiOptions()
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
-    if (keyinfo.name === 'fontSize') {
-      uiOptions.items[keyinfo.name].setValue(value)
+    if (name === 'fontSize') {
+      uiOptions.items[name].setValue(value)
     } else {
-      uiOptions.items[keyinfo.name].setTextValue(value)
+      uiOptions.items[name].setTextValue(value)
     }
-    this.updateUIOptionUI(keyinfo.name)
+    this.uiOptionStateChange(name)
   }
 
-  updateUIOptionUI(name) {
+  /**
+   * Updates the state of a ui component to correspond to current options
+   * @param {String} settingName the name of the setting
+   */
+  uiOptionStateChange(settingName) {
     let uiOptions = this.api.settings.getUiOptions()
     const FONT_SIZE_PROP = '--alpheios-base-text-size'
-    switch (name) {
+    switch (settingName) {
       case 'fontSize':
         try {
           let value = uiOptions.items.fontSize.currentValue
@@ -1661,14 +1681,13 @@ export default class UIController {
     }
   }
 
-  updateResourceOptionUI(name) {
-    // no op for now
-  }
-
-  resourceSettingChange (key, value) {
-    let keyinfo = Options.parseKey(key)
-    this.api.settings.getResourceOptions().items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
-    this.updateResourceOptionUI(keyinfo.name)
+  /**
+   * Handle a change to a single resource option
+   * @param {string} name - A name of an option.
+   * @param {string | value} value - A new value of an options.
+   */
+  resourceSettingChange (name, value) {
+    this.api.settings.getResourceOptions().items[name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 
   registerGetSelectedText (listenerName, selector) {

@@ -20,6 +20,7 @@
 </template>
 <script>
   import Setting from './setting.vue'
+  import Options from '@/lib/options/options.js'
   import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
   export default {
     name: 'FeatureSettings',
@@ -49,7 +50,8 @@
     },
     methods: {
       resourceSettingChanged: function (name, value) {
-        this.language.resourceSettingChange(name, value)
+        let keyinfo = Options.parseKey(name)
+        this.language.resourceSettingChange(keyinfo.name, value)
       }
     }
   }

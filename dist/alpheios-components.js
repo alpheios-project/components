@@ -12836,7 +12836,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -12889,6 +12890,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -12901,7 +12903,7 @@ __webpack_require__.r(__webpack_exports__);
     settings: 'settings'
   },
   storeModules: ['app'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   },
@@ -12912,7 +12914,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     featureOptionChanged: function (name, value) {
-      this.app.featureOptionChange(name, value)
+      let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_1__["default"].parseKey(name)
+      this.app.featureOptionChange(keyinfo.name, value)
     }
   }
 });
@@ -12966,7 +12969,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changeFontSize (size) {
-      this.ui.optionChange('alpheios-ui-settings__v2__fontSize', size)
+      this.ui.optionChange('fontSize', size)
       this.activeButton = size
     }
   }
@@ -18227,7 +18230,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -18248,6 +18252,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -18259,7 +18264,7 @@ __webpack_require__.r(__webpack_exports__);
     l10n: 'l10n',
     settings: 'settings'
   },
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   },
@@ -18279,7 +18284,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     resourceSettingChanged: function (name, value) {
-      this.language.resourceSettingChange(name, value)
+      let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_1__["default"].parseKey(name)
+      this.language.resourceSettingChange(keyinfo.name, value)
     }
   }
 });
@@ -18606,7 +18612,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _font_size_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./font-size.vue */ "./vue/components/font-size.vue");
 /* harmony import */ var _setting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting.vue */ "./vue/components/setting.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
+/* harmony import */ var _lib_options_options_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/options/options.js */ "./lib/options/options.js");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -18624,6 +18631,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -18638,7 +18646,7 @@ __webpack_require__.r(__webpack_exports__);
     settings: 'settings'
   },
   storeModules: ['app','ui'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   components: {
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     fontSize: _font_size_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -18650,7 +18658,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     uiOptionChanged: function (name, value) {
-      this.ui.optionChange(name, value)
+      let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_2__["default"].parseKey(name)
+      this.ui.optionChange(keyinfo.name, value)
     }
   }
 });
@@ -40580,6 +40589,10 @@ class UIController {
       // All stores of modules are namespaced
       namespaced: true,
       state: {
+        // these counters are used to enable the settings ui components
+        // to redraw themselves when settings are reset or reloaded
+        // it would not be necessary if all settings were made into
+        // state variables but for now state is monitored at the domain level
         uiResetCounter: 0,
         featureResetCounter: 0,
         resourceResetCounter: 0
@@ -40694,10 +40707,7 @@ class UIController {
         wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
-        providers: [], // A list of resource providers
-        uiSettingsResetCounter: 0,
-        featureSettingsResetCounter: 0,
-        resourceSettingsResetCounter: 0
+        providers: [] // A list of resource providers
       },
 
       getters: {
@@ -41021,7 +41031,7 @@ class UIController {
       optionLoadPromises = this.initOptions(this.options.storageAdapter)
     }
     await Promise.all(optionLoadPromises)
-    this.updateUIForOptionsReset()
+    this.onOptionsReset()
     this.store.commit('app/setWordLists', wordLists)
   }
 
@@ -41774,46 +41784,62 @@ class UIController {
   async reloadAllOptions(){
 
   }
+
+  /**
+   * Resets all configurable options to the defaults, replacing user preferences
+   */
   async resetAllOptions () {
     await this.featureOptions.reset()
     await this.resourceOptions.reset()
     await this.uiOptions.reset()
-    this.updateUIForOptionsReset()
+    // we don't reload lookupResourceOptions or siteOptions
+    // because we don't currently allow user configuration of these
+    this.onOptionsReset()
   }
 
-  updateUIForOptionsReset() {
+  /**
+   * Updates the Application State after settings have been reset or reloaded
+   */
+  onOptionsReset() {
     for (let name of this.featureOptions.names) {
-      this.updateFeatureOptionUI(name)
+      this.featureOptionStateChange(name)
       this.store.commit('settings/incrementFeatureResetCounter')
     }
     for (let name of this.resourceOptions.names) {
-      this.updateResourceOptionUI(name)
       this.store.commit('settings/incrementResourceResetCounter')
     }
     for (let name of this.uiOptions.names) {
-      this.updateUIOptionUI(name)
+      this.uiOptionStateChange(name)
       this.store.commit('settings/incrementUiResetCounter')
     }
   }
 
 
-  featureOptionChange (key, value) {
-    let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"].parseKey(key)
+  /**
+   * Handle a change to a single feature option
+   * @param {String} name the setting name
+   * @param {String} value the new value
+   */
+  featureOptionChange (name, value) {
     let featureOptions =  this.api.settings.getFeatureOptions()
     // TODO we need to refactor handling of boolean options
-    if (keyinfo.name === 'enableLemmaTranslations' ||
-      keyinfo.name === 'enableWordUsageExamples' ||
-      keyinfo.name === 'wordUsageExamplesMax' ||
-      keyinfo.name === 'wordUsageExamplesAuthMax') {
-      featureOptions.items[keyinfo.name].setValue(value)
+    if (name === 'enableLemmaTranslations' ||
+        name === 'enableWordUsageExamples' ||
+        name === 'wordUsageExamplesMax' ||
+        name === 'wordUsageExamplesAuthMax') {
+      featureOptions.items[name].setValue(value)
     } else {
-      featureOptions.items[keyinfo.name].setTextValue(value)
+      featureOptions.items[name].setTextValue(value)
     }
-    this.updateFeatureOptionUI(keyinfo.name)
+    this.featureOptionStateChange(name)
   }
 
-  updateFeatureOptionUI(name) {
-    switch (name) {
+  /**
+   * Updates the state of a feature to correspond to current options
+   * @param {String} settingName the name of the setting
+   */
+  featureOptionStateChange(settingName) {
+    switch (settingName) {
       case 'locale':
         this.updateLemmaTranslations()
         break
@@ -41827,28 +41853,31 @@ class UIController {
   }
 
   /**
-   * Handles a UI options in settings.
+   * Handle a change to a single ui option
    * @param {string} name - A name of an option.
    * @param {string | value} value - A new value of an options.
    */
-  uiOptionChange (key, value) {
-    let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"].parseKey(key)
+  uiOptionChange (name, value) {
     let uiOptions = this.api.settings.getUiOptions()
     // TODO this should really be handled within OptionsItem
     // the difference between value and textValues is a little confusing
     // see issue #73
-    if (keyinfo.name === 'fontSize') {
-      uiOptions.items[keyinfo.name].setValue(value)
+    if (name === 'fontSize') {
+      uiOptions.items[name].setValue(value)
     } else {
-      uiOptions.items[keyinfo.name].setTextValue(value)
+      uiOptions.items[name].setTextValue(value)
     }
-    this.updateUIOptionUI(keyinfo.name)
+    this.uiOptionStateChange(name)
   }
 
-  updateUIOptionUI(name) {
+  /**
+   * Updates the state of a ui component to correspond to current options
+   * @param {String} settingName the name of the setting
+   */
+  uiOptionStateChange(settingName) {
     let uiOptions = this.api.settings.getUiOptions()
     const FONT_SIZE_PROP = '--alpheios-base-text-size'
-    switch (name) {
+    switch (settingName) {
       case 'fontSize':
         try {
           let value = uiOptions.items.fontSize.currentValue
@@ -41875,14 +41904,13 @@ class UIController {
     }
   }
 
-  updateResourceOptionUI(name) {
-    // no op for now
-  }
-
-  resourceSettingChange (key, value) {
-    let keyinfo = _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"].parseKey(key)
-    this.api.settings.getResourceOptions().items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
-    this.updateResourceOptionUI(keyinfo.name)
+  /**
+   * Handle a change to a single resource option
+   * @param {string} name - A name of an option.
+   * @param {string | value} value - A new value of an options.
+   */
+  resourceSettingChange (name, value) {
+    this.api.settings.getResourceOptions().items[name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 
   registerGetSelectedText (listenerName, selector) {

@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     changeFontSize (size) {
-      this.ui.optionChange('alpheios-ui-settings__v2__fontSize', size)
+      this.ui.optionChange('fontSize', size)
       this.activeButton = size
     }
   }
