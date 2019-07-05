@@ -2,7 +2,10 @@
   <div
       :id="config.rootElementId"
       class="alpheios-action-panel alpheios-content"
-      :class="{ 'alpheios-action-panel--nav-visible': $store.state.actionPanel.showNav}"
+      :class="{
+        'alpheios-action-panel--lookup-visible': $store.state.actionPanel.showLookup,
+        'alpheios-action-panel--nav-visible': $store.state.actionPanel.showNav
+        }"
       :style="componentStyles"
       v-show="showPanel"
   >
@@ -11,7 +14,10 @@
         @click.stop="$store.commit('actionPanel/close')"
     />
 
-    <div class="alpheios-action-panel__lookup-cont">
+    <div
+        class="alpheios-action-panel__lookup-cont"
+        v-show="$store.state.actionPanel.showLookup"
+    >
       <lookup
           class="alpheios-action-panel__lookup"
           :name-base="`action-panel`"
@@ -221,15 +227,23 @@ export default {
 
   .alpheios-action-panel {
     width: 300px;
-    height: 130px;
+    height: auto;
     position: fixed;
-    padding: 10px 20px;
+    padding: 30px 20px 10px;
     @include alpheios-ui-border;
     background-color: var(--alpheios-text-bg-color);
     transition: display 0.4s;
   }
 
+  .alpheios-action-panel.alpheios-action-panel--lookup-visible {
+    height: 130px;
+  }
+
   .alpheios-action-panel.alpheios-action-panel--nav-visible {
+    height: 100px;
+  }
+
+  .alpheios-action-panel.alpheios-action-panel--lookup-visible.alpheios-action-panel--nav-visible {
     height: 190px;
   }
 
@@ -253,7 +267,6 @@ export default {
   }
 
   .alpheios-action-panel__lookup-cont {
-    margin: 20px 0 10px;
     height: 90px;
     position: relative;
   }
@@ -292,7 +305,7 @@ export default {
   .alpheios-action-panel__nav-cont {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 10px;
+    margin: 10px 0;
 
     & .alph_tooltip {
       margin-right: 8px;
