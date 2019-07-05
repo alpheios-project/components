@@ -12889,7 +12889,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -15212,7 +15211,6 @@ __webpack_require__.r(__webpack_exports__);
 
     resourceSettingChange: function (name, value) {
       let keyinfo = _lib_options_options__WEBPACK_IMPORTED_MODULE_2__["default"].parseKey(name)
-      console.info("KEY",keyinfo)
       this.settings.lookupResourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
     }
   }
@@ -20224,7 +20222,6 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("setting", {
-        key: _vm.$store.state.app.settingsResetCounter,
         attrs: {
           classes: ["alpheios-feature-options-item"],
           data: _vm.featureOptions.items.locale
@@ -39342,7 +39339,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -39862,7 +39859,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -40558,7 +40555,8 @@ class UIController {
     // Start loading options as early as possible
     let optionLoadPromises = this.initOptions(this.options.storageAdapter)
     // Create a copy of resource options for the lookup UI component
-    // this doesn't get reloaded from the storage adapter though
+    // this doesn't get reloaded from the storage adapter because
+    // we don't expose it to the user via preferences
     this.lookupResourceOptions = new _lib_options_options_js__WEBPACK_IMPORTED_MODULE_24__["default"](this.resourceOptionsDefaults, new this.options.storageAdapter(this.resourceOptionsDefaults.domain))
     // TODO: Site options should probably be initialized the same way as other options objects
     this.siteOptions = this.loadSiteOptions(this.siteOptionsDefaults)
@@ -40580,10 +40578,12 @@ class UIController {
       getFeatureOptions: this.getFeatureOptions.bind(this),
       getResourceOptions: this.getResourceOptions.bind(this),
       getUiOptions: this.getUiOptions.bind(this),
-      // TODO we need to bind this to getters
+      verboseMode: this.verboseMode.bind(this),
+      // we don't offer UI to change to lookupResourceOptions or siteOptions
+      // so they remain out of dynamic state for now - should eventually
+      // refactor
       lookupResourceOptions: this.lookupResourceOptions,
       siteOptions: this.siteOptions,
-      verboseMode: this.verboseMode.bind(this)
     }
     this.store.registerModule('settings', {
       // All stores of modules are namespaced
@@ -40591,7 +40591,7 @@ class UIController {
       state: {
         // these counters are used to enable the settings ui components
         // to redraw themselves when settings are reset or reloaded
-        // it would not be necessary if all settings were made into
+        // it might be better if all settings were made into
         // state variables but for now state is monitored at the domain level
         uiResetCounter: 0,
         featureResetCounter: 0,
@@ -41027,7 +41027,7 @@ class UIController {
       this.userDataManager = null
       wordLists = await this.wordlistC.initLists()
 
-      // reload the shared options
+      // reload the user-configurable options
       optionLoadPromises = this.initOptions(this.options.storageAdapter)
     }
     await Promise.all(optionLoadPromises)
@@ -41779,10 +41779,6 @@ class UIController {
       let lexQuery = _lib_queries_lexical_query_lookup_js__WEBPACK_IMPORTED_MODULE_10__["default"].create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples)
       lexQuery.getData()
     }
-  }
-
-  async reloadAllOptions(){
-
   }
 
   /**
@@ -43571,7 +43567,8 @@ class Options {
       let values = await this.storageAdapter.get()
       for (let key in values) {
         let parsedKey = Options.parseKey(key)
-        if (this.items.hasOwnProperty(parsedKey.name)) {
+        // TODO when we do increase the version we should handle conversion
+        if (this.items.hasOwnProperty(parsedKey.name) && this.version == parsedKey.version) {
           if (parsedKey.group) {
             this.items[parsedKey.name].forEach((f) => {
               if (f.name === key) {
@@ -43592,7 +43589,7 @@ class Options {
             }
           }
         } else {
-          console.warn(`Unrecognized setting ${parsedKey.name}`)
+          console.warn(`Unrecognized setting ${parsedKey.name} or version ${parsedKey.version}`)
         }
       }
       return this
@@ -43606,6 +43603,8 @@ class Options {
 
   /**
    * Construct a key for a stored setting
+   * To future proof the stored settings, we include domain and version
+   * in the key name. Grouped settings are also flattened.
    * @param {String} domain - the setting domain
    * @param {String} version - the setting version
    * @param {String} name - the setting name
@@ -43620,9 +43619,7 @@ class Options {
   }
 
   /**
-  * Parse a stored setting name into its component parts
-  * (for simplicity of the data structure, setting names are stored under
-  * keys which combine the setting and the language)
+  * Parse a stored setting name into a semantically meaningful object
   */
   static parseKey (key) {
     let [domain, version, name, group] = key.split('__', 4)
@@ -43661,12 +43658,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * An implementation of a StorageAdapter interface for a local storage.
+ * An implementation of the StorageAdapterinterface that retrieves
+ * data from an authentication-protected remote service implementing
+ * the Alpheios user-settings-api.
  */
 class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor (domain = 'alpheios-storage-domain', auth=null) {
     super(domain)
-    this.baseURL = auth.endpoints.usersettings,
+    this.baseURL = auth.endpoints.settings,
     this.requestContext = {
       headers: {
         common: {
@@ -43685,53 +43684,40 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
    * successfully. If at least on save operation fails, returns a rejected promise with an error information.
    */
   async set (keysObject) {
-    try {
-      let [key, value] = Object.entries(keysObject)[0]
-      let url  = `${this.baseURL}/${key}`
-      let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, value, this.requestContext)
-      if (result.status !== 201) {
-        console.error(`Unexpected result status from settings api: ${result.status}`)
-      }
-    } catch (error) {
-      console.error("Unable to store settings",error)
+    let [key, value] = Object.entries(keysObject)[0]
+    let url  = `${this.baseURL}/${key}`
+    let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, value, this.requestContext)
+    if (result.status !== 201) {
+      throw new Error(`Unexpected result status from settings api: ${result.status}`)
     }
   }
 
   /**
-   * A proxy for the Alpheios user-settings-api
-   * It allows for getting key/value pairs from the api with an authorized user account
-   * @param {string | Array | object | null | undefined } keys - A key (string)
-   * or keys (an array of strings or an object) to identify the item(s) to be retrieved from storage.
-   * If you pass an empty string, object or array here, an empty object will be retrieved. If you pass null,
-   * or an undefined value, the entire storage contents will be retrieved.
+   * proxy for the Alpheios user-settings-api LIST operation
+   * Retrieves all data for the storage domain.
    * @return {Promise} A Promise that will be fulfilled with a results object containing key-value pairs
    * found in the storage area. If this operation failed, the promise will be rejected with an error message.
    */
   async get () {
     let url  = `${this.baseURL}?domain=${this.domain}`
-    let data = {}
-    try {
-      let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url, this.requestContext)
-      if (result.status === 200) {
-        data = result.data
-      } else {
-        console.error(`Unexpected result status from settings api: ${result.status}`)
-      }
-    } catch(error) {
-      console.error("Unable to retrieve settings",error)
+    let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url, this.requestContext)
+    if (result.status === 200) {
+      return result.data
+    } else {
+      throw new Error(`Unexpected result status from settings api: ${result.status}`)
     }
-    return data
   }
 
+  /**
+   * proxy for the Alpheios user-settings DELETE LIST operation
+   * deletes all settings for the domain from storage
+   * @return {Promise} A Promise that executes the operation.
+   */
   async clearAll () {
-    try {
-      let url  = `${this.baseURL}?domain=${this.domain}`
-      let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete(url,this.requestContext)
-      if (result.status !== 200) {
-        console.error("Unable to clear settings ",error)
-      }
-    } catch (error) {
-      console.error("Unable to clear settings",error)
+    let url  = `${this.baseURL}?domain=${this.domain}`
+    let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete(url,this.requestContext)
+    if (result.status !== 200) {
+      throw new Error(`Unexpected result status from settings api: ${result.status}`)
     }
   }
 }

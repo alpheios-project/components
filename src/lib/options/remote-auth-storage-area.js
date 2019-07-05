@@ -9,7 +9,7 @@ import axios from 'axios'
 export default class RemoteAuthStorageArea extends StorageAdapter {
   constructor (domain = 'alpheios-storage-domain', auth=null) {
     super(domain)
-    this.baseURL = auth.endpoints.usersettings,
+    this.baseURL = auth.endpoints.settings,
     this.requestContext = {
       headers: {
         common: {

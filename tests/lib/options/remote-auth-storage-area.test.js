@@ -9,7 +9,7 @@ describe('remote-auth-storage-area.test.js', () => {
     auth  = {
       accessToken: process.env.AUTH_TOKEN,
       endpoints: {
-        usersettings: process.env.ENDPOINT
+        settings: process.env.ENDPOINT
       }
     }
     // if the environment doesn't have authentication details then
