@@ -15,8 +15,8 @@ describe('remote-auth-storage-area.test.js', () => {
     // if the environment doesn't have authentication details then
     // mock the axios interface
     if (! process.env.AUTH_TOKEN) {
-      axios.post = jest.fn(() => { return { status: 200 } })
-      axios.get = jest.fn(() => { return { status: 201,  data:{'alpheios-feature-settings__2__mode': JSON.stringify('verbose')}} })
+      axios.post = jest.fn(() => { return { status: 201 } })
+      axios.get = jest.fn(() => { return { status: 200,  data:{'alpheios-feature-settings__2__mode': JSON.stringify('verbose')}} })
       axios.delete = jest.fn(() => { return { status: 200 } })
     }
     jest.spyOn(axios,'get')

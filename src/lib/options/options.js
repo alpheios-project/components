@@ -67,7 +67,8 @@ export default class Options {
       let values = await this.storageAdapter.get()
       for (let key in values) {
         let parsedKey = Options.parseKey(key)
-        if (this.items.hasOwnProperty(parsedKey.name)) {
+        // TODO when we do increase the version we should handle conversion
+        if (this.items.hasOwnProperty(parsedKey.name) && this.version == parsedKey.version) {
           if (parsedKey.group) {
             this.items[parsedKey.name].forEach((f) => {
               if (f.name === key) {
@@ -88,7 +89,7 @@ export default class Options {
             }
           }
         } else {
-          console.warn(`Unrecognized setting ${parsedKey.name}`)
+          console.warn(`Unrecognized setting ${parsedKey.name} or version ${parsedKey.version}`)
         }
       }
       return this

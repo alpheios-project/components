@@ -264,7 +264,26 @@ describe('options.test.js', () => {
   it('18 Options - constructor defaults should contain property version and will throw an error if undefined', () => {
     expect(function () {
       let l = new Options({ domain: 'bar', items: {} })
-      console.log(l)
     }).toThrow(new Error(`Defaults have no obligatory "domain", "version" and "items" properties`))
+  })
+  it('19 Options - throws error on version mismatch', async() => {
+    let testOption = { defaultValue: 'en-US', labelText: 'UI Locale:', group: { foo: { defaultValue: 'en-US', text: 'English (US)', value: 'en-US' } } }
+    let testDefaults = {
+      domain: 'alpheios-test-options7',
+      version: 2,
+      items: { locale7: testOption },
+      fooProperty: 'bar'
+    }
+    let storageArea = new LocalStorageArea('alpheios-test-options7')
+    let opt = new Options(testDefaults, storageArea)
+    let callBackFn = () => { console.log('I am callBackFn') }
+    let key =  Options.constructKey('alpheios-test-options7',3,'locale7','foo')
+    window.localStorage.values['alpheios-test-options7-keys'] = `["${key}"]`
+    window.localStorage.values[key] = JSON.stringify('foo7')
+    await opt.load(callBackFn)
+
+    expect(console['warn']).toHaveBeenCalled()
+    expect(opt.items.locale7[0].currentValue).toEqual('en-US')
+
   })
 })
