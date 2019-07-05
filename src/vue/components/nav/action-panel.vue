@@ -1,7 +1,8 @@
 <template>
   <div
       :id="config.rootElementId"
-      :class="['alpheios-action-panel', 'alpheios-content', $store.state.actionPanel.showNav ? 'alpheios-action-panel--nav-visible' : '']"
+      class="alpheios-action-panel alpheios-content"
+      :class="{ 'alpheios-action-panel--nav-visible': $store.state.actionPanel.showNav}"
       :style="componentStyles"
       v-show="showPanel"
   >

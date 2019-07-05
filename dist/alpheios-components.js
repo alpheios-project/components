@@ -14108,6 +14108,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -22630,13 +22631,11 @@ var render = function() {
           expression: "showPanel"
         }
       ],
-      class: [
-        "alpheios-action-panel",
-        "alpheios-content",
-        _vm.$store.state.actionPanel.showNav
-          ? "alpheios-action-panel--nav-visible"
-          : ""
-      ],
+      staticClass: "alpheios-action-panel alpheios-content",
+      class: {
+        "alpheios-action-panel--nav-visible":
+          _vm.$store.state.actionPanel.showNav
+      },
       style: _vm.componentStyles,
       attrs: { id: _vm.config.rootElementId }
     },
