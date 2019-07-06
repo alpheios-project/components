@@ -65,7 +65,6 @@ ActionPanelModule.store = (moduleInstance) => {
        * @param {boolean} showNav - Whether to show navigational buttons
        */
       open (state, { showLookup, showNav }) {
-        console.info('Open mutation')
         state.showLookup = typeof showLookup === 'undefined' ? moduleInstance.config.showLookup : showLookup
         state.showNav = typeof showNav === 'undefined' ? moduleInstance.config.showNav : showNav
         state.visible = true
