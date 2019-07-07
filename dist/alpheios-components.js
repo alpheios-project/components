@@ -14105,6 +14105,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -22628,6 +22638,12 @@ var render = function() {
         }
       ],
       staticClass: "alpheios-action-panel alpheios-content",
+      class: {
+        "alpheios-action-panel--lookup-visible":
+          _vm.$store.state.actionPanel.showLookup,
+        "alpheios-action-panel--nav-visible":
+          _vm.$store.state.actionPanel.showNav
+      },
       style: _vm.componentStyles,
       attrs: { id: _vm.config.rootElementId }
     },
@@ -22644,7 +22660,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-action-panel__lookup-cont" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.$store.state.actionPanel.showLookup,
+              expression: "$store.state.actionPanel.showLookup"
+            }
+          ],
+          staticClass: "alpheios-action-panel__lookup-cont"
+        },
         [
           _c("lookup", {
             staticClass: "alpheios-action-panel__lookup",
@@ -22668,7 +22694,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-action-panel__nav-cont" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.$store.state.actionPanel.showNav,
+              expression: "$store.state.actionPanel.showNav"
+            }
+          ],
+          staticClass: "alpheios-action-panel__nav-cont"
+        },
         [
           _c(
             "alph-tooltip",
@@ -25398,15 +25434,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("definitions")
+                      }
+                    }
+                  },
                   [
                     _c("definitions-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("definitions")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25433,15 +25471,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("inflections")
+                      }
+                    }
+                  },
                   [
                     _c("inflections-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("inflections")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25468,15 +25508,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("wordUsage")
+                      }
+                    }
+                  },
                   [
                     _c("word-usage-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("wordUsage")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25498,6 +25540,11 @@ var render = function() {
                 attrs: {
                   tooltipText: _vm.l10n.getText("TOOLTIP_TREEBANK"),
                   tooltipDirection: "bottom-wide"
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.ui.showPanelTab("treebank")
+                  }
                 }
               },
               [
@@ -25506,12 +25553,7 @@ var render = function() {
                   { staticClass: "alpheios-popup__toolbar-top__btn" },
                   [
                     _c("treebank-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("treebank")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -40046,9 +40088,15 @@ class UIController {
     }
   }
 
-  openActionPanel () {
+  /**
+   * Opens an action panel.
+   * @param {object} panelOptions - An object that specifies parameters of an action panel (see below):
+   * @param {boolean} panelOptions.showLookup - Whether to show a lookup input when the action panel is opened.
+   * @param {boolean} panelOptions.showNav - Whether to show a nav toolbar when the action panel is opened.
+   */
+  openActionPanel (panelOptions = {}) {
     if (this.api.ui.hasModule('actionPanel')) {
-      this.store.commit('actionPanel/open')
+      this.store.commit('actionPanel/open', panelOptions)
     } else {
       console.warn(`Action panel cannot be opened because its module is not registered`)
     }
@@ -49553,6 +49601,10 @@ ActionPanelModule.store = (moduleInstance) => {
     state: {
       // Whether an action panel is shown or hidden
       visible: false,
+      // If a lookup input shall be shown when a panel is open
+      showLookup: moduleInstance.config.showLookup,
+      // If nav buttons shall be shown when a panel is open
+      showNav: moduleInstance.config.showNav,
       // Initial position of an action panel
       initialPos: moduleInstance.config.initialPos
     },
@@ -49560,8 +49612,12 @@ ActionPanelModule.store = (moduleInstance) => {
       /**
        * Opens an action panel
        * @param state
+       * @param {boolean} showLookup - Whether to show the lookup input
+       * @param {boolean} showNav - Whether to show navigational buttons
        */
-      open (state) {
+      open (state, { showLookup, showNav }) {
+        state.showLookup = typeof showLookup === 'undefined' ? moduleInstance.config.showLookup : showLookup
+        state.showNav = typeof showNav === 'undefined' ? moduleInstance.config.showNav : showNav
         state.visible = true
       },
 
@@ -49571,6 +49627,9 @@ ActionPanelModule.store = (moduleInstance) => {
        */
       close (state) {
         state.visible = false
+        // Set showLookup and showNav to their default values
+        state.showLookup = moduleInstance.config.showLookup
+        state.showNav = moduleInstance.config.showNav
       }
     }
   }
@@ -49602,7 +49661,11 @@ ActionPanelModule._configDefaults = {
   initialShift: {
     x: 0,
     y: 0
-  }
+  },
+  // Whether a lookup input will be shown when the panel is opened
+  showLookup: true,
+  // Whether to show nave buttons when the panel is opened
+  showNav: true
 }
 
 
