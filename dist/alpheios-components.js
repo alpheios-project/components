@@ -27050,7 +27050,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-wordlist-filter-panel" },
+        { staticClass: "alpheios-wordlist-sorting-panel" },
         [
           _c("word-sorting-panel", {
             directives: [
@@ -27317,8 +27317,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.showHeader && !_vm.collapsedHeader,
-            expression: "showHeader && !collapsedHeader"
+            value: _vm.showHeader,
+            expression: "showHeader"
           }
         ]
       },

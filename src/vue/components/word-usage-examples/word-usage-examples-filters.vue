@@ -2,7 +2,7 @@
     <div class="alpheios-word-usage-header-filters">
       <p class="alpheios-word-usage-get-data-progress" v-show="gettingResult">{{ l10n.getText('WORDUSAGE_GETTING_RESULT') }}</p>
 
-      <div v-show="showHeader && !collapsedHeader">      
+      <div v-show="showHeader">      
         <div class="alpheios-word-usage-filters-select" v-if="authorsList">
           <p class="alpheios-word-usage-filter-title">{{ l10n.getText('WORDUSAGE_FOCUS_AUTHOR') }}</p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select" 

@@ -2912,7 +2912,6 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-wordlist-sorting .alpheios-worditem__targetWord {
   width: 28% !important;
-  fill: var(--alpheios-color-neutral-dark) !important;
 }
 .alpheios-wordlist-sorting .alpheios-worditem__targetWord svg {
   width: 22px !important;
@@ -2921,6 +2920,7 @@ p.alpheios-word-usage-filter-title {
   vertical-align: top !important;
   cursor: pointer !important;
   padding: 7px !important;
+  fill: var(--alpheios-color-neutral-dark) !important;
 }
 .alpheios-wordlist-sorting .alpheios-worditem__targetWord svg.alpheios-icon-active {
   fill: var(--alpheios-color-vivid) !important;
