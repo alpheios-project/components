@@ -381,6 +381,7 @@ html {
   --alpheios-desktop-popup-icon-color-hover: var(--alpheios-icon-color-hover) !important;
   --alpheios-desktop-popup-icon-color-active: var(--alpheios-icon-color-active) !important;
   --alpheios-desktop-popup-icon-color-disabled: var(--alpheios-icon-color-disabled) !important;
+  --alpheios-desktop-popup-icon-color-pressed: var(--alpheios-icon-color-disabled) !important;
   --alpheios-desktop-popup-icon-bg-disabled: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-desktop-popup-progress-bar-line: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-desktop-popup-link-color: var(--alpheios-link-color) !important;
@@ -393,6 +394,16 @@ html {
   --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-header-icon-bg-active: var(--alpheios-toolbar-bg-color) !important;
+  --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color) !important;
+  --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover) !important;
+  --alpheios-desktop-panel-icon-color-active: var(--alpheios-icon-color-active) !important;
+  --alpheios-desktop-panel-icon-color-pressed: var(--alpheios-icon-color-pressed) !important;
+  --alpheios-desktop-panel-icon-color-disabled: var(--alpheios-icon-color-disabled) !important;
+  --alpheios-compact-panel-icon-color: var(--alpheios-icon-color) !important;
+  --alpheios-compact-panel-icon-color-hover: var(--alpheios-icon-color-hover) !important;
+  --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active) !important;
+  --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed) !important;
+  --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled) !important;
   --alpheios-lookup-border-color: var(--alpheios-border-color) !important;
   --alpheios-lookup-bg: var(--alpheios-text-bg-color) !important;
   --alpheios-lookup-input-border-color: var(--alpheios-border-color) !important;
@@ -3144,13 +3155,13 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__menu-icon {
   width: 32px !important;
   height: auto !important;
-  fill: var(--alpheios-color-neutral-lightest) !important;
+  fill: var(--alpheios-compact-panel-icon-color) !important;
 }
 .alpheios-panel__menu-icon:hover {
-  fill: var(--alpheios-color-bright-hover) !important;
+  fill: var(--alpheios-compact-panel-icon-color-hover) !important;
 }
 .alpheios-panel__menu-icon.menu-open {
-  fill: var(--alpheios-color-bright) !important;
+  fill: var(--alpheios-compact-panel-icon-color-hover) !important;
 }
 .alpheios-panel__header-btn-group--start {
   display: flex;
@@ -3168,8 +3179,8 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-panel__header-btn {
   padding: 0 0 0 10px !important;
-  fill: var(--alpheios-color-neutral-lightest) !important;
-  stroke: var(--alpheios-color-neutral-lightest) !important;
+  fill: var(--alpheios-compact-panel-icon-color) !important;
+  stroke: var(--alpheios-compact-panel-icon-color) !important;
 }
 .alpheios-panel__header-btn .alpheios-navbuttons__icon-span {
   display: inline-block;
@@ -3183,12 +3194,12 @@ p.alpheios-word-usage-filter-title {
   position: relative !important;
 }
 .alpheios-panel__header-btn:hover {
-  fill: var(--alpheios-color-bright-hover) !important;
-  stroke: var(--alpheios-color-bright-hover) !important;
+  fill: var(--alpheios-compact-panel-icon-color-hover) !important;
+  stroke: var(--alpheios-compact-panel-icon-color-hover) !important;
 }
 .alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
-  fill: var(--alpheios-color-bright-pressed) !important;
-  stroke: var(--alpheios-color-bright-pressed) !important;
+  fill: var(--alpheios-compact-panel-icon-color-pressed) !important;
+  stroke: var(--alpheios-compact-panel-icon-color-pressed) !important;
 }
 .alpheios-panel__header-btn-group--end .alpheios-panel__header-btn svg {
   transform: translateY(-50%) !important;
@@ -3197,8 +3208,8 @@ p.alpheios-word-usage-filter-title {
   width: calc(var(--alpheios-base-ui-size) * 3.75) !important;
   height: calc(var(--alpheios-base-ui-size) * 3.5) !important;
   cursor: pointer !important;
-  fill: var(--alpheios-icon-color) !important;
-  stroke: var(--alpheios-icon-color) !important;
+  fill: var(--alpheios-compact-panel-icon-color) !important;
+  stroke: var(--alpheios-compact-panel-icon-color) !important;
   stroke-width: 0 !important;
 }
 .alpheios-panel__close-btn svg {
@@ -3210,13 +3221,13 @@ p.alpheios-word-usage-filter-title {
   transform: translateY(-50%) !important;
 }
 .alpheios-panel__close-btn:hover, .alpheios-panel__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover) !important;
-  stroke: var(--alpheios-icon-color-hover) !important;
+  fill: var(--alpheios-compact-panel-icon-color-hover) !important;
+  stroke: var(--alpheios-compact-panel-icon-color-hover) !important;
   background: var(--alpheios-compact-panel-header-icon-active-bg) !important;
 }
 .alpheios-panel__close-btn:active {
-  fill: var(--alpheios-icon-color-pressed) !important;
-  stroke: var(--alpheios-icon-color-pressed) !important;
+  fill: var(--alpheios-compact-panel-icon-color-pressed) !important;
+  stroke: var(--alpheios-compact-panel-icon-color-pressed) !important;
   background: var(--alpheios-compact-panel-header-icon-active-bg) !important;
 }
 .alpheios-panel__content {
@@ -3420,17 +3431,24 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel--large .alpheios-panel__header {
   background: var(--alpheios-desktop-panel-header-bg) !important;
 }
+.alpheios-panel--large .alpheios-navbuttons__btn,
+.alpheios-panel--large .alpheios-panel__close-btn {
+  fill: var(--alpheios-desktop-panel-icon-color) !important;
+  stroke: var(--alpheios-desktop-panel-icon-color) !important;
+  background: var(--alpheios-desktop-panel-header-icon-active-bg) !important;
+}
 .alpheios-panel--large .alpheios-navbuttons__btn:hover, .alpheios-panel--large .alpheios-navbuttons__btn:focus,
 .alpheios-panel--large .alpheios-panel__close-btn:hover,
 .alpheios-panel--large .alpheios-panel__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover) !important;
-  stroke: var(--alpheios-icon-color-hover) !important;
+  fill: var(--alpheios-desktop-panel-icon-color-hover) !important;
+  stroke: var(--alpheios-desktop-panel-icon-color-hover) !important;
   background: var(--alpheios-desktop-panel-header-icon-active-bg) !important;
 }
-.alpheios-panel--large .alpheios-navbuttons__btn:active,
-.alpheios-panel--large .alpheios-panel__close-btn:active {
-  fill: var(--alpheios-icon-color-pressed) !important;
-  stroke: var(--alpheios-icon-color-pressed) !important;
+.alpheios-panel--large .alpheios-navbuttons__btn:active, .alpheios-panel--large .alpheios-navbuttons__btn.active,
+.alpheios-panel--large .alpheios-panel__close-btn:active,
+.alpheios-panel--large .alpheios-panel__close-btn.active {
+  fill: var(--alpheios-desktop-panel-icon-color-pressed) !important;
+  stroke: var(--alpheios-desktop-panel-icon-color-pressed) !important;
   background: var(--alpheios-desktop-panel-header-icon-active-bg) !important;
 }
 .alpheios-panel--large .alpheios-reset-button {

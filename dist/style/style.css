@@ -381,6 +381,7 @@ html {
   --alpheios-desktop-popup-icon-color-hover: var(--alpheios-icon-color-hover);
   --alpheios-desktop-popup-icon-color-active: var(--alpheios-icon-color-active);
   --alpheios-desktop-popup-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-desktop-popup-icon-color-pressed: var(--alpheios-icon-color-disabled);
   --alpheios-desktop-popup-icon-bg-disabled: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-popup-progress-bar-line: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-popup-link-color: var(--alpheios-link-color);
@@ -393,6 +394,16 @@ html {
   --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-header-icon-bg-active: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color);
+  --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-desktop-panel-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-desktop-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
+  --alpheios-desktop-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-compact-panel-icon-color: var(--alpheios-icon-color);
+  --alpheios-compact-panel-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
+  --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
   --alpheios-lookup-border-color: var(--alpheios-border-color);
   --alpheios-lookup-bg: var(--alpheios-text-bg-color);
   --alpheios-lookup-input-border-color: var(--alpheios-border-color);
@@ -3144,13 +3155,13 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__menu-icon {
   width: 32px;
   height: auto;
-  fill: var(--alpheios-color-neutral-lightest);
+  fill: var(--alpheios-compact-panel-icon-color);
 }
 .alpheios-panel__menu-icon:hover {
-  fill: var(--alpheios-color-bright-hover);
+  fill: var(--alpheios-compact-panel-icon-color-hover);
 }
 .alpheios-panel__menu-icon.menu-open {
-  fill: var(--alpheios-color-bright);
+  fill: var(--alpheios-compact-panel-icon-color-hover);
 }
 .alpheios-panel__header-btn-group--start {
   display: flex;
@@ -3168,8 +3179,8 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-panel__header-btn {
   padding: 0 0 0 10px;
-  fill: var(--alpheios-color-neutral-lightest);
-  stroke: var(--alpheios-color-neutral-lightest);
+  fill: var(--alpheios-compact-panel-icon-color);
+  stroke: var(--alpheios-compact-panel-icon-color);
 }
 .alpheios-panel__header-btn .alpheios-navbuttons__icon-span {
   display: inline-block;
@@ -3183,12 +3194,12 @@ p.alpheios-word-usage-filter-title {
   position: relative;
 }
 .alpheios-panel__header-btn:hover {
-  fill: var(--alpheios-color-bright-hover);
-  stroke: var(--alpheios-color-bright-hover);
+  fill: var(--alpheios-compact-panel-icon-color-hover);
+  stroke: var(--alpheios-compact-panel-icon-color-hover);
 }
 .alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
-  fill: var(--alpheios-color-bright-pressed);
-  stroke: var(--alpheios-color-bright-pressed);
+  fill: var(--alpheios-compact-panel-icon-color-pressed);
+  stroke: var(--alpheios-compact-panel-icon-color-pressed);
 }
 .alpheios-panel__header-btn-group--end .alpheios-panel__header-btn svg {
   transform: translateY(-50%);
@@ -3197,8 +3208,8 @@ p.alpheios-word-usage-filter-title {
   width: calc(var(--alpheios-base-ui-size) * 3.75);
   height: calc(var(--alpheios-base-ui-size) * 3.5);
   cursor: pointer;
-  fill: var(--alpheios-icon-color);
-  stroke: var(--alpheios-icon-color);
+  fill: var(--alpheios-compact-panel-icon-color);
+  stroke: var(--alpheios-compact-panel-icon-color);
   stroke-width: 0;
 }
 .alpheios-panel__close-btn svg {
@@ -3210,13 +3221,13 @@ p.alpheios-word-usage-filter-title {
   transform: translateY(-50%);
 }
 .alpheios-panel__close-btn:hover, .alpheios-panel__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover);
-  stroke: var(--alpheios-icon-color-hover);
+  fill: var(--alpheios-compact-panel-icon-color-hover);
+  stroke: var(--alpheios-compact-panel-icon-color-hover);
   background: var(--alpheios-compact-panel-header-icon-active-bg);
 }
 .alpheios-panel__close-btn:active {
-  fill: var(--alpheios-icon-color-pressed);
-  stroke: var(--alpheios-icon-color-pressed);
+  fill: var(--alpheios-compact-panel-icon-color-pressed);
+  stroke: var(--alpheios-compact-panel-icon-color-pressed);
   background: var(--alpheios-compact-panel-header-icon-active-bg);
 }
 .alpheios-panel__content {
@@ -3420,17 +3431,24 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel--large .alpheios-panel__header {
   background: var(--alpheios-desktop-panel-header-bg);
 }
+.alpheios-panel--large .alpheios-navbuttons__btn,
+.alpheios-panel--large .alpheios-panel__close-btn {
+  fill: var(--alpheios-desktop-panel-icon-color);
+  stroke: var(--alpheios-desktop-panel-icon-color);
+  background: var(--alpheios-desktop-panel-header-icon-active-bg);
+}
 .alpheios-panel--large .alpheios-navbuttons__btn:hover, .alpheios-panel--large .alpheios-navbuttons__btn:focus,
 .alpheios-panel--large .alpheios-panel__close-btn:hover,
 .alpheios-panel--large .alpheios-panel__close-btn:focus {
-  fill: var(--alpheios-icon-color-hover);
-  stroke: var(--alpheios-icon-color-hover);
+  fill: var(--alpheios-desktop-panel-icon-color-hover);
+  stroke: var(--alpheios-desktop-panel-icon-color-hover);
   background: var(--alpheios-desktop-panel-header-icon-active-bg);
 }
-.alpheios-panel--large .alpheios-navbuttons__btn:active,
-.alpheios-panel--large .alpheios-panel__close-btn:active {
-  fill: var(--alpheios-icon-color-pressed);
-  stroke: var(--alpheios-icon-color-pressed);
+.alpheios-panel--large .alpheios-navbuttons__btn:active, .alpheios-panel--large .alpheios-navbuttons__btn.active,
+.alpheios-panel--large .alpheios-panel__close-btn:active,
+.alpheios-panel--large .alpheios-panel__close-btn.active {
+  fill: var(--alpheios-desktop-panel-icon-color-pressed);
+  stroke: var(--alpheios-desktop-panel-icon-color-pressed);
   background: var(--alpheios-desktop-panel-header-icon-active-bg);
 }
 .alpheios-panel--large .alpheios-reset-button {

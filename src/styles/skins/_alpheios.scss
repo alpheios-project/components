@@ -133,6 +133,7 @@ html {
   --alpheios-desktop-popup-icon-color-hover: var(--alpheios-icon-color-hover);
   --alpheios-desktop-popup-icon-color-active: var(--alpheios-icon-color-active);
   --alpheios-desktop-popup-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-desktop-popup-icon-color-pressed: var(--alpheios-icon-color-disabled);
   --alpheios-desktop-popup-icon-bg-disabled: var(--alpheios-toolbar-bg-color);
 
   --alpheios-desktop-popup-progress-bar-line: var(--alpheios-toolbar-bg-color);
@@ -152,6 +153,20 @@ html {
   --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-header-icon-bg-active: var(--alpheios-toolbar-bg-color);
+
+  --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color);
+  --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-desktop-panel-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-desktop-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
+  --alpheios-desktop-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
+
+  --alpheios-compact-panel-icon-color: var(--alpheios-icon-color);
+  --alpheios-compact-panel-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
+  --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
+
+  
   
   //Lookup
   --alpheios-lookup-border-color: var(--alpheios-border-color);

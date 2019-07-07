@@ -291,16 +291,21 @@ export default {
 
     .alpheios-navbuttons__btn,
     .alpheios-panel__close-btn {
+        fill: var(--alpheios-desktop-panel-icon-color);
+        stroke: var(--alpheios-desktop-panel-icon-color);
+        background: var(--alpheios-desktop-panel-header-icon-active-bg);
+
         &:hover,
         &:focus {
-          fill: var(--alpheios-icon-color-hover);
-          stroke: var(--alpheios-icon-color-hover);
+          fill: var(--alpheios-desktop-panel-icon-color-hover);
+          stroke: var(--alpheios-desktop-panel-icon-color-hover);
           background: var(--alpheios-desktop-panel-header-icon-active-bg);
         }
 
-        &:active {
-          fill: var(--alpheios-icon-color-pressed);
-          stroke: var(--alpheios-icon-color-pressed);
+        &:active,
+        &.active {
+          fill: var(--alpheios-desktop-panel-icon-color-pressed);
+          stroke: var(--alpheios-desktop-panel-icon-color-pressed);
           background: var(--alpheios-desktop-panel-header-icon-active-bg);
         }
     }
