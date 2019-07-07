@@ -1214,9 +1214,15 @@ export default class UIController {
     }
   }
 
-  openActionPanel () {
+  /**
+   * Opens an action panel.
+   * @param {object} panelOptions - An object that specifies parameters of an action panel (see below):
+   * @param {boolean} panelOptions.showLookup - Whether to show a lookup input when the action panel is opened.
+   * @param {boolean} panelOptions.showNav - Whether to show a nav toolbar when the action panel is opened.
+   */
+  openActionPanel (panelOptions = {}) {
     if (this.api.ui.hasModule('actionPanel')) {
-      this.store.commit('actionPanel/open')
+      this.store.commit('actionPanel/open', panelOptions)
     } else {
       console.warn(`Action panel cannot be opened because its module is not registered`)
     }
@@ -1234,7 +1240,7 @@ export default class UIController {
     if (this.api.ui.hasModule('actionPanel')) {
       this.store.state.actionPanel.visible
         ? this.store.commit('actionPanel/close')
-        : this.store.commit('actionPanel/open')
+        : this.store.commit('actionPanel/open', {})
     } else {
       console.warn(`Action panel cannot be toggled because its module is not registered`)
     }

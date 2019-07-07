@@ -14116,6 +14116,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18373,6 +18383,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    finalCollapsedHeader () {
+      return this.app.platform.isMobile && this.collapsedHeader
+    },
     targetWord () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
     },
@@ -18380,7 +18393,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeaderFilters () {
-      return this.$store.state.app.wordUsageExamplesReady
+      return this.$store.state.app.wordUsageExamplesReady && this.app.platform.isMobile
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
@@ -22640,6 +22653,12 @@ var render = function() {
         }
       ],
       staticClass: "alpheios-action-panel alpheios-content",
+      class: {
+        "alpheios-action-panel--lookup-visible":
+          _vm.$store.state.actionPanel.showLookup,
+        "alpheios-action-panel--nav-visible":
+          _vm.$store.state.actionPanel.showNav
+      },
       style: _vm.componentStyles,
       attrs: { id: _vm.config.rootElementId }
     },
@@ -22656,7 +22675,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-action-panel__lookup-cont" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.$store.state.actionPanel.showLookup,
+              expression: "$store.state.actionPanel.showLookup"
+            }
+          ],
+          staticClass: "alpheios-action-panel__lookup-cont"
+        },
         [
           _c("lookup", {
             staticClass: "alpheios-action-panel__lookup",
@@ -22680,7 +22709,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "alpheios-action-panel__nav-cont" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.$store.state.actionPanel.showNav,
+              expression: "$store.state.actionPanel.showNav"
+            }
+          ],
+          staticClass: "alpheios-action-panel__nav-cont"
+        },
         [
           _c(
             "alph-tooltip",
@@ -25410,15 +25449,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("definitions")
+                      }
+                    }
+                  },
                   [
                     _c("definitions-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("definitions")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25445,15 +25486,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("inflections")
+                      }
+                    }
+                  },
                   [
                     _c("inflections-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("inflections")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25480,15 +25523,17 @@ var render = function() {
               [
                 _c(
                   "div",
-                  { staticClass: "alpheios-popup__toolbar-top__btn" },
+                  {
+                    staticClass: "alpheios-popup__toolbar-top__btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.ui.showPanelTab("wordUsage")
+                      }
+                    }
+                  },
                   [
                     _c("word-usage-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("wordUsage")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -25510,6 +25555,11 @@ var render = function() {
                 attrs: {
                   tooltipText: _vm.l10n.getText("TOOLTIP_TREEBANK"),
                   tooltipDirection: "bottom-wide"
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.ui.showPanelTab("treebank")
+                  }
                 }
               },
               [
@@ -25518,12 +25568,7 @@ var render = function() {
                   { staticClass: "alpheios-popup__toolbar-top__btn" },
                   [
                     _c("treebank-icon", {
-                      staticClass: "alpheios-navbuttons__icon",
-                      on: {
-                        click: function($event) {
-                          return _vm.ui.showPanelTab("treebank")
-                        }
-                      }
+                      staticClass: "alpheios-navbuttons__icon"
                     })
                   ],
                   1
@@ -27614,7 +27659,7 @@ var render = function() {
       [
         _c("word-usage-examples-filters", {
           attrs: {
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             showHeader: _vm.showHeader
           },
           on: {
@@ -27627,7 +27672,7 @@ var render = function() {
         _c("word-usage-examples-sorting", {
           attrs: {
             showHeader: _vm.showHeader,
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             hasSelectedAuthor: _vm.hasSelectedAuthor,
             hasSelectedTextWork: _vm.hasSelectedTextWork,
             reloadSorting: _vm.reloadSorting
@@ -37895,7 +37940,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -38055,7 +38100,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none"}})])
+            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none","stroke-width":"1.1"}})])
           )
         }
       });
@@ -38495,7 +38540,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -40069,9 +40114,15 @@ class UIController {
     }
   }
 
-  openActionPanel () {
+  /**
+   * Opens an action panel.
+   * @param {object} panelOptions - An object that specifies parameters of an action panel (see below):
+   * @param {boolean} panelOptions.showLookup - Whether to show a lookup input when the action panel is opened.
+   * @param {boolean} panelOptions.showNav - Whether to show a nav toolbar when the action panel is opened.
+   */
+  openActionPanel (panelOptions = {}) {
     if (this.api.ui.hasModule('actionPanel')) {
-      this.store.commit('actionPanel/open')
+      this.store.commit('actionPanel/open', panelOptions)
     } else {
       console.warn(`Action panel cannot be opened because its module is not registered`)
     }
@@ -40089,7 +40140,7 @@ class UIController {
     if (this.api.ui.hasModule('actionPanel')) {
       this.store.state.actionPanel.visible
         ? this.store.commit('actionPanel/close')
-        : this.store.commit('actionPanel/open')
+        : this.store.commit('actionPanel/open', {})
     } else {
       console.warn(`Action panel cannot be toggled because its module is not registered`)
     }
@@ -49594,6 +49645,10 @@ ActionPanelModule.store = (moduleInstance) => {
     state: {
       // Whether an action panel is shown or hidden
       visible: false,
+      // If a lookup input shall be shown when a panel is open
+      showLookup: moduleInstance.config.showLookup,
+      // If nav buttons shall be shown when a panel is open
+      showNav: moduleInstance.config.showNav,
       // Initial position of an action panel
       initialPos: moduleInstance.config.initialPos
     },
@@ -49601,8 +49656,12 @@ ActionPanelModule.store = (moduleInstance) => {
       /**
        * Opens an action panel
        * @param state
+       * @param {boolean} showLookup - Whether to show the lookup input
+       * @param {boolean} showNav - Whether to show navigational buttons
        */
-      open (state) {
+      open (state, { showLookup, showNav }) {
+        state.showLookup = typeof showLookup === 'undefined' ? moduleInstance.config.showLookup : showLookup
+        state.showNav = typeof showNav === 'undefined' ? moduleInstance.config.showNav : showNav
         state.visible = true
       },
 
@@ -49612,6 +49671,9 @@ ActionPanelModule.store = (moduleInstance) => {
        */
       close (state) {
         state.visible = false
+        // Set showLookup and showNav to their default values
+        state.showLookup = moduleInstance.config.showLookup
+        state.showNav = moduleInstance.config.showNav
       }
     }
   }
@@ -49643,7 +49705,11 @@ ActionPanelModule._configDefaults = {
   initialShift: {
     x: 0,
     y: 0
-  }
+  },
+  // Whether a lookup input will be shown when the panel is opened
+  showLookup: true,
+  // Whether to show nave buttons when the panel is opened
+  showNav: true
 }
 
 

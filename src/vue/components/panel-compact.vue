@@ -783,7 +783,7 @@ export default {
     align-items: stretch;
     // Need to set element as an offset parent for panel content items
     position: relative;
-    background: var(--alpheios-color-neutral-lightest);
+    background: var(--alpheios-compact-panel-content-bg);
 
     [data-resized="true"] & {
       max-width: none;
