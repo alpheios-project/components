@@ -18371,6 +18371,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    finalCollapsedHeader () {
+      return this.app.platform.isMobile && this.collapsedHeader
+    },
     targetWord () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
     },
@@ -18378,7 +18381,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeaderFilters () {
-      return this.$store.state.app.wordUsageExamplesReady
+      return this.$store.state.app.wordUsageExamplesReady && this.app.platform.isMobile
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
@@ -27359,8 +27362,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.showHeader,
-            expression: "showHeader"
+            value: _vm.showHeader && !_vm.collapsedHeader,
+            expression: "showHeader && !collapsedHeader"
           }
         ]
       },
@@ -27633,7 +27636,7 @@ var render = function() {
       [
         _c("word-usage-examples-filters", {
           attrs: {
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             showHeader: _vm.showHeader
           },
           on: {
@@ -27646,7 +27649,7 @@ var render = function() {
         _c("word-usage-examples-sorting", {
           attrs: {
             showHeader: _vm.showHeader,
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             hasSelectedAuthor: _vm.hasSelectedAuthor,
             hasSelectedTextWork: _vm.hasSelectedTextWork,
             reloadSorting: _vm.reloadSorting

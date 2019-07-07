@@ -7,7 +7,7 @@
     <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
 
       <word-usage-examples-filters
-        :collapsedHeader = "collapsedHeader"
+        :collapsedHeader = "finalCollapsedHeader"
         :showHeader = "showHeader"
         @filterCurrentByAuthor = "filterCurrentByAuthor"
         @getMoreResults = "getMoreResults"
@@ -18,7 +18,7 @@
       <word-usage-examples-sorting
         :showHeader = "showHeader"
         @changedSortBy = "changedSortBy"
-        :collapsedHeader = "collapsedHeader"
+        :collapsedHeader = "finalCollapsedHeader"
         :hasSelectedAuthor = "hasSelectedAuthor"
         :hasSelectedTextWork = "hasSelectedTextWork"
         :reloadSorting = "reloadSorting"
@@ -107,6 +107,9 @@ export default {
     }
   },
   computed: {
+    finalCollapsedHeader () {
+      return this.app.platform.isMobile && this.collapsedHeader
+    },
     targetWord () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
     },
@@ -114,7 +117,7 @@ export default {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeaderFilters () {
-      return this.$store.state.app.wordUsageExamplesReady
+      return this.$store.state.app.wordUsageExamplesReady && this.app.platform.isMobile
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
