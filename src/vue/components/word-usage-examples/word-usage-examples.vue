@@ -40,7 +40,7 @@
       <template v-if="wordUsageListSorted.length > 0">
         <div class="alpheios-word-usage__examples-show-sources-cbx" data-alpheios-ignore="all">
           <input id="alpheios-word-usage-examples-show-sources-cbx-input" type="checkbox" v-model="showDataSource">
-          <label @click="changeShowDataSource" for="alpheios-word-usage-examples-show-sources-cbx-input">
+          <label for="alpheios-word-usage-examples-show-sources-cbx-input">
             {{ l10n.getText('WORDUSAGE_SHOW_SOURCE_LINKS') }}
           </label>
         </div>
@@ -77,7 +77,7 @@
         </div>
       </template>
       <template v-else>
-        <div v-if="selectedAuthor || selectedTextWork">
+        <div v-if="selectedTextWork">
           {{ l10n.getText('WORDUSAGE_HINT_AUTHOR_WORK_FOCUS_SEARCH_NONE',
               { maxResults: settings.getFeatureOptions().items.wordUsageExamplesMax,
                 word: targetWord,
@@ -235,9 +235,6 @@ export default {
         }
         return 0
       })
-    },
-    changeShowDataSource () {
-    //  this.showDataSource = !this.showDataSource
     },
     formattedFullCit (wordUsageItem) {
       return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
