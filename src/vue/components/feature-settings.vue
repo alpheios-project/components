@@ -2,42 +2,48 @@
   <div class="alpheios-feature-options__cont">
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.enableWordUsageExamples"
+        :data="featureOptions.items.preferredLanguage"
+        @change="featureOptionChanged"
+    >
+    </setting>
+    <setting
+        :classes="['alpheios-feature-options-item']"
+        :data="featureOptions.items.enableWordUsageExamples"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesON"
+        :data="featureOptions.items.wordUsageExamplesON"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesAuthMax"
+        :data="featureOptions.items.wordUsageExamplesAuthMax"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.wordUsageExamplesMax"
+        :data="featureOptions.items.wordUsageExamplesMax"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.enableLemmaTranslations"
+        :data="featureOptions.items.enableLemmaTranslations"
         @change="featureOptionChanged"
     >
     </setting>
 
     <setting
         :classes="['alpheios-feature-options-item']"
-        :data="settings.featureOptions.items.locale"
+        :data="featureOptions.items.locale"
         @change="featureOptionChanged"
     >
     </setting>
@@ -45,6 +51,7 @@
 </template>
 <script>
   import Setting from './setting.vue'
+  import Options from '@/lib/options/options.js'
   import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
   export default {
     name: 'FeatureSettings',
@@ -59,9 +66,15 @@
     components: {
       setting: Setting,
     },
+    computed: {
+      featureOptions: function() {
+        return this.settings.getFeatureOptions()
+      }
+    },
     methods: {
       featureOptionChanged: function (name, value) {
-        this.app.featureOptionChange(name, value)
+        let keyinfo = Options.parseKey(name)
+        this.app.featureOptionChange(keyinfo.name, value)
       }
     }
   }

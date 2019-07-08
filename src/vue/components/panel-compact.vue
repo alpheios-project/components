@@ -264,9 +264,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <ui-settings></ui-settings>
-        <feature-settings></feature-settings>
-        <resource-settings></resource-settings>
+        <ui-settings :key="uiSettingsKey"></ui-settings>
+        <feature-settings :key="featureSettingsKey"></feature-settings>
+        <resource-settings :key="resourceSettingsKey"></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -415,6 +415,9 @@ export default {
     right: 'alpheios-panel--right'
   },
 
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-compact',
+
   computed: {
     currentTab () {
       return this.$store.state.ui.activeTab
@@ -442,6 +445,18 @@ export default {
         classes.push('alpheios-panel--expanded')
       }
       return classes
+    },
+
+    uiSettingsKey() {
+      return `${this.$options.prefixName}-settings-ui-${this.$store.state.settings.uiResetCounter}`
+    },
+
+    resourceSettingsKey() {
+      return `${this.$options.prefixName}-settings-resource-${this.$store.state.settings.resourceResetCounter}`
+    },
+
+    featureSettingsKey() {
+      return `${this.$options.prefixName}-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     componentStyles: function () {
@@ -483,10 +498,6 @@ export default {
       }
     },
 
-    verboseMode () {
-      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
-    },
-
     formattedShortDefinitions () {
       let definitions = []
       if (this.$store.getters['app/defDataReady'] && this.$store.state.app.homonymDataReady) {
@@ -524,7 +535,7 @@ export default {
     },
 
     setPosition (position) {
-      this.settings.uiOptions.items.panelPosition.setValue(position)
+      this.settings.getUiOptions().items.panelPosition.setValue(position)
       this.$store.commit('panel/setPosition', position)
     },
 
@@ -735,12 +746,12 @@ export default {
     }
   }
 
-  .alpheios-panel__header-btn-group--end 
+  .alpheios-panel__header-btn-group--end
   .alpheios-panel__header-btn {
     & svg {
       transform: translateY(-50%);
     }
-  } 
+  }
 
   .alpheios-panel__close-btn {
     width: uisize(60px);

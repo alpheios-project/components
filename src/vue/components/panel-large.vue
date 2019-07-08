@@ -129,9 +129,9 @@
            v-show="$store.getters['ui/isActiveTab']('options')"
            data-alpheios-ignore="all"
       >
-        <ui-settings></ui-settings>
-        <feature-settings></feature-settings>
-        <resource-settings></resource-settings>
+        <ui-settings :key="uiSettingsKey"></ui-settings>
+        <feature-settings :key="featureSettingsKey"></feature-settings>
+        <resource-settings :key="resourceSettingsKey"></resource-settings>
         <div>
           <button @click="resetAllOptions"
               class="alpheios-button-primary alpheios-reset-button">{{l10n.getText('LABEL_RESET_OPTIONS')}}
@@ -196,6 +196,9 @@ export default {
   minWidth: 698,
   // Maximum allowed size of a panel, as percentage of the viewport width.
   maxWidthPct: 80,
+
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-large',
 
   computed: {
     rootClasses () {

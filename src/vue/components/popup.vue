@@ -303,7 +303,7 @@ export default {
     },
 
     verboseMode () {
-      return this.settings.uiOptions.items.verboseMode.currentValue === `verbose`
+      return this.settings.getUiOptions().items.verboseMode.currentValue === `verbose`
     }
   },
 
@@ -390,8 +390,9 @@ export default {
     },
 
     dragEndListener () {
-      this.settings.uiOptions.items.popupShiftX.setValue(this.shift.x)
-      this.settings.uiOptions.items.popupShiftY.setValue(this.shift.y)
+      let uiOptions = this.settings.getUiOptions()
+      uiOptions.items.popupShiftX.setValue(this.shift.x)
+      uiOptions.items.popupShiftY.setValue(this.shift.y)
     },
 
     /**
