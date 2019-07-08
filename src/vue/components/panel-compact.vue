@@ -671,7 +671,7 @@ export default {
     flex-wrap: nowrap;
     box-sizing: border-box;
     grid-area: header;
-    background: var(--alpheios-toolbar-bg-color);
+    background: var(--alpheios-compact-panel-header-bg);
     // The rule below required to make sizes and positions of header element dependent on the UI base size
     font-size: var(--alpheios-base-ui-size);
   }
@@ -679,14 +679,14 @@ export default {
   .alpheios-panel__menu-icon {
     width: 32px;
     height: auto;
-    fill: var(--alpheios-color-neutral-lightest);
+    fill: var(--alpheios-compact-panel-icon-color);
 
     &:hover {
-      fill: var(--alpheios-color-bright-hover);
+      fill: var(--alpheios-compact-panel-icon-color-hover);
     }
 
     &.menu-open {
-      fill: var(--alpheios-color-bright);
+      fill: var(--alpheios-compact-panel-icon-color-hover);
     }
   }
 
@@ -720,18 +720,18 @@ export default {
       top: 50%;
       position: relative;
     }
-    fill: var(--alpheios-color-neutral-lightest);
-    stroke: var(--alpheios-color-neutral-lightest);
+    fill: var(--alpheios-compact-panel-icon-color);
+    stroke: var(--alpheios-compact-panel-icon-color);
 
     &:hover {
-      fill: var(--alpheios-color-bright-hover);
-      stroke: var(--alpheios-color-bright-hover);
+      fill: var(--alpheios-compact-panel-icon-color-hover);
+      stroke: var(--alpheios-compact-panel-icon-color-hover);
     }
 
     &:active,
     &.alpheios-navbuttons__icon-active {
-      fill: var(--alpheios-color-bright-pressed);
-      stroke: var(--alpheios-color-bright-pressed);
+      fill: var(--alpheios-compact-panel-icon-color-pressed);
+      stroke: var(--alpheios-compact-panel-icon-color-pressed);
     }
   }
 
@@ -746,8 +746,8 @@ export default {
     width: uisize(60px);
     height: $alpheios-toolbar-height;
     cursor: pointer;
-    fill: var(--alpheios-icon-color);
-    stroke: var(--alpheios-icon-color);
+    fill: var(--alpheios-compact-panel-icon-color);
+    stroke: var(--alpheios-compact-panel-icon-color);
     stroke-width: 0;
 
     svg {
@@ -761,15 +761,15 @@ export default {
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-icon-color-hover);
-      stroke: var(--alpheios-icon-color-hover);
-      background: var(--alpheios-icon-bg-color-hover);
+      fill: var(--alpheios-compact-panel-icon-color-hover);
+      stroke: var(--alpheios-compact-panel-icon-color-hover);
+      background: var(--alpheios-compact-panel-header-icon-active-bg);
     }
 
     &:active {
-      fill: var(--alpheios-icon-color-pressed);
-      stroke: var(--alpheios-icon-color-pressed);
-      background: var(--alpheios-icon-bg-color-pressed);
+      fill: var(--alpheios-compact-panel-icon-color-pressed);
+      stroke: var(--alpheios-compact-panel-icon-color-pressed);
+      background: var(--alpheios-compact-panel-header-icon-active-bg);
     }
   }
 
@@ -783,7 +783,7 @@ export default {
     align-items: stretch;
     // Need to set element as an offset parent for panel content items
     position: relative;
-    background: var(--alpheios-color-neutral-lightest);
+    background: var(--alpheios-compact-panel-content-bg);
 
     [data-resized="true"] & {
       max-width: none;
