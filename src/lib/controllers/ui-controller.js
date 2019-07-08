@@ -1290,7 +1290,7 @@ export default class UIController {
     if (this.api.ui.hasModule('actionPanel')) {
       this.store.state.actionPanel.visible
         ? this.store.commit('actionPanel/close')
-        : this.store.commit('actionPanel/open')
+        : this.store.commit('actionPanel/open', {})
     } else {
       console.warn(`Action panel cannot be toggled because its module is not registered`)
     }

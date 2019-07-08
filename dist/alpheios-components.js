@@ -437,6 +437,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 
+/***/ "../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-list/word-filter-panel.vue?vue&type=style&index=0&lang=scss&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??ref--5-1!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src!../node_modules/sass-loader/lib/loader.js??ref--5-3!../node_modules/vue-loader/lib??vue-loader-options!./vue/components/word-list/word-filter-panel.vue?vue&type=style&index=0&lang=scss& ***!
@@ -17815,6 +17826,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -20041,6 +20053,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    finalCollapsedHeader () {
+      return this.app.platform.isMobile && this.collapsedHeader
+    },
     targetWord () {
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.targetWord : null
     },
@@ -20048,7 +20063,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.app.homonymDataReady && this.app.homonym ? this.app.homonym.language : null
     },
     showHeaderFilters () {
-      return this.$store.state.app.wordUsageExamplesReady
+      return this.$store.state.app.wordUsageExamplesReady && this.app.platform.isMobile
     },
     showHeader () {
       return Boolean(this.selectedAuthor) ||
@@ -26955,7 +26970,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "alpheios-button-primary",
+                  staticClass: "alpheios-button-primary alpheios-reset-button",
                   on: { click: _vm.resetAllOptions }
                 },
                 [
@@ -27307,20 +27322,31 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "alpheios-popup__content" }, [
-          _vm.$store.getters["app/lexicalRequestInProgress"] && !_vm.noLanguage
-            ? _c(
-                "div",
-                { staticClass: "alpheios-popup__definitions--placeholder" },
-                [
-                  _c("progress-bar", {
-                    attrs: {
-                      text: _vm.l10n.getText("PLACEHOLDER_LEX_DATA_LOADING")
-                    }
-                  })
-                ],
-                1
-              )
-            : _vm._e(),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.$store.getters["app/lexicalRequestInProgress"] &&
+                    !_vm.noLanguage,
+                  expression:
+                    "$store.getters['app/lexicalRequestInProgress'] && !noLanguage"
+                }
+              ],
+              staticClass: "alpheios-popup__definitions--placeholder"
+            },
+            [
+              _c("progress-bar", {
+                attrs: {
+                  text: _vm.l10n.getText("PLACEHOLDER_LEX_DATA_LOADING")
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -29305,7 +29331,7 @@ var render = function() {
       [
         _c("word-usage-examples-filters", {
           attrs: {
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             showHeader: _vm.showHeader
           },
           on: {
@@ -29318,7 +29344,7 @@ var render = function() {
         _c("word-usage-examples-sorting", {
           attrs: {
             showHeader: _vm.showHeader,
-            collapsedHeader: _vm.collapsedHeader,
+            collapsedHeader: _vm.finalCollapsedHeader,
             hasSelectedAuthor: _vm.hasSelectedAuthor,
             hasSelectedTextWork: _vm.hasSelectedTextWork,
             reloadSorting: _vm.reloadSorting
@@ -39586,7 +39612,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
+            children.concat([_c('path',{attrs:{"stroke-width":"0","d":"M6 18.71V14H1V1h18v13h-8.29L6 18.71zM2 13h5v3.29L10.29 13H18V2H2v11z"}})])
           )
         }
       });
@@ -39746,7 +39772,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none"}})])
+            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none","stroke-width":"1.1"}})])
           )
         }
       });
@@ -39986,7 +40012,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 92 100"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M73.1 6.1v88h-67v-88h67m1-6h-69c-2.8 0-5 2.2-5 5v90c0 2.8 2.2 5 5 5h69c2.8 0 5-2.2 5-5v-90c0-2.8-2.3-5-5-5zm18 28v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zm0 31v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zm0 31v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zM54.9 45.4c1-.4 1.9-.8 2.8-1.1 2.7-1.1 4.8-2 5.9-2.3.5-.1.8.2 1 .6.1.5-.2.8-.6 1-1 .2-3.2 1.1-5.7 2.2-1.1.5-2.3.9-3.4 1.4v-1.8zm-.4 5.3c-.1.6-.2 1.2-.4 1.8 4.2-1 8.4-2.2 11.3-4.1.4-.3.5-.8.2-1.1-.3-.4-.8-.5-1.1-.2-2.5 1.6-6.2 2.7-10 3.6zm-6.2 12.4l-.5.5c-.3.3-.6.5-.9.8.1.4.2.7.2 1.1.1.4.4.6.8.6h.2c.5-.2.7-.5.6-1-.1-.5-.3-1.2-.4-2zm2.8-3.6l-1.2 1.8c.2.9.4 1.7.6 2.4.1.4.4.6.8.6 0 0 .1 0 .1.2.5-.2.7-.5.6-1-.3-1.1-.6-2.5-.9-4zm17.2-8.6c-.3-.3-.8-.3-1.1 0-2.4 2.6-8.2 4-12.9 4.8l-.3-1.2c-.1-.2-.1-.5-.2-.7-.4 1.3-1 2.6-1.6 3.9.3 0 .6-.1.9-.1.3 1.4.7 2.6 1.1 3.6.2.3.5.5.8.5.1 0 .2 0 .3-.1.4-.2.6-.6.5-1-.4-1-.7-2.1-1-3.3 5-.8 11-2.3 13.7-5.3.1-.3.1-.8-.2-1.1zm-15.7 5c-.1-.4-.2-.7-.2-1.1-.2-.6-.3-1.3-.5-2-.6.1-1.2.2-1.7.4-.2 0-.3.1-.5.1.3.9.5 1.9.7 2.8.7 0 1.4-.1 2.2-.2zm-2.7-4.2c.5-.1 1.1-.2 1.6-.4-.2-.9-.5-1.7-.7-2.6-.7.3-1.4.5-2.1.8.2.7.5 1.5.7 2.2.1.1.3 0 .5 0zm-1.6 4.7h.6c-.2-.9-.4-1.8-.6-2.8-.6.1-1.3.3-1.9.4.2.8.4 1.7.5 2.5.5-.1 1-.1 1.4-.1zm5.1-3.8c.1.4.2.8.3 1.1.1-.4.3-.9.4-1.3-.2.1-.4.1-.7.2zm-5.5-.5c-.2-.7-.4-1.4-.6-2l-1.8.6c.2.6.3 1.2.5 1.9.6-.2 1.3-.4 1.9-.5zm-6.3-11.8c3.1.9 5.1 3.9 6.6 7.7.7-.3 1.4-.5 2.2-.8-1.3-4-3.1-7.4-5.9-8.5-1.5-.5-3.5-.8-5.7-.8-1.6 0-3.4.2-5.1.5-4.3.8-7.7 2.4-9 4.3-1.4 2.1-1.6 5.4-.6 8.6s2.9 5.6 5.3 6.5c3.1 1.2 8.9.2 13.6-.6.8-.2 1.6-.3 2.4-.4-.2-.8-.3-1.5-.5-2.3-6.4 1.7-14.2 3.6-17.4-4.3-1.3-3.3-.2-5.6.9-6.8 3-3.5 9.7-4 13.2-3.1zm-3.1 4.4c-1.5 0-3.2.5-4.2 1.4-1.2 1-1.3 2.2-.3 3.6 1.2 1.6 5.1 1.1 9.4-.2-.5-1.7-1.1-2.9-1.8-3.6-.7-.8-1.8-1.2-3.1-1.2zm2.7-3c-1.1-.2-2.1-.4-3.2-.4-3.7 0-7.2 1.5-8.5 2.9-1.2 1.4-1.4 3.1-.6 5.2 2.6 6.6 9.1 5 15.5 3.4-.2-.6-.3-1.2-.5-1.8-5.4 1.5-9.5 1.8-11.2-.5-1.5-2-1.4-4.2.5-5.7 2.4-2 7.3-2.5 9.6-.2.8.8 1.5 2.4 2.1 4.3.6-.2 1.2-.4 1.7-.6-1.2-3.2-2.9-5.9-5.4-6.6zm5 19.4c-.2-.8-.3-1.7-.5-2.6-.8.1-1.6.2-2.4.4-5.1.9-11 1.9-14.4.5-2.7-1.1-5.1-3.9-6.2-7.5-1.1-3.7-.8-7.5.8-10 1.5-2.3 5.1-4.2 10-5.1 4.5-.8 8.8-.6 11.6.5 3.3 1.3 5.3 5.1 6.8 9.4 1.1-.4 2.2-.8 3.2-1.2-.5-10.2-8.6-17.9-21.5-15.8-8.3 1.4-15.7 6.6-17.5 14.7C12.6 60 35.3 75.3 48 63.7c-.3.3-.6.5-.9.8-.4-1-.7-2.2-.9-3.4zm3.3-1.7c-.1-.5-.2-.9-.3-1.4-.3 0-.5.1-.8.1-.4 0-.8.1-1.2.1.2.9.3 1.8.5 2.6.2.9.3 1.7.5 2.4l-.5.5c.7-.7 1.5-1.5 2.1-2.3 0-.7-.2-1.3-.3-2zm1.2-1.6c.1.5.2.9.3 1.4 0 .1 0 .2.1.3-.1.1-.2.3-.3.4.4-.6.8-1.3 1.1-2 .1-.1.1-.2.2-.3-.5.1-.9.1-1.4.2zm1.6-9.6c.3.9.5 1.9.8 2.8l1.5-.3c.2-1.2.4-2.3.4-3.5-1 .3-1.9.7-2.7 1z","fill":"#fff"}})])
+            children.concat([_c('path',{attrs:{"d":"M73.1 6.1v88h-67v-88h67m1-6h-69c-2.8 0-5 2.2-5 5v90c0 2.8 2.2 5 5 5h69c2.8 0 5-2.2 5-5v-90c0-2.8-2.3-5-5-5zm18 28v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zm0 31v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zm0 31v-18c0-2.8-2.2-5-5-5h-5v28h5c2.7 0 5-2.3 5-5zM54.9 45.4c1-.4 1.9-.8 2.8-1.1 2.7-1.1 4.8-2 5.9-2.3.5-.1.8.2 1 .6.1.5-.2.8-.6 1-1 .2-3.2 1.1-5.7 2.2-1.1.5-2.3.9-3.4 1.4v-1.8zm-.4 5.3c-.1.6-.2 1.2-.4 1.8 4.2-1 8.4-2.2 11.3-4.1.4-.3.5-.8.2-1.1-.3-.4-.8-.5-1.1-.2-2.5 1.6-6.2 2.7-10 3.6zm-6.2 12.4l-.5.5c-.3.3-.6.5-.9.8.1.4.2.7.2 1.1.1.4.4.6.8.6h.2c.5-.2.7-.5.6-1-.1-.5-.3-1.2-.4-2zm2.8-3.6l-1.2 1.8c.2.9.4 1.7.6 2.4.1.4.4.6.8.6 0 0 .1 0 .1.2.5-.2.7-.5.6-1-.3-1.1-.6-2.5-.9-4zm17.2-8.6c-.3-.3-.8-.3-1.1 0-2.4 2.6-8.2 4-12.9 4.8l-.3-1.2c-.1-.2-.1-.5-.2-.7-.4 1.3-1 2.6-1.6 3.9.3 0 .6-.1.9-.1.3 1.4.7 2.6 1.1 3.6.2.3.5.5.8.5.1 0 .2 0 .3-.1.4-.2.6-.6.5-1-.4-1-.7-2.1-1-3.3 5-.8 11-2.3 13.7-5.3.1-.3.1-.8-.2-1.1zm-15.7 5c-.1-.4-.2-.7-.2-1.1-.2-.6-.3-1.3-.5-2-.6.1-1.2.2-1.7.4-.2 0-.3.1-.5.1.3.9.5 1.9.7 2.8.7 0 1.4-.1 2.2-.2zm-2.7-4.2c.5-.1 1.1-.2 1.6-.4-.2-.9-.5-1.7-.7-2.6-.7.3-1.4.5-2.1.8.2.7.5 1.5.7 2.2.1.1.3 0 .5 0zm-1.6 4.7h.6c-.2-.9-.4-1.8-.6-2.8-.6.1-1.3.3-1.9.4.2.8.4 1.7.5 2.5.5-.1 1-.1 1.4-.1zm5.1-3.8c.1.4.2.8.3 1.1.1-.4.3-.9.4-1.3-.2.1-.4.1-.7.2zm-5.5-.5c-.2-.7-.4-1.4-.6-2l-1.8.6c.2.6.3 1.2.5 1.9.6-.2 1.3-.4 1.9-.5zm-6.3-11.8c3.1.9 5.1 3.9 6.6 7.7.7-.3 1.4-.5 2.2-.8-1.3-4-3.1-7.4-5.9-8.5-1.5-.5-3.5-.8-5.7-.8-1.6 0-3.4.2-5.1.5-4.3.8-7.7 2.4-9 4.3-1.4 2.1-1.6 5.4-.6 8.6s2.9 5.6 5.3 6.5c3.1 1.2 8.9.2 13.6-.6.8-.2 1.6-.3 2.4-.4-.2-.8-.3-1.5-.5-2.3-6.4 1.7-14.2 3.6-17.4-4.3-1.3-3.3-.2-5.6.9-6.8 3-3.5 9.7-4 13.2-3.1zm-3.1 4.4c-1.5 0-3.2.5-4.2 1.4-1.2 1-1.3 2.2-.3 3.6 1.2 1.6 5.1 1.1 9.4-.2-.5-1.7-1.1-2.9-1.8-3.6-.7-.8-1.8-1.2-3.1-1.2zm2.7-3c-1.1-.2-2.1-.4-3.2-.4-3.7 0-7.2 1.5-8.5 2.9-1.2 1.4-1.4 3.1-.6 5.2 2.6 6.6 9.1 5 15.5 3.4-.2-.6-.3-1.2-.5-1.8-5.4 1.5-9.5 1.8-11.2-.5-1.5-2-1.4-4.2.5-5.7 2.4-2 7.3-2.5 9.6-.2.8.8 1.5 2.4 2.1 4.3.6-.2 1.2-.4 1.7-.6-1.2-3.2-2.9-5.9-5.4-6.6zm5 19.4c-.2-.8-.3-1.7-.5-2.6-.8.1-1.6.2-2.4.4-5.1.9-11 1.9-14.4.5-2.7-1.1-5.1-3.9-6.2-7.5-1.1-3.7-.8-7.5.8-10 1.5-2.3 5.1-4.2 10-5.1 4.5-.8 8.8-.6 11.6.5 3.3 1.3 5.3 5.1 6.8 9.4 1.1-.4 2.2-.8 3.2-1.2-.5-10.2-8.6-17.9-21.5-15.8-8.3 1.4-15.7 6.6-17.5 14.7C12.6 60 35.3 75.3 48 63.7c-.3.3-.6.5-.9.8-.4-1-.7-2.2-.9-3.4zm3.3-1.7c-.1-.5-.2-.9-.3-1.4-.3 0-.5.1-.8.1-.4 0-.8.1-1.2.1.2.9.3 1.8.5 2.6.2.9.3 1.7.5 2.4l-.5.5c.7-.7 1.5-1.5 2.1-2.3 0-.7-.2-1.3-.3-2zm1.2-1.6c.1.5.2.9.3 1.4 0 .1 0 .2.1.3-.1.1-.2.3-.3.4.4-.6.8-1.3 1.1-2 .1-.1.1-.2.2-.3-.5.1-.9.1-1.4.2zm1.6-9.6c.3.9.5 1.9.8 2.8l1.5-.3c.2-1.2.4-2.3.4-3.5-1 .3-1.9.7-2.7 1z"}})])
           )
         }
       });
@@ -40186,7 +40212,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('circle',{attrs:{"fill":"none","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","d":"M13.018 14.197l-3.573-3.572"}})])
+            children.concat([_c('circle',{attrs:{"fill":"none","stroke-width":"1.1","cx":"10","cy":"10","r":"9"}}),_c('path',{attrs:{"stroke-width":"0","d":"M9 4h1v7H9z"}}),_c('path',{attrs:{"fill":"none","stroke-width":"1.1","d":"M13.018 14.197l-3.573-3.572"}})])
           )
         }
       });
@@ -41837,7 +41863,7 @@ class UIController {
     if (this.api.ui.hasModule('actionPanel')) {
       this.store.state.actionPanel.visible
         ? this.store.commit('actionPanel/close')
-        : this.store.commit('actionPanel/open')
+        : this.store.commit('actionPanel/open', {})
     } else {
       console.warn(`Action panel cannot be toggled because its module is not registered`)
     }
@@ -49879,7 +49905,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _word_context_panel_vue_vue_type_template_id_4d1dab3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./word-context-panel.vue?vue&type=template&id=4d1dab3a& */ "./vue/components/word-list/word-context-panel.vue?vue&type=template&id=4d1dab3a&");
 /* harmony import */ var _word_context_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./word-context-panel.vue?vue&type=script&lang=js& */ "./vue/components/word-list/word-context-panel.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./word-context-panel.vue?vue&type=style&index=0&lang=scss& */ "./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -49887,7 +49915,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _word_context_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _word_context_panel_vue_vue_type_template_id_4d1dab3a___WEBPACK_IMPORTED_MODULE_0__["render"],
   _word_context_panel_vue_vue_type_template_id_4d1dab3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -49916,6 +49944,22 @@ component.options.__file = "vue/components/word-list/word-context-panel.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_context_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!../../../../node_modules/source-map-loader!./word-context-panel.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js?!../node_modules/source-map-loader/index.js!./vue/components/word-list/word-context-panel.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_index_js_word_context_panel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************!*\
+  !*** ./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src!../../../../node_modules/sass-loader/lib/loader.js??ref--5-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./word-context-panel.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/alpheios-node-build/node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js?!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/postcss-loader/src/index.js!../node_modules/sass-loader/lib/loader.js?!../node_modules/vue-loader/lib/index.js?!./vue/components/word-list/word-context-panel.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_alpheios_node_build_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_node_modules_sass_loader_lib_loader_js_ref_5_3_node_modules_vue_loader_lib_index_js_vue_loader_options_word_context_panel_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

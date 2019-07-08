@@ -206,15 +206,8 @@ export default {
     margin-top: 10px;
   }
 
-  @include keyframes(progresscolor) {
-    0% { color: var(--alpheios-color-vivid); }
-    30% { color: var(--alpheios-color-vivid-hover); }
-    60% { color: var(--alpheios-color-bright); }
-    90% { color: var(--alpheios-color-vivid-hover); }
-  }
-
-  .alpheios-word-usage-get-data-progress {
-    @include animation('progresscolor 4s infinite linear');
+  .alpheios-word-usage-header-filters .alpheios-word-usage-get-data-progress {
+    color: var(--alpheios-usage-progress-color);
     font-weight: bold;
   }
 

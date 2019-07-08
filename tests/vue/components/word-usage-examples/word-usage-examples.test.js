@@ -79,6 +79,9 @@ describe('word-usage-examples.test.js', () => {
         app: {
           namespaced: true,
           homonym: null,
+          platform: {
+            isMobile: true
+          },
           state: {
             homonymDataReady: false,
             wordUsageExamplesReady: false
@@ -100,6 +103,9 @@ describe('word-usage-examples.test.js', () => {
       app: {
         state: {
           homonymDataReady: false
+        },
+        platform: {
+          isMobile: true
         },
         homonym: null
       },
@@ -147,6 +153,9 @@ describe('word-usage-examples.test.js', () => {
         l10n: api.l10n,
         app: {
           homonymDataReady: true,
+          platform: {
+            isMobile: true
+          },
           homonym: { targetWord: 'cepit', language: 'lat' }
         },
         ui: api.ui
@@ -191,7 +200,10 @@ describe('word-usage-examples.test.js', () => {
           homonymDataReady: true,
           homonym: { targetWord: 'cepit', language: 'lat' },
           wordUsageExamplesReady: true,
-          wordUsageExamples: testWordUsageList
+          wordUsageExamples: testWordUsageList,
+          platform: {
+            isMobile: true
+          }
         },
         ui: api.ui
       }
