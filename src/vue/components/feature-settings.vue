@@ -6,33 +6,36 @@
         @change="featureOptionChanged"
     >
     </setting>
-    <setting
-        :classes="['alpheios-feature-options-item']"
-        :data="featureOptions.items.enableWordUsageExamples"
-        @change="featureOptionChanged"
-    >
-    </setting>
+    <fieldset>
+      <legend>{{l10n.getText("LABEL_FIELDSET_USAGEEXAMPLES")}}</legend>
+      <setting
+          :classes="['alpheios-feature-options-item']"
+          :data="featureOptions.items.enableWordUsageExamples"
+          @change="featureOptionChanged"
+      >
+      </setting>
 
-    <setting
-        :classes="['alpheios-feature-options-item']"
-        :data="featureOptions.items.wordUsageExamplesON"
-        @change="featureOptionChanged"
-    >
-    </setting>
+      <setting
+          :classes="['alpheios-feature-options-item']"
+          :data="featureOptions.items.wordUsageExamplesON"
+          @change="featureOptionChanged"
+      >
+      </setting>
 
-    <setting
-        :classes="['alpheios-feature-options-item']"
-        :data="featureOptions.items.wordUsageExamplesAuthMax"
-        @change="featureOptionChanged"
-    >
-    </setting>
+      <setting
+          :classes="['alpheios-feature-options-item']"
+          :data="featureOptions.items.wordUsageExamplesAuthMax"
+          @change="featureOptionChanged"
+      >
+      </setting>
 
-    <setting
-        :classes="['alpheios-feature-options-item']"
-        :data="featureOptions.items.wordUsageExamplesMax"
-        @change="featureOptionChanged"
-    >
-    </setting>
+      <setting
+          :classes="['alpheios-feature-options-item']"
+          :data="featureOptions.items.wordUsageExamplesMax"
+          @change="featureOptionChanged"
+      >
+      </setting>
+    </fieldset>
 
     <setting
         :classes="['alpheios-feature-options-item']"

@@ -152,7 +152,7 @@ html {
 
   //Panel
   --alpheios-desktop-panel-header-bg: var(--alpheios-toolbar-bg-color);
-  
+
   --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color);
   --alpheios-desktop-panel-icon-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover);
@@ -168,10 +168,11 @@ html {
   --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active);
   --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
   --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
-  
+
+  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-content-bg: var(--alpheios-text-bg-color);
-  
-  
+
+
   //Lookup
   --alpheios-lookup-border-color: var(--alpheios-border-color);
   --alpheios-lookup-bg: var(--alpheios-text-bg-color);
