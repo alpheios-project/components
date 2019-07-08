@@ -319,7 +319,7 @@
       box-sizing: border-box;
       width: 100%;
       margin: 0;
-      background: var(--alpheios-word-list-select-item-bg);
+      background: var(--alpheios-color-neutral-lightest);
 
       padding: 5px 0;
       border: 1px solid var(--alpheios-border-color);
@@ -335,7 +335,7 @@
         cursor: pointer;
         padding: 0 5px;
         &:hover {
-          background-color: var(--alpheios-word-list-select-item-bg-hover);
+          background-color: var(--alpheios-color-bright-hover);
         }
 
         .alpheios-select-input-filter-part {

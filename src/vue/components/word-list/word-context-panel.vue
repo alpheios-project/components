@@ -54,8 +54,4 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-wordlist-commands__item-back {
-    fill: var(--alpheios-word-list-context-back-link-color);
-    stroke: var(--alpheios-word-list-context-back-link-color);
-  }
 </style>

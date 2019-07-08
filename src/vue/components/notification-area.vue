@@ -112,8 +112,8 @@ export default {
       display: flex;
       padding: uisize(16px) 0 uisize(16px) uisize(16px);
       flex: 0 0 auto;
-      color: var(--alpheios-notification-color);
-      background: var(--alpheios-notification-bg);
+      color: var(--alpheios-color-dark);
+      background: var(--alpheios-notification-bg-color);
       border: 1px solid var(--alpheios-notification-border-color);
       border-radius: uisize(10px);
       margin: 0 uisize(16px) uisize(16px);
@@ -131,8 +131,8 @@ export default {
     &__close-btn {
       padding: 0 uisize(10px) 0 uisize(20px);
       cursor: pointer;
-      fill: var(--alpheios-notification-close-btn-color);
-      stroke: var(--alpheios-notification-close-btn-color);
+      fill: var(--alpheios-color-dark);
+      stroke: var(--alpheios-color-dark);
 
       & svg {
         width: uisize(20px);
@@ -152,23 +152,23 @@ export default {
     }
 
     &__notification--important {
-      color: var(--alpheios-notification-important-color);
-      background: var(--alpheios-notification-important-bg);
+      color: var(--alpheios-color-vivid);
+      background: var(--alpheios-notification-important-bg-color);
       border: 1px solid var(--alpheios-notification-important-border-color);
 
       .alpheios-notification-area__close-btn {
-        fill: var(--alpheios-important-notification-color);
-        stroke: var(--alpheios-important-notification-color);
+        fill: var(--alpheios-color-vivid);
+        stroke: var(--alpheios-color-vivid);
 
         &:hover,
         &:focus {
-          fill: var(--alpheios-important-notification-color-hover);
-          stroke: var(--alpheios-important-notification-color-hover);
+          fill: var(--alpheios-color-vivid-hover);
+          stroke: var(--alpheios-color-vivid-hover);
         }
 
         &:active {
-          fill: var(--alpheios-important-notification-color);
-          stroke: var(--alpheios-important-notification-color);
+          fill: var(--alpheios-color-vivid-pressed);
+          stroke: var(--alpheios-color-vivid-pressed);
         }
       }
     }

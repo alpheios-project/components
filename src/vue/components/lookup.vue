@@ -238,40 +238,21 @@ export default {
     justify-content: space-between;
   }
 
-  $fieldsetHeight: 40px;
-
   .alpheios-lookup__search-control {
     display: flex;
 
     // Double selector is used to prevent style leaks from host pages
-
     input.alpheios-input,
     input.alpheios-input:focus
     {
       width: 70%;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-      height: $fieldsetHeight;
-      min-width: 0;
-      border-color: var(--alpheios-lookup-input-border-color);
     }
 
     button {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      height: $fieldsetHeight;
-
-      background-color: var(--alpheios-lookup-button-bg);
-      color: var(--alpheios-lookup-button-color);
-      border-color: var(--alpheios-lookup-button-border-color);
-
-      &:hover,
-      &:active,
-      &:focus {
-        background-color: var(--alpheios-lookup-button-bg-hover);
-        color: var(--alpheios-lookup-button-color-hover);
-        border-color: var(--alpheios-lookup-button-border-color-hover);
-      }
     }
   }
 

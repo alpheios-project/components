@@ -260,18 +260,18 @@ export default {
     }
 
     .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-no-important {
-      fill: var(--alpheios-word-list-default-item-color);
-      stroke: var(--alpheios-word-list-default-item-color);
+      fill: var(--alpheios-link-color-on-dark);
+      stroke: var(--alpheios-link-color-on-dark);
     }
 
     .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-all-important {
-      fill: var(--alpheios-word-list-important-item-color);
-      stroke: var(--alpheios-word-list-important-item-color);
+      fill: var(--alpheios-color-light);
+      stroke: var(--alpheios-color-light);
     }
 
     .alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-remove-all {
-      fill: var(--alpheios-word-list-delete-item-color);
-      stroke: var(--alpheios-word-list-delete-item-color);
+      fill: var(--alpheios-color-dark);
+      stroke: var(--alpheios-color-dark);
     }
 
     .alpheios-wordlist-delete-all-confirmation {

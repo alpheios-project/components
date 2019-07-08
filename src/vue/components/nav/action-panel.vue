@@ -254,15 +254,15 @@ export default {
     cursor: pointer;
     width: 20px;
     height: auto;
-    fill: var(--alpheios-compact-toolbar-icon-color);
+    fill: var(--alpheios-color-vivid);
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-compact-toolbar-icon-color-hover);
+      fill: var(--alpheios-color-vivid-hover);
     }
 
     &:active {
-      fill: var(--alpheios-compact-toolbar-icon-color-active);
+      fill: var(--alpheios-color-vivid-pressed);
     }
   }
 
@@ -286,11 +286,11 @@ export default {
 
     & .alpheios-popup-lexdataloading__progress-inner {
       height: 16px;
-      border-color: var(--alpheios-compact-popup-progress-bar-line);
+      border-color: var(--alpheios-color-vivid);
     }
 
     & .alpheios-popup-lexdataloading__progress-line {
-      background-color: var(--alpheios-compact-popup-progress-bar-line);
+      background-color: var(--alpheios-color-vivid-hover);
       left: 0.6%;
       top: 1px;
       height: 10px;
@@ -317,14 +317,14 @@ export default {
     width: uisize(44px);
     height: uisize(44px);
     cursor: pointer;
-    fill: var(--alpheios-compact-panel-icon-color);
-    stroke: var(--alpheios-compact-panel-icon-color);
-    background-color: var(--alpheios-compact-panel-icon-bg);
+    fill: var(--alpheios-icon-color);
+    stroke: var(--alpheios-icon-color);
+    background-color: var(--alpheios-color-dark);
     border-radius: 50%;
 
     &.disabled {
-      fill: var(--alpheios-compact-panel-icon-color-disabled);
-      stroke: var(--alpheios-compact-panel-icon-color-disabled);
+      fill: var(--alpheios-color-neutral-dark);
+      stroke: var(--alpheios-color-neutral-dark);
       cursor: default;
     }
 
@@ -339,15 +339,15 @@ export default {
 
     &:hover:not(.disabled),
     &:focus:not(.disabled) {
-      fill: var(--alpheios-compact-panel-icon-color-hover);
-      stroke: var(--alpheios-compact-panel-icon-color-hover);
-      background-color: var(--alpheios-compact-panel-icon-bg);
+      fill: var(--alpheios-icon-color-hover);
+      stroke: var(--alpheios-icon-color-hover);
+      background-color: var(--alpheios-icon-bg-color-hover);
     }
 
     &.active {
-      fill: var(--alpheios-compact-panel-icon-color-active);
-      stroke: var(--alpheios-compact-panel-icon-color-active);
-      background-color: var(--alpheios-compact-panel-icon-bg);
+      fill: var(--alpheios-icon-color-active);
+      stroke: var(--alpheios-icon-color-active);
+      background-color: var(--alpheios-icon-bg-color-active);
     }
   }
 </style>

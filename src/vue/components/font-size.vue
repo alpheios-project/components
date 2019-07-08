@@ -45,8 +45,8 @@ export default {
   @import "../../styles/variables";
 
   .alpheios-setting__button-group {
-    color: var(--alpheios-settings-font-size-dark-color);
-    border: 1px solid var(--alpheios-settings-font-size-dark-color);
+    color: var(--alpheios-text-color-vivid);
+    border: 1px solid var(--alpheios-text-color-vivid);
     border-radius: textsize(10px);
     max-width: textsize(200px);
     display: flex;
@@ -55,7 +55,7 @@ export default {
 
     button {
       border: none;
-      border-right: 1px solid var(--alpheios-settings-font-size-dark-color);
+      border-right: 1px solid var(--alpheios-text-color-vivid);
       background: transparent;
       padding: textsize(6px) textsize(12px);
       font-size: textsize(8px);
@@ -70,8 +70,8 @@ export default {
     }
 
     button.active {
-      color: var(--alpheios-settings-font-size-light-color);
-      background: var(--alpheios-settings-font-size-dark-color);
+      color: var(--alpheios-color-neutral-lightest);
+      background: var(--alpheios-text-color-vivid);
       box-shadow: inset 0 textsize(4px) textsize(4px) rgba(0, 0, 0, 0.1);
     }
   }

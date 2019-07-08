@@ -33,7 +33,7 @@ export default {
   }
 
   .alpheios-popup-lexdataloading__progress-inner {
-    border: uisize(2px) solid var(--alpheios-desktop-popup-progress-bar-line);
+    border: uisize(2px) solid var(--alpheios-color-dark);
     border-radius: textsize(10px);
     text-align: center;
     box-sizing: border-box;
@@ -42,7 +42,7 @@ export default {
   }
 
   .alpheios-popup-lexdataloading__progress-line {
-    background: var(--alpheios-desktop-popup-progress-bar-line);
+    background: var(--alpheios-color-muted);
     animation: progress 3s infinite;
     position: absolute;
     left: 0;

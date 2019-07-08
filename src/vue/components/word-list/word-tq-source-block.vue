@@ -34,12 +34,7 @@ export default {
     a.alpheios-wordlists-tq-title {
       font-weight: bold;
       padding: 5px 0;
-      color: var(--alpheios-word-list-context-source-link-color);
-
-      &:hover,
-      &:focus {
-        color: var(--alpheios-word-list-context-source-link-color-hover);
-      }
+      color: #3E8D9C;
     }
 
     .alpheios-wordlists-tq-contextHTML-block {
@@ -53,7 +48,7 @@ export default {
     .alpheios_worditem_incontext,
     .alpheios_worditem_incontext_add {
       font-weight: bold;
-      background: var(--alpheios-word-list-context-incontext-bg);
+      background: var(--alpheios-color-bright);
       display: inline-block;
       padding: 0 5px;
     }

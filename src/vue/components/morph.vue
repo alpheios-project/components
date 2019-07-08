@@ -393,12 +393,8 @@ export default {
 
   .alpheios-morph__source {
     font-size: smaller;
-    color: var(--alpheios-desktop-popup-link-color);
+    color: var(--alpheios-color-muted);
     font-style: italic;
-
-    &:hover {
-      color: var(--alpheios-desktop-popup-link-color-hover);
-    }
   }
 
   .alpheios-morph__dial {
@@ -415,11 +411,6 @@ export default {
   #{$alpheios-namespace} .alpheios-morph__linkedattr {
     @include alpheios-interactive;
     font-weight: 700;
-
-    color: var(--alpheios-desktop-popup-link-color);
-    &:hover {
-      color: var(--alpheios-desktop-popup-link-color-hover);
-    }
   }
 
   .alpheios-morph__pofs span:last-child:after {
@@ -430,7 +421,7 @@ export default {
     margin-left: .5em;
     margin-top: .5em;
   }
-/*
+
   .alpheios-morph__inflset h5 {
     display: none;
     line-height: 1;
@@ -441,7 +432,7 @@ export default {
     color: var(--alpheios-color-muted);
     display: block;
   }
-*/
+
   .alpheios-morph__morphdata {
     display: inline;
   }
@@ -578,7 +569,6 @@ export default {
         display: inline-block;
         font-weight: bold;
         vertical-align: top;
-        padding-top: 4px;
       }
 
     }

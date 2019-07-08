@@ -75,8 +75,7 @@
 
       <div class="alpheios-popup__content">
         <div class="alpheios-popup__definitions--placeholder"
-             v-show="$store.getters['app/lexicalRequestInProgress'] && !noLanguage"
-             >
+             v-if="$store.getters['app/lexicalRequestInProgress'] && !noLanguage">
           <progress-bar :text="l10n.getText('PLACEHOLDER_LEX_DATA_LOADING')"></progress-bar>
         </div>
 
@@ -519,7 +518,7 @@ export default {
     display: flex;
     justify-content: space-between;
     height: uisize(44px);
-    background: var(--alpheios-desktop-popup-header-bg);
+    background: var(--alpheios-toolbar-bg-color);
   }
 
   .alpheios-popup__logo {
@@ -537,8 +536,8 @@ export default {
     width: uisize(56px);
     height: 100%;
     cursor: pointer;
-    fill: var(--alpheios-desktop-popup-icon-color);
-    stroke: var(--alpheios-desktop-popup-icon-color);
+    fill: var(--alpheios-icon-color);
+    stroke: var(--alpheios-icon-color);
     stroke-width: 0;
 
     svg {
@@ -553,21 +552,15 @@ export default {
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-desktop-popup-icon-color-hover);
-      stroke: var(--alpheios-desktop-popup-icon-color-hover);
-      background: var(--alpheios-desktop-popup-icon-bg-hover);
+      fill: var(--alpheios-icon-color-hover);
+      stroke: var(--alpheios-icon-color-hover);
+      background: var(--alpheios-icon-bg-color-hover);
     }
 
     &:active {
-      fill: var(--alpheios-desktop-popup-icon-color-active);
-      stroke: var(--alpheios-desktop-popup-icon-color-active);
-      background: var(--alpheios-desktop-popup-icon-bg-hover);
-    }
-
-    &.disabled {
-      fill: var(--alpheios-desktop-popup-icon-color-disabled);
-      stroke: var(--alpheios-desktop-popup-icon-color-disabled);
-      background: var(--alpheios-desktop-popup-icon-bg-disabled);
+      fill: var(--alpheios-icon-color-active);
+      stroke: var(--alpheios-icon-color-active);
+      background: var(--alpheios-icon-bg-color-active);
     }
   }
 
@@ -575,8 +568,8 @@ export default {
     width: uisize(56px);
     height: 100%;
     cursor: pointer;
-    fill: var(--alpheios-desktop-popup-icon-color);
-    stroke: var(--alpheios-desktop-popup-icon-color);
+    fill: var(--alpheios-icon-color);
+    stroke: var(--alpheios-icon-color);
 
     svg {
       position: relative;
@@ -589,21 +582,15 @@ export default {
 
     &:hover,
     &:focus {
-      fill: var(--alpheios-desktop-popup-icon-color-hover);
-      stroke: var(--alpheios-desktop-popup-icon-color-hover);
-      background: var(--alpheios-desktop-popup-header-icon-active-bg);
+      fill: var(--alpheios-icon-color-hover);
+      stroke: var(--alpheios-icon-color-hover);
+      background: var(--alpheios-icon-bg-color-hover);
     }
 
     &:active {
-      fill: var(--alpheios-desktop-popup-icon-color-active);
-      stroke: var(--alpheios-desktop-popup-icon-color-active);
-      background: var(--alpheios-desktop-popup-header-icon-active-bg);
-    }
-
-    &.disabled {
-      fill: var(--alpheios-desktop-popup-icon-color-disabled);
-      stroke: var(--alpheios-desktop-popup-icon-color-disabled);
-      background: var(--alpheios-desktop-popup-header-icon-bg-disabled);
+      fill: var(--alpheios-icon-color-active);
+      stroke: var(--alpheios-icon-color-active);
+      background: var(--alpheios-icon-bg-color-active);
     }
   }
 
@@ -611,7 +598,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: textsize(16px);
-    background: var(--alpheios-desktop-popup-body-bg);
+    background: var(--alpheios-text-bg-color);
     overflow: auto;
     flex: 1 0;
   }
@@ -652,7 +639,7 @@ export default {
     padding: uisize(20px);
     // This is to solve a problem when part of content is transparent in Chrome.
     // However, this can be fixed with flex parameters
-    background: var(--alpheios-desktop-popup-content-bg);
+    background: var(--alpheios-text-bg-color);
 
     @include alpheios-ui-border;
   }
@@ -667,9 +654,9 @@ export default {
     display: inline-block;
     margin-bottom: textsize(6px);
     font-weight: 700;
-    color: var(--alpheios-desktop-popup-credit-link-color);
+    color: var(--alpheios-color-vivid);
     &:hover {
-      color: var(--alpheios-desktop-popup-credit-link-color-hover);
+      color: var(--alpheios-color-vivid-hover);
     }
   }
 
@@ -678,6 +665,6 @@ export default {
   }
 
   .alpheios-popup__providers-item {
-    color: var(--alpheios-desktop-popup-credit-providers-color);
+    color: var(--alpheios-color-neutral-dark);
   }
 </style>
