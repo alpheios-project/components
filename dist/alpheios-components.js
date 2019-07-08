@@ -12960,10 +12960,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ReskinFontColor',
-  inject: ['ui', 'l10n'],
+  inject: ['ui', 'l10n', 'settings'],
   data () {
     return {
-      activeButton: 'medium'
+      activeButton: this.settings.getUiOptions().items.fontSize.currentValue
     }
   },
   methods: {
@@ -17142,6 +17142,9 @@ __webpack_require__.r(__webpack_exports__);
     right: 'alpheios-panel--right'
   },
 
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-compact',
+
   computed: {
     currentTab () {
       return this.$store.state.ui.activeTab
@@ -17172,15 +17175,15 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     uiSettingsKey() {
-      return `panel-compact-settings-ui-${this.$store.state.settings.uiResetCounter}`
+      return `${this.$options.prefixName}-settings-ui-${this.$store.state.settings.uiResetCounter}`
     },
 
     resourceSettingsKey() {
-      return `panel-compact-settings-resource-${this.$store.state.settings.resourceResetCounter}`
+      return `${this.$options.prefixName}-settings-resource-${this.$store.state.settings.resourceResetCounter}`
     },
 
     featureSettingsKey() {
-      return `panel-compact-settings-feature-${this.$store.state.settings.featureResetCounter}`
+      return `${this.$options.prefixName}-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     componentStyles: function () {
@@ -17594,21 +17597,12 @@ __webpack_require__.r(__webpack_exports__);
   // Maximum allowed size of a panel, as percentage of the viewport width.
   maxWidthPct: 80,
 
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-large',
+
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
-    },
-
-    uiSettingsKey() {
-      return `panel-large-settings-ui-${this.$store.state.settings.uiResetCounter}`
-    },
-
-    resourceSettingsKey() {
-      return `panel-large-settings-resource-${this.$store.state.settings.resourceResetCounter}`
-    },
-
-    featureSettingsKey() {
-      return `panel-large-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     swapTooltip () {
@@ -20268,10 +20262,10 @@ var render = function() {
         _c(
           "button",
           {
-            class: { active: _vm.activeButton === "small" },
+            class: { active: _vm.activeButton === "12" },
             on: {
               click: function($event) {
-                return _vm.changeFontSize("small")
+                return _vm.changeFontSize("12")
               }
             }
           },
@@ -20287,10 +20281,10 @@ var render = function() {
         _c(
           "button",
           {
-            class: { active: _vm.activeButton === "medium" },
+            class: { active: _vm.activeButton === "16" },
             on: {
               click: function($event) {
-                return _vm.changeFontSize("medium")
+                return _vm.changeFontSize("16")
               }
             }
           },
@@ -20306,10 +20300,10 @@ var render = function() {
         _c(
           "button",
           {
-            class: { active: _vm.activeButton === "large" },
+            class: { active: _vm.activeButton === "20" },
             on: {
               click: function($event) {
-                return _vm.changeFontSize("large")
+                return _vm.changeFontSize("20")
               }
             }
           },
@@ -39499,7 +39493,7 @@ __webpack_require__.r(__webpack_exports__);
               attrs: Object.assign({"viewBox":"0 0 20 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none","stroke-width":"1.1"}})])
+            children.concat([_c('path',{attrs:{"d":"M9.93 4.65c-.712 0-1.399.209-2.063.625v1.147c.538-.577 1.173-.865 1.906-.865.204 0 .398.027.58.084.183.052.344.131.483.24.139.108.246.244.324.404.083.16.125.345.125.553 0 .243-.057.468-.17.672-.108.2-.245.391-.41.578a9.134 9.134 0 0 1-.541.547c-.195.178-.374.365-.539.56s-.305.406-.418.631a1.684 1.684 0 0 0-.162.75 3.266 3.266 0 0 0 .15.977h1.047a3.988 3.988 0 0 1-.142-.41 1.962 1.962 0 0 1-.073-.547c0-.235.057-.45.17-.645.113-.195.255-.382.424-.56.174-.183.359-.365.559-.547.2-.183.385-.378.554-.586a3.11 3.11 0 0 0 .43-.697 2.08 2.08 0 0 0 .168-.86c0-.338-.062-.634-.187-.89-.126-.257-.3-.47-.522-.64a2.222 2.222 0 0 0-.762-.39 3.244 3.244 0 0 0-.931-.13zm-.149 8.172a.694.694 0 0 0-.508.215.667.667 0 0 0-.214.508c0 .2.071.369.214.508.148.139.317.207.508.207s.36-.068.508-.207a.68.68 0 0 0 .215-.508.667.667 0 0 0-.215-.508.694.694 0 0 0-.508-.215z"}}),_c('circle',{attrs:{"cx":"10","cy":"10","r":"9","fill":"none"}})])
           )
         }
       });
@@ -41876,20 +41870,8 @@ class UIController {
     switch (settingName) {
       case 'fontSize':
         try {
-          let value = uiOptions.items.fontSize.currentValue
-          let px
-          switch(value) {
-            case 'small':
-              px = '12px'
-              break
-            case 'medium':
-              px = '16px'
-              break
-            case 'large':
-              px = '20px'
-              break
-          }
-          document.documentElement.style.setProperty(FONT_SIZE_PROP, `${px}`)
+          document.documentElement.style.setProperty(FONT_SIZE_PROP,
+            `${uiOptions.items.fontSize.currentValue}px`)
         } catch (error) {
           console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
         }
@@ -43511,7 +43493,6 @@ class Options {
    *    {string} domain - A domain name that defines options context
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {StorageAdapter} storageAdapter - A storage adapter implementation
-   * @param {Object} adapterInitObj - an object which can be passed to the Storage Adapter to provide additional application state
    */
   constructor (defaults, storageAdapter) {
     if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
@@ -43597,7 +43578,6 @@ class Options {
       let message = `Cannot retrieve options for Alpheios extension from a local storage: ${error}. Default values ` +
       `will be used instead`
       console.error(message)
-      throw new Error(message)
     }
   }
 
@@ -43661,10 +43641,23 @@ __webpack_require__.r(__webpack_exports__);
  * An implementation of the StorageAdapterinterface that retrieves
  * data from an authentication-protected remote service implementing
  * the Alpheios user-settings-api.
+ * @param {String} domain a string identifying the storage domain
+ * @param {Object} auth athentication details object adhering to:
+ *                      { endpoints: {settings: <baseUrl of settings api},
+ *                        accessToken: JWT token identying user and granting
+ *                                     access to the settings api
+ *                      }
+ *
  */
 class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor (domain = 'alpheios-storage-domain', auth=null) {
     super(domain)
+    if (!auth ||
+        ! auth.endpoints ||
+        ! auth.endpoints.settings.match(/^https:\/\//) ||
+        ! auth.accessToken) {
+            throw new Error("Authentication details missing or invalid")
+    }
     this.baseURL = auth.endpoints.settings,
     this.requestContext = {
       headers: {
@@ -43684,11 +43677,12 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
    * successfully. If at least on save operation fails, returns a rejected promise with an error information.
    */
   async set (keysObject) {
-    let [key, value] = Object.entries(keysObject)[0]
-    let url  = `${this.baseURL}/${key}`
-    let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, value, this.requestContext)
-    if (result.status !== 201) {
-      throw new Error(`Unexpected result status from settings api: ${result.status}`)
+    for (const [key, value] of Object.entries(keysObject)) {
+      let url  = `${this.baseURL}/${key}`
+      let result = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, value, this.requestContext)
+      if (result.status !== 201) {
+        throw new Error(`Unexpected result status from settings api: ${result.status}`)
+      }
     }
   }
 
@@ -46632,7 +46626,7 @@ module.exports = [{"uriMatch":"https?://thelatinlibrary.com/caesar/gall1.shtml",
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = {"domain":"alpheios-ui-options","version":2,"items":{"fontSize":{"defaultValue":"medium","labelText":"Font size","values":[{"value":"small","text":"Small font size"},{"value":"medium","text":"Medium font size"},{"value":"large","text":"Large font size"}]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupShiftX":{"defaultValue":0,"labelText":"Popup shift, x axe:","number":true,"values":[]},"popupShiftY":{"defaultValue":0,"labelText":"Popup shift, y axe:","number":true,"values":[]},"toolbarShiftX":{"defaultValue":0,"labelText":"Toolbar shift, x axe:","number":true,"values":[]},"toolbarShiftY":{"defaultValue":0,"labelText":"Toolbar shift, y axe:","number":true,"values":[]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]}}};
+module.exports = {"domain":"alpheios-ui-options","version":2,"items":{"fontSize":{"defaultValue":"medium","labelText":"Font size","values":[{"value":"12","text":"Small font size"},{"value":"16","text":"Medium font size"},{"value":"20","text":"Large font size"}]},"panelPosition":{"defaultValue":"left","labelText":"Panel position:","values":[{"value":"left","text":"Left"},{"value":"right","text":"Right"}]},"popupShiftX":{"defaultValue":0,"labelText":"Popup shift, x axe:","number":true,"values":[]},"popupShiftY":{"defaultValue":0,"labelText":"Popup shift, y axe:","number":true,"values":[]},"toolbarShiftX":{"defaultValue":0,"labelText":"Toolbar shift, x axe:","number":true,"values":[]},"toolbarShiftY":{"defaultValue":0,"labelText":"Toolbar shift, y axe:","number":true,"values":[]},"verboseMode":{"defaultValue":"normal","labelText":"Log Level","values":[{"value":"verbose","text":"Verbose"},{"value":"normal","text":"Normal"}]}}};
 
 /***/ }),
 

@@ -152,7 +152,7 @@ describe('options.test.js', () => {
     expect(opt.items.localeN).toBeUndefined()
   })
 
-  it('9 Options - if in load method storageAdapter.get throw a error', async () => {
+  it('9 Options - if in load method storageAdapter.get log error', async () => {
     let testOption = { defaultValue: 'en-US', labelText: 'UI Locale:', values: [ { text: 'English (US)', value: 'en-US' } ] }
     let testDefaults = {
       domain: 'alpheios-test-options',
@@ -169,9 +169,8 @@ describe('options.test.js', () => {
 
     opt.storageAdapter.get = function () { return new Promise((resolve, reject) => { reject(testError) }) }
 
-    await expect(opt.load())
-      .rejects
-      .toThrow(`Cannot retrieve options for Alpheios extension from a local storage: ${testError}. Default values will be used instead`)
+    await opt.load()
+    expect(console.error).toHaveBeenCalledWith(`Cannot retrieve options for Alpheios extension from a local storage: ${testError}. Default values will be used instead`)
   })
 
   it('10 Options - parseKey parses a string to object', () => {

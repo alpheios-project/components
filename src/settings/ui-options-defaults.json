@@ -7,15 +7,15 @@
       "labelText": "Font size",
       "values": [
         {
-          "value": "small",
+          "value": "12",
           "text": "Small font size"
         },
         {
-          "value": "medium",
+          "value": "16",
           "text": "Medium font size"
         },
         {
-          "value": "large",
+          "value": "20",
           "text": "Large font size"
         }
       ]

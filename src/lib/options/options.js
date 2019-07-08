@@ -11,7 +11,6 @@ export default class Options {
    *    {string} domain - A domain name that defines options context
    *    {Object} items - An object that represents options that are exposed to the user. Each property is an option name.
    * @param {StorageAdapter} storageAdapter - A storage adapter implementation
-   * @param {Object} adapterInitObj - an object which can be passed to the Storage Adapter to provide additional application state
    */
   constructor (defaults, storageAdapter) {
     if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
@@ -97,7 +96,6 @@ export default class Options {
       let message = `Cannot retrieve options for Alpheios extension from a local storage: ${error}. Default values ` +
       `will be used instead`
       console.error(message)
-      throw new Error(message)
     }
   }
 

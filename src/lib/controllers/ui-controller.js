@@ -1656,20 +1656,8 @@ export default class UIController {
     switch (settingName) {
       case 'fontSize':
         try {
-          let value = uiOptions.items.fontSize.currentValue
-          let px
-          switch(value) {
-            case 'small':
-              px = '12px'
-              break
-            case 'medium':
-              px = '16px'
-              break
-            case 'large':
-              px = '20px'
-              break
-          }
-          document.documentElement.style.setProperty(FONT_SIZE_PROP, `${px}`)
+          document.documentElement.style.setProperty(FONT_SIZE_PROP,
+            `${uiOptions.items.fontSize.currentValue}px`)
         } catch (error) {
           console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
         }

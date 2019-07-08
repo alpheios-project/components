@@ -7,9 +7,9 @@ describe('remote-auth-storage-area.test.js', () => {
   let auth
   beforeAll(() => {
     auth  = {
-      accessToken: process.env.AUTH_TOKEN,
+      accessToken: process.env.AUTH_TOKEN || 'dummyToken',
       endpoints: {
-        settings: process.env.ENDPOINT
+        settings: process.env.ENDPOINT || 'https://dummy.org'
       }
     }
     // if the environment doesn't have authentication details then
@@ -82,5 +82,29 @@ describe('remote-auth-storage-area.test.js', () => {
       } catch (e) {
         expect(e.message).toEqual('Unexpected result status from settings api: 401')
       }
+  })
+
+  it('throws error if constructed without auth',() => {
+    expect(() => {
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings')
+    }).toThrowError(/Authentication details missing or invalid/)
+  })
+
+  it('throws error if constructed with auth missing endpoint',() => {
+    expect(() => {
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',{accessToken:'abc'})
+    }).toThrowError(/Authentication details missing or invalid/)
+  })
+
+  it('throws error if constructed with auth invalid endpoint',() => {
+    expect(() => {
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',{accessToken:'abc', endpoint: {settings: 'abc'}})
+    }).toThrowError(/Authentication details missing or invalid/)
+  })
+
+  it('throws error if constructed with auth missing access token',() => {
+    expect(() => {
+      let stAdapter = new RemoteAuthStorageArea('alpheios-feature-settings',{endpoint: {settings: 'https://example.com'}})
+    }).toThrowError(/Authentication details missing or invalid/)
   })
 })

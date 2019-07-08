@@ -197,21 +197,12 @@ export default {
   // Maximum allowed size of a panel, as percentage of the viewport width.
   maxWidthPct: 80,
 
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-large',
+
   computed: {
     rootClasses () {
       return this.$options.positionClassVariants[this.$store.state.panel.position]
-    },
-
-    uiSettingsKey() {
-      return `panel-large-settings-ui-${this.$store.state.settings.uiResetCounter}`
-    },
-
-    resourceSettingsKey() {
-      return `panel-large-settings-resource-${this.$store.state.settings.resourceResetCounter}`
-    },
-
-    featureSettingsKey() {
-      return `panel-large-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     swapTooltip () {

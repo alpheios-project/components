@@ -415,6 +415,9 @@ export default {
     right: 'alpheios-panel--right'
   },
 
+  // custom property for use in constructing keys on subcomponents
+  prefixName: 'panel-compact',
+
   computed: {
     currentTab () {
       return this.$store.state.ui.activeTab
@@ -445,15 +448,15 @@ export default {
     },
 
     uiSettingsKey() {
-      return `panel-compact-settings-ui-${this.$store.state.settings.uiResetCounter}`
+      return `${this.$options.prefixName}-settings-ui-${this.$store.state.settings.uiResetCounter}`
     },
 
     resourceSettingsKey() {
-      return `panel-compact-settings-resource-${this.$store.state.settings.resourceResetCounter}`
+      return `${this.$options.prefixName}-settings-resource-${this.$store.state.settings.resourceResetCounter}`
     },
 
     featureSettingsKey() {
-      return `panel-compact-settings-feature-${this.$store.state.settings.featureResetCounter}`
+      return `${this.$options.prefixName}-settings-feature-${this.$store.state.settings.featureResetCounter}`
     },
 
     componentStyles: function () {
