@@ -16,29 +16,29 @@
       <div class="alpheios-popup__toolbar-buttons">
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_DEFINITIONS')" tooltipDirection="bottom-wide"
                         v-show="$store.getters['app/defDataReady']">
-              <div class="alpheios-popup__toolbar-top__btn">
-                <definitions-icon @click="ui.showPanelTab('definitions')" class="alpheios-navbuttons__icon" />
+              <div class="alpheios-popup__toolbar-top__btn" @click="ui.showPanelTab('definitions')">
+                <definitions-icon  class="alpheios-navbuttons__icon" />
               </div>
           </alph-tooltip>
 
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_INFLECTIONS')" tooltipDirection="bottom-wide"
                         v-show="$store.state.app.hasInflData">
-            <div class="alpheios-popup__toolbar-top__btn">
-               <inflections-icon @click="ui.showPanelTab('inflections')" class="alpheios-navbuttons__icon" />
+            <div class="alpheios-popup__toolbar-top__btn" @click="ui.showPanelTab('inflections')">
+               <inflections-icon class="alpheios-navbuttons__icon" />
             </div>
           </alph-tooltip>
 
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_USAGEEXAMPLES')" tooltipDirection="bottom-wide"
                         v-show="$store.state.app.wordUsageExampleEnabled">
-                <div class="alpheios-popup__toolbar-top__btn">
-                  <word-usage-icon @click="ui.showPanelTab('wordUsage')" class="alpheios-navbuttons__icon" />
+                <div class="alpheios-popup__toolbar-top__btn" @click="ui.showPanelTab('wordUsage')">
+                  <word-usage-icon class="alpheios-navbuttons__icon" />
                 </div>
           </alph-tooltip>
 
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_TREEBANK')" tooltipDirection="bottom-wide"
-                        v-show="$store.getters['app/hasTreebankData']">
+                        v-show="$store.getters['app/hasTreebankData']" @click="ui.showPanelTab('treebank')">
                 <div class="alpheios-popup__toolbar-top__btn">
-                  <treebank-icon @click="ui.showPanelTab('treebank')" class="alpheios-navbuttons__icon" />
+                  <treebank-icon class="alpheios-navbuttons__icon" />
                 </div>
           </alph-tooltip>
 
