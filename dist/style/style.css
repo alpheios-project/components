@@ -315,6 +315,7 @@ html {
   --alpheios-link-color-on-medium: var(--alpheios-color-muted);
   --alpheios-link-color-on-dark: var(--alpheios-color-bright);
   --alpheios-toolbar-bg-color: var(--alpheios-color-dark);
+  --alpheios-toolbar-bg-color-hover: var(--alpheios-color-dark-hover);
   --alpheios-border-color: var(--alpheios-color-neutral-dark);
   --alpheios-icon-color: var(--alpheios-color-neutral-lightest);
   --alpheios-icon-bg-color: transparent;
@@ -396,18 +397,20 @@ html {
   --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color);
   --alpheios-desktop-panel-icon-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover);
-  --alpheios-compact-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color);
+  --alpheios-desktop-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color-hover);
   --alpheios-desktop-panel-icon-color-active: var(--alpheios-icon-color-active);
   --alpheios-desktop-panel-icon-bg-active: var(--alpheios-toolbar-bg-color);
   --alpheios-desktop-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
   --alpheios-desktop-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
+  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-icon-color: var(--alpheios-icon-color);
   --alpheios-compact-panel-icon-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-icon-color-hover: var(--alpheios-icon-color-hover);
+  --alpheios-compact-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color-hover);
   --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active);
+  --alpheios-compact-panel-icon-bg-active: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed);
   --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled);
-  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color);
   --alpheios-compact-panel-content-bg: var(--alpheios-text-bg-color);
   --alpheios-lookup-border-color: var(--alpheios-border-color);
   --alpheios-lookup-bg: var(--alpheios-text-bg-color);
@@ -3207,10 +3210,12 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__header-btn:hover {
   fill: var(--alpheios-compact-panel-icon-color-hover);
   stroke: var(--alpheios-compact-panel-icon-color-hover);
+  background: var(--alpheios-compact-panel-icon-bg-hover);
 }
 .alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
   fill: var(--alpheios-compact-panel-icon-color-pressed);
   stroke: var(--alpheios-compact-panel-icon-color-pressed);
+  background: var(--alpheios-compact-panel-icon-bg-active);
 }
 .alpheios-panel__header-btn-group--end .alpheios-panel__header-btn svg {
   transform: translateY(-50%);
@@ -3234,12 +3239,12 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__close-btn:hover, .alpheios-panel__close-btn:focus {
   fill: var(--alpheios-compact-panel-icon-color-hover);
   stroke: var(--alpheios-compact-panel-icon-color-hover);
-  background: var(--alpheios-compact-panel-header-icon-active-bg);
+  background: var(--alpheios-compact-panel-icon-bg-hover);
 }
 .alpheios-panel__close-btn:active {
   fill: var(--alpheios-compact-panel-icon-color-pressed);
   stroke: var(--alpheios-compact-panel-icon-color-pressed);
-  background: var(--alpheios-compact-panel-header-icon-active-bg);
+  background: var(--alpheios-compact-panel-icon-bg-active);
 }
 .alpheios-panel__content {
   overflow: auto;

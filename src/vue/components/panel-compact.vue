@@ -737,12 +737,14 @@ export default {
     &:hover {
       fill: var(--alpheios-compact-panel-icon-color-hover);
       stroke: var(--alpheios-compact-panel-icon-color-hover);
+      background: var(--alpheios-compact-panel-icon-bg-hover);
     }
 
     &:active,
     &.alpheios-navbuttons__icon-active {
       fill: var(--alpheios-compact-panel-icon-color-pressed);
       stroke: var(--alpheios-compact-panel-icon-color-pressed);
+      background: var(--alpheios-compact-panel-icon-bg-active);
     }
   }
 
@@ -774,13 +776,13 @@ export default {
     &:focus {
       fill: var(--alpheios-compact-panel-icon-color-hover);
       stroke: var(--alpheios-compact-panel-icon-color-hover);
-      background: var(--alpheios-compact-panel-header-icon-active-bg);
+      background: var(--alpheios-compact-panel-icon-bg-hover);
     }
 
     &:active {
       fill: var(--alpheios-compact-panel-icon-color-pressed);
       stroke: var(--alpheios-compact-panel-icon-color-pressed);
-      background: var(--alpheios-compact-panel-header-icon-active-bg);
+      background: var(--alpheios-compact-panel-icon-bg-active);
     }
   }
 

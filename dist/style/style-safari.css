@@ -315,6 +315,7 @@ html {
   --alpheios-link-color-on-medium: var(--alpheios-color-muted) !important;
   --alpheios-link-color-on-dark: var(--alpheios-color-bright) !important;
   --alpheios-toolbar-bg-color: var(--alpheios-color-dark) !important;
+  --alpheios-toolbar-bg-color-hover: var(--alpheios-color-dark-hover) !important;
   --alpheios-border-color: var(--alpheios-color-neutral-dark) !important;
   --alpheios-icon-color: var(--alpheios-color-neutral-lightest) !important;
   --alpheios-icon-bg-color: transparent !important;
@@ -396,18 +397,20 @@ html {
   --alpheios-desktop-panel-icon-color: var(--alpheios-icon-color) !important;
   --alpheios-desktop-panel-icon-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-desktop-panel-icon-color-hover: var(--alpheios-icon-color-hover) !important;
-  --alpheios-compact-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color) !important;
+  --alpheios-desktop-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color-hover) !important;
   --alpheios-desktop-panel-icon-color-active: var(--alpheios-icon-color-active) !important;
   --alpheios-desktop-panel-icon-bg-active: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-desktop-panel-icon-color-pressed: var(--alpheios-icon-color-pressed) !important;
   --alpheios-desktop-panel-icon-color-disabled: var(--alpheios-icon-color-disabled) !important;
+  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-icon-color: var(--alpheios-icon-color) !important;
   --alpheios-compact-panel-icon-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-icon-color-hover: var(--alpheios-icon-color-hover) !important;
+  --alpheios-compact-panel-icon-bg-hover: var(--alpheios-toolbar-bg-color-hover) !important;
   --alpheios-compact-panel-icon-color-active: var(--alpheios-icon-color-active) !important;
+  --alpheios-compact-panel-icon-bg-active: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-icon-color-pressed: var(--alpheios-icon-color-pressed) !important;
   --alpheios-compact-panel-icon-color-disabled: var(--alpheios-icon-color-disabled) !important;
-  --alpheios-compact-panel-header-bg: var(--alpheios-toolbar-bg-color) !important;
   --alpheios-compact-panel-content-bg: var(--alpheios-text-bg-color) !important;
   --alpheios-lookup-border-color: var(--alpheios-border-color) !important;
   --alpheios-lookup-bg: var(--alpheios-text-bg-color) !important;
@@ -3207,10 +3210,12 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__header-btn:hover {
   fill: var(--alpheios-compact-panel-icon-color-hover) !important;
   stroke: var(--alpheios-compact-panel-icon-color-hover) !important;
+  background: var(--alpheios-compact-panel-icon-bg-hover) !important;
 }
 .alpheios-panel__header-btn:active, .alpheios-panel__header-btn.alpheios-navbuttons__icon-active {
   fill: var(--alpheios-compact-panel-icon-color-pressed) !important;
   stroke: var(--alpheios-compact-panel-icon-color-pressed) !important;
+  background: var(--alpheios-compact-panel-icon-bg-active) !important;
 }
 .alpheios-panel__header-btn-group--end .alpheios-panel__header-btn svg {
   transform: translateY(-50%) !important;
@@ -3234,12 +3239,12 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__close-btn:hover, .alpheios-panel__close-btn:focus {
   fill: var(--alpheios-compact-panel-icon-color-hover) !important;
   stroke: var(--alpheios-compact-panel-icon-color-hover) !important;
-  background: var(--alpheios-compact-panel-header-icon-active-bg) !important;
+  background: var(--alpheios-compact-panel-icon-bg-hover) !important;
 }
 .alpheios-panel__close-btn:active {
   fill: var(--alpheios-compact-panel-icon-color-pressed) !important;
   stroke: var(--alpheios-compact-panel-icon-color-pressed) !important;
-  background: var(--alpheios-compact-panel-header-icon-active-bg) !important;
+  background: var(--alpheios-compact-panel-icon-bg-active) !important;
 }
 .alpheios-panel__content {
   overflow: auto !important;
