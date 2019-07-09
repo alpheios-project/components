@@ -2,6 +2,16 @@
   <div class="alpheios-word-usage">
     <div class="alpheios_word_usage_list_title" data-alpheios-ignore="all">{{ targetWord }}
       <span class="alpheios-word-usage-header-show-link" v-if="showHeaderFilters" @click="collapsedHeader = !collapsedHeader"> ({{ collapsedHeaderTitle }})</span>
+      <div v-if="hasSelectedAuthor" class="alpheios_word_usage_hint">
+        {{ l10n.getText('WORDUSAGE_HINT_FOCUS_SEARCH',
+            { maxResults:settings.getFeatureOptions().items.wordUsageExamplesMax.currentValue })
+        }}
+      </div>
+      <div v-else="!hasSelectedAuthor && !hasSelectedTextWork" class="alpheios_word_usage_hint">
+        {{ l10n.getText('WORDUSAGE_HINT_INITIAL_SEARCH',
+            { maxResults:settings.getFeatureOptions().items.wordUsageExamplesAuthMax.currentValue })
+        }}
+      </div>
     </div>
 
     <div class="alpheios-word-usage-header" data-alpheios-ignore="all">
@@ -28,12 +38,11 @@
 
     <div class="alpheios_word_usage_list_mainblock" v-if="showWordUsageExampleItems">
       <template v-if="wordUsageListSorted.length > 0">
-        <div
-            class="alpheios-word-usage__examples-show-sources-btn alpheios-button-primary"
-            @click="changeShowDataSource"
-            data-alpheios-ignore="all"
-        >
-          {{ l10n.getText('WORDUSAGE_SHOW_SOURCE_LINKS') }}
+        <div class="alpheios-word-usage__examples-show-sources-cbx" data-alpheios-ignore="all">
+          <input id="alpheios-word-usage-examples-show-sources-cbx-input" type="checkbox" v-model="showDataSource">
+          <label for="alpheios-word-usage-examples-show-sources-cbx-input">
+            {{ l10n.getText('WORDUSAGE_SHOW_SOURCE_LINKS') }}
+          </label>
         </div>
         <div
             class="alpheios-word-usage__examples"
@@ -68,7 +77,18 @@
         </div>
       </template>
       <template v-else>
+        <div v-if="selectedTextWork">
+          {{ l10n.getText('WORDUSAGE_HINT_AUTHOR_WORK_FOCUS_SEARCH_NONE',
+              { maxResults: settings.getFeatureOptions().items.wordUsageExamplesMax,
+                word: targetWord,
+                author: selectedAuthor.title(),
+                work: selectedTextWork.title()
+              })
+          }}
+        </div>
+        <div v-show="! selectedTextWork">
         {{ l10n.getText('WORDUSAGE_NO_RESULTS') }}
+        </div>
       </template>
     </div>
 
@@ -85,7 +105,7 @@ import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
 export default {
   name: 'WordUsageExamples',
-  inject: ['ui', 'app', 'l10n'],
+  inject: ['ui', 'app', 'l10n','settings'],
   storeModules: ['ui'],
   mixins: [DependencyCheck],
   components: {
@@ -216,9 +236,6 @@ export default {
         return 0
       })
     },
-    changeShowDataSource () {
-      this.showDataSource = !this.showDataSource
-    },
     formattedFullCit (wordUsageItem) {
       return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
     }
@@ -244,6 +261,10 @@ export default {
       padding-bottom: 5px;
       border-bottom: 1px solid var(--alpheios-border-color);
       margin-bottom: 10px;
+    }
+
+    div.alpheios_word_usage_list_title div.alpheios_word_usage_hint {
+      font-weight: normal;
     }
 
     div.alpheios_word_usage_list_mainblock {
@@ -292,7 +313,7 @@ export default {
       grid-auto-rows: auto;
     }
 
-    &__examples-show-sources-btn {
+    &__examples-show-sources-cbx {
       margin: 40px 0  20px;
     }
 
@@ -364,11 +385,13 @@ export default {
     }
   }
 
-  .alpheios-word-usage__examples-show-sources-btn {
+  .alpheios-word-usage__examples-show-sources-cbx {
     display: none;
   }
 
-
+  .alpheios-word-usage__examples-show-sources-cbx label {
+    color: var(--alpheios-usage-link-color)
+  }
 
   .alpheios-layout-compact {
     .alpheios-word-usage-header-select-type-filters-block
@@ -395,8 +418,8 @@ export default {
       padding-top: 10px;
     }
 
-    .alpheios-word-usage__examples-show-sources-btn {
-      margin: 20px 0;
+    .alpheios-word-usage__examples-show-sources-cbx {
+      margin: 0 0 0 10px;
     }
 
 
@@ -404,7 +427,7 @@ export default {
         display: none;
       }
 
-    .alpheios-word-usage__examples-show-sources-btn {
+    .alpheios-word-usage__examples-show-sources-cbx {
       display: inline-block;
     }
 
