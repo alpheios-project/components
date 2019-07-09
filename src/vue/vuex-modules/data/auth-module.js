@@ -35,6 +35,7 @@ AuthModule.store = (moduleInstance) => {
       isAuthenticated: false,
       notification: {
         visible: false,
+        hideLoginPrompt: false,
         showLogin: false,
         count: 0,
         text: null
@@ -55,7 +56,12 @@ AuthModule.store = (moduleInstance) => {
         state.userNickName = ''
       },
       setNotification (state, data) {
-        state.notification.visible = true
+        // don't show login notifications if they have been hidden
+        if (data.showLogin && state.notification.hideLoginPrompt) {
+          state.notification.visible = false
+        } else {
+          state.notification.visible = true
+        }
         state.notification.showLogin = data.showLogin || false
         state.notification.count = data.count || 0
         state.notification.text = data.text || data
@@ -65,6 +71,17 @@ AuthModule.store = (moduleInstance) => {
         state.notification.showLogin = false
         state.notification.text = null
         state.notification.count = 0
+      },
+      setHideLoginPrompt (state,data) {
+        state.notification.hideLoginPrompt = data
+        // if we are responding to a request to hide the login prompt
+        // set any current login notification to invisible
+        if (data && state.notification.showLogin) {
+          state.notification.visible = false
+          state.notification.showLogin = false
+          state.notification.text = null
+          state.notification.count = 0
+        }
       }
     }
   }
