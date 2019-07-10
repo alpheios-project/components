@@ -55,6 +55,15 @@ AuthModule.store = (moduleInstance) => {
         state.userId = ''
         state.userNickName = ''
       },
+      /**
+       * set a UI notification
+       * @param {Object} state current state Object
+       * @param {Object} data notification object with the following properties:
+       *   { showLogin: Boolean - set to true if the notification is a prompt for login
+       *     count: int - a counter for the number of times the notification has been issued
+       *     text: String - the text of the notification message
+       *   }
+       */
       setNotification (state, data) {
         // don't show login notifications if they have been hidden
         if (data.showLogin && state.notification.hideLoginPrompt) {
@@ -66,12 +75,22 @@ AuthModule.store = (moduleInstance) => {
         state.notification.count = data.count || 0
         state.notification.text = data.text || data
       },
+      /**
+       * reset the notification state
+       * @param {Object} state current state object
+       */
       resetNotification (state) {
         state.notification.visible = false
         state.notification.showLogin = false
         state.notification.text = null
         state.notification.count = 0
       },
+      /**
+       * set the hideLoginPrompt state
+       * @param {Object} state current state Object
+       * @param {Boolean} data value for state.notification.hideLoginPrompt
+       *                       true if login prompt is to be hidden, false if not
+       */
       setHideLoginPrompt (state,data) {
         state.notification.hideLoginPrompt = data
         // if we are responding to a request to hide the login prompt
