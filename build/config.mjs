@@ -1,4 +1,5 @@
 import VueLoaderPlugin from 'vue-loader/lib/plugin.js'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import path from 'path'
 const projectRoot = process.cwd()
@@ -12,7 +13,11 @@ const imagemin = {
 const webpack = {
   common: {
     entry: './plugin.js',
-    // externals: ['alpheios-data-models', 'alpheios-inflection-tables'],
+    output: {
+      library: 'AlpheiosComponents',
+      libraryTarget: 'umd',
+      chunkFilename: 'components.[name].js'
+    },
     resolve: {
       alias: {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
@@ -23,15 +28,6 @@ const webpack = {
         '@': path.join(projectRoot, 'src')
       }
     },
-    externals: {
-      'alpheios-client-adapters': 'alpheios-client-adapters',
-      'alpheios-wordlist': 'alpheios-wordlist',
-      'alpheios-data-models': 'alpheios-data-models',
-      'alpheios-inflection-tables': 'alpheios-inflection-tables',
-      'alpheios-experience': 'alpheios-experience',
-      'alpheios-res-client': 'alpheios-res-client',
-      'intl-messageformat': 'intl-messageformat'
-    },
     plugins: [
       new VueLoaderPlugin()
     ]
@@ -39,12 +35,26 @@ const webpack = {
 
   production: {
     mode: 'production',
-    output: { filename: 'alpheios-components.min.js' }
+    output: {
+      filename: 'alpheios-components.min.js'
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'style/style-components.min.css'
+      })
+    ]
   },
 
   development: {
     mode: 'development',
-    output: { filename: 'alpheios-components.js' }
+    output: {
+      filename: 'alpheios-components.js'
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'style/style-components.css'
+      })
+    ]
   }
 }
 
