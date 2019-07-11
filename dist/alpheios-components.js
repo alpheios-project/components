@@ -31413,7 +31413,7 @@ __webpack_require__.r(__webpack_exports__);
         'byImportant': (wordItem) => wordItem.important,
         'byExactForm': (wordItem) => wordItem.targetWord.toLowerCase() === this.textInput.toLowerCase(),
         'byLemma': (wordItem) => wordItem.lemmasList.split(', ').some(lemmaItem => lemmaItem.toLowerCase() === this.textInput.toLowerCase())
-      }, 
+      },
       clearFilters: 0,
       sortingState: {
         'targetWord': null
@@ -31427,10 +31427,10 @@ __webpack_require__.r(__webpack_exports__);
     wordlist () {
       this.clearFilters = this.clearFilters + 1
       this.changedFilterBy(null, null)
-      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : { items: {} }
+      return this.$store.state.app.wordListUpdateTime && this.reloadList ? this.app.getWordList(this.languageCode) : { items: {}, values: {} }
     },
     wordItems () {
-      if (this.$store.state.app.wordListUpdateTime && this.reloadList) {        
+      if (this.$store.state.app.wordListUpdateTime && this.reloadList) {
         if (!this.selectedFilterBy) {
           let result = this.wordlist.values
           this.applySorting(result)
@@ -31444,7 +31444,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           console.warn(`The current filter method - ${this.selectedFilterBy} - is not defined, that's why empty result is returned!`)
         }
-      }      
+      }
       return []
     },
     wordExactForms () {
@@ -31522,16 +31522,12 @@ __webpack_require__.r(__webpack_exports__);
     applySorting (items) {
       let part = 'targetWord'
       return items.sort( (item1, item2) => {
-        let formattedItem1 = item1[part].toUpperCase()
-        let formattedItem2 = item2[part].toUpperCase()
-
-        if (formattedItem1 < formattedItem2) { 
-          return this.sortingState[part] === 'asc' ? -1 : ( this.sortingState[part] === 'desc' ? 1 : 0 )
+        let compared = item1[part].localeCompare(item2[part],this.languageCode,{sensitivity: 'accent'})
+        if (this.sortingState[part] === 'asc') {
+          return compared
+        } else {
+          return -compared
         }
-        if (formattedItem1 > formattedItem2) { 
-          return this.sortingState[part] === 'asc' ? 1 : ( this.sortingState[part] === 'desc' ? -1 : 0 )
-        }
-        if (formattedItem1 === formattedItem2) { return 0 }
       })
     }
   }
