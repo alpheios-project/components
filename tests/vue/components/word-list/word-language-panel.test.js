@@ -87,4 +87,34 @@ describe('word-context-panel.js', () => {
     expect(cmp.vm.applySorting(accentAsc)).toEqual([{targetWord:"ά"}, {targetWord:"α"}])
   })
 
+  it('2 WordLanguagePanel - applySorting does not sort if sort order is null', () => {
+    store = new Vuex.Store({
+      modules: {
+        app: {
+          namespaced: true,
+          state: {
+            wordListUpdateTime: 1
+          }
+        }
+      }
+    })
+    defineL10n(store)
+
+    let cmp = shallowMount(WordLanguagePanel, {
+      store,
+      localVue,
+      mocks: api,
+      propsData: {
+        languageCode: 'grc'
+      }
+    })
+    let unsortedDesc = [ {targetWord: "ἐγχείη"}, {targetWord:"ἆσαι"} ]
+    let unsortedAsc = [ {targetWord:"ἆσαι"} , {targetWord: "ἐγχείη"} ]
+
+    expect(cmp.isVueInstance()).toBeTruthy()
+    cmp.vm.changeSorting('targetWord',null)
+    expect(cmp.vm.applySorting(unsortedDesc)).toEqual(unsortedDesc)
+    expect(cmp.vm.applySorting(unsortedAsc)).toEqual(unsortedAsc)
+  })
+
 })

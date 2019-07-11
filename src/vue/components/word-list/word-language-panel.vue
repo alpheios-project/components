@@ -221,8 +221,10 @@ export default {
         let compared = item1[part].localeCompare(item2[part],this.languageCode,{sensitivity: 'accent'})
         if (this.sortingState[part] === 'asc') {
           return compared
-        } else {
+        } else if (this.sortingState[part] === 'desc') {
           return -compared
+        } else {
+          return 0 // default state is unsorted
         }
       })
     }
