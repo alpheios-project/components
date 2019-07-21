@@ -94,14 +94,14 @@ export default class LexicalQuery extends Query {
     while (true) {
       if (!this.active) { this.finalize() }
       if (Query.isPromise(result.value)) {
-        try {
-          let resolvedValue = await result.value
-          result = iterator.next(resolvedValue)
-        } catch (error) {
+        // try {
+        let resolvedValue = await result.value
+        result = iterator.next(resolvedValue)
+        /* } catch (error) {
           iterator.return()
           this.finalize(error)
           break
-        }
+        } */
       } else {
         result = iterator.next(result.value)
       }
@@ -154,7 +154,10 @@ export default class LexicalQuery extends Query {
           LexicalQuery.evt.MORPH_DATA_READY.pub()
         } else {
           this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
-          LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
+          LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub({
+            targetWord: this.selector.normalizedText,
+            languageId: this.selector.languageID
+          })
         }
       }
     } else {
@@ -164,7 +167,10 @@ export default class LexicalQuery extends Query {
         LexicalQuery.evt.MORPH_DATA_READY.pub()
       } else {
         this.homonym = new Homonym([formLexeme], this.selector.normalizedText)
-        LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub()
+        LexicalQuery.evt.MORPH_DATA_NOTAVAILABLE.pub({
+          targetWord: this.selector.normalizedText,
+          languageId: this.selector.languageID
+        })
       }
     }
 
