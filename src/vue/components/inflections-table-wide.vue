@@ -5,7 +5,7 @@
         class="alpheios-inflections__title alpheios-clickable">
       {{title}}
       <span v-show="state.collapsed">[+]</span>
-      <span v-show="!state.collapsed">[-]</span>     
+      <span v-show="!state.collapsed">[-]</span>
     </div>
     <div
             v-if="hasInflectionTables && state.view.canCollapse && state.noSuffixGroupsHidden"
@@ -281,7 +281,7 @@ export default {
   },
 
   watch: {
-    'view.id': function () {
+    'view.uid': function () {
       this.state.view = this.view
       this.state.noSuffixGroupsHidden = this.state.view.isNoSuffixMatchesGroupsHidden
     },
@@ -305,7 +305,7 @@ export default {
   @import "../../styles/variables";
 
   .alpheios-inflections__title {
-    color: var(--alpheios-inflect-browser-title-color);
+    color: var(--alpheios-inflect-title-color);
     font-size: textsize(22px);
     font-family: var(--alpheios-serif-font-face);
     line-height: 1;
@@ -459,7 +459,7 @@ export default {
   .infl-cell--morph-match,
   .infl-table .infl-cell.infl-cell--morph-match // To override a color schema
   {
-    border: 3px solid var(--alpheios-inflect-match-cell-border-color);
+    border: 3px solid var(--alpheios-inflect-morph-match-cell-border-color);
   }
 
   .infl-cell__conj-stem {
@@ -499,7 +499,7 @@ export default {
       color: var(--alpheios-inflect-button-control-color-hover);
       background-color: var(--alpheios-inflect-button-control-bg-hover);
       border-color: var(--alpheios-inflect-button-control-border-color-hover);
-    
+
     }
   }
   // endregion Tables
