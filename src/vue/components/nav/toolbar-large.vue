@@ -49,8 +49,7 @@
     >
       <lookup
           :name-base="`toolbar`"
-          :use-page-lang-prefs="true"
-          :show-language-settings-group="false"
+          :show-lang-selector="false"
       />
     </div>
 

@@ -12,8 +12,7 @@
       <lookup
           class="alpheios-action-menu__lookup"
           :name-base="`action-panel`"
-          :use-page-lang-prefs="true"
-          :show-language-settings-group="false"
+          :show-lang-selector="false"
       />
       <progress-bar
           class="alpheios-action-menu__progress-bar"

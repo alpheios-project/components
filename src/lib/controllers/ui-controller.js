@@ -61,13 +61,14 @@ Vue.use(Vuex)
 
 export default class UIController {
   /**
-   * @constructor
    * The best way to create a configured instance of a UIController is to use its `create` method.
    * It configures and attaches all UIController's modules.
    * If you need a custom configuration of a UIController, replace its `create` method with your own.
    *
+   * @class
+   *
    * @param {UIStateAPI} state - An object to store a UI state.
-   * @param {Object} options - UI controller options object.
+   * @param {object} options - UI controller options object.
    * See `optionsDefaults` getter for detailed parameter description: @see {@link optionsDefaults}
    * If any options is not specified, it will be set to a default value.
    * If an options is not present in an `optionsDefaults` object, it will be ignored as an unknown option.
@@ -123,6 +124,7 @@ export default class UIController {
     /**
      * If an event controller be used with an instance of a UI Controller,
      * this prop will hold an event controller instance. It is usually initialized within a `build` method.
+     *
      * @type {UIEventController}
      */
     this.evc = null
@@ -133,6 +135,7 @@ export default class UIController {
   /**
    * Creates an instance of a UI controller with default options. Provide your own implementation of this method
    * if you want to create a different configuration of a UI controller.
+   *
    */
   static create (state, options) {
     let uiController = new UIController(state, options)
@@ -237,7 +240,20 @@ export default class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       // Whether to disable text selection on mobile devices
-      disableTextSelection: false
+      disableTextSelection: false,
+      /*
+      textLangCode is a language of a text that is set by the host app during a creation of a UI controller.
+      It has a higher priority than a `preferredLanguage` (a language that is set as default on
+      the UI settings page). However, textLangCode has a lower priority than the language
+      set by the surrounding context of the word on the HTML page (i.e. the language that is set
+      for the word's HTML element or for its parent HTML elements).
+      The value of the textLangCode must be in an ISO 639-3 format.
+      A host application may not necessarily set the current language. In that case
+      it's value (which will be null by default) will be ignored.
+       */
+      textLangCode: null,
+      // If set to true, will use the `textLangCode` over the `preferredLanguage`
+      overridePreferredLanguage: false
     }
   }
 
@@ -256,7 +272,9 @@ export default class UIController {
   static setOptions (options, defaultOptions) {
     let result = {}
     for (const [key, defaultValue] of Object.entries(defaultOptions)) {
-      if (typeof defaultValue === 'object' && defaultValue.constructor.name === 'Object') {
+      // Due to the bug in JS typeof null is `object` and they do not have a `constructor` prop
+      // so we have to filter those null values out
+      if (typeof defaultValue === 'object' && defaultValue !== null && defaultValue.constructor.name === 'Object') {
         // This is an options group
         const optionsValue = options.hasOwnProperty(key) ? options[key] : {}
         result[key] = this.setOptions(optionsValue, defaultValue)
@@ -300,14 +318,22 @@ export default class UIController {
     return Array.from(this.modules.values()).filter(m => m.ModuleClass.isUiModule)
   }
 
-  createModules () {
-    // Create data modules fist, UI modules after that because UI modules are dependent on data ones
+  createDataModules () {
     this.dataModules.forEach((m) => {
       m.instance = new m.ModuleClass(this.store, this.api, m.options)
     })
+  }
+
+  createUiModules () {
     this.uiModules.forEach((m) => {
       m.instance = new m.ModuleClass(this.store, this.api, m.options)
     })
+  }
+
+  createModules () {
+    // Create data modules fist, UI modules after that because UI modules are dependent on data ones
+    this.createDataModules()
+    this.createUiModules()
   }
 
   activateModules () {
@@ -416,6 +442,7 @@ export default class UIController {
       },
 
       // TODO: Some of the functions below should probably belong to other API groups.
+      getDefaultLangCode: this.getDefaultLangCode.bind(this),
       featureOptionChange: this.featureOptionChange.bind(this),
       resetAllOptions: this.resetAllOptions.bind(this),
       updateLanguage: this.updateLanguage.bind(this),
@@ -463,6 +490,8 @@ export default class UIController {
         selectedText: '',
         languageName: '',
         languageCode: '',
+        // A language code that is selected in the language drop-down of a lookup component
+        selectedLookupLangCode: '',
         targetWord: '',
         // An object with x and y props that reflects integer coordinates of a selection target
         selectionTarget: {
@@ -530,6 +559,10 @@ export default class UIController {
           ({ id, name } = UIController.getLanguageName(languageCodeOrID))
           state.currentLanguageID = id
           state.currentLanguageName = name
+        },
+
+        setSelectedLookupLang (state, langCode) {
+          state.selectedLookupLangCode = langCode
         },
 
         setTextData (state, data) {
@@ -742,6 +775,9 @@ export default class UIController {
       }
     })
 
+    // If `textLangCode` is set, use it over the `preferredLanguage`
+    this.options.overridePreferredLanguage = Boolean(this.options.textLangCode)
+    this.store.commit('app/setSelectedLookupLang', this.getDefaultLangCode())
     this.api.language = {
       resourceSettingChange: this.resourceSettingChange.bind(this)
     }
@@ -763,16 +799,25 @@ export default class UIController {
       }
     }
 
-    // Create all registered modules
-    this.createModules()
+    // Create registered data modules
+    this.createDataModules()
+
+    // The current language must be set after data modules are created (because it uses an L10n module)
+    // but before the UI modules are created (because UI modules use current language during rendering).
+    const defaultLangCode = this.getDefaultLangCode()
+    const defaultLangID = LanguageModelFactory.getLanguageIdFromCode(defaultLangCode)
+    // Set the lookup
+    this.featureOptions.items.lookupLanguage.setValue(defaultLangCode)
+    this.updateLanguage(defaultLangID)
+
+    // Create registered UI modules
+    this.createUiModules()
 
     // Adjust configuration of modules according to feature options
     if (this.hasModule('panel')) {
       this.store.commit('panel/setPosition', this.uiOptions.items.panelPosition.currentValue)
     }
 
-    const currentLanguageID = LanguageModelFactory.getLanguageIdFromCode(this.featureOptions.items.preferredLanguage.currentValue)
-    this.updateLanguage(currentLanguageID)
     this.updateLemmaTranslations()
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
@@ -868,6 +913,10 @@ export default class UIController {
       this.api.auth.session()
     }
     return this
+  }
+
+  getDefaultLangCode () {
+    return this.options.overridePreferredLanguage ? this.options.textLangCode : this.featureOptions.items.preferredLanguage.currentValue
   }
 
   /**
@@ -1317,7 +1366,8 @@ export default class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new HTMLSelector(event, this.featureOptions.items.preferredLanguage.currentValue)
+      let currentLangCode = LanguageModelFactory.getLanguageCodeFromId(this.store.state.app.currentLanguageID)
+      let htmlSelector = new HTMLSelector(event, currentLangCode)
       this.store.commit('app/setHtmlSelector', htmlSelector)
       let textSelector = htmlSelector.createTextSelector()
 
@@ -1638,6 +1688,8 @@ export default class UIController {
         break
       case 'preferredLanguage':
         this.updateLanguage(this.api.settings.getFeatureOptions().items.preferredLanguage.currentValue)
+        // If user manually sets the preferred language option then the language chosen must have priority over the `textLang`
+        this.options.overridePreferredLanguage = false
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
