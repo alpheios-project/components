@@ -27222,6 +27222,8 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       lookuptext: '',
+      // A name of a language currently selected in the language drop-down
+      selectedLangName: '',
       // The following variable is used to signal that language options has been updated
       langUpdated: Date.now()
     }
@@ -27231,19 +27233,12 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    showLanguageSettingsGroup: {
+
+    // Whether to show a language selector within this component.
+    showLangSelector: {
       type: Boolean,
       required: false,
       default: true
-    },
-    /*
-    If the following prop is set to true, a lookup component will use preferredLanguage and resourceOptions
-    as its data model. Otherwise, a lookup component will use lookupLanguage and lookupResourceOptions instead.
-     */
-    usePageLangPrefs: {
-      type: Boolean,
-      required: false,
-      default: false
     },
 
     showResultsIn: {
@@ -27253,29 +27248,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function () {
-    if (this.usePageLangPrefs) {
-      // Use language settings of a page
-      this.$options.lookupLanguage = this.settings.getFeatureOptions().items.preferredLanguage
-      this.$options.resourceOptions = this.settings.getResourceOptions()
-    } else {
-      // Use lookup language settings
+    /*
+    Lookup component uses its own version of resource options. This is because resource options
+    of lookup components might not necessarily be the same as the ones used within a UI controller.
+    */
+    if (this.showLangSelector) {
       this.$options.lookupLanguage = this.settings.getFeatureOptions().items.lookupLanguage
+      this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
       this.$options.resourceOptions = this.settings.lookupResourceOptions
+    } else {
+      this.$options.resourceOptions = this.settings.getResourceOptions()
     }
   },
 
   computed: {
-    currentLanguage () {
-      const selectedValue = this.$options.lookupLanguage.currentTextValue()
-      // langUpdated is included into the condition to force Vue to recalculate value
-      // every time language settings are updated
-      return (this.langUpdated && selectedValue === 'Default')
-        ? this.settings.getFeatureOptions().items.preferredLanguage.currentItem()
-        : this.$options.lookupLanguage.currentItem()
-    },
-
     lexiconsFiltered () {
-      let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.currentLanguage.text)
+      let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.selectedLangName)
       let settingGroup
       if (lang.length > 0) {
         settingGroup = lang[0].value
@@ -27285,6 +27273,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
+    '$store.state.app.selectedLookupLangCode' (langCode) {
+      if (this.showLangSelector) {
+        this.$options.lookupLanguage.setValue(langCode)
+        this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
+      }
+    },
+
     '$store.state.app.morphDataReady' (morphDataReady) {
       if (morphDataReady && this.app.hasMorphData()) {
         this.lookuptext = ''
@@ -27298,14 +27293,15 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       /*
-      If we override the language, then the lookup language must be a current value of our `lookupLanguage` prop,
+      If we override the language with the value selected, then the lookup language must be a current value of our `lookupLanguage` prop,
       otherwise it must be a value of panel's options `preferredLanguage` options item
        */
-      const languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__["LanguageModelFactory"].getLanguageIdFromCode(this.currentLanguage.value)
 
-      let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, languageID)
-
-      this.app.updateLanguage(this.$options.lookupLanguage.currentValue)
+      const selectedLangCode = this.showLangSelector
+        ? this.$options.lookupLanguage.currentValue
+        : this.app.getDefaultLangCode()
+      const selectedLangID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__["LanguageModelFactory"].getLanguageIdFromCode(selectedLangCode)
+      let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_0__["default"].createObjectFromText(this.lookuptext, selectedLangID)
 
       const resourceOptions = this.$options.resourceOptions
       const lemmaTranslationLang = this.app.state.lemmaTranslationLang
@@ -27319,7 +27315,8 @@ __webpack_require__.r(__webpack_exports__);
       let lexQuery = _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
 
-      this.app.newLexicalRequest(this.lookuptext, languageID)
+      // A newLexicalRequest will call app.updateLanguage(languageID)
+      this.app.newLexicalRequest(this.lookuptext, selectedLangID)
       lexQuery.getData()
       // Notify parent that the lookup has been started so that the parent can close itself if necessary
       this.$emit('lookup-started')
@@ -27339,6 +27336,7 @@ __webpack_require__.r(__webpack_exports__);
 
     settingChange: function (name, value) {
       this.$options.lookupLanguage.setTextValue(value)
+      this.$store.commit('app/setSelectedLookupLang', this.$options.lookupLanguage.currentValue)
       this.langUpdated = Date.now()
     },
 
@@ -27775,7 +27773,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
 /* harmony import */ var _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/components/lookup.vue */ "./vue/components/lookup.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
 //
 //
 //
@@ -28333,7 +28330,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_components_nav_toolbar_compact_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/components/nav/toolbar-compact.vue */ "./vue/components/nav/toolbar-compact.vue");
 /* harmony import */ var _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/vue/components/lookup.vue */ "./vue/components/lookup.vue");
 /* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
 //
 //
 //
@@ -35672,7 +35668,7 @@ var render = function() {
         "div",
         { staticClass: "alpheios-lookup__form-row" },
         [
-          _vm.showLanguageSettingsGroup
+          _vm.showLangSelector
             ? _c("alph-setting", {
                 attrs: {
                   classes: [
@@ -35764,7 +35760,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.showLanguageSettingsGroup
+      _vm.showLangSelector
         ? [
             _c(
               "div",
@@ -36542,8 +36538,7 @@ var render = function() {
             staticClass: "alpheios-action-panel__lookup",
             attrs: {
               "name-base": "action-panel",
-              "use-page-lang-prefs": true,
-              "show-language-settings-group": false,
+              "show-lang-selector": false,
               "show-results-in": _vm.config.lookupResultsIn
             },
             on: { "lookup-started": _vm.lookupStarted }
@@ -37440,11 +37435,7 @@ var render = function() {
         },
         [
           _c("lookup", {
-            attrs: {
-              "name-base": "toolbar",
-              "use-page-lang-prefs": true,
-              "show-language-settings-group": false
-            }
+            attrs: { "name-base": "toolbar", "show-lang-selector": false }
           })
         ],
         1
@@ -51489,7 +51480,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.4\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"eslint --fix src/**/*.js && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"eslint --fix src/**/*.js && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"eslint --fix src/**/*.js && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"eslint --fix src/**/*.js && jest tests/vue/components/word-usage-examples/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"eslint --fix src/**/*.js && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"eslint --fix src/**/*.js && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"eslint --fix src/**/*.js && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --fix src/**/*.js && eslint --fix-dry-run src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.3\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.36.1\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.6\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/word-usage-examples/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.5.3\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.3\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.36.1\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -52951,13 +52942,14 @@ _vue_runtime__WEBPACK_IMPORTED_MODULE_5__["default"].use(vuex__WEBPACK_IMPORTED_
 
 class UIController {
   /**
-   * @constructor
    * The best way to create a configured instance of a UIController is to use its `create` method.
    * It configures and attaches all UIController's modules.
    * If you need a custom configuration of a UIController, replace its `create` method with your own.
    *
+   * @class
+   *
    * @param {UIStateAPI} state - An object to store a UI state.
-   * @param {Object} options - UI controller options object.
+   * @param {object} options - UI controller options object.
    * See `optionsDefaults` getter for detailed parameter description: @see {@link optionsDefaults}
    * If any options is not specified, it will be set to a default value.
    * If an options is not present in an `optionsDefaults` object, it will be ignored as an unknown option.
@@ -53013,6 +53005,7 @@ class UIController {
     /**
      * If an event controller be used with an instance of a UI Controller,
      * this prop will hold an event controller instance. It is usually initialized within a `build` method.
+     *
      * @type {UIEventController}
      */
     this.evc = null
@@ -53023,6 +53016,7 @@ class UIController {
   /**
    * Creates an instance of a UI controller with default options. Provide your own implementation of this method
    * if you want to create a different configuration of a UI controller.
+   *
    */
   static create (state, options) {
     let uiController = new UIController(state, options)
@@ -53127,7 +53121,20 @@ class UIController {
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
       // Whether to disable text selection on mobile devices
-      disableTextSelection: false
+      disableTextSelection: false,
+      /*
+      textLangCode is a language of a text that is set by the host app during a creation of a UI controller.
+      It has a higher priority than a `preferredLanguage` (a language that is set as default on
+      the UI settings page). However, textLangCode has a lower priority than the language
+      set by the surrounding context of the word on the HTML page (i.e. the language that is set
+      for the word's HTML element or for its parent HTML elements).
+      The value of the textLangCode must be in an ISO 639-3 format.
+      A host application may not necessarily set the current language. In that case
+      it's value (which will be null by default) will be ignored.
+       */
+      textLangCode: null,
+      // If set to true, will use the `textLangCode` over the `preferredLanguage`
+      overridePreferredLanguage: false
     }
   }
 
@@ -53146,7 +53153,9 @@ class UIController {
   static setOptions (options, defaultOptions) {
     let result = {}
     for (const [key, defaultValue] of Object.entries(defaultOptions)) {
-      if (typeof defaultValue === 'object' && defaultValue.constructor.name === 'Object') {
+      // Due to the bug in JS typeof null is `object` and they do not have a `constructor` prop
+      // so we have to filter those null values out
+      if (typeof defaultValue === 'object' && defaultValue !== null && defaultValue.constructor.name === 'Object') {
         // This is an options group
         const optionsValue = options.hasOwnProperty(key) ? options[key] : {}
         result[key] = this.setOptions(optionsValue, defaultValue)
@@ -53190,14 +53199,22 @@ class UIController {
     return Array.from(this.modules.values()).filter(m => m.ModuleClass.isUiModule)
   }
 
-  createModules () {
-    // Create data modules fist, UI modules after that because UI modules are dependent on data ones
+  createDataModules () {
     this.dataModules.forEach((m) => {
       m.instance = new m.ModuleClass(this.store, this.api, m.options)
     })
+  }
+
+  createUiModules () {
     this.uiModules.forEach((m) => {
       m.instance = new m.ModuleClass(this.store, this.api, m.options)
     })
+  }
+
+  createModules () {
+    // Create data modules fist, UI modules after that because UI modules are dependent on data ones
+    this.createDataModules()
+    this.createUiModules()
   }
 
   activateModules () {
@@ -53306,6 +53323,7 @@ class UIController {
       },
 
       // TODO: Some of the functions below should probably belong to other API groups.
+      getDefaultLangCode: this.getDefaultLangCode.bind(this),
       featureOptionChange: this.featureOptionChange.bind(this),
       resetAllOptions: this.resetAllOptions.bind(this),
       updateLanguage: this.updateLanguage.bind(this),
@@ -53353,6 +53371,8 @@ class UIController {
         selectedText: '',
         languageName: '',
         languageCode: '',
+        // A language code that is selected in the language drop-down of a lookup component
+        selectedLookupLangCode: '',
         targetWord: '',
         // An object with x and y props that reflects integer coordinates of a selection target
         selectionTarget: {
@@ -53420,6 +53440,10 @@ class UIController {
           ({ id, name } = UIController.getLanguageName(languageCodeOrID))
           state.currentLanguageID = id
           state.currentLanguageName = name
+        },
+
+        setSelectedLookupLang (state, langCode) {
+          state.selectedLookupLangCode = langCode
         },
 
         setTextData (state, data) {
@@ -53632,6 +53656,9 @@ class UIController {
       }
     })
 
+    // If `textLangCode` is set, use it over the `preferredLanguage`
+    this.options.overridePreferredLanguage = Boolean(this.options.textLangCode)
+    this.store.commit('app/setSelectedLookupLang', this.getDefaultLangCode())
     this.api.language = {
       resourceSettingChange: this.resourceSettingChange.bind(this)
     }
@@ -53653,16 +53680,25 @@ class UIController {
       }
     }
 
-    // Create all registered modules
-    this.createModules()
+    // Create registered data modules
+    this.createDataModules()
+
+    // The current language must be set after data modules are created (because it uses an L10n module)
+    // but before the UI modules are created (because UI modules use current language during rendering).
+    const defaultLangCode = this.getDefaultLangCode()
+    const defaultLangID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageIdFromCode(defaultLangCode)
+    // Set the lookup
+    this.featureOptions.items.lookupLanguage.setValue(defaultLangCode)
+    this.updateLanguage(defaultLangID)
+
+    // Create registered UI modules
+    this.createUiModules()
 
     // Adjust configuration of modules according to feature options
     if (this.hasModule('panel')) {
       this.store.commit('panel/setPosition', this.uiOptions.items.panelPosition.currentValue)
     }
 
-    const currentLanguageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageIdFromCode(this.featureOptions.items.preferredLanguage.currentValue)
-    this.updateLanguage(currentLanguageID)
     this.updateLemmaTranslations()
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
@@ -53758,6 +53794,10 @@ class UIController {
       this.api.auth.session()
     }
     return this
+  }
+
+  getDefaultLangCode () {
+    return this.options.overridePreferredLanguage ? this.options.textLangCode : this.featureOptions.items.preferredLanguage.currentValue
   }
 
   /**
@@ -54207,7 +54247,8 @@ class UIController {
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
       It's probably better to keep them separated in order to follow a more abstract model.
        */
-      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__["default"](event, this.featureOptions.items.preferredLanguage.currentValue)
+      let currentLangCode = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageCodeFromId(this.store.state.app.currentLanguageID)
+      let htmlSelector = new _lib_selection_media_html_selector_js__WEBPACK_IMPORTED_MODULE_19__["default"](event, currentLangCode)
       this.store.commit('app/setHtmlSelector', htmlSelector)
       let textSelector = htmlSelector.createTextSelector()
 
@@ -54528,6 +54569,8 @@ class UIController {
         break
       case 'preferredLanguage':
         this.updateLanguage(this.api.settings.getFeatureOptions().items.preferredLanguage.currentValue)
+        // If user manually sets the preferred language option then the language chosen must have priority over the `textLang`
+        this.options.overridePreferredLanguage = false
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
@@ -59300,7 +59343,7 @@ var _settings_ui_options_defaults_json__WEBPACK_IMPORTED_MODULE_19___namespace =
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"domain\":\"alpheios-feature-options\",\"version\":2,\"items\":{\"enableLemmaTranslations\":{\"defaultValue\":false,\"labelText\":\"Enable Latin Lemma Translations (Experimental)\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]},\"locale\":{\"defaultValue\":\"en-US\",\"labelText\":\"UI Locale:\",\"values\":[{\"value\":\"en-US\",\"text\":\"English (US)\"},{\"value\":\"fr\",\"text\":\"French\"},{\"value\":\"de\",\"text\":\"German\"},{\"value\":\"it\",\"text\":\"Italian\"},{\"value\":\"pt\",\"text\":\"Portuguese\"},{\"value\":\"es\",\"text\":\"Spanish\"},{\"value\":\"ca\",\"text\":\"Catalonian\"}]},\"enableWordUsageExamples\":{\"defaultValue\":true,\"labelText\":\"Enable\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]},\"wordUsageExamplesON\":{\"defaultValue\":\"onDemand\",\"labelText\":\"Mode:\",\"values\":[{\"value\":\"onDemand\",\"text\":\"On demand\"},{\"value\":\"onLexicalQuery\",\"text\":\"On LexicalQuery\"}],\"hidden\":true},\"wordUsageExamplesAuthMax\":{\"defaultValue\":3,\"labelText\":\"Max results per author (initial search)\",\"number\":true,\"minValue\":1,\"maxValue\":1000,\"values\":[]},\"wordUsageExamplesMax\":{\"defaultValue\":5000,\"labelText\":\"Max total results ('Author/Work Focus' searches)\",\"number\":true,\"minValue\":1,\"maxValue\":1000,\"values\":[]},\"preferredLanguage\":{\"defaultValue\":\"lat\",\"labelText\":\"Page language:\",\"values\":[{\"value\":\"lat\",\"text\":\"Latin\"},{\"value\":\"grc\",\"text\":\"Greek\"},{\"value\":\"ara\",\"text\":\"Arabic\"},{\"value\":\"per\",\"text\":\"Persian\"},{\"value\":\"gez\",\"text\":\"Ancient Ethiopic (Ge'ez - Experimental)\"}]},\"lookupLanguage\":{\"defaultValue\":\"default\",\"labelText\":\"Change language:\",\"values\":[{\"value\":\"default\",\"text\":\"Default\"},{\"value\":\"lat\",\"text\":\"Latin\"},{\"value\":\"grc\",\"text\":\"Greek\"},{\"value\":\"ara\",\"text\":\"Arabic\"},{\"value\":\"per\",\"text\":\"Persian\"},{\"value\":\"gez\",\"text\":\"Ancient Ethiopic (Ge'ez - Experimental)\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-feature-options\",\"version\":2,\"items\":{\"enableLemmaTranslations\":{\"defaultValue\":false,\"labelText\":\"Enable Latin Lemma Translations (Experimental)\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]},\"locale\":{\"defaultValue\":\"en-US\",\"labelText\":\"UI Locale:\",\"values\":[{\"value\":\"en-US\",\"text\":\"English (US)\"},{\"value\":\"fr\",\"text\":\"French\"},{\"value\":\"de\",\"text\":\"German\"},{\"value\":\"it\",\"text\":\"Italian\"},{\"value\":\"pt\",\"text\":\"Portuguese\"},{\"value\":\"es\",\"text\":\"Spanish\"},{\"value\":\"ca\",\"text\":\"Catalonian\"}]},\"enableWordUsageExamples\":{\"defaultValue\":true,\"labelText\":\"Enable\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]},\"wordUsageExamplesON\":{\"defaultValue\":\"onDemand\",\"labelText\":\"Mode:\",\"values\":[{\"value\":\"onDemand\",\"text\":\"On demand\"},{\"value\":\"onLexicalQuery\",\"text\":\"On LexicalQuery\"}],\"hidden\":true},\"wordUsageExamplesAuthMax\":{\"defaultValue\":3,\"labelText\":\"Max results per author (initial search)\",\"number\":true,\"minValue\":1,\"maxValue\":1000,\"values\":[]},\"wordUsageExamplesMax\":{\"defaultValue\":5000,\"labelText\":\"Max total results ('Author/Work Focus' searches)\",\"number\":true,\"minValue\":1,\"maxValue\":1000,\"values\":[]},\"preferredLanguage\":{\"defaultValue\":\"lat\",\"labelText\":\"Page language:\",\"values\":[{\"value\":\"lat\",\"text\":\"Latin\"},{\"value\":\"grc\",\"text\":\"Greek\"},{\"value\":\"ara\",\"text\":\"Arabic\"},{\"value\":\"per\",\"text\":\"Persian\"},{\"value\":\"gez\",\"text\":\"Ancient Ethiopic (Ge'ez - Experimental)\"}]},\"lookupLanguage\":{\"defaultValue\":\"lat\",\"labelText\":\"Change language:\",\"values\":[{\"value\":\"lat\",\"text\":\"Latin\"},{\"value\":\"grc\",\"text\":\"Greek\"},{\"value\":\"ara\",\"text\":\"Arabic\"},{\"value\":\"per\",\"text\":\"Persian\"},{\"value\":\"gez\",\"text\":\"Ancient Ethiopic (Ge'ez - Experimental)\"}]}}}");
 
 /***/ }),
 
@@ -59333,7 +59376,7 @@ module.exports = JSON.parse("[{\"uriMatch\":\"https?://thelatinlibrary.com/caesa
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"domain\":\"alpheios-ui-options\",\"version\":2,\"items\":{\"fontSize\":{\"defaultValue\":\"medium\",\"labelText\":\"Font size\",\"values\":[{\"value\":\"12\",\"text\":\"Small font size\"},{\"value\":\"16\",\"text\":\"Medium font size\"},{\"value\":\"20\",\"text\":\"Large font size\"}]},\"panelPosition\":{\"defaultValue\":\"left\",\"labelText\":\"Panel position:\",\"values\":[{\"value\":\"left\",\"text\":\"Left\"},{\"value\":\"right\",\"text\":\"Right\"}]},\"popupShiftX\":{\"defaultValue\":0,\"labelText\":\"Popup shift, x axe:\",\"number\":true,\"values\":[]},\"popupShiftY\":{\"defaultValue\":0,\"labelText\":\"Popup shift, y axe:\",\"number\":true,\"values\":[]},\"toolbarShiftX\":{\"defaultValue\":0,\"labelText\":\"Toolbar shift, x axe:\",\"number\":true,\"values\":[]},\"toolbarShiftY\":{\"defaultValue\":0,\"labelText\":\"Toolbar shift, y axe:\",\"number\":true,\"values\":[]},\"verboseMode\":{\"defaultValue\":\"normal\",\"labelText\":\"Log Level\",\"values\":[{\"value\":\"verbose\",\"text\":\"Verbose\"},{\"value\":\"normal\",\"text\":\"Normal\"}]},\"hideLoginPrompt\":{\"defaultValue\":false,\"labelText\":\"Hide Login Prompt\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-ui-options\",\"version\":2,\"items\":{\"fontSize\":{\"defaultValue\":\"16\",\"labelText\":\"Font size\",\"values\":[{\"value\":\"12\",\"text\":\"Small font size\"},{\"value\":\"16\",\"text\":\"Medium font size\"},{\"value\":\"20\",\"text\":\"Large font size\"}]},\"panelPosition\":{\"defaultValue\":\"left\",\"labelText\":\"Panel position:\",\"values\":[{\"value\":\"left\",\"text\":\"Left\"},{\"value\":\"right\",\"text\":\"Right\"}]},\"popupShiftX\":{\"defaultValue\":0,\"labelText\":\"Popup shift, x axe:\",\"number\":true,\"values\":[]},\"popupShiftY\":{\"defaultValue\":0,\"labelText\":\"Popup shift, y axe:\",\"number\":true,\"values\":[]},\"toolbarShiftX\":{\"defaultValue\":0,\"labelText\":\"Toolbar shift, x axe:\",\"number\":true,\"values\":[]},\"toolbarShiftY\":{\"defaultValue\":0,\"labelText\":\"Toolbar shift, y axe:\",\"number\":true,\"values\":[]},\"verboseMode\":{\"defaultValue\":\"normal\",\"labelText\":\"Log Level\",\"values\":[{\"value\":\"verbose\",\"text\":\"Verbose\"},{\"value\":\"normal\",\"text\":\"Normal\"}]},\"hideLoginPrompt\":{\"defaultValue\":false,\"labelText\":\"Hide Login Prompt\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]}}}");
 
 /***/ }),
 
