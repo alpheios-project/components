@@ -30885,6 +30885,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -40208,61 +40215,101 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("login"),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: this.$store.state.auth.isAuthenticated,
-              expression: "this.$store.state.auth.isAuthenticated"
-            }
-          ],
-          staticClass: "alpheios-user-auth__user-info-box"
-        },
-        [
-          _c("div", { staticClass: "alpheios-user-auth__user-info-item-box" }, [
+  return _c("div", { staticClass: "alpheios-user-auth" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios-user-auth__user-container" },
+      [
+        _c("login"),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.$store.state.auth.isAuthenticated,
+                expression: "this.$store.state.auth.isAuthenticated"
+              }
+            ],
+            staticClass: "alpheios-user-auth__user-info-box"
+          },
+          [
             _c(
               "div",
-              { staticClass: "alpheios-user-auth__user-info-item-name" },
+              { staticClass: "alpheios-user-auth__user-info-item-box" },
               [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.l10n.getMsg("AUTH_PROFILE_NICKNAME_LABEL")) +
-                    ":\n      "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "alpheios-user-auth__user-info-item-value" },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(
-                      this.$store.state.auth.userNickName
-                        ? this.$store.state.auth.userNickName
-                        : "—"
-                    ) +
-                    "\n      "
+                _c(
+                  "div",
+                  { staticClass: "alpheios-user-auth__user-info-item-name" },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.l10n.getMsg("AUTH_PROFILE_NICKNAME_LABEL")) +
+                        ":\n        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "alpheios-user-auth__user-info-item-value" },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(
+                          this.$store.state.auth.userNickName
+                            ? this.$store.state.auth.userNickName
+                            : "—"
+                        ) +
+                        "\n        "
+                    )
+                  ]
                 )
               ]
             )
-          ])
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alpheios-user-auth__credits" }, [
+      _c(
+        "a",
+        {
+          attrs: {
+            width: "150",
+            height: "50",
+            href:
+              "https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss",
+            target: "_blank",
+            alt: "Single Sign On & Token Based Authentication - Auth0"
+          }
+        },
+        [
+          _c("img", {
+            attrs: {
+              width: "150",
+              height: "50",
+              alt: "JWT Auth for open source projects",
+              src: "//cdn.auth0.com/oss/badges/a0-badge-dark.png"
+            }
+          })
         ]
       )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
+    ])
+  }
+]
 render._withStripped = true
 
 
