@@ -7,6 +7,7 @@
                   v-model="selectedFilterBy" @change="changedFilterBy">
             <option v-for="typeFiltering in typeFiltersList" v-bind:key="typeFiltering.value"
                     v-bind:value="typeFiltering.value"
+                    :class="{ 'alpheios-select-disabled-option': !typeFiltering.value }"
             >{{ calcTitle(typeFiltering) }}</option>
           </select>
         </div>

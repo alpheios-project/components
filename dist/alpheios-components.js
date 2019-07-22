@@ -31015,6 +31015,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -40382,6 +40383,9 @@ var render = function() {
                 "option",
                 {
                   key: typeFiltering.value,
+                  class: {
+                    "alpheios-select-disabled-option": !typeFiltering.value
+                  },
                   domProps: { value: typeFiltering.value }
                 },
                 [_vm._v(_vm._s(_vm.calcTitle(typeFiltering)))]
