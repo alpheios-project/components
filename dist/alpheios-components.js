@@ -32203,10 +32203,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -41694,21 +41690,15 @@ var render = function() {
                     [
                       _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
                         return [
-                          _c("div", [
-                            _c("a", {
-                              staticClass:
-                                "alpheios-word-usage__examples-source-link-large",
-                              attrs: {
-                                href: wordUsageItem.source,
-                                target: "_blank"
-                              },
-                              domProps: {
-                                innerHTML: _vm._s(
-                                  _vm.formattedFullCit(wordUsageItem)
-                                )
-                              }
-                            })
-                          ]),
+                          _c("div", {
+                            staticClass:
+                              "alpheios-word-usage__examples-source-link-large",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.formattedFullCit(wordUsageItem)
+                              )
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
                             "div",

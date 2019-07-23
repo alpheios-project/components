@@ -52,13 +52,9 @@
               v-for="wordUsageItem in wordUsageListSorted"
               :wordUsageItem="wordUsageItem"
           >
-            <div>
-            <a
-                class="alpheios-word-usage__examples-source-link-large"
-                :href="wordUsageItem.source"
-                target="_blank" v-html="formattedFullCit(wordUsageItem)"
+            <div class="alpheios-word-usage__examples-source-link-large"
+                v-html="formattedFullCit(wordUsageItem)"
             >
-            </a>
             </div>
             <div
                 class="alpheios-word-usage__examples-pre"
