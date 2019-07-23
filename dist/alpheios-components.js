@@ -31294,6 +31294,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -31344,14 +31345,13 @@ __webpack_require__.r(__webpack_exports__);
     eventChangeImportant () {
       this.important = this.worditem.important
     },
-    /*
     selectWordItem () {
-      console.info('***************selectWordItem')
-    },
-    */
-    selectWordItem () {
-      console.info('***************selectWordItem')
       this.app.selectWordItem(this.worditem.languageCode, this.worditem.targetWord)
+    },
+    selectWordItemMobile () {
+      if (this.app.platform.isMobile) {
+        this.selectWordItem()
+      }
     },
     deleteItem () {
       this.$emit('deleteItem', this.worditem.targetWord)
@@ -40759,6 +40759,9 @@ var render = function() {
           on: {
             dblclick: function($event) {
               return _vm.selectWordItem()
+            },
+            click: function($event) {
+              return _vm.selectWordItemMobile()
             }
           }
         },
