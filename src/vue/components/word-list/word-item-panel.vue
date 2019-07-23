@@ -30,7 +30,7 @@
         </alph-tooltip>
         <div
           class="alpheios-worditem__data alpheios-worditem__targetWord"
-          @click="selectWordItem()"
+          @dblclick="selectWordItem()"
         >{{ worditem.targetWord }}</div>
         <div class="alpheios-worditem__data alpheios-worditem__lemmasList">
           <span v-for="(lemma, lemmaIndex) in lemmasList" 
