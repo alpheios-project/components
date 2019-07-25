@@ -85,7 +85,11 @@ export default {
           .filter(wordUsageExampleItem => wordUsageExampleItem.author)
           .map(wordUsageExampleItem => wordUsageExampleItem.author)
           .filter((item, pos, self) => self.indexOf(item) == pos)
-          .slice()
+          .slice().sort((a,b) => {
+            let aT = this.calcTitle(a, 'author')
+            let bT = this.calcTitle(b, 'author')
+            return (aT < bT) ? -1 : (aT > bT) ? 1 : 0
+          })
         this.lastAuthorsList.unshift(null)
       }
       return true
