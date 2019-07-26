@@ -32375,6 +32375,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     formattedFullCit (wordUsageItem) {
       return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
+    },
+    gotToTheSource (wordUsageItem) {
+      var tab = window.open(wordUsageItem.source, '_blank')
+      tab.focus()
     }
   },
   mounted () {
@@ -41764,17 +41768,18 @@ var render = function() {
                     [
                       _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
                         return [
-                          _c("a", {
+                          _c("div", {
                             staticClass:
                               "alpheios-word-usage__examples-source-link-large",
-                            attrs: {
-                              href: wordUsageItem.source,
-                              target: "_blank"
-                            },
                             domProps: {
                               innerHTML: _vm._s(
                                 _vm.formattedFullCit(wordUsageItem)
                               )
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.gotToTheSource(wordUsageItem)
+                              }
                             }
                           }),
                           _vm._v(" "),
