@@ -31669,8 +31669,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       })
       const result = _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].collectionToCSV(';', exportFields)(wordlistData)
-      const blob = new Blob([result], { type: 'text/plain' })
-      _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].downloadBlob(blob, `wordlist-${this.languageCode}.csv`)
+      _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].downloadBlob(result, `wordlist-${this.languageCode}.csv`)
     }
   }
 });
@@ -58913,7 +58912,8 @@ class Download {
     }
   }
 
-  static downloadBlob (blob, filename) {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
 

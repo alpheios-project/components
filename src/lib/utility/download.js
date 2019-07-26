@@ -10,7 +10,8 @@ export default class Download {
     }
   }
 
-  static downloadBlob (blob, filename) {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
 

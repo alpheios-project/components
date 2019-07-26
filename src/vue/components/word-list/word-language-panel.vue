@@ -249,8 +249,7 @@ export default {
         }
       })
       const result = Download.collectionToCSV(';', exportFields)(wordlistData)
-      const blob = new Blob([result], { type: 'text/plain' })
-      Download.downloadBlob(blob, `wordlist-${this.languageCode}.csv`)
+      Download.downloadBlob(result, `wordlist-${this.languageCode}.csv`)
     }
   }
 }
