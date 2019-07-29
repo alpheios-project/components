@@ -31396,9 +31396,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/inline-icons/check.svg */ "./images/inline-icons/check.svg");
 /* harmony import */ var _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/delete.svg */ "./images/inline-icons/delete.svg");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
-/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
-/* harmony import */ var _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-sorting-panel.vue */ "./vue/components/word-list/word-sorting-panel.vue");
+/* harmony import */ var _images_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/download.svg */ "./images/inline-icons/download.svg");
+/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
+/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
+/* harmony import */ var _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/components/word-list/word-sorting-panel.vue */ "./vue/components/word-list/word-sorting-panel.vue");
+/* harmony import */ var _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/utility/download.js */ "./lib/utility/download.js");
 //
 //
 //
@@ -31472,6 +31474,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -31487,9 +31497,10 @@ __webpack_require__.r(__webpack_exports__);
     closeIcon: _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     checkIcon: _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
     deleteIcon: _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
-    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    wordSortingPanel: _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    downloadIcon: _images_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
+    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    wordSortingPanel: _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   inject: ['l10n', 'app'],
@@ -31631,6 +31642,21 @@ __webpack_require__.r(__webpack_exports__);
           return 0 // default state is unsorted
         }
       })
+    },
+    downloadList () {
+      const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
+      const wordlistData = this.wordlist.values.map(wordItem => {
+        return { 
+          targetWord: wordItem.targetWord,
+          languageCode: wordItem.languageCode,
+          important: wordItem.important,
+          currentSession: wordItem.currentSession,
+          lemmasList: wordItem.lemmasList,
+          context: Object.keys(wordItem.formattedContext).join(' ')
+        }
+      })
+      const result = _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].collectionToCSV(';', exportFields)(wordlistData)
+      _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].downloadBlob(result, `wordlist-${this.languageCode}.csv`)
     }
   }
 });
@@ -40982,6 +41008,34 @@ var render = function() {
                   }
                 },
                 [_c("delete-icon")],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipDirection: "top-left",
+                tooltipText: _vm.l10n.getText("WORDLIST_TOOLTIP_DOWNLOAD", {
+                  lang: _vm.languageCode
+                })
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-wordlist-commands__item alpheios-wordlist-commands__item-download",
+                  on: {
+                    click: function($event) {
+                      return _vm.downloadList()
+                    }
+                  }
+                },
+                [_c("download-icon")],
                 1
               )
             ]
@@ -52097,6 +52151,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./images/inline-icons/download.svg":
+/*!******************************************!*\
+  !*** ./images/inline-icons/download.svg ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 317.2 675.36","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M-128.12 498.8a20.48 20.48 0 00-20.48 20.48v125.6a20.48 20.48 0 0020.48 20.48h573.44a20.48 20.48 0 0020.48-20.48v-125.6a20.48 20.48 0 10-40.96 0V624.4h-532.48V519.28a20.48 20.48 0 00-20.48-20.48z"}}),_c('path',{attrs:{"d":"M158.6 10a20.48 20.48 0 00-20.48 20.48V471L8.22 345.52a20.473 20.473 0 10-28.447 29.45l164.31 158.74.041.041.246.225c.758.738 1.72 1.045 2.54 1.639 1.27.921 2.457 1.945 3.931 2.54a20.255 20.255 0 0015.483 0c1.373-.554 2.458-1.516 3.646-2.356.942-.635 2.007-1.024 2.847-1.843l164.58-159.03a20.487 20.487 0 00-28.488-29.45l-129.82 125.52V30.476a20.48 20.48 0 00-20.48-20.48z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
 /***/ "./images/inline-icons/expanded.svg":
 /*!******************************************!*\
   !*** ./images/inline-icons/expanded.svg ***!
@@ -58807,6 +58901,43 @@ class UIStateAPI {
 
 /***/ }),
 
+/***/ "./lib/utility/download.js":
+/*!*********************************!*\
+  !*** ./lib/utility/download.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Download; });
+class Download {
+  static collectionToCSV (delimiter, keys = []) {
+    return (collection = []) => {
+      const headers = keys.map(key => `${key}`).join(delimiter)
+      const extractKeyValues = record => keys.map(key => `${record[key]}`).join(delimiter)
+
+      return collection.reduce((csv, record) => {
+        return (`${csv}\n${extractKeyValues(record)}`).trim()
+      }, headers)
+    }
+  }
+
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    a.click()
+    return a
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/utility/html-page.js":
 /*!**********************************!*\
   !*** ./lib/utility/html-page.js ***!
@@ -59205,10 +59336,10 @@ module.exports = JSON.parse("{\"Number\":{\"message\":\"Number\"},\"Case\":{\"me
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-word-list.json ***!
   \***********************************************/
-/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, WORDLIST_FILTER_PLACEHOLDER, default */
+/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, WORDLIST_FILTER_PLACEHOLDER, WORDLIST_TOOLTIP_DOWNLOAD, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"WORDLIST_TOOLTIP_ALL_IMPORTANT\":{\"message\":\"Make all important \",\"description\":\"Make all words inside language block important\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_NO_IMPORTANT\":{\"message\":\"Remove all important \",\"description\":\"Remove important mark from all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_REMOVE_ALL\":{\"message\":\"Remove all word items\",\"description\":\"Remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CHANGE_IMPORTANT\":{\"message\":\"Change important status\",\"description\":\"Change important status for the WordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_REMOVE\":{\"message\":\"Remove word item\",\"description\":\"Remove the WordItem form the list\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_TEXT_CONTEXT\":{\"message\":\"Show contexts\",\"description\":\"Show panle with contexts for the wordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_BACK\":{\"message\":\"Back to word list\",\"description\":\"Back to the WordList Tab\",\"component\":\"WordContextPanel\"},\"WORDLIST_DELETE_CONFIRM_MESSAGE\":{\"message\":\"Do you really want to delete all word items from the list?\",\"description\":\"Delete all confirmation message\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_DELETE\":{\"message\":\"Delete\",\"description\":\"Button title for delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_CANCEL_DELETE\":{\"message\":\"Cancel\",\"description\":\"Button title for cancel delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL\":{\"message\":\"Cancel remove all word items\",\"description\":\"Cancel remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_FILTER_BYCURRENTSESSION\":{\"message\":\"by this session\",\"description\":\"Filter only those words that were selected in the current session\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYIMPORTANT\":{\"message\":\"by important\",\"description\":\"Filter only those words that has an important flag\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL\":{\"message\":\"by exact word\",\"description\":\"Filter only those words that has this word word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_PART\":{\"message\":\"by word form (part)\",\"description\":\"Filter only those words that has this part of word form\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL\":{\"message\":\"by lemma\",\"description\":\"Filter only those words that has this lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_PART\":{\"message\":\"by lemma (part)\",\"description\":\"Filter only those words that has this part of lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER\":{\"message\":\"type exact word here\",\"description\":\"Placeholder for the text input for filter by word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER\":{\"message\":\"type lemma here\",\"description\":\"Placeholder for the text input for filter by lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BY\":{\"message\":\"Limit to\",\"description\":\"Filter by label on the panel\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_CLEAR\":{\"message\":\"Clear limits\",\"description\":\"Tooltip for clear filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER\":{\"message\":\"Limit\",\"description\":\"Tooltip for filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_CURRENT_SESSION\":{\"message\":\"Added in the current session\",\"description\":\"Icon indicates, thats it was retrieved durent the current session\",\"component\":\"WordItemPanel\"},\"WORDLIST_FILTER_PLACEHOLDER\":{\"message\":\"Select a limit\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\"}}");
+module.exports = JSON.parse("{\"WORDLIST_TOOLTIP_ALL_IMPORTANT\":{\"message\":\"Make all important \",\"description\":\"Make all words inside language block important\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_NO_IMPORTANT\":{\"message\":\"Remove all important \",\"description\":\"Remove important mark from all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_REMOVE_ALL\":{\"message\":\"Remove all word items\",\"description\":\"Remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CHANGE_IMPORTANT\":{\"message\":\"Change important status\",\"description\":\"Change important status for the WordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_REMOVE\":{\"message\":\"Remove word item\",\"description\":\"Remove the WordItem form the list\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_TEXT_CONTEXT\":{\"message\":\"Show contexts\",\"description\":\"Show panle with contexts for the wordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_BACK\":{\"message\":\"Back to word list\",\"description\":\"Back to the WordList Tab\",\"component\":\"WordContextPanel\"},\"WORDLIST_DELETE_CONFIRM_MESSAGE\":{\"message\":\"Do you really want to delete all word items from the list?\",\"description\":\"Delete all confirmation message\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_DELETE\":{\"message\":\"Delete\",\"description\":\"Button title for delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_CANCEL_DELETE\":{\"message\":\"Cancel\",\"description\":\"Button title for cancel delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL\":{\"message\":\"Cancel remove all word items\",\"description\":\"Cancel remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_FILTER_BYCURRENTSESSION\":{\"message\":\"by this session\",\"description\":\"Filter only those words that were selected in the current session\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYIMPORTANT\":{\"message\":\"by important\",\"description\":\"Filter only those words that has an important flag\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL\":{\"message\":\"by exact word\",\"description\":\"Filter only those words that has this word word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_PART\":{\"message\":\"by word form (part)\",\"description\":\"Filter only those words that has this part of word form\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL\":{\"message\":\"by lemma\",\"description\":\"Filter only those words that has this lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_PART\":{\"message\":\"by lemma (part)\",\"description\":\"Filter only those words that has this part of lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER\":{\"message\":\"type exact word here\",\"description\":\"Placeholder for the text input for filter by word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER\":{\"message\":\"type lemma here\",\"description\":\"Placeholder for the text input for filter by lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BY\":{\"message\":\"Limit to\",\"description\":\"Filter by label on the panel\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_CLEAR\":{\"message\":\"Clear limits\",\"description\":\"Tooltip for clear filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER\":{\"message\":\"Limit\",\"description\":\"Tooltip for filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_CURRENT_SESSION\":{\"message\":\"Added in the current session\",\"description\":\"Icon indicates, thats it was retrieved durent the current session\",\"component\":\"WordItemPanel\"},\"WORDLIST_FILTER_PLACEHOLDER\":{\"message\":\"Select a limit\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\"},\"WORDLIST_TOOLTIP_DOWNLOAD\":{\"message\":\"Download wordlist ({lang})\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\",\"params\":[\"lang\"]}}");
 
 /***/ }),
 
