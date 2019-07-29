@@ -31660,15 +31660,14 @@ __webpack_require__.r(__webpack_exports__);
     downloadList () {
       const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
       const wordlistData = this.wordlist.values.map(wordItem => {
-        let wordItemData = { 
+        return { 
           targetWord: wordItem.targetWord,
           languageCode: wordItem.languageCode,
           important: wordItem.important,
           currentSession: wordItem.currentSession,
-          lemmasList: wordItem.lemmasList
+          lemmasList: wordItem.lemmasList,
+          context: Object.keys(wordItem.formattedContext).join(' ')
         }
-        wordItemData.context = Object.keys(wordItem.formattedContext).join(' ')
-        return wordItemData
       })
       const result = _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].collectionToCSV(';', exportFields)(wordlistData)
       _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].downloadBlob(result, `wordlist-${this.languageCode}.csv`)

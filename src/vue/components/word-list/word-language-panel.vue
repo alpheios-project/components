@@ -240,15 +240,14 @@ export default {
     downloadList () {
       const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
       const wordlistData = this.wordlist.values.map(wordItem => {
-        let wordItemData = { 
+        return { 
           targetWord: wordItem.targetWord,
           languageCode: wordItem.languageCode,
           important: wordItem.important,
           currentSession: wordItem.currentSession,
-          lemmasList: wordItem.lemmasList
+          lemmasList: wordItem.lemmasList,
+          context: Object.keys(wordItem.formattedContext).join(' ')
         }
-        wordItemData.context = Object.keys(wordItem.formattedContext).join(' ')
-        return wordItemData
       })
       const result = Download.collectionToCSV(';', exportFields)(wordlistData)
       Download.downloadBlob(result, `wordlist-${this.languageCode}.csv`)
