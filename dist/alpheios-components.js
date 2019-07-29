@@ -31216,6 +31216,7 @@ __webpack_require__.r(__webpack_exports__);
     clearFilteringText () {
       this.textInput = null
       this.clearFilterEvent()
+      this.$emit('clearClickedLemma')
     },
     clearFilterEvent () {
       this.$emit('changedFilterBy', null)
@@ -31224,7 +31225,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedFilterBy = 'byLemma'
       this.textInput = this.clickedLemma.trim()
       this.clickFilterBy()
-      this.$emit('clearClickedLemma')
+      
     },
     filterVariants () {
       if (this.textInput && this.textInput.length > 0) {
@@ -31398,9 +31399,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/inline-icons/check.svg */ "./images/inline-icons/check.svg");
 /* harmony import */ var _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/images/inline-icons/delete.svg */ "./images/inline-icons/delete.svg");
 /* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
-/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
-/* harmony import */ var _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-sorting-panel.vue */ "./vue/components/word-list/word-sorting-panel.vue");
+/* harmony import */ var _images_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/download.svg */ "./images/inline-icons/download.svg");
+/* harmony import */ var _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/components/word-list/word-item-panel.vue */ "./vue/components/word-list/word-item-panel.vue");
+/* harmony import */ var _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/components/word-list/word-filter-panel.vue */ "./vue/components/word-list/word-filter-panel.vue");
+/* harmony import */ var _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/components/word-list/word-sorting-panel.vue */ "./vue/components/word-list/word-sorting-panel.vue");
+/* harmony import */ var _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/utility/download.js */ "./lib/utility/download.js");
 //
 //
 //
@@ -31473,6 +31476,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -31488,9 +31500,10 @@ __webpack_require__.r(__webpack_exports__);
     closeIcon: _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     checkIcon: _images_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
     deleteIcon: _images_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
-    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    wordSortingPanel: _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    downloadIcon: _images_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
+    wordItem: _vue_components_word_list_word_item_panel_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    wordFilterPanel: _vue_components_word_list_word_filter_panel_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    wordSortingPanel: _vue_components_word_list_word_sorting_panel_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   inject: ['l10n', 'app'],
@@ -31609,7 +31622,9 @@ __webpack_require__.r(__webpack_exports__);
       this.textInput = textInput
     },
     setLemmaFilterByClick (lemma) {
-      this.clickedLemma = lemma
+      if (!this.clickedLemma && lemma) {
+        this.clickedLemma = lemma
+      }
     },
     clearClickedLemma () {
       this.clickedLemma = null
@@ -31630,6 +31645,21 @@ __webpack_require__.r(__webpack_exports__);
           return 0 // default state is unsorted
         }
       })
+    },
+    downloadList () {
+      const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
+      const wordlistData = this.wordlist.values.map(wordItem => {
+        return { 
+          targetWord: wordItem.targetWord,
+          languageCode: wordItem.languageCode,
+          important: wordItem.important,
+          currentSession: wordItem.currentSession,
+          lemmasList: wordItem.lemmasList,
+          context: Object.keys(wordItem.formattedContext).join(' ')
+        }
+      })
+      const result = _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].collectionToCSV(';', exportFields)(wordlistData)
+      _lib_utility_download_js__WEBPACK_IMPORTED_MODULE_8__["default"].downloadBlob(result, `wordlist-${this.languageCode}.csv`)
     }
   }
 });
@@ -31914,7 +31944,13 @@ __webpack_require__.r(__webpack_exports__);
     homonym () {
       return this.$store.state.app.homonymDataReady ? this.app.homonym : null
     },
+    languageCode () {
+      return  this.homonym ? this.homonym.language : null
+    },
     authorsList () {
+      if (!this.$store.state.app.homonymDataReady) {
+        return false
+      }
       if (this.$store.state.app.wordUsageExamplesReady && (!this.lastTargetWord || this.lastTargetWord !== this.homonym.targetWord)) {
         this.lastTargetWord = this.homonym.targetWord
         this.lastAuthorsList = this.app.wordUsageExamples.wordUsageExamples
@@ -31922,20 +31958,23 @@ __webpack_require__.r(__webpack_exports__);
           .map(wordUsageExampleItem => wordUsageExampleItem.author)
           .filter((item, pos, self) => self.indexOf(item) == pos)
           .slice()
+        this.applySort('author', this.lastAuthorsList)
         this.lastAuthorsList.unshift(null)
+      }
+      if (!this.$store.state.app.wordUsageExamplesReady && !this.selectedAuthor) {
+        return false
       }
       return true
     },
     filteredWorkList () {
+      if (!this.$store.state.app.homonymDataReady) {
+        return false
+      }
       if (this.selectedAuthor) {
         this.selectedTextWork = null
         let resArray = this.selectedAuthor.works.slice()
-        if (resArray.length > 1) {
-          resArray.sort((a,b) => {
-            let aT = this.calcTitle(a, 'textwork')
-            let bT = this.calcTitle(b, 'textwork')
-            return (aT < bT) ? -1 : (aT > bT) ? 1 : 0
-          })
+        if (resArray.length > 1 && this.languageCode) {
+          resArray = this.applySort('textwork', resArray)
           resArray.unshift(null)
         } else if (resArray.length === 1) {
           this.selectedTextWork = resArray[0]
@@ -31992,6 +32031,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       return ''
+    },
+    applySort (typeSort, items) {
+      return items.sort((a,b) => {
+            let aT = this.calcTitle(a, typeSort)
+            let bT = this.calcTitle(b, typeSort)        
+            return aT.localeCompare(bT, this.languageCode, {sensitivity: 'accent'})
+          })
     }
   }
 });
@@ -32369,6 +32415,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     formattedFullCit (wordUsageItem) {
       return wordUsageItem.formattedAuthor + ' <i>' + wordUsageItem.formattedTextWork + '</i> ' + wordUsageItem.formattedPassage
+    },
+    gotToTheSource (wordUsageItem) {
+      var tab = window.open(wordUsageItem.source, '_blank')
+      tab.focus()
     }
   },
   mounted () {
@@ -40984,6 +41034,34 @@ var render = function() {
                 1
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "alph-tooltip",
+            {
+              attrs: {
+                tooltipDirection: "top-left",
+                tooltipText: _vm.l10n.getText("WORDLIST_TOOLTIP_DOWNLOAD", {
+                  lang: _vm.languageCode
+                })
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-wordlist-commands__item alpheios-wordlist-commands__item-download",
+                  on: {
+                    click: function($event) {
+                      return _vm.downloadList()
+                    }
+                  }
+                },
+                [_c("download-icon")],
+                1
+              )
+            ]
           )
         ],
         1
@@ -41116,7 +41194,10 @@ var render = function() {
       _vm._l(_vm.wordItems, function(wordItem) {
         return _c(
           "div",
-          { key: wordItem.targetWord },
+          {
+            key: wordItem.targetWord,
+            class: { "alpheios-lemma-clickable": !_vm.clickedLemma }
+          },
           [
             _c("word-item", {
               attrs: { worditem: wordItem },
@@ -41778,17 +41859,18 @@ var render = function() {
                     [
                       _vm._l(_vm.wordUsageListSorted, function(wordUsageItem) {
                         return [
-                          _c("a", {
+                          _c("div", {
                             staticClass:
                               "alpheios-word-usage__examples-source-link-large",
-                            attrs: {
-                              href: wordUsageItem.source,
-                              target: "_blank"
-                            },
                             domProps: {
                               innerHTML: _vm._s(
                                 _vm.formattedFullCit(wordUsageItem)
                               )
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.gotToTheSource(wordUsageItem)
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -51608,7 +51690,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.11\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/word-usage-examples/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.7.2\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.37.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.12\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/word-usage-examples/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.7.2\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.38.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -52085,6 +52167,46 @@ __webpack_require__.r(__webpack_exports__);
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M176.42 880.5c0 11.046 8.954 20 20 20h507.67c11.046 0 20-8.954 20-20V232.49H176.42V880.5zm386.33-537.73h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zM618.82 91.911V20c0-11.046-8.954-20-20-20H301.67c-11.046 0-20 8.954-20 20v96.911h-139.8c-11.046 0-20 8.954-20 20v50.576c0 11.045 8.954 20 20 20h616.75c11.046 0 20-8.955 20-20v-50.576c0-11.046-8.954-20-20-20h-139.8V91.912zm-75 20.889H356.67V75.001h187.15v37.801z"}})])
+          )
+        }
+      });
+    
+
+/***/ }),
+
+/***/ "./images/inline-icons/download.svg":
+/*!******************************************!*\
+  !*** ./images/inline-icons/download.svg ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+      /* harmony default export */ __webpack_exports__["default"] = ({
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 317.2 675.36","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M-128.12 498.8a20.48 20.48 0 00-20.48 20.48v125.6a20.48 20.48 0 0020.48 20.48h573.44a20.48 20.48 0 0020.48-20.48v-125.6a20.48 20.48 0 10-40.96 0V624.4h-532.48V519.28a20.48 20.48 0 00-20.48-20.48z"}}),_c('path',{attrs:{"d":"M158.6 10a20.48 20.48 0 00-20.48 20.48V471L8.22 345.52a20.473 20.473 0 10-28.447 29.45l164.31 158.74.041.041.246.225c.758.738 1.72 1.045 2.54 1.639 1.27.921 2.457 1.945 3.931 2.54a20.255 20.255 0 0015.483 0c1.373-.554 2.458-1.516 3.646-2.356.942-.635 2.007-1.024 2.847-1.843l164.58-159.03a20.487 20.487 0 00-28.488-29.45l-129.82 125.52V30.476a20.48 20.48 0 00-20.48-20.48z"}})])
           )
         }
       });
@@ -58802,6 +58924,43 @@ class UIStateAPI {
 
 /***/ }),
 
+/***/ "./lib/utility/download.js":
+/*!*********************************!*\
+  !*** ./lib/utility/download.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Download; });
+class Download {
+  static collectionToCSV (delimiter, keys = []) {
+    return (collection = []) => {
+      const headers = keys.map(key => `${key}`).join(delimiter)
+      const extractKeyValues = record => keys.map(key => `${record[key]}`).join(delimiter)
+
+      return collection.reduce((csv, record) => {
+        return (`${csv}\n${extractKeyValues(record)}`).trim()
+      }, headers)
+    }
+  }
+
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    a.click()
+    return a
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/utility/html-page.js":
 /*!**********************************!*\
   !*** ./lib/utility/html-page.js ***!
@@ -59200,10 +59359,10 @@ module.exports = JSON.parse("{\"Number\":{\"message\":\"Number\"},\"Case\":{\"me
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-word-list.json ***!
   \***********************************************/
-/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, WORDLIST_FILTER_PLACEHOLDER, default */
+/*! exports provided: WORDLIST_TOOLTIP_ALL_IMPORTANT, WORDLIST_TOOLTIP_NO_IMPORTANT, WORDLIST_TOOLTIP_REMOVE_ALL, WORDLIST_TOOLTIP_CHANGE_IMPORTANT, WORDLIST_TOOLTIP_REMOVE, WORDLIST_TOOLTIP_TEXT_CONTEXT, WORDLIST_TOOLTIP_BACK, WORDLIST_DELETE_CONFIRM_MESSAGE, WORDLIST_BUTTON_DELETE, WORDLIST_BUTTON_CANCEL_DELETE, WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL, WORDLIST_FILTER_BYCURRENTSESSION, WORDLIST_FILTER_BYIMPORTANT, WORDLIST_FILTER_BYWORDFORM_FULL, WORDLIST_FILTER_BYWORDFORM_PART, WORDLIST_FILTER_BYLEMMA_FULL, WORDLIST_FILTER_BYLEMMA_PART, WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER, WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER, WORDLIST_FILTER_BY, WORDLIST_FILTER_CLEAR, WORDLIST_FILTER, WORDLIST_CURRENT_SESSION, WORDLIST_FILTER_PLACEHOLDER, WORDLIST_TOOLTIP_DOWNLOAD, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"WORDLIST_TOOLTIP_ALL_IMPORTANT\":{\"message\":\"Make all important \",\"description\":\"Make all words inside language block important\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_NO_IMPORTANT\":{\"message\":\"Remove all important \",\"description\":\"Remove important mark from all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_REMOVE_ALL\":{\"message\":\"Remove all word items\",\"description\":\"Remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CHANGE_IMPORTANT\":{\"message\":\"Change important status\",\"description\":\"Change important status for the WordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_REMOVE\":{\"message\":\"Remove word item\",\"description\":\"Remove the WordItem form the list\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_TEXT_CONTEXT\":{\"message\":\"Show contexts\",\"description\":\"Show panle with contexts for the wordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_BACK\":{\"message\":\"Back to word list\",\"description\":\"Back to the WordList Tab\",\"component\":\"WordContextPanel\"},\"WORDLIST_DELETE_CONFIRM_MESSAGE\":{\"message\":\"Do you really want to delete all word items from the list?\",\"description\":\"Delete all confirmation message\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_DELETE\":{\"message\":\"Delete\",\"description\":\"Button title for delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_CANCEL_DELETE\":{\"message\":\"Cancel\",\"description\":\"Button title for cancel delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL\":{\"message\":\"Cancel remove all word items\",\"description\":\"Cancel remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_FILTER_BYCURRENTSESSION\":{\"message\":\"by this session\",\"description\":\"Filter only those words that were selected in the current session\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYIMPORTANT\":{\"message\":\"by important\",\"description\":\"Filter only those words that has an important flag\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL\":{\"message\":\"by exact word\",\"description\":\"Filter only those words that has this word word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_PART\":{\"message\":\"by word form (part)\",\"description\":\"Filter only those words that has this part of word form\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL\":{\"message\":\"by lemma\",\"description\":\"Filter only those words that has this lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_PART\":{\"message\":\"by lemma (part)\",\"description\":\"Filter only those words that has this part of lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER\":{\"message\":\"type exact word here\",\"description\":\"Placeholder for the text input for filter by word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER\":{\"message\":\"type lemma here\",\"description\":\"Placeholder for the text input for filter by lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BY\":{\"message\":\"Limit to\",\"description\":\"Filter by label on the panel\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_CLEAR\":{\"message\":\"Clear limits\",\"description\":\"Tooltip for clear filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER\":{\"message\":\"Limit\",\"description\":\"Tooltip for filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_CURRENT_SESSION\":{\"message\":\"Added in the current session\",\"description\":\"Icon indicates, thats it was retrieved durent the current session\",\"component\":\"WordItemPanel\"},\"WORDLIST_FILTER_PLACEHOLDER\":{\"message\":\"Select a limit\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\"}}");
+module.exports = JSON.parse("{\"WORDLIST_TOOLTIP_ALL_IMPORTANT\":{\"message\":\"Make all important \",\"description\":\"Make all words inside language block important\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_NO_IMPORTANT\":{\"message\":\"Remove all important \",\"description\":\"Remove important mark from all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_REMOVE_ALL\":{\"message\":\"Remove all word items\",\"description\":\"Remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CHANGE_IMPORTANT\":{\"message\":\"Change important status\",\"description\":\"Change important status for the WordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_REMOVE\":{\"message\":\"Remove word item\",\"description\":\"Remove the WordItem form the list\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_TEXT_CONTEXT\":{\"message\":\"Show contexts\",\"description\":\"Show panle with contexts for the wordItem\",\"component\":\"WordItemPanel\"},\"WORDLIST_TOOLTIP_BACK\":{\"message\":\"Back to word list\",\"description\":\"Back to the WordList Tab\",\"component\":\"WordContextPanel\"},\"WORDLIST_DELETE_CONFIRM_MESSAGE\":{\"message\":\"Do you really want to delete all word items from the list?\",\"description\":\"Delete all confirmation message\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_DELETE\":{\"message\":\"Delete\",\"description\":\"Button title for delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_BUTTON_CANCEL_DELETE\":{\"message\":\"Cancel\",\"description\":\"Button title for cancel delete all\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_TOOLTIP_CANCEL_REMOVE_ALL\":{\"message\":\"Cancel remove all word items\",\"description\":\"Cancel remove all words inside language block\",\"component\":\"WordLanguagePanel\"},\"WORDLIST_FILTER_BYCURRENTSESSION\":{\"message\":\"by this session\",\"description\":\"Filter only those words that were selected in the current session\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYIMPORTANT\":{\"message\":\"by important\",\"description\":\"Filter only those words that has an important flag\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL\":{\"message\":\"by exact word\",\"description\":\"Filter only those words that has this word word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_PART\":{\"message\":\"by word form (part)\",\"description\":\"Filter only those words that has this part of word form\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL\":{\"message\":\"by lemma\",\"description\":\"Filter only those words that has this lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_PART\":{\"message\":\"by lemma (part)\",\"description\":\"Filter only those words that has this part of lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYWORDFORM_FULL_PLACEHOLDER\":{\"message\":\"type exact word here\",\"description\":\"Placeholder for the text input for filter by word\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BYLEMMA_FULL_PLACEHOLDER\":{\"message\":\"type lemma here\",\"description\":\"Placeholder for the text input for filter by lemma\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_BY\":{\"message\":\"Limit to\",\"description\":\"Filter by label on the panel\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER_CLEAR\":{\"message\":\"Clear limits\",\"description\":\"Tooltip for clear filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_FILTER\":{\"message\":\"Limit\",\"description\":\"Tooltip for filter icon\",\"component\":\"WordFilterPanel\"},\"WORDLIST_CURRENT_SESSION\":{\"message\":\"Added in the current session\",\"description\":\"Icon indicates, thats it was retrieved durent the current session\",\"component\":\"WordItemPanel\"},\"WORDLIST_FILTER_PLACEHOLDER\":{\"message\":\"Select a limit\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\"},\"WORDLIST_TOOLTIP_DOWNLOAD\":{\"message\":\"Download wordlist ({lang})\",\"description\":\"Placeholder for filter selection\",\"component\":\"WordFilterPanel\",\"params\":[\"lang\"]}}");
 
 /***/ }),
 

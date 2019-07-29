@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "Alpheios Components",
   "main": "dist/alpheios-components.min.js",
   "module": "src/plugin.js",
@@ -95,7 +95,7 @@
     "vue-template-compiler": "^2.6.10",
     "vue-template-loader": "^1.0.0",
     "vuex": "^3.1.1",
-    "webpack": "^4.37.0",
+    "webpack": "^4.38.0",
     "whatwg-fetch": "^3.0.0",
     "wrap-range-text": "^1.0.1"
   },
