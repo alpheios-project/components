@@ -31471,6 +31471,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -41116,7 +41117,10 @@ var render = function() {
       _vm._l(_vm.wordItems, function(wordItem) {
         return _c(
           "div",
-          { key: wordItem.targetWord },
+          {
+            key: wordItem.targetWord,
+            class: { "alpheios-lemma-clickable": !_vm.clickedLemma }
+          },
           [
             _c("word-item", {
               attrs: { worditem: wordItem },

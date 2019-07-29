@@ -59,7 +59,8 @@
         </div>
         <div
             v-for="wordItem in wordItems"
-            v-bind:key="wordItem.targetWord">
+            v-bind:key="wordItem.targetWord"
+            :class="{ 'alpheios-lemma-clickable': !clickedLemma }">
             <word-item
               :worditem="wordItem"
               @changeImportant = "changeImportant"
