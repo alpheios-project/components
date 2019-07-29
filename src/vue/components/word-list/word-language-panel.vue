@@ -238,15 +238,17 @@ export default {
       })
     },
     downloadList () {
-      const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList' ]
+      const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
       const wordlistData = this.wordlist.values.map(wordItem => {
-        return { 
+        let wordItemData = { 
           targetWord: wordItem.targetWord,
           languageCode: wordItem.languageCode,
           important: wordItem.important,
           currentSession: wordItem.currentSession,
           lemmasList: wordItem.lemmasList
         }
+        wordItemData.context = Object.keys(wordItem.formattedContext).join(' ')
+        return wordItemData
       })
       const result = Download.collectionToCSV(';', exportFields)(wordlistData)
       Download.downloadBlob(result, `wordlist-${this.languageCode}.csv`)
