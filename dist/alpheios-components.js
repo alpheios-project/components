@@ -31607,11 +31607,8 @@ __webpack_require__.r(__webpack_exports__);
       this.textInput = textInput
     },
     setLemmaFilterByClick (lemma) {
-      console.info('*************setLemmaFilterByClick this.clickedLemma', this.clickedLemma)
-      console.info('*************setLemmaFilterByClick lemma', lemma)
       if (!this.clickedLemma && lemma) {
         this.clickedLemma = lemma
-        console.info('*************setLemmaFilterByClick changed this.clickedLemma', this.clickedLemma)
       }
     },
     clearClickedLemma () {
