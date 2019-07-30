@@ -53,15 +53,6 @@
                 <go-icon></go-icon>
               </span>
             </alph-tooltip>
-            <alph-tooltip :tooltipText="l10n.getMsg('WORDLIST_FILTER_CLEAR')" tooltipDirection="top-right">
-              <span class="alpheios-wordlist-header-clear-icon"
-                    @click="clearFilteringText"
-                    :class = '{ "alpheios-wordlist-header-clear-disabled": textInput === null }'
-                    >
-                <clear-filters-icon></clear-filters-icon>
-              </span>
-            </alph-tooltip>
-
         </div>
       </div>
     </div>
