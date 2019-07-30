@@ -53975,7 +53975,13 @@ class UIController {
         },
 
         setWordLists (state, wordLists) {
-          let checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
+          let checkWordLists
+          if (!wordLists || (!Array.isArray(wordLists) && Object.keys(wordLists).length === 0)) {
+            checkWordLists = []
+          } else {
+            checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
+          }
+
           state.hasWordListsData = Boolean(checkWordLists.find(wordList => wordList && !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
         },
@@ -54872,7 +54878,7 @@ class UIController {
   }
 
   onWordListUpdated (wordList) {
-    this.store.commit('app/setWordLists', [wordList])
+    this.store.commit('app/setWordLists', wordList)
     if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
