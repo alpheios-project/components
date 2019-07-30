@@ -565,17 +565,17 @@
     "component": "Options Tab"
   },
   "OPTIONS_TAB_UI": {
-    "message": "Select an user interface option set",
+    "message": "User Interface Options",
     "description": "Tooltip for the show UI options icon",
     "component": "Options Tab"
   },
   "OPTIONS_TAB_FEATURE": {
-    "message": "Select an feature option set",
+    "message": "Feature Options",
     "description": "Tooltip for the show Feature options icon",
     "component": "Options Tab"
   },
   "OPTIONS_TAB_RESOURCE": {
-    "message": "Select an resource option set",
+    "message": "Resource Options",
     "description": "Tooltip for the show Resource options icon",
     "component": "Options Tab"
   },
