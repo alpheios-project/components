@@ -2821,7 +2821,7 @@ p.alpheios-word-usage-filter-title {
 .alpheios-visibility__hidden {
   visibility: hidden;
 }
-.alpheios-worditem__lemmasList-lemmaitem {
+.alpheios-lemma-clickable .alpheios-worditem__lemmasList-lemmaitem {
   cursor: pointer;
 }
 .alpheios-layout-compact .alpheios-worditem__targetWord {
@@ -2999,7 +2999,8 @@ p.alpheios-word-usage-filter-title {
   fill: var(--alpheios-word-list-important-item-color);
   stroke: var(--alpheios-word-list-important-item-color);
 }
-.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-remove-all {
+.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-remove-all,
+.alpheios-wordlist-commands__item.alpheios-wordlist-commands__item-download {
   fill: var(--alpheios-word-list-delete-item-color);
   stroke: var(--alpheios-word-list-delete-item-color);
 }
@@ -3637,6 +3638,14 @@ p.alpheios-word-usage-filter-title {
   background: var(--alpheios-text-bg-color);
 }
 .alpheios-toolbar__lookup-control .alpheios-navbuttons__btn {
+  margin: 0;
+  border-radius: 0;
+  border: none;
+}
+.alpheios-toolbar__help-control {
+  background: var(--alpheios-text-bg-color);
+}
+.alpheios-toolbar__help-control .alpheios-navbuttons__btn {
   margin: 0;
   border-radius: 0;
   border: none;
