@@ -670,7 +670,13 @@ export default class UIController {
         },
 
         setWordLists (state, wordLists) {
-          let checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
+          let checkWordLists
+          if (!wordLists || (!Array.isArray(wordLists) && Object.keys(wordLists).length === 0)) {
+            checkWordLists = []
+          } else {
+            checkWordLists = Array.isArray(wordLists) ? wordLists : Object.values(wordLists)
+          }
+
           state.hasWordListsData = Boolean(checkWordLists.find(wordList => wordList && !wordList.isEmpty))
           state.wordListUpdateTime = Date.now()
         },
@@ -822,6 +828,8 @@ export default class UIController {
     if (this.hasModule('panel')) {
       this.store.commit('panel/setPosition', this.uiOptions.items.panelPosition.currentValue)
     }
+
+    this.uiSetFontSize(this.uiOptions)
 
     this.updateLemmaTranslations()
 
@@ -1569,7 +1577,7 @@ export default class UIController {
   }
 
   onWordListUpdated (wordList) {
-    this.store.commit('app/setWordLists', [wordList])
+    this.store.commit('app/setWordLists', wordList)
     if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated) {
       this.store.commit(`auth/setNotification`, { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
@@ -1731,15 +1739,10 @@ export default class UIController {
    */
   uiOptionStateChange (settingName) {
     let uiOptions = this.api.settings.getUiOptions()
-    const FONT_SIZE_PROP = '--alpheios-base-text-size'
+
     switch (settingName) {
       case 'fontSize':
-        try {
-          document.documentElement.style.setProperty(FONT_SIZE_PROP,
-            `${uiOptions.items.fontSize.currentValue}px`)
-        } catch (error) {
-          console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
-        }
+        this.uiSetFontSize(uiOptions)
         break
       case 'panelPosition':
         this.store.commit('panel/setPosition', uiOptions.items.panelPosition.currentValue)
@@ -1749,6 +1752,16 @@ export default class UIController {
           this.store.commit(`auth/setHideLoginPrompt`, uiOptions.items.hideLoginPrompt.currentValue)
         }
         break
+    }
+  }
+
+  uiSetFontSize (uiOptions) {
+    const FONT_SIZE_PROP = '--alpheios-base-text-size'
+    try {
+      document.documentElement.style.setProperty(FONT_SIZE_PROP,
+        `${uiOptions.items.fontSize.currentValue}px`)
+    } catch (error) {
+      console.error(`Cannot change a ${FONT_SIZE_PROP} custom prop:`, error)
     }
   }
 

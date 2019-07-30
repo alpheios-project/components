@@ -12,6 +12,21 @@
     >
     </div>
     <div
+        class="alpheios-toolbar__help-control">
+      <alph-tooltip
+          :tooltip-text="l10n.getText('TOOLTIP_HELP')"
+          :tooltip-direction="tooltipDirection"
+      >
+        <span
+            @click="ui.togglePanelTab('info')"
+            class="alpheios-navbuttons__btn"
+            :class="{ active: $store.getters['ui/isActiveTab']('info') && $store.state.panel.open }"
+        >
+          <help-icon/>
+        </span>
+      </alph-tooltip>
+    </div>
+    <div
         class="alpheios-toolbar__lookup-control"
         @click="lookupVisible = !lookupVisible"
     >
@@ -30,9 +45,16 @@
         :class="{ expanded: contentVisible }"
         @click="contentVisible = !contentVisible"
     >
-      <reading-tools-icon
-        class="alpheios-toolbar__header-icon"
-      />
+      <alph-tooltip
+          :tooltip-text="l10n.getText('LABEL_TOOLS_CONTROL')"
+          :tooltip-direction="tooltipDirection"
+      >
+        <span class="alpheios-navbuttons__btn"
+            :class="{ active: contentVisible }">
+          <reading-tools-icon
+          />
+        </span>
+      </alph-tooltip>
       <collapsed-icon
           class="alpheios-toolbar__header-icon-collapsed"
           v-show="!contentVisible"
@@ -56,18 +78,6 @@
     <div
         class="alpheios-toolbar__buttons"
         v-show="contentVisible">
-      <alph-tooltip
-          :tooltip-text="l10n.getText('TOOLTIP_HELP')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <span
-            @click="ui.togglePanelTab('info')"
-            class="alpheios-navbuttons__btn"
-            :class="{ active: $store.getters['ui/isActiveTab']('info') }"
-        >
-          <help-icon/>
-        </span>
-      </alph-tooltip>
 
       <alph-tooltip
           :tooltip-text="l10n.getText('TOOLTIP_INFLECT_BROWSER')"
@@ -76,7 +86,7 @@
         <span
             @click="ui.togglePanelTab('inflectionsbrowser')"
             class="alpheios-navbuttons__btn"
-            :class="{ active: $store.getters['ui/isActiveTab']('inflectionsbrowser') }"
+            :class="{ active: $store.getters['ui/isActiveTab']('inflectionsbrowser') && $store.state.panel.open }"
         >
           <inflections-browser-icon/>
         </span>
@@ -87,7 +97,7 @@
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('grammar'), disabled: !$store.getters[`app/hasGrammarRes`] }"
+            :class="{ active: $store.getters['ui/isActiveTab']('grammar') && $store.state.panel.open, disabled: !$store.getters[`app/hasGrammarRes`] }"
             class="alpheios-navbuttons__btn"
             @click="ui.togglePanelTab('grammar')"
         >
@@ -100,7 +110,7 @@
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('wordlist'), disabled: !$store.state.app.hasWordListsData }"
+            :class="{ active: $store.getters['ui/isActiveTab']('wordlist') && $store.state.panel.open, disabled: !$store.state.app.hasWordListsData }"
             class="alpheios-navbuttons__btn"
             @click="ui.togglePanelTab('wordlist')"
         >
@@ -113,7 +123,7 @@
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('user'), disabled: !$store.state.auth.enableLogin }"
+            :class="{ active: $store.getters['ui/isActiveTab']('user') && $store.state.panel.open, disabled: !$store.state.auth.enableLogin }"
             class="alpheios-navbuttons__btn"
             @click="ui.togglePanelTab('user')"
         >
@@ -126,7 +136,7 @@
           :tooltip-direction="tooltipDirection"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('options') }"
+            :class="{ active: $store.getters['ui/isActiveTab']('options') && $store.state.panel.open }"
             class="alpheios-navbuttons__btn"
             @click="ui.togglePanelTab('options')"
         >
@@ -140,7 +150,7 @@
           v-show="this.settings.verboseMode()"
       >
         <span
-            :class="{ active: $store.getters['ui/isActiveTab']('status') }"
+            :class="{ active: $store.getters['ui/isActiveTab']('status') && $store.state.panel.open }"
             class="alpheios-navbuttons__btn"
             @click="ui.togglePanelTab('status')"
         >
@@ -451,9 +461,17 @@ export default {
     }
   }
 
+  .alpheios-toolbar__help-control {
+    background: var(--alpheios-text-bg-color);
+    .alpheios-navbuttons__btn {
+      margin: 0;
+      border-radius: 0;
+      border: none;
+    }
+  }
+
   .alpheios-toolbar__header {
     width: uisize($alpheios-toolbar-base-width);
-    height: uisize(54px);
     border-bottom: none;
     background: var(--alpheios-desktop-toolbar-bg);
     box-sizing: border-box;
@@ -463,6 +481,10 @@ export default {
     position: relative;
     // Need this for interact.js to work more reliably
     touch-action: none;
+    .alpheios-navbuttons__btn {
+      margin: 0 0 uisize(4px) 0;
+      border: none;
+    }
   }
 
   .alpheios-toolbar__header-icon {
