@@ -3180,6 +3180,17 @@ p.alpheios-word-usage-filter-title {
   background: var(--alpheios-desktop-panel-icon-bg-active);
   color: var(--alpheios-desktop-panel-icon-color-active);
 }
+.alpheios-tab-options-reset-all-block {
+  border-top: 1px solid;
+  display: flex;
+  align-items: baseline;
+  flex: 1 1 auto;
+  padding-top: 10px;
+}
+.alpheios-tab-options-reset-all-block .alpheios-tab-options-reset-all-block--title {
+  font-weight: bold;
+  width: 50%;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.

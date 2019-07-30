@@ -1,14 +1,22 @@
 <template>
   <div data-alpheios-ignore="all">
     <div class="alpheios-tab-options-switch">
-        <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 1 }" @click="currentTab = 1">U</div>
-        <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 2 }" @click="currentTab = 2">F</div>
-        <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 3 }" @click="currentTab = 3">R</div>
+        <alph-tooltip :tooltipText="l10n.getText('OPTIONS_TAB_UI')" tooltipDirection="bottom-left">
+          <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 1 }" @click="currentTab = 1">U</div>
+        </alph-tooltip>
+        <alph-tooltip :tooltipText="l10n.getText('OPTIONS_TAB_FEATURE')" tooltipDirection="bottom-left">
+          <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 2 }" @click="currentTab = 2">F</div>
+        </alph-tooltip>
+        <alph-tooltip :tooltipText="l10n.getText('OPTIONS_TAB_RESOURCE')" tooltipDirection="bottom-left">
+          <div class="alpheios-tab-options-switch--item" :class="{ 'alpheios-active': currentTab === 3 }" @click="currentTab = 3">R</div>
+        </alph-tooltip>
     </div>
+
         <ui-settings :key="uiSettingsKey" v-show="currentTab === 1"></ui-settings>
         <feature-settings :key="featureSettingsKey" v-show="currentTab === 2"></feature-settings>
         <resource-settings :key="resourceSettingsKey" v-show="currentTab === 3"></resource-settings>
-    <div>
+    <div class="alpheios-tab-options-reset-all-block">
+        <p class="alpheios-tab-options-reset-all-block--title">Apply to all options (U, F, R)</p>
         <button @click="resetAllOptions"
             class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
         </button>
@@ -20,13 +28,16 @@
   import FeatureSettings from '@/vue/components/feature-settings.vue'
   import UISettings from '@/vue/components/ui-settings.vue'
 
+  import Tooltip from '@/vue/components/tooltip.vue'
+
   export default {
 
     name: 'OptionsPanel',
     components: {
       uiSettings: UISettings,
       resourceSettings: ResourceSettings,
-      featureSettings: FeatureSettings
+      featureSettings: FeatureSettings,
+      alphTooltip: Tooltip
     },
     inject: ['l10n','app'],
     data: function () {
@@ -84,5 +95,18 @@
             background: var(--alpheios-desktop-panel-icon-bg-active);
             color: var(--alpheios-desktop-panel-icon-color-active);
         }
+    }
+
+    .alpheios-tab-options-reset-all-block {
+      border-top: 1px solid;
+      display: flex;
+      align-items: baseline;
+      flex: 1 1 auto;
+      padding-top: 10px;
+
+      .alpheios-tab-options-reset-all-block--title {
+        font-weight: bold;
+        width: 50%;
+      }
     }
 </style>
