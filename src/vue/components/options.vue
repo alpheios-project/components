@@ -16,10 +16,11 @@
         <feature-settings :key="featureSettingsKey" v-show="currentTab === 2"></feature-settings>
         <resource-settings :key="resourceSettingsKey" v-show="currentTab === 3"></resource-settings>
     <div class="alpheios-tab-options-reset-all-block">
-        <p class="alpheios-tab-options-reset-all-block--title">Apply to all options (U, F, R)</p>
         <button @click="resetAllOptions"
             class="alpheios-button-primary">{{l10n.getText('LABEL_RESET_OPTIONS')}}
         </button>
+        <p class="alpheios-tab-options-reset-all-block--title">({{l10n.getText('OPTIONS_TAB_RESET_ALL_TITLE')}})</p>
+        
     </div>
   </div>
 </template>
@@ -106,7 +107,7 @@
 
       .alpheios-tab-options-reset-all-block--title {
         font-weight: bold;
-        width: 50%;
+        margin-left: 15px;
       }
     }
 </style>
