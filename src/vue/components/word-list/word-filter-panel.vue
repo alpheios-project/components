@@ -50,7 +50,6 @@
     </div>
 </template>
 <script>
-
   import Tooltip from '@/vue/components/tooltip.vue'
 
   export default {
