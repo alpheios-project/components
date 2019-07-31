@@ -31037,8 +31037,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/go-icon.svg */ "./images/inline-icons/go-icon.svg");
-/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
 //
 //
 //
@@ -31090,15 +31089,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -31106,8 +31096,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'WordFilterPanel',
   inject: ['app', 'l10n'],
   components: {
-    goIcon: _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
-    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     clickedLemma: {
@@ -40896,34 +40885,8 @@ var render = function() {
                       )
                     : _vm._e()
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "alph-tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getMsg("WORDLIST_FILTER"),
-                    tooltipDirection: "top-right"
-                  }
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "alpheios-wordlist-header-clear-icon",
-                      class: {
-                        "alpheios-wordlist-header-clear-disabled":
-                          _vm.textInput === null
-                      },
-                      on: { click: _vm.clickFilterBy }
-                    },
-                    [_c("go-icon")],
-                    1
-                  )
-                ]
               )
-            ],
-            1
+            ]
           )
         : _vm._e()
     ])
@@ -52390,46 +52353,6 @@ __webpack_require__.r(__webpack_exports__);
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M1408 704q0 26-19 45t-45 19H448q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"}})])
-          )
-        }
-      });
-    
-
-/***/ }),
-
-/***/ "./images/inline-icons/go-icon.svg":
-/*!*****************************************!*\
-  !*** ./images/inline-icons/go-icon.svg ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-      /* harmony default export */ __webpack_exports__["default"] = ({
-        functional: true,
-        render(_h, _vm) {
-          const { _c, _v, data, children = [] } = _vm;
-
-          const {
-            class: classNames,
-            staticClass,
-            style,
-            staticStyle,
-            attrs = {},
-            ...rest
-          } = data;
-
-          return _c(
-            'svg',
-            {
-              class: [classNames,staticClass],
-              style: [style,staticStyle],
-              attrs: Object.assign({"viewBox":"0 0 1000 1000"}, attrs),
-              ...rest,
-            },
-            children.concat([_c('path',{attrs:{"d":"M10 500c0 270.6 219.4 490 490 490s490-219.4 490-490c0-270.7-219.4-490-490-490S10 229.3 10 500zm61.3 0c0-236.8 192-428.8 428.8-428.8 236.9 0 428.8 192 428.8 428.8 0 236.7-191.9 428.8-428.8 428.8-236.8 0-428.8-192.1-428.8-428.8z"}}),_c('path',{attrs:{"d":"M211 454.1h490V546H211v-91.9z"}}),_c('path',{attrs:{"d":"M452.2 285.6h122.5l214.4 219-214.4 209.8H452.2l214.4-209.8-214.4-219z"}})])
           )
         }
       });

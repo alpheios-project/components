@@ -45,27 +45,17 @@
               ></li>
             </ul>
           </div>
-          <alph-tooltip :tooltipText="l10n.getMsg('WORDLIST_FILTER')" tooltipDirection="top-right">
-              <span class="alpheios-wordlist-header-clear-icon"
-                    @click="clickFilterBy"
-                    :class = '{ "alpheios-wordlist-header-clear-disabled": textInput === null }'
-                    >
-                <go-icon></go-icon>
-              </span>
-            </alph-tooltip>
         </div>
       </div>
     </div>
 </template>
 <script>
-  import GoIcon from '@/images/inline-icons/go-icon.svg'
   import Tooltip from '@/vue/components/tooltip.vue'
 
   export default {
     name: 'WordFilterPanel',
     inject: ['app', 'l10n'],
     components: {
-      goIcon: GoIcon,
       alphTooltip: Tooltip
     },
     props: {
