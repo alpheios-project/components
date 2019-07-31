@@ -53,21 +53,12 @@
                 <go-icon></go-icon>
               </span>
             </alph-tooltip>
-            <alph-tooltip :tooltipText="l10n.getMsg('WORDLIST_FILTER_CLEAR')" tooltipDirection="top-right">
-              <span class="alpheios-wordlist-header-clear-icon"
-                    @click="clearFilteringText"
-                    :class = '{ "alpheios-wordlist-header-clear-disabled": textInput === null }'
-                    >
-                <clear-filters-icon></clear-filters-icon>
-              </span>
-            </alph-tooltip>
-
         </div>
       </div>
     </div>
 </template>
 <script>
-  import ClearFilters from '@/images/inline-icons/clear-filters.svg'
+
   import GoIcon from '@/images/inline-icons/go-icon.svg'
   import Tooltip from '@/vue/components/tooltip.vue'
 
@@ -75,7 +66,6 @@
     name: 'WordFilterPanel',
     inject: ['app', 'l10n'],
     components: {
-      clearFiltersIcon: ClearFilters,
       goIcon: GoIcon,
       alphTooltip: Tooltip
     },
@@ -365,6 +355,14 @@
     }
     .alpheios-select-input-group {
       width: 68%;
+    }
+  }
+
+  .alpheios-rtl {
+    .alpheios-wordlist-header-input-filterBy-block,
+    .alpheios-select-list {
+      direction: rtl;   
+      text-align: right;
     }
   }
 
