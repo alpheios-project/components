@@ -9,89 +9,101 @@
       :style="componentStyles"
       v-show="showPanel"
   >
-    <div
-        class="alpheios-action-panel__lookup-cont"
-        v-show="$store.state.actionPanel.showLookup"
-    >
-      <lookup
-          class="alpheios-action-panel__lookup"
-          :name-base="`action-panel`"
-          :show-lang-selector="false"
-          :show-results-in="config.lookupResultsIn"
-          @lookup-started="lookupStarted"
+
+    <span class="alpheios-action-panel__close-icon-span"
+        @click.stop="$store.commit('actionPanel/close')">
+      <close-icon
+        class="alpheios-action-panel__close-icon"
       />
-        <progress-bar
-            class="alpheios-action-panel__progress-bar"
-            v-if="$store.getters['app/lexicalRequestInProgress']"
+    </span>
+
+    <div class="alpheios-action-panel__cont">
+      <div
+          class="alpheios-action-panel__lookup-cont"
+          v-show="$store.state.actionPanel.showLookup"
+      >
+
+
+        <lookup
+            class="alpheios-action-panel__lookup"
+            :name-base="`action-panel`"
+            :show-lang-selector="false"
+            :show-results-in="config.lookupResultsIn"
+            @lookup-started="lookupStarted"
         />
-    </div>
+          <progress-bar
+              class="alpheios-action-panel__progress-bar"
+              v-if="$store.getters['app/lexicalRequestInProgress']"
+          />
+      </div>
 
-    <div
-        class="alpheios-action-panel__nav-cont"
-        v-show="$store.state.actionPanel.showNav"
-    >
-      <alph-tooltip
-          :tooltip-text="tooltipText('TOOLTIP_INFLECT_BROWSER')"
-          :tooltip-direction="tooltipDirection"
+      <div
+          class="alpheios-action-panel__nav-cont"
+          v-show="$store.state.actionPanel.showNav"
       >
-        <div
-            @click.stop="openTab('inflectionsbrowser')"
-            class="alpheios-action-panel__navbutton"
+        <alph-tooltip
+            :tooltip-text="tooltipText('TOOLTIP_INFLECT_BROWSER')"
+            :tooltip-direction="tooltipDirection"
         >
-          <inflections-browser-icon/>
-        </div>
-      </alph-tooltip>
+          <div
+              @click.stop="openTab('inflectionsbrowser')"
+              class="alpheios-action-panel__navbutton"
+          >
+            <inflections-browser-icon/>
+          </div>
+        </alph-tooltip>
 
-      <alph-tooltip
-          :tooltip-text="tooltipText('TOOLTIP_GRAMMAR', $store.getters[`app/hasGrammarRes`])"
-          :tooltip-direction="tooltipDirection"
-      >
-        <div
-            :class="{ disabled: !$store.getters[`app/hasGrammarRes`] }"
-            class="alpheios-action-panel__navbutton"
-            @click.stop="$store.getters[`app/hasGrammarRes`] ? openTab('grammar') : null"
+        <alph-tooltip
+            :tooltip-text="tooltipText('TOOLTIP_GRAMMAR', $store.getters[`app/hasGrammarRes`])"
+            :tooltip-direction="tooltipDirection"
         >
-          <grammar-icon/>
-        </div>
-      </alph-tooltip>
+          <div
+              :class="{ disabled: !$store.getters[`app/hasGrammarRes`] }"
+              class="alpheios-action-panel__navbutton"
+              @click.stop="$store.getters[`app/hasGrammarRes`] ? openTab('grammar') : null"
+          >
+            <grammar-icon/>
+          </div>
+        </alph-tooltip>
 
-      <alph-tooltip
-          :tooltip-text="tooltipText('TOOLTIP_WORDLIST', $store.state.app.hasWordListsData)"
-          :tooltip-direction="tooltipDirection"
-      >
-        <div
-            :class="{ disabled: !$store.state.app.hasWordListsData }"
-            class="alpheios-action-panel__navbutton"
-            @click.stop="$store.state.app.hasWordListsData ? openTab('wordlist') : null"
+        <alph-tooltip
+            :tooltip-text="tooltipText('TOOLTIP_WORDLIST', $store.state.app.hasWordListsData)"
+            :tooltip-direction="tooltipDirection"
         >
-          <wordlist-icon/>
-        </div>
-      </alph-tooltip>
+          <div
+              :class="{ disabled: !$store.state.app.hasWordListsData }"
+              class="alpheios-action-panel__navbutton"
+              @click.stop="$store.state.app.hasWordListsData ? openTab('wordlist') : null"
+          >
+            <wordlist-icon/>
+          </div>
+        </alph-tooltip>
 
-      <alph-tooltip
-          :tooltip-text="tooltipText('TOOLTIP_USER', $store.state.auth.enableLogin)"
-          :tooltip-direction="tooltipDirection"
-      >
-        <div
-            :class="{ disabled: !$store.state.auth.enableLogin }"
-            class="alpheios-action-panel__navbutton"
-            @click.stop="$store.state.auth.enableLogin ? openTab('user') : null"
+        <alph-tooltip
+            :tooltip-text="tooltipText('TOOLTIP_USER', $store.state.auth.enableLogin)"
+            :tooltip-direction="tooltipDirection"
         >
-          <user-icon/>
-        </div>
-      </alph-tooltip>
+          <div
+              :class="{ disabled: !$store.state.auth.enableLogin }"
+              class="alpheios-action-panel__navbutton"
+              @click.stop="$store.state.auth.enableLogin ? openTab('user') : null"
+          >
+            <user-icon/>
+          </div>
+        </alph-tooltip>
 
-      <alph-tooltip
-          :tooltip-text="tooltipText('TOOLTIP_OPTIONS')"
-          :tooltip-direction="tooltipDirection"
-      >
-        <div
-            class="alpheios-action-panel__navbutton"
-            @click.stop="openTab('options')"
+        <alph-tooltip
+            :tooltip-text="tooltipText('TOOLTIP_OPTIONS')"
+            :tooltip-direction="tooltipDirection"
         >
-          <options-icon/>
-        </div>
-      </alph-tooltip>
+          <div
+              class="alpheios-action-panel__navbutton"
+              @click.stop="openTab('options')"
+          >
+            <options-icon/>
+          </div>
+        </alph-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -104,10 +116,12 @@ import UserIcon from '@/images/inline-icons/user.svg'
 import OptionsIcon from '@/images/inline-icons/options.svg'
 import GrammarIcon from '@/images/inline-icons/resources.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
+import CloseIcon from '@/images/inline-icons/x-close.svg'
 // Vue components
 import Lookup from '@/vue/components/lookup.vue'
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
+
 
 export default {
   name: 'ActionPanel',
@@ -126,7 +140,8 @@ export default {
     userIcon: UserIcon,
     optionsIcon: OptionsIcon,
     grammarIcon: GrammarIcon,
-    wordlistIcon: WordlistIcon
+    wordlistIcon: WordlistIcon,
+    closeIcon: CloseIcon
   },
 
   data: function () {
@@ -226,7 +241,9 @@ export default {
     background-color: var(--alpheios-text-bg-color);
     transition: display 0.4s;
   }
-
+  .alpheios-action-panel__cont {
+    margin-top: uisize(30px); /* must allow for the close icon */
+  }
 
   .alpheios-action-panel.alpheios-action-panel--lookup-visible {
     height: 130px;
@@ -234,14 +251,37 @@ export default {
   }
 
   .alpheios-action-panel.alpheios-action-panel--nav-visible {
-    height: 80px;
+    height: 100px;
     width: 280px;
   }
 
 
   .alpheios-action-panel.alpheios-action-panel--lookup-visible.alpheios-action-panel--nav-visible {
-    height: 190px;
+    height: 210px;
     width: 300px;
+  }
+
+  .alpheios-action-panel__close-icon-span {
+      display: inline-block;
+      padding: uisize(8px);
+      position: absolute;
+      cursor: pointer;
+      right: 10px;
+
+    .alpheios-action-panel__close-icon {
+      width: uisize(22px);
+      height: uisize(22px);
+      top: 50%;
+      position: relative;
+      fill: var(--alpheios-btn-primary-bg-color);
+      &:hover,
+      &:focus {
+        fill: var(--alpheios-btn-primary-bg-color-hover);
+      }
+      &:active {
+        fill: var(--alpheios-btn-primary-bg-color-pressed);
+      }
+    }
   }
 
   .alpheios-action-panel__lookup-cont {
