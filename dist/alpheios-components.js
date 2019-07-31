@@ -5818,6 +5818,7 @@ var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "../node_modules
 var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "../node_modules/axios/lib/helpers/parseHeaders.js");
 var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "../node_modules/axios/lib/helpers/isURLSameOrigin.js");
 var createError = __webpack_require__(/*! ../core/createError */ "../node_modules/axios/lib/core/createError.js");
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(/*! ./../helpers/btoa */ "../node_modules/axios/lib/helpers/btoa.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -5829,6 +5830,22 @@ module.exports = function xhrAdapter(config) {
     }
 
     var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if (  true &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
 
     // HTTP basic authentication
     if (config.auth) {
@@ -5843,8 +5860,8 @@ module.exports = function xhrAdapter(config) {
     request.timeout = config.timeout;
 
     // Listen for ready state
-    request.onreadystatechange = function handleLoad() {
-      if (!request || request.readyState !== 4) {
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
         return;
       }
 
@@ -5861,8 +5878,9 @@ module.exports = function xhrAdapter(config) {
       var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
-        status: request.status,
-        statusText: request.statusText,
+        // IE sends 1223 instead of 204 (https://github.com/axios/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
         headers: responseHeaders,
         config: config,
         request: request
@@ -6675,6 +6693,54 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 
+/***/ "../node_modules/axios/lib/helpers/btoa.js":
+/*!*************************************************!*\
+  !*** ../node_modules/axios/lib/helpers/btoa.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function E() {
+  this.message = 'String contains an invalid character';
+}
+E.prototype = new Error;
+E.prototype.code = 5;
+E.prototype.name = 'InvalidCharacterError';
+
+function btoa(input) {
+  var str = String(input);
+  var output = '';
+  for (
+    // initialize result and counter
+    var block, charCode, idx = 0, map = chars;
+    // if the next str index does not exist:
+    //   change the mapping table to "="
+    //   check if d has no fractional digits
+    str.charAt(idx | 0) || (map = '=', idx % 1);
+    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+  ) {
+    charCode = str.charCodeAt(idx += 3 / 4);
+    if (charCode > 0xFF) {
+      throw new E();
+    }
+    block = block << 8 | charCode;
+  }
+  return output;
+}
+
+module.exports = btoa;
+
+
+/***/ }),
+
 /***/ "../node_modules/axios/lib/helpers/buildURL.js":
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
@@ -7089,7 +7155,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "../node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "../node_modules/axios/node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "../node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -7393,10 +7459,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../node_modules/axios/node_modules/is-buffer/index.js":
-/*!*************************************************************!*\
-  !*** ../node_modules/axios/node_modules/is-buffer/index.js ***!
-  \*************************************************************/
+/***/ "../node_modules/is-buffer/index.js":
+/*!******************************************!*\
+  !*** ../node_modules/is-buffer/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7407,9 +7473,19 @@ module.exports = {
  * @license  MIT
  */
 
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
 
@@ -7661,7 +7737,6 @@ class UserDataManager {
     for (let unsub of this.subscriptions) {
       unsub()
     }
-    this.subscriptions = []
   }
 
   /**
@@ -8199,7 +8274,7 @@ class WordlistController {
       wordItem.addContext([data])
       WordlistController.evt.WORDITEM_UPDATED.pub({dataObj: wordItem, params: {segment: 'context'}})
       // emit a wordlist updated event too in case the wordlist was updated
-      WordlistController.evt.WORDLIST_UPDATED.pub([this.getWordList(wordItem.languageCode)])
+      WordlistController.evt.WORDLIST_UPDATED.pub(this.getWordList(wordItem.languageCode))
     } else {
       console.error("Unable to create or retrieve worditem")
     }
@@ -27771,14 +27846,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/images/inline-icons/options.svg */ "./images/inline-icons/options.svg");
 /* harmony import */ var _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/images/inline-icons/resources.svg */ "./images/inline-icons/resources.svg");
 /* harmony import */ var _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/images/inline-icons/wordlist-icon.svg */ "./images/inline-icons/wordlist-icon.svg");
-/* harmony import */ var _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/images/inline-icons/x-close.svg */ "./images/inline-icons/x-close.svg");
-/* harmony import */ var _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/components/lookup.vue */ "./vue/components/lookup.vue");
-/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
-//
-//
-//
-//
-//
+/* harmony import */ var _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/components/lookup.vue */ "./vue/components/lookup.vue");
+/* harmony import */ var _vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/vuex-modules/support/dependency-check.js */ "./vue/vuex-modules/support/dependency-check.js");
 //
 //
 //
@@ -27885,7 +27954,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 // Vue components
 
 // Modules support
@@ -27899,17 +27967,16 @@ __webpack_require__.r(__webpack_exports__);
     l10n: 'l10n'
   },
   storeModules: ['actionPanel', 'app'], // Store modules that are required by this component
-  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_9__["default"]],
+  mixins: [_vue_vuex_modules_support_dependency_check_js__WEBPACK_IMPORTED_MODULE_8__["default"]],
   components: {
-    lookup: _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    lookup: _vue_components_lookup_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     progressBar: _vue_components_progress_bar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     inflectionsBrowserIcon: _images_inline_icons_inflections_browser_svg__WEBPACK_IMPORTED_MODULE_2__["default"],
     userIcon: _images_inline_icons_user_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
     optionsIcon: _images_inline_icons_options_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
     grammarIcon: _images_inline_icons_resources_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
-    wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
-    closeIcon: _images_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+    wordlistIcon: _images_inline_icons_wordlist_icon_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
 
   data: function () {
@@ -36689,16 +36756,6 @@ var render = function() {
       attrs: { id: _vm.config.rootElementId }
     },
     [
-      _c("close-icon", {
-        staticClass: "alpheios-action-panel__close-icon",
-        on: {
-          click: function($event) {
-            $event.stopPropagation()
-            return _vm.$store.commit("actionPanel/close")
-          }
-        }
-      }),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -36896,8 +36953,7 @@ var render = function() {
         ],
         1
       )
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []

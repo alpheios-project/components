@@ -9,11 +9,6 @@
       :style="componentStyles"
       v-show="showPanel"
   >
-    <close-icon
-        class="alpheios-action-panel__close-icon"
-        @click.stop="$store.commit('actionPanel/close')"
-    />
-
     <div
         class="alpheios-action-panel__lookup-cont"
         v-show="$store.state.actionPanel.showLookup"
@@ -109,7 +104,6 @@ import UserIcon from '@/images/inline-icons/user.svg'
 import OptionsIcon from '@/images/inline-icons/options.svg'
 import GrammarIcon from '@/images/inline-icons/resources.svg'
 import WordlistIcon from '@/images/inline-icons/wordlist-icon.svg'
-import CloseIcon from '@/images/inline-icons/x-close.svg'
 // Vue components
 import Lookup from '@/vue/components/lookup.vue'
 // Modules support
@@ -132,8 +126,7 @@ export default {
     userIcon: UserIcon,
     optionsIcon: OptionsIcon,
     grammarIcon: GrammarIcon,
-    wordlistIcon: WordlistIcon,
-    closeIcon: CloseIcon
+    wordlistIcon: WordlistIcon
   },
 
   data: function () {
@@ -225,44 +218,30 @@ export default {
   @import "../../../styles/variables";
 
   .alpheios-action-panel {
-    width: 300px;
+    width: auto;
     height: auto;
     position: fixed;
-    padding: 30px 20px 10px;
+    padding: 10px;
     @include alpheios-ui-border;
     background-color: var(--alpheios-text-bg-color);
     transition: display 0.4s;
   }
 
+
   .alpheios-action-panel.alpheios-action-panel--lookup-visible {
     height: 130px;
+    width: 300px;
   }
 
   .alpheios-action-panel.alpheios-action-panel--nav-visible {
-    height: 100px;
+    height: 80px;
+    width: 280px;
   }
+
 
   .alpheios-action-panel.alpheios-action-panel--lookup-visible.alpheios-action-panel--nav-visible {
     height: 190px;
-  }
-
-  .alpheios-action-panel__close-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    width: 20px;
-    height: auto;
-    fill: var(--alpheios-compact-toolbar-icon-color);
-
-    &:hover,
-    &:focus {
-      fill: var(--alpheios-compact-toolbar-icon-color-hover);
-    }
-
-    &:active {
-      fill: var(--alpheios-compact-toolbar-icon-color-active);
-    }
+    width: 300px;
   }
 
   .alpheios-action-panel__lookup-cont {
