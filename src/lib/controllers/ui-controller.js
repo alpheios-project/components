@@ -505,6 +505,7 @@ export default class UIController {
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
+          source: null, // the source of the request
           startTime: 0, // A time when the last lexical request is started, in ms
           endTime: 0, // A time when the last lexical request is started, in ms
           outcome: null // A result of the completed lexical request
@@ -577,9 +578,10 @@ export default class UIController {
           state.selectedText = data.text
         },
 
-        lexicalRequestStarted (state, targetWord) {
+        lexicalRequestStarted (state, targetWord, source) {
           state.targetWord = targetWord
           state.lexicalRequest.startTime = Date.now()
+          state.lexicalRequest.source = source
         },
 
         resetWordData (state) {
@@ -1154,7 +1156,15 @@ export default class UIController {
     return this
   }
 
-  newLexicalRequest (targetWord, languageID, data = null) {
+  /**
+   * Start a new lexical request
+   * @param {String} targetWord - the word to query
+   * @param {String} languageID - the language identifier for the query
+   * @param {Object} data - extra annotation data attributes from the selection, if any
+   * @param {String} source - source of the request. Possible values: 'page', 'lookup', or 'wordlist'
+   *                          default is 'page'
+   */
+  newLexicalRequest (targetWord, languageID, data = null, source = 'page') {
     // Reset old word-related data
     this.api.app.homonym = null
     this.store.commit('app/resetWordData')
@@ -1168,7 +1178,7 @@ export default class UIController {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS'))
     this.updateLanguage(languageID)
     this.updateWordAnnotationData(data)
-    this.store.commit('app/lexicalRequestStarted', targetWord)
+    this.store.commit('app/lexicalRequestStarted', targetWord, source)
     return this
   }
 
@@ -1621,7 +1631,7 @@ export default class UIController {
       return
     }
     const languageID = LanguageModelFactory.getLanguageIdFromCode(wordItem.languageCode)
-    this.newLexicalRequest(wordItem.targetWord, languageID)
+    this.newLexicalRequest(wordItem.targetWord, languageID, null, 'wordlist')
     this.open()
 
     let homonym

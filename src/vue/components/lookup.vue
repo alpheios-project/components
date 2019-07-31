@@ -166,7 +166,7 @@ export default {
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
 
       // A newLexicalRequest will call app.updateLanguage(languageID)
-      this.app.newLexicalRequest(this.lookuptext, selectedLangID)
+      this.app.newLexicalRequest(this.lookuptext, selectedLangID, null, 'lookup')
       lexQuery.getData()
       // Notify parent that the lookup has been started so that the parent can close itself if necessary
       this.$emit('lookup-started')

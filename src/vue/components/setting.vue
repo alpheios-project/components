@@ -88,6 +88,7 @@ export default {
         } else if (this.dataModel.number === true) {
           rv = parseInt(this.dataModel.currentValue)
         }
+        console.log("Selected = ",rv)
         return rv
       },
       set: function (newValue) {

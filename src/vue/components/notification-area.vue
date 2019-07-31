@@ -13,7 +13,7 @@
       />
       <setting
           :classes="['alpheios-notification-area__control']"
-          :data="settings.getFeatureOptions().items.preferredLanguage"
+          :data="lookupOptions"
           :show-title="false" @change="featureOptionChanged"
           v-show="$store.state.ui.notification.showLanguageSwitcher"
       />
@@ -75,6 +75,13 @@ export default {
   },
 
   computed: {
+    lookupOptions: function() {
+      if (this.$store.state.app.lexicalRequest.source === 'lookup') {
+        return this.settings.getFeatureOptions().items.lookupLanguage
+      } else {
+        return this.settings.getFeatureOptions().items.preferredLanguage
+      }
+    },
     notificationClasses: function () {
       let classes = []
       if (this.$store.state.ui.notification.important) {

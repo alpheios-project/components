@@ -27392,7 +27392,7 @@ __webpack_require__.r(__webpack_exports__);
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
 
       // A newLexicalRequest will call app.updateLanguage(languageID)
-      this.app.newLexicalRequest(this.lookuptext, selectedLangID)
+      this.app.newLexicalRequest(this.lookuptext, selectedLangID, null, 'lookup')
       lexQuery.getData()
       // Notify parent that the lookup has been started so that the parent can close itself if necessary
       this.$emit('lookup-started')
@@ -28903,6 +28903,13 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
+    lookupOptions: function() {
+      if (this.$store.state.app.lexicalRequest.source === 'lookup') {
+        return this.settings.getFeatureOptions().items.lookupLanguage
+      } else {
+        return this.settings.getFeatureOptions().items.preferredLanguage
+      }
+    },
     notificationClasses: function () {
       let classes = []
       if (this.$store.state.ui.notification.important) {
@@ -30702,6 +30709,7 @@ __webpack_require__.r(__webpack_exports__);
         } else if (this.dataModel.number === true) {
           rv = parseInt(this.dataModel.currentValue)
         }
+        console.log("Selected = ",rv)
         return rv
       },
       set: function (newValue) {
@@ -38027,7 +38035,7 @@ var render = function() {
           ],
           attrs: {
             classes: ["alpheios-notification-area__control"],
-            data: _vm.settings.getFeatureOptions().items.preferredLanguage,
+            data: _vm.lookupOptions,
             "show-title": false
           },
           on: { change: _vm.featureOptionChanged }
@@ -53971,6 +53979,7 @@ class UIController {
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
         defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
+          source: null, // the source of the request
           startTime: 0, // A time when the last lexical request is started, in ms
           endTime: 0, // A time when the last lexical request is started, in ms
           outcome: null // A result of the completed lexical request
@@ -54043,9 +54052,10 @@ class UIController {
           state.selectedText = data.text
         },
 
-        lexicalRequestStarted (state, targetWord) {
+        lexicalRequestStarted (state, targetWord, source) {
           state.targetWord = targetWord
           state.lexicalRequest.startTime = Date.now()
+          state.lexicalRequest.source = source
         },
 
         resetWordData (state) {
@@ -54620,7 +54630,15 @@ class UIController {
     return this
   }
 
-  newLexicalRequest (targetWord, languageID, data = null) {
+  /**
+   * Start a new lexical request
+   * @param {String} targetWord - the word to query
+   * @param {String} languageID - the language identifier for the query
+   * @param {Object} data - extra annotation data attributes from the selection, if any
+   * @param {String} source - source of the request. Possible values: 'page', 'lookup', or 'wordlist'
+   *                          default is 'page'
+   */
+  newLexicalRequest (targetWord, languageID, data = null, source = 'page') {
     // Reset old word-related data
     this.api.app.homonym = null
     this.store.commit('app/resetWordData')
@@ -54634,7 +54652,7 @@ class UIController {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS'))
     this.updateLanguage(languageID)
     this.updateWordAnnotationData(data)
-    this.store.commit('app/lexicalRequestStarted', targetWord)
+    this.store.commit('app/lexicalRequestStarted', targetWord, source)
     return this
   }
 
@@ -55087,7 +55105,7 @@ class UIController {
       return
     }
     const languageID = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageIdFromCode(wordItem.languageCode)
-    this.newLexicalRequest(wordItem.targetWord, languageID)
+    this.newLexicalRequest(wordItem.targetWord, languageID, null, 'wordlist')
     this.open()
 
     let homonym
