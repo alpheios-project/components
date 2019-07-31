@@ -31037,9 +31037,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/clear-filters.svg */ "./images/inline-icons/clear-filters.svg");
-/* harmony import */ var _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/images/inline-icons/go-icon.svg */ "./images/inline-icons/go-icon.svg");
-/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
+/* harmony import */ var _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/images/inline-icons/go-icon.svg */ "./images/inline-icons/go-icon.svg");
+/* harmony import */ var _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/components/tooltip.vue */ "./vue/components/tooltip.vue");
 //
 //
 //
@@ -31099,7 +31098,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -31108,9 +31106,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'WordFilterPanel',
   inject: ['app', 'l10n'],
   components: {
-    clearFiltersIcon: _images_inline_icons_clear_filters_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
-    goIcon: _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
-    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    goIcon: _images_inline_icons_go_icon_svg__WEBPACK_IMPORTED_MODULE_0__["default"],
+    alphTooltip: _vue_components_tooltip_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     clickedLemma: {
@@ -52153,46 +52150,6 @@ __webpack_require__.r(__webpack_exports__);
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M1683 1331l-166 165q-19 19-45 19t-45-19L896 965l-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"}})])
-          )
-        }
-      });
-    
-
-/***/ }),
-
-/***/ "./images/inline-icons/clear-filters.svg":
-/*!***********************************************!*\
-  !*** ./images/inline-icons/clear-filters.svg ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-      /* harmony default export */ __webpack_exports__["default"] = ({
-        functional: true,
-        render(_h, _vm) {
-          const { _c, _v, data, children = [] } = _vm;
-
-          const {
-            class: classNames,
-            staticClass,
-            style,
-            staticStyle,
-            attrs = {},
-            ...rest
-          } = data;
-
-          return _c(
-            'svg',
-            {
-              class: [classNames,staticClass],
-              style: [style,staticStyle],
-              attrs: Object.assign({"viewBox":"0 0 50 50","xmlns":"http://www.w3.org/2000/svg"}, attrs),
-              ...rest,
-            },
-            children.concat([_c('path',{attrs:{"d":"M1 0a1 1 0 00-1 1v3c0 .255.106.501.281.688l14.406 15.311h14.625L43.718 4.687c.035-.037.066-.084.094-.125.043-.063.097-.115.125-.187.029-.074.02-.172.031-.25.007-.048.031-.076.031-.125V1a1 1 0 00-1-1H1zm15 22v17a.99.99 0 00.5.844l10 6A.967.967 0 0027 46c.17 0 .347-.038.5-.125A1 1 0 0028 45V22H16zm16.906 9.969a1 1 0 00-.125.031 1 1 0 00-.5 1.719L39.562 41l-7.281 7.281a1.016 1.016 0 101.438 1.438l7.28-7.281 7.282 7.28a1.016 1.016 0 101.437-1.437l-7.28-7.28 7.28-7.282A1 1 0 0048.875 32a1 1 0 00-.594.281L41 39.563l-7.282-7.282a1 1 0 00-.812-.312z"}})])
           )
         }
       });

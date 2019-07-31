@@ -58,7 +58,6 @@
     </div>
 </template>
 <script>
-  import ClearFilters from '@/images/inline-icons/clear-filters.svg'
   import GoIcon from '@/images/inline-icons/go-icon.svg'
   import Tooltip from '@/vue/components/tooltip.vue'
 
@@ -66,7 +65,6 @@
     name: 'WordFilterPanel',
     inject: ['app', 'l10n'],
     components: {
-      clearFiltersIcon: ClearFilters,
       goIcon: GoIcon,
       alphTooltip: Tooltip
     },
