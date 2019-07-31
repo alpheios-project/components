@@ -2812,20 +2812,17 @@ p.alpheios-word-usage-filter-title {
 }
 .alpheios-worditem__targetWord {
   font-weight: bold !important;
-  width: calc(100% - 90px)/2 !important;
+  width: calc((100% - 150px)/2) !important;
   cursor: pointer !important;
 }
 .alpheios-worditem__lemmasList {
-  width: calc(100% - 90px)/2 !important;
+  width: calc((100% - 150px)/2) !important;
 }
 .alpheios-visibility__hidden {
   visibility: hidden !important;
 }
 .alpheios-lemma-clickable .alpheios-worditem__lemmasList-lemmaitem {
   cursor: pointer !important;
-}
-.alpheios-layout-compact .alpheios-worditem__targetWord {
-  width: 25% !important;
 }
 .alpheios-rtl .alpheios-worditem__targetWord,
 .alpheios-rtl .alpheios-worditem__lemmasList {

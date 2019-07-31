@@ -172,11 +172,11 @@ export default {
 
   .alpheios-worditem__targetWord {
       font-weight: bold;
-      width: calc(100% - 90px) / 2;
+      width: calc((100% - 150px)/2);
       cursor: pointer;
   }
   .alpheios-worditem__lemmasList {
-      width: calc(100% - 90px) / 2;
+      width: calc((100% - 150px)/2);
   }
 
   .alpheios-visibility__hidden {
@@ -186,12 +186,6 @@ export default {
   .alpheios-lemma-clickable 
   .alpheios-worditem__lemmasList-lemmaitem {
     cursor: pointer;
-  }
-
-  .alpheios-layout-compact { 
-    .alpheios-worditem__targetWord {
-      width: 25%;
-    }
   }
 
   .alpheios-rtl {
