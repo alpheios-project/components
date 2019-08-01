@@ -421,6 +421,8 @@ html {
   --alpheios-lookup-button-color-hover: var(--alpheios-btn-primary-font-color-hover);
   --alpheios-lookup-button-bg-hover: var(--alpheios-btn-primary-bg-color-hover);
   --alpheios-lookup-button-border-color-hover: var(--alpheios-btn-primary-border-color-hover);
+  --alpheios-lookup-link-color: var(--alpheios-link-special-color);
+  --alpheios-lookup-link-color-hover: var(--alpheios-link-special-color-hover);
   --alpheios-inflect-title-color: var(--alpheios-link-color-on-light);
   --alpheios-inflect-button-control-color: var(--alpheios-btn-secondary-font-color);
   --alpheios-inflect-button-control-bg: var(--alpheios-btn-secondary-bg-color);
@@ -2443,6 +2445,15 @@ h3.alpheios-inflections__credits-title {
 }
 .alpheios-lookup__form-element.alpheios-lookup__lang-control .alpheios-setting__control {
   width: calc(var(--alpheios-base-text-size) * 7.5);
+}
+.alpheios-lookup__lang-hint {
+  font-size: calc(var(--alpheios-base-ui-size) * 0.75);
+}
+span.alpheios-lookup__lang-change {
+  color: var(--alpheios-lookup-link-color);
+}
+span.alpheios-lookup__lang-change:hover {
+  color: var(--alpheios-lookup-link-color-hover);
 }
 .alpheios-lookup__settings {
   display: flex;

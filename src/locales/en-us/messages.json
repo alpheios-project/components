@@ -434,6 +434,17 @@
     "description": "lookup button in lookup.vue",
     "component": "Popup"
   },
+  "HINT_LOOKUP_LANGUAGE": {
+    "message": "(using {language})",
+    "description": "lookup language hint in lookup.vue",
+    "component": "Popup",
+    "params": ["language"]
+  },
+  "LABEL_LOOKUP_CHANGE_LANGUAGE": {
+    "message": "Change",
+    "description": "change language link label in lookup.vue",
+    "component": "Popup"
+  },
   "TOOLTIP_LOOKUP_BUTTON": {
     "message": "Lookup word",
     "description": "Tooltip for the lookup button in lookup.vue",
