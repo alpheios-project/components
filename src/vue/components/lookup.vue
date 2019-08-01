@@ -1,5 +1,6 @@
 <template>
-  <div class="alpheios-lookup__form">
+  <div class="alpheios-lookup__form"
+    v-show="! showResourceSelector || lexiconsFiltered.length > 0">
     <div class="alpheios-lookup__form-row">
       <div class="alpheios-lookup__form-element">
         <label class="alpheios-setting__label">Word lookup</label>
@@ -25,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div v-show="! showLangSelector">
+    <div v-show="! showLangSelector && !showResourceSelector ">
       <span class="alpheios-lookup__lang-hint">{{l10n.getMsg('HINT_LOOKUP_LANGUAGE',{language:lookupLangName})}}</span>
       <span class="alpheios-lookup__lang-change" @click.stop="toggleLangSelector">{{l10n.getMsg('LABEL_LOOKUP_CHANGE_LANGUAGE')}}</span>
     </div>
@@ -33,7 +34,7 @@
         :classes="['alpheios-panel__options-item', 'alpheios-lookup__form-element', 'alpheios-lookup__lang-control']"
         :data="this.$options.lookupLanguage"
         @change="settingChange"
-        v-show="showLangSelector"
+        v-show="showLangSelector && ! showResourceSelector"
     >
     </alph-setting>
 
@@ -131,15 +132,15 @@ export default {
       return this.$options.resourceOptions.items.lexiconsShort.filter((item) => Options.parseKey(item.name).group === settingGroup)
     },
     lookupLangName () {
+      console.log("LANG1",this.getLookupLanguage())
+      console.log("LANG2",this.app.getLanguageName(this.getLookupLanguage()))
       return this.app.getLanguageName(this.getLookupLanguage()).name
     }
   },
   watch: {
     '$store.state.app.selectedLookupLangCode' (langCode) {
-      if (this.showLangSelector) {
-        this.$options.lookupLanguage.setValue(langCode)
-        this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
-      }
+      this.$options.lookupLanguage.setValue(langCode)
+      this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
     },
 
     '$store.state.app.morphDataReady' (morphDataReady) {
@@ -150,9 +151,9 @@ export default {
   },
   methods: {
     getLookupLanguage: function() {
-      this.showLangSelector
+      return this.showLangSelector
         ? this.$options.lookupLanguage.currentValue
-        : this.app.getDefaultLangCode()
+        : this.$store.state.app.selectedLookupLangCode
     },
 
     toggleLangSelector: function() {

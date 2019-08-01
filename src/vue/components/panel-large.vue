@@ -44,6 +44,7 @@
         <div class="alpheios-lookup__panel">
           <lookup
               :name-base="`panel-defs`"
+              :show-resource-selector="true"
           />
         </div>
         <div v-if="$store.getters['app/defDataReady']">
@@ -140,11 +141,6 @@
         >
           {{ l10n.getText('TITLE_HELP_PANEL') }}
         </h1>
-        <div class="alpheios-lookup__panel">
-          <lookup
-              :name-base="`panel-info`"
-          />
-        </div>
         <info></info>
       </div>
 
@@ -246,11 +242,8 @@ export default {
 
   .alpheios-panel--large {
     height: 100vh;
+    max-width: 80vw;
     top: 0;
-
-    & .alpheios-panel__content {
-      max-width: 80vw;
-    }
 
     .alpheios-navbuttons__btn {
       svg {
