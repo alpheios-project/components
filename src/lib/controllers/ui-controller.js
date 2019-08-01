@@ -1771,7 +1771,8 @@ export default class UIController {
    * @param {string | value} value - A new value of an options.
    */
   resourceSettingChange (name, value) {
-    this.api.settings.getResourceOptions().items[name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
+    let baseKey = Options.parseKey(name)
+    this.api.settings.getResourceOptions().items[baseKey.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
   }
 
   registerGetSelectedText (listenerName, selector) {

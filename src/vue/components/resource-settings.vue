@@ -50,8 +50,7 @@
     },
     methods: {
       resourceSettingChanged: function (name, value) {
-        let keyinfo = Options.parseKey(name)
-        this.language.resourceSettingChange(keyinfo.name, value)
+        this.language.resourceSettingChange(name, value)
       }
     }
   }
