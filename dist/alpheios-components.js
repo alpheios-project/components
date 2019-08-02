@@ -28881,13 +28881,6 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   computed: {
-    lookupOptions: function() {
-      if (this.$store.state.app.lexicalRequest.source === 'lookup') {
-        return this.settings.getFeatureOptions().items.lookupLanguage
-      } else {
-        return this.settings.getFeatureOptions().items.preferredLanguage
-      }
-    },
     notificationClasses: function () {
       let classes = []
       if (this.$store.state.ui.notification.important) {
@@ -30669,7 +30662,6 @@ __webpack_require__.r(__webpack_exports__);
         } else if (this.dataModel.number === true) {
           rv = parseInt(this.dataModel.currentValue)
         }
-        console.log("Selected = ",rv)
         return rv
       },
       set: function (newValue) {
@@ -38009,7 +38001,7 @@ var render = function() {
           ],
           attrs: {
             classes: ["alpheios-notification-area__control"],
-            data: _vm.lookupOptions,
+            data: _vm.settings.getFeatureOptions().items.preferredLanguage,
             "show-title": false
           },
           on: { change: _vm.featureOptionChanged }
