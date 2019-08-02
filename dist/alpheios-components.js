@@ -54322,9 +54322,7 @@ class UIController {
 
     this.deactivateModules()
     if (this.api.ui.hasModule('popup')) { this.api.ui.closePopup() }
-    if (this.api.ui.hasModule('panel')) {
-      this.api.ui.closePanel(false)
-    } // Close panel without updating it's state so the state can be saved for later reactivation
+    if (this.api.ui.hasModule('panel')) { this.api.ui.closePanel(false) } // Close panel without updating it's state so the state can be saved for later reactivation
 
     // Remove Alpheios CSS rules
     this.removePageInjections()
@@ -54659,9 +54657,7 @@ class UIController {
       this.api.ui.openPanel()
       this.changeTab('morphology')
     } else {
-      if (this.api.ui.hasModule('panel') && this.state.isPanelOpen()) {
-        this.api.ui.closePanel()
-      }
+      if (this.api.ui.hasModule('panel') && this.state.isPanelOpen()) { this.api.ui.closePanel() }
       if (this.api.ui.hasModule('popup')) { this.api.ui.openPopup() }
     }
     return this
@@ -54872,9 +54868,7 @@ class UIController {
     // TODO: Why does it not work on initial panel opening?
     if (nativeEvent.keyCode === 27 && this.state.isActive()) {
       if (this.state.isPanelOpen()) {
-        if (this.api.ui.hasModule('panel')) {
-          this.api.ui.closePanel()
-        }
+        if (this.api.ui.hasModule('panel')) { this.api.ui.closePanel() }
       } else if (this.api.ui.hasModule('popup')) {
         this.api.ui.closePopup()
       }
