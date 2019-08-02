@@ -44,12 +44,14 @@ import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 import Options from '@/lib/options/options'
 import { LanguageModelFactory } from 'alpheios-data-models'
 import LookupIcon from '@/images/inline-icons/lookup.svg'
+import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
 import Setting from './setting.vue'
 
 export default {
   name: 'Lookup',
   inject: ['app', 'ui', 'l10n', 'settings'],
+  mixins: [DependencyCheck],
   storeModules: ['app'],
   components: {
     alphSetting: Setting,
@@ -59,7 +61,6 @@ export default {
     return {
       lookuptext: '',
       // A name of a language currently selected in the language drop-down
-      selectedLangName: '',
       // The following variable is used to signal that language options has been updated
       langUpdated: Date.now()
     }
@@ -95,7 +96,6 @@ export default {
   watch: {
     '$store.state.app.selectedLookupLangCode' (langCode) {
       this.$options.lookupLanguage.setValue(langCode)
-      this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
     },
 
     '$store.state.app.morphDataReady' (morphDataReady) {
