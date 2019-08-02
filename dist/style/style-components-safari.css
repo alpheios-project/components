@@ -2425,102 +2425,6 @@ h3.alpheios-inflections__credits-title {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
-.alpheios-lookup__form {
-  text-align: left !important;
-  display: flex;
-  flex-direction: column !important;
-  width: 100% !important;
-}
-.alpheios-lookup__form .alpheios-setting__label {
-  display: inline-block;
-  margin-bottom: calc(var(--alpheios-base-ui-size) * 0.375) !important;
-  width: auto !important;
-}
-.alpheios-lookup__form-element {
-  margin-bottom: calc(var(--alpheios-base-ui-size) * 0.625) !important;
-}
-.alpheios-lookup__form-element.alpheios-lookup__lang-control {
-  flex-direction: column !important;
-  margin-right: calc(var(--alpheios-base-ui-size) * 3.125) !important;
-}
-.alpheios-lookup__form-element.alpheios-lookup__lang-control .alpheios-setting__control {
-  width: calc(var(--alpheios-base-text-size) * 7.5) !important;
-}
-.alpheios-lookup__lang-hint {
-  font-size: calc(var(--alpheios-base-ui-size) * 0.75) !important;
-}
-span.alpheios-lookup__lang-change {
-  color: var(--alpheios-lookup-link-color) !important;
-}
-span.alpheios-lookup__lang-change:hover {
-  color: var(--alpheios-lookup-link-color-hover) !important;
-}
-.alpheios-lookup__settings {
-  display: flex;
-  flex-direction: column !important;
-}
-.alpheios-lookup__form-row {
-  display: flex;
-  align-items: flex-start !important;
-  justify-content: space-between !important;
-}
-.alpheios-lookup__search-control {
-  display: flex;
-}
-.alpheios-lookup__search-control input.alpheios-input,
-.alpheios-lookup__search-control input.alpheios-input:focus {
-  width: 70% !important;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-  height: 40px !important;
-  min-width: 0 !important;
-  border-color: var(--alpheios-lookup-input-border-color) !important;
-}
-.alpheios-lookup__search-control button {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-  height: 40px !important;
-  background-color: var(--alpheios-lookup-button-bg) !important;
-  color: var(--alpheios-lookup-button-color) !important;
-  border-color: var(--alpheios-lookup-button-border-color) !important;
-}
-.alpheios-lookup__search-control button:hover, .alpheios-lookup__search-control button:active, .alpheios-lookup__search-control button:focus {
-  background-color: var(--alpheios-lookup-button-bg-hover) !important;
-  color: var(--alpheios-lookup-button-color-hover) !important;
-  border-color: var(--alpheios-lookup-button-border-color-hover) !important;
-}
-.alpheios-lookup__resource-control {
-  display: flex;
-  flex-direction: column !important;
-}
-.alpheios-lookup__resource-control .alpheios-setting__control {
-  width: 100% !important;
-}
-.alpheios-lookup__search-control-icon {
-  display: none;
-}
-.alpheios-button-primary span.alpheios-lookup__search-control-label {
-  color: var(--alpheios-btn-primary-font-color) !important;
-}
-.alpheios-lookup__panel.alpheios-landscape .alpheios-lookup__search-control-label {
-  display: none;
-}
-.alpheios-lookup__panel.alpheios-landscape .alpheios-button-primary {
-  padding: 0 !important;
-}
-.alpheios-lookup__panel.alpheios-landscape .alpheios-lookup__search-control-icon {
-  display: inline-block;
-  width: 35px !important;
-  height: 25px !important;
-}
-/*
- Calculates a size of text elements relative to the base size.
- Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
- */
-/*
- Calculates a size of UI elements relative to the base size.
- Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
- */
 .alpheios-user-auth {
   display: flex;
   flex-direction: column !important;
@@ -3341,11 +3245,6 @@ p.alpheios-word-usage-filter-title {
 .alpheios-panel__title {
   text-transform: capitalize !important;
 }
-.alpheios-lookup__panel {
-  display: block;
-  border-bottom: 1px solid !important;
-  margin-bottom: 20px !important;
-}
 .alpheios-panel__tab-panel {
   display: flex;
   flex-direction: column !important;
@@ -3646,6 +3545,95 @@ p.alpheios-word-usage-filter-title {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
+}
+/*
+ Calculates a size of text elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.
+ */
+/*
+ Calculates a size of UI elements relative to the base size.
+ Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
+ */
+.alpheios-lookup__form {
+  text-align: left !important;
+  display: flex;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+.alpheios-lookup__form .alpheios-setting__label {
+  display: inline-block;
+  margin-bottom: calc(var(--alpheios-base-ui-size) * 0.375) !important;
+  width: auto !important;
+}
+.alpheios-lookup__form-element {
+  margin-bottom: calc(var(--alpheios-base-ui-size) * 0.625) !important;
+}
+.alpheios-lookup__form-element.alpheios-lookup__lang-control {
+  flex-direction: column !important;
+  margin-right: calc(var(--alpheios-base-ui-size) * 3.125) !important;
+}
+.alpheios-lookup__form-element.alpheios-lookup__lang-control .alpheios-setting__control {
+  width: calc(var(--alpheios-base-text-size) * 7.5) !important;
+}
+.alpheios-lookup__lang-hint {
+  font-size: calc(var(--alpheios-base-ui-size) * 0.75) !important;
+}
+span.alpheios-lookup__lang-change {
+  color: var(--alpheios-lookup-link-color) !important;
+}
+span.alpheios-lookup__lang-change:hover {
+  color: var(--alpheios-lookup-link-color-hover) !important;
+}
+.alpheios-lookup__settings {
+  display: flex;
+  flex-direction: column !important;
+}
+.alpheios-lookup__form-row {
+  display: flex;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+}
+.alpheios-lookup__search-control {
+  display: flex;
+}
+.alpheios-lookup__search-control input.alpheios-input,
+.alpheios-lookup__search-control input.alpheios-input:focus {
+  width: 70% !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  height: 40px !important;
+  min-width: 0 !important;
+  border-color: var(--alpheios-lookup-input-border-color) !important;
+}
+.alpheios-lookup__search-control button {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  height: 40px !important;
+  background-color: var(--alpheios-lookup-button-bg) !important;
+  color: var(--alpheios-lookup-button-color) !important;
+  border-color: var(--alpheios-lookup-button-border-color) !important;
+}
+.alpheios-lookup__search-control button:hover, .alpheios-lookup__search-control button:active, .alpheios-lookup__search-control button:focus {
+  background-color: var(--alpheios-lookup-button-bg-hover) !important;
+  color: var(--alpheios-lookup-button-color-hover) !important;
+  border-color: var(--alpheios-lookup-button-border-color-hover) !important;
+}
+.alpheios-lookup__search-control-icon {
+  display: none;
+}
+.alpheios-button-primary span.alpheios-lookup__search-control-label {
+  color: var(--alpheios-btn-primary-font-color) !important;
+}
+.alpheios-lookup__panel.alpheios-landscape .alpheios-lookup__search-control-label {
+  display: none;
+}
+.alpheios-lookup__panel.alpheios-landscape .alpheios-button-primary {
+  padding: 0 !important;
+}
+.alpheios-lookup__panel.alpheios-landscape .alpheios-lookup__search-control-icon {
+  display: inline-block;
+  width: 35px !important;
+  height: 25px !important;
 }
 /*
  Calculates a size of text elements relative to the base size.

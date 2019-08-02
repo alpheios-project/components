@@ -1,6 +1,5 @@
 <template>
-  <div class="alpheios-lookup__form"
-    v-show="! showResourceSelector || lexiconsFiltered.length > 0">
+  <div class="alpheios-lookup__form">
     <div class="alpheios-lookup__form-row">
       <div class="alpheios-lookup__form-element">
         <label class="alpheios-setting__label">Word lookup</label>
@@ -26,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div v-show="! showLangSelector && !showResourceSelector ">
+    <div v-show="! showLangSelector">
       <span class="alpheios-lookup__lang-hint">{{l10n.getMsg('HINT_LOOKUP_LANGUAGE',{language:lookupLangName})}}</span>
       <span class="alpheios-lookup__lang-change" @click.stop="toggleLangSelector">{{l10n.getMsg('LABEL_LOOKUP_CHANGE_LANGUAGE')}}</span>
     </div>
@@ -34,26 +33,9 @@
         :classes="['alpheios-panel__options-item', 'alpheios-lookup__form-element', 'alpheios-lookup__lang-control']"
         :data="this.$options.lookupLanguage"
         @change="settingChange"
-        v-show="showLangSelector && ! showResourceSelector"
+        v-show="showLangSelector"
     >
     </alph-setting>
-
-    <template
-        v-if="showResourceSelector"
-    >
-      <div
-          class="alpheios-lookup__settings"
-      >
-        <alph-setting
-            :classes="['alpheios-panel__options-item', 'alpheios-lookup__resource-control']"
-            :data="lexicon"
-            :key="lexicon.name"
-            @change="resourceSettingChange"
-            v-for="lexicon in lexiconsFiltered"
-        >
-        </alph-setting>
-      </div>
-    </template>
   </div>
 </template>
 <script>
@@ -95,12 +77,6 @@ export default {
       default: false
     },
 
-    showResourceSelector: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-
     showResultsIn: {
       type: String,
       required: false,
@@ -109,31 +85,10 @@ export default {
   },
   created: function () {
     this.$options.lookupLanguage = this.settings.getFeatureOptions().items.lookupLanguage
-    /*
-    Lookup component uses its own version of resource options. This is because resource options
-    of lookup components might not necessarily be the same as the ones used within a UI controller.
-    */
-    if (this.showResourceSelector) {
-      this.selectedLangName = this.$options.lookupLanguage.currentTextValue()
-      this.$options.resourceOptions = this.settings.lookupResourceOptions
-    } else {
-      this.$options.resourceOptions = this.settings.getResourceOptions()
-    }
   },
 
   computed: {
-    lexiconsFiltered () {
-      let lang = this.$options.lookupLanguage.values.filter(v => v.text === this.selectedLangName)
-      let settingGroup
-      if (lang.length > 0) {
-        settingGroup = lang[0].value
-      }
-
-      return this.$options.resourceOptions.items.lexiconsShort.filter((item) => Options.parseKey(item.name).group === settingGroup)
-    },
     lookupLangName () {
-      console.log("LANG1",this.getLookupLanguage())
-      console.log("LANG2",this.app.getLanguageName(this.getLookupLanguage()))
       return this.app.getLanguageName(this.getLookupLanguage()).name
     }
   },
@@ -173,7 +128,7 @@ export default {
       const selectedLangID = LanguageModelFactory.getLanguageIdFromCode(selectedLangCode)
       let textSelector = TextSelector.createObjectFromText(this.lookuptext, selectedLangID)
 
-      const resourceOptions = this.$options.resourceOptions
+      const resourceOptions = this.settings.getResourceOptions()
       const lemmaTranslationLang = this.app.state.lemmaTranslationLang
       let featureOptions = this.settings.getFeatureOptions()
 
@@ -184,6 +139,7 @@ export default {
 
       let lexQuery = LexicalQueryLookup
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
+
 
       // A newLexicalRequest will call app.updateLanguage(languageID)
       this.app.newLexicalRequest(this.lookuptext, selectedLangID, null, 'lookup')
@@ -208,11 +164,6 @@ export default {
       this.$options.lookupLanguage.setTextValue(value)
       this.$store.commit('app/setSelectedLookupLang', this.$options.lookupLanguage.currentValue)
       this.langUpdated = Date.now()
-    },
-
-    resourceSettingChange: function (name, value) {
-      let keyinfo = Options.parseKey(name)
-      this.settings.lookupResourceOptions.items[keyinfo.name].filter((f) => f.name === name).forEach((f) => { f.setTextValue(value) })
     }
   }
 }
@@ -302,15 +253,6 @@ export default {
         color: var(--alpheios-lookup-button-color-hover);
         border-color: var(--alpheios-lookup-button-border-color-hover);
       }
-    }
-  }
-
-  .alpheios-lookup__resource-control {
-    display: flex;
-    flex-direction: column;
-
-    .alpheios-setting__control {
-      width: 100%;
     }
   }
 

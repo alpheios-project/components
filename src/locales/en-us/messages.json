@@ -307,6 +307,12 @@
     "component": "UI",
     "params": ["languageName"]
   },
+  "TEXT_NOTICE_NOT_FOUND": {
+    "message": "'{targetWord}' was not found in our {languageName} resources.",
+    "description": "language notification",
+    "component": "UI",
+    "params": ["targetWord", "languageName"]
+  },
   "TEXT_NOTICE_LANGUAGE_UNKNOWN": {
     "message": "unknown",
     "description": "unknown language notification",

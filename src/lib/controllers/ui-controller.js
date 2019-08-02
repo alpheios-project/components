@@ -578,10 +578,10 @@ export default class UIController {
           state.selectedText = data.text
         },
 
-        lexicalRequestStarted (state, targetWord, source) {
-          state.targetWord = targetWord
+        lexicalRequestStarted (state, data) {
+          state.targetWord = data.targetWord
           state.lexicalRequest.startTime = Date.now()
-          state.lexicalRequest.source = source
+          state.lexicalRequest.source = data.source
         },
 
         resetWordData (state) {
@@ -1053,8 +1053,14 @@ export default class UIController {
       } else {
         languageName = this.api.l10n.getMsg('TEXT_NOTICE_LANGUAGE_UNKNOWN')
       }
-      const message = this.api.l10n.getMsg('TEXT_NOTICE_CHANGE_LANGUAGE', { languageName: languageName })
-      this.store.commit(`ui/setNotification`, { text: message, important: true, showLanguageSwitcher: true })
+      if (this.store.state.app.lexicalRequest.source === 'page') {
+        const message = this.api.l10n.getMsg('TEXT_NOTICE_CHANGE_LANGUAGE', { languageName: languageName })
+        this.store.commit(`ui/setNotification`, { text: message, important: true, showLanguageSwitcher: true })
+      } else {
+        const message = this.api.l10n.getMsg('TEXT_NOTICE_NOT_FOUND',
+          { targetWord: this.store.state.app.targetWord, languageName: languageName })
+        this.store.commit(`ui/setNotification`, { text: message, important: true, showLanguageSwitcher: false })
+      }
     }
   }
 
@@ -1178,7 +1184,7 @@ export default class UIController {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_DATA_RETRIEVAL_IN_PROGRESS'))
     this.updateLanguage(languageID)
     this.updateWordAnnotationData(data)
-    this.store.commit('app/lexicalRequestStarted', targetWord, source)
+    this.store.commit('app/lexicalRequestStarted', { targetWord:targetWord, source:source })
     return this
   }
 

@@ -41,12 +41,6 @@
           v-show="$store.getters['ui/isActiveTab']('definitions')"
           data-alpheios-ignore="all"
           >
-        <div class="alpheios-lookup__panel">
-          <lookup
-              :name-base="`panel-defs`"
-              :show-resource-selector="true"
-          />
-        </div>
         <div v-if="$store.getters['app/defDataReady']">
           <div :key="definition.ID"
                class="alpheios-panel__contentitem"
