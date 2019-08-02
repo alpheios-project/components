@@ -131,7 +131,7 @@
         "component": "WordFilterPanel"
     },
     "WORDLIST_DOWNLOAD_NOTICE": {
-        "message": "Some download message",
+        "message": "Your wordlist will be downloaded as tabular data file. It can be imported into a spreadsheet program. Columns are separated by semi-colons. (This feature may not work on iOS devices.)",
         "description": "Download notice",
         "component": "WordFilterPanel"
     }
