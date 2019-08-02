@@ -124,5 +124,15 @@
         "description": "Placeholder for filter selection",
         "component": "WordFilterPanel",
         "params": ["lang"]
+    },
+    "WORDLIST_DOWNLOAD_BUTTON": {
+        "message": "Download",
+        "description": "Download list button",
+        "component": "WordFilterPanel"
+    },
+    "WORDLIST_DOWNLOAD_NOTICE": {
+        "message": "Some download message",
+        "description": "Download notice",
+        "component": "WordFilterPanel"
     }
 }
