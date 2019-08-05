@@ -54901,7 +54901,7 @@ class UIController {
       homonym = wordItem.homonym
     }
 
-    if (homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
+    if (homonym && homonym.lexemes && homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
       this.onHomonymReady(homonym)
       this.updateDefinitions(homonym)
