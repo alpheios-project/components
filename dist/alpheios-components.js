@@ -53621,16 +53621,10 @@ class UIController {
    *          {string} version - A version of an application.
    *     {Object} storageAdapter - A storage adapter for storing options (see `lib/options`). Is environment dependent.
    *     {boolean} openPanel - whether to open panel when UI controller is activated. Default: panelOnActivate of uiOptions.
-   *     {string} textQueryTrigger - what event will start a lexical query on a selected text. Possible values are
-   *     (see custom pointer events library for more details):
-   *         'dblClick' - MouseDblClick pointer event will be used;
-   *         'longTap' - LongTap pointer event will be used;
-   *         genericEvt - if trigger name other than above specified, it will be treated as a GenericEvt pointer event
-   *             with the name of the event being the value of this filed;
-   *             This name will be passed to the GenericEvt pointer event object;
-   *         'none' - do not register any trigger. This will allow a UIController owner to
-   *         register its own custom trigger and listener.
-   *         Default value: 'dblClick'.
+   *     {string} textQueryTriggerDesktop - what event will start a lexical query on a selected text on the desktop. If null,
+                                            the default 'dblClick' will be used.
+   *     {string} textQueryTriggerMobile - what event will start a lexical query on a selected text on mobile devices.  if null,
+   *                                       the default 'longTap' pointer event will be used.
    *     {string} textQuerySelector - an area(s) on a page where a trigger event will start a lexical query. This is
    *     a standard CSS selector. Default value: 'body'.
    *     {Object} template - object w ith the following properties:
@@ -53645,7 +53639,8 @@ class UIController {
       mode: 'production', // Controls options available and output. Other possible values: `development`
       storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__["default"],
       openPanel: true,
-      textQueryTrigger: 'dblClick',
+      textQueryTriggerMobile: 'longTap',
+      textQueryTriggerDesktop: 'dblClick',
       textQuerySelector: 'body',
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
@@ -53663,7 +53658,9 @@ class UIController {
        */
       textLangCode: null,
       // If set to true, will use the `textLangCode` over the `preferredLanguage`
-      overridePreferredLanguage: false
+      overridePreferredLanguage: false,
+      // a callback to execute before the word selection handler
+      triggerPreCallback: null
     }
   }
 
@@ -54802,8 +54799,10 @@ class UIController {
     }
   }
 
-  getSelectedText (event) {
-    if (this.state.isActive() && this.state.uiIsActive()) {
+  getSelectedText (event, domEvent) {
+    if (this.state.isActive() &&
+        this.state.uiIsActive() &&
+        (! this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent)) ) {
       // Open the UI immediately to reduce visual delays
       this.open()
       /*
@@ -55211,28 +55210,41 @@ class UIController {
 
   registerGetSelectedText (listenerName, selector) {
     let ev
+    let customEv
     if (this.platform.isMobile) {
-      ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+      switch (this.options.textQueryTriggerMobile) {
+        case 'longTap':
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        case 'longtap':
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        case null:
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        default:
+          customEv = this.options.textQueryTriggerMobile
+      }
     } else {
-      switch (this.options.textQueryTrigger) {
+      switch (this.options.textQueryTriggerDesktop) {
         case 'dblClick':
           ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
         case 'dblclick':
           ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
-        case 'longTap':
-          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+        case null:
+          ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
         default:
-          ev = null
+          customEv = this.options.textQueryTriggerDesktop
       }
     }
     if (ev) {
       this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
     } else {
       this.evc.registerListener(
-        listenerName, selector, this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], this.options.textQueryTrigger)
+        listenerName, selector, this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], customEv)
     }
   }
 
@@ -55475,6 +55487,7 @@ class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"]
    * @param domEvt
    */
   eventListener (domEvt) {
+    domEvt.stopPropagation()
     const valid = this
       .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
       .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
