@@ -228,6 +228,7 @@ export default class UIController {
         version: 'version'
       },
       mode: 'production', // Controls options available and output. Other possible values: `development`
+      clientId: 'alpheios-components',
       storageAdapter: LocalStorage,
       openPanel: true,
       textQueryTriggerMobile: 'longTap',
@@ -421,6 +422,7 @@ export default class UIController {
     this.api.app = {
       name: this.options.app.name, // A name of a host application (embed lib or webextension)
       version: this.options.app.version, // An version of a host application (embed lib or webextension)
+      clientId: this.options.clientId, // alpheios api client identifier
       libName: UIController.libName, // A name of the components library
       libVersion: UIController.libVersion, // A version of the components library
       platform: this.platform,
@@ -1430,6 +1432,7 @@ export default class UIController {
 
         let lexQuery = LexicalQuery.create(textSelector, {
           htmlSelector: htmlSelector,
+          clientId: this.api.app.clientId,
           resourceOptions: this.api.settings.getResourceOptions(),
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
@@ -1661,7 +1664,7 @@ export default class UIController {
       // otherwise we can query for it as usual
       let textSelector = TextSelector.createObjectFromText(homonym.targetWord, homonym.languageID)
       let wordUsageExamples = this.getWordUsageExamplesQueryParams(textSelector)
-      let lexQuery = LexicalQueryLookup.create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples)
+      let lexQuery = LexicalQueryLookup.create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples, this.api.app.clientId)
       lexQuery.getData()
     }
   }
