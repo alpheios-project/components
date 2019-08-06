@@ -27264,6 +27264,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -27317,6 +27318,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     lookupLangName () {
       return this.app.getLanguageName(this.getLookupLanguage()).name
+    },
+    directionRtl () {
+      let model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__["LanguageModelFactory"].getLanguageModelFromCode(this.getLookupLanguage())
+      return model.direction === alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__["Constants"].LANG_DIR_RTL
     }
   },
   watch: {
@@ -35957,6 +35962,7 @@ var render = function() {
                 }
               ],
               staticClass: "alpheios-input",
+              class: { "alpheios-rtl": _vm.directionRtl },
               attrs: {
                 placeholder: _vm.l10n.getMsg("LABEL_LOOKUP_BUTTON"),
                 autocapitalize: "off",
