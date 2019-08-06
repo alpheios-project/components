@@ -27,6 +27,7 @@ export default class HTMLSelector extends MediaSelector {
       left: this.event.end.client.x
     }
     this.location = this.target.ownerDocument.location.href
+    this.browserSelector = false
 
     // Determine a language ID based on an environment of a target
     this.languageID = this.getLanguageID(defaultLanguageCode)
@@ -37,7 +38,12 @@ export default class HTMLSelector extends MediaSelector {
      * So we don't care where an end selector positions would be and set it just to the same position as a start.
      * Selection methods (do...WordSelection) will determine exact word boundaries and will adjust the selection.
      */
-    HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+    if (this.target.dataset.alpheiosWordNode) {
+      //  let the browser select this word
+      this.browserSelector = true
+    } else {
+      HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+    }
     this.setDataAttributes()
     this.wordSeparator = new Map()
     // A word separator function, when called, will adjust a selection so it will match exact word boundaries
@@ -57,11 +63,15 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
-
-    if (this.wordSeparator.has(textSelector.model.baseUnit)) {
-      textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
-    } else {
-      console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+    if (this.browserSelector) {
+      textSelector = this.doFromTargetWordSelection(textSelector)
+    }
+    if (textSelector.isEmpty()) {
+      if (this.wordSeparator.has(textSelector.model.baseUnit)) {
+        textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
+      } else {
+        console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+      }
     }
     return textSelector
   }
@@ -164,6 +174,13 @@ export default class HTMLSelector extends MediaSelector {
     return selection
   }
 
+  doFromTargetWordSelection (textSelector) {
+    let selection = HTMLSelector.getSelection(this.target)
+    textSelector.text = this.target.textContent
+
+
+  }
+
   /**
    * Helper method for {@link #findSelection} which identifies target word and
    * surrounding context for languages whose words are space-separated.
@@ -248,7 +265,7 @@ export default class HTMLSelector extends MediaSelector {
 
       // limit to the requested # of context words
       // prior to the selected word
-      // the selected word is the last item in the
+      // the select/ded word is the last item in the
       // preWordlist array
       if (preWordlist.length > textSelector.model.contextBackward + 1) {
         preWordlist = preWordlist.slice(preWordlist.length - (textSelector.model.contextBackward + 1))
