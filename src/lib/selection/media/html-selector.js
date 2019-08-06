@@ -174,11 +174,22 @@ export default class HTMLSelector extends MediaSelector {
     return selection
   }
 
+  /**
+   * Helper method for {@link #findSelection} which identifies the selected target
+   * word as being the contents of the actual browser selection target
+   * (Used to allow a content provider to specify a node with child elements
+   * used to apply emphasis to specific characters as a complete word
+   * e.g.<span alpheios-word-node="true"><b>f</b>ero</span>
+   * @see #findSelection
+   *
+   */
   doFromTargetWordSelection (textSelector) {
     let selection = HTMLSelector.getSelection(this.target)
     textSelector.text = this.target.textContent
-
-
+    // for now, let's just create an empty context in this scenario
+    // until we fully support w3c annotation selectors
+    textSelector.createTextQuoteSelector('','')
+    return textSelector
   }
 
   /**
@@ -302,7 +313,9 @@ export default class HTMLSelector extends MediaSelector {
       }
     }
 
-    textSelector.createTextQuoteSelector(this.target)
+    let prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
+    let suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')
+    textSelector.createTextQuoteSelector(prefix,suffix)
     return textSelector
   }
 
