@@ -58427,14 +58427,22 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
    * Helper method for {@link #findSelection} which identifies the selected target
    * word as being the contents of the actual browser selection target
    * (Used to allow a content provider to specify a node with child elements
-   * used to apply emphasis to specific characters as a complete word
-   * e.g.<span alpheios-word-node="true"><b>f</b>ero</span>
+   * used to apply emphasis to specific characters as a complete word. Unless
+   * 'exact' is specified, punctuation will be removed from the text.
+   * e.g.<span alpheios-word-node="default"><b>f</b>ero</span> (word is evaluated as fero)
+   * e.g.<span alpheios-word-node="default">f{ero}</span> (word is evaluated as fero)
+   * e.g.<span alpheios-word-node="exact">f{ero}</span> (word is evaluated as f{ero})
    * @see #findSelection
    *
    */
   doFromTargetWordSelection (textSelector) {
     let selection = HTMLSelector.getSelection(this.target)
     textSelector.text = this.target.textContent
+    if (! this.target.dataset.alpheiosWordNode === 'exact' ){
+      textSelector.text = textSelector.text.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), '')
+    }
+    // for now, let's just create an empty context in this scenario
+    // until we fully support w3c annotation selectors
     textSelector.createTextQuoteSelector('','')
     return textSelector
   }

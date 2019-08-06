@@ -344,7 +344,7 @@ describe('html-selector.test.js', () => {
     let testEl = document.createElement("span")
     let testSub = document.createElement("b")
     testSub.appendChild(document.createTextNode('p'))
-    testEl.setAttribute('data-alpheios-word-node','true')
+    testEl.setAttribute('data-alpheios-word-node','default')
     testEl.appendChild(testSub)
     testEl.appendChild(document.createTextNode('artial'))
     document.body.appendChild(testEl)
@@ -353,6 +353,23 @@ describe('html-selector.test.js', () => {
     eventEl.end.target = testEl
     let htmlSel = HTMLSelector.getSelector(eventEl, 'lat')
     expect(htmlSel.text).toEqual('partial')
+    expect(htmlSel.textQuoteSelector.prefix).toEqual('')
+    expect(htmlSel.textQuoteSelector.suffix).toEqual('')
+  })
+
+  it('18 HTMLSelector - alpheios-word-node=exact preserves puncutation in target', () => {
+    let testEl = document.createElement("span")
+    let testSub = document.createElement("b")
+    testSub.appendChild(document.createTextNode('p'))
+    testEl.setAttribute('data-alpheios-word-node','exact')
+    testEl.appendChild(testSub)
+    testEl.appendChild(document.createTextNode('[a]rtial'))
+    document.body.appendChild(testEl)
+    let evtHandler = jest.fn(() => {})
+    let eventEl = new MouseDblClick(testEl, evtHandler)
+    eventEl.end.target = testEl
+    let htmlSel = HTMLSelector.getSelector(eventEl, 'lat')
+    expect(htmlSel.text).toEqual('p[a]rtial')
     expect(htmlSel.textQuoteSelector.prefix).toEqual('')
     expect(htmlSel.textQuoteSelector.suffix).toEqual('')
   })
