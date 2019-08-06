@@ -27364,7 +27364,7 @@ __webpack_require__.r(__webpack_exports__);
         : null
 
       let lexQuery = _lib_queries_lexical_query_lookup__WEBPACK_IMPORTED_MODULE_1__["default"]
-        .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples)
+        .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples, this.app.clientId)
 
 
       // A newLexicalRequest will call app.updateLanguage(languageID)
@@ -28860,6 +28860,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 // Embeddable SVG icons
 
@@ -28880,7 +28896,12 @@ __webpack_require__.r(__webpack_exports__);
     setting: _vue_components_setting_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     login: _vue_components_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-
+  data () {
+    return {
+      hintWasShownForTabs: []
+    }
+  },
+   
   computed: {
     notificationClasses: function () {
       let classes = []
@@ -28892,6 +28913,15 @@ __webpack_require__.r(__webpack_exports__);
         classes.push(`alpheios-notification-area__notification--hidden`)
       }
       return classes
+    },
+
+    showHint () {
+      let showHintForTab = !this.hintWasShownForTabs.includes(this.$store.state.ui.activeTab)
+
+      if (showHintForTab) {
+        this.hintWasShownForTabs.push(this.$store.state.ui.activeTab)
+      }
+      return this.$store.state.ui.hint.visible && showHintForTab
     },
 
     showNotification () {
@@ -38002,6 +38032,41 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-notification-area" }, [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showHint,
+            expression: "showHint"
+          }
+        ],
+        staticClass: "alpheios-notification-area__hint"
+      },
+      [
+        _c("div", {
+          staticClass: "alpheios-notification-area__msg",
+          domProps: { innerHTML: _vm._s(_vm.$store.state.ui.hint.text) }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "alpheios-notification-area__close-btn",
+            on: {
+              click: function($event) {
+                return _vm.$store.commit("ui/resetHint")
+              }
+            }
+          },
+          [_c("close-icon")],
+          1
+        )
+      ]
+    ),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -52008,7 +52073,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.18\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.38.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.19\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.38.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -53621,16 +53686,10 @@ class UIController {
    *          {string} version - A version of an application.
    *     {Object} storageAdapter - A storage adapter for storing options (see `lib/options`). Is environment dependent.
    *     {boolean} openPanel - whether to open panel when UI controller is activated. Default: panelOnActivate of uiOptions.
-   *     {string} textQueryTrigger - what event will start a lexical query on a selected text. Possible values are
-   *     (see custom pointer events library for more details):
-   *         'dblClick' - MouseDblClick pointer event will be used;
-   *         'longTap' - LongTap pointer event will be used;
-   *         genericEvt - if trigger name other than above specified, it will be treated as a GenericEvt pointer event
-   *             with the name of the event being the value of this filed;
-   *             This name will be passed to the GenericEvt pointer event object;
-   *         'none' - do not register any trigger. This will allow a UIController owner to
-   *         register its own custom trigger and listener.
-   *         Default value: 'dblClick'.
+   *     {string} textQueryTriggerDesktop - what event will start a lexical query on a selected text on the desktop. If null,
+                                            the default 'dblClick' will be used.
+   *     {string} textQueryTriggerMobile - what event will start a lexical query on a selected text on mobile devices.  if null,
+   *                                       the default 'longTap' pointer event will be used.
    *     {string} textQuerySelector - an area(s) on a page where a trigger event will start a lexical query. This is
    *     a standard CSS selector. Default value: 'body'.
    *     {Object} template - object w ith the following properties:
@@ -53643,9 +53702,11 @@ class UIController {
         version: 'version'
       },
       mode: 'production', // Controls options available and output. Other possible values: `development`
+      clientId: 'alpheios-components',
       storageAdapter: _lib_options_local_storage_area_js__WEBPACK_IMPORTED_MODULE_27__["default"],
       openPanel: true,
-      textQueryTrigger: 'dblClick',
+      textQueryTriggerMobile: 'longTap',
+      textQueryTriggerDesktop: 'dblClick',
       textQuerySelector: 'body',
       enableLemmaTranslations: false,
       irregularBaseFontSizeClassName: 'alpheios-irregular-base-font-size',
@@ -53663,7 +53724,9 @@ class UIController {
        */
       textLangCode: null,
       // If set to true, will use the `textLangCode` over the `preferredLanguage`
-      overridePreferredLanguage: false
+      overridePreferredLanguage: false,
+      // a callback to execute before the word selection handler
+      triggerPreCallback: null
     }
   }
 
@@ -53833,6 +53896,7 @@ class UIController {
     this.api.app = {
       name: this.options.app.name, // A name of a host application (embed lib or webextension)
       version: this.options.app.version, // An version of a host application (embed lib or webextension)
+      clientId: this.options.clientId, // alpheios api client identifier
       libName: UIController.libName, // A name of the components library
       libVersion: UIController.libVersion, // A version of the components library
       platform: this.platform,
@@ -54154,6 +54218,11 @@ class UIController {
           important: false,
           showLanguageSwitcher: false,
           text: null
+        },
+
+        hint: {
+          visible: false,
+          text: null
         }
       },
 
@@ -54185,6 +54254,16 @@ class UIController {
           state.notification.important = false
           state.notification.showLanguageSwitcher = false
           state.notification.text = null
+        },
+
+        setHint (state, data) {
+          state.hint.visible = true
+          state.hint.text = data
+        },
+
+        resetHint (state) {
+          state.hint.visible = false
+          state.hint.text = null
         },
 
         addMessage (state, text) {
@@ -54527,6 +54606,15 @@ class UIController {
     // This is for compatibility with watchers in webextension that track tab changes
     // and sends this into to a background script
     this.state.changeTab(tabName)
+
+    let isPortrait = this.store.state.panel && (this.store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_21__["default"].orientations.PORTRAIT)
+
+    if (['treebank', 'inflections', 'inflectionsbrowser'].includes(tabName) && this.platform.isMobile && isPortrait) {
+      let message = '🛈 This view is best in landscape mode with the panel expanded to full screen'
+      this.store.commit(`ui/setHint`, message, tabName)
+    } else {
+      this.store.commit(`ui/resetHint`)
+    }
     return this
   }
 
@@ -54538,6 +54626,7 @@ class UIController {
   showPanelTab (tabName) {
     this.api.ui.changeTab(tabName)
     this.api.ui.openPanel()
+
     return this
   }
 
@@ -54802,8 +54891,10 @@ class UIController {
     }
   }
 
-  getSelectedText (event) {
-    if (this.state.isActive() && this.state.uiIsActive()) {
+  getSelectedText (event, domEvent) {
+    if (this.state.isActive() &&
+        this.state.uiIsActive() &&
+        (! this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent)) ) {
       // Open the UI immediately to reduce visual delays
       this.open()
       /*
@@ -54840,6 +54931,7 @@ class UIController {
 
         let lexQuery = _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_11__["default"].create(textSelector, {
           htmlSelector: htmlSelector,
+          clientId: this.api.app.clientId,
           resourceOptions: this.api.settings.getResourceOptions(),
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
@@ -55071,7 +55163,7 @@ class UIController {
       // otherwise we can query for it as usual
       let textSelector = _lib_selection_text_selector__WEBPACK_IMPORTED_MODULE_18__["default"].createObjectFromText(homonym.targetWord, homonym.languageID)
       let wordUsageExamples = this.getWordUsageExamplesQueryParams(textSelector)
-      let lexQuery = _lib_queries_lexical_query_lookup_js__WEBPACK_IMPORTED_MODULE_12__["default"].create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples)
+      let lexQuery = _lib_queries_lexical_query_lookup_js__WEBPACK_IMPORTED_MODULE_12__["default"].create(textSelector, this.resourceOptions, this.state.lemmaTranslationLang, wordUsageExamples, this.api.app.clientId)
       lexQuery.getData()
     }
   }
@@ -55211,28 +55303,41 @@ class UIController {
 
   registerGetSelectedText (listenerName, selector) {
     let ev
+    let customEv
     if (this.platform.isMobile) {
-      ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+      switch (this.options.textQueryTriggerMobile) {
+        case 'longTap':
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        case 'longtap':
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        case null:
+          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+          break
+        default:
+          customEv = this.options.textQueryTriggerMobile
+      }
     } else {
-      switch (this.options.textQueryTrigger) {
+      switch (this.options.textQueryTriggerDesktop) {
         case 'dblClick':
           ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
         case 'dblclick':
           ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
-        case 'longTap':
-          ev = _lib_custom_pointer_events_long_tap_js__WEBPACK_IMPORTED_MODULE_24__["default"]
+        case null:
+          ev = _lib_custom_pointer_events_mouse_dbl_click_js__WEBPACK_IMPORTED_MODULE_23__["default"]
           break
         default:
-          ev = null
+          customEv = this.options.textQueryTriggerDesktop
       }
     }
     if (ev) {
       this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
     } else {
       this.evc.registerListener(
-        listenerName, selector, this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], this.options.textQueryTrigger)
+        listenerName, selector, this.getSelectedText.bind(this), _lib_custom_pointer_events_generic_evt_js__WEBPACK_IMPORTED_MODULE_25__["default"], customEv)
     }
   }
 
@@ -55475,6 +55580,7 @@ class GenericEvt extends _pointer_evt_js__WEBPACK_IMPORTED_MODULE_0__["default"]
    * @param domEvt
    */
   eventListener (domEvt) {
+    domEvt.stopPropagation()
     const valid = this
       .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
       .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
@@ -57222,9 +57328,10 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
    * @param {TextSelector} textSelector - text selector containing the word for getting data from adapters and showing in the popup/panel
    * @param resourceOptions
    * @param {symbol} lemmaTranslationLang - A language ID, such as Constants.LANG_LATIN.
+   * @param {String} clientId - api client identifier
    */
 
-  static create (textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples) {
+  static create (textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples, clientId) {
     // Check to see if Lemma Translations should be enabled for a query
     // Experimental
     let lemmaTranslations
@@ -57233,6 +57340,8 @@ class LexicalQueryLookup extends _lexical_query_js__WEBPACK_IMPORTED_MODULE_0__[
     }
     let options = {
       htmlSelector: _selection_media_html_selector__WEBPACK_IMPORTED_MODULE_2__["default"].getDumpHTMLSelector(),
+
+      clientId: clientId,
 
       lemmaTranslations: lemmaTranslations,
 
@@ -57273,6 +57382,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
   constructor (name, selector, options) {
     super(name)
     this.selector = selector
+    this.clientId = options.clientId
     this.langData = options.langData
     this.langOpts = options.langOpts || []
     this.resourceOptions = options.resourceOptions || []
@@ -57315,6 +57425,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
         let adapterConcordanceRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].wordusageExamples.concordance({
           method: 'getWordUsageExamples',
+          clientId: this.clientId,
           params: { homonym: homonym,
             pagination: paginationParams,
             filters: {
@@ -57380,6 +57491,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     if (this.selector.data.treebank && this.selector.data.treebank.word) {
       let adapterTreebankRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].morphology.alpheiosTreebank({
         method: 'getHomonym',
+        clientId: this.clientId,
         params: {
           languageID: this.selector.languageID,
           wordref: this.selector.data.treebank.word.ref
@@ -57398,6 +57510,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       // if we can't reset, proceed with full lookup sequence
       let adapterTuftsRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].morphology.tufts({
         method: 'getHomonym',
+        clientId: this.clientId,
         params: {
           languageID: this.selector.languageID,
           word: this.selector.normalizedText
@@ -57454,6 +57567,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
     if (this.lemmaTranslations) {
       let adapterTranslationRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].lemmatranslation.alpheios({
         method: 'fetchTranslations',
+        clientId: this.clientId,
         params: {
           homonym: this.homonym,
           browserLang: this.lemmaTranslations.locale
@@ -57474,6 +57588,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       // directly with the usage examples display
       let adapterConcordanceRes = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].wordusageExamples.concordance({
         method: 'getWordUsageExamples',
+        clientId: this.clientId,
         params: { homonym: this.homonym,
           pagination: {
             property: 'authmax',
@@ -57493,6 +57608,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     let adapterLexiconResShort = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].lexicon.alpheios({
       method: 'fetchShortDefs',
+      clientId: this.clientId,
       params: {
         opts: lexiconShortOpts,
         homonym: this.homonym,
@@ -57507,6 +57623,7 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
 
     let adapterLexiconResFull = yield alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__["ClientAdapters"].lexicon.alpheios({
       method: 'fetchFullDefs',
+      clientId: this.clientId,
       params: {
         opts: lexiconFullOpts,
         homonym: this.homonym,
@@ -58159,6 +58276,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       left: this.event.end.client.x
     }
     this.location = this.target.ownerDocument.location.href
+    this.browserSelector = false
 
     // Determine a language ID based on an environment of a target
     this.languageID = this.getLanguageID(defaultLanguageCode)
@@ -58171,6 +58289,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
      */
     if (this.target.dataset.alpheiosWordNode) {
       //  let the browser select this word
+      this.browserSelector = true
     } else {
       HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
     }
@@ -58193,11 +58312,15 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     textSelector.model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
-
-    if (this.wordSeparator.has(textSelector.model.baseUnit)) {
-      textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
-    } else {
-      console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+    if (this.browserSelector) {
+      textSelector = this.doFromTargetWordSelection(textSelector)
+    }
+    if (textSelector.isEmpty()) {
+      if (this.wordSeparator.has(textSelector.model.baseUnit)) {
+        textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
+      } else {
+        console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+      }
     }
     return textSelector
   }
@@ -58301,6 +58424,22 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
   }
 
   /**
+   * Helper method for {@link #findSelection} which identifies the selected target
+   * word as being the contents of the actual browser selection target
+   * (Used to allow a content provider to specify a node with child elements
+   * used to apply emphasis to specific characters as a complete word
+   * e.g.<span alpheios-word-node="true"><b>f</b>ero</span>
+   * @see #findSelection
+   *
+   */
+  doFromTargetWordSelection (textSelector) {
+    let selection = HTMLSelector.getSelection(this.target)
+    textSelector.text = this.target.textContent
+    textSelector.createTextQuoteSelector('','')
+    return textSelector
+  }
+
+  /**
    * Helper method for {@link #findSelection} which identifies target word and
    * surrounding context for languages whose words are space-separated.
    * It does not use an end point of a selection. It takes a beginning of a selection
@@ -58384,7 +58523,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
 
       // limit to the requested # of context words
       // prior to the selected word
-      // the selected word is the last item in the
+      // the select/ded word is the last item in the
       // preWordlist array
       if (preWordlist.length > textSelector.model.contextBackward + 1) {
         preWordlist = preWordlist.slice(preWordlist.length - (textSelector.model.contextBackward + 1))
@@ -58421,7 +58560,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       }
     }
 
-    textSelector.createTextQuoteSelector(this.target)
+    let prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
+    let suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')
+    textSelector.createTextQuoteSelector(prefix,suffix)
     return textSelector
   }
 
@@ -58624,19 +58765,8 @@ class TextSelector {
     return this.model.normalizeWord(this.text)
   }
 
-  /**
-   * Returns a language of a selection target. If language cannot be determined, defaultLanguageCode will be used instead.
-   * @param {string} languageCode - A default language code that will be used if language cannot be determined.
-   * @return {LanguageModel} Language model of a selection's language
-   */
-  /* static getLanguage (languageCode) {
-    return Models.LanguageModelFactory.getLanguageForCode(languageCode)
-  } */
-
-  createTextQuoteSelector (target) {
-    this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText)
-    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(target)
-    this.textQuoteSelector.createContext(selection, this)
+  createTextQuoteSelector (prefix,suffix) {
+    this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText,prefix,suffix,window.location.href)
   }
 }
 
