@@ -196,7 +196,7 @@
     "component": "Panel"
   },
   "TEXT_INFO_CLICK": {
-    "message": "Double-click on a word to retrieve lemmas, morphology, short definitions and Latin usage examples.",
+    "message": "Double-click on a word to retrieve lemmas, morphology, short definitions and access to additional word analysis tools.",
     "description": "info text",
     "component": "Panel"
   },
