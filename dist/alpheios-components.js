@@ -52073,7 +52073,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.19\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.38.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.20\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.2.1\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.5\",\"css-loader\":\"^3.1.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.1.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.1.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.3.2\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.38.0\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -58276,6 +58276,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       left: this.event.end.client.x
     }
     this.location = this.target.ownerDocument.location.href
+    this.browserSelector = false
 
     // Determine a language ID based on an environment of a target
     this.languageID = this.getLanguageID(defaultLanguageCode)
@@ -58286,7 +58287,12 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
      * So we don't care where an end selector positions would be and set it just to the same position as a start.
      * Selection methods (do...WordSelection) will determine exact word boundaries and will adjust the selection.
      */
-    HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+    if (this.target.dataset.alpheiosWordNode) {
+      //  let the browser select this word
+      this.browserSelector = true
+    } else {
+      HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+    }
     this.setDataAttributes()
     this.wordSeparator = new Map()
     // A word separator function, when called, will adjust a selection so it will match exact word boundaries
@@ -58306,11 +58312,15 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
     textSelector.model = alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__["LanguageModelFactory"].getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
-
-    if (this.wordSeparator.has(textSelector.model.baseUnit)) {
-      textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
-    } else {
-      console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+    if (this.browserSelector) {
+      textSelector = this.doFromTargetWordSelection(textSelector)
+    }
+    if (textSelector.isEmpty()) {
+      if (this.wordSeparator.has(textSelector.model.baseUnit)) {
+        textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
+      } else {
+        console.warn(`No word separator function found for a "${textSelector.model.baseUnit.toString()}" base unit`)
+      }
     }
     return textSelector
   }
@@ -58414,6 +58424,30 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
   }
 
   /**
+   * Helper method for {@link #findSelection} which identifies the selected target
+   * word as being the contents of the actual browser selection target
+   * Used to allow a content provider to specify a node with child elements
+   * used to apply emphasis to specific characters as a complete word. Unless
+   * 'exact' is specified, punctuation will be removed from the text.
+   * e.g.<span alpheios-word-node="default"><b>f</b>ero</span> (word is evaluated as fero)
+   * e.g.<span alpheios-word-node="default">f{ero}</span> (word is evaluated as fero)
+   * e.g.<span alpheios-word-node="exact">f{ero}</span> (word is evaluated as f{ero})
+   * @see #findSelection
+   *
+   */
+  doFromTargetWordSelection (textSelector) {
+    let selection = HTMLSelector.getSelection(this.target)
+    textSelector.text = this.target.textContent
+    if (! this.target.dataset.alpheiosWordNode === 'exact' ){
+      textSelector.text = textSelector.text.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), '')
+    }
+    // for now, let's just create an empty context in this scenario
+    // until we fully support w3c annotation selectors
+    textSelector.createTextQuoteSelector('','')
+    return textSelector
+  }
+
+  /**
    * Helper method for {@link #findSelection} which identifies target word and
    * surrounding context for languages whose words are space-separated.
    * It does not use an end point of a selection. It takes a beginning of a selection
@@ -58497,7 +58531,7 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
 
       // limit to the requested # of context words
       // prior to the selected word
-      // the selected word is the last item in the
+      // the select/ded word is the last item in the
       // preWordlist array
       if (preWordlist.length > textSelector.model.contextBackward + 1) {
         preWordlist = preWordlist.slice(preWordlist.length - (textSelector.model.contextBackward + 1))
@@ -58534,7 +58568,9 @@ class HTMLSelector extends _media_selector__WEBPACK_IMPORTED_MODULE_3__["default
       }
     }
 
-    textSelector.createTextQuoteSelector(this.target)
+    let prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
+    let suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')
+    textSelector.createTextQuoteSelector(prefix,suffix)
     return textSelector
   }
 
@@ -58737,19 +58773,8 @@ class TextSelector {
     return this.model.normalizeWord(this.text)
   }
 
-  /**
-   * Returns a language of a selection target. If language cannot be determined, defaultLanguageCode will be used instead.
-   * @param {string} languageCode - A default language code that will be used if language cannot be determined.
-   * @return {LanguageModel} Language model of a selection's language
-   */
-  /* static getLanguage (languageCode) {
-    return Models.LanguageModelFactory.getLanguageForCode(languageCode)
-  } */
-
-  createTextQuoteSelector (target) {
-    this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText)
-    let selection = _lib_selection_media_html_selector__WEBPACK_IMPORTED_MODULE_1__["default"].getSelection(target)
-    this.textQuoteSelector.createContext(selection, this)
+  createTextQuoteSelector (prefix,suffix) {
+    this.textQuoteSelector = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["TextQuoteSelector"](this.languageCode, this.normalizedText,prefix,suffix,window.location.href)
   }
 }
 
