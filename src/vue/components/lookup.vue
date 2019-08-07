@@ -10,6 +10,7 @@
               autocorrect="off"
               @keyup.enter="lookup"
               class="alpheios-input"
+             :class="{ 'alpheios-rtl': directionRtl}"
               type="text"
               v-model="lookuptext"
           >
@@ -42,7 +43,7 @@
 import TextSelector from '@/lib/selection/text-selector'
 import LexicalQueryLookup from '@/lib/queries/lexical-query-lookup'
 import Options from '@/lib/options/options'
-import { LanguageModelFactory } from 'alpheios-data-models'
+import { LanguageModelFactory, Constants } from 'alpheios-data-models'
 import LookupIcon from '@/images/inline-icons/lookup.svg'
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
@@ -91,6 +92,10 @@ export default {
   computed: {
     lookupLangName () {
       return this.app.getLanguageName(this.getLookupLanguage()).name
+    },
+    directionRtl () {
+      let model = LanguageModelFactory.getLanguageModelFromCode(this.getLookupLanguage())
+      return model.direction === Constants.LANG_DIR_RTL
     }
   },
   watch: {
@@ -235,6 +240,10 @@ export default {
       height: $fieldsetHeight;
       min-width: 0;
       border-color: var(--alpheios-lookup-input-border-color);
+      &.alpheios-rtl {
+        direction: rtl;
+        text-align: right;
+      }
     }
 
     button {
