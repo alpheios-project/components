@@ -1421,7 +1421,7 @@ export default class UIController {
   getSelectedText (event, domEvent) {
     if (this.state.isActive() &&
         this.state.uiIsActive() &&
-        (! this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent)) ) {
+        (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
       // Open the UI immediately to reduce visual delays
       this.open()
       /*
