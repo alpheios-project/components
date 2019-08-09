@@ -616,7 +616,10 @@
     "message": "🛈 This view is best in landscape mode with the panel expanded to full screen",
     "description": "hint to switch to landscape mode for a mobile view",
     "component": "Compact Panel"
+  },
+  "LABEL_INFO_FAQ": {
+    "message": "FAQ/Known Issues",
+    "description": "Faq button label",
+    "component": "info panel"
   }
-
-
 }
