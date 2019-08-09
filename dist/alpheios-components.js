@@ -35542,10 +35542,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-info" }, [
     _c("div", { staticClass: "alpheios-info__faq" }, [
-      _c("button", { staticClass: "alpheios-button-tertiary" }, [
-        _c("a", { attrs: { href: _vm.faqLink, target: "__blank" } }, [
+      _c("a", { attrs: { href: _vm.faqLink, target: "_blank" } }, [
+        _c("button", { staticClass: "alpheios-button-tertiary" }, [
           _vm._v(
-            "\n      " + _vm._s(_vm.l10n.getMsg("LABEL_INFO_FAQ")) + "\n      "
+            "\n        " +
+              _vm._s(_vm.l10n.getMsg("LABEL_INFO_FAQ")) +
+              "\n      "
           )
         ])
       ])

@@ -1,11 +1,11 @@
 <template>
   <div class="alpheios-info">
     <div class="alpheios-info__faq">
-      <button class="alpheios-button-tertiary">
-        <a :href="faqLink" target="__blank">
-        {{ l10n.getMsg(`LABEL_INFO_FAQ`) }}
-        </a>
-      </button>
+      <a :href="faqLink" target="_blank">
+        <button class="alpheios-button-tertiary">
+          {{ l10n.getMsg(`LABEL_INFO_FAQ`) }}
+        </button>
+      </a>
     </div>
     <div class="alpheios-info__helptext">
       <div
