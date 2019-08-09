@@ -25,13 +25,6 @@
     </div>
     <h3>{{ l10n.getMsg('TEXT_INFO_TIPS') }}</h3>
     <p class="alpheios-text-small" v-html="l10n.getMsg('TEXT_INFO_LANGDETECT', {languageName: defaultLanguage})"></p>
-    <h3>{{ l10n.getMsg('TEXT_INFO_ABOUT') }}</h3>
-    <div class="alpheios-info__versiontext alpheios-text__smallest">
-      {{ app.name }} {{ app.version }}
-    </div>
-    <div class="alpheios-info__versiontext alpheios-text__smallest">
-      {{ app.libName }} {{ app.libVersion }}
-    </div>
   </div>
 </template>
 <script>
@@ -71,10 +64,6 @@ export default {
     color: var(--alpheios-text-color);
     margin-top: 10px;
     margin-bottom: 10px;
-  }
-
-  .alpheios-info .alpheios-info__versiontext {
-    font-size: textsize(12px);
   }
 
   .alpheios-info__currentlanguage {
