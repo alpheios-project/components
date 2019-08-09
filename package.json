@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "1.2.21",
+  "version": "1.2.22",
   "description": "Alpheios Components",
   "main": "dist/alpheios-components.min.js",
   "module": "src/plugin.js",
@@ -80,7 +80,7 @@
     "postcss-safe-important": "^1.1.0",
     "postcss-scss": "^2.0.0",
     "raw-loader": "^3.1.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.2.0",
     "shelljs": "^0.8.3",
     "sinon": "^7.4.1",
     "source-map-loader": "^0.2.4",
