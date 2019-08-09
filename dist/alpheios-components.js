@@ -27174,7 +27174,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -35863,7 +35862,6 @@ var render = function() {
               staticClass: "alpheios-input",
               class: { "alpheios-rtl": _vm.directionRtl },
               attrs: {
-                placeholder: _vm.l10n.getMsg("LABEL_LOOKUP_BUTTON"),
                 autocapitalize: "off",
                 autocorrect: "off",
                 type: "text"
