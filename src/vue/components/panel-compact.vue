@@ -387,6 +387,7 @@ export default {
       scrollPadding: 0,
       // Whether the panel is expanded full width
       expanded: false,
+      prevOrientation: null,
       resized: false,
       showProviders: false
     }
@@ -441,7 +442,13 @@ export default {
 
     isLandscape: function () {
       // Have to use store prop to keep orientation reactive
-      return this.$store.state.panel.orientation === Platform.orientations.LANDSCAPE
+      let result = (this.$store.state.panel.orientation === Platform.orientations.LANDSCAPE)
+
+      if ((this.prevOrientation === Platform.orientations.PORTRAIT) && result) {
+        this.expanded = true
+      }
+      this.prevOrientation = this.$store.state.panel.orientation
+      return result
     },
 
     isAttachedToLeft: function () {
