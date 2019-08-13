@@ -30494,18 +30494,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -30524,24 +30512,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      titlesDefault: {
-        lexicons: 'Lexicons (full)',
-        lexiconsShort: 'Lexicons (short)'
-      }
-    }
-  },
-  computed: {
-    resourceSettingsLexicons: function () {
-      let resourceOptions = this.settings.getResourceOptions()
-      return resourceOptions.items && resourceOptions.items.lexicons
-        ? resourceOptions.items.lexicons.filter(item => item.values.length > 0)
-        : []
-    },
-    resourceSettingsLexiconsShort: function () {
-      let resourceOptions = this.settings.getResourceOptions()
-      return resourceOptions.items && resourceOptions.items.lexiconsShort
-        ? resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
-        : []
+      settingsArray: [
+        {
+          typeLex: 'lexicons',
+          titlesDefault: 'Lexicons (full)'
+        },
+        {
+          typeLex: 'lexiconsShort',
+          titlesDefault: 'Lexicons (short)'
+        }
+      ]
     }
   },
   methods: {
@@ -30558,6 +30538,14 @@ __webpack_require__.r(__webpack_exports__);
       return this.titlesDefault[typeLex]
       
     },
+
+    resourceSettingsLexicons (typeLex) {
+      let resourceOptions = this.settings.getResourceOptions()
+      return resourceOptions.items && resourceOptions.items[typeLex]
+        ? resourceOptions.items[typeLex].filter(item => item.values.length > 0)
+        : []
+    },
+
     resourceSettingChanged: function (name, value) {
       // we have to send the full name here and parse it where we set it
       // because grouped setting are referenced under Options object
@@ -40258,49 +40246,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-resource-options__cont" }, [
-    _c(
-      "fieldset",
-      { staticClass: "alpheios-resource-options__cont-fieldset" },
-      [
-        _c("legend", [_vm._v(_vm._s(_vm.resourceSettingsTitle("lexicons")))]),
-        _vm._v(" "),
-        _vm._l(_vm.resourceSettingsLexicons, function(languageSetting) {
-          return _c("setting", {
-            key: languageSetting.name,
-            attrs: {
-              classes: ["alpheios-resource-options__item"],
-              data: languageSetting
-            },
-            on: { change: _vm.resourceSettingChanged }
+  return _c(
+    "div",
+    { staticClass: "alpheios-resource-options__cont" },
+    _vm._l(_vm.settingsArray, function(settingItem) {
+      return _c(
+        "fieldset",
+        {
+          key: settingItem.typelex,
+          staticClass: "alpheios-resource-options__cont-fieldset"
+        },
+        [
+          _c("legend", [
+            _vm._v(_vm._s(_vm.resourceSettingsTitle(settingItem.typeLex)))
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.resourceSettingsLexicons(settingItem.typeLex), function(
+            languageSetting
+          ) {
+            return _c("setting", {
+              key: languageSetting.name,
+              attrs: {
+                classes: ["alpheios-resource-options__item"],
+                data: languageSetting
+              },
+              on: { change: _vm.resourceSettingChanged }
+            })
           })
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c(
-      "fieldset",
-      { staticClass: "alpheios-resource-options__cont-fieldset" },
-      [
-        _c("legend", [
-          _vm._v(_vm._s(_vm.resourceSettingsTitle("lexiconsShort")))
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.resourceSettingsLexiconsShort, function(languageSetting) {
-          return _c("setting", {
-            key: languageSetting.name,
-            attrs: {
-              classes: ["alpheios-resource-options__item"],
-              data: languageSetting
-            },
-            on: { change: _vm.resourceSettingChanged }
-          })
-        })
-      ],
-      2
-    )
-  ])
+        ],
+        2
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60173,7 +60151,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-feature-options\",\"version\
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"1Lexicons (Full Definitions)\",\"labelL10n\":\"LEXICONS_FULL_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_FULL_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin\",\"labelL10n\":\"LEXICONS_FULL_LATIN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic\",\"labelL10n\":\"LEXICONS_FULL_ARABIC_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_FULL_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"1Lexicons (Short Definitions)\",\"labelL10n\":\"LEXICONS_SHORT_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_SHORT_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_SHORT_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"Lexicons (Full Definitions)\",\"labelL10n\":\"LEXICONS_FULL_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_FULL_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin\",\"labelL10n\":\"LEXICONS_FULL_LATIN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic\",\"labelL10n\":\"LEXICONS_FULL_ARABIC_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_FULL_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"Lexicons (Short Definitions)\",\"labelL10n\":\"LEXICONS_SHORT_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_SHORT_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_SHORT_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
 
 /***/ }),
 

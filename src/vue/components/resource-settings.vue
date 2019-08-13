@@ -1,28 +1,16 @@
 <template>
   <div class="alpheios-resource-options__cont">
 
-    <fieldset class="alpheios-resource-options__cont-fieldset">
-      <legend>{{ resourceSettingsTitle('lexicons') }}</legend>
+    <fieldset class="alpheios-resource-options__cont-fieldset" v-for="settingItem in settingsArray" v-bind:key="settingItem.typelex">
+      <legend>{{ resourceSettingsTitle(settingItem.typeLex) }}</legend>
         <setting
             :classes="['alpheios-resource-options__item']"
             :data="languageSetting"
             :key="languageSetting.name"
             @change="resourceSettingChanged"
-            v-for="languageSetting in resourceSettingsLexicons"
+            v-for="languageSetting in resourceSettingsLexicons(settingItem.typeLex)"
         >
         </setting>
-    </fieldset>
-
-    <fieldset class="alpheios-resource-options__cont-fieldset">
-      <legend>{{ resourceSettingsTitle('lexiconsShort') }}</legend>
-      <setting
-          :classes="['alpheios-resource-options__item']"
-          :data="languageSetting"
-          :key="languageSetting.name"
-          @change="resourceSettingChanged"
-          v-for="languageSetting in resourceSettingsLexiconsShort"
-      >
-      </setting>
     </fieldset>
   </div>
 </template>
@@ -44,24 +32,16 @@
     },
     data () {
       return {
-        titlesDefault: {
-          lexicons: 'Lexicons (full)',
-          lexiconsShort: 'Lexicons (short)'
-        }
-      }
-    },
-    computed: {
-      resourceSettingsLexicons: function () {
-        let resourceOptions = this.settings.getResourceOptions()
-        return resourceOptions.items && resourceOptions.items.lexicons
-          ? resourceOptions.items.lexicons.filter(item => item.values.length > 0)
-          : []
-      },
-      resourceSettingsLexiconsShort: function () {
-        let resourceOptions = this.settings.getResourceOptions()
-        return resourceOptions.items && resourceOptions.items.lexiconsShort
-          ? resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
-          : []
+        settingsArray: [
+          {
+            typeLex: 'lexicons',
+            titlesDefault: 'Lexicons (full)'
+          },
+          {
+            typeLex: 'lexiconsShort',
+            titlesDefault: 'Lexicons (short)'
+          }
+        ]
       }
     },
     methods: {
@@ -78,6 +58,14 @@
         return this.titlesDefault[typeLex]
         
       },
+
+      resourceSettingsLexicons (typeLex) {
+        let resourceOptions = this.settings.getResourceOptions()
+        return resourceOptions.items && resourceOptions.items[typeLex]
+          ? resourceOptions.items[typeLex].filter(item => item.values.length > 0)
+          : []
+      },
+
       resourceSettingChanged: function (name, value) {
         // we have to send the full name here and parse it where we set it
         // because grouped setting are referenced under Options object

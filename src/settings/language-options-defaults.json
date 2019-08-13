@@ -3,7 +3,7 @@
   "version": 2,
   "items": {
     "lexicons": {
-      "labelText": "1Lexicons (Full Definitions)",
+      "labelText": "Lexicons (Full Definitions)",
       "labelL10n": "LEXICONS_FULL_TITLE",
       "group": {
         "grc": {
@@ -85,7 +85,7 @@
       }
     },
     "lexiconsShort": {
-      "labelText": "1Lexicons (Short Definitions)",
+      "labelText": "Lexicons (Short Definitions)",
       "labelL10n": "LEXICONS_SHORT_TITLE",
       "group": {
         "grc": {
