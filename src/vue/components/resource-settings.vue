@@ -35,11 +35,11 @@
         settingsArray: [
           {
             typeLex: 'lexicons',
-            titlesDefault: 'Lexicons (full)'
+            titleDefault: 'Lexicons (full)'
           },
           {
             typeLex: 'lexiconsShort',
-            titlesDefault: 'Lexicons (short)'
+            titleDefault: 'Lexicons (short)'
           }
         ]
       }
@@ -55,7 +55,7 @@
             return resourceOptions.defaults.items[typeLex].labelText
           }
         }
-        return this.titlesDefault[typeLex]
+        return this.titleDefault[typeLex]
         
       },
 

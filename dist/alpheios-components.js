@@ -30515,11 +30515,11 @@ __webpack_require__.r(__webpack_exports__);
       settingsArray: [
         {
           typeLex: 'lexicons',
-          titlesDefault: 'Lexicons (full)'
+          titleDefault: 'Lexicons (full)'
         },
         {
           typeLex: 'lexiconsShort',
-          titlesDefault: 'Lexicons (short)'
+          titleDefault: 'Lexicons (short)'
         }
       ]
     }
@@ -30535,7 +30535,7 @@ __webpack_require__.r(__webpack_exports__);
           return resourceOptions.defaults.items[typeLex].labelText
         }
       }
-      return this.titlesDefault[typeLex]
+      return this.titleDefault[typeLex]
       
     },
 
