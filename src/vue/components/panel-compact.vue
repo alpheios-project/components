@@ -442,13 +442,13 @@ export default {
 
     isLandscape: function () {
       // Have to use store prop to keep orientation reactive
-      let result = (this.$store.state.panel.orientation === Platform.orientations.LANDSCAPE)
+      let isLandscapeCheck = (this.$store.state.panel.orientation === Platform.orientations.LANDSCAPE)
 
-      if ((this.prevOrientation === Platform.orientations.PORTRAIT) && result) {
+      if ((this.prevOrientation !== Platform.orientations.LANDSCAPE) && isLandscapeCheck) {
         this.expanded = true
       }
       this.prevOrientation = this.$store.state.panel.orientation
-      return result
+      return isLandscapeCheck
     },
 
     isAttachedToLeft: function () {

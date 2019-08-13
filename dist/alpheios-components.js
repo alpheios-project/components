@@ -29470,13 +29470,13 @@ __webpack_require__.r(__webpack_exports__);
 
     isLandscape: function () {
       // Have to use store prop to keep orientation reactive
-      let result = (this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE)
+      let isLandscapeCheck = (this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE)
 
-      if ((this.prevOrientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.PORTRAIT) && result) {
+      if ((this.prevOrientation !== _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE) && isLandscapeCheck) {
         this.expanded = true
       }
       this.prevOrientation = this.$store.state.panel.orientation
-      return result
+      return isLandscapeCheck
     },
 
     isAttachedToLeft: function () {
