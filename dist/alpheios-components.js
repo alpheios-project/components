@@ -29415,6 +29415,7 @@ __webpack_require__.r(__webpack_exports__);
       scrollPadding: 0,
       // Whether the panel is expanded full width
       expanded: false,
+      prevOrientation: null,
       resized: false,
       showProviders: false
     }
@@ -29469,7 +29470,13 @@ __webpack_require__.r(__webpack_exports__);
 
     isLandscape: function () {
       // Have to use store prop to keep orientation reactive
-      return this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE
+      let isLandscapeCheck = (this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE)
+
+      if ((this.prevOrientation !== _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE) && isLandscapeCheck) {
+        this.expanded = true
+      }
+      this.prevOrientation = this.$store.state.panel.orientation
+      return isLandscapeCheck
     },
 
     isAttachedToLeft: function () {
