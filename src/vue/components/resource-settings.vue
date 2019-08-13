@@ -1,21 +1,29 @@
 <template>
   <div class="alpheios-resource-options__cont">
-    <setting
-        :classes="['alpheios-resource-options__item']"
-        :data="languageSetting"
-        :key="languageSetting.name"
-        @change="resourceSettingChanged"
-        v-for="languageSetting in resourceSettingsLexicons"
-    >
-    </setting>
-    <setting
-        :classes="['alpheios-resource-options__item']"
-        :data="languageSetting"
-        :key="languageSetting.name"
-        @change="resourceSettingChanged"
-        v-for="languageSetting in resourceSettingsLexiconsShort"
-    >
-    </setting>
+
+    <fieldset class="alpheios-resource-options__cont-fieldset">
+      <legend>{{ resourceSettingsTitle('lexicons') }}</legend>
+        <setting
+            :classes="['alpheios-resource-options__item']"
+            :data="languageSetting"
+            :key="languageSetting.name"
+            @change="resourceSettingChanged"
+            v-for="languageSetting in resourceSettingsLexicons"
+        >
+        </setting>
+    </fieldset>
+
+    <fieldset class="alpheios-resource-options__cont-fieldset">
+      <legend>{{ resourceSettingsTitle('lexiconsShort') }}</legend>
+      <setting
+          :classes="['alpheios-resource-options__item']"
+          :data="languageSetting"
+          :key="languageSetting.name"
+          @change="resourceSettingChanged"
+          v-for="languageSetting in resourceSettingsLexiconsShort"
+      >
+      </setting>
+    </fieldset>
   </div>
 </template>
 <script>
@@ -34,6 +42,14 @@
     components: {
       setting: Setting,
     },
+    data () {
+      return {
+        titlesDefault: {
+          lexicons: 'Lexicons (full)',
+          lexiconsShort: 'Lexicons (short)'
+        }
+      }
+    },
     computed: {
       resourceSettingsLexicons: function () {
         let resourceOptions = this.settings.getResourceOptions()
@@ -49,6 +65,19 @@
       }
     },
     methods: {
+      resourceSettingsTitle (typeLex) {
+        let resourceOptions = this.settings.getResourceOptions()
+
+        if (resourceOptions.items && resourceOptions.items[typeLex]) {
+          if (resourceOptions.defaults.items[typeLex].labelL10n) {
+            return this.l10n.getText(resourceOptions.defaults.items[typeLex].labelL10n)
+          } else if (resourceOptions.defaults.items[typeLex].labelText) {
+            return resourceOptions.defaults.items[typeLex].labelText
+          }
+        }
+        return this.titlesDefault[typeLex]
+        
+      },
       resourceSettingChanged: function (name, value) {
         // we have to send the full name here and parse it where we set it
         // because grouped setting are referenced under Options object
@@ -71,4 +100,19 @@
     align-items: flex-start;
     flex: 1 1 auto;
   }
+
+  .alpheios-resource-options__cont-fieldset {
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .alpheios-resource-options__item {
+    .alpheios-setting__label {
+      width: 30%;
+    }
+    .alpheios-setting__control {
+      width: 70%;
+    }
+  }
+
 </style>
