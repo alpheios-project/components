@@ -34,7 +34,7 @@
       return {
         settingsArray: [
           {
-            typeLex: 'lexicons',
+            typeLex: 'lexicons', // typeLex property should be uniqie
             titleDefault: 'Lexicons (full)'
           },
           {
