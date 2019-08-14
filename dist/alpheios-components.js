@@ -11628,9 +11628,6 @@ function polyfill(window) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/*** IMPORTS FROM imports-loader ***/
-var alpheiosFFCSFix = (function () { window.requestAnimationFrame=requestAnimationFrame.bind(window); window.cancelAnimationFrame=cancelAnimationFrame.bind(window) })();
-
 /**
  * interact.js 1.5.4
  *
@@ -21518,7 +21515,6 @@ return _$index_29;
 
 
 
-
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/index.js":
@@ -29419,6 +29415,7 @@ __webpack_require__.r(__webpack_exports__);
       scrollPadding: 0,
       // Whether the panel is expanded full width
       expanded: false,
+      prevOrientation: null,
       resized: false,
       showProviders: false
     }
@@ -29473,7 +29470,13 @@ __webpack_require__.r(__webpack_exports__);
 
     isLandscape: function () {
       // Have to use store prop to keep orientation reactive
-      return this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE
+      let isLandscapeCheck = (this.$store.state.panel.orientation === _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE)
+
+      if ((this.prevOrientation !== _lib_utility_platform_js__WEBPACK_IMPORTED_MODULE_1__["default"].orientations.LANDSCAPE) && isLandscapeCheck) {
+        this.expanded = true
+      }
+      this.prevOrientation = this.$store.state.panel.orientation
+      return isLandscapeCheck
     },
 
     isAttachedToLeft: function () {
@@ -30498,10 +30501,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -30518,21 +30517,42 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     setting: _setting_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   },
-  computed: {
-    resourceSettingsLexicons: function () {
-      let resourceOptions = this.settings.getResourceOptions()
-      return resourceOptions.items && resourceOptions.items.lexicons
-        ? resourceOptions.items.lexicons.filter(item => item.values.length > 0)
-        : []
-    },
-    resourceSettingsLexiconsShort: function () {
-      let resourceOptions = this.settings.getResourceOptions()
-      return resourceOptions.items && resourceOptions.items.lexiconsShort
-        ? resourceOptions.items.lexiconsShort.filter(item => item.values.length > 0)
-        : []
+  data () {
+    return {
+      settingsArray: [
+        {
+          typeLex: 'lexicons', // typeLex property should be uniqie
+          titleDefault: 'Lexicons (full)'
+        },
+        {
+          typeLex: 'lexiconsShort',
+          titleDefault: 'Lexicons (short)'
+        }
+      ]
     }
   },
   methods: {
+    resourceSettingsTitle (typeLex) {
+      let resourceOptions = this.settings.getResourceOptions()
+
+      if (resourceOptions.items && resourceOptions.items[typeLex]) {
+        if (resourceOptions.defaults.items[typeLex].labelL10n) {
+          return this.l10n.getText(resourceOptions.defaults.items[typeLex].labelL10n)
+        } else if (resourceOptions.defaults.items[typeLex].labelText) {
+          return resourceOptions.defaults.items[typeLex].labelText
+        }
+      }
+      return this.titleDefault[typeLex]
+      
+    },
+
+    resourceSettingsLexicons (typeLex) {
+      let resourceOptions = this.settings.getResourceOptions()
+      return resourceOptions.items && resourceOptions.items[typeLex]
+        ? resourceOptions.items[typeLex].filter(item => item.values.length > 0)
+        : []
+    },
+
     resourceSettingChanged: function (name, value) {
       // we have to send the full name here and parse it where we set it
       // because grouped setting are referenced under Options object
@@ -30608,6 +30628,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default())
   },
+  inject: {
+    l10n: 'l10n'
+  },
   props: {
     data: {
       type: Object,
@@ -30659,6 +30682,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkboxLabel: function () {
       return (this.data && this.data.textValues) ? this.data.textValues()[0].text : ''
+    },
+    labelText () {
+      if (this.dataModel.labelL10n) {
+        return this.l10n.getText(this.dataModel.labelL10n)
+      }
+      return this.dataModel.labelText
     }
   },
   methods: {
@@ -40227,30 +40256,35 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "alpheios-resource-options__cont" },
-    [
-      _vm._l(_vm.resourceSettingsLexicons, function(languageSetting) {
-        return _c("setting", {
-          key: languageSetting.name,
-          attrs: {
-            classes: ["alpheios-resource-options__item"],
-            data: languageSetting
-          },
-          on: { change: _vm.resourceSettingChanged }
-        })
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.resourceSettingsLexiconsShort, function(languageSetting) {
-        return _c("setting", {
-          key: languageSetting.name,
-          attrs: {
-            classes: ["alpheios-resource-options__item"],
-            data: languageSetting
-          },
-          on: { change: _vm.resourceSettingChanged }
-        })
-      })
-    ],
-    2
+    _vm._l(_vm.settingsArray, function(settingItem) {
+      return _c(
+        "fieldset",
+        {
+          key: settingItem.typelex,
+          staticClass: "alpheios-resource-options__cont-fieldset"
+        },
+        [
+          _c("legend", [
+            _vm._v(_vm._s(_vm.resourceSettingsTitle(settingItem.typeLex)))
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.resourceSettingsLexicons(settingItem.typeLex), function(
+            languageSetting
+          ) {
+            return _c("setting", {
+              key: languageSetting.name,
+              attrs: {
+                classes: ["alpheios-resource-options__item"],
+                data: languageSetting
+              },
+              on: { change: _vm.resourceSettingChanged }
+            })
+          })
+        ],
+        2
+      )
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -40295,7 +40329,7 @@ var render = function() {
               ],
               staticClass: "alpheios-setting__label"
             },
-            [_vm._v(_vm._s(_vm.dataModel.labelText))]
+            [_vm._v(_vm._s(_vm.labelText))]
           ),
           _vm._v(" "),
           _vm.dataModel.multiValue
@@ -52060,7 +52094,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.22\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-components\":\"npm run lint && jest tests/vue --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.3.0\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.6\",\"css-loader\":\"^3.2.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.2.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"imports-loader\":\"^0.8.0\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.2.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.4.1\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.39.1\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.22\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage\",\"test-components\":\"npm run lint && jest tests/vue --coverage\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.3.0\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.18.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.6\",\"css-loader\":\"^3.2.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.1.0\",\"eslint-config-standard\":\"^12.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.0\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.0\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^4.0.3\",\"espree\":\"^6.0.0\",\"file-loader\":\"^4.2.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.8.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.7.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.2.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.4.1\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^0.23.1\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.39.1\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -59813,6 +59847,17 @@ module.exports = JSON.parse("{\"Number\":{\"message\":\"Number\"},\"Case\":{\"me
 
 /***/ }),
 
+/***/ "./locales/en-us/messages-resource-options.json":
+/*!******************************************************!*\
+  !*** ./locales/en-us/messages-resource-options.json ***!
+  \******************************************************/
+/*! exports provided: LEXICONS_FULL_TITLE, LEXICONS_FULL_GREEK_TITLE, LEXICONS_FULL_LATIN_TITLE, LEXICONS_FULL_ARABIC_TITLE, LEXICONS_FULL_PERSIAN_TITLE, LEXICONS_SHORT_TITLE, LEXICONS_SHORT_GREEK_TITLE, LEXICONS_SHORT_PERSIAN_TITLE, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"LEXICONS_FULL_TITLE\":{\"message\":\"Lexicons (Full Definitions)\",\"description\":\"The label of the fieldset for full definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_FULL_GREEK_TITLE\":{\"message\":\"Greek\",\"description\":\"The label of the setting for greek full definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_FULL_LATIN_TITLE\":{\"message\":\"Latin\",\"description\":\"The label of the setting for latin full definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_FULL_ARABIC_TITLE\":{\"message\":\"Arabic\",\"description\":\"The label of the setting for arabic full definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_FULL_PERSIAN_TITLE\":{\"message\":\"Persian\",\"description\":\"The label of the setting for persian full definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_SHORT_TITLE\":{\"message\":\"Lexicons (Short Definitions)\",\"description\":\"The label of thr fieldset for short definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_SHORT_GREEK_TITLE\":{\"message\":\"Greek\",\"description\":\"The label of the setting for greek sort definitions on resource settings tab\",\"component\":\"Settings Tab\"},\"LEXICONS_SHORT_PERSIAN_TITLE\":{\"message\":\"Persian\",\"description\":\"The label of the setting for persian short definitions on resource settings tab\",\"component\":\"Settings Tab\"}}");
+
+/***/ }),
+
 /***/ "./locales/en-us/messages-word-list.json":
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-word-list.json ***!
@@ -59865,9 +59910,12 @@ var _en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*
 var _en_us_messages_word_list_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./en-us/messages-word-list.json */ "./locales/en-us/messages-word-list.json", 1);
 /* harmony import */ var _en_us_messages_word_usage_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-us/messages-word-usage.json */ "./locales/en-us/messages-word-usage.json");
 var _en_us_messages_word_usage_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./en-us/messages-word-usage.json */ "./locales/en-us/messages-word-usage.json", 1);
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
-var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
-/* harmony import */ var _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/l10n/message-bundle.js */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _en_us_messages_resource_options_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./en-us/messages-resource-options.json */ "./locales/en-us/messages-resource-options.json");
+var _en_us_messages_resource_options_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./en-us/messages-resource-options.json */ "./locales/en-us/messages-resource-options.json", 1);
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json", 1);
+/* harmony import */ var _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/l10n/message-bundle.js */ "./lib/l10n/message-bundle.js");
+
 
 
 
@@ -59879,8 +59927,8 @@ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/_
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__, _en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_1__, _en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_2__, _en_us_messages_word_list_json__WEBPACK_IMPORTED_MODULE_3__, _en_us_messages_word_usage_json__WEBPACK_IMPORTED_MODULE_4__],
-  [localeEnGb]: [_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5__]
+  [localeEnUs]: [_en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__, _en_us_messages_data_json__WEBPACK_IMPORTED_MODULE_1__, _en_us_messages_inflections_json__WEBPACK_IMPORTED_MODULE_2__, _en_us_messages_word_list_json__WEBPACK_IMPORTED_MODULE_3__, _en_us_messages_word_usage_json__WEBPACK_IMPORTED_MODULE_4__, _en_us_messages_resource_options_json__WEBPACK_IMPORTED_MODULE_5__],
+  [localeEnGb]: [_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6__]
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -59894,7 +59942,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_6__["default"](messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_7__["default"](messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -59904,7 +59952,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_6__["default"](...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_7__["default"](...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -59913,7 +59961,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = []
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_6__["default"](m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_7__["default"](m, locale)))
     }
     return msgArray
   }
@@ -60110,7 +60158,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-feature-options\",\"version\
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"Lexicons (Full Definitions)\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek Lexicons\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin Lexicons\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic Lexicons\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian Lexicons\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"Lexicons (Short Definitions)\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek Lexicons (short)\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian Lexicons (short)\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"Lexicons (Full Definitions)\",\"labelL10n\":\"LEXICONS_FULL_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_FULL_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin\",\"labelL10n\":\"LEXICONS_FULL_LATIN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic\",\"labelL10n\":\"LEXICONS_FULL_ARABIC_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_FULL_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"Lexicons (Short Definitions)\",\"labelL10n\":\"LEXICONS_SHORT_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_SHORT_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_SHORT_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
 
 /***/ }),
 

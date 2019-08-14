@@ -52,7 +52,6 @@ const injectionClasses = {
   DISABLE_TEXT_SELECTION: 'alpheios-disable-user-selection'
 }
 
-
 // Enable Vuex
 Vue.use(Vuex)
 
