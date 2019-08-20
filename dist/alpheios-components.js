@@ -27742,8 +27742,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     lexemes () {
-      // A call to `defDataReady` will force this computed prop to recalculate every time definitions data is updated
-      let defs = this.$store.getters['app/defDataReady']
+      // A call to `shortDefDataReady` will force this computed prop to recalculate every time definitions data is updated
+      let defs = this.$store.getters['app/shortDefDataReady']
       return this.$store.state.app.morphDataReady ? this.app.getHomonymLexemes() : []
     },
 
@@ -29430,6 +29430,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /*
   This is a mobile version of a panel
@@ -29637,8 +29640,8 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     formattedShortDefinitions () {
-      let definitions = []
-      if (this.$store.getters['app/defDataReady'] && this.$store.state.app.homonymDataReady) {
+      let definitions = [] // eslint-disable-line prefer-const
+      if (this.$store.getters['app/shortDefDataReady'] && this.$store.state.app.homonymDataReady) {
         for (const lexeme of this.app.getHomonymLexemes()) {
           if (lexeme.meaning.shortDefs.length > 0) {
             definitions.push(...lexeme.meaning.shortDefs)
@@ -29652,7 +29655,7 @@ __webpack_require__.r(__webpack_exports__);
 
     formattedFullDefinitions () {
       let content = ''
-      if (this.$store.getters['app/defDataReady'] && this.$store.state.app.homonymDataReady) {
+      if (this.$store.getters['app/fullDefDataReady'] && this.$store.state.app.homonymDataReady) {
         for (const lexeme of this.app.getHomonymLexemes()) {
           content += `<h3>${lexeme.lemma.word}</h3>\n`
           for (const fullDef of lexeme.meaning.fullDefs) {
@@ -37187,8 +37190,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.$store.getters["app/defDataReady"],
-              expression: "$store.getters['app/defDataReady']"
+              value: _vm.$store.getters["app/fullDefDataReady"],
+              expression: "$store.getters['app/fullDefDataReady']"
             }
           ],
           attrs: {
@@ -37322,8 +37325,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.$store.getters["app/defDataReady"],
-              expression: "$store.getters['app/defDataReady']"
+              value: _vm.$store.getters["app/fullDefDataReady"],
+              expression: "$store.getters['app/fullDefDataReady']"
             }
           ],
           attrs: {
@@ -38633,10 +38636,10 @@ var render = function() {
                       name: "show",
                       rawName: "v-show",
                       value:
-                        _vm.$store.getters["app/defDataReady"] &&
+                        _vm.$store.getters["app/fullDefDataReady"] &&
                         _vm.showMainTabIcons,
                       expression:
-                        "$store.getters['app/defDataReady'] && showMainTabIcons"
+                        "$store.getters['app/fullDefDataReady'] && showMainTabIcons"
                     }
                   ],
                   staticClass: "alpheios-panel__header-btn",
@@ -39207,39 +39210,41 @@ var render = function() {
             attrs: { "data-alpheios-ignore": "all" }
           },
           [
-            _vm.$store.getters["app/defDataReady"]
+            _vm.$store.getters["app/shortDefDataReady"]
               ? _c(
                   "div",
-                  [
-                    _vm._l(_vm.formattedShortDefinitions, function(definition) {
-                      return _c(
-                        "div",
-                        {
-                          key: definition.ID,
-                          staticClass: "alpheios-panel__contentitem"
-                        },
-                        [
-                          _c("shortdef", {
-                            attrs: {
-                              definition: definition,
-                              languageCode: _vm.$store.state.app.languageCode
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass:
-                        "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
-                      domProps: {
-                        innerHTML: _vm._s(_vm.formattedFullDefinitions)
-                      }
-                    })
-                  ],
-                  2
+                  _vm._l(_vm.formattedShortDefinitions, function(definition) {
+                    return _c(
+                      "div",
+                      {
+                        key: definition.ID,
+                        staticClass: "alpheios-panel__contentitem"
+                      },
+                      [
+                        _c("shortdef", {
+                          attrs: {
+                            definition: definition,
+                            languageCode: _vm.$store.state.app.languageCode
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  0
                 )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$store.getters["app/fullDefDataReady"]
+              ? _c("div", [
+                  _c("div", {
+                    staticClass:
+                      "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
+                    domProps: {
+                      innerHTML: _vm._s(_vm.formattedFullDefinitions)
+                    }
+                  })
+                ])
               : _c("div", [
                   _vm._v(
                     "\n        " +
@@ -39587,46 +39592,42 @@ var render = function() {
             attrs: { "data-alpheios-ignore": "all" }
           },
           [
-            _vm.$store.getters["app/defDataReady"]
+            _vm.$store.getters["app/shortDefDataReady"]
               ? _c(
                   "div",
-                  [
-                    _vm._l(_vm.formattedShortDefinitions, function(definition) {
-                      return _c(
-                        "div",
-                        {
-                          key: definition.ID,
-                          staticClass: "alpheios-panel__contentitem"
-                        },
-                        [
-                          _c("shortdef", {
-                            attrs: {
-                              definition: definition,
-                              languageCode: _vm.$store.state.app.languageCode
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass:
-                        "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
-                      domProps: {
-                        innerHTML: _vm._s(_vm.formattedFullDefinitions)
-                      }
-                    })
-                  ],
-                  2
+                  _vm._l(_vm.formattedShortDefinitions, function(definition) {
+                    return _c(
+                      "div",
+                      {
+                        key: definition.ID,
+                        staticClass: "alpheios-panel__contentitem"
+                      },
+                      [
+                        _c("shortdef", {
+                          attrs: {
+                            definition: definition,
+                            languageCode: _vm.$store.state.app.languageCode
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  0
                 )
-              : _c("div", [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(_vm.l10n.getText("PLACEHOLDER_DEFINITIONS")) +
-                      "\n      "
-                  )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$store.getters["app/fullDefDataReady"]
+              ? _c("div", [
+                  _c("div", {
+                    staticClass:
+                      "alpheios-panel__contentitem alpheios-panel__contentitem-full-definitions",
+                    domProps: {
+                      innerHTML: _vm._s(_vm.formattedFullDefinitions)
+                    }
+                  })
                 ])
+              : _vm._e()
           ]
         ),
         _vm._v(" "),
@@ -39937,8 +39938,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.$store.getters["app/defDataReady"],
-                    expression: "$store.getters['app/defDataReady']"
+                    value: _vm.$store.getters["app/fullDefDataReady"],
+                    expression: "$store.getters['app/fullDefDataReady']"
                   }
                 ],
                 attrs: {
@@ -52223,7 +52224,7 @@ module.exports = g;
 /*! exports provided: name, version, description, main, module, scripts, repository, author, license, bugs, homepage, devDependencies, peerDependencies, engines, jest, eslintConfig, eslintIgnore, dependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.25\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage\",\"test-components\":\"npm run lint && jest tests/vue --coverage\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.3.0\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.19.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.6\",\"css-loader\":\"^3.2.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.2.0\",\"eslint-config-standard\":\"^13.0.1\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.3\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.1\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^5.0.0\",\"espree\":\"^6.1.0\",\"file-loader\":\"^4.2.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"imports-loader\":\"^0.8.0\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.9.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.8.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.2.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.4.1\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^1.0.0\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.39.2\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
+module.exports = JSON.parse("{\"name\":\"alpheios-components\",\"version\":\"1.2.27\",\"description\":\"Alpheios Components\",\"main\":\"dist/alpheios-components.min.js\",\"module\":\"src/plugin.js\",\"scripts\":{\"test\":\"npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"test-lib\":\"npm run lint && jest tests/lib --coverage\",\"test-components\":\"npm run lint && jest tests/vue --coverage\",\"test-c\":\"npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-a\":\"npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\"test-s\":\"npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"build\":\"npm run build-safari && npm run build-regular\",\"build-regular\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue config.mjs\",\"build-safari\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack all vue-postcss config-safari.mjs\",\"build-prod\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs\",\"build-dev\":\"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs\",\"code-analysis-prod\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack production vue config.mjs --code-analysis\",\"code-analysis-dev\":\"node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs webpack development vue config.mjs --code-analysis\",\"lint\":\"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js\",\"lint-jsdoc\":\"eslint --no-eslintrc -c eslint-jsdoc-conf.json src/**/*.js\",\"lint-vue\":\"eslint --no-eslintrc --fix-dry-run -c eslint-vue-conf.json src/**/*.vue\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/alpheios-project/components.git\"},\"author\":\"The Alpheios Project, Ltd.\",\"license\":\"ISC\",\"bugs\":{\"url\":\"https://github.com/alpheios-project/components/issues\"},\"homepage\":\"https://github.com/alpheios-project/components#readme\",\"devDependencies\":{\"@babel/core\":\"^7.5.5\",\"@babel/plugin-proposal-object-rest-spread\":\"^7.5.5\",\"@babel/plugin-transform-runtime\":\"^7.5.5\",\"@babel/runtime\":\"^7.5.5\",\"@vue/test-utils\":\"^1.0.0-beta.29\",\"acorn\":\"^6.3.0\",\"alpheios-client-adapters\":\"github:alpheios-project/client-adapters\",\"alpheios-data-models\":\"github:alpheios-project/data-models\",\"alpheios-experience\":\"github:alpheios-project/experience\",\"alpheios-inflection-tables\":\"github:alpheios-project/inflection-tables\",\"alpheios-node-build\":\"github:alpheios-project/node-build\",\"alpheios-res-client\":\"github:alpheios-project/res-client\",\"alpheios-wordlist\":\"github:alpheios-project/wordlist\",\"autoprefixer\":\"^9.6.1\",\"axios\":\"^0.19.0\",\"babel-core\":\"^7.0.0-bridge.0\",\"babel-eslint\":\"^10.0.2\",\"bytes\":\"^3.1.0\",\"chalk\":\"^2.4.2\",\"coveralls\":\"^3.0.6\",\"css-loader\":\"^3.2.0\",\"dom-anchor-text-quote\":\"*\",\"element-closest\":\"^3.0.1\",\"eslint\":\"^6.2.0\",\"eslint-config-standard\":\"^13.0.1\",\"eslint-plugin-import\":\"^2.18.2\",\"eslint-plugin-jsdoc\":\"^15.8.3\",\"eslint-plugin-node\":\"^9.1.0\",\"eslint-plugin-promise\":\"^4.2.1\",\"eslint-plugin-standard\":\"^4.0.1\",\"eslint-plugin-vue\":\"^5.2.3\",\"eslint-scope\":\"^5.0.0\",\"espree\":\"^6.1.0\",\"file-loader\":\"^4.2.0\",\"flush-promises\":\"^1.0.2\",\"html-loader\":\"^0.5.5\",\"html-loader-jest\":\"^0.2.1\",\"imports-loader\":\"^0.8.0\",\"interactjs\":\"^1.5.4\",\"intl-messageformat\":\"^2.2.0\",\"jest\":\"^24.9.0\",\"jump.js\":\"^1.0.2\",\"mini-css-extract-plugin\":\"^0.8.0\",\"postcss-import\":\"^12.0.1\",\"postcss-loader\":\"^3.0.0\",\"postcss-safe-important\":\"^1.1.0\",\"postcss-scss\":\"^2.0.0\",\"raw-loader\":\"^3.1.0\",\"sass-loader\":\"^7.2.0\",\"shelljs\":\"^0.8.3\",\"sinon\":\"^7.4.1\",\"source-map-loader\":\"^0.2.4\",\"style-loader\":\"^1.0.0\",\"vue\":\"^2.6.10\",\"vue-eslint-parser\":\"^6.0.4\",\"vue-jest\":\"^3.0.4\",\"vue-loader\":\"^15.7.1\",\"vue-multiselect\":\"^2.1.6\",\"vue-style-loader\":\"^4.1.2\",\"vue-svg-loader\":\"^0.12.0\",\"vue-template-compiler\":\"^2.6.10\",\"vue-template-loader\":\"^1.0.0\",\"vuex\":\"^3.1.1\",\"webpack\":\"^4.39.2\",\"whatwg-fetch\":\"^3.0.0\",\"wrap-range-text\":\"^1.0.1\"},\"peerDependencies\":{},\"engines\":{\"node\":\">= 12.3.0\",\"npm\":\">= 6.9.0\"},\"jest\":{\"verbose\":true,\"testPathIgnorePatterns\":[\"<rootDir>/node_modules/\"],\"transform\":{\"^.+\\\\.htmlf$\":\"html-loader-jest\",\"^.+\\\\.jsx?$\":\"babel-jest\",\".*\\\\.(vue)$\":\"vue-jest\",\".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\":\"<rootDir>/fileTransform.js\"},\"transformIgnorePatterns\":[\"!node_modules/alpheios-data-models/\"],\"moduleNameMapper\":{\"^@vue-runtime$\":\"vue/dist/vue.runtime.common.js\",\"^@[/](.+)\":\"<rootDir>/src/$1\",\"alpheios-morph-client\":\"<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js\",\"alpheios-inflection-tables\":\"<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js\"},\"moduleFileExtensions\":[\"js\",\"json\",\"vue\"]},\"eslintConfig\":{\"extends\":[\"standard\",\"plugin:jsdoc/recommended\",\"plugin:vue/essential\"],\"env\":{\"browser\":true,\"node\":true},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2019,\"sourceType\":\"module\",\"allowImportExportEverywhere\":true}},\"eslintIgnore\":[\"**/dist\",\"**/support\"],\"dependencies\":{}}");
 
 /***/ }),
 
@@ -53814,8 +53815,10 @@ class UIController {
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.HOMONYM_READY.sub(uiController.onHomonymReady.bind(uiController))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.LEMMA_TRANSL_READY.sub(uiController.updateTranslations.bind(uiController))
     _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.WORD_USAGE_EXAMPLES_READY.sub(uiController.updateWordUsageExamples.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.DEFS_READY.sub(uiController.onDefinitionsReady.bind(uiController))
-    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.SHORT_DEFS_READY.sub(uiController.onShortDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.FULL_DEFS_READY.sub(uiController.onFullDefinitionsReady.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.SHORT_DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
+    _lib_queries_lexical_query_js__WEBPACK_IMPORTED_MODULE_12__["default"].evt.FULL_DEFS_NOT_FOUND.sub(uiController.onDefinitionsNotFound.bind(uiController))
 
     // Subscribe to ResourceQuery events
     _lib_queries_resource_query_js__WEBPACK_IMPORTED_MODULE_14__["default"].evt.RESOURCE_QUERY_COMPLETE.sub(uiController.onResourceQueryComplete.bind(uiController))
@@ -54142,7 +54145,8 @@ class UIController {
         homonymDataReady: false,
         wordUsageExampleEnabled: false,
         linkedFeatures: [], // An array of linked features, updated with every new homonym value is written to the store
-        defUpdateTime: 0, // A time of the last update of defintions, in ms. Needed to track changes in definitions.
+        shortDefUpdateTime: 0, // A time of the last update of short definitions, in ms. Needed to track changes in definitions.
+        fullDefUpdateTime: 0, // A time of the last update of full definitions, in ms. Needed to track changes in definitions.
         lexicalRequest: {
           source: null, // the source of the request
           startTime: 0, // A time when the last lexical request is started, in ms
@@ -54167,17 +54171,28 @@ class UIController {
 
       getters: {
         /*
+        Returns true if short definitions are available.
         This getter can serve as an indicator of a new definition data arrival.
         If used within a computed prop, it will force the prop to recalculate every time definitions are updated.
          */
-        defDataReady (state) {
-          return state.defUpdateTime > 0
+        shortDefDataReady (state) {
+          return state.shortDefUpdateTime > 0
+        },
+
+        /*
+        Returns true if full definitions are available.
+        This getter can serve as an indicator of a new definition data arrival.
+        If used within a computed prop, it will force the prop to recalculate every time definitions are updated.
+         */
+        fullDefDataReady (state) {
+          return state.fullDefUpdateTime > 0
         },
 
         /**
          * Identifies wither grammar resource(s) are available for the current state.
-         * @param state - A local state.
-         * @return {boolean} True if grammar resource(s) are available, false otherwise.
+         *
+         * @param {object} state - A local state.
+         * @returns {boolean} True if grammar resource(s) are available, false otherwise.
          */
         hasGrammarRes (state) {
           return state.grammarRes !== null
@@ -54234,7 +54249,8 @@ class UIController {
           state.linkedFeatures = []
           state.homonymDataReady = false
           state.wordUsageExampleEnabled = false
-          state.defUpdateTime = 0
+          state.shortDefUpdateTime = 0 // When short definitions were last updated
+          state.fullDefUpdateTime = 0 // When full definitions were last updated
           state.morphDataReady = false
           state.translationsDataReady = false
           state.providers = []
@@ -54321,15 +54337,19 @@ class UIController {
         },
 
         /**
-         * @param {Object} state - State object of the store
+         * @param {object} state - State object of the store
          * @param {ResourceProvider[]} providers - An array of resource provider objects
          */
         setProviders (state, providers) {
           state.providers = providers
         },
 
-        defsUpdated (state) {
-          state.defUpdateTime = Date.now()
+        shortDefsUpdated (state) {
+          state.shortDefUpdateTime = Date.now()
+        },
+
+        fullDefsUpdated (state) {
+          state.fullDefUpdateTime = Date.now()
         },
 
         setMorphDataReady (state, value = true) {
@@ -54744,7 +54764,7 @@ class UIController {
      * The key is a tab name, and a value is the function that returns true if the tab is available.
      */
     const tabsCheck = {
-      definitions: () => this.store.getters['app/defDataReady'],
+      definitions: () => this.store.getters['app/fullDefDataReady'],
       inflections: () => this.store.state.app.hasInflData,
       grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
@@ -54759,6 +54779,7 @@ class UIController {
    * Switched between tabs in a panel.
    * All tab switching should be done through this function only as it performs safety check
    * regarding wither or not current tab can be available.
+   *
    * @param {string} tabName - A name of a tab to switch to.
    * @return {UIController} - An instance of a UI controller, for chaining.
    */
@@ -54798,6 +54819,7 @@ class UIController {
 
   /**
    * Reverses the current visibility state of a panel and switches it to the tab specified.
+   *
    * @param {string} tabName - A name of a tab to switch to.
    * @return {UIController} - A UI controller's instance reference, for chaining.
    */
@@ -54831,11 +54853,12 @@ class UIController {
   }
 
   /**
-   * Start a new lexical request
-   * @param {String} targetWord - the word to query
-   * @param {String} languageID - the language identifier for the query
-   * @param {Object} data - extra annotation data attributes from the selection, if any
-   * @param {String} source - source of the request. Possible values: 'page', 'lookup', or 'wordlist'
+   * Start a new lexical request.
+   *
+   * @param {string} targetWord - the word to query
+   * @param {string} languageID - the language identifier for the query
+   * @param {object} data - extra annotation data attributes from the selection, if any
+   * @param {string} source - source of the request. Possible values: 'page', 'lookup', or 'wordlist'
    *                          default is 'page'
    */
   newLexicalRequest (targetWord, languageID, data = null, source = 'page') {
@@ -54894,11 +54917,6 @@ class UIController {
     if (urls.length > 0) {
       this.store.commit('app/setGrammarRes', urls[0])
     }
-  }
-
-  updateDefinitions (homonym) {
-    this.updateProviders(homonym)
-    this.store.commit('app/defsUpdated')
   }
 
   updateTranslations (homonym) {
@@ -55261,8 +55279,11 @@ class UIController {
     }
     this.store.commit('app/setInflData', inflDataReady)
 
-    this.updateProviders(homonym)
-    this.updateDefinitions(homonym)
+    // The homonym can already has short defs data
+    if (homonym.hasShortDefs) {
+      this.updateProviders(homonym)
+      this.store.commit('app/shortDefsUpdated')
+    }
   }
 
   onWordListUpdated (wordList) {
@@ -55276,9 +55297,16 @@ class UIController {
     this.updateTranslations(homonym)
   }
 
-  onDefinitionsReady (data) {
+  onShortDefinitionsReady (data) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_DEFSDATA_READY', { requestType: data.requestType, lemma: data.word }))
-    this.updateDefinitions(data.homonym)
+    this.updateProviders(data.homonym)
+    this.store.commit('app/shortDefsUpdated')
+  }
+
+  onFullDefinitionsReady (data) {
+    this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_DEFSDATA_READY', { requestType: data.requestType, lemma: data.word }))
+    this.updateProviders(data.homonym)
+    this.store.commit('app/fullDefsUpdated')
   }
 
   onDefinitionsNotFound (data) {
@@ -55324,7 +55352,11 @@ class UIController {
     if (homonym && homonym.lexemes && homonym.lexemes.length > 0 && homonym.lexemes.filter(l => l.isPopulated()).length === homonym.lexemes.length) {
       // if we were able to retrieve full homonym data then we can just display it
       this.onHomonymReady(homonym)
-      this.updateDefinitions(homonym)
+      this.updateProviders(homonym)
+      // We already have both short and full definitions so we can update the status of both
+      this.store.commit('app/shortDefsUpdated')
+      this.store.commit('app/fullDefsUpdated')
+      // this.updateDefinitions(homonym)
       this.updateTranslations(homonym)
       this.store.commit('app/lexicalRequestFinished')
     } else {
@@ -57893,8 +57925,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       params: {
         opts: lexiconShortOpts,
         homonym: this.homonym,
-        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
-        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
+        callBackEvtSuccess: LexicalQuery.evt.SHORT_DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.SHORT_DEFS_NOT_FOUND
       }
     })
 
@@ -57908,8 +57940,8 @@ class LexicalQuery extends _query_js__WEBPACK_IMPORTED_MODULE_1__["default"] {
       params: {
         opts: lexiconFullOpts,
         homonym: this.homonym,
-        callBackEvtSuccess: LexicalQuery.evt.DEFS_READY,
-        callBackEvtFailed: LexicalQuery.evt.DEFS_NOT_FOUND
+        callBackEvtSuccess: LexicalQuery.evt.FULL_DEFS_READY,
+        callBackEvtFailed: LexicalQuery.evt.FULL_DEFS_NOT_FOUND
       }
     })
 
@@ -58015,23 +58047,42 @@ LexicalQuery.evt = {
   LEMMA_TRANSL_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Lemma Translations Ready`, LexicalQuery),
 
   /**
-   * Published when definitions data becomes available.
+   * Published when short definitions data becomes available.
    * Data: {
    *   requestType: definitionRequest.type,
    *   word: definitionRequest.lexeme.lemma.word,
    *   homonym: this.homonym
    * }
    */
-  DEFS_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Definitions Data Ready`, LexicalQuery),
+  SHORT_DEFS_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Short Definitions Data is Ready`, LexicalQuery),
 
   /**
-   * Published when definitions data has been not found.
+   * Published when full definitions data becomes available.
+   * Data: {
+   *   requestType: definitionRequest.type,
+   *   word: definitionRequest.lexeme.lemma.word,
+   *   homonym: this.homonym
+   * }
+   */
+  FULL_DEFS_READY: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Full Definitions Data is Ready`, LexicalQuery),
+
+  /**
+   * Published when short definitions data has been not found.
    * Data: {
    *   requestType: definitionRequest.type,
    *   word: definitionRequest.lexeme.lemma.word
    * }
    */
-  DEFS_NOT_FOUND: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Definitions Data Not Found`, LexicalQuery),
+  SHORT_DEFS_NOT_FOUND: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Short Definitions Data is Not Found`, LexicalQuery),
+
+  /**
+   * Published when full definitions data has been not found.
+   * Data: {
+   *   requestType: definitionRequest.type,
+   *   word: definitionRequest.lexeme.lemma.word
+   * }
+   */
+  FULL_DEFS_NOT_FOUND: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__["PsEvent"](`Full Definitions Data is Not Found`, LexicalQuery),
 
   /**
    * Published when Lexical Query is created and TextQuoteSelector is passed inside TextSelector.
@@ -60400,7 +60451,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-feature-options\",\"version\
 /*! exports provided: domain, version, items, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"Lexicons (Full Definitions)\",\"labelL10n\":\"LEXICONS_FULL_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_FULL_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin\",\"labelL10n\":\"LEXICONS_FULL_LATIN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic\",\"labelL10n\":\"LEXICONS_FULL_ARABIC_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_FULL_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"Lexicons (Short Definitions)\",\"labelL10n\":\"LEXICONS_SHORT_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_SHORT_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_SHORT_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-resource-options\",\"version\":2,\"items\":{\"lexicons\":{\"labelText\":\"Lexicons (Full Definitions)\",\"labelL10n\":\"LEXICONS_FULL_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_FULL_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"lat\":{\"defaultValue\":[\"https://github.com/alpheios-project/ls\"],\"labelText\":\"Latin\",\"labelL10n\":\"LEXICONS_FULL_LATIN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ls\",\"text\":\"Lewis & Short\"}]},\"ara\":{\"defaultValue\":[\"https://github.com/alpheios-project/lan\"],\"labelText\":\"Arabic\",\"labelL10n\":\"LEXICONS_FULL_ARABIC_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/lan\",\"text\":\"Lane\"},{\"value\":\"https://github.com/alpheios-project/sal\",\"text\":\"Salmone\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_FULL_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"lexiconsShort\":{\"labelText\":\"Lexicons (Short Definitions)\",\"labelL10n\":\"LEXICONS_SHORT_TITLE\",\"group\":{\"grc\":{\"defaultValue\":[\"https://github.com/alpheios-project/lsj\"],\"labelText\":\"Greek\",\"labelL10n\":\"LEXICONS_SHORT_GREEK_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/ml\",\"text\":\"Middle Liddell\"},{\"value\":\"https://github.com/alpheios-project/lsj\",\"text\":\"Liddell, Scott, Jones\"},{\"value\":\"https://github.com/alpheios-project/aut\",\"text\":\"Autenrieth Homeric Lexicon\"},{\"value\":\"https://github.com/alpheios-project/dod\",\"text\":\"Dodson\"},{\"value\":\"https://github.com/alpheios-project/as\",\"text\":\"Abbott-Smith\"}]},\"per\":{\"defaultValue\":[\"https://github.com/alpheios-project/stg\"],\"labelText\":\"Persian\",\"labelL10n\":\"LEXICONS_SHORT_PERSIAN_TITLE\",\"multiValue\":true,\"values\":[{\"value\":\"https://github.com/alpheios-project/stg\",\"text\":\"Steingass\"}]}}},\"treebanks\":{\"labelText\":\"Latin Treebanks\",\"defaultValue\":[],\"multiValue\":true,\"values\":[]}}}");
 
 /***/ }),
 
