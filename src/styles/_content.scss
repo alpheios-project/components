@@ -94,8 +94,11 @@
     margin: 0;
   }
 
-  select {
+  select,
+  input,
+  button {
     text-transform: none;
+    line-height: 1.15;
   }
 
   textarea {
