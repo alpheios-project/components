@@ -573,6 +573,12 @@ html {
 .alpheios-content button {
   text-transform: none !important;
   line-height: 1.15 !important;
+  font-size: var(--alpheios-base-text-size) !important;
+}
+.alpheios-content button {
+  border: 0 !important;
+  font-family: var(--alpheios-sans-font-face) !important;
+  border-radius: 0 !important;
 }
 .alpheios-content textarea {
   overflow: auto !important;
