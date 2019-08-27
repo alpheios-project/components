@@ -4,8 +4,7 @@
 
       <div v-show="showHeader && !collapsedHeader">
         <div class="alpheios-word-usage-filters-select" v-if="authorsList">
-          <p class="alpheios-word-usage-filter-title"
-            v-html="l10n.getText('WORDUSAGE_FOCUS_AUTHOR',{ maxResults:settings.getFeatureOptions().items.wordUsageExamplesMax.currentValue })"></p>
+          <p class="alpheios-word-usage-filter-title" v-html="calcFocusHint('author')"></p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select"
                     v-model="selectedAuthor"
                     @change = "getResults('author')"
@@ -18,8 +17,7 @@
           </select>
         </div>
         <div class="alpheios-word-usage-filters-select" v-if="filteredWorkList">
-          <p class="alpheios-word-usage-filter-title"
-            v-html="l10n.getText('WORDUSAGE_FOCUS_WORK',{ maxResults:settings.getFeatureOptions().items.wordUsageExamplesMax.currentValue })"></p>
+          <p class="alpheios-word-usage-filter-title" v-html="calcFocusHint('work')"></p>
           <select class="alpheios-select alpheios-word-usage-header-filter-select"
                     v-model="selectedTextWork"
                     @change = "getResults('textWork')"
@@ -170,6 +168,14 @@ export default {
         }
       }
       return ''
+    },
+    calcFocusHint (type) {
+      // it would be better for this to be a computed property but settings.getFeatureOptions() is not reactive
+      if (type === 'author') {
+        return l10n.getText('WORDUSAGE_FOCUS_AUTHOR',{ maxResults:settings.getFeatureOptions().items.wordUsageExamplesMax.currentValue })
+      } else {
+        return l10n.getText('WORDUSAGE_FOCUS_WORK',{ maxResults:settings.getFeatureOptions().items.wordUsageExamplesMax.currentValue })
+      }
     },
     applySort (typeSort, items) {
       return items.sort((a,b) => {
