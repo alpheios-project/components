@@ -68,6 +68,8 @@ function bind (el, binding, vnode) {
     }
 
     const path = ev.path || (ev.composedPath ? ev.composedPath() : undefined)
+    console.info(`Target is:`, ev.target)
+    console.info(`Path is:`, path)
 
     // checkStep1 checks if a click was not inside the component with v-on-clickaway event
     const checkStep1 = initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))
@@ -81,7 +83,10 @@ function bind (el, binding, vnode) {
     // checkStep3 checks if a click was not inside the overlay nav
     const checkStep4 = path ? path.indexOf(overlayNav) < 0 : true
 
+    console.info(`Checksteps are ${checkStep1}, ${checkStep2}, ${checkStep3}, ${checkStep4}`)
+
     if (checkStep1 && checkStep2 && checkStep3 && checkStep4) {
+      console.info(`Callback invocation`)
       return callback.call(vm, ev)
     }
   }

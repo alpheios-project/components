@@ -158,7 +158,6 @@ export default {
     onClickaway: onClickaway
   },
   // Custom props to store unwatch functions
-  visibleUnwatch: null,
   lexrqStartedUnwatch: null,
   logger: Logger.getInstance(),
 
@@ -367,6 +366,7 @@ export default {
       if ((rect.y + rect.height) > this.app.platform.viewport.height) {
         yAdjustment = -(rect.y + rect.height - this.app.platform.viewport.height)
       }
+      console.info(`IsWithinBounds: ${xAdjustment === 0 && yAdjustment === 0}, adj [${xAdjustment}, ${yAdjustment}], rect [${rect.x}, ${rect.y}], vp [${this.app.platform.viewport.width}, ${this.app.platform.viewport.height}]`)
       return {
         withinBounds: xAdjustment === 0 && yAdjustment === 0,
         adjX: xAdjustment,
@@ -423,6 +423,7 @@ export default {
       if (!boundsCheck.withinBounds) {
         this.shift.x += boundsCheck.adjX
         this.shift.y += boundsCheck.adjY
+        console.info(`Adjusting popup shift to [${this.shift.x}, ${this.shift.y}]`)
       }
 
       const uiOptions = this.settings.getUiOptions()
@@ -483,8 +484,16 @@ export default {
       this.resizedHeight = null
     },
 
-    attachTrackingClick: function () {
-      this.ui.closePopup()
+    attachTrackingClick: function (event) {
+      console.info(`attachTrackingClick()`)
+      console.info(`event coordinates are [${event.clientX}, ${event.clientY}]`)
+      console.info(`Viewport is [${this.app.platform.viewport.width}, ${this.app.platform.viewport.height}]`)
+      if (event.clientX >= 0 && event.clientX <= this.app.platform.viewport.width && event.clientY >= 0 && event.clientY <= this.app.platform.viewport.height) {
+        console.info(`Click is within the viewport, closing the popup`)
+        this.ui.closePopup()
+      } else {
+        console.info(`Click is outside the viewport, ignoring`)
+      }
     }
   },
 
@@ -514,7 +523,6 @@ export default {
 
   beforeDestroy () {
     // Teardown the watch function
-    // this.$options.visibleUnwatch()
     this.$options.lexrqStartedUnwatch()
   },
 
