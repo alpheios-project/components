@@ -1404,7 +1404,6 @@ export default class UIController {
   }
 
   closePopup () {
-    console.info(`Closing a popup in a UI controller`)
     if (this.api.ui.hasModule('popup')) {
       this.store.commit('popup/close')
     }

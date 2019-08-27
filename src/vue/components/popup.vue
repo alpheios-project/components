@@ -366,7 +366,6 @@ export default {
       if ((rect.y + rect.height) > this.app.platform.viewport.height) {
         yAdjustment = -(rect.y + rect.height - this.app.platform.viewport.height)
       }
-      console.info(`IsWithinBounds: ${xAdjustment === 0 && yAdjustment === 0}, adj [${xAdjustment}, ${yAdjustment}], rect [${rect.x}, ${rect.y}], vp [${this.app.platform.viewport.width}, ${this.app.platform.viewport.height}]`)
       return {
         withinBounds: xAdjustment === 0 && yAdjustment === 0,
         adjX: xAdjustment,
@@ -421,9 +420,9 @@ export default {
     dragEndListener () {
       const boundsCheck = this.isWithinBounds()
       if (!boundsCheck.withinBounds) {
+        // Adjust the popup to stay within bounds
         this.shift.x += boundsCheck.adjX
         this.shift.y += boundsCheck.adjY
-        console.info(`Adjusting popup shift to [${this.shift.x}, ${this.shift.y}]`)
       }
 
       const uiOptions = this.settings.getUiOptions()
@@ -485,14 +484,21 @@ export default {
     },
 
     attachTrackingClick: function (event) {
-      console.info(`attachTrackingClick()`)
-      console.info(`event coordinates are [${event.clientX}, ${event.clientY}]`)
-      console.info(`Viewport is [${this.app.platform.viewport.width}, ${this.app.platform.viewport.height}]`)
-      if (event.clientX >= 0 && event.clientX <= this.app.platform.viewport.width && event.clientY >= 0 && event.clientY <= this.app.platform.viewport.height) {
-        console.info(`Click is within the viewport, closing the popup`)
+      /*
+      When a popup is dragged outside of the viewport and then moved back
+      by an adjustment procedure in dragEndListener(), a drag end mouse release event
+      is generated outside of a popup's rect (and outside of the viewport) by some browsers
+      (Chrome and possibly Safari). With a clickaway directive in place this results in the popup being closed.
+      To prevent this we need to check event coordinates
+      and close the popup only if those coordinates are within the viewport.
+       */
+      if (
+        event.clientX >= 0 &&
+        event.clientX <= this.app.platform.viewport.width &&
+        event.clientY >= 0 &&
+        event.clientY <= this.app.platform.viewport.height
+      ) {
         this.ui.closePopup()
-      } else {
-        console.info(`Click is outside the viewport, ignoring`)
       }
     }
   },
