@@ -13,7 +13,7 @@
         <logo-icon class="alpheios-logo-on-dark"/>
       </div>
 
-      <div class="alpheios-popup__toolbar-buttons">
+      <div class="alpheios-popup__toolbar-buttons" v-show="showToolbar">
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_SHOW_DEFINITIONS')" tooltipDirection="bottom-wide"
                         v-show="$store.getters['app/fullDefDataReady']">
               <div class="alpheios-popup__toolbar-top__btn" @click="ui.showPanelTab('definitions')">
@@ -46,7 +46,11 @@
             <close-icon></close-icon>
           </div>
       </div>
-
+      <div class="alpheios-popup__toolbar-buttons alpheios-popup__toolbar-closeonly" v-show="! showToolbar">
+        <div @click="ui.closePopup" class="alpheios-popup__close-btn">
+          <close-icon></close-icon>
+        </div>
+      </div>
     </div>
 
     <div class="alpheios-popup__body">
@@ -209,6 +213,10 @@ export default {
     })
   },
   computed: {
+    showToolbar: function () {
+      return this.moduleConfig.showNav
+    },
+
     componentStyles: function () {
       return {
         left: this.positionLeftDm,
