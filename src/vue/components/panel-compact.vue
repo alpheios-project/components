@@ -438,12 +438,10 @@ export default {
       return classes
     },
 
-
-
     componentStyles: function () {
       return {
         // It shall have a z-index higher than that of a popup
-        zIndex: this.ui.zIndex + 10
+        zIndex: (this.ui.zIndex || 0) + 10
       }
     },
 
