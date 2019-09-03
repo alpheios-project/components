@@ -418,7 +418,7 @@ export default {
       return this.moduleConfig.showNav && mainTabArray.includes(this.currentTab)
     },
     showMorphologyIcon () {
-      return this.$store.state.app.morphDataReady && this.app.hasMorphData() && (this.showMainTabIcons || this.currentTab === 'grammar')
+      return this.hasMorphologyData && (this.showMainTabIcons || this.currentTab === 'grammar')
     },
     rootClasses () {
       let classes = []
@@ -489,6 +489,10 @@ export default {
 
     formattedShortDefinitions () {
       let definitions = [] // eslint-disable-line prefer-const
+
+      console.info('*****formattedShortDefinitions 1', this.$store.getters['app/shortDefDataReady'])
+      console.info('*****formattedShortDefinitions 2', this.$store.state.app.homonymDataReady)
+      
       if (this.$store.getters['app/shortDefDataReady'] && this.$store.state.app.homonymDataReady) {
         for (const lexeme of this.app.getHomonymLexemes()) {
           if (lexeme.meaning.shortDefs.length > 0) {

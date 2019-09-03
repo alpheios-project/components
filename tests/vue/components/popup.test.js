@@ -155,7 +155,7 @@ describe('popup.test.js', () => {
 
     expect(cmp.vm.noLanguage).toBeTruthy()
 
-    store.commit('setTestCurrentLanguageName', 'testLanguageName')
+    store.commit('app/setTestCurrentLanguageName', 'testLanguageName')
     // await timeout(5000)
     expect(cmp.vm.noLanguage).toBeFalsy()
   })
@@ -177,7 +177,7 @@ describe('popup.test.js', () => {
     expect(store.state.popup.visible).toBeFalsy()
     expect(cmp.vm.positionLeftDm).toEqual('0px')
     
-    store.commit('setPopupVisible', true)
+    store.commit('popup/setPopupVisible', true)
     expect(cmp.vm.positionLeftDm).toEqual('60px')
   })
 
@@ -198,7 +198,7 @@ describe('popup.test.js', () => {
     expect(store.state.popup.visible).toBeFalsy()
     expect(cmp.vm.positionTopDm).toEqual('0px')
     
-    store.commit('setPopupVisible', true)
+    store.commit('popup/setPopupVisible', true)
     expect(cmp.vm.positionTopDm).toEqual('70px')
   })
 

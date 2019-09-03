@@ -121,7 +121,7 @@ describe('panel-compact.test.js', () => {
     })
     
     store.commit('ui/setTestCurrentTab', 'info')
-    store.commit('setTestMorphDataReady', false)
+    store.commit('app/setTestMorphDataReady', false)
 
     expect(cmp.vm.showMorphologyIcon).toBeFalsy()
     
@@ -129,7 +129,7 @@ describe('panel-compact.test.js', () => {
 
     cmp.setData({ moduleConfig: { showNav: true } })
     store.commit('ui/setTestCurrentTab', 'grammar')
-    store.commit('setTestMorphDataReady', true)
+    store.commit('app/setTestMorphDataReady', true)
     api.app.hasMorphData = () => true
 
     expect(cmp.vm.showMorphologyIcon).toBeTruthy()
@@ -144,12 +144,12 @@ describe('panel-compact.test.js', () => {
 
     cmp.setData({ moduleConfig: { showNav: true } })
     store.commit('ui/setTestCurrentTab', 'grammar')
-    store.commit('setTestMorphDataReady', false)
+    store.commit('app/setTestMorphDataReady', false)
     expect(cmp.vm.showMorphologyIcon).toBeFalsy()
 
     //will fail one property by one - morphData is ready but there are no morphData
 
-    store.commit('setTestMorphDataReady', true)
+    store.commit('app/setTestMorphDataReady', true)
     api.app.hasMorphData = () => false
     expect(cmp.vm.showMorphologyIcon).toBeFalsy()
   })
@@ -252,4 +252,195 @@ describe('panel-compact.test.js', () => {
     expect(cmp.vm.isLandscape).toBeFalsy()
     expect(cmp.vm.expanded).toBeTruthy()
   })
+
+  it('9 PanelCompact - computed isAttachedToLeft checks if current value of panel position is left', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('panel/setTestPanelPosition', 'left')
+
+    expect(cmp.vm.isAttachedToLeft).toBeTruthy()
+
+    store.commit('panel/setTestPanelPosition', 'right')
+
+    expect(cmp.vm.isAttachedToLeft).toBeFalsy()
+  })
+
+  it('10 PanelCompact - computed isAttachedToRight checks if current value of panel position is right', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('panel/setTestPanelPosition', 'right')
+
+    expect(cmp.vm.isAttachedToRight).toBeTruthy()
+
+    store.commit('panel/setTestPanelPosition', 'left')
+
+    expect(cmp.vm.isAttachedToRight).toBeFalsy()
+  })
+
+  it('11 PanelCompact - computed leftBtnVisible returns true if we want to show left icon for attach (isAttachedToLeft + expanded)', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      computed: {
+        isAttachedToLeft: () => true,
+        isAttachedToRight: () => false
+      }
+    })
+
+    cmp.setData({ expanded: false })
+    expect(cmp.vm.leftBtnVisible).toBeFalsy()
+
+    cmp.setData({ expanded: true })
+    expect(cmp.vm.leftBtnVisible).toBeTruthy()
+  })
+
+  it('12 PanelCompact - computed leftBtnVisible returns true if we want to show left icon for attach (isAttachedToRight + !expanded)', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      computed: {
+        isAttachedToLeft: () => false,
+        isAttachedToRight: () => true
+      }
+    })
+
+    cmp.setData({ expanded: false })
+    expect(cmp.vm.leftBtnVisible).toBeTruthy()
+
+    cmp.setData({ expanded: true })
+    expect(cmp.vm.leftBtnVisible).toBeFalsy()
+  })
+
+  it('13 PanelCompact - computed rightBtnVisible returns true if we want to show right icon for attach (isAttachedToRight + expanded)', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      computed: {
+        isAttachedToLeft: () => false,
+        isAttachedToRight: () => true
+      }
+    })
+
+    cmp.setData({ expanded: false })
+    expect(cmp.vm.rightBtnVisible).toBeFalsy()
+
+    cmp.setData({ expanded: true })
+    expect(cmp.vm.rightBtnVisible).toBeTruthy()
+  })
+
+  it('14 PanelCompact - computed rightBtnVisible returns true if we want to show right icon for attach (isAttachedToRight + !expanded)', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      computed: {
+        isAttachedToLeft: () => true,
+        isAttachedToRight: () => false
+      }
+    })
+
+    cmp.setData({ expanded: false })
+    expect(cmp.vm.rightBtnVisible).toBeTruthy()
+
+    cmp.setData({ expanded: true })
+    expect(cmp.vm.rightBtnVisible).toBeFalsy()
+  })
+
+  it('15 PanelCompact - computed hasMorphologyData returns true if morph data is ready and it has morph data', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    // test1
+    api.app.hasMorphData = () => false
+    store.commit('app/setTestMorphDataReady', false)
+
+    expect(cmp.vm.hasMorphologyData).toBeFalsy()
+
+    // test2
+    store.commit('app/setTestMorphDataReady', true)
+    expect(cmp.vm.hasMorphologyData).toBeFalsy()
+
+    // test3
+    api.app.hasMorphData = () => true
+    store.commit('app/setTestMorphDataReady', false)
+
+    expect(cmp.vm.hasMorphologyData).toBeFalsy()
+
+    // test4
+    api.app.hasMorphData = () => true
+    store.commit('app/setTestMorphDataReady', true)
+
+    expect(cmp.vm.hasMorphologyData).toBeTruthy()
+  })
+
+  it('16 PanelCompact - computed additionalStylesTootipCloseIcon returns props for icon', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    let result = cmp.vm.additionalStylesTootipCloseIcon
+
+    expect(result.top).toBeDefined()
+    expect(result.right).toBeDefined()
+  })
+/*
+  it('17 PanelCompact - computed formattedShortDefinitions returns array with short defs, if they are ready, otherwise it returns an empty array', () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    let definitions = cmp.vm.formattedShortDefinitions
+    expect(definitions.length).toEqual(0)
+
+    store.commit('app/setTestHomonymDataReady', true)
+    store.commit('app/setTestShortDefUpdateTime', 10)
+    
+    let definitions2 = cmp.vm.formattedShortDefinitions
+  })
+  */
 })

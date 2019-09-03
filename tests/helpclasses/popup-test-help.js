@@ -37,6 +37,7 @@ export default class PopupTestHelp {
       return new Vuex.Store({
         modules: {
           popup: {
+            namespaced: true,
             state: {
               visible: false
             },
@@ -58,18 +59,24 @@ export default class PopupTestHelp {
             mutations: {
               setTestOrientation (state, value) {
                 state.orientation = value
+              },
+              setTestPanelPosition (state, value) {
+                state.position = value
               }
             },
             actions: {},
             getters: {}
           },
           app: {
+            namespaced: true,
             state: {
               selectedText: '',
               languageName: '',
               languageCode: '',
               currentLanguageName: '',
-              morphDataReady: false
+              morphDataReady: false,
+              homonymDataReady: false,
+              shortDefUpdateTime: 0
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -77,6 +84,17 @@ export default class PopupTestHelp {
               },
               setTestMorphDataReady (state, value) {
                 state.morphDataReady = value
+              },
+              setTestShortDefUpdateTime (state, value) {
+                state.shortDefUpdateTime = value
+              },
+              setTestHomonymDataReady (state, value) {
+                state.homonymDataReady = value
+              }
+            },
+            getters: {
+              shortDefDataReady: (state) => () => {
+                return state.shortDefUpdateTime > 0
               }
             }
           },
