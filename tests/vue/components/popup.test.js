@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import PopupTestHelp from '@tests/helpclasses/popup-test-help'
+import BaseTestHelp from '@tests/helpclasses/base-test-help'
 
 import Popup from '@/vue/components/popup.vue'
 import Vuex from 'vuex'
@@ -27,16 +27,16 @@ describe('popup.test.js', () => {
 
     defaultData = { moduleConfig: {} }
 
-    store = PopupTestHelp.baseVuexStore()
+    store = BaseTestHelp.baseVuexStore()
 
     api = {
-      ui: PopupTestHelp.uiAPI(),
-      settings: PopupTestHelp.settingsAPI(),
-      app: PopupTestHelp.appAPI()
+      ui: BaseTestHelp.uiAPI(),
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI()
     }
 
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
 
   })
 
@@ -109,14 +109,14 @@ describe('popup.test.js', () => {
 
   it('5 Popup - computed componentStyles defines css properties from data', () => {
     let api = {
-      ui: PopupTestHelp.uiAPI({
+      ui: BaseTestHelp.uiAPI({
         zIndex: 50
       }),
-      settings: PopupTestHelp.settingsAPI(),
-      app: PopupTestHelp.appAPI()
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI()
     }
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
     
     let cmp = shallowMount(Popup, {
       data () { return {
@@ -454,9 +454,9 @@ describe('popup.test.js', () => {
 
   it('20 Popup - method isWithinBounds define if viewport is enough for the element', () => {
     let api = {
-      ui: PopupTestHelp.uiAPI(),
-      settings: PopupTestHelp.settingsAPI(),
-      app: PopupTestHelp.appAPI({
+      ui: BaseTestHelp.uiAPI(),
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI({
         platform: {
           viewport: {
             width: 10,
@@ -466,8 +466,8 @@ describe('popup.test.js', () => {
       })
     }
 
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
 
     let cmp = shallowMount(Popup, {
       data () {

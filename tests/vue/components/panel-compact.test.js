@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import PopupTestHelp from '@tests/helpclasses/popup-test-help'
+import BaseTestHelp from '@tests/helpclasses/base-test-help'
 
 import PanelCompact from '@/vue/components/panel-compact.vue'
 import Vuex from 'vuex'
@@ -26,7 +26,7 @@ describe('panel-compact.test.js', () => {
   let homonym
 
   beforeAll(async () => {
-    homonym = await PopupTestHelp.collectHomonym('mare', Constants.LANG_LATIN)
+    homonym = await BaseTestHelp.collectHomonym('mare', Constants.LANG_LATIN)
   })
 
   beforeEach(() => {
@@ -36,16 +36,16 @@ describe('panel-compact.test.js', () => {
 
     defaultData = { moduleConfig: {} }
         
-    store = PopupTestHelp.baseVuexStore()
+    store = BaseTestHelp.baseVuexStore()
 
     api = {
-      ui: PopupTestHelp.uiAPI(),
-      settings: PopupTestHelp.settingsAPI(),
-      app: PopupTestHelp.appAPI()
+      ui: BaseTestHelp.uiAPI(),
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI()
     }
 
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
 
   })
 
@@ -105,14 +105,14 @@ describe('panel-compact.test.js', () => {
 
   it('4 PanelCompact - computed showMorphologyIcon returns true if morph data is ready and current tab is grammar, also showNav is not disabled', () => {
     let api = {
-        ui: PopupTestHelp.uiAPI(),
-        settings: PopupTestHelp.settingsAPI(),
-        app: PopupTestHelp.appAPI({
+        ui: BaseTestHelp.uiAPI(),
+        settings: BaseTestHelp.settingsAPI(),
+        app: BaseTestHelp.appAPI({
           hasMorphData: () => false
         })
       }
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
 
     let cmp = shallowMount(PanelCompact, {
       data () {
@@ -204,15 +204,15 @@ describe('panel-compact.test.js', () => {
 
   it('7 PanelCompact - computed componentStyles returns zIndex', () => {
     let api = {
-      ui: PopupTestHelp.uiAPI({
+      ui: BaseTestHelp.uiAPI({
         zIndex: 10
       }),
-      settings: PopupTestHelp.settingsAPI(),
-      app: PopupTestHelp.appAPI()
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI()
     }
     
-    PopupTestHelp.authModule(store, api)
-    PopupTestHelp.l10nModule(store, api)
+    BaseTestHelp.authModule(store, api)
+    BaseTestHelp.l10nModule(store, api)
 
     let cmp = shallowMount(PanelCompact, {
       data () {
@@ -457,5 +457,256 @@ describe('panel-compact.test.js', () => {
       expect(definition.constructor.name).toEqual(expect.stringContaining('definition'))
     })
   })
-  
+
+  it('18 PanelCompact - computed formattedFullDefinitions returns a string with content, if they are ready, otherwise it returns an empty string', async () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    let definitions = cmp.vm.formattedFullDefinitions
+    expect(definitions.length).toEqual(0)
+
+    store.commit('app/setTestHomonymDataReady', true)
+    await timeout(2000)
+    store.commit('app/setTestFullDefUpdateTime', 10)
+    api.app.getHomonymLexemes = () => {
+      return homonym ? homonym.lexemes : []
+    }
+
+    let definitions2 = cmp.vm.formattedFullDefinitions
+
+    expect(definitions2.length).toBeGreaterThan(0)
+  })
+
+  it('19 PanelCompact - computed providersLinkText returns hide creadit label or show credit label',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    cmp.setData({ showProviders: false })
+    expect(cmp.vm.providersLinkText).toEqual(expect.stringContaining('Show'))
+
+    cmp.setData({ showProviders: true })
+    expect(cmp.vm.providersLinkText).toEqual(expect.stringContaining('Hide'))
+  })
+
+  it('20 PanelCompact - method swapPosition executes setPosition with position',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    cmp.vm.setPosition = jest.fn()
+
+    store.commit('panel/setTestPanelPosition', 'left')
+    cmp.vm.swapPosition()
+    expect(cmp.vm.setPosition).toHaveBeenLastCalledWith('right')
+
+    store.commit('panel/setTestPanelPosition', 'right')
+    cmp.vm.swapPosition()
+    expect(cmp.vm.setPosition).toHaveBeenLastCalledWith('left')
+  })
+
+  it('21 PanelCompact - method squeezePage sets additional styles and adds a class',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    store.commit('panel/setTestPanelPosition', 'left')
+    cmp.vm.squeezePage()
+
+    expect(document.documentElement.style['padding-left']).toEqual('50%')
+    expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeTruthy()
+
+    store.commit('panel/setTestPanelPosition', 'right')
+    cmp.vm.squeezePage()
+
+    expect(document.documentElement.style['padding-right']).toEqual('50%')
+    expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeTruthy()
+  })
+
+  it('22 PanelCompact - method unsqueezePage removes additional styles and a class added by squeeze',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    store.commit('panel/setTestPanelPosition', 'left')
+    cmp.vm.squeezePage()
+
+    cmp.vm.unsqueezePage()
+
+    expect(document.documentElement.style['padding-left']).toEqual('')
+    expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeFalsy()
+
+    store.commit('panel/setTestPanelPosition', 'right')
+    cmp.vm.squeezePage()
+
+    cmp.vm.unsqueezePage()
+    expect(document.documentElement.style['padding-right']).toEqual('')
+    expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeFalsy()
+  })
+
+  it('22 PanelCompact - method contentOptionChanged executes app.contentOptionChange',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    api.app.contentOptionChange = jest.fn()
+
+    cmp.vm.contentOptionChanged('fooName', 'fooValue')
+
+    expect(api.app.contentOptionChange).toHaveBeenLastCalledWith('fooName', 'fooValue')
+  })
+
+  it('23 PanelCompact - method expand updates expanded and prevExpanded to truthy',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    cmp.setData({ expanded: false })
+    cmp.setData({ prevExpanded: false })
+
+    cmp.vm.expand()
+    
+    expect(cmp.vm.expanded).toBeTruthy()
+    expect(cmp.vm.prevExpanded).toBeTruthy()
+  })
+
+  it('23 PanelCompact - method contract updates expanded and prevExpanded to falsy',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    cmp.setData({ expanded: true })
+    cmp.setData({ prevExpanded: true })
+
+    cmp.vm.contract()
+    
+    expect(cmp.vm.expanded).toBeFalsy()
+    expect(cmp.vm.prevExpanded).toBeFalsy()
+  })
+
+  it('24 PanelCompact - method expandOrContract updates expanded and prevExpanded to oposite',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+
+    cmp.setData({ expanded: true })
+    cmp.setData({ prevExpanded: true })
+
+    cmp.vm.expandOrContract()
+    
+    expect(cmp.vm.expanded).toBeFalsy()
+    expect(cmp.vm.prevExpanded).toBeFalsy()
+
+    cmp.vm.expandOrContract()
+
+    expect(cmp.vm.expanded).toBeTruthy()
+    expect(cmp.vm.prevExpanded).toBeTruthy()
+  })
+
+  it('25 PanelCompact - method closePanel executes ui.closePanel and sets menuVisible to falsy',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    api.ui.closePanel = jest.fn()
+    cmp.setData({ menuVisible: true })
+
+    cmp.vm.closePanel()
+
+    expect(api.ui.closePanel).toHaveBeenCalled()
+    expect(cmp.vm.menuVisible).toBeFalsy()
+  })
+
+
+  it('26 PanelCompact - method switchProviders changes showProviders to oposite',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    cmp.setData({ showProviders: false })
+
+    cmp.vm.switchProviders()
+    expect(cmp.vm.showProviders).toBeTruthy()
+
+    cmp.vm.switchProviders()
+    expect(cmp.vm.showProviders).toBeFalsy()
+  })
+
+  it('27 PanelCompact - method changeTab executes ui.changeTab',  () => {
+    let cmp = shallowMount(PanelCompact, {
+      data () {
+        return defaultData
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    api.ui.changeTab = jest.fn()
+
+    cmp.vm.changeTab('fooTab')
+    expect(api.ui.changeTab).toHaveBeenCalledWith('fooTab')
+  })
 })

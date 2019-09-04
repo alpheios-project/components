@@ -20,7 +20,7 @@ import { ClientAdapters } from 'alpheios-client-adapters'
 import { Constants } from 'alpheios-data-models'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
 
-export default class PopupTestHelp {
+export default class BaseTestHelp {
     static get defaultFeatureOptions () {
       let ta = new TempStorageArea('alpheios-feature-settings')
       return new Options(FeatureOptionDefaults, ta)
@@ -79,7 +79,8 @@ export default class PopupTestHelp {
               currentLanguageName: '',
               morphDataReady: false,
               homonymDataReady: false,
-              shortDefUpdateTime: 0
+              shortDefUpdateTime: 0,
+              fullDefUpdateTime: 0
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -91,6 +92,9 @@ export default class PopupTestHelp {
               setTestShortDefUpdateTime (state, value) {
                 state.shortDefUpdateTime = value
               },
+              setTestFullDefUpdateTime (state, value) {
+                state.fullDefUpdateTime = value
+              },
               setTestHomonymDataReady (state, value) {
                 state.homonymDataReady = value
               }
@@ -98,6 +102,9 @@ export default class PopupTestHelp {
             getters: {
               shortDefDataReady: (state) => {
                 return state.shortDefUpdateTime > 0
+              },
+              fullDefDataReady: (state) => {
+                return state.fullDefUpdateTime > 0
               }
             }
           },
@@ -140,9 +147,9 @@ export default class PopupTestHelp {
 
     static settingsAPI (props) {
       let defaultProps = {
-        getFeatureOptions: () => { return PopupTestHelp.defaultFeatureOptions },
-        getResourceOptions: () => { return PopupTestHelp.defaultResourceOptions },
-        getUiOptions: () => { return PopupTestHelp.defaultUIOptions },
+        getFeatureOptions: () => { return BaseTestHelp.defaultFeatureOptions },
+        getResourceOptions: () => { return BaseTestHelp.defaultResourceOptions },
+        getUiOptions: () => { return BaseTestHelp.defaultUIOptions },
         verboseMode: () => { return false }
       }
       return Object.assign(defaultProps, props)
@@ -198,7 +205,7 @@ export default class PopupTestHelp {
       })
       let homonym = adapterTuftsRes.result
 
-      const lexiconFullOpts = PopupTestHelp.getLexiconOptions('lexicons', languageID)
+      const lexiconFullOpts = BaseTestHelp.getLexiconOptions('lexicons', languageID)
 
       await ClientAdapters.lexicon.alpheios({
         method: 'fetchFullDefs',
