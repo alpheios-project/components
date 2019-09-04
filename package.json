@@ -8,7 +8,7 @@
     "test": "npm run lint && jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test-lib": "npm run lint && jest tests/lib --coverage",
     "test-components": "npm run lint && jest tests/vue --coverage",
-    "test-c": "npm run lint && jest tests/vue/components/lookup.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test-c": "npm run lint && jest tests/vue/components/panel-compact.test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-a": "npm run lint && jest tests/lib/options/* --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-s": "npm run lint && AUTH_TOKEN=alpheiosMockUserIdlP0DWnmNxe ENDPOINT='https://8wkx9pxc55.execute-api.us-east-2.amazonaws.com/prod/settings' jest tests/lib/options --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "npm run build-safari && npm run build-regular",
@@ -122,6 +122,7 @@
     "moduleNameMapper": {
       "^@vue-runtime$": "vue/dist/vue.runtime.common.js",
       "^@[/](.+)": "<rootDir>/src/$1",
+      "^@tests[/](.+)": "<rootDir>/tests/$1",
       "alpheios-morph-client": "<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js",
       "alpheios-inflection-tables": "<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js"
     },
