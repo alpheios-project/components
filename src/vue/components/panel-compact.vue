@@ -489,9 +489,6 @@ export default {
 
     formattedShortDefinitions () {
       let definitions = [] // eslint-disable-line prefer-const
-
-      console.info('*****formattedShortDefinitions 1', this.$store.getters['app/shortDefDataReady'])
-      console.info('*****formattedShortDefinitions 2', this.$store.state.app.homonymDataReady)
       
       if (this.$store.getters['app/shortDefDataReady'] && this.$store.state.app.homonymDataReady) {
         for (const lexeme of this.app.getHomonymLexemes()) {

@@ -9,6 +9,7 @@ import Vuex from 'vuex'
 import Vue from 'vue/dist/vue'
 
 import Platform from '@/lib/utility/platform.js'
+import { Constants } from 'alpheios-data-models'
 
 describe('panel-compact.test.js', () => {
   const localVue = createLocalVue()
@@ -21,6 +22,12 @@ describe('panel-compact.test.js', () => {
   let store
   let api = {}
   let defaultData
+
+  let homonym
+
+  beforeAll(async () => {
+    homonym = await PopupTestHelp.collectHomonym('mare', Constants.LANG_LATIN)
+  })
 
   beforeEach(() => {
     jest.spyOn(console, 'error')
@@ -423,7 +430,7 @@ describe('panel-compact.test.js', () => {
     expect(result.top).toBeDefined()
     expect(result.right).toBeDefined()
   })
-/*
+
   it('17 PanelCompact - computed formattedShortDefinitions returns array with short defs, if they are ready, otherwise it returns an empty array', () => {
     let cmp = shallowMount(PanelCompact, {
       data () {
@@ -439,8 +446,16 @@ describe('panel-compact.test.js', () => {
 
     store.commit('app/setTestHomonymDataReady', true)
     store.commit('app/setTestShortDefUpdateTime', 10)
-    
+    api.app.getHomonymLexemes = () => {
+      return homonym ? homonym.lexemes : []
+    }
+
     let definitions2 = cmp.vm.formattedShortDefinitions
+
+    expect(definitions2.length).toBeGreaterThan(0)
+    definitions2.forEach(definition => {
+      expect(definition.constructor.name).toEqual(expect.stringContaining('definition'))
+    })
   })
-  */
+  
 })

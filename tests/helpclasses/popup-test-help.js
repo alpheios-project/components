@@ -16,6 +16,9 @@ import TempStorageArea from '@/lib/options/temp-storage-area.js'
 import AuthModule from '@/vue/vuex-modules/data/auth-module.js'
 
 import Platform from '@/lib/utility/platform.js'
+import { ClientAdapters } from 'alpheios-client-adapters'
+import { Constants } from 'alpheios-data-models'
+import LexicalQuery from '@/lib/queries/lexical-query.js'
 
 export default class PopupTestHelp {
     static get defaultFeatureOptions () {
@@ -93,7 +96,7 @@ export default class PopupTestHelp {
               }
             },
             getters: {
-              shortDefDataReady: (state) => () => {
+              shortDefDataReady: (state) => {
                 return state.shortDefUpdateTime > 0
               }
             }
@@ -153,10 +156,12 @@ export default class PopupTestHelp {
             height: 0
           }
         },
-        hasMorphData: () => false
+        hasMorphData: () => false,
+        getHomonymLexemes: () => null
       }
       return Object.assign(defaultProps, props)
     }
+
 
     static authModule (store, api) {
       return new AuthModule(store, api, { auth: null })
@@ -172,5 +177,40 @@ export default class PopupTestHelp {
           [enGB, Locales.en_GB]
         ])
       })
+    }
+
+
+    static getLexiconOptions (lexiconKey, languageID) {
+      return { allow: ['https://github.com/alpheios-project/lsj'] }
+    }
+
+
+
+    static async collectHomonym (targetWord, languageID) {
+      let adapterTuftsRes = await ClientAdapters.morphology.tufts({
+        method: 'getHomonym',
+        clientId: 'alpheios-dev',
+        params: {
+          languageID: languageID,
+          word: targetWord
+
+        }
+      })
+      let homonym = adapterTuftsRes.result
+
+      const lexiconFullOpts = PopupTestHelp.getLexiconOptions('lexicons', languageID)
+
+      await ClientAdapters.lexicon.alpheios({
+        method: 'fetchFullDefs',
+        clientId: 'alpheios-dev',
+        params: {
+          opts: lexiconFullOpts,
+          homonym: homonym,
+          callBackEvtSuccess: LexicalQuery.evt.FULL_DEFS_READY,
+          callBackEvtFailed: LexicalQuery.evt.FULL_DEFS_NOT_FOUND
+        }
+      })
+
+      return homonym
     }
 }
