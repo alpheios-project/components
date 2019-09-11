@@ -189,7 +189,13 @@ export default {
       if (!this.state.collapsed) {
         // A view has been expanded, we need to check if it needs to be rendered.
         if (!this.state.view || !this.state.view.isRendered) {
-          this.state.view = this.getRenderedView()
+          try {
+            this.state.view = this.getRenderedView()
+          } catch (e) {
+            // we could have been called from the mounted handler
+            // and some views can't be rendered at this stage
+            // so let's just quietly fail
+          }
         }
       }
 
