@@ -177,7 +177,13 @@ export default {
     getRenderedView: function () {
       if (this.view) {
         // This component has an instance of an initialized view supplied
-        return this.view.render()
+        let view
+        // Render view only if it is renderable
+        // TODO: A temporary fix for view rendered too early. Probably can do it in a more elegant way
+        if (this.view.isRenderable) {
+          view = this.view.render()
+        }
+        return view
       } else if (this.standardFormData) {
         // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
         this.state.standardFormTable = true
@@ -189,13 +195,7 @@ export default {
       if (!this.state.collapsed) {
         // A view has been expanded, we need to check if it needs to be rendered.
         if (!this.state.view || !this.state.view.isRendered) {
-          try {
-            this.state.view = this.getRenderedView()
-          } catch (e) {
-            // we could have been called from the mounted handler
-            // and some views can't be rendered at this stage
-            // so let's just quietly fail
-          }
+          this.state.view = this.getRenderedView()
         }
       }
 
