@@ -187,6 +187,14 @@ export default class LexicalQuery extends Query {
     // short definitions provided by the maAdapter
     if (lexiconShortOpts.allow) {
       this.homonym.lexemes.forEach((l) => { l.meaning.clearShortDefs() })
+    } else {
+      // we won't have any remaining valid short definition requests
+      // so go ahead and publish the SHORT_DEFS_READY event so that the UI
+      // can update itself
+      LexicalQuery.evt.SHORT_DEFS_READY.pub({
+        requestType: 'short',
+        homonym: this.homonym
+      })
     }
 
     LexicalQuery.evt.HOMONYM_READY.pub(this.homonym)
