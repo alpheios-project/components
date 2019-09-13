@@ -80,7 +80,8 @@ export default class BaseTestHelp {
               morphDataReady: false,
               homonymDataReady: false,
               shortDefUpdateTime: 0,
-              fullDefUpdateTime: 0
+              fullDefUpdateTime: 0,
+              hasInflData: false
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -97,6 +98,9 @@ export default class BaseTestHelp {
               },
               setTestHomonymDataReady (state, value) {
                 state.homonymDataReady = value
+              },
+              setTestHasInflData (state, value) {
+                state.hasInflData = value
               }
             },
             getters: {

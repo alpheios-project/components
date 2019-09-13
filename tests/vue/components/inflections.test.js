@@ -8,6 +8,8 @@ import Inflections from '@/vue/components/inflections.vue'
 import Vuex from 'vuex'
 import Vue from 'vue/dist/vue'
 
+import { Constants } from 'alpheios-data-models'
+
 describe('inflections.test.js', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
@@ -27,9 +29,9 @@ describe('inflections.test.js', () => {
     store = BaseTestHelp.baseVuexStore()
 
     api = {
-    ui: BaseTestHelp.uiAPI(),
-    settings: BaseTestHelp.settingsAPI(),
-    app: BaseTestHelp.appAPI()
+      ui: BaseTestHelp.uiAPI(),
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI()
     }
 
     BaseTestHelp.authModule(store, api)
@@ -211,5 +213,161 @@ describe('inflections.test.js', () => {
     })
   
     expect(cmp.vm.showExplanatoryHint).toBeTruthy()
+  })
+
+  it('10 Inflections - method initViewSet sets empty values if store.state.app.hasInflData is false', () => {
+    let cmp = shallowMount(Inflections, {
+      data () {
+        return {
+          partsOfSpeech: [],
+          selectedPartOfSpeech: null,
+          views: [],
+          hasInflectionData: false,
+          selectedView: null
+        }
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('app/setTestHasInflData', false)
+    cmp.vm.initViewSet()
+    
+    expect(cmp.vm.hasInflectionData).toBeFalsy()
+    expect(cmp.vm.partsOfSpeech.length).toEqual(0)
+    expect(cmp.vm.selectedPartOfSpeech).toBeNull()
+    expect(cmp.vm.selectedView).toBeNull()
+    expect(cmp.vm.views.length).toEqual(0)
+  })
+
+  it('11 Inflections - method initViewSet sets data from inflections data if store.state.app.hasInflData is true', () => {
+    let api = {
+      ui: BaseTestHelp.uiAPI(),
+      settings: BaseTestHelp.settingsAPI(),
+      app: BaseTestHelp.appAPI({
+        getInflectionsViewSet: jest.fn(() => {
+          
+          return {
+            languageID: Constants.LANG_LATIN,
+            hasMatchingViews: true,
+            partsOfSpeech: [ 'fooPartOfSpeach' ],
+            getViews: () => {
+              let render = () => {
+                return 'fooView'
+              }
+              return [ { render } ]
+            }
+          }
+        })
+      })
+    }
+
+    let cmp = shallowMount(Inflections, {
+      data () {
+        return {
+          partsOfSpeech: [],
+          selectedPartOfSpeech: null,
+          views: [],
+          hasInflectionData: false
+        }
+      },
+      store,
+      localVue,
+      mocks: api
+    })
+
+    store.commit('app/setTestHasInflData', true)
+
+    cmp.vm.initViewSet()
+    expect(cmp.vm.hasInflectionData).toBeTruthy()
+    expect(cmp.vm.partsOfSpeech.length).toEqual(1)
+    expect(cmp.vm.selectedPartOfSpeech).toEqual('fooPartOfSpeach')
+    expect(cmp.vm.views.length).toEqual(1)
+    expect(cmp.vm.selectedView).toEqual('fooView')
+  })
+
+  it('12 Inflections - method navigate scrolls to the element if it is passed as an argument', () => {
+    let cmp = shallowMount(Inflections, {
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+    
+    jest.spyOn(cmp.vm.$options.logger, 'warn')
+
+    document.body.innerHTML = ''
+    let panel = document.createElement("div")
+    panel.id = 'alpheios-panel-inner'
+    panel.innerHTML = '<div style="height: 50px"></div><div id="test-ref" style="height: 150px;">Test text</div>'
+    document.body.appendChild(panel)
+
+    let result = cmp.vm.navigate('test-ref')
+    expect(panel.scrollTop).toEqual(-20) //offsetTop (0) - 20
+    expect(cmp.vm.$options.logger.warn).not.toHaveBeenCalled()
+
+  })
+
+  it('13 Inflections - method navigate scrolls to the top (0) if we pass top as an argument', () => {
+    let cmp = shallowMount(Inflections, {
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+    
+    jest.spyOn(cmp.vm.$options.logger, 'warn')
+
+    document.body.innerHTML = ''
+    let testPannelInner = document.createElement("div")
+    testPannelInner.id = "alpheios-panel-inner"
+    testPannelInner.scrollTop = 10
+    document.body.appendChild(testPannelInner)
+
+    expect(testPannelInner.scrollTop).toEqual(10)
+
+    let result = cmp.vm.navigate('top')
+    expect(testPannelInner.scrollTop).toEqual(0)
+    expect(cmp.vm.$options.logger.warn).not.toHaveBeenCalled()
+
+  })
+
+  it('14 Inflections - method navigate returns undefined if there is no inner panel component', () => {
+    let cmp = shallowMount(Inflections, {
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+    jest.spyOn(cmp.vm.$options.logger, 'warn')
+    document.body.innerHTML = ''
+    let result = cmp.vm.navigate()
+    
+    expect(result).toBeUndefined()
+    expect(cmp.vm.$options.logger.warn).toHaveBeenLastCalledWith(expect.stringContaining('Cannot find panel\'s inner element'))
+  })
+
+
+  it('15 Inflections - method navigate prints logger mesage if there is no refobject', () => {
+    let cmp = shallowMount(Inflections, {
+      store,
+      localVue,
+      mocks: api,
+      attachToDocument: true
+    })
+    
+    jest.spyOn(cmp.vm.$options.logger, 'warn')
+
+    document.body.innerHTML = ''
+    let panel = document.createElement("div")
+    panel.id = 'alpheios-panel-inner'
+    panel.innerHTML = '<div style="height: 50px"></div>'
+    document.body.appendChild(panel)
+
+    let result = cmp.vm.navigate('test-ref2')
+    expect(panel.scrollTop).toEqual(0) 
+    expect(cmp.vm.$options.logger.warn).toHaveBeenLastCalledWith(expect.stringContaining('Cannot find #test-ref2 element. Navigation is cancelled'))
+
   })
 })
