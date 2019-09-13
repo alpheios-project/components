@@ -19,6 +19,7 @@ import Platform from '@/lib/utility/platform.js'
 import { ClientAdapters } from 'alpheios-client-adapters'
 import { Constants } from 'alpheios-data-models'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
+import UIController from '@/lib/controllers/ui-controller.js'
 
 export default class BaseTestHelp {
     static get defaultFeatureOptions () {
@@ -81,7 +82,8 @@ export default class BaseTestHelp {
               homonymDataReady: false,
               shortDefUpdateTime: 0,
               fullDefUpdateTime: 0,
-              hasInflData: false
+              hasInflData: false,
+              embedLibActive: false
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -101,6 +103,9 @@ export default class BaseTestHelp {
               },
               setTestHasInflData (state, value) {
                 state.hasInflData = value
+              },
+              setTestEmbedLibActive (state, value) {
+                state.embedLibActive = value
               }
             },
             getters: {
@@ -168,7 +173,9 @@ export default class BaseTestHelp {
           }
         },
         hasMorphData: () => false,
-        getHomonymLexemes: () => null
+        getHomonymLexemes: () => null,
+        getDefaultLangCode: () => 'lat',
+        getLanguageName: UIController.getLanguageName
       }
       return Object.assign(defaultProps, props)
     }
