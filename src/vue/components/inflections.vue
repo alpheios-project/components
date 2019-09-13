@@ -185,7 +185,6 @@ export default {
 
     navigate (reflink) {
       let panel = document.querySelector(`#${this.elementIDs.panelInner}`)
-
       if (!panel) {
         this.$options.logger.warn(`Cannot find panel's inner element #${this.elementIDs.panelInner}. Scroll is cancelled`)
         return
@@ -197,8 +196,6 @@ export default {
         // Navigate to one of the supplemental tables
         const paddingTop = 20 // A margin between an element and a top of a visible area, in pixels
         let el = document.querySelector(`#${reflink}`)
-        console.info('****el', reflink, el)
-
         if (el) {
           const offset = Math.round(el.offsetTop)
           panel.scrollTop = offset - paddingTop
