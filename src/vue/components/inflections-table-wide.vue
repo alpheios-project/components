@@ -165,10 +165,10 @@ export default {
 
     isAvailable: function () {
       return (
-        this.state.view &&
+        Boolean(this.state.view &&
         this.state.view.isImplemented &&
         this.state.view.wideView &&
-        this.state.view.wideView.rows.length > 0
+        this.state.view.wideView.rows.length > 0)
       )
     }
   },
