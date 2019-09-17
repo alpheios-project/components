@@ -18,6 +18,7 @@ class HeaderCell {
 }
 
 class RowTitleCell {
+    
   constructor(value) {
     this.value = value
   }
