@@ -854,7 +854,7 @@ describe('inflections.test.js', () => {
 
 
   })
-/*
+
   it('45 InflectionsBrowser - renders Latin and Greek wide-tables - greek_gender_pronoun_view, form - οἷς', () => {
     let cmp = mount(InflectionsBrowser, {
       store,
@@ -2226,7 +2226,7 @@ describe('inflections.test.js', () => {
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
-*/
+
   it('119 InflectionsBrowser - method collapseLanguage changes language state for the given languageID', () => {
     let cmp = shallowMount(InflectionsBrowser, {
       store,
