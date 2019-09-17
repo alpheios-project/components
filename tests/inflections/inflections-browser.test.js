@@ -92,7 +92,7 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
-  })
+   })
 
   it('4 InflectionsBrowser - renders Latin and Greek wide-tables - latin_adjective_view', () => {
     let cmp = mount(InflectionsBrowser, {
@@ -107,7 +107,7 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
-  })
+  })  
 
   it('5 InflectionsBrowser - renders Latin and Greek wide-tables - latin_conjugation_mood_voice_view', () => {
     let cmp = mount(InflectionsBrowser, {
@@ -122,6 +122,7 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
   })
 
   it('6 InflectionsBrowser - renders Latin and Greek wide-tables - latin_conjugation_voice_mood_view', () => {
@@ -137,6 +138,7 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+ 
   })
 
   it('7 InflectionsBrowser - renders Latin and Greek wide-tables - latin_mood_conjugation_voice_view', () => {
@@ -242,6 +244,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('14 InflectionsBrowser - renders Latin and Greek wide-tables - latin_supine_view', () => {
@@ -257,6 +261,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(3)
+
+
   })
 
   it('15 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - sum', () => {
@@ -275,6 +281,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('16 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_voice_view, form - fero', () => {
@@ -293,6 +301,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('17 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - malo', () => {
@@ -311,6 +321,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('18 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - malo', () => {
@@ -329,6 +341,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('19 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - malo', () => {
@@ -347,6 +361,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('20 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - eo', () => {
@@ -365,6 +381,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('21 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - absum', () => {
@@ -383,6 +401,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('22 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - adsum', () => {
@@ -401,6 +421,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('23 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - dēsum', () => {
@@ -419,6 +441,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('24 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - insum', () => {
@@ -437,6 +461,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('25 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - intersum', () => {
@@ -455,6 +481,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('26 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - obsum', () => {
@@ -473,6 +501,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('27 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - possum', () => {
@@ -491,6 +521,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('28 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - prosum', () => {
@@ -509,6 +541,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('29 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - praesum', () => {
@@ -527,6 +561,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('30 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - subsum', () => {
@@ -545,6 +581,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('31 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - supersum', () => {
@@ -563,6 +601,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('32 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_voice_view, form - queo', () => {
@@ -581,6 +621,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('33 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - nequeo', () => {
@@ -599,6 +641,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('34 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_voice_view, form - adeo', () => {
@@ -617,6 +661,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('35 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_voice_view, form - ineo', () => {
@@ -635,6 +681,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('36 InflectionsBrowser - renders Latin and Greek wide-tables - latin_verb_irregular_view, form - veneo', () => {
@@ -653,6 +701,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
 
@@ -669,6 +719,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('38 InflectionsBrowser - renders Latin and Greek wide-tables - greek_noun_simplified_view', () => {
@@ -684,6 +736,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('39 InflectionsBrowser - renders Latin and Greek wide-tables - greek_adjective_view', () => {
@@ -699,6 +753,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('40 InflectionsBrowser - renders Latin and Greek wide-tables - greek_adjective_simplified_view', () => {
@@ -714,6 +770,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('41 InflectionsBrowser - renders Latin and Greek wide-tables - greek_person_pronoun_view, form - νώ', () => {
@@ -732,6 +790,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('42 InflectionsBrowser - renders Latin and Greek wide-tables - greek_person_gender_pronoun_view, form - ἡμᾶς', () => {
@@ -750,6 +810,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
 
@@ -769,6 +831,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('44 InflectionsBrowser - renders Latin and Greek wide-tables - greek_lemma_gender_pronoun_view, form - τούτω', () => {
@@ -787,8 +851,10 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
-  })
 
+
+  })
+/*
   it('45 InflectionsBrowser - renders Latin and Greek wide-tables - greek_gender_pronoun_view, form - οἷς', () => {
     let cmp = mount(InflectionsBrowser, {
       store,
@@ -823,6 +889,8 @@ describe('inflections.test.js', () => {
     wideTable.findAll('span').at(0).trigger('click')
 
     expect(wideTable.findAll('.infl-cell').length).toBeGreaterThan(10)
+
+
   })
 
   it('47 InflectionsBrowser - renders Latin and Greek wide-tables - greek_gender_pronoun_view, form - τίνε', () => {
@@ -983,10 +1051,8 @@ describe('inflections.test.js', () => {
       paradigmID: 'verbpdgm4'
     }))
 
-    console.info(wideTable.html())
     wideTable.findAll('span').at(0).trigger('click')
 
-    console.info(wideTable.html())
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
@@ -2160,7 +2226,7 @@ describe('inflections.test.js', () => {
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
-
+*/
   it('119 InflectionsBrowser - method collapseLanguage changes language state for the given languageID', () => {
     let cmp = shallowMount(InflectionsBrowser, {
       store,

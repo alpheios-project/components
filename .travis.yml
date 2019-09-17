@@ -8,3 +8,4 @@ jobs:
   include:
     - script: npm run test-lib
     - script: npm run test-components
+    - script: npm run test-inflections
