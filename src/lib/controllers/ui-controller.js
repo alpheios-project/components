@@ -1267,20 +1267,20 @@ export default class UIController {
     let providers = new Map() // eslint-disable-line prefer-const
     homonym.lexemes.forEach((l) => {
       if (l.provider) {
-        providers.set(l.provider, 1)
+        providers.set(l.provider.uri, l.provider)
       }
       if (l.meaning && l.meaning.shortDefs) {
         l.meaning.shortDefs.forEach((d) => {
           if (d.provider) {
-            providers.set(d.provider, 1)
+            providers.set(d.provider.uri, d.provider)
           }
         })
       }
       if (l.lemma && l.lemma.translation && l.lemma.translation.provider) {
-        providers.set(l.lemma.translation.provider, 1)
+        providers.set(l.lemma.translation.provider.uri, l.lemma.translation.provider)
       }
     })
-    this.store.commit(`app/setProviders`, Array.from(providers.keys()))
+    this.store.commit(`app/setProviders`, Array.from(providers.values()))
   }
 
   /**
