@@ -83,11 +83,15 @@ export default class BaseTestHelp {
               shortDefUpdateTime: 0,
               fullDefUpdateTime: 0,
               hasInflData: false,
-              embedLibActive: false
+              embedLibActive: false,
+              currentLanguageID: null
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
                 state.currentLanguageName = value
+              },
+              setTestCurrentLanguageID (state, value) {
+                state.currentLanguageID = value
               },
               setTestMorphDataReady (state, value) {
                 state.morphDataReady = value
