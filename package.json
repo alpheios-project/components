@@ -43,7 +43,7 @@
     "alpheios-data-models": "github:alpheios-project/data-models#v2.5.1",
     "alpheios-experience": "github:alpheios-project/experience#v1.1.0",
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables#v1.5.2",
-    "alpheios-node-build": "github:alpheios-project/node-build#v0.6.2",
+    "alpheios-node-build": "github:alpheios-project/node-build#v0.6.3",
     "alpheios-res-client": "github:alpheios-project/res-client#v1.1.2",
     "alpheios-wordlist": "github:alpheios-project/wordlist#v0.2.1",
     "autoprefixer": "^9.6.1",

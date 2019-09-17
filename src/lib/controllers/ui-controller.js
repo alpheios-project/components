@@ -111,7 +111,7 @@ export default class UIController {
      *
      * @type {Platform} - A an object containing data about the platform.
      */
-    this.platform = new Platform({setRootAttributes: true, appType: this.options.appType})
+    this.platform = new Platform({ setRootAttributes: true, appType: this.options.appType })
     // Assign a class that will specify what type of layout will be used
     const layoutClassName = (this.platform.isMobile)
       ? layoutClasses.COMPACT
@@ -1651,8 +1651,26 @@ export default class UIController {
     if (LanguageModelFactory.getLanguageModel(this.store.state.app.currentLanguageID).canInflect()) {
       inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
       this.api.app.inflectionsViewSet = inflectionsViewSet
+      console.info(`Updating an inflection view set to ${inflectionsViewSet.homonym.targetWord}`)
     }
-    this.store.commit('app/setInflData', inflDataReady)
+
+    // TODO: Shall we make this delay conditional to avoid performance degradation?
+    //       Or will it be not noticeable at all?
+    Vue.nextTick(() => {
+      /*
+      If we're using a word from a word list and a data manager is null then we're actually getting
+      a homonym data from memory. Because of this `inflDataReady` app store prop is changed to
+      false and then to true so fast that both those changes end up within the same Vue loop.
+      As a result of optimization performed by Vue, the change to false is probably never applied,
+      and maybe a change to true too.
+      This prevents an inflDataReady watcher within `inflection.vue` component from being called.
+      As a result, an update of inflection data within an inflections component that is triggered
+      within that callback does not happen.
+      To prevent this, we introduce a delay that will allow Vue to notice a prop change
+      and call a watcher function.
+       */
+      this.store.commit('app/setInflData', inflDataReady)
+    })
 
     // The homonym can already has short defs data
     if (homonym.hasShortDefs) {
