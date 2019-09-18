@@ -137,16 +137,45 @@ export default class BaseTestHelp {
                 important: false,
                 showLanguageSwitcher: false,
                 text: null
+              },
+              hint: {
+                visible: false,
+                text: null
               }
             },
             mutations: {
               setTestCurrentTab (state, name) {
                 state.activeTab = name
+              },
+              setTestNotification (state, value) {
+                let currentData = state.notification
+                state.notification = Object.assign(currentData, value)
+              },
+              setTestHint (state, value) {
+                let currentData = state.hint
+                state.hint = Object.assign(currentData, value)
               }
             },
             getters: {
               isActiveTab: (state) => (tabName) => {
                 return state.activeTab === tabName
+              }
+            }
+          },
+          auth: {
+            namespaced: true,
+            state: {
+              notification: {
+                visible: false,
+                important: false,
+                showLanguageSwitcher: false,
+                text: null
+              }
+            },
+            mutations: {
+              setTestNotification (state, value) {
+                let currentData = state.notification
+                state.notification = Object.assign(currentData, value)
               }
             }
           }
