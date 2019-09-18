@@ -58,7 +58,8 @@ export default class BaseTestHelp {
             state: {
               visible: false,
               position: 'left',
-              orientation: Platform.orientations.PORTRAIT
+              orientation: Platform.orientations.PORTRAIT,
+              visibleFootnoteId: null
             },
             mutations: {
               setTestOrientation (state, value) {
@@ -66,6 +67,9 @@ export default class BaseTestHelp {
               },
               setTestPanelPosition (state, value) {
                 state.position = value
+              },
+              setVisibleFootnote (state, value) {
+                state.visibleFootnoteId = value
               }
             },
             actions: {},

@@ -146,6 +146,9 @@ export default {
     },
 
     deltaLeftXBound (childBR, parentBR) {
+      console.info('Math.round(Math.abs(childBR.x))', Math.round(Math.abs(childBR.x)))
+      console.info('this.defaultLeftPadding', this.defaultLeftPadding)
+
       return this.isOutOfLeftXBound(childBR, parentBR)
         ? Math.round(Math.abs(childBR.x)) - this.defaultLeftPadding : 0
     },
@@ -174,7 +177,7 @@ export default {
     hidePopup () {
       this.footnotesPopupVisible = false
       this.$_alpheios_cleanup()
-      this.popupAlignmentStyles.transform = undefined
+      this.setTransformPopup(undefined)
     }
   }
 }
