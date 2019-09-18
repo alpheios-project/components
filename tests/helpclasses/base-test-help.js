@@ -88,7 +88,8 @@ export default class BaseTestHelp {
               fullDefUpdateTime: 0,
               hasInflData: false,
               embedLibActive: false,
-              currentLanguageID: null
+              currentLanguageID: null,
+              wordUsageExamplesReady: false
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -114,6 +115,9 @@ export default class BaseTestHelp {
               },
               setTestEmbedLibActive (state, value) {
                 state.embedLibActive = value
+              },
+              setTestWordUsageExamplesReady (state, value) {
+                state.wordUsageExamplesReady = value
               }
             },
             getters: {
@@ -209,6 +213,8 @@ export default class BaseTestHelp {
             height: 0
           }
         },
+        wordUsageExamples: null,
+
         hasMorphData: () => false,
         getHomonymLexemes: () => null,
         getDefaultLangCode: () => 'lat',
@@ -267,5 +273,21 @@ export default class BaseTestHelp {
       })
 
       return homonym
+    }
+
+    static async collectConcordance (homonym, filters = {}, paginationOptions = {}) {
+      let filtersFinal =  Object.assign({}, paginationOptions)
+
+      let paginationOptionsFinal =  Object.assign({
+        property: 'max',
+        value: 5
+      }, paginationOptions)
+
+      let adapterConcordanceRes = await ClientAdapters.wordusageExamples.concordance({
+        method: 'getWordUsageExamples',
+        params: { homonym: homonym, filters: filtersFinal, pagination: paginationOptionsFinal }
+      })
+  
+      return adapterConcordanceRes.result
     }
 }
