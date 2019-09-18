@@ -1651,7 +1651,6 @@ export default class UIController {
     if (LanguageModelFactory.getLanguageModel(this.store.state.app.currentLanguageID).canInflect()) {
       inflDataReady = Boolean(inflectionsViewSet && inflectionsViewSet.hasMatchingViews)
       this.api.app.inflectionsViewSet = inflectionsViewSet
-      console.info(`Updating an inflection view set to ${inflectionsViewSet.homonym.targetWord}`)
     }
 
     // TODO: Shall we make this delay conditional to avoid performance degradation?
