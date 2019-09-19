@@ -384,6 +384,6 @@ describe('infl-footnote.test.js', () => {
     expect(cmp.vm.footnotesPopupVisible).toBeFalsy()
     expect(cmp.vm.$_alpheios_cleanup).toHaveBeenCalled()
 
-    expect(cmp.vm.setTransformPopup).toHaveBeenCalledWith(undefined)
+    expect(cmp.vm.setTransformPopup).toHaveBeenCalledWith()
   })
 })
