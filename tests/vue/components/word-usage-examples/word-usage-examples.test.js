@@ -47,7 +47,7 @@ describe('word-usage-examples.test.js', () => {
   function timeout (ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
-/*
+
   it('1 WordUsageExamples - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(WordUsageExamples, {
       store,
@@ -286,7 +286,7 @@ describe('word-usage-examples.test.js', () => {
 
     expect(cmp.vm.provider).toEqual(testWordUsageList.provider.toString())
   })
-*/
+
   it('8 WordUsageExamples - computed providerRights returns providerRights from wordUsageExamples', () => {
     let cmp = shallowMount(WordUsageExamples, {
       store,
