@@ -543,6 +543,7 @@ describe('panel-compact.test.js', () => {
 
     expect(document.documentElement.style['padding-right']).toEqual('50%')
     expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeTruthy()
+    cmp.destroy()
   })
 
   it('22 PanelCompact - method unsqueezePage removes additional styles and a class added by squeeze',  () => {
@@ -570,6 +571,7 @@ describe('panel-compact.test.js', () => {
     cmp.vm.unsqueezePage()
     expect(document.documentElement.style['padding-right']).toEqual('')
     expect(document.body.classList.contains('alpheios-layout-landscape-open-panel')).toBeFalsy()
+    cmp.destroy()
   })
 
   it('22 PanelCompact - method contentOptionChanged executes app.contentOptionChange',  () => {
@@ -588,6 +590,7 @@ describe('panel-compact.test.js', () => {
     cmp.vm.contentOptionChanged('fooName', 'fooValue')
 
     expect(api.app.contentOptionChange).toHaveBeenLastCalledWith('fooName', 'fooValue')
+    cmp.destroy()
   })
 
   it('23 PanelCompact - method expand updates expanded and prevExpanded to truthy',  () => {
@@ -608,6 +611,7 @@ describe('panel-compact.test.js', () => {
     
     expect(cmp.vm.expanded).toBeTruthy()
     expect(cmp.vm.prevExpanded).toBeTruthy()
+    cmp.destroy()
   })
 
   it('23 PanelCompact - method contract updates expanded and prevExpanded to falsy',  () => {
@@ -628,6 +632,7 @@ describe('panel-compact.test.js', () => {
     
     expect(cmp.vm.expanded).toBeFalsy()
     expect(cmp.vm.prevExpanded).toBeFalsy()
+    cmp.destroy()
   })
 
   it('24 PanelCompact - method expandOrContract updates expanded and prevExpanded to oposite',  () => {
@@ -653,6 +658,7 @@ describe('panel-compact.test.js', () => {
 
     expect(cmp.vm.expanded).toBeTruthy()
     expect(cmp.vm.prevExpanded).toBeTruthy()
+    cmp.destroy()
   })
 
   it('25 PanelCompact - method closePanel executes ui.closePanel and sets menuVisible to falsy',  () => {
