@@ -177,7 +177,13 @@ export default {
     getRenderedView: function () {
       if (this.view) {
         // This component has an instance of an initialized view supplied
-        return this.view.render()
+        let view
+        // Render view only if it is renderable
+        // TODO: A temporary fix for view rendered too early. Probably can do it in a more elegant way
+        if (this.view.isRenderable) {
+          view = this.view.render()
+        }
+        return view
       } else if (this.standardFormData) {
         // A standard form data is provided. It will be used to create, initialize, and render the corresponding view.
         this.state.standardFormTable = true
@@ -193,7 +199,7 @@ export default {
         }
       }
 
-      if (this.state.view.isImplemented) {
+      if (this.state.view && this.state.view.isImplemented) {
         this.state.view.wideView.collapsed = this.state.collapsed
       }
     },
@@ -294,7 +300,11 @@ export default {
   mounted: function () {
     // Set a default value by the parent component
     if (this.collapsed !== null) {
-      this.state.collapsed = this.collapsed
+      // set the state to the opposite of the parent component first
+      this.state.collapsed = ! this.collapsed
+      // then execute the collapse function to switch the state
+      // so that the code that initializes the view can be called
+      this.collapse()
     }
   }
 }

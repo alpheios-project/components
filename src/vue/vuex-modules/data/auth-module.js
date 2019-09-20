@@ -121,13 +121,22 @@ AuthModule.api = (moduleInstance, store) => {
         // fail quietly
       })
     },
-    authenticate: () => {
+
+    /**
+     * Logs the user in.
+     * @param {object} authData - Data that may be required for user authentication.
+     * It is passed to the `authenticate()` method of the Authenticator object.
+     * Its format of this data is dependent on what type of Authenticator is used in the environment
+     * in which AuthModule operates. Please see an environment-specific Authenticator
+     * implementation for more details (i.e. BgAuthenticator, SafariAuthenticator, etc.).
+     */
+    authenticate: (authData) => {
       if (!moduleInstance._auth) {
         // fail quietly
         return
       }
       store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
-      moduleInstance._auth.authenticate().then(() => {
+      moduleInstance._auth.authenticate(authData).then(() => {
         return moduleInstance._auth.getProfileData()
       }).then((data) => {
         if (!data.sub) {
@@ -140,6 +149,10 @@ AuthModule.api = (moduleInstance, store) => {
         return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
+
+    /**
+     * Logs the user out
+     */
     logout: () => {
       if (!moduleInstance._auth) {
         return
@@ -151,6 +164,7 @@ AuthModule.api = (moduleInstance, store) => {
         console.error('Alpheios logout failed', error)
       })
     },
+
     getUserData: () => {
       return new Promise((resolve, reject) => {
         if (moduleInstance._auth) {

@@ -81,12 +81,12 @@
     "component": "Panel"
   },
   "TOOLTIP_WORDLIST": {
-    "message": "User word list",
+    "message": "User Word List",
     "description": "tooltip for user word list tab",
     "component": "Panel"
   },
   "TOOLTIP_USER": {
-    "message": "User info",
+    "message": "User Account",
     "description": "tooltip for a user info tab",
     "component": "Panel"
   },
@@ -570,6 +570,16 @@
   "AUTH_LOGOUT_SUCCESS_MSG": {
     "message": "You have been logged out.",
     "description": "A message shown to the user if he or she logged out successfully",
+    "component": "UserAuth Vue Component"
+  },
+  "AUTH_SAFARI_LOGIN_MSG": {
+    "message": "Please launch the Alpheios Reading Tools application from the LaunchPad and login to your user account there.",
+    "description": "A message shown to the user if he or she is logged out (Safari only)",
+    "component": "UserAuth Vue Component"
+  },
+  "AUTH_SAFARI_LOGOUT_MSG": {
+    "message": "Please launch the Alpheios Reading Tools application from the LaunchPad and log out of your user account there.",
+    "description": "A message shown to the user if he or she is logged in (Safari only)",
     "component": "UserAuth Vue Component"
   },
   "FONTSIZE_TEXT_SMALL": {
