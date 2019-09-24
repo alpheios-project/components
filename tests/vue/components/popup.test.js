@@ -272,6 +272,8 @@ describe('popup.test.js', () => {
     cmp.vm.widthDm = 150
     expect(cmp.vm.widthValue).toEqual(100)
     expect(cmp.vm.exactWidth).toEqual(100)
+
+    cmp.destroy()
   })
 
   it('13 Popup - computed heightDm set value - updates heightValue with auto, if newHeight is less then maxHeight, and with maxHeight if greater', () => {
@@ -296,6 +298,8 @@ describe('popup.test.js', () => {
     cmp.vm.heightDm = 150
     expect(cmp.vm.heightValue).toEqual(100)
     expect(cmp.vm.exactHeight).toEqual(100)
+
+    cmp.destroy()
   })
 
   it('14 Popup - computed maxWidth calculates max available width according to the document and viewport margin', () => {
@@ -326,6 +330,8 @@ describe('popup.test.js', () => {
     })
 
     expect(cmp.vm.maxWidth).toEqual(150) // max - 2*viewport - scroll
+
+    cmp.destroy()
   })
 
   it('15 Popup - computed maxWidth calculates max available width according to the document and viewport margin', () => {
@@ -356,6 +362,8 @@ describe('popup.test.js', () => {
     })
 
     expect(cmp.vm.maxHeight).toEqual(130) // max - 2*viewport - scroll
+
+    cmp.destroy()
   })
 
   it('16 Popup - computed verboseMode checks if verboseMode is turned on', () => {
@@ -514,6 +522,8 @@ describe('popup.test.js', () => {
     expect(props.withinBounds).toBeTruthy()
     expect(props.adjX).toEqual(0)
     expect(props.adjY).toEqual(0)
+
+    cmp.destroy()
   })
 
   it('21 Popup - method resizeListener updates resized and shift properties only if resizable = true', () => {

@@ -58,7 +58,8 @@ export default class BaseTestHelp {
             state: {
               visible: false,
               position: 'left',
-              orientation: Platform.orientations.PORTRAIT
+              orientation: Platform.orientations.PORTRAIT,
+              visibleFootnoteId: null
             },
             mutations: {
               setTestOrientation (state, value) {
@@ -66,6 +67,9 @@ export default class BaseTestHelp {
               },
               setTestPanelPosition (state, value) {
                 state.position = value
+              },
+              setVisibleFootnote (state, value) {
+                state.visibleFootnoteId = value
               }
             },
             actions: {},
@@ -83,11 +87,16 @@ export default class BaseTestHelp {
               shortDefUpdateTime: 0,
               fullDefUpdateTime: 0,
               hasInflData: false,
-              embedLibActive: false
+              embedLibActive: false,
+              currentLanguageID: null,
+              wordUsageExamplesReady: false
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
                 state.currentLanguageName = value
+              },
+              setTestCurrentLanguageID (state, value) {
+                state.currentLanguageID = value
               },
               setTestMorphDataReady (state, value) {
                 state.morphDataReady = value
@@ -106,6 +115,9 @@ export default class BaseTestHelp {
               },
               setTestEmbedLibActive (state, value) {
                 state.embedLibActive = value
+              },
+              setTestWordUsageExamplesReady (state, value) {
+                state.wordUsageExamplesReady = value
               }
             },
             getters: {
@@ -129,16 +141,45 @@ export default class BaseTestHelp {
                 important: false,
                 showLanguageSwitcher: false,
                 text: null
+              },
+              hint: {
+                visible: false,
+                text: null
               }
             },
             mutations: {
               setTestCurrentTab (state, name) {
                 state.activeTab = name
+              },
+              setTestNotification (state, value) {
+                let currentData = state.notification
+                state.notification = Object.assign(currentData, value)
+              },
+              setTestHint (state, value) {
+                let currentData = state.hint
+                state.hint = Object.assign(currentData, value)
               }
             },
             getters: {
               isActiveTab: (state) => (tabName) => {
                 return state.activeTab === tabName
+              }
+            }
+          },
+          auth: {
+            namespaced: true,
+            state: {
+              notification: {
+                visible: false,
+                important: false,
+                showLanguageSwitcher: false,
+                text: null
+              }
+            },
+            mutations: {
+              setTestNotification (state, value) {
+                let currentData = state.notification
+                state.notification = Object.assign(currentData, value)
               }
             }
           }
@@ -172,6 +213,8 @@ export default class BaseTestHelp {
             height: 0
           }
         },
+        wordUsageExamples: null,
+
         hasMorphData: () => false,
         getHomonymLexemes: () => null,
         getDefaultLangCode: () => 'lat',
@@ -230,5 +273,21 @@ export default class BaseTestHelp {
       })
 
       return homonym
+    }
+
+    static async collectConcordance (homonym, filters = {}, paginationOptions = {}) {
+      let filtersFinal =  Object.assign({}, paginationOptions)
+
+      let paginationOptionsFinal =  Object.assign({
+        property: 'max',
+        value: 5
+      }, paginationOptions)
+
+      let adapterConcordanceRes = await ClientAdapters.wordusageExamples.concordance({
+        method: 'getWordUsageExamples',
+        params: { homonym: homonym, filters: filtersFinal, pagination: paginationOptionsFinal }
+      })
+  
+      return adapterConcordanceRes.result
     }
 }

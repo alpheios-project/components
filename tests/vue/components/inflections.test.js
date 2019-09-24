@@ -306,7 +306,7 @@ describe('inflections.test.js', () => {
     let result = cmp.vm.navigate('test-ref')
     expect(panel.scrollTop).toEqual(-20) //offsetTop (0) - 20
     expect(cmp.vm.$options.logger.warn).not.toHaveBeenCalled()
-
+    cmp.destroy()
   })
 
   it('13 Inflections - method navigate scrolls to the top (0) if we pass top as an argument', () => {
@@ -330,7 +330,7 @@ describe('inflections.test.js', () => {
     let result = cmp.vm.navigate('top')
     expect(testPannelInner.scrollTop).toEqual(0)
     expect(cmp.vm.$options.logger.warn).not.toHaveBeenCalled()
-
+    cmp.destroy()
   })
 
   it('14 Inflections - method navigate returns undefined if there is no inner panel component', () => {
@@ -346,6 +346,7 @@ describe('inflections.test.js', () => {
     
     expect(result).toBeUndefined()
     expect(cmp.vm.$options.logger.warn).toHaveBeenLastCalledWith(expect.stringContaining('Cannot find panel\'s inner element'))
+    cmp.destroy()
   })
 
 
@@ -368,6 +369,6 @@ describe('inflections.test.js', () => {
     let result = cmp.vm.navigate('test-ref2')
     expect(panel.scrollTop).toEqual(0) 
     expect(cmp.vm.$options.logger.warn).toHaveBeenLastCalledWith(expect.stringContaining('Cannot find #test-ref2 element. Navigation is cancelled'))
-
+    cmp.destroy()
   })
 })
