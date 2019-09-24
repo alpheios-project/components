@@ -310,12 +310,16 @@ describe('inflections-table-wide.test.js', () => {
       mocks: api,
       propsData: {
         view : {
+          isRenderable: true,
           render: () => 'fooRenderedView'
         }
         
       }
     })
-    expect(cmp.vm.getRenderedView()).toEqual('fooRenderedView')
+
+    let result = cmp.vm.getRenderedView()
+
+    expect(result).toEqual('fooRenderedView')
     expect(cmp.vm.state.standardFormTable).toBeFalsy()
   })
 
@@ -590,4 +594,5 @@ describe('inflections-table-wide.test.js', () => {
     cmp.vm.cellMouseLeave(cell)
     expect(cell.clearRowAndColumnHighlighting).toHaveBeenCalled()
   })
+
 })

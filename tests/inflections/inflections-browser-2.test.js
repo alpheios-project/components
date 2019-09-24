@@ -33,15 +33,17 @@ describe('inflections.test.js', () => {
     api = {
       app: BaseTestHelp.appAPI()
     }
-    BaseTestHelp.l10nModule(store, api)
+    BaseTestHelp.l10nModule(store, api) 
+     
+     
   })
 
   function timeout (ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-
-  it('53 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm3', () => {
+  // has status not implemented yet
+  it('53 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm3', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -55,11 +57,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('54 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm4', () => {
+  it('54 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm4', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -73,11 +76,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('55 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm5', () => {
+  it('55 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm5', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -91,11 +95,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('56 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm6', () => {
+  it('56 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm6', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -109,11 +114,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('57 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm7', () => {
+  it('57 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm7', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -127,11 +133,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('58 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm8', () => {
+  it('58 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm8', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -145,11 +152,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('59 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm9', () => {
+  it('59 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm9', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -163,11 +171,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('60 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm10', () => {
+  it('60 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm10', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -181,12 +190,13 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
 
-  it('61 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm11', () => {
+  it('61 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm11', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -200,11 +210,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('62 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm12', () => {
+  it('62 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm12', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -218,11 +229,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('63 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm13', () => {
+  it('63 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm13', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -236,11 +248,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('64 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm14', () => {
+  it('64 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm14', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -254,11 +267,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('65 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm15', () => {
+  it('65 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm15', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -272,11 +286,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('66 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm16', () => {
+  it('66 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm16', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -290,11 +305,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('67 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17', () => {
+  it('67 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -308,11 +324,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('68 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17b', () => {
+  it('68 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17b', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -326,11 +343,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('69 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17c', () => {
+  it('69 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm17c', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -344,11 +362,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('70 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm18', () => {
+  it('70 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm18', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -362,11 +381,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('71 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm19', () => {
+  it('71 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm19', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -380,11 +400,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('72 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm20', () => {
+  it('72 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm20', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -398,11 +419,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('73 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm21', () => {
+  it('73 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm21', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -416,11 +438,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('74 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm22', () => {
+  it('74 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm22', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -434,11 +457,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('75 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm23', () => {
+  it('75 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm23', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -452,11 +476,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('76 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm24', () => {
+  it('76 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm24', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -470,11 +495,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('77 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm25', () => {
+  it('77 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm25', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -488,11 +514,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('78 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm26', () => {
+  it('78 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm26', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -506,11 +533,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('79 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm27', () => {
+  it('79 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm27', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -524,11 +552,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('80 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm28', () => {
+  it('80 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm28', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -542,11 +571,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('81 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm29', () => {
+  it('81 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm29', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -560,11 +590,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('82 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm30', () => {
+  it('82 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm30', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -578,11 +609,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('83 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm31', () => {
+  it('83 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm31', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -596,11 +628,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('84 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm32', () => {
+  it('84 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm32', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -614,11 +647,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('85 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm33', () => {
+  it('85 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm33', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -632,11 +666,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('86 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm34', () => {
+  it('86 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm34', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -650,11 +685,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('87 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm35', () => {
+  it('87 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm35', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -668,11 +704,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('88 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm36', () => {
+  it('88 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm36', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -686,11 +723,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('89 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm37', () => {
+  it('89 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm37', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -704,11 +742,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('90 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm38', () => {
+  it('90 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm38', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -722,11 +761,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('91 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm39', () => {
+  it('91 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm39', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -740,11 +780,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('92 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm40', () => {
+  it('92 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm40', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -758,11 +799,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('93 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm41', () => {
+  it('93 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm41', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -776,11 +818,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('94 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm42', () => {
+  it('94 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm42', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -794,11 +837,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('95 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm43', () => {
+  it('95 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm43', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -812,11 +856,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('96 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm43b', () => {
+  it('96 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm43b', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -830,11 +875,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('97 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm44', () => {
+  it('97 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm44', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -848,11 +894,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('98 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm45', () => {
+  it('98 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm45', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -866,11 +913,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('99 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm46', () => {
+  it('99 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm46', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -884,11 +932,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('100 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm47', () => {
+  it('100 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm47', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -902,11 +951,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('101 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm48', () => {
+  it('101 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm48', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -920,11 +970,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('102 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm49', () => {
+  it('102 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm49', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -938,11 +989,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
   
-  it('103 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm50', () => {
+  it('103 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm50', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -956,11 +1008,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('104 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm51', () => {
+  it('104 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm51', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -974,11 +1027,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('105 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm52', () => {
+  it('105 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm52', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -992,11 +1046,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('106 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm53', () => {
+  it('106 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_paradigm_view, paradigmID - verbpdgm53', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1010,11 +1065,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('107 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm54', () => {
+  it('107 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm54', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1028,11 +1084,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('108 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm55', () => {
+  it('108 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm55', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1046,11 +1103,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('109 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm56', () => {
+  it('109 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm56', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1064,11 +1122,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('109 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm57', () => {
+  it('109 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm57', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1082,11 +1141,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('110 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm58', () => {
+  it('110 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm58', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1100,11 +1160,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('111 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm59', () => {
+  it('111 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm59', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1118,11 +1179,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('112 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm60', () => {
+  it('112 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm60', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1136,11 +1198,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('113 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm61', () => {
+  it('113 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm61', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1154,11 +1217,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('114 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm62', () => {
+  it('114 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm62', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1172,11 +1236,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('115 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm63', () => {
+  it('115 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm63', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1190,11 +1255,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('116 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm64', () => {
+  it('116 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm64', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1208,11 +1274,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('117 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm65', () => {
+  it('117 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm65', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1226,11 +1293,12 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
 
-  it('118 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm66', () => {
+  it('118 InflectionsBrowser - renders Latin and Greek wide-tables - greek_verb_participle_paradigm_view, paradigmID - verbpdgm66', async () => {
     let cmp = mount(InflectionsBrowser, {
       store,
       localVue,
@@ -1244,6 +1312,7 @@ describe('inflections.test.js', () => {
     }))
 
     wideTable.findAll('span').at(0).trigger('click')
+    await Vue.nextTick()
 
     expect(wideTable.findAll('.infl-prdgm-tbl-cell--data').length).toBeGreaterThan(10)
   })
