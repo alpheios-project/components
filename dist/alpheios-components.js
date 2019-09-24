@@ -26676,7 +26676,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -35616,15 +35615,27 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    !_vm.state.collapsed && !_vm.isAvailable
-      ? _c("div", { staticClass: "alpheios-inflections__not-impl-msg" }, [
-          _vm._v(
-            "\n    " +
-              _vm._s(_vm.l10n.getMsg("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")) +
-              "\n  "
-          )
-        ])
-      : _vm._e()
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.state.collapsed && !_vm.isAvailable,
+            expression: "!state.collapsed && !isAvailable"
+          }
+        ],
+        staticClass: "alpheios-inflections__not-impl-msg"
+      },
+      [
+        _vm._v(
+          "\n    " +
+            _vm._s(_vm.l10n.getMsg("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")) +
+            "\n  "
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = []

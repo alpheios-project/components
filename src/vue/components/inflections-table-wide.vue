@@ -70,7 +70,6 @@
       </div>
 
       <div class="infl-prdgm-tbl" v-if="hasPrerenderedTables">
-
         <div class="infl-prdgm-tbl__row" v-for="row in state.view.wideTable.rows">
           <div :class="prerenderedCellClasses(cell)" class="infl-prdgm-tbl__cell" v-for="cell in row.cells">
             {{cell.value}}
@@ -82,7 +81,7 @@
 
     <div
         class="alpheios-inflections__not-impl-msg"
-        v-if="!state.collapsed && !isAvailable"
+        v-show="!state.collapsed && !isAvailable"
     >
       {{l10n.getMsg('INFLECT_MSG_TABLE_NOT_IMPLEMENTED')}}
     </div>

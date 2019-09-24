@@ -318,7 +318,6 @@ describe('inflections-table-wide.test.js', () => {
     })
 
     let result = cmp.vm.getRenderedView()
-
     expect(result).toEqual('fooRenderedView')
     expect(cmp.vm.state.standardFormTable).toBeFalsy()
   })
