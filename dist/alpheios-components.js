@@ -26783,6 +26783,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     collapse: function () {
+      // findCurrentScrollPos and checkAndFixScroll methods are added 
+      // to fix the bug with scroll on IOS (mobile platform)
+      // before collapse current scrollPosition of the Panel Tab is saved to scrollPos
+
       let scrollPos
       if (this.app.platform.isMobile) {
         scrollPos = this.findCurrentScrollPos()
@@ -26800,6 +26804,9 @@ __webpack_require__.r(__webpack_exports__);
         this.state.view.wideView.collapsed = this.state.collapsed
       }
 
+      // and then after the view is rendered
+      // we check the current scroll position, compare with previous saved position
+      // and if it changed (IOS scrolls up after rerendering), it would be returned to previos position
       if (this.app.platform.isMobile && scrollPos) {
         this.checkAndFixScroll(scrollPos.parentIBNode, scrollPos.scrollTop)
       }
