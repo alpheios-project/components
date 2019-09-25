@@ -26587,6 +26587,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_inflection_tables__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _infl_footnote_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./infl-footnote.vue */ "./vue/components/infl-footnote.vue");
 /* harmony import */ var _tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.vue */ "./vue/components/tooltip.vue");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 //
 //
 //
@@ -26676,6 +26677,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -26684,7 +26687,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'WideInflectionsTableStandardForm',
-  inject: ['l10n'],
+  inject: ['l10n', 'app'],
   components: {
     inflFootnote: _infl_footnote_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     alphTooltip: _tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -26780,6 +26783,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     collapse: function () {
+      let scrollPos
+      if (this.app.platform.isMobile) {
+        scrollPos = this.findCurrentScrollPos()
+      }
+
       this.state.collapsed = !this.state.collapsed
       if (!this.state.collapsed) {
         // A view has been expanded, we need to check if it needs to be rendered.
@@ -26790,6 +26798,51 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.state.view && this.state.view.isImplemented) {
         this.state.view.wideView.collapsed = this.state.collapsed
+      }
+
+      if (this.app.platform.isMobile) {
+        this.checkAndFixScroll(scrollPos.parentIBNode, scrollPos.scrollTop)
+      }
+    },
+
+    findCurrentScrollPos() {
+      let maxSteps = 8
+      let parentIBNode = null
+      let currentParent = null
+      let scrollTop = null
+
+      while (maxSteps >= 0 && !parentIBNode) {
+        maxSteps--
+        currentParent = !currentParent ? this.$el.parentNode : currentParent.parentNode
+        if (currentParent && currentParent.classList && currentParent.classList.contains('alpheios-panel__content')) {
+          parentIBNode = currentParent
+        }
+        if (!currentParent) {
+          maxSteps = -1
+        }
+      }
+
+      if (parentIBNode) {
+        scrollTop = parentIBNode.scrollTop
+      }
+
+      return {
+        parentIBNode,
+        scrollTop
+      }
+    },
+
+    checkAndFixScroll(parentIBNode, scrollTop) {
+      if (parentIBNode && scrollTop) {
+        _vue_runtime__WEBPACK_IMPORTED_MODULE_3__["default"].nextTick().then(() => {
+          if (parentIBNode.scrollTop === 0) {
+            parentIBNode.scrollTo({
+              top: scrollTop, 
+              left: 0,
+              behavior: 'smooth'
+            })
+          }
+        })
       }
     },
 
@@ -35615,27 +35668,15 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.state.collapsed && !_vm.isAvailable,
-            expression: "!state.collapsed && !isAvailable"
-          }
-        ],
-        staticClass: "alpheios-inflections__not-impl-msg"
-      },
-      [
-        _vm._v(
-          "\n    " +
-            _vm._s(_vm.l10n.getMsg("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")) +
-            "\n  "
-        )
-      ]
-    )
+    !_vm.state.collapsed && !_vm.isAvailable
+      ? _c("div", { staticClass: "alpheios-inflections__not-impl-msg" }, [
+          _vm._v(
+            "\n    " +
+              _vm._s(_vm.l10n.getMsg("INFLECT_MSG_TABLE_NOT_IMPLEMENTED")) +
+              "\n  "
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

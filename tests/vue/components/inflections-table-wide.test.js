@@ -43,6 +43,7 @@ describe('inflections-table-wide.test.js', () => {
     store = BaseTestHelp.baseVuexStore()
 
     api = {
+      app: BaseTestHelp.appAPI()
     }
 
     BaseTestHelp.l10nModule(store, api)
@@ -594,4 +595,35 @@ describe('inflections-table-wide.test.js', () => {
     expect(cell.clearRowAndColumnHighlighting).toHaveBeenCalled()
   })
 
+
+  it('18 InflectionsTableWide - method collapse executes findCurrentScrollPos and checkAndFixScroll only for Mobile', () => {
+    let api = {
+      app: BaseTestHelp.appAPI()
+    }
+
+    BaseTestHelp.l10nModule(store, api)
+
+    let cmp = shallowMount(InflectionsTableWide, {
+      store,
+      localVue,
+      mocks: api
+    })
+
+    api.app.platform.isMobile = false
+
+    cmp.vm.findCurrentScrollPos = jest.fn(() => { return {} })
+    cmp.vm.checkAndFixScroll = jest.fn()
+
+    cmp.vm.collapse()
+
+    expect(cmp.vm.findCurrentScrollPos).not.toHaveBeenCalled()
+    expect(cmp.vm.checkAndFixScroll).not.toHaveBeenCalled()
+
+    api.app.platform.isMobile = true
+
+    cmp.vm.collapse()
+
+    expect(cmp.vm.findCurrentScrollPos).toHaveBeenCalled()
+    expect(cmp.vm.checkAndFixScroll).toHaveBeenCalled()
+  })
 })
