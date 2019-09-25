@@ -3903,7 +3903,6 @@ span.alpheios-lookup__lang-change:hover {
   fill: var(--alpheios-btn-primary-bg-color-pressed) !important;
 }
 .alpheios-action-panel__lookup-cont {
-  height: calc(var(--alpheios-base-ui-size) * 5.625) !important;
   position: relative !important;
 }
 .alpheios-action-panel__lookup input.alpheios-input, .alpheios-action-panel__lookup input.alpheios-input:focus {

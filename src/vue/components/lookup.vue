@@ -117,7 +117,8 @@ export default {
     },
 
     toggleLangSelector: function() {
-      this.showLangSelector = true
+      // this.showLangSelector = true
+      this.$emit('toggleLangSelector', true)
     },
 
     lookup: function () {
