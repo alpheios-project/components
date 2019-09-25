@@ -27504,7 +27504,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     toggleLangSelector: function() {
-      // this.showLangSelector = true
       this.$emit('toggleLangSelector', true)
     },
 
