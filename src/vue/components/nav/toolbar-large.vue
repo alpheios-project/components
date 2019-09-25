@@ -476,7 +476,7 @@ export default {
 
   .alpheios-toolbar__lookup-control {
     cursor: pointer;
-    background: var(--alpheios-text-bg-color);
+    background: var(--alpheios-desktop-toolbar-bg);
 
     .alpheios-navbuttons__btn {
       margin: 0;
@@ -486,7 +486,7 @@ export default {
   }
 
   .alpheios-toolbar__help-control {
-    background: var(--alpheios-text-bg-color);
+    background: var(--alpheios-desktop-toolbar-bg);
     .alpheios-navbuttons__btn {
       margin: 0;
       border-radius: 0;
