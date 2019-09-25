@@ -26800,7 +26800,7 @@ __webpack_require__.r(__webpack_exports__);
         this.state.view.wideView.collapsed = this.state.collapsed
       }
 
-      if (this.app.platform.isMobile) {
+      if (this.app.platform.isMobile && scrollPos) {
         this.checkAndFixScroll(scrollPos.parentIBNode, scrollPos.scrollTop)
       }
     },
@@ -27557,7 +27557,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     toggleLangSelector: function() {
-      this.showLangSelector = true
+      this.$emit('toggleLangSelector', true)
     },
 
     lookup: function () {
@@ -28157,6 +28157,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -28205,7 +28206,8 @@ __webpack_require__.r(__webpack_exports__);
         y: 0
       },
 
-      tooltipDirection: 'top'
+      tooltipDirection: 'top', 
+      showLangSelector: false
     }
   },
 
@@ -28275,6 +28277,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.config.closeAfterLookup) {
         this.$store.commit('actionPanel/close')
       }
+    },
+
+    toggleLangSelector (value) {
+      this.showLangSelector = true
     }
   }
 });
@@ -28789,6 +28795,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -28860,7 +28867,8 @@ __webpack_require__.r(__webpack_exports__);
       },
 
       // An X position of the central point of a toolbar
-      xCenter: undefined
+      xCenter: undefined,
+      showLangSelector: false
     }
   },
 
@@ -29005,6 +29013,10 @@ __webpack_require__.r(__webpack_exports__);
     getXCenter () {
       const rect = this.$el.getBoundingClientRect()
       return rect.x + rect.width / 2
+    },
+    
+    toggleLangSelector (value) {
+      this.showLangSelector = true
     }
   },
 
@@ -37243,10 +37255,13 @@ var render = function() {
               staticClass: "alpheios-action-panel__lookup",
               attrs: {
                 "name-base": "action-panel",
-                "show-lang-selector": false,
+                "show-lang-selector": _vm.showLangSelector,
                 "show-results-in": _vm.config.lookupResultsIn
               },
-              on: { "lookup-started": _vm.lookupStarted }
+              on: {
+                "lookup-started": _vm.lookupStarted,
+                toggleLangSelector: _vm.toggleLangSelector
+              }
             }),
             _vm._v(" "),
             _vm.$store.getters["app/lexicalRequestInProgress"]
@@ -38243,7 +38258,11 @@ var render = function() {
         },
         [
           _c("lookup", {
-            attrs: { "name-base": "toolbar", "show-lang-selector": false }
+            attrs: {
+              "name-base": "toolbar",
+              "show-lang-selector": _vm.showLangSelector
+            },
+            on: { toggleLangSelector: _vm.toggleLangSelector }
           })
         ],
         1
