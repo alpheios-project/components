@@ -1037,12 +1037,19 @@ export default class UIController {
   }
 
   addPageInjections () {
-    if (this.options.disableTextSelection && this.platform.isMobile) {
-      if (document && document.body) {
+    if (document && document.body) {
+      if (this.options.disableTextSelection && this.platform.isMobile) {
+        // Disable text selection on mobile platforms when a corresponding option is set
         document.body.classList.add(injectionClasses.DISABLE_TEXT_SELECTION)
       } else {
-        this.logger.warn(`Cannot inject Alpheios CSS rules because either document or body do not exist`)
+        // If extension has been deactivated previously, removePageInjections() would be setting
+        // a DISABLE_TEXT_SELECTION for the page body. We shall remove it.
+        if (document.body.classList.contains(injectionClasses.DISABLE_TEXT_SELECTION)) {
+          document.body.classList.remove(injectionClasses.DISABLE_TEXT_SELECTION)
+        }
       }
+    } else {
+      this.logger.warn(`Cannot inject Alpheios CSS rules because either document or body do not exist`)
     }
   }
 
