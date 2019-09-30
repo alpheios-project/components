@@ -589,9 +589,8 @@ export default class UIController {
           state.embedLibActive = status
         },
         setCurrentLanguage (state, languageCodeOrID) {
-          const langDetails = UIController.getLanguageName(languageCodeOrID)
+          const { id, name } = UIController.getLanguageName(languageCodeOrID)	
           state.currentLanguageID = langDetails.id
-          state.currentLanguageCode = langDetails.code 
           state.currentLanguageName = langDetails.name
         },
 
