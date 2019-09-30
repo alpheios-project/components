@@ -589,9 +589,9 @@ export default class UIController {
           state.embedLibActive = status
         },
         setCurrentLanguage (state, languageCodeOrID) {
-          const { id, name } = UIController.getLanguageName(languageCodeOrID)	
-          state.currentLanguageID = langDetails.id
-          state.currentLanguageName = langDetails.name
+          const { id, name } = UIController.getLanguageName(languageCodeOrID)
+          state.currentLanguageID = id
+          state.currentLanguageName = name
         },
 
         setSelectedLookupLang (state, langCode) {
