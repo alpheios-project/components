@@ -135,7 +135,7 @@ AuthModule.api = (moduleInstance, store) => {
         // fail quietly
         return
       }
-      store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_PROGRESS_MSG' })
+      store.commit('auth/setNotification', { text: 'AUTH_LOGIN_PROGRESS_MSG' })
       moduleInstance._auth.authenticate(authData).then(() => {
         return moduleInstance._auth.getProfileData()
       }).then((data) => {
@@ -143,10 +143,10 @@ AuthModule.api = (moduleInstance, store) => {
           throw new RangeError('UserId is empty!')
         }
         store.commit('auth/setIsAuthenticated', data)
-        store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_SUCCESS_MSG' })
+        store.commit('auth/setNotification', { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
         console.error('Alpheios authentication failed', error)
-        return store.commit(`auth/setNotification`, { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
+        return store.commit('auth/setNotification', { text: 'AUTH_LOGIN_AUTH_FAILURE_MSG' })
       })
     },
 
@@ -159,7 +159,7 @@ AuthModule.api = (moduleInstance, store) => {
       }
       moduleInstance._auth.logout().then(() => {
         store.commit('auth/setIsNotAuthenticated')
-        return store.commit(`auth/setNotification`, { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
+        return store.commit('auth/setNotification', { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
         console.error('Alpheios logout failed', error)
       })
