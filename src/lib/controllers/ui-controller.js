@@ -126,6 +126,9 @@ export default class UIController {
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
 
+    // Get query parameters from the URL. Do this early so they will be available to modules during registration
+    this.queryParams = QueryParams.parse()
+
     /**
      * If an event controller be used with an instance of a UI Controller,
      * this prop will hold an event controller instance. It is usually initialized within a `build` method.
@@ -311,7 +314,8 @@ export default class UIController {
    */
   registerModule (moduleClass, options = {}) {
     if (moduleClass.isSupportedPlatform(this.platform)) {
-      // Add `platform` to module's options
+      // Add query parameters and platform info to module's options
+      options.queryParams = this.queryParams
       options.platform = this.platform
       this.modules.set(moduleClass.moduleName, { ModuleClass: moduleClass, options, instance: null })
     } else {
@@ -368,8 +372,6 @@ export default class UIController {
 
   async init () {
     if (this.isInitialized) { return 'Already initialized' }
-    // Get query parameters from the URL
-    this.queryParams = QueryParams.parse()
     // Start loading options as early as possible
     const optionLoadPromises = this.initOptions(this.options.storageAdapter)
     // Create a copy of resource options for the lookup UI component
@@ -1250,7 +1252,13 @@ export default class UIController {
     this.resetInflData()
     this.store.commit('ui/resetNotification')
     this.store.commit('ui/resetMessages')
-    this.store.commit('auth/resetNotification')
+    /*
+    Do not reset authentication notification if there is an expired user session:
+    in this case we always need to show a login prompt to the user
+     */
+    if (!this.store.state.auth.isSessionExpired) {
+      this.store.commit('auth/resetNotification')
+    }
 
     // Set new data values
     this.store.commit('app/setTextData', { text: targetWord, languageID: languageID })
@@ -1691,7 +1699,7 @@ export default class UIController {
 
   onWordListUpdated (wordList) {
     this.store.commit('app/setWordLists', wordList)
-    if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated) {
+    if (this.store.state.auth.enableLogin && !this.store.state.auth.isAuthenticated && !this.store.state.auth.isSessionExpired) {
       this.store.commit('auth/setNotification', { text: 'TEXT_NOTICE_SUGGEST_LOGIN', showLogin: true, count: this.wordlistC.getWordListItemCount() })
     }
   }
