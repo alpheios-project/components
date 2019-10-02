@@ -28,8 +28,7 @@
         </div>
 
         <!-- delete all confirmation -->
-        <div class="alpheios-wordlist-delete-all-confirmation alpheios-notification-area__notification alpheios-notification-area__notification--important" 
-             v-show="showDeleteAllBox">
+        <div class="alpheios-wordlist-delete-all-confirmation alpheios-notification-area__notification alpheios-notification-area__notification--important" v-show="showDeleteAllBox">
           <div class="alpheios-notification-area__msg">{{l10n.getText('WORDLIST_DELETE_CONFIRM_MESSAGE')}}</div>
 
           <div class="alpheios-wordlist-delete-all-confirmation__buttons alpheios-notification-area__control">
