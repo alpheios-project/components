@@ -149,7 +149,8 @@ export default {
       sortingState: {
         'targetWord': null
       }
-    }
+    } 
+     
   },
   computed: {
     hasSeveralItems () {
