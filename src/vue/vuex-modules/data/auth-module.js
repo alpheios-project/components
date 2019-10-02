@@ -28,11 +28,15 @@ export default class AuthModule extends Module {
 
   updateAuthData (authData, store) {
     this._authData = authData
-    const customSessionDuration = this.config.queryParams.sessionDuration
-    // Do not allow to override session duration to values higher than set by the auth server
-    if (customSessionDuration && Number(customSessionDuration) * 1000 < this._authData.expirationInterval) {
-      this._authData.setSessionDuration(Number(customSessionDuration) * 1000)
+
+    if (this.config.queryParams && this.config.queryParams.sessionDuration) {
+      const customSessionDuration = this.config.queryParams.sessionDuration
+      // Do not allow to override session duration to values higher than set by the auth server
+      if (customSessionDuration && Number(customSessionDuration) * 1000 < this._authData.expirationInterval) {
+        this._authData.setSessionDuration(Number(customSessionDuration) * 1000)
+      }
     }
+
     store.commit('auth/setIsAuthenticated', this._authData)
 
     if (!this._authData.isExpired) {
