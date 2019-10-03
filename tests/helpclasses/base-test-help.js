@@ -75,6 +75,9 @@ export default class BaseTestHelp {
             actions: {},
             getters: {}
           },
+          actionPanel: {
+            namespaced: true
+          },
           app: {
             namespaced: true,
             state: {
@@ -194,7 +197,8 @@ export default class BaseTestHelp {
 
     static uiAPI (props) {
       let defaultProps = {
-        closePopup: () => {}
+        closePopup: () => {},
+        showPanelTab: () => {}
       }
       return Object.assign(defaultProps, props)
     }
