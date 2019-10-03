@@ -562,6 +562,11 @@
     "description": "A message shown to the user if his or her authentication failed",
     "component": "UserAuth Vue Component"
   },
+  "AUTH_SESSION_EXPIRED_MSG": {
+    "message": "Your user session has expired. Please log in again.",
+    "description": "A message shown to the user if his or her authentication session has been expired",
+    "component": "UserAuth Vue Component"
+  },
   "AUTH_PROFILE_NICKNAME_LABEL": {
     "message": "Nickname",
     "description": "A user's profile nickname filed label",
