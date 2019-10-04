@@ -70,10 +70,33 @@ export default class BaseTestHelp {
               },
               setVisibleFootnote (state, value) {
                 state.visibleFootnoteId = value
+              },
+              setVisible (state, value) {
+                state.visible = value
               }
             },
             actions: {},
             getters: {}
+          },
+          actionPanel: {
+            namespaced: true,
+            state: {
+              moduleConfig: {
+                initialShift: {
+                  x: 0, y: 0
+                }
+              },
+              initialPos: {},
+              visible: false
+            },
+            mutations: {
+              setInitialPos (state, value) {
+                state.initialPos = value
+              },
+              setVisible (state, value) {
+                state.visible = value
+              }
+            }
           },
           app: {
             namespaced: true,
@@ -138,7 +161,6 @@ export default class BaseTestHelp {
             state: {
               activeTab: 'info',
               rootClasses: [],
-  
               messages: [],
               notification: {
                 visible: false,
@@ -194,7 +216,9 @@ export default class BaseTestHelp {
 
     static uiAPI (props) {
       let defaultProps = {
-        closePopup: () => {}
+        closePopup: () => {},
+        showPanelTab: () => {},
+        zIndex: 0
       }
       return Object.assign(defaultProps, props)
     }
