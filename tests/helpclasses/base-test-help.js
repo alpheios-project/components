@@ -113,7 +113,8 @@ export default class BaseTestHelp {
               embedLibActive: false,
               currentLanguageID: null,
               wordUsageExamplesReady: false,
-              wordListUpdateTime: 0
+              wordListUpdateTime: 0,
+              grammarRes: {}
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -145,6 +146,9 @@ export default class BaseTestHelp {
               },
               setTestWordListUpdateTime (state, value) {
                 state.wordListUpdateTime = value
+              },
+              setGrammarProvider (state, value) {
+                state.grammarRes = value
               }
             },
             getters: {
