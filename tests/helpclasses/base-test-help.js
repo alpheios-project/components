@@ -114,7 +114,8 @@ export default class BaseTestHelp {
               currentLanguageID: null,
               wordUsageExamplesReady: false,
               wordListUpdateTime: 0,
-              grammarRes: {}
+              grammarRes: {},
+              linkedFeatures: []
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -149,6 +150,9 @@ export default class BaseTestHelp {
               },
               setGrammarProvider (state, value) {
                 state.grammarRes = value
+              },
+              setLinkedFeatures (state, value) {
+                state.linkedFeatures = value
               }
             },
             getters: {
