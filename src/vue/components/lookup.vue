@@ -151,7 +151,6 @@ export default {
       lexQuery.getData()
       // Notify parent that the lookup has been started so that the parent can close itself if necessary
       this.$emit('lookup-started')
-      this.showLangSelector()
       this.showLookupResult()
     },
 
