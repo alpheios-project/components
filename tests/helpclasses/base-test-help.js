@@ -113,7 +113,10 @@ export default class BaseTestHelp {
               embedLibActive: false,
               currentLanguageID: null,
               wordUsageExamplesReady: false,
-              wordListUpdateTime: 0
+              wordListUpdateTime: 0,
+              grammarRes: {},
+              linkedFeatures: [],
+              selectedLookupLangCode: 'lat'
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -145,6 +148,15 @@ export default class BaseTestHelp {
               },
               setTestWordListUpdateTime (state, value) {
                 state.wordListUpdateTime = value
+              },
+              setGrammarProvider (state, value) {
+                state.grammarRes = value
+              },
+              setLinkedFeatures (state, value) {
+                state.linkedFeatures = value
+              },
+              setSelectedLookupLang (state, value) {
+                state.selectedLookupLangCode = value
               }
             },
             getters: {
@@ -217,6 +229,8 @@ export default class BaseTestHelp {
     static uiAPI (props) {
       let defaultProps = {
         closePopup: () => {},
+        openPopup: () => {},
+        closePanel: () => {},
         showPanelTab: () => {},
         zIndex: 0
       }
@@ -225,6 +239,7 @@ export default class BaseTestHelp {
 
     static settingsAPI (props) {
       let defaultProps = {
+        lookupResourceOptions: BaseTestHelp.defaultResourceOptions,
         getFeatureOptions: () => { return BaseTestHelp.defaultFeatureOptions },
         getResourceOptions: () => { return BaseTestHelp.defaultResourceOptions },
         getUiOptions: () => { return BaseTestHelp.defaultUIOptions },
@@ -241,12 +256,23 @@ export default class BaseTestHelp {
             height: 0
           }
         },
+        state: {
+          lemmaTranslationLang: 'lat',
+          selectedLookupLangCode: 'lat'
+        },
         wordUsageExamples: null,
+
 
         hasMorphData: () => false,
         getHomonymLexemes: () => null,
         getDefaultLangCode: () => 'lat',
-        getLanguageName: UIController.getLanguageName
+        getLanguageName: UIController.getLanguageName,
+
+        updateLanguage: () => true,
+        enableWordUsageExamples: () => true,
+        setSelectedLookupLang: () => true,
+
+        newLexicalRequest: () => true
       }
       return Object.assign(defaultProps, props)
     }
