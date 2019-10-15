@@ -146,7 +146,7 @@ describe('morph.test.js', () => {
 
     expect(cmp.findAll('.principal_parts .inflectionattribute').length).toEqual(1)
   })
-*/
+
 
   it('4 Morph - render principal parts (1 lemma, word is included in principal parts)', () => {
     let api = {
@@ -173,4 +173,5 @@ describe('morph.test.js', () => {
     console.info('lemmas.word', lemmas[0].word)
     console.info('lemmas.principalParts', lemmas[0].principalParts)
   })
+  */
 })
