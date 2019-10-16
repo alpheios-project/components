@@ -40,7 +40,6 @@
     computed: {
       definitions () {
         let definitionsLocal = []
-
         if (this.$store.getters['app/shortDefDataReady'] && this.lexeme.meaning && this.lexeme.meaning.shortDefs && this.lexeme.meaning.shortDefs.length > 0) {
           definitionsLocal = this.lexeme.meaning.shortDefs
         // We don't need the deduplication code below as of now; it is here just for historic reference

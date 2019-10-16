@@ -1,7 +1,7 @@
 <template>
     <div class="alpheios-morph__features">
         <div class="principal_parts" v-for="(lemma, lemmaIndex) in allLemmas" v-bind:key="lemmaIndex">
-            <principal-parts :lemma="lemma" :lemmaindex="lemmaIndex" :lexemeslength="lexemeslength" :lexemeindex="lexindex"/>
+            <principal-parts :lemma="lemma" :lemmaindex="lemmaIndex" :lexemeslength="lexemeslength" :lexemeindex="lexemeindex"/>
         </div>
         <div class="alpheios-morph__morphdata">
             <span class="alpheios-morph__pofs">
@@ -31,7 +31,7 @@
         type: Object,
         required: true
       },
-      lexindex: {
+      lexemeindex: {
         type: Number,
         required: true
       },

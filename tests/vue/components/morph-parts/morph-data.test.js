@@ -44,8 +44,8 @@ describe('morph-data.test.js', () => {
     let cmp = shallowMount(MorphData, {
       propsData: {
         lexeme: testHomonymCupidinibus.lexemes[0],
-        lexindex: 0,
-        lexemeslength: 1
+        lexemeindex: 0,
+        lexemeslength: testHomonymCupidinibus.lexemes.length
       },
       localVue
     })
@@ -57,8 +57,8 @@ describe('morph-data.test.js', () => {
     let cmp = shallowMount(MorphData, {
       propsData: {
         lexeme: testHomonymCupidinibus.lexemes[0],
-        lexindex: 0,
-        lexemeslength: 1
+        lexemeindex: 0,
+        lexemeslength: testHomonymCupidinibus.lexemes.length
       },
       localVue
     })
@@ -70,8 +70,8 @@ describe('morph-data.test.js', () => {
     let cmp = shallowMount(MorphData, {
       propsData: {
         lexeme: testHomonymAdsit.lexemes[0],
-        lexindex: 0,
-        lexemeslength: 1
+        lexemeindex: 0,
+        lexemeslength: testHomonymAdsit.lexemes.length
       },
       localVue
     })
@@ -83,8 +83,8 @@ describe('morph-data.test.js', () => {
     let cmp = shallowMount(MorphData, {
       propsData: {
         lexeme: testHomonymCupidinibus.lexemes[0],
-        lexindex: 0,
-        lexemeslength: 1
+        lexemeindex: 0,
+        lexemeslength: testHomonymCupidinibus.lexemes.length
       },
       localVue
     })
@@ -96,7 +96,7 @@ describe('morph-data.test.js', () => {
     
     expect(allPPAttr.lemma.length).toBeGreaterThan(0)
     expect(allPPAttr.lemmaindex).toEqual("0")
-    expect(allPPAttr.lexemeslength).toEqual("1")
+    expect(allPPAttr.lexemeslength).toEqual("2")
     expect(allPPAttr.lexemeindex).toEqual("0")
     
   })
@@ -105,8 +105,8 @@ describe('morph-data.test.js', () => {
     let cmp = shallowMount(MorphData, {
       propsData: {
         lexeme: testHomonymCupidinibus.lexemes[0],
-        lexindex: 0,
-        lexemeslength: 1
+        lexemeindex: 0,
+        lexemeslength: testHomonymCupidinibus.lexemes.length
       },
       localVue
     })

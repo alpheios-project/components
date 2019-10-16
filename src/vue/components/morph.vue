@@ -6,7 +6,7 @@
         v-show="showLexeme(lex)"
     >
       <div :class="morphClass(lex)">
-        <morph-data :lexeme="lex" :lexindex = "index" :lexemeslength="lexemes.length" v-if="lex"/>
+        <morph-data :lexeme="lex" :lexemeindex = "index" :lexemeslength="lexemes.length" v-if="lex"/>
         <definitions-list :lexeme = "lex" v-if="lex"/>
 
         <div

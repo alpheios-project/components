@@ -102,7 +102,7 @@
         if (this.lemma.features[type] !== undefined) {
           return this.lemma.features[type].value
         }
-        return undefined
+        return
       },
     },
     created: function () {
