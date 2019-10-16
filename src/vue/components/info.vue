@@ -9,7 +9,7 @@
     </div>
     <div class="alpheios-info__helptext">
       <div
-          class="alpheios-notification-area__close-btn"
+          class="alpheios-notification-area__close-btn"></div>
       <h3>{{ l10n.getMsg('TEXT_INFO_GETTINGSTARTED') }}</h3>
       <div class="alpheios-info__helpitem alpheios-info__helpitem__logo" v-show="! $store.state.app.embedLibActive">
         <span class="alpheios-info__helpicon"><logo-icon></logo-icon></span>
