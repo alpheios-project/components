@@ -26,8 +26,8 @@ describe('morph-data.test.js', () => {
   let testHomonymCupidinibus, testHomonymAdsit
 
   beforeAll(async () => {
-    testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN)
-    testHomonymAdsit = await BaseTestHelp.collectHomonym('adsit', Constants.LANG_LATIN)
+    testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
+    testHomonymAdsit = await BaseTestHelp.collectHomonym('adsit', Constants.LANG_LATIN, false)
   })
 
   beforeEach(() => {
