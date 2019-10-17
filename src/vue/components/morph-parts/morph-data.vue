@@ -1,10 +1,10 @@
 <template>
-    <div class="alpheios-morph__features">
-        <div class="principal_parts" v-for="(lemma, lemmaIndex) in allLemmas" v-bind:key="lemmaIndex">
+    <div class="alpheios-morph-data__principal_parts">
+        <div class="alpheios-morph-data__principal_parts" v-for="(lemma, lemmaIndex) in allLemmas" v-bind:key="lemmaIndex">
             <principal-parts :lemma="lemma" :lemmaindex="lemmaIndex" :lexemeslength="lexemeslength" :lexemeindex="lexemeindex"/>
         </div>
-        <div class="alpheios-morph__morphdata">
-            <span class="alpheios-morph__pofs">
+        <div class="alpheios-morph-data__morphdata">
+            <span class="alpheios-morph-data__pofs">
                 <inflectionattribute v-for="(feat, featIndex) in featuresList.pofs" v-bind:key="featIndex"
                     :data="lexeme.lemma.features" :type="types[feat]"
                 />
@@ -57,7 +57,8 @@
     created: function () {
       this.types = Feature.types
     },
-    computed: {
+    computed: { 
+
       allLemmas () {
         if (this.lexeme.altLemmas && this.lexeme.altLemmas.length > 0) {
           return [this.lexeme.lemma, ...this.lexeme.altLemmas].sort((a, b) => {
@@ -81,35 +82,25 @@
 <style lang="scss">
   @import "../../../styles/variables";
 
-  .alpheios-morph__pofs span:last-child:after {
+  .alpheios-morph-data__pofs span:last-child:after {
     content: ";";
   }
-  .alpheios-morph__morphdata {
+  .alpheios-morph-data__morphdata {
     display: inline;
   }
-  .alpheios-morph__dictentry {
-    .alpheios-morph__features {
-      &:before,
-      &:after {
-        content: '';
-        display: table;
-        clear: both;
-      }
 
-      p {
-        margin-bottom: 0;
-        margin-top: 0;
-
-        &.feature_extras {
-          font-style: italic;
-        }
-      }
-
-      span.feature_source {
-        .alpheios-morph__attr {
-          font-size: smaller;
-        }
+  .alpheios-morph-data__principal_parts {
+    .feature_source {
+      span {
+        font-size: smaller;
       }
     }
   }
+
+  .alpheios-morph-data__pofs {
+    span {
+      padding-right: 5px;
+    }
+  }
+
 </style>

@@ -1,20 +1,20 @@
 <template>
-    <div class="principal-parts-item">
-        <span class="lemma_index" v-if="lemmaindex === 0 && printIndex">{{ lexemeindex + 1 }}</span>
-        <span class="lemma_index_spacer" v-else-if="lemmaindex > 0 && printIndex"> </span>
+    <div class="alpheios-principal-parts__item">
+        <span class="alpheios-principal-parts__lemma_index" v-if="lemmaindex === 0 && printIndex">{{ lexemeindex + 1 }}</span>
+        <span class="alpheios-principal-parts__lemma_index_spacer" v-else-if="lemmaindex > 0 && printIndex"> </span>
 
         <h4
-            class="alpheios-morph__groupitem"
+            class="alpheios-principal-parts__groupitem"
             :lang="languageCode"
             v-if="! lemma.principalParts.includes(lemma.word)"
         >
             {{ lemma.word }}
         </h4>
 
-        <h4 class="alpheios-morph__groupitem">
+        <h4 class="alpheios-principal-parts__groupitem">
             <span
                 :lang="languageCode"
-                class="alpheios-morph__listitem"
+                class="alpheios-principal-parts__listitem"
                 v-for="(part, partIndex) in lemma.principalParts" v-bind:key="partIndex"
             >
                 {{ part }}
@@ -113,36 +113,28 @@
 <style lang="scss">
   @import "../../../styles/variables";
 
-  .lemma_index,
-  .lemma_index_spacer {
+  .alpheios-principal-parts__lemma_index,
+  .alpheios-principal-parts__lemma_index_spacer {
     display: inline-block;
     text-align: center;
     font-weight: 700;
     margin-right: textsize(5px);
   }
 
-  .alpheios-morph__listitem:after {
+  .alpheios-principal-parts__listitem:after {
     content: ", ";
   }
 
-  .alpheios-morph__listitem:last-child:after {
+  .alpheios-principal-parts__listitem:last-child:after {
     content: "";
   }
 
-  .alpheios-morph__list .alpheios-morph__infl:first-child .alpheios-morph__showiffirst {
-    display: block;
-  }
-
-  .alpheios-morph__list .alpheios-morph__infl .alpheios-morph__showiffirst {
-    display: none;
-  }
-
-  h4.alpheios-morph__groupitem {
+  h4.alpheios-principal-parts__groupitem {
     display: inline;
     font-weight: 700;
   }
 
-  .alpheios-morph__groupitem:last-child:after {
+  .alpheios-principal-parts__groupitem:last-child:after {
     content: ':';
   }
 </style>

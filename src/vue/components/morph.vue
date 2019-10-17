@@ -81,13 +81,7 @@ export default {
 </script>
 <style lang="scss">
   @import "../../styles/variables";
- 
 
-  .alpheios-morph__inflections, 
-  .alpheios-morph__definition, 
-  .alpheios-morph__forms {
-    margin-left: .5em;
-  }
 
   $lemma_index_size: 20px;
 
@@ -95,20 +89,37 @@ export default {
     clear: both;
     margin-bottom: textsize(20px);
 
-    .alpheios-morph__morphdata,
+    .alpheios-morph-data__morphdata,
     p.feature_extras,
-    .alpheios-morph__definition_list,
+    .alpheios-morph-definitions_list,
     .alpheios-morph__translation_list,
-    .alpheios-morph__inflections {
+    .alpheios-inflections-list__inflections {
       margin-left: $lemma_index_size + 14px;
     }
 
-    .alpheios-morph__definition_list,
+    .alpheios-morph-definitions_list,
     .alpheios-morph__translation_list,
-    .alpheios-morph__inflections {
+    .alpheios-inflections-list__inflections {
       // border-top: 1px solid var(--alpheios-border-color);
       margin-top: 5px;
-      padding-left: 5px;
+      padding-left: 15px;
+    }
+  }
+
+
+  .alpheios-morph__dictentry {
+    .alpheios-morph__features {
+      &:before,
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+
+      p {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
     }
   }
 </style>

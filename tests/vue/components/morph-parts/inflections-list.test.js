@@ -126,7 +126,7 @@ describe('inflections-list.test.js', () => {
     
   })
 
-  it('4 InflectionsList - method groupClass returns class based on grouping property - alpheios-morph__inline', () => {
+  it('4 InflectionsList - method groupClass returns class based on grouping property - alpheios-inflections-list__inline', () => {
     let cmp = shallowMount(InflectionsList, {
       propsData: {
         lexeme: testHomonymCupidinibus.lexemes[0]
@@ -137,11 +137,11 @@ describe('inflections-list.test.js', () => {
     })
 
     let groupInfl = testHomonymCupidinibus.lexemes[0].getGroupedInflections()[0].inflections[0]
-    expect(cmp.vm.groupClass(groupInfl)).toEqual('alpheios-morph__inline')
+    expect(cmp.vm.groupClass(groupInfl)).toEqual('alpheios-inflections-list__inline')
     
   })
 
-  it('5 InflectionsList - method groupClass returns class based on grouping property - alpheios-morph__block', () => {
+  it('5 InflectionsList - method groupClass returns class based on grouping property - alpheios-inflections-list__block', () => {
     let cmp = shallowMount(InflectionsList, {
       propsData: {
         lexeme: testHomonymOvo.lexemes[1]
@@ -152,7 +152,7 @@ describe('inflections-list.test.js', () => {
     })
 
     let groupInfl = testHomonymOvo.lexemes[1].getGroupedInflections()[0].inflections[0]
-    expect(cmp.vm.groupClass(groupInfl)).toEqual('alpheios-morph__block')
+    expect(cmp.vm.groupClass(groupInfl)).toEqual('alpheios-inflections-list__block')
     
   })
 

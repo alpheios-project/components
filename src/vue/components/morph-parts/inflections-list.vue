@@ -1,17 +1,17 @@
 <template>
-    <div class="alpheios-morph__inflections" v-if="hasInflections">
+    <div class="alpheios-inflections-list__inflections" v-if="hasInflections">
         <div class="alpheios-morph__inflset" v-for="(inflset, ifindex) in inflections" v-bind:key="ifindex">
             
-            <span class="inflset_index" v-if="inflections.length > 1">{{ ifindex + 1 }}.</span>
+            <span class="alpheios-inflections-list__inflset_index" v-if="inflections.length > 1">{{ ifindex + 1 }}.</span>
 
-            <div class="alpheios-morph__forms">
+            <div class="alpheios-inflections-list__forms">
                 <span 
                     v-for="feat in featuresList.wordParts.filter(feat => inflset.groupingKey[feat.name])" v-bind:key="feat.name"
-                    :lang="languageCode" class="alpheios-morph__formtext" 
+                    :lang="languageCode" class="alpheios-inflections-list__formtext" 
                     data-grouplevel="1" data-feature="feat.name"
                 >{{ feat.template.replace('%s', inflset.groupingKey[feat.name]) }}</span>
 
-                <span class="alpheios-morph__inflfeatures">
+                <span class="alpheios-inflections-list__inflfeatures">
                     <inflectionattribute 
                         v-for="feat in featuresList.level1.filter(feat => feat.checkfn(inflset))" v-bind:key="feat.name"
                         :data="inflset.groupingKey"  :grouplevel="1"
@@ -19,7 +19,7 @@
                     />
                 </span>
 
-                <div class="alpheios-morph__inflgroup" v-for="(group, grInflIndex) in inflset.inflections" v-bind:key="grInflIndex">
+                <div class="alpheios-inflections-list__inflgroup" v-for="(group, grInflIndex) in inflset.inflections" v-bind:key="grInflIndex">
                     <span v-if="group.groupingKey.isCaseInflectionSet">
                         <inflectionattribute 
                             v-for="feat in featuresList.level2" v-bind:key="feat.name"
@@ -149,7 +149,7 @@
     },
     methods: {
       groupClass (group) {
-        return group.groupingKey.isCaseInflectionSet ? 'alpheios-morph__inline' : 'alpheios-morph__block'
+        return group.groupingKey.isCaseInflectionSet ? 'alpheios-inflections-list__inline' : 'alpheios-inflections-list__block'
       },
 
       featureMatch (a, b) {
@@ -167,43 +167,43 @@
 <style lang="scss">
   @import "../../../styles/variables";
 
-  .alpheios-morph__formtext {
+  .alpheios-inflections-list__formtext {
     font-weight: 700;
   }
 
-  .alpheios-morph__inflset {
+  .alpheios-inflections-list__inflset {
     margin-left: .5em;
     margin-top: .5em;
   }
 
-  div.alpheios-morph__inline {
+  div.alpheios-inflections-list__inline {
     display: inline;
   }
 
-  div.alpheios-morph__block {
+  div.alpheios-inflections-list__block {
     display: block;
   }
 
-  .alpheios-morph__inflfeatures span:first-child:before {
+  .alpheios-inflections-list__inflfeatures span:first-child:before {
     content: '(';
   }
 
-  .alpheios-morph__inflfeatures span:last-child:after {
+  .alpheios-inflections-list__inflfeatures span:last-child:after {
     content: ')';
   }
   
-  .alpheios-morph__inflections {
-    .alpheios-morph__inflset {
+  .alpheios-inflections-list__inflections {
+    .alpheios-inflections-list__inflset {
       margin-top: 0;
       margin-left: 7px;
 
-      .alpheios-morph__forms {
+      .alpheios-inflections-list__forms {
         margin-left: 0;
         display: inline-block;
         vertical-align: top;
       }
 
-      .inflset_index {
+      .alpheios-inflections-list__inflset_index {
         display: inline-block;
         font-weight: bold;
         vertical-align: top;

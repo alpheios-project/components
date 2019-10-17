@@ -1,18 +1,18 @@
 <template>
-    <div class="alpheios-morph__definition_list">
+    <div class="alpheios-morph-definitions_list">
 
-        <div class="alpheios-popup__definitions--placeholder"
+        <div class="alpheios-morph-definitions_list__definitions--placeholder"
             v-show="! $store.getters['app/shortDefDataReady']"
         >
             <progress-bar :text="l10n.getText('PLACEHOLDER_LEX_DATA_LOADING')" />
         </div>
 
-        <div :data-lemmakey="lexeme.lemma.ID"  class="alpheios-morph__definition" 
+        <div :data-lemmakey="lexeme.lemma.ID"  class="alpheios-morph-definitions_list__definition" 
             v-for="(definition, dindex) in definitions" :key="definition.ID"
             v-show="$store.getters['app/shortDefDataReady']"
         >
 
-            <span class="definition_index" v-if="definitions.length > 1">{{ definitionIndex(dindex) }}</span>
+            <span class="alpheios-morph-definitions_list__definition_index" v-if="definitions.length > 1">{{ definitionIndex(dindex) }}</span>
             <shortdef :definition="definition"></shortdef>
 
         </div>
@@ -32,6 +32,7 @@
     inject: ['app', 'l10n'],
     storeModules: ['app'],
     props: {
+
       lexeme: {
         type: Object,
         required: true
@@ -67,20 +68,20 @@
     font-size: .75rem;
   }
   
-  .alpheios-morph__definition_list {
-    .alpheios-morph__definition {
+  .alpheios-morph-definitions_list {
+    .alpheios-morph-definitions_list__definition {
         margin-bottom: 5px;
     }
+  }
+  .alpheios-morph-definitions_list {
+    .alpheios-morph-definitions_list__definition_index {
+      display: inline-block;
+      font-weight: bold;
+     }
 
-    .alpheios-morph__definition_list {
-        .definition_index {
-        display: inline-block;
-        font-weight: bold;
-        }
-
-        .alpheios-definition__short {
-        display: inline-block;
-        }
+    .alpheios-definition__short {
+      display: inline-block;
     }
   }
+  
 </style>

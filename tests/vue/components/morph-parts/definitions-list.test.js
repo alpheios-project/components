@@ -133,7 +133,7 @@ describe('definitions-list.test.js', () => {
     })
     
    
-    expect(cmp.find('.alpheios-popup__definitions--placeholder').isVisible()).toBeTruthy()
+    expect(cmp.find('.alpheios-morph-definitions_list__definitions--placeholder').isVisible()).toBeTruthy()
   })
 
 })
