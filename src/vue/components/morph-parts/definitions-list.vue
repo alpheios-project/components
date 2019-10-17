@@ -42,16 +42,6 @@
         let definitionsLocal = []
         if (this.$store.getters['app/shortDefDataReady'] && this.lexeme.meaning && this.lexeme.meaning.shortDefs && this.lexeme.meaning.shortDefs.length > 0) {
           definitionsLocal = this.lexeme.meaning.shortDefs
-        // We don't need the deduplication code below as of now; it is here just for historic reference
-        /* for (const def of lexeme.meaning.shortDefs) {
-            // for now, to avoid duplicate showing of the provider we create a new unproxied definitions
-            // object without a provider if it has the same provider as the morphology info
-            if (def.provider && lexeme.provider && def.provider.uri === lexeme.provider.uri) {
-              definitions.push(new Definition(def.text, def.language, def.format, def.lemmaText))
-            } else {
-              definitions.push(def)
-            }
-          } */
         } else if (this.lexeme.lemma.features && Object.entries(this.lexeme.lemma.features).length > 0) {
           definitionsLocal = [new Definition(this.l10n.getMsg('TEXT_NOTICE_NO_DEFS_FOUND'), 'en-US', 'text/plain', this.lexeme.lemma.word)]
         } 
