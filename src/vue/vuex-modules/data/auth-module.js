@@ -23,31 +23,8 @@ export default class AuthModule extends Module {
       }
     }
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
-    api[this.constructor.moduleName] = this.constructor.api(this, store)
-  }
-
-  updateAuthData (authData, store) {
-    this._authData = authData
-
-    if (this.config.queryParams && this.config.queryParams.sessionDuration) {
-      const customSessionDuration = this.config.queryParams.sessionDuration
-      // Do not allow to override session duration to values higher than set by the auth server
-      if (customSessionDuration && Number(customSessionDuration) * 1000 < this._authData.expirationInterval) {
-        this._authData.setSessionDuration(Number(customSessionDuration) * 1000)
-      }
-    }
-
-    store.commit('auth/setIsAuthenticated', this._authData)
-
-    if (!this._authData.isExpired) {
-      if (!this._expirationTimeoutId) {
-        this._expirationTimeoutId = window.setTimeout(() => {
-          store.commit('auth/expireSession')
-          store.commit('auth/setNotification', { text: 'AUTH_SESSION_EXPIRED_MSG' })
-          this._expirationTimeoutId = null
-        }, this._authData.expirationInterval)
-      }
-    }
+    this._api = this.constructor.api(this, store)
+    api[this.constructor.moduleName] = this._api
   }
 }
 
@@ -149,12 +126,14 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance, store) => {
   return {
     session: () => {
+      console.info('The session is called')
       if (!moduleInstance._auth) {
         // fail quietly
         return
       }
       moduleInstance._auth.session().then((data) => {
-        moduleInstance.updateAuthData(data, store)
+        console.info('Session has returned', data)
+        moduleInstance._api.updateAuthData(data)
       }).catch((error) => { // eslint-disable-line handle-callback-err
         // a session being unavailable is not necessarily an error
         // user might not have authenticated or it might be client-side auth
@@ -175,6 +154,7 @@ AuthModule.api = (moduleInstance, store) => {
         // fail quietly
         return
       }
+      console.info('Authenticate in auth module')
       store.commit('auth/setNotification', { text: 'AUTH_LOGIN_PROGRESS_MSG' })
 
       moduleInstance._auth.authenticate(authData).then(() => {
@@ -185,7 +165,8 @@ AuthModule.api = (moduleInstance, store) => {
           throw new RangeError('UserId is empty!')
         }
 
-        moduleInstance.updateAuthData(profileData, store)
+        console.info('Profile data is', profileData)
+        moduleInstance._api.updateAuthData(profileData)
         store.commit('auth/setNotification', { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
         console.error('Alpheios authentication failed', error)
@@ -201,6 +182,7 @@ AuthModule.api = (moduleInstance, store) => {
         return
       }
       moduleInstance._auth.logout().then(() => {
+        console.info('Auth0 logout')
         store.commit('auth/setIsNotAuthenticated')
         return store.commit('auth/setNotification', { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
@@ -228,6 +210,40 @@ AuthModule.api = (moduleInstance, store) => {
           reject(new Error('Authentication is not enabled'))
         }
       })
+    },
+
+    /**
+     * Sets a state of an authentication data to the one provided.
+     * @param {AuthData} authData - An object containing an authentication data.
+     */
+    updateAuthData: (authData) => {
+      moduleInstance._authData = authData
+
+      if (moduleInstance.config.queryParams && moduleInstance.config.queryParams.sessionDuration) {
+        const customSessionDuration = moduleInstance.config.queryParams.sessionDuration
+        // Do not allow to override session duration to values higher than set by the auth server
+        if (customSessionDuration && Number(customSessionDuration) * 1000 < moduleInstance._authData.expirationInterval) {
+          moduleInstance._authData.setSessionDuration(Number(customSessionDuration) * 1000)
+        }
+      }
+
+      store.commit('auth/setIsAuthenticated', moduleInstance._authData)
+
+      console.info('updateAuthData')
+      if (!moduleInstance._authData.isExpired) {
+        console.info('Access token has not been expired')
+        if (!moduleInstance._expirationTimeoutId) {
+          console.info(`Setting a timeout to ${moduleInstance._authData.expirationInterval}`)
+          moduleInstance._expirationTimeoutId = window.setTimeout(() => {
+            console.info('A timeout has been expired')
+            store.commit('auth/expireSession')
+            store.commit('auth/setNotification', { text: 'AUTH_SESSION_EXPIRED_MSG' })
+            moduleInstance._expirationTimeoutId = null
+          }, moduleInstance._authData.expirationInterval)
+        } else {
+          console.info('Expiration timeout is set already')
+        }
+      }
     },
 
     get iFrameSafariURL () {
