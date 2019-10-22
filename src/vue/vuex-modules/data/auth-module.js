@@ -1,6 +1,7 @@
 import Module from '@/vue/vuex-modules/module.js'
 import Platform from '@/lib/utility/platform.js'
 import AuthData from '@/lib/auth/auth-data.js'
+import { PsEvent } from 'alpheios-data-models'
 
 export default class AuthModule extends Module {
   /**
@@ -126,13 +127,11 @@ AuthModule.store = (moduleInstance) => {
 AuthModule.api = (moduleInstance, store) => {
   return {
     session: () => {
-      console.info('The session is called')
       if (!moduleInstance._auth) {
         // fail quietly
         return
       }
       moduleInstance._auth.session().then((data) => {
-        console.info('Session has returned', data)
         moduleInstance._api.updateAuthData(data)
       }).catch((error) => { // eslint-disable-line handle-callback-err
         // a session being unavailable is not necessarily an error
@@ -154,7 +153,6 @@ AuthModule.api = (moduleInstance, store) => {
         // fail quietly
         return
       }
-      console.info('Authenticate in auth module')
       store.commit('auth/setNotification', { text: 'AUTH_LOGIN_PROGRESS_MSG' })
 
       moduleInstance._auth.authenticate(authData).then(() => {
@@ -165,7 +163,6 @@ AuthModule.api = (moduleInstance, store) => {
           throw new RangeError('UserId is empty!')
         }
 
-        console.info('Profile data is', profileData)
         moduleInstance._api.updateAuthData(profileData)
         store.commit('auth/setNotification', { text: 'AUTH_LOGIN_SUCCESS_MSG' })
       }).catch((error) => {
@@ -182,7 +179,10 @@ AuthModule.api = (moduleInstance, store) => {
         return
       }
       moduleInstance._auth.logout().then(() => {
-        console.info('Auth0 logout')
+        if (moduleInstance._expirationTimeoutId) {
+          window.clearTimeout(moduleInstance._expirationTimeoutId)
+          moduleInstance._expirationTimeoutId = null
+        }
         store.commit('auth/setIsNotAuthenticated')
         return store.commit('auth/setNotification', { text: 'AUTH_LOGOUT_SUCCESS_MSG' })
       }).catch((error) => {
@@ -229,21 +229,32 @@ AuthModule.api = (moduleInstance, store) => {
 
       store.commit('auth/setIsAuthenticated', moduleInstance._authData)
 
-      console.info('updateAuthData')
-      if (!moduleInstance._authData.isExpired) {
-        console.info('Access token has not been expired')
+      if (moduleInstance._authData.hasSessionExpired) {
+        moduleInstance._api.expireSession()
+      }
+
+      if (moduleInstance._authData.isSessionActive) {
         if (!moduleInstance._expirationTimeoutId) {
-          console.info(`Setting a timeout to ${moduleInstance._authData.expirationInterval}`)
-          moduleInstance._expirationTimeoutId = window.setTimeout(() => {
-            console.info('A timeout has been expired')
-            store.commit('auth/expireSession')
-            store.commit('auth/setNotification', { text: 'AUTH_SESSION_EXPIRED_MSG' })
-            moduleInstance._expirationTimeoutId = null
-          }, moduleInstance._authData.expirationInterval)
-        } else {
-          console.info('Expiration timeout is set already')
+          moduleInstance._expirationTimeoutId = window.setTimeout(
+            () => {
+              // Expires session will take care of clearing timeout data
+              moduleInstance._api.expireSession()
+              AuthModule.evt.SESSION_EXPIRED.pub()
+            },
+            moduleInstance._authData.expirationInterval
+          )
         }
       }
+    },
+
+    expireSession () {
+      if (moduleInstance._expirationTimeoutId) {
+        window.clearTimeout(moduleInstance._expirationTimeoutId)
+        moduleInstance._expirationTimeoutId = null
+      }
+      moduleInstance._authData.expireSession()
+      store.commit('auth/expireSession')
+      store.commit('auth/setNotification', { text: 'AUTH_SESSION_EXPIRED_MSG' })
     },
 
     get iFrameSafariURL () {
@@ -257,4 +268,15 @@ AuthModule._configDefaults = {
   _moduleType: Module.types.DATA,
   _supportedDeviceTypes: [Platform.deviceTypes.ANY],
   auth: null
+}
+
+/**
+ * Events that are published by AuthModule.
+ */
+AuthModule.evt = {
+  /**
+   * Published when a user session has been expired.
+   * Data: undefined
+   */
+  SESSION_EXPIRED: new PsEvent('User session has been expired', AuthModule)
 }

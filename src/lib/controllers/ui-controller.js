@@ -976,7 +976,6 @@ export default class UIController {
     if (this.api.auth) {
       // initiate session check so that user data is available
       // if we have an active session
-      console.info('Calling the session')
       this.api.auth.session()
     }
     return this
