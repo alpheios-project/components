@@ -229,6 +229,16 @@ AuthModule.api = (moduleInstance, store) => {
 
       store.commit('auth/setIsAuthenticated', moduleInstance._authData)
 
+      /*
+      A session expiration timer on itself is often not enough to rely upon in
+      setting a "session expired" state. We also need to listen to messages from
+      external objects that might have a better knowledge of the situation
+      (i.e. a Safari App Extension or a background script).
+      If session has been expired, they might send an AuthData object
+      with the `hasSessionExpired` flag state. In that case,
+      we shall make corresponding changes to the internal state
+      of the Auth module and its Vuex store.
+      */
       if (moduleInstance._authData.hasSessionExpired) {
         moduleInstance._api.expireSession()
       }
@@ -239,6 +249,11 @@ AuthModule.api = (moduleInstance, store) => {
             () => {
               // Expires session will take care of clearing timeout data
               moduleInstance._api.expireSession()
+              /*
+              Publish a SESSION_EXPIRED event. This event can be subscribed to
+              so that the subscriber will be able to notify the centralized location
+              (a Safari App Extension or a background script) about the session's expired state.
+               */
               AuthModule.evt.SESSION_EXPIRED.pub()
             },
             moduleInstance._authData.expirationInterval
