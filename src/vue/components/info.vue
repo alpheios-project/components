@@ -7,6 +7,7 @@
         </button>
       </a>
     </div>
+
     <div class="alpheios-info__helptext">
       <div
           class="alpheios-notification-area__close-btn"></div>
@@ -34,6 +35,18 @@
     </div>
     <h3>{{ l10n.getMsg('TEXT_INFO_TIPS') }}</h3>
     <p class="alpheios-text-small" v-html="l10n.getMsg('TEXT_INFO_LANGDETECT', {languageName: defaultLanguage})"></p>
+
+    <!-- region CEDECT test -->
+    <iframe
+        src="https://cedict.kirlat.com"
+        id="cedict-iframe"
+        frameborder="0"
+        style="width:0;height:0;display:none;"
+    >
+    </iframe>
+    <button @click="requestCEDICTInfo">Request CEDICT info</button>
+    <div>{{ cedictResponse }}</div>
+    <!-- endregion CEDECT test -->
   </div>
 </template>
 <script>
@@ -58,20 +71,59 @@ export default {
     tapGestureIcon: TapGestureIcon
   },
   mixins: [DependencyCheck],
+
+  data: () => {
+    return {
+      cedictResponse: ''
+    }
+  },
+
   computed: {
     defaultLanguage () {
       return this.app.getLanguageName(this.app.getDefaultLangCode()).name
     },
-    faqLink() {
+    faqLink () {
       if (this.$store.state.app.embedLibActive) {
-        return "https://alpheios.net/pages/v3/faq-embedded"
+        return 'https://alpheios.net/pages/v3/faq-embedded'
       } else {
-        return "https://alpheios.net/pages/v3/faq-extension"
+        return 'https://alpheios.net/pages/v3/faq-extension'
       }
     }
 
-  }
+  },
 
+  methods: {
+    requestCEDICTInfo () {
+      console.info('requestCEDICTInfo has been called')
+      const iframe = document.querySelector('#cedict-iframe')
+      const iframeWindow = iframe.contentWindow
+      iframeWindow.postMessage('Hello message from a component', 'https://cedict.kirlat.com')
+    },
+
+    handleCEDICTResponse (event) {
+      const cedictOrigin = 'https://cedict.kirlat.com'
+      // Ignore all messages that are not originated from the CEDICT iframe
+      if (event.origin !== cedictOrigin) { return }
+      console.info('A CEDICT response has been received', event)
+    }
+  },
+
+  beforeCreate () {
+    console.info('Info component beforeCreate')
+  },
+
+  created () {
+    console.info('Info component created')
+  },
+
+  beforeMount () {
+    console.info('Info component beforeMount')
+  },
+
+  mounted () {
+    console.info('Info component mounted')
+    window.addEventListener('message', this.handleCEDICTResponse, false)
+  }
 }
 </script>
 <style lang="scss">
@@ -96,7 +148,6 @@ export default {
     column-count: 2;
     align-items: center;
     margin-bottom: 1em;
-
 
     & .alpheios-info__helpicon {
       padding-right: 15px;
