@@ -29,7 +29,7 @@
 
         <span class="feature_extras" v-if="hasExtras" >
             <inflectionattribute
-                :data="featureList(['age','area','geo','frequency'],'extras')"
+                :data="featureList(['age','area','geo','dialect','frequency'],'extras')"
                 :type="'extras'"
             />
         </span>
@@ -41,6 +41,29 @@
                 :type="types.source"
             />
         </span>
+        <div class="alpheios-morph-data__chinese" v-if="hasCantonese || hasMandarin || hasTang">
+          <p class="feature_source" v-if="hasCantonese">
+              Cantonese - 
+              <inflectionattribute
+                  :data="lemma.features"
+                  :type="types.cantonese"
+              />   
+          </p>
+          <p class="feature_source" v-if="hasMandarin">
+              Mandarin - 
+              <inflectionattribute
+                  :data="lemma.features"
+                  :type="types.mandarin"
+              />   
+          </p>
+          <p class="feature_source" v-if="hasTang">
+              Tang - 
+              <inflectionattribute
+                  :data="lemma.features"
+                  :type="types.tang"
+              />   
+          </p>
+        </div>
     </div>
 </template>
 <script>
@@ -88,6 +111,15 @@
       },
       hasSource () {
         return this.lemma.features && this.getFeature('source')
+      },
+      hasCantonese () {
+        return this.lemma.features && this.getFeature('cantonese')
+      },
+      hasMandarin () {
+        return this.lemma.features && this.getFeature('mandarin')
+      },
+      hasTang () {
+        return this.lemma.features && this.getFeature('tang')
       }
     },
     methods: {
@@ -136,5 +168,9 @@
 
   .alpheios-principal-parts__groupitem:last-child:after {
     content: ':';
+  }
+
+  .alpheios-morph-data__chinese p {
+    margin-bottom: 0;
   }
 </style>
