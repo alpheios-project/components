@@ -33,9 +33,6 @@ export default {
       default: () => ['']
     }
   },
-  mounted () {
-    console.info('mounted', this.type, this.data[this.type], this.data)
-  },
   methods: {
     attributeClass (featureType, ...extras) {
       let classList = []
