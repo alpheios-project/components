@@ -48,7 +48,6 @@ export default {
       return classList.join(' ')
     },
     decorate (data, type) {
-      console.info('decorate start ', type, data)
       let baseValues = []
       let decoratedValues = []
       if (typeof (data[type]) === 'string') {
@@ -75,14 +74,12 @@ export default {
         decorated = `(${decorated})`
       }
       if (this.decorators.includes('brackets')) {
-        console.info('brackets ', type, data)
         if (!this.decorators.includes('appendcomma')) {
           decorated = `[${decorated}]`
         } else {
           let formattedDecoratedArr = decoratedValues.map(val => `[${val}]`)
           decorated = formattedDecoratedArr.join(' ')
         }
-        console.info('brackets decorated', decorated)
       }
 
       if (this.decorators.includes('chinese')) {
