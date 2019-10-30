@@ -23,7 +23,7 @@
 
         <inflectionattribute
             :data="lemma.features"
-            :decorators="['brackets']"
+            :decorators="['brackets', 'appendcomma', 'chinese']"
             :type="types.pronunciation"
         />
 
@@ -41,29 +41,6 @@
                 :type="types.source"
             />
         </span>
-        <div class="alpheios-morph-data__chinese" v-if="hasCantonese || hasMandarin || hasTang">
-          <p class="feature_source" v-if="hasCantonese">
-              Cantonese - 
-              <inflectionattribute
-                  :data="lemma.features"
-                  :type="types.cantonese"
-              />   
-          </p>
-          <p class="feature_source" v-if="hasMandarin">
-              Mandarin - 
-              <inflectionattribute
-                  :data="lemma.features"
-                  :type="types.mandarin"
-              />   
-          </p>
-          <p class="feature_source" v-if="hasTang">
-              Tang - 
-              <inflectionattribute
-                  :data="lemma.features"
-                  :type="types.tang"
-              />   
-          </p>
-        </div>
     </div>
 </template>
 <script>
@@ -111,15 +88,6 @@
       },
       hasSource () {
         return this.lemma.features && this.getFeature('source')
-      },
-      hasCantonese () {
-        return this.lemma.features && this.getFeature('cantonese')
-      },
-      hasMandarin () {
-        return this.lemma.features && this.getFeature('mandarin')
-      },
-      hasTang () {
-        return this.lemma.features && this.getFeature('tang')
       }
     },
     methods: {
@@ -172,5 +140,11 @@
 
   .alpheios-morph-data__chinese p {
     margin-bottom: 0;
+  }
+
+  .alpheios-morph__attr i {
+    font-style: italic;
+    font-family: sans-serif;
+    font-size: 90%;
   }
 </style>

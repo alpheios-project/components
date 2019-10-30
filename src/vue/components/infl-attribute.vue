@@ -6,6 +6,8 @@
 // Modules support
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 
+import { Feature } from 'alpheios-data-models'
+
 export default {
   name: 'InflectionAttribute',
   inject: ['app', 'l10n'],
@@ -31,6 +33,9 @@ export default {
       default: () => ['']
     }
   },
+  mounted () {
+    console.info('mounted', this.type, this.data[this.type], this.data)
+  },
   methods: {
     attributeClass (featureType, ...extras) {
       let classList = []
@@ -43,6 +48,7 @@ export default {
       return classList.join(' ')
     },
     decorate (data, type) {
+      console.info('decorate start ', type, data)
       let baseValues = []
       let decoratedValues = []
       if (typeof (data[type]) === 'string') {
@@ -69,7 +75,20 @@ export default {
         decorated = `(${decorated})`
       }
       if (this.decorators.includes('brackets')) {
-        decorated = `[${decorated}]`
+        console.info('brackets ', type, data)
+        if (!this.decorators.includes('appendcomma')) {
+          decorated = `[${decorated}]`
+        } else {
+          let formattedDecoratedArr = decoratedValues.map(val => `[${val}]`)
+          decorated = formattedDecoratedArr.join(' ')
+        }
+        console.info('brackets decorated', decorated)
+      }
+
+      if (this.decorators.includes('chinese')) {
+        decorated = decorated.replace('mandarin', '<i>mandarin</i>')
+        decorated = decorated.replace('cantonese', '<i>cantonese</i>')
+        decorated = decorated.replace('tang', '<i>tang</i>')
       }
       return decorated
     },

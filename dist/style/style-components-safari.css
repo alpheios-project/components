@@ -1201,6 +1201,11 @@ h4.alpheios-principal-parts__groupitem {
 .alpheios-morph-data__chinese p {
   margin-bottom: 0 !important;
 }
+.alpheios-morph__attr i {
+  font-style: italic !important;
+  font-family: sans-serif !important;
+  font-size: 90% !important;
+}
 /*
  Calculates a size of text elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-text-size` custom prop.

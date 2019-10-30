@@ -46,10 +46,11 @@
         featuresList: {
           pofs: [ 'grmCase', 'gender', 'part' ],
           others: [
+            { name: 'radical', decorator: 'brackets' },
             { name: 'kind', decorator: 'parenthesize' },
             { name: 'declension', decorator: 'appendtype' },
             { name: 'conjugation', decorator: 'appendtype' },
-            { name: 'note', decorator: 'brackets' }
+            { name: 'note', decorator: 'brackets' },
           ]
         }
       }
@@ -65,14 +66,14 @@
 
         let check = false
         this.featuresList.pofs.forEach(feature => {
-          check = check || this.getFeature(feature)
+          check = check || this.getFeature(feature.name)
         })
 
-        if (!check) {
-          this.featuresList.others.forEach(feature => {
-            check = check || this.getFeature(feature)
-          })
-        }
+        
+        this.featuresList.others.forEach(feature => {
+          check = check || this.getFeature(feature.name)
+        })
+        
         return check
       },
       allLemmas () {
