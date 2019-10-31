@@ -122,7 +122,7 @@ export default {
 
     lookup: function () {
       this.lookuptext = this.lookuptext.trim()
-      this.lookuptext = decodeURIComponent(encodeURIComponent(this.lookuptext));
+      console.log(`Lookup text ${this.lookuptext}`)
       if (this.lookuptext.length === 0) {
         return null
       }
