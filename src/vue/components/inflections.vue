@@ -192,7 +192,7 @@ export default {
       let el
       if (reflink === 'top') {
         // Navigate to the top of the page
-        el = document.querySelector(`.alpheios-inflections__content`).scrollIntoView()
+        el = document.querySelector(`.alpheios-inflections__content`)
       } else {
         // Navigate to one of the supplemental tables
         el = document.querySelector(`#${reflink}`)
