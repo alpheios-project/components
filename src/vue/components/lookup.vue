@@ -120,8 +120,9 @@ export default {
       this.$emit('toggleLangSelector', true)
     },
 
-    lookup: function () { 
+    lookup: function () {
       this.lookuptext = this.lookuptext.trim()
+      this.lookuptext = decodeURIComponent(encodeURIComponent(this.lookuptext));
       if (this.lookuptext.length === 0) {
         return null
       }
@@ -142,7 +143,7 @@ export default {
         ? { paginationMax: featureOptions.items.wordUsageExamplesMax.currentValue,
           paginationAuthMax: featureOptions.items.wordUsageExamplesAuthMax.currentValue }
         : null
-  
+
       let lexQuery = LexicalQueryLookup
         .create(textSelector, resourceOptions, lemmaTranslationLang, wordUsageExamples, this.app.clientId, this.settings.verboseMode())
 
