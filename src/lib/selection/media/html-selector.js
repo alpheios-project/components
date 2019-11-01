@@ -63,9 +63,13 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
+
+    console.info('******createTextSelector', textSelector.isEmpty(), textSelector)
+    /*
     if (this.browserSelector) {
       textSelector = this.doFromTargetWordSelection(textSelector)
     }
+    */
     if (textSelector.isEmpty()) {
       if (this.wordSeparator.has(textSelector.model.baseUnit)) {
         textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
@@ -100,12 +104,18 @@ export default class HTMLSelector extends MediaSelector {
       range = doc.createRange()
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
+
+      console.info('******caretPositionFromPoint start', start.offsetNode, start.offset)
+      console.info('******caretPositionFromPoint end', end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
       start = doc.caretRangeFromPoint(startX, startY)
       end = doc.caretRangeFromPoint(endX, endY)
       range = doc.createRange()
       range.setStart(start.startContainer, start.startOffset)
       range.setEnd(end.startContainer, end.startOffset)
+
+      console.info('******caretRangeFromPoint start', start.startContainer, start.startOffset)
+      console.info('******caretRangeFromPoint end', end.startContainer, end.startOffset)
     }
 
     if (range && typeof window.getSelection === 'function') {
@@ -122,6 +132,9 @@ export default class HTMLSelector extends MediaSelector {
     } else {
       console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
     }
+    console.info('******createSelectionFromPoint coord', startX, startY, endX, endY)
+    console.info('******createSelectionFromPoint range', range)
+
     return range
   }
 
@@ -184,6 +197,7 @@ export default class HTMLSelector extends MediaSelector {
    *
    */
   doFromTargetWordSelection (textSelector) {
+    console.info('******doFromTargetWordSelection', this.target.textContent, this.target)
     textSelector.text = this.target.textContent
     if (!this.target.dataset.alpheiosWordNode === 'exact') {
       textSelector.text = textSelector.text.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), '')
@@ -203,6 +217,8 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
+    console.info('doSpaceSeparatedWordSelection textSelector - ', textSelector)
+
     const selection = HTMLSelector.getSelection(this.target)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
@@ -330,6 +346,7 @@ export default class HTMLSelector extends MediaSelector {
    */
   doCharacterBasedWordSelection (textSelection) {
     // TODO
+    console.info('doCharacterBasedWordSelection textSelection - ', textSelection)
   }
 
   _escapeRegExp (string) {

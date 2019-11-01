@@ -1466,6 +1466,8 @@ export default class UIController {
   }
 
   getSelectedText (event, domEvent) {
+    console.info('getSelectedText event', event)
+    console.info('getSelectedText domEvent', domEvent)
     if (this.state.isActive() &&
         this.state.uiIsActive() &&
         (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
@@ -1948,6 +1950,7 @@ export default class UIController {
       }
     }
     if (ev) {
+      this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
       this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
     } else {
       this.evc.registerListener(
