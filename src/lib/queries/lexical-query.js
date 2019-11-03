@@ -194,7 +194,6 @@ export default class LexicalQuery extends Query {
       }
     }
 
-    console.info('*****this.homonym', this.homonym)
     const lexiconFullOpts = this.getLexiconOptions('lexicons')
     const lexiconShortOpts = this.getLexiconOptions('lexiconsShort')
 

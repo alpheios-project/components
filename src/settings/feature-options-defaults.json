@@ -121,6 +121,11 @@
           "value": "gez",
           "text": "Ancient Ethiopic (Ge'ez - Experimental)"
 
+        },
+        {
+          "value": "zho",
+          "text": "Chinese"
+
         }
       ]
     },

@@ -42,7 +42,7 @@ export default class HTMLSelector extends MediaSelector {
       //  let the browser select this word
       this.browserSelector = true
     } else {
-      HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+      HTMLSelector.createSelectionFromPoint(this.languageID, this.targetRect.left, this.targetRect.top)
     }
     this.setDataAttributes()
     this.wordSeparator = new Map()
@@ -64,12 +64,10 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.location = this.location
     textSelector.data = this.data
 
-    console.info('******createTextSelector', textSelector.isEmpty(), textSelector)
-    /*
-    if (this.browserSelector) {
+    if (this.browserSelector && this.languageID !== Constants.LANG_CHINESE) {
       textSelector = this.doFromTargetWordSelection(textSelector)
     }
-    */
+
     if (textSelector.isEmpty()) {
       if (this.wordSeparator.has(textSelector.model.baseUnit)) {
         textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
@@ -89,7 +87,7 @@ export default class HTMLSelector extends MediaSelector {
    * @param {number} endY
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
-  static createSelectionFromPoint (startX, startY, endX = startX, endY = startY) {
+  static createSelectionFromPoint (languageID, startX, startY, endX = startX, endY = startY) {
     const doc = window.document
     let start
     let end
@@ -98,42 +96,41 @@ export default class HTMLSelector extends MediaSelector {
       We should use `caretPositionFromPoint` as an ongoing standard but it is not supported in all browsers.
       As a fallback, we'll use `caretRangeFromPoint`.
     */
-    if (typeof doc.caretPositionFromPoint === 'function') {
-      start = doc.caretPositionFromPoint(startX, startY)
-      end = doc.caretPositionFromPoint(endX, endY)
-      range = doc.createRange()
-      range.setStart(start.offsetNode, start.offset)
-      range.setEnd(end.offsetNode, end.offset)
 
-      console.info('******caretPositionFromPoint start', start.offsetNode, start.offset)
-      console.info('******caretPositionFromPoint end', end.offsetNode, end.offset)
-    } else if (typeof doc.caretRangeFromPoint === 'function') {
-      start = doc.caretRangeFromPoint(startX, startY)
-      end = doc.caretRangeFromPoint(endX, endY)
-      range = doc.createRange()
-      range.setStart(start.startContainer, start.startOffset)
-      range.setEnd(end.startContainer, end.startOffset)
-
-      console.info('******caretRangeFromPoint start', start.startContainer, start.startOffset)
-      console.info('******caretRangeFromPoint end', end.startContainer, end.startOffset)
-    }
-
-    if (range && typeof window.getSelection === 'function') {
-      let sel = window.getSelection() // eslint-disable-line prefer-const
-      sel.removeAllRanges()
-      sel.addRange(range)
-    } else if (typeof doc.body.createTextRange === 'function') {
-      range = doc.body.createTextRange()
-      range.moveToPoint(startX, startY)
-      let endRange = range.duplicate() // eslint-disable-line prefer-const
-      endRange.moveToPoint(endX, endY)
-      range.setEndPoint('EndToEnd', endRange)
-      range.select()
+    if (languageID === Constants.LANG_CHINESE) {
+      const sel = window.getSelection()
+      range = sel.getRangeAt(0)
     } else {
-      console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
+      if (typeof doc.caretPositionFromPoint === 'function') {
+        start = doc.caretPositionFromPoint(startX, startY)
+        end = doc.caretPositionFromPoint(endX, endY)
+        range = doc.createRange()
+        range.setStart(start.offsetNode, start.offset)
+        range.setEnd(end.offsetNode, end.offset)
+      } else if (typeof doc.caretRangeFromPoint === 'function') {
+        start = doc.caretRangeFromPoint(startX, startY)
+        end = doc.caretRangeFromPoint(endX, endY)
+        range = doc.createRange()
+        range.setStart(start.startContainer, start.startOffset)
+        range.setEnd(end.startContainer, end.startOffset)
+      }
+
+      if (range && typeof window.getSelection === 'function') {
+        let sel = window.getSelection() // eslint-disable-line prefer-const
+        sel.removeAllRanges()
+        sel.addRange(range)
+      } else if (typeof doc.body.createTextRange === 'function') {
+        range = doc.body.createTextRange()
+
+        range.moveToPoint(startX, startY)
+        let endRange = range.duplicate() // eslint-disable-line prefer-const
+        endRange.moveToPoint(endX, endY)
+        range.setEndPoint('EndToEnd', endRange)
+        range.select()
+      } else {
+        console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
+      }
     }
-    console.info('******createSelectionFromPoint coord', startX, startY, endX, endY)
-    console.info('******createSelectionFromPoint range', range)
 
     return range
   }
@@ -197,7 +194,6 @@ export default class HTMLSelector extends MediaSelector {
    *
    */
   doFromTargetWordSelection (textSelector) {
-    console.info('******doFromTargetWordSelection', this.target.textContent, this.target)
     textSelector.text = this.target.textContent
     if (!this.target.dataset.alpheiosWordNode === 'exact') {
       textSelector.text = textSelector.text.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), '')
@@ -217,8 +213,6 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
-    console.info('doSpaceSeparatedWordSelection textSelector - ', textSelector)
-
     const selection = HTMLSelector.getSelection(this.target)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
@@ -344,9 +338,50 @@ export default class HTMLSelector extends MediaSelector {
    * @see #findSelection
    * @private
    */
-  doCharacterBasedWordSelection (textSelection) {
-    // TODO
-    console.info('doCharacterBasedWordSelection textSelection - ', textSelection)
+  doCharacterBasedWordSelection (textSelector) {
+    const selection = HTMLSelector.getSelection(this.target)
+    const rStart = selection.anchorOffset
+    const rEnd = selection.focusOffset
+
+    if (rStart === rEnd || rEnd === 0) {
+      return textSelector
+    }
+
+    const anchor = selection.anchorNode
+    const anchorText = anchor.data
+
+    let word = anchorText.substring(rStart, rEnd).trim()
+    word = word.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
+
+    let contextStr = null
+    let contextPos = 0
+
+    const contextForward = textSelector.model.contextForward
+    const contextBackward = textSelector.model.contextBackward
+
+    if (contextForward || contextBackward) {
+      let prevWord = anchorText.substr(0, rStart - 1)
+      prevWord = prevWord.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
+      prevWord = prevWord.substr(prevWord.length - contextBackward, contextBackward)
+
+      let postWord = anchorText.substr(rEnd)
+      postWord = postWord.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
+      postWord = postWord.substr(0, contextForward)
+
+      contextStr = prevWord + ' ' + postWord
+      contextPos = prevWord.length - 1
+    }
+
+    textSelector.text = word
+    textSelector.start = rStart
+    textSelector.end = rEnd
+    textSelector.context = contextStr
+    textSelector.position = contextPos
+
+    const prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
+    const suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')
+    textSelector.createTextQuoteSelector(prefix, suffix)
+    return textSelector
   }
 
   _escapeRegExp (string) {

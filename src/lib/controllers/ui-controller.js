@@ -1466,8 +1466,6 @@ export default class UIController {
   }
 
   getSelectedText (event, domEvent) {
-    console.info('getSelectedText event', event)
-    console.info('getSelectedText domEvent', domEvent)
     if (this.state.isActive() &&
         this.state.uiIsActive() &&
         (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
