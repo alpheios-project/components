@@ -1949,7 +1949,6 @@ export default class UIController {
     }
     if (ev) {
       this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
-      this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
     } else {
       this.evc.registerListener(
         listenerName, selector, this.getSelectedText.bind(this), GenericEvt, customEv)
