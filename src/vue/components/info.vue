@@ -38,7 +38,7 @@
 
     <!-- region CEDECT test -->
     <iframe
-        src="https://cedict.kirlat.com"
+        src="https://data-dev.alpheios.net"
         id="cedict-iframe"
         frameborder="0"
         style="width:0;height:0;display:none;"
