@@ -141,7 +141,7 @@ export default class LexicalQuery extends Query {
       if (this.selector.languageID === Constants.LANG_CHINESE) {
         adapterMorphRes = yield ClientAdapters.morphology.chineseloc({
           method: 'getHomonym',
-          clientId: 'testClientID',
+          clientId: this.clientId,
           params: {
             languageID: this.selector.languageID,
             word: this.selector.normalizedText
