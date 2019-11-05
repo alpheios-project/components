@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-
+import 'whatwg-fetch'
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
 import Locales from '@/locales/locales.js'
 import enUS from '@/locales/en-us/messages.json'
@@ -317,6 +317,7 @@ export default class BaseTestHelp {
       })
       let homonym = adapterTuftsRes.result
 
+      // console.info('adapterTuftsRes - ', adapterTuftsRes)
       if (!homonym) {
         const formLexeme = new Lexeme(new Lemma(targetWord, languageID), [])
         homonym = this.homonym = new Homonym([formLexeme], targetWord)

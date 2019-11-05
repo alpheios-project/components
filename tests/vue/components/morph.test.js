@@ -26,9 +26,9 @@ describe('morph.test.js', () => {
 
   beforeAll(async () => {
     testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
-    testHomonymOvo = await BaseTestHelp.collectHomonym('ovo', Constants.LANG_LATIN, false)
+    // testHomonymOvo = await BaseTestHelp.collectHomonym('ovo', Constants.LANG_LATIN, false)
 
-    testHomonymGreek = await BaseTestHelp.collectHomonym('ξηρή', Constants.LANG_GREEK, false)
+    // testHomonymGreek = await BaseTestHelp.collectHomonym('ξηρή', Constants.LANG_GREEK, false)
     testHomonymOrontea = await BaseTestHelp.collectHomonym('Orontea', Constants.LANG_LATIN)
 
     testHomonymPerfundere = await BaseTestHelp.collectHomonym('perfundere', Constants.LANG_LATIN, false)
@@ -152,4 +152,5 @@ describe('morph.test.js', () => {
     testHomonymPerfundere.lexemes[0].disambiguated = true
     expect(cmp.vm.morphClass(testHomonymPerfundere.lexemes[0])).toEqual('alpheios-morph__dictentry alpheios-morph__dictentry-disambiguated')
   })
+
 })

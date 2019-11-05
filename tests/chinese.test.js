@@ -25,7 +25,7 @@ describe('chinese.test.js', () => {
     console.info('result', result)
   })
 
-  it('Chinese test - LexicalQueryLookup prototype', async () => {
+  it.skip('Chinese test - LexicalQueryLookup prototype', async () => {
     const targetWord = '阿摩尼亚'
     let sa2 = new LocalStorageArea('alpheios-resource-settings')
     let resourceOptions = new Options(LanguageOptionDefaults, sa2)
