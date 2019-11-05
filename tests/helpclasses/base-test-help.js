@@ -21,6 +21,8 @@ import { Constants, Lexeme, Lemma, Homonym } from 'alpheios-data-models'
 import LexicalQuery from '@/lib/queries/lexical-query.js'
 import UIController from '@/lib/controllers/ui-controller.js'
 
+import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
+
 export default class BaseTestHelp {
     static get defaultFeatureOptions () {
       let ta = new TempStorageArea('alpheios-feature-settings')
@@ -315,11 +317,7 @@ export default class BaseTestHelp {
 
         }
       })
-      console.info("Request",targetWord)
       let homonym = adapterTuftsRes.result
-      console.info(homonym)
-
-      // console.info('adapterTuftsRes - ', adapterTuftsRes)
       if (!homonym) {
         const formLexeme = new Lexeme(new Lemma(targetWord, languageID), [])
         homonym = this.homonym = new Homonym([formLexeme], targetWord)
@@ -372,5 +370,36 @@ export default class BaseTestHelp {
       } catch (e) {
         console.info(e)
       }
+    }
+
+    static createEventWithSelection (text, start, eventEl) {
+      let testElement2 = document.createElement("p")
+      let node = document.createTextNode(text)
+      testElement2.appendChild(node)
+      document.body.appendChild(testElement2)
+  
+      let evtHandler = jest.fn(() => {})
+      let eventEl2 = new MouseDblClick(testElement2, evtHandler)
+      eventEl2.start = eventEl.start
+      eventEl2.start = eventEl.end
+      eventEl2.end.target = testElement2
+  
+  
+      testElement2.ownerDocument.getSelection = jest.fn(() => {
+        return {
+          anchorNode: {
+            data: text
+          },
+          anchorOffset: start,
+          focusNode: {
+            data: text
+          },
+          setBaseAndExtent: () => {},
+          removeAllRanges: () => {},
+          addRange: () => {}
+        }
+      })
+  
+      return eventEl2
     }
 }

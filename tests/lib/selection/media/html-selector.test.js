@@ -6,6 +6,8 @@ import TextSelector from '@/lib/selection/text-selector'
 import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
 import { Constants, TextQuoteSelector, LanguageModelFactory } from 'alpheios-data-models'
 
+import BaseTestHelp from '@tests/helpclasses/base-test-help'
+
 describe('html-selector.test.js', () => {
   // console.error = function () {}
   console.log = function () {}
@@ -73,6 +75,8 @@ describe('html-selector.test.js', () => {
     eventEl.end.client = { x:72, y:480 }
     eventEl.end.target = testElement
   }),
+
+
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
@@ -84,36 +88,6 @@ describe('html-selector.test.js', () => {
   afterAll(() => {
     jest.clearAllMocks()
   })
-
-  function createEventWithSelection (text, start) {
-    let testElement2 = document.createElement("p")
-    let node = document.createTextNode(text)
-    testElement2.appendChild(node)
-    document.body.appendChild(testElement2)
-
-    let evtHandler = jest.fn(() => {})
-    let eventEl2 = new MouseDblClick(testElement2, evtHandler)
-    eventEl2.start = eventEl.start
-    eventEl2.start = eventEl.end
-    eventEl2.end.target = testElement2
-
-    testElement2.ownerDocument.getSelection = jest.fn(() => {
-      return {
-        anchorNode: {
-          data: text
-        },
-        anchorOffset: start,
-        focusNode: {
-          data: text
-        },
-        setBaseAndExtent: () => {},
-        removeAllRanges: () => {},
-        addRange: () => {}
-      }
-    })
-
-    return eventEl2
-  }
 
   it('1 HTMLSelector - constructor creates an object with event, target, targetRect, location, languageID, wordSeparator', () => {
     let htmlSel = new HTMLSelector(eventEl, 'lat')
@@ -248,7 +222,7 @@ describe('html-selector.test.js', () => {
   })
 
   it('12 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, context, position and executes createTextQuoteSelector ', () => {
-    let eventEl2 = createEventWithSelection('mare cupidinibus cepit differ', 0)
+    let eventEl2 = BaseTestHelp.createEventWithSelection('mare cupidinibus cepit differ', 0, eventEl)
 
     let htmlSel = new HTMLSelector(eventEl2, 'lat')
     let textSelector = new TextSelector(Constants.LANG_LATIN)
@@ -279,7 +253,7 @@ describe('html-selector.test.js', () => {
   })
 
   it('13 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - text, start, end, escapes punctuation ', () => {
-    let eventEl2 = createEventWithSelection('(mare[cupidinibus]cepit|differ)', 6)
+    let eventEl2 = BaseTestHelp.createEventWithSelection('(mare[cupidinibus]cepit|differ)', 6, eventEl)
 
     let htmlSel = new HTMLSelector(eventEl2, 'lat')
     let textSelector = new TextSelector(Constants.LANG_LATIN)
@@ -304,7 +278,7 @@ describe('html-selector.test.js', () => {
   })
 
   it('14 HTMLSelector - doSpaceSeparatedWordSelection method fills given textSelector with data from htmlSelector - if selection is null, then textSelector is null too ', () => {
-    let eventEl2 = createEventWithSelection('', 0)
+    let eventEl2 = BaseTestHelp.createEventWithSelection('', 0, eventEl)
 
     let htmlSel = new HTMLSelector(eventEl2, 'lat')
     let textSelector = new TextSelector(Constants.LANG_LATIN)
