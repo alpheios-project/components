@@ -213,6 +213,7 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
+    console.info('doSpaceSeparatedWordSelection -')
     const selection = HTMLSelector.getSelection(this.target)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection

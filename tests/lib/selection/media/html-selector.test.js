@@ -11,7 +11,7 @@ import BaseTestHelp from '@tests/helpclasses/base-test-help'
 describe('html-selector.test.js', () => {
   // console.error = function () {}
   console.log = function () {}
-  console.warn = function () {}
+  // console.warn = function () {}
 
   let eventEl, testElement, parentElement
   beforeAll(() => {
@@ -100,6 +100,7 @@ describe('html-selector.test.js', () => {
     })
     expect(htmlSel.languageID).toEqual(Constants.LANG_LATIN)
     expect(htmlSel.wordSeparator).toBeInstanceOf(Map)
+    expect(htmlSel.wordSeparator.size).toEqual(2)
   })
 
   it('2 HTMLSelector - static getSelector creates HTMLSelector from given event and languageCode and returns textSelector', () => {
@@ -112,7 +113,7 @@ describe('html-selector.test.js', () => {
   })
 
   it('3 HTMLSelector - createTextSelector methods returns textSelector from HTMLSelector', () => {
-    let htmlSel = new HTMLSelector(eventEl, 'lat')
+    let htmlSel = new HTMLSelector(eventEl, 'lat')  
     let textSel = htmlSel.createTextSelector()
 
     expect(textSel.text).toEqual('placito')
@@ -120,6 +121,8 @@ describe('html-selector.test.js', () => {
     expect(textSel.start).toEqual(7)
     expect(textSel.end).toEqual(14)
     expect(textSel.textQuoteSelector).toBeInstanceOf(TextQuoteSelector)
+
+    
   })
 
   it('4 HTMLSelector - createSelectionFromPoint method returns range from the selection (used variant with document.caretRangeFromPoint)', () => {
@@ -347,4 +350,5 @@ describe('html-selector.test.js', () => {
     expect(htmlSel.textQuoteSelector.prefix).toEqual('')
     expect(htmlSel.textQuoteSelector.suffix).toEqual('')
   })
+
 })
