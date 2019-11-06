@@ -256,13 +256,12 @@ export default class HTMLSelector extends MediaSelector {
     }
 
     // extract word
-    const word = anchorText.substring(wordStart, wordEnd).trim()
-
     // google docs in Chrome on mac does a weird thing an inserts
     // the &zwjn; zero-width non-joiner char (unicode 8204) before
     // and after words. This will never be a valid character for lookups
     // so let's strip it out
-    word = word.replace(/\u8204/g,"")
+    const word = anchorText.substring(wordStart, wordEnd).trim().replace(/\u8204/g,"")
+
     /* Identify the words preceeding and following the focus word
     * TODO - query the type of node in the selection to see if we are
     * dealing with something other than text nodes
