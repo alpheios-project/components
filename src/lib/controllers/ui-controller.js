@@ -11,6 +11,7 @@ import interact from 'interactjs'
 import Logger from '@/lib/log/logger.js'
 // Modules and their support dependencies
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
+import LexisModule from '@/vue/vuex-modules/data/lexis.js'
 import Locales from '@/locales/locales.js'
 
 import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
@@ -158,6 +159,8 @@ export default class UIController {
       defaultLocale: Locales.en_US,
       messageBundles: Locales.bundleArr()
     })
+
+    uiController.registerModule(LexisModule)
 
     /*
     The second parameter of an AuthModule is environment specific.

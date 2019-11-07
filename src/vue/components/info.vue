@@ -37,13 +37,6 @@
     <p class="alpheios-text-small" v-html="l10n.getMsg('TEXT_INFO_LANGDETECT', {languageName: defaultLanguage})"></p>
 
     <!-- region CEDECT test -->
-    <iframe
-        src="https://data-dev.alpheios.net"
-        id="cedict-iframe"
-        frameborder="0"
-        style="width:0;height:0;display:none;"
-    >
-    </iframe>
     <button @click="requestCEDICTInfo">Request CEDICT info</button>
     <div>{{ cedictResponse }}</div>
     <!-- endregion CEDECT test -->
@@ -60,7 +53,7 @@ import TapGestureIcon from '@/images/inline-icons/tap-gesture-icon.svg'
 
 export default {
   name: 'Info',
-  inject: ['app', 'l10n'],
+  inject: ['app', 'l10n', 'lexis'],
   storeModules: ['app'],
   components: {
     optionsIcon: OptionsIcon,
@@ -95,13 +88,13 @@ export default {
   methods: {
     requestCEDICTInfo () {
       console.info('requestCEDICTInfo has been called')
-      const iframe = document.querySelector('#cedict-iframe')
+      const iframe = document.querySelector(`#${this.lexis.getIframeId()}`)
       const iframeWindow = iframe.contentWindow
-      iframeWindow.postMessage('Hello message from a component', 'https://cedict.kirlat.com')
+      iframeWindow.postMessage('Hello message from a component', this.lexis.getServerUrl())
     },
 
     handleCEDICTResponse (event) {
-      const cedictOrigin = 'https://cedict.kirlat.com'
+      const cedictOrigin = this.lexis.getServerUrl()
       // Ignore all messages that are not originated from the CEDICT iframe
       if (event.origin !== cedictOrigin) { return }
       console.info('A CEDICT response has been received', event)
