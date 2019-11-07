@@ -1137,7 +1137,7 @@ body {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
-.alpheios-morph__attr {
+span.alpheios-morph__attr {
   font-weight: normal !important;
   padding-right: 0.25em !important;
 }
@@ -1314,7 +1314,11 @@ h4.alpheios-principal-parts__groupitem {
   margin-top: 0.5em !important;
 }
 div.alpheios-inflections-list__inline {
-  display: inline;
+  display: flex;
+  flex-direction: row !important;
+}
+div.alpheios-inflections-list__inline span {
+  padding-right: 0.25em !important;
 }
 div.alpheios-inflections-list__block {
   display: block;
@@ -1324,6 +1328,13 @@ div.alpheios-inflections-list__block {
 }
 .alpheios-inflections-list__inflfeatures span:last-child:after {
   content: ")" !important;
+}
+.alpheios-inflections-list__inflfeatures, .alpheios-inflections-list__inflgroup {
+  display: flex;
+  flex-direction: row !important;
+}
+.alpheios-inflections-list__inflfeatures span, .alpheios-inflections-list__inflgroup span {
+  padding-right: 0.25em !important;
 }
 .alpheios-inflections-list__inflections .alpheios-inflections-list__inflset {
   margin-top: 0 !important;
