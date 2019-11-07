@@ -88,7 +88,6 @@ export default class HTMLSelector extends MediaSelector {
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
   static createSelectionFromPoint (languageID, startX, startY, endX = startX, endY = startY) {
-    console.info('createSelectionFromPoint')
     const doc = window.document
     let start
     let end
@@ -96,13 +95,6 @@ export default class HTMLSelector extends MediaSelector {
     /*
       We should use `caretPositionFromPoint` as an ongoing standard but it is not supported in all browsers.
       As a fallback, we'll use `caretRangeFromPoint`.
-    */
-    /*
-    if (languageID === Constants.LANG_CHINESE) {
-      const sel = window.getSelection()
-      range = sel.getRangeAt(0)
-    } else {
-
     */
     if (typeof doc.caretPositionFromPoint === 'function') {
       start = doc.caretPositionFromPoint(startX, startY)
@@ -136,7 +128,7 @@ export default class HTMLSelector extends MediaSelector {
       console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
     }
 
-    // return range
+    return range
   }
 
   /**
@@ -343,7 +335,6 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doCharacterBasedWordSelection (textSelector) {
-    console.info('textSelector - ', textSelector)
     const selection = HTMLSelector.getSelection(this.target)
     const rStart = selection.anchorOffset
     const rEnd = selection.focusOffset
@@ -352,15 +343,11 @@ export default class HTMLSelector extends MediaSelector {
       return textSelector
     }
 
-    console.info('rStart, rEnd - ', rStart, rEnd)
     const anchor = selection.anchorNode
     const anchorText = anchor.data
-    console.info('anchorText - ', anchorText)
 
     let word = anchorText.substring(rStart, rEnd).trim()
     word = word.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
-
-    console.info('word - ', word)
 
     let contextStr = null
     let contextPos = 0
