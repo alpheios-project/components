@@ -46,8 +46,6 @@
         } else if (this.lexeme.lemma.features && Object.entries(this.lexeme.lemma.features).length > 0) {
           definitionsLocal = [new Definition(this.l10n.getMsg('TEXT_NOTICE_NO_DEFS_FOUND'), 'en-US', 'text/plain', this.lexeme.lemma.word)]
         } 
-
-        console.info('definitions definitionsLocal', definitionsLocal)
         return definitionsLocal
       }
     },

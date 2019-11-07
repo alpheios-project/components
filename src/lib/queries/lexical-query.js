@@ -139,6 +139,7 @@ export default class LexicalQuery extends Query {
       let adapterMorphRes
 
       if (this.selector.languageID === Constants.LANG_CHINESE) {
+        console.info('chineseloc ')
         adapterMorphRes = yield ClientAdapters.morphology.chineseloc({
           method: 'getHomonym',
           clientId: this.clientId,
@@ -148,6 +149,7 @@ export default class LexicalQuery extends Query {
           }
         })
       } else {
+        console.info('not chineseloc ')
         adapterMorphRes = yield ClientAdapters.morphology.tufts({
           method: 'getHomonym',
           clientId: this.clientId,
