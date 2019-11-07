@@ -41,7 +41,8 @@ const languageNames = new Map([
   [Constants.LANG_GREEK, 'Greek'],
   [Constants.LANG_ARABIC, 'Arabic'],
   [Constants.LANG_PERSIAN, 'Persian'],
-  [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)']
+  [Constants.LANG_GEEZ, 'Ancient Ethiopic (Ge\'ez)'],
+  [Constants.LANG_CHINESE, 'Chinese']
 ])
 
 const layoutClasses = {

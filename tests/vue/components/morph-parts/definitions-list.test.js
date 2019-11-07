@@ -71,7 +71,7 @@ describe('definitions-list.test.js', () => {
     })
 
     store.commit('app/setTestShortDefUpdateTime', 1)
-    console.info(cmp.vm.definitions)
+    // console.info(cmp.vm.definitions)
     expect(cmp.vm.definitions.length).toEqual(1)
     expect(cmp.vm.definitions[0].text).toEqual('desire/love/wish/longing (passionate); lust; greed, appetite; desire for gain;')
   })
@@ -92,9 +92,10 @@ describe('definitions-list.test.js', () => {
   })
 
   it('4 DefinitionsList - computed definitions returns no definitions text  if there are no definitions', () => {
+    // console.info('testHomonymGreek.lexemes', testHomonymGreek.lexemes)
     let cmp = shallowMount(DefinitionsList, {
       propsData: {
-        lexeme: testHomonymGreek.lexemes[1]
+        lexeme: testHomonymGreek.lexemes[0]
       },
       store,
       localVue,
