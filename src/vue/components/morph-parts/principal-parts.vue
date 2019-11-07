@@ -29,7 +29,7 @@
 
         <span class="feature_extras" v-if="hasExtras" >
             <inflectionattribute
-                :data="featureList(['age','area','geo','dialect','frequency'],'extras')"
+                :data="featureList(['age','area','geo', 'frequency'],'extras')"
                 :type="'extras'"
             />
         </span>

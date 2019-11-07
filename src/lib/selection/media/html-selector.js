@@ -1,5 +1,5 @@
 import 'element-closest' // To polyfill Element.closest() if required
-import { Constants, LanguageModelFactory as LMF } from 'alpheios-data-models'
+import { Constants, LanguageModelFactory } from 'alpheios-data-models'
 import TextSelector from '../text-selector'
 import MediaSelector from './media-selector'
 
@@ -42,7 +42,7 @@ export default class HTMLSelector extends MediaSelector {
       //  let the browser select this word
       this.browserSelector = true
     } else {
-      HTMLSelector.createSelectionFromPoint(this.languageID, this.targetRect.left, this.targetRect.top)
+      HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
     }
     this.setDataAttributes()
     this.wordSeparator = new Map()
@@ -60,14 +60,12 @@ export default class HTMLSelector extends MediaSelector {
 
   createTextSelector () {
     let textSelector = new TextSelector(this.languageID)
-    textSelector.model = LMF.getLanguageModel(this.languageID)
+    textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
-
     if (this.browserSelector && this.languageID !== Constants.LANG_CHINESE) {
       textSelector = this.doFromTargetWordSelection(textSelector)
     }
-
     if (textSelector.isEmpty()) {
       if (this.wordSeparator.has(textSelector.model.baseUnit)) {
         textSelector = this.wordSeparator.get(textSelector.model.baseUnit)(textSelector)
@@ -87,7 +85,7 @@ export default class HTMLSelector extends MediaSelector {
    * @param {number} endY
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
-  static createSelectionFromPoint (languageID, startX, startY, endX = startX, endY = startY) {
+  static createSelectionFromPoint (startX, startY, endX = startX, endY = startY) {
     const doc = window.document
     let start
     let end
