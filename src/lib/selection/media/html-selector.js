@@ -1,5 +1,5 @@
 import 'element-closest' // To polyfill Element.closest() if required
-import { Constants, LanguageModelFactory } from 'alpheios-data-models'
+import { Constants, LanguageModelFactory as LMF } from 'alpheios-data-models'
 import TextSelector from '../text-selector'
 import MediaSelector from './media-selector'
 
@@ -60,7 +60,7 @@ export default class HTMLSelector extends MediaSelector {
 
   createTextSelector () {
     let textSelector = new TextSelector(this.languageID)
-    textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
+    textSelector.model = LMF.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
 
@@ -88,6 +88,7 @@ export default class HTMLSelector extends MediaSelector {
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
   static createSelectionFromPoint (languageID, startX, startY, endX = startX, endY = startY) {
+    console.info('createSelectionFromPoint')
     const doc = window.document
     let start
     let end
@@ -96,43 +97,46 @@ export default class HTMLSelector extends MediaSelector {
       We should use `caretPositionFromPoint` as an ongoing standard but it is not supported in all browsers.
       As a fallback, we'll use `caretRangeFromPoint`.
     */
-
+    /*
     if (languageID === Constants.LANG_CHINESE) {
       const sel = window.getSelection()
       range = sel.getRangeAt(0)
     } else {
-      if (typeof doc.caretPositionFromPoint === 'function') {
-        start = doc.caretPositionFromPoint(startX, startY)
-        end = doc.caretPositionFromPoint(endX, endY)
-        range = doc.createRange()
-        range.setStart(start.offsetNode, start.offset)
-        range.setEnd(end.offsetNode, end.offset)
-      } else if (typeof doc.caretRangeFromPoint === 'function') {
-        start = doc.caretRangeFromPoint(startX, startY)
-        end = doc.caretRangeFromPoint(endX, endY)
-        range = doc.createRange()
-        range.setStart(start.startContainer, start.startOffset)
-        range.setEnd(end.startContainer, end.startOffset)
-      }
 
-      if (range && typeof window.getSelection === 'function') {
-        let sel = window.getSelection() // eslint-disable-line prefer-const
-        sel.removeAllRanges()
-        sel.addRange(range)
-      } else if (typeof doc.body.createTextRange === 'function') {
-        range = doc.body.createTextRange()
-
-        range.moveToPoint(startX, startY)
-        let endRange = range.duplicate() // eslint-disable-line prefer-const
-        endRange.moveToPoint(endX, endY)
-        range.setEndPoint('EndToEnd', endRange)
-        range.select()
-      } else {
-        console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
-      }
+    */
+    if (typeof doc.caretPositionFromPoint === 'function') {
+      start = doc.caretPositionFromPoint(startX, startY)
+      end = doc.caretPositionFromPoint(endX, endY)
+      range = doc.createRange()
+      range.setStart(start.offsetNode, start.offset)
+      range.setEnd(end.offsetNode, end.offset)
+    } else if (typeof doc.caretRangeFromPoint === 'function') {
+      start = doc.caretRangeFromPoint(startX, startY)
+      end = doc.caretRangeFromPoint(endX, endY)
+      range = doc.createRange()
+      range.setStart(start.startContainer, start.startOffset)
+      range.setEnd(end.startContainer, end.startOffset)
     }
 
-    return range
+    if (range && typeof window.getSelection === 'function') {
+      let sel = window.getSelection() // eslint-disable-line prefer-const
+
+      if (range.startOffset !== range.endOffset) {
+        sel.removeAllRanges()
+        sel.addRange(range)
+      }
+    } else if (typeof doc.body.createTextRange === 'function') {
+      range = doc.body.createTextRange()
+      range.moveToPoint(startX, startY)
+      let endRange = range.duplicate() // eslint-disable-line prefer-const
+      endRange.moveToPoint(endX, endY)
+      range.setEndPoint('EndToEnd', endRange)
+      range.select()
+    } else {
+      console.warn('Browser does not support the Alpheios word selection code. Support for getSelection() or createTextRange() is required.')
+    }
+
+    // return range
   }
 
   /**
@@ -213,7 +217,6 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doSpaceSeparatedWordSelection (textSelector) {
-    console.info('doSpaceSeparatedWordSelection -')
     const selection = HTMLSelector.getSelection(this.target)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
@@ -340,6 +343,7 @@ export default class HTMLSelector extends MediaSelector {
    * @private
    */
   doCharacterBasedWordSelection (textSelector) {
+    console.info('textSelector - ', textSelector)
     const selection = HTMLSelector.getSelection(this.target)
     const rStart = selection.anchorOffset
     const rEnd = selection.focusOffset
@@ -348,11 +352,15 @@ export default class HTMLSelector extends MediaSelector {
       return textSelector
     }
 
+    console.info('rStart, rEnd - ', rStart, rEnd)
     const anchor = selection.anchorNode
     const anchorText = anchor.data
+    console.info('anchorText - ', anchorText)
 
     let word = anchorText.substring(rStart, rEnd).trim()
     word = word.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
+
+    console.info('word - ', word)
 
     let contextStr = null
     let contextPos = 0
