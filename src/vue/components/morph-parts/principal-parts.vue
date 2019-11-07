@@ -23,7 +23,7 @@
 
         <inflectionattribute
             :data="lemma.features"
-            :decorators="['brackets', 'appendcomma', 'chinese']"
+            :decorators="['brackets', 'appendspace', 'chinese']"
             :type="types.pronunciation"
         />
 

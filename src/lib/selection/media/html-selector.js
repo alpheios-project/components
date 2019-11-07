@@ -63,6 +63,7 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
     textSelector.data = this.data
+    // TODO We will want the data-alpheios-word-node functionality to work eventually with chinese
     if (this.browserSelector && this.languageID !== Constants.LANG_CHINESE) {
       textSelector = this.doFromTargetWordSelection(textSelector)
     }

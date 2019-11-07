@@ -3,7 +3,7 @@
         <div class="alpheios-morph-data__principal_parts" v-for="(lemma, lemmaIndex) in allLemmas" v-bind:key="lemmaIndex">
             <principal-parts :lemma="lemma" :lemmaindex="lemmaIndex" :lexemeslength="lexemeslength" :lexemeindex="lexemeindex"/>
         </div>
-        <div class="alpheios-morph-data__morphdata" v-if="hasMorhData">
+        <div class="alpheios-morph-data__morphdata" v-if="hasMorphData">
             <span class="alpheios-morph-data__pofs">
                 <inflectionattribute v-for="(feat, featIndex) in featuresList.pofs" v-bind:key="featIndex"
                     :data="lexeme.lemma.features" :type="types[feat]"
@@ -59,7 +59,7 @@
       this.types = Feature.types
     },
     computed: {
-      hasMorhData () {
+      hasMorphData () {
         if (!this.lexeme.lemma.features) {
           return false
         }

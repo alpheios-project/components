@@ -71,7 +71,7 @@ export default {
         decorated = `(${decorated})`
       }
       if (this.decorators.includes('brackets')) {
-        if (!this.decorators.includes('appendcomma')) {
+        if (!this.decorators.includes('appendspace')) {
           decorated = `[${decorated}]`
         } else {
           let formattedDecoratedArr = decoratedValues.map(val => `[${val}]`)
