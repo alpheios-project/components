@@ -14,23 +14,31 @@ export default class HTMLSelector extends MediaSelector {
   constructor (event, defaultLanguageCode) {
     super()
     this.event = event
+    this.target = event.end.target
+    // Determine a language ID based on an environment of a target
+    this.languageID = this.getLanguageID(defaultLanguageCode)
 
+    const noSelectorCheck = ((this.event.type === 'MouseMove') && (this.languageID !== Constants.LANG_CHINESE))
+
+    if (!noSelectorCheck) {
+      this.defineInitialData()
+    }
+  }
+
+  defineInitialData () {
     /**
      * Pointer event has two elements: `start` (where a pointer was down) and
      * `end` (where a pointer was up). If pointer was moved, they will be different.
      * It makes more sense to use `end` for our purposes.
      * @type {HTMLElement}
      */
-    this.target = event.end.target
+
     this.targetRect = {
       top: this.event.end.client.y,
       left: this.event.end.client.x
     }
     this.location = this.target.ownerDocument.location.href
     this.browserSelector = false
-
-    // Determine a language ID based on an environment of a target
-    this.languageID = this.getLanguageID(defaultLanguageCode)
 
     /**
      * We need to create a selection for a click or touch position
@@ -42,7 +50,7 @@ export default class HTMLSelector extends MediaSelector {
       //  let the browser select this word
       this.browserSelector = true
     } else {
-      HTMLSelector.createSelectionFromPoint(this.targetRect.left, this.targetRect.top)
+      HTMLSelector.createSelectionFromPoint(this.event.type, this.targetRect.left, this.targetRect.top)
     }
     this.setDataAttributes()
     this.wordSeparator = new Map()
@@ -59,6 +67,9 @@ export default class HTMLSelector extends MediaSelector {
   }
 
   createTextSelector () {
+    if (this.event.type === 'MouseMove' && this.languageID !== Constants.LANG_CHINESE) {
+      return
+    }
     let textSelector = new TextSelector(this.languageID)
     textSelector.model = LanguageModelFactory.getLanguageModel(this.languageID)
     textSelector.location = this.location
@@ -86,14 +97,15 @@ export default class HTMLSelector extends MediaSelector {
    * @param {number} endY
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
-  static createSelectionFromPoint (startX, startY, endX = startX, endY = startY) {
+  static createSelectionFromPoint (eventType, startX, startY, endX = startX, endY = startY) {
     const doc = window.document
     let start
     let end
     let range = null
     /*
       We should use `caretPositionFromPoint` as an ongoing standard but it is not supported in all browsers.
-      As a fallback, we'll use `caretRangeFromPoint`.
+      As a f
+      allback, we'll use `caretRangeFromPoint`.
     */
     if (typeof doc.caretPositionFromPoint === 'function') {
       start = doc.caretPositionFromPoint(startX, startY)
@@ -102,8 +114,14 @@ export default class HTMLSelector extends MediaSelector {
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
-      start = doc.caretRangeFromPoint(startX, startY)
-      end = doc.caretRangeFromPoint(endX, endY)
+      if (eventType === 'MouseMove') {
+        start = doc.caretRangeFromPoint(startX * 0.95, startY)
+        end = doc.caretRangeFromPoint(endX * 1.1, endY)
+      } else {
+        start = doc.caretRangeFromPoint(startX, startY)
+        end = doc.caretRangeFromPoint(endX, endY)
+      }
+
       range = doc.createRange()
       range.setStart(start.startContainer, start.startOffset)
       range.setEnd(end.startContainer, end.startOffset)
@@ -211,6 +229,9 @@ export default class HTMLSelector extends MediaSelector {
     const selection = HTMLSelector.getSelection(this.target)
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
+    if (!anchor) {
+      return undefined
+    }
     let focus = selection.focusNode // A node where the end of a selection
     let anchorText = anchor.data // A text of an anchor node?
     let ro // An offset from the beginning of a selection

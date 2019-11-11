@@ -546,7 +546,8 @@ export default class UIController {
         wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
-        providers: [] // A list of resource providers
+        providers: [], // A list of resource providers
+        textSelector: {}
       },
 
       getters: {
@@ -653,6 +654,13 @@ export default class UIController {
           if (htmlSelector.targetRect) {
             state.selectionTarget.x = Math.round(htmlSelector.targetRect.left)
             state.selectionTarget.y = Math.round(htmlSelector.targetRect.top)
+          }
+        },
+
+        setTextSelector (state, textSelector) {
+          if (textSelector && !textSelector.isEmpty()) {
+            state.textSelector.text = textSelector.text
+            state.textSelector.languageID = textSelector.languageID
           }
         },
 
@@ -1376,7 +1384,9 @@ export default class UIController {
       this.changeTab('morphology')
     } else {
       if (this.api.ui.hasModule('panel') && this.state.isPanelOpen()) { this.api.ui.closePanel() }
-      if (this.api.ui.hasModule('popup')) { this.api.ui.openPopup() }
+      if (this.api.ui.hasModule('popup')) {
+        this.api.ui.openPopup()
+      }
     }
     return this
   }
@@ -1469,13 +1479,11 @@ export default class UIController {
   }
 
   getSelectedText (event, domEvent) {
-    console.info('*****getSelectedText1', this.state.isActive(), this.state.uiIsActive())
-    console.info('*****getSelectedText2', this.options.triggerPreCallback, this.options.triggerPreCallback(domEvent))
     if (this.state.isActive() &&
         this.state.uiIsActive() &&
         (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
       // Open the UI immediately to reduce visual delays
-      this.open()
+
       /*
       TextSelector conveys text selection information. It is more generic of the two.
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
@@ -1487,6 +1495,16 @@ export default class UIController {
       const textSelector = htmlSelector.createTextSelector()
 
       if (textSelector && !textSelector.isEmpty()) {
+        const lastTestSelector = this.store.state.app.textSelector
+        const checkSameTestSelector = (lastTestSelector.text === textSelector.text && lastTestSelector.languageID === textSelector.languageID && this.store.state.popup.visible)
+        if (checkSameTestSelector) {
+          return
+        }
+
+        this.store.commit('app/setTextSelector', textSelector)
+        console.info('textSelector - ', textSelector)
+
+        this.open()
         // TODO: disable experience monitor as it might cause memory leaks
         /* ExpObjMon.track(
           LexicalQuery.create(textSelector, {
@@ -1521,9 +1539,12 @@ export default class UIController {
 
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)
         lexQuery.getData()
-      } else {
+      }
+      /*
+      else {
         this.closePopup() // because we open popup before any check, but selection could be incorrect
       }
+      */
     }
   }
 
@@ -1970,7 +1991,6 @@ export default class UIController {
   }
 
   testMouseMove (event, domEvt) {
-    console.info('testMousemove inside', event, domEvt)
     this.getSelectedText(event, domEvt)
   }
 }
