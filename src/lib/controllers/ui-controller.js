@@ -1384,9 +1384,7 @@ export default class UIController {
       this.changeTab('morphology')
     } else {
       if (this.api.ui.hasModule('panel') && this.state.isPanelOpen()) { this.api.ui.closePanel() }
-      if (this.api.ui.hasModule('popup')) {
-        this.api.ui.openPopup()
-      }
+      if (this.api.ui.hasModule('popup')) { this.api.ui.openPopup() }
     }
     return this
   }
@@ -1502,7 +1500,6 @@ export default class UIController {
         }
 
         this.store.commit('app/setTextSelector', textSelector)
-        console.info('textSelector - ', textSelector)
 
         this.open()
         // TODO: disable experience monitor as it might cause memory leaks
@@ -1540,11 +1537,6 @@ export default class UIController {
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)
         lexQuery.getData()
       }
-      /*
-      else {
-        this.closePopup() // because we open popup before any check, but selection could be incorrect
-      }
-      */
     }
   }
 

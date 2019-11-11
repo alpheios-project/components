@@ -104,8 +104,7 @@ export default class HTMLSelector extends MediaSelector {
     let range = null
     /*
       We should use `caretPositionFromPoint` as an ongoing standard but it is not supported in all browsers.
-      As a f
-      allback, we'll use `caretRangeFromPoint`.
+      As a fallback, we'll use `caretRangeFromPoint`.
     */
     if (typeof doc.caretPositionFromPoint === 'function') {
       start = doc.caretPositionFromPoint(startX, startY)
