@@ -30,6 +30,8 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
 import LongTap from '@/lib/custom-pointer-events/long-tap.js'
 import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
+import MouseMove from '@/lib/custom-pointer-events/mouse-move.js'
+
 import Options from '@/lib/options/options.js'
 import LocalStorage from '@/lib/options/local-storage-area.js'
 import RemoteAuthStorageArea from '@/lib/options/remote-auth-storage-area.js'
@@ -1467,6 +1469,8 @@ export default class UIController {
   }
 
   getSelectedText (event, domEvent) {
+    console.info('*****getSelectedText1', this.state.isActive(), this.state.uiIsActive())
+    console.info('*****getSelectedText2', this.options.triggerPreCallback, this.options.triggerPreCallback(domEvent))
     if (this.state.isActive() &&
         this.state.uiIsActive() &&
         (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
@@ -1954,11 +1958,20 @@ export default class UIController {
       this.evc.registerListener(
         listenerName, selector, this.getSelectedText.bind(this), GenericEvt, customEv)
     }
+
+    this.evc.registerListener(listenerName + '-mousemove', selector, this.testMouseMove.bind(this), MouseMove)
   }
 
   registerAndActivateGetSelectedText (listenerName, selector) {
     this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
+
+    this.evc.activateListener(listenerName + '-mousemove')
+  }
+
+  testMouseMove (event, domEvt) {
+    console.info('testMousemove inside', event, domEvt)
+    this.getSelectedText(event, domEvt)
   }
 }
 
