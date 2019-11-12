@@ -107,8 +107,15 @@ export default class HTMLSelector extends MediaSelector {
       As a fallback, we'll use `caretRangeFromPoint`.
     */
     if (typeof doc.caretPositionFromPoint === 'function') {
-      start = doc.caretPositionFromPoint(startX, startY)
-      end = doc.caretPositionFromPoint(endX, endY)
+      if (event.type === 'MouseMove') {
+        // We need to imititate a small selection for this event type - 10px left and 10px right from the MouseMove registered point
+        start = doc.caretPositionFromPoint(startX - event.mouseMoveAccuracy, startY)
+        end = doc.caretPositionFromPoint(endX + event.mouseMoveAccuracy, endY)
+      } else {
+        start = doc.caretPositionFromPoint(startX, startY)
+        end = doc.caretPositionFromPoint(endX, endY)
+      }
+
       range = doc.createRange()
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
