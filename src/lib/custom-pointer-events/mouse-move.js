@@ -31,6 +31,11 @@ export default class MouseMove extends PointerEvt {
     this.element.removeEventListener(this.evtType, this.boundListener, { passive: true })
   }
 
+  setEndPoint (clientX, clientY, target, path) {
+    super.setEndPoint(clientX, clientY, target, path)
+    return !(this.start.excluded || this.end.excluded)
+  }
+
   static listen (selector, evtHandler) {
     const elements = document.querySelectorAll(selector)
     for (const element of elements) {

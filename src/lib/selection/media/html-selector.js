@@ -394,7 +394,7 @@ export default class HTMLSelector extends MediaSelector {
       checkContext = this.defineCheckContextFromContext(postWord)
     }
 
-    textSelector.text = word
+    textSelector.text = word.trim()
     textSelector.start = rStart
     textSelector.end = rEnd
     textSelector.context = contextStr

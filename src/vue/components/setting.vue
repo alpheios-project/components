@@ -121,7 +121,6 @@ export default {
     checkboxClick () {
       if (this.data.boolean === true) {
         this.selected = !this.selected
-        console.info('checkboxClick inside')
       }
     },
     checkNumberField () {
