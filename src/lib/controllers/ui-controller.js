@@ -1972,18 +1972,18 @@ export default class UIController {
         listenerName, selector, this.getSelectedText.bind(this), GenericEvt, customEv)
     }
 
-    this.evc.registerListener(listenerName + '-mousemove', selector, this.testMouseMove.bind(this), MouseMove)
+    if (this.platform.isDesktop) {
+      this.evc.registerListener(listenerName + '-mousemove', selector, this.getSelectedText.bind(this), MouseMove)
+    }
   }
 
   registerAndActivateGetSelectedText (listenerName, selector) {
     this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
 
-    this.evc.activateListener(listenerName + '-mousemove')
-  }
-
-  testMouseMove (event, domEvt) {
-    this.getSelectedText(event, domEvt)
+    if (this.platform.isDesktop) {
+      this.evc.activateListener(listenerName + '-mousemove')
+    }
   }
 }
 

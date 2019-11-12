@@ -9,10 +9,12 @@ export default class MouseMove extends PointerEvt {
     this.boundListener = this.eventListener.bind(this) // A bound event listener of MouseDblClick
     this.mouseMoveTimeout = null
     this.mouseMoveDelay = 1000
+    this.prevTarget = null
   }
 
   eventListener (domEvt) {
     domEvt.stopPropagation()
+    // console.info('MouseMove eventListener', domEvt.clientX, domEvt.clientY, domEvt.target)
     clearTimeout(this.mouseMoveTimeout)
     this.mouseMoveTimeout = setTimeout(() => {
       this
