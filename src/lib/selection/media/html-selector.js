@@ -50,7 +50,7 @@ export default class HTMLSelector extends MediaSelector {
       //  let the browser select this word
       this.browserSelector = true
     } else {
-      HTMLSelector.createSelectionFromPoint(this.event.type, this.targetRect.left, this.targetRect.top)
+      HTMLSelector.createSelectionFromPoint(this.event, this.targetRect.left, this.targetRect.top)
     }
     this.setDataAttributes()
     this.wordSeparator = new Map()
@@ -97,7 +97,7 @@ export default class HTMLSelector extends MediaSelector {
    * @param {number} endY
    * @return {Range | null} A range if one is successfully created or null in case of failure.
    */
-  static createSelectionFromPoint (eventType, startX, startY, endX = startX, endY = startY) {
+  static createSelectionFromPoint (event, startX, startY, endX = startX, endY = startY) {
     const doc = window.document
     let start
     let end
@@ -113,10 +113,10 @@ export default class HTMLSelector extends MediaSelector {
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
-      if (eventType === 'MouseMove') {
+      if (event.type === 'MouseMove') {
         // We need to imititate a small selection for this event type - 10px left and 10px right from the MouseMove registered point
-        start = doc.caretRangeFromPoint(startX - 10, startY)
-        end = doc.caretRangeFromPoint(endX + 10, endY)
+        start = doc.caretRangeFromPoint(startX - event.mouseMoveAccuracy, startY)
+        end = doc.caretRangeFromPoint(endX + event.mouseMoveAccuracy, endY)
       } else {
         start = doc.caretRangeFromPoint(startX, startY)
         end = doc.caretRangeFromPoint(endX, endY)
@@ -129,8 +129,10 @@ export default class HTMLSelector extends MediaSelector {
 
     if (range && typeof window.getSelection === 'function') {
       let sel = window.getSelection() // eslint-disable-line prefer-const
-      sel.removeAllRanges()
-      sel.addRange(range)
+      if (range.startOffset !== range.endOffset) {
+        sel.removeAllRanges()
+        sel.addRange(range)
+      }
     } else if (typeof doc.body.createTextRange === 'function') {
       range = doc.body.createTextRange()
       range.moveToPoint(startX, startY)

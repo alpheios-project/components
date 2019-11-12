@@ -377,6 +377,7 @@ export default class UIController {
     if (this.isInitialized) { return 'Already initialized' }
     // Start loading options as early as possible
     const optionLoadPromises = this.initOptions(this.options.storageAdapter)
+
     // Create a copy of resource options for the lookup UI component
     // this doesn't get reloaded from the storage adapter because
     // we don't expose it to the user via preferences
@@ -392,6 +393,9 @@ export default class UIController {
     document.body.classList.add('alpheios')
 
     await Promise.all(optionLoadPromises)
+
+    this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+
     // All options has been loaded after this point
 
     // The following options will be applied to all logging done via a single Logger instance
@@ -772,6 +776,7 @@ export default class UIController {
       showPanelTab: this.showPanelTab.bind(this),
       togglePanelTab: this.togglePanelTab.bind(this),
       registerAndActivateGetSelectedText: this.registerAndActivateGetSelectedText.bind(this),
+      registerAndActivateMouseMove: this.registerAndActivateMouseMove.bind(this),
 
       optionChange: this.uiOptionChange.bind(this) // Handle a change of UI options
     }
@@ -1834,10 +1839,8 @@ export default class UIController {
   featureOptionChange (name, value) {
     let featureOptions = this.api.settings.getFeatureOptions() // eslint-disable-line prefer-const
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' ||
-        name === 'enableWordUsageExamples' ||
-        name === 'wordUsageExamplesMax' ||
-        name === 'wordUsageExamplesAuthMax') {
+    const nonTextFeatures = ['enableLemmaTranslations', 'enableWordUsageExamples', 'wordUsageExamplesMax', 'wordUsageExamplesAuthMax', 'enableMouseMove', 'mouseMoveDelay', 'mouseMoveAccuracy']
+    if (nonTextFeatures.indexOf(name) > -1) {
       featureOptions.items[name].setValue(value)
     } else {
       featureOptions.items[name].setTextValue(value)
@@ -1861,6 +1864,15 @@ export default class UIController {
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
+        break
+      case 'enableMouseMove':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+        break
+      case 'mouseMoveDelay':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+        break
+      case 'mouseMoveAccuracy':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
         break
     }
   }
@@ -1971,19 +1983,28 @@ export default class UIController {
       this.evc.registerListener(
         listenerName, selector, this.getSelectedText.bind(this), GenericEvt, customEv)
     }
-
-    if (this.platform.isDesktop) {
-      this.evc.registerListener(listenerName + '-mousemove', selector, this.getSelectedText.bind(this), MouseMove)
-    }
   }
 
   registerAndActivateGetSelectedText (listenerName, selector) {
     this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
+  }
 
-    if (this.platform.isDesktop) {
+  registerAndActivateMouseMove (listenerName, selector) {
+    this.evc.unregisterListener(listenerName + '-mousemove')
+
+    if (this.enableMouseMoveEvent()) {
+      const eventParams = {
+        mouseMoveDelay: this.featureOptions.items.mouseMoveDelay.currentValue,
+        mouseMoveAccuracy: this.featureOptions.items.mouseMoveAccuracy.currentValue
+      }
+      this.evc.registerListener(listenerName + '-mousemove', selector, this.getSelectedText.bind(this), MouseMove, eventParams)
       this.evc.activateListener(listenerName + '-mousemove')
     }
+  }
+
+  enableMouseMoveEvent () {
+    return this.platform.isDesktop && this.featureOptions.items.enableMouseMove.currentValue
   }
 }
 
