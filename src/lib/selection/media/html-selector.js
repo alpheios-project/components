@@ -229,7 +229,7 @@ export default class HTMLSelector extends MediaSelector {
 
     let anchor = selection.anchorNode // A node where is a beginning of a selection
     if (!anchor) {
-      return undefined
+      return
     }
     let focus = selection.focusNode // A node where the end of a selection
     let anchorText = anchor.data // A text of an anchor node?
@@ -252,7 +252,7 @@ export default class HTMLSelector extends MediaSelector {
     }
 
     if (!anchorText) {
-      return undefined
+      return
     }
     // clean string:
     //   convert punctuation to spaces
