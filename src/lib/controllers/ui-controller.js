@@ -1841,7 +1841,7 @@ export default class UIController {
     let featureOptions = this.api.settings.getFeatureOptions() // eslint-disable-line prefer-const
     // TODO we need to refactor handling of boolean options
     const nonTextFeatures = ['enableLemmaTranslations', 'enableWordUsageExamples', 'wordUsageExamplesMax', 'wordUsageExamplesAuthMax', 'enableMouseMove', 'mouseMoveDelay', 'mouseMoveAccuracy']
-    if (nonTextFeatures.indexOf(name) > -1) {
+    if (nonTextFeatures.includes(name)) {
       featureOptions.items[name].setValue(value)
     } else {
       featureOptions.items[name].setTextValue(value)
