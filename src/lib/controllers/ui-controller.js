@@ -1536,7 +1536,8 @@ export default class UIController {
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.getWordUsageExamplesQueryParams(textSelector),
-          langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
+          langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } }, // TODO this should be externalized
+          context: textSelector.checkContext
         })
 
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)

@@ -356,7 +356,7 @@ export default class HTMLSelector extends MediaSelector {
   doCharacterBasedWordSelection (textSelector) {
     const selection = HTMLSelector.getSelection(this.target)
     const rStart = selection.anchorOffset
-    const rEnd = selection.focusOffset
+    let rEnd = selection.focusOffset
 
     if (rStart === rEnd || rEnd === 0) {
       return textSelector
@@ -368,8 +368,13 @@ export default class HTMLSelector extends MediaSelector {
     let word = anchorText.substring(rStart, rEnd).trim()
     word = word.replace(new RegExp('[' + textSelector.model.getPunctuation() + ']', 'g'), ' ')
 
+    if (word.length > 2) {
+      rEnd = rEnd - (word.length - 2)
+      word = word.substr(0, 2)
+    }
     let contextStr = null
     let contextPos = 0
+    let checkContext
 
     const contextForward = textSelector.model.contextForward
     const contextBackward = textSelector.model.contextBackward
@@ -385,6 +390,8 @@ export default class HTMLSelector extends MediaSelector {
 
       contextStr = prevWord + ' ' + postWord
       contextPos = prevWord.length - 1
+
+      checkContext = this.defineCheckContextFromContext(postWord)
     }
 
     textSelector.text = word
@@ -393,10 +400,16 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.context = contextStr
     textSelector.position = contextPos
 
+    textSelector.checkContext = checkContext
+
     const prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
     const suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')
     textSelector.createTextQuoteSelector(prefix, suffix)
     return textSelector
+  }
+
+  defineCheckContextFromContext (contextStr) {
+    return contextStr.indexOf(' ') === -1 ? contextStr : contextStr.substr(0, contextStr.indexOf(' '))
   }
 
   _escapeRegExp (string) {
