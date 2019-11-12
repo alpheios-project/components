@@ -114,8 +114,9 @@ export default class HTMLSelector extends MediaSelector {
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
       if (eventType === 'MouseMove') {
-        start = doc.caretRangeFromPoint(startX * 0.95, startY)
-        end = doc.caretRangeFromPoint(endX * 1.1, endY)
+        // We need to imititate a small selection for this event type - 10px left and 10px right from the MouseMove registered point
+        start = doc.caretRangeFromPoint(startX - 10, startY)
+        end = doc.caretRangeFromPoint(endX + 10, endY)
       } else {
         start = doc.caretRangeFromPoint(startX, startY)
         end = doc.caretRangeFromPoint(endX, endY)
@@ -128,11 +129,8 @@ export default class HTMLSelector extends MediaSelector {
 
     if (range && typeof window.getSelection === 'function') {
       let sel = window.getSelection() // eslint-disable-line prefer-const
-
-      if (range.startOffset !== range.endOffset) {
-        sel.removeAllRanges()
-        sel.addRange(range)
-      }
+      sel.removeAllRanges()
+      sel.addRange(range)
     } else if (typeof doc.body.createTextRange === 'function') {
       range = doc.body.createTextRange()
       range.moveToPoint(startX, startY)
