@@ -14,8 +14,8 @@ export default class MouseMove extends PointerEvt {
 
   eventListener (domEvt) {
     domEvt.stopPropagation()
-    // console.info('MouseMove eventListener', domEvt.clientX, domEvt.clientY, domEvt.target)
-    clearTimeout(this.mouseMoveTimeout)
+    if (this.mouseMoveTimeout) { clearTimeout(this.mouseMoveTimeout) }
+
     this.mouseMoveTimeout = setTimeout(() => {
       this
         .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
