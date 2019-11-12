@@ -1,5 +1,7 @@
 import PointerEvt from '@/lib/custom-pointer-events/pointer-evt.js'
 
+let mouseMoveTimeout = null
+
 export default class MouseMove extends PointerEvt {
   constructor (element, evtHandler, eventParams = {}) {
     super()
@@ -7,15 +9,17 @@ export default class MouseMove extends PointerEvt {
     this.element = element
     this.evtHandler = evtHandler // A client's event handler
     this.boundListener = this.eventListener.bind(this) // A bound event listener of MouseDblClick
-    this.mouseMoveTimeout = null
     this.mouseMoveDelay = parseInt(eventParams.mouseMoveDelay)
     this.mouseMoveAccuracy = parseInt(eventParams.mouseMoveAccuracy)
   }
 
   eventListener (domEvt) {
     domEvt.stopPropagation()
-    if (this.mouseMoveTimeout) { clearTimeout(this.mouseMoveTimeout) }
-    this.mouseMoveTimeout = setTimeout(() => {
+    if (mouseMoveTimeout) {
+      clearTimeout(mouseMoveTimeout)
+    }
+
+    mouseMoveTimeout = setTimeout(() => {
       this
         .setStartPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)
         .setEndPoint(domEvt.clientX, domEvt.clientY, domEvt.target, domEvt.path)

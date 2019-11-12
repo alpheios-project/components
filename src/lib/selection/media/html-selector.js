@@ -123,6 +123,7 @@ export default class HTMLSelector extends MediaSelector {
       }
 
       range = doc.createRange()
+
       range.setStart(start.startContainer, start.startOffset)
       range.setEnd(end.startContainer, end.startOffset)
     }
