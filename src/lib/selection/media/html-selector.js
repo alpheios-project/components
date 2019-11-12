@@ -18,7 +18,7 @@ export default class HTMLSelector extends MediaSelector {
     // Determine a language ID based on an environment of a target
     this.languageID = this.getLanguageID(defaultLanguageCode)
 
-    const noSelectorCheck = ((this.event.type === 'MouseMove') && (this.languageID !== Constants.LANG_CHINESE))
+    const noSelectorCheck = ((this.event.evtType === 'mousemove') && (this.languageID !== Constants.LANG_CHINESE))
 
     if (!noSelectorCheck) {
       this.defineInitialData()
@@ -67,7 +67,7 @@ export default class HTMLSelector extends MediaSelector {
   }
 
   createTextSelector () {
-    if (this.event.type === 'MouseMove' && this.languageID !== Constants.LANG_CHINESE) {
+    if (this.event.evtType === 'mousemove' && this.languageID !== Constants.LANG_CHINESE) {
       return
     }
     let textSelector = new TextSelector(this.languageID)
@@ -107,7 +107,7 @@ export default class HTMLSelector extends MediaSelector {
       As a fallback, we'll use `caretRangeFromPoint`.
     */
     if (typeof doc.caretPositionFromPoint === 'function') {
-      if (event.type === 'MouseMove') {
+      if (event.evtType === 'mousemove') {
         // We need to imititate a small selection for this event type - 10px left and 10px right from the MouseMove registered point
         start = doc.caretPositionFromPoint(startX - event.mouseMoveAccuracy, startY)
         end = doc.caretPositionFromPoint(endX + event.mouseMoveAccuracy, endY)
@@ -120,7 +120,7 @@ export default class HTMLSelector extends MediaSelector {
       range.setStart(start.offsetNode, start.offset)
       range.setEnd(end.offsetNode, end.offset)
     } else if (typeof doc.caretRangeFromPoint === 'function') {
-      if (event.type === 'MouseMove') {
+      if (event.evtType === 'mousemove') {
         // We need to imititate a small selection for this event type - 10px left and 10px right from the MouseMove registered point
         start = doc.caretRangeFromPoint(startX - event.mouseMoveAccuracy, startY)
         end = doc.caretRangeFromPoint(endX + event.mouseMoveAccuracy, endY)
