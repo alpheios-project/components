@@ -400,7 +400,7 @@ export default class HTMLSelector extends MediaSelector {
     textSelector.context = contextStr
     textSelector.position = contextPos
 
-    textSelector.checkContext = checkContext
+    textSelector.checkContextForward = checkContext
 
     const prefix = selection.anchorNode.data.substr(0, textSelector.start).trim().replace(/\n/g, '')
     const suffix = selection.anchorNode.data.substr(textSelector.end).trim().replace(/\n/g, '')

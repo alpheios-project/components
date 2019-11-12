@@ -37,7 +37,7 @@ export default class LexicalQueryLookup extends LexicalQuery {
 
       resourceOptions: resourceOptions,
       langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } }, // TODO this should be externalized
-      context: null
+      checkContextForward: null
     }
     return LexicalQuery.create(textSelector, options)
   }
