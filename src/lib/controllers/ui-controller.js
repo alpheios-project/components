@@ -30,6 +30,8 @@ import LanguageOptionDefaults from '@/settings/language-options-defaults.json'
 import MouseDblClick from '@/lib/custom-pointer-events/mouse-dbl-click.js'
 import LongTap from '@/lib/custom-pointer-events/long-tap.js'
 import GenericEvt from '@/lib/custom-pointer-events/generic-evt.js'
+import MouseMove from '@/lib/custom-pointer-events/mouse-move.js'
+
 import Options from '@/lib/options/options.js'
 import LocalStorage from '@/lib/options/local-storage-area.js'
 import RemoteAuthStorageArea from '@/lib/options/remote-auth-storage-area.js'
@@ -375,6 +377,7 @@ export default class UIController {
     if (this.isInitialized) { return 'Already initialized' }
     // Start loading options as early as possible
     const optionLoadPromises = this.initOptions(this.options.storageAdapter)
+
     // Create a copy of resource options for the lookup UI component
     // this doesn't get reloaded from the storage adapter because
     // we don't expose it to the user via preferences
@@ -390,6 +393,9 @@ export default class UIController {
     document.body.classList.add('alpheios')
 
     await Promise.all(optionLoadPromises)
+
+    this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+
     // All options has been loaded after this point
 
     // The following options will be applied to all logging done via a single Logger instance
@@ -544,7 +550,8 @@ export default class UIController {
         wordUsageAuthorsReady: false, // Whether word usage authors data is available
         hasWordListsData: false,
         wordListUpdateTime: 0, // To notify word list panel about data update
-        providers: [] // A list of resource providers
+        providers: [], // A list of resource providers
+        textSelector: {}
       },
 
       getters: {
@@ -651,6 +658,13 @@ export default class UIController {
           if (htmlSelector.targetRect) {
             state.selectionTarget.x = Math.round(htmlSelector.targetRect.left)
             state.selectionTarget.y = Math.round(htmlSelector.targetRect.top)
+          }
+        },
+
+        setTextSelector (state, textSelector) {
+          if (textSelector && !textSelector.isEmpty()) {
+            state.textSelector.text = textSelector.text
+            state.textSelector.languageID = textSelector.languageID
           }
         },
 
@@ -762,6 +776,7 @@ export default class UIController {
       showPanelTab: this.showPanelTab.bind(this),
       togglePanelTab: this.togglePanelTab.bind(this),
       registerAndActivateGetSelectedText: this.registerAndActivateGetSelectedText.bind(this),
+      registerAndActivateMouseMove: this.registerAndActivateMouseMove.bind(this),
 
       optionChange: this.uiOptionChange.bind(this) // Handle a change of UI options
     }
@@ -1471,7 +1486,7 @@ export default class UIController {
         this.state.uiIsActive() &&
         (!this.options.triggerPreCallback || this.options.triggerPreCallback(domEvent))) {
       // Open the UI immediately to reduce visual delays
-      this.open()
+
       /*
       TextSelector conveys text selection information. It is more generic of the two.
       HTMLSelector conveys page-specific information, such as location of a selection on a page.
@@ -1483,6 +1498,15 @@ export default class UIController {
       const textSelector = htmlSelector.createTextSelector()
 
       if (textSelector && !textSelector.isEmpty()) {
+        const lastTestSelector = this.store.state.app.textSelector
+        const checkSameTestSelector = (lastTestSelector.text === textSelector.text && lastTestSelector.languageID === textSelector.languageID && this.store.state.popup.visible)
+        if (checkSameTestSelector) {
+          return
+        }
+
+        this.store.commit('app/setTextSelector', textSelector)
+
+        this.open()
         // TODO: disable experience monitor as it might cause memory leaks
         /* ExpObjMon.track(
           LexicalQuery.create(textSelector, {
@@ -1512,13 +1536,12 @@ export default class UIController {
           siteOptions: [],
           lemmaTranslations: this.enableLemmaTranslations(textSelector) ? { locale: this.featureOptions.items.locale.currentValue } : null,
           wordUsageExamples: this.getWordUsageExamplesQueryParams(textSelector),
-          langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } } // TODO this should be externalized
+          langOpts: { [Constants.LANG_PERSIAN]: { lookupMorphLast: true } }, // TODO this should be externalized
+          checkContextForward: textSelector.checkContextForward
         })
 
         this.newLexicalRequest(textSelector.normalizedText, textSelector.languageID, textSelector.data)
         lexQuery.getData()
-      } else {
-        this.closePopup() // because we open popup before any check, but selection could be incorrect
       }
     }
   }
@@ -1817,10 +1840,8 @@ export default class UIController {
   featureOptionChange (name, value) {
     let featureOptions = this.api.settings.getFeatureOptions() // eslint-disable-line prefer-const
     // TODO we need to refactor handling of boolean options
-    if (name === 'enableLemmaTranslations' ||
-        name === 'enableWordUsageExamples' ||
-        name === 'wordUsageExamplesMax' ||
-        name === 'wordUsageExamplesAuthMax') {
+    const nonTextFeatures = ['enableLemmaTranslations', 'enableWordUsageExamples', 'wordUsageExamplesMax', 'wordUsageExamplesAuthMax', 'enableMouseMove', 'mouseMoveDelay', 'mouseMoveAccuracy']
+    if (nonTextFeatures.includes(name)) {
       featureOptions.items[name].setValue(value)
     } else {
       featureOptions.items[name].setTextValue(value)
@@ -1844,6 +1865,15 @@ export default class UIController {
         break
       case 'enableLemmaTranslations':
         this.updateLemmaTranslations()
+        break
+      case 'enableMouseMove':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+        break
+      case 'mouseMoveDelay':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
+        break
+      case 'mouseMoveAccuracy':
+        this.registerAndActivateMouseMove('GetSelectedText', this.options.textQuerySelector)
         break
     }
   }
@@ -1959,6 +1989,23 @@ export default class UIController {
   registerAndActivateGetSelectedText (listenerName, selector) {
     this.registerGetSelectedText(listenerName, selector)
     this.evc.activateListener(listenerName)
+  }
+
+  registerAndActivateMouseMove (listenerName, selector) {
+    this.evc.unregisterListener(listenerName + '-mousemove')
+
+    if (this.enableMouseMoveEvent()) {
+      const eventParams = {
+        mouseMoveDelay: this.featureOptions.items.mouseMoveDelay.currentValue,
+        mouseMoveAccuracy: this.featureOptions.items.mouseMoveAccuracy.currentValue
+      }
+      this.evc.registerListener(listenerName + '-mousemove', selector, this.getSelectedText.bind(this), MouseMove, eventParams)
+      this.evc.activateListener(listenerName + '-mousemove')
+    }
+  }
+
+  enableMouseMoveEvent () {
+    return this.platform.isDesktop && this.featureOptions.items.enableMouseMove.currentValue
   }
 }
 
