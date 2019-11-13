@@ -488,6 +488,52 @@ html {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
+.alpheios-panel.alpheios-content h1, .alpheios-panel.alpheios-content h2, .alpheios-panel.alpheios-content h3, .alpheios-panel.alpheios-content h4, .alpheios-panel.alpheios-content h5, .alpheios-panel.alpheios-content h6, .alpheios-panel.alpheios-content p, .alpheios-panel.alpheios-content span, .alpheios-panel.alpheios-content a, .alpheios-popup.alpheios-content h1, .alpheios-popup.alpheios-content h2, .alpheios-popup.alpheios-content h3, .alpheios-popup.alpheios-content h4, .alpheios-popup.alpheios-content h5, .alpheios-popup.alpheios-content h6, .alpheios-popup.alpheios-content p, .alpheios-popup.alpheios-content span, .alpheios-popup.alpheios-content a, .alpheios-toolbar.alpheios-content h1, .alpheios-toolbar.alpheios-content h2, .alpheios-toolbar.alpheios-content h3, .alpheios-toolbar.alpheios-content h4, .alpheios-toolbar.alpheios-content h5, .alpheios-toolbar.alpheios-content h6, .alpheios-toolbar.alpheios-content p, .alpheios-toolbar.alpheios-content span, .alpheios-toolbar.alpheios-content a {
+  line-height: 1.15 !important;
+  text-align: left !important;
+  font-family: var(--alpheios-sans-font-face) !important;
+  font-style: normal !important;
+  font-size: var(--alpheios-base-text-size) !important;
+  color: var(--alpheios-text-color) !important;
+}
+.alpheios-panel.alpheios-content h1, .alpheios-panel.alpheios-content h2, .alpheios-panel.alpheios-content h3, .alpheios-panel.alpheios-content h4, .alpheios-panel.alpheios-content h5, .alpheios-panel.alpheios-content h6, .alpheios-popup.alpheios-content h1, .alpheios-popup.alpheios-content h2, .alpheios-popup.alpheios-content h3, .alpheios-popup.alpheios-content h4, .alpheios-popup.alpheios-content h5, .alpheios-popup.alpheios-content h6, .alpheios-toolbar.alpheios-content h1, .alpheios-toolbar.alpheios-content h2, .alpheios-toolbar.alpheios-content h3, .alpheios-toolbar.alpheios-content h4, .alpheios-toolbar.alpheios-content h5, .alpheios-toolbar.alpheios-content h6 {
+  margin: 0 !important;
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
+}
+.alpheios-panel.alpheios-content h1, .alpheios-popup.alpheios-content h1, .alpheios-toolbar.alpheios-content h1 {
+  font-family: var(--alpheios-serif-font-face) !important;
+  font-size: calc(var(--alpheios-base-text-size) * 1.625) !important;
+  font-weight: 700 !important;
+  margin: 0 0 calc(var(--alpheios-base-text-size) * 2) 0 !important;
+  color: var(--alpheios-text-color-dark) !important;
+}
+.alpheios-panel.alpheios-content h2, .alpheios-popup.alpheios-content h2, .alpheios-toolbar.alpheios-content h2 {
+  font-family: var(--alpheios-sans-font-face) !important;
+  font-size: calc(var(--alpheios-base-text-size) * 1.5) !important;
+  font-weight: 700 !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.625) !important;
+}
+.alpheios-panel.alpheios-content h3, .alpheios-popup.alpheios-content h3, .alpheios-toolbar.alpheios-content h3 {
+  font-family: var(--alpheios-sans-font-face) !important;
+  font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
+  font-weight: 700 !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.375) !important;
+}
+.alpheios-panel.alpheios-content h4, .alpheios-popup.alpheios-content h4, .alpheios-toolbar.alpheios-content h4 {
+  font-family: var(--alpheios-serif-font-face) !important;
+  font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
+  font-weight: 400 !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.125) !important;
+}
+.alpheios-panel.alpheios-content h5, .alpheios-popup.alpheios-content h5, .alpheios-toolbar.alpheios-content h5 {
+  font-family: var(--alpheios-sans-font-face) !important;
+  font-size: --alpheios-base-text-size !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1) !important;
+}
+
 .alpheios-content {
   font-family: var(--alpheios-sans-font-face) !important;
   font-size: var(--alpheios-base-text-size) !important;
@@ -504,18 +550,7 @@ html {
   font-family: var(--alpheios-arabic-font-face) !important;
 }
 .alpheios-content h1, .alpheios-content h2, .alpheios-content h3, .alpheios-content h4, .alpheios-content h5, .alpheios-content h6, .alpheios-content p, .alpheios-content span, .alpheios-content a {
-  line-height: 1.15 !important;
-  text-align: left !important;
   padding: 0 !important;
-  font-family: var(--alpheios-sans-font-face) !important;
-  font-style: normal !important;
-  font-size: var(--alpheios-base-text-size) !important;
-  color: var(--alpheios-text-color) !important;
-}
-.alpheios-content h1, .alpheios-content h2, .alpheios-content h3, .alpheios-content h4, .alpheios-content h5, .alpheios-content h6 {
-  margin: 0 !important;
-  margin-block-start: 0 !important;
-  margin-block-end: 0 !important;
 }
 .alpheios-content p {
   margin: 0 0 calc(var(--alpheios-base-text-size) * 1) !important;
@@ -526,38 +561,6 @@ html {
 }
 .alpheios-content a:hover, .alpheios-content a:active {
   text-decoration: underline !important;
-}
-.alpheios-content h1 {
-  font-family: var(--alpheios-serif-font-face) !important;
-  font-size: calc(var(--alpheios-base-text-size) * 1.625) !important;
-  font-weight: 700 !important;
-  margin: 0 0 calc(var(--alpheios-base-text-size) * 2) 0 !important;
-  color: var(--alpheios-text-color-dark) !important;
-}
-.alpheios-content h2 {
-  font-family: var(--alpheios-sans-font-face) !important;
-  font-size: calc(var(--alpheios-base-text-size) * 1.5) !important;
-  font-weight: 700 !important;
-  margin-bottom: calc(var(--alpheios-base-text-size) * 1.625) !important;
-}
-.alpheios-content h3 {
-  font-family: var(--alpheios-sans-font-face) !important;
-  font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
-  font-weight: 700 !important;
-  margin-bottom: calc(var(--alpheios-base-text-size) * 1.375) !important;
-}
-.alpheios-content h4 {
-  font-family: var(--alpheios-serif-font-face) !important;
-  font-size: calc(var(--alpheios-base-text-size) * 1.125) !important;
-  font-weight: 400 !important;
-  margin-bottom: calc(var(--alpheios-base-text-size) * 1.125) !important;
-}
-.alpheios-content h5 {
-  font-family: var(--alpheios-sans-font-face) !important;
-  font-size: --alpheios-base-text-size !important;
-  font-weight: 700 !important;
-  font-style: italic !important;
-  margin-bottom: calc(var(--alpheios-base-text-size) * 1) !important;
 }
 .alpheios-content input,
 .alpheios-content optgroup,
@@ -974,18 +977,18 @@ div.alpheios-checkbox-block {
 
 .alpheios-button-tertiary, button.alpheios-button-tertiary {
   color: var(--alpheios-btn-tertiary-font-color) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color) !important;
+  background: var(--alpheios-btn-tertiary-bg-color) !important;
   border-color: var(--alpheios-btn-tertiary-border-color) !important;
 }
 .alpheios-button-tertiary:hover, .alpheios-button-tertiary:focus, button.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:focus {
   color: var(--alpheios-btn-tertiary-font-color-hover) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color-hover) !important;
+  background: var(--alpheios-btn-tertiary-bg-color-hover) !important;
   border-color: var(--alpheios-btn-tertiary-border-color-hover) !important;
   box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25) !important;
 }
 .alpheios-button-tertiary:active, button.alpheios-button-tertiary:active {
   color: var(--alpheios-btn-tertiary-font-color-pressed) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color-pressed) !important;
+  background: var(--alpheios-btn-tertiary-bg-color-pressed) !important;
   border-color: var(--alpheios-btn-tertiary-border-color-pressed) !important;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1) !important;
 }
@@ -1499,7 +1502,7 @@ select.alpheios-setting__control,
   position: relative !important;
   display: inline-block;
 }
-.alph_tooltip .tooltiptext {
+.alph_tooltip span.tooltiptext {
   visibility: hidden !important;
   position: absolute !important;
   width: calc(var(--alpheios-base-ui-size) * 7.5) !important;

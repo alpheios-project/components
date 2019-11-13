@@ -74,7 +74,7 @@ export default {
     position: relative;
     display: inline-block;
 
-    .tooltiptext {
+    span.tooltiptext {
       visibility: hidden;
       position: absolute;
       width: uisize(120px);
