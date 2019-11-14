@@ -87,35 +87,14 @@ export default {
 
   methods: {
     requestCEDICTInfo () {
-      console.info('requestCEDICTInfo has been called')
-      const iframe = document.querySelector(`#${this.lexis.getIframeId()}`)
-      const iframeWindow = iframe.contentWindow
-      iframeWindow.postMessage('Hello message from a component', this.lexis.getServerUrl())
-    },
-
-    handleCEDICTResponse (event) {
-      const cedictOrigin = this.lexis.getServerUrl()
-      // Ignore all messages that are not originated from the CEDICT iframe
-      if (event.origin !== cedictOrigin) { return }
-      console.info('A CEDICT response has been received', event)
+      this.lexis.sendRequest({
+        selection: '安'
+      }).then(result => {
+        console.info('CEDICT service response is:', result)
+      }).catch(error => {
+        console.info('CEDICT query failed', error)
+      })
     }
-  },
-
-  beforeCreate () {
-    console.info('Info component beforeCreate')
-  },
-
-  created () {
-    console.info('Info component created')
-  },
-
-  beforeMount () {
-    console.info('Info component beforeMount')
-  },
-
-  mounted () {
-    console.info('Info component mounted')
-    window.addEventListener('message', this.handleCEDICTResponse, false)
   }
 }
 </script>

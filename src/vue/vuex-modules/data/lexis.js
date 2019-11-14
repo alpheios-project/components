@@ -1,5 +1,6 @@
 import Module from '@/vue/vuex-modules/module.js'
 import Platform from '@/lib/utility/platform.js'
+import { MessagingService, WindowIframeDestination as Destination, RequestMessage } from 'alpheios-lexis-cs'
 
 export default class Lexis extends Module {
   // defaultLocale = Locales.en_US, messageBundles = []
@@ -12,18 +13,20 @@ export default class Lexis extends Module {
    */
   constructor (store, api, config = {}) {
     super(store, api, config)
-    console.info('LexicCs module was created')
+    // Add an iframe with CEDICT service
     this.createIframe()
-    console.info('The frame has been created')
+    // Create a messaging service with CEDICT destination
+    this._messagingService = new MessagingService(new Destination(Destination.config.CEDICT))
+
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
     api[this.constructor.moduleName] = this.constructor.api(this, store)
   }
 
   createIframe () {
     const iframe = document.createElement('iframe')
-    iframe.id = this.config.iframeId
+    iframe.id = Destination.config.CEDICT.targetIframeID
     iframe.style.display = 'none'
-    iframe.src = this.config.serverUrl
+    iframe.src = Destination.config.CEDICT.targetURL
     document.body.appendChild(iframe)
   }
 }
@@ -42,11 +45,19 @@ Lexis.store = (moduleInstance) => {
 
 Lexis.api = (moduleInstance, store) => {
   return {
-    getIframeId: () => {
-      return moduleInstance.config.iframeId
-    },
-    getServerUrl: () => {
-      return moduleInstance.config.serverUrl
+    /**
+     * Sends a request to the CEDICT service.
+     *
+     * @param {object} requestBody - A bode of the message to CEDICT.
+     * @returns {Promise<object>|Promise<Error>} - A promise that is resolved with either a body
+     *          of the response message, if request was successful, or is rejected with the error info.
+     */
+    sendRequest: (requestBody) => {
+      return new Promise((resolve, reject) => {
+        moduleInstance._messagingService.sendRequestTo(Destination.config.CEDICT.name, new RequestMessage(requestBody))
+          .then(responseMessage => resolve(responseMessage.body))
+          .catch(error => reject(error))
+      })
     }
   }
 }
@@ -54,7 +65,5 @@ Lexis.api = (moduleInstance, store) => {
 Lexis._configDefaults = {
   _moduleName: 'lexis',
   _moduleType: Module.types.DATA,
-  _supportedDeviceTypes: [Platform.deviceTypes.ANY],
-  serverUrl: 'http://data-dev.alpheios.net',
-  iframeId: 'alpheios-lexis-cs'
+  _supportedDeviceTypes: [Platform.deviceTypes.ANY]
 }
