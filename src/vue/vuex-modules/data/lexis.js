@@ -45,6 +45,12 @@ Lexis.store = (moduleInstance) => {
 
 Lexis.api = (moduleInstance, store) => {
   return {
+    // TODO: Shall probably move this to data models
+    characterForms: {
+      SIMPLIFIED: 'simplified',
+      TRADITIONAL: 'traditional'
+    },
+
     /**
      * Sends a request to the CEDICT service.
      *
@@ -53,6 +59,20 @@ Lexis.api = (moduleInstance, store) => {
      *          of the response message, if request was successful, or is rejected with the error info.
      */
     sendRequest: (requestBody) => {
+      return new Promise((resolve, reject) => {
+        moduleInstance._messagingService.sendRequestTo(Destination.config.CEDICT.name, new RequestMessage(requestBody))
+          .then(responseMessage => resolve(responseMessage.body))
+          .catch(error => reject(error))
+      })
+    },
+
+    getWords: (words, characterForm) => {
+      const requestBody = {
+        getWords: {
+          words: words,
+          characterForm: characterForm
+        }
+      }
       return new Promise((resolve, reject) => {
         moduleInstance._messagingService.sendRequestTo(Destination.config.CEDICT.name, new RequestMessage(requestBody))
           .then(responseMessage => resolve(responseMessage.body))
