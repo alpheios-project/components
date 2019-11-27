@@ -1,6 +1,9 @@
 import Module from '@/vue/vuex-modules/module.js'
 import Platform from '@/lib/utility/platform.js'
-import { MessagingService, WindowIframeDestination as Destination, RequestMessage } from 'alpheios-lexis-cs'
+import {
+  MessagingService, WindowIframeDestination as Destination, CedictDestinationConfig as CedictConfig,
+  RequestMessage
+} from 'alpheios-lexis-cs'
 
 export default class Lexis extends Module {
   // defaultLocale = Locales.en_US, messageBundles = []
@@ -16,7 +19,7 @@ export default class Lexis extends Module {
     // Add an iframe with CEDICT service
     this.createIframe()
     // Create a messaging service with CEDICT destination
-    this._messagingService = new MessagingService(new Destination(Destination.config.CEDICT))
+    this._messagingService = new MessagingService(new Destination(CedictConfig))
 
     store.registerModule(this.constructor.moduleName, this.constructor.store(this))
     api[this.constructor.moduleName] = this.constructor.api(this, store)
@@ -24,9 +27,9 @@ export default class Lexis extends Module {
 
   createIframe () {
     const iframe = document.createElement('iframe')
-    iframe.id = Destination.config.CEDICT.targetIframeID
+    iframe.id = CedictConfig.targetIframeID
     iframe.style.display = 'none'
-    iframe.src = Destination.config.CEDICT.targetURL
+    iframe.src = CedictConfig.targetURL
     document.body.appendChild(iframe)
   }
 }
