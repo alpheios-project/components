@@ -90,7 +90,7 @@ export default {
       this.lexis.getWords(['安', '502膠', '叮噹'], this.lexis.characterForms.TRADITIONAL).then(result => {
         console.info('CEDICT service response is:', result)
       }).catch(error => {
-        console.info('CEDICT query failed', error)
+        console.error(error)
       })
     }
   }

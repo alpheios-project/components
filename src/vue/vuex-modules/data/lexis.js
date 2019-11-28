@@ -63,7 +63,7 @@ Lexis.api = (moduleInstance, store) => {
      */
     sendRequest: (requestBody) => {
       return new Promise((resolve, reject) => {
-        moduleInstance._messagingService.sendRequestTo(Destination.config.CEDICT.name, new RequestMessage(requestBody))
+        moduleInstance._messagingService.sendRequestTo(CedictConfig.name, new RequestMessage(requestBody))
           .then(responseMessage => resolve(responseMessage.body))
           .catch(error => reject(error))
       })
@@ -77,7 +77,7 @@ Lexis.api = (moduleInstance, store) => {
         }
       }
       return new Promise((resolve, reject) => {
-        moduleInstance._messagingService.sendRequestTo(Destination.config.CEDICT.name, new RequestMessage(requestBody))
+        moduleInstance._messagingService.sendRequestTo(CedictConfig.name, new RequestMessage(requestBody))
           .then(responseMessage => resolve(responseMessage.body))
           .catch(error => reject(error))
       })
