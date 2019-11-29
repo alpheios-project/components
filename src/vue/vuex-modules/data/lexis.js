@@ -2,7 +2,7 @@ import Module from '@/vue/vuex-modules/module.js'
 import Platform from '@/lib/utility/platform.js'
 import {
   MessagingService, WindowIframeDestination as Destination, CedictDestinationConfig as CedictConfig,
-  RequestMessage
+  CedictCharacterForms, RequestMessage
 } from 'alpheios-lexis-cs'
 
 export default class Lexis extends Module {
@@ -48,11 +48,7 @@ Lexis.store = (moduleInstance) => {
 
 Lexis.api = (moduleInstance, store) => {
   return {
-    // TODO: Shall probably move this to data models
-    characterForms: {
-      SIMPLIFIED: 'simplified',
-      TRADITIONAL: 'traditional'
-    },
+    characterForms: CedictCharacterForms,
 
     /**
      * Sends a request to the CEDICT service.
