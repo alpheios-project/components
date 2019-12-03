@@ -25,8 +25,8 @@ describe('definitions-list.test.js', () => {
   let testHomonymCupidinibus, testHomonymFacili, testHomonymGreek
 
   beforeAll(async () => {
-    // testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
-    // testHomonymFacili = await BaseTestHelp.collectHomonym('facili', Constants.LANG_LATIN, false)
+    testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
+    testHomonymFacili = await BaseTestHelp.collectHomonym('facili', Constants.LANG_LATIN, false)
     testHomonymGreek = await BaseTestHelp.collectHomonym('ξηρή', Constants.LANG_GREEK, false)
   })
 
