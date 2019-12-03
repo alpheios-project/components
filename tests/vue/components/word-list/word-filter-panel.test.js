@@ -665,6 +665,7 @@ describe('word-filter-panel.test.js', () => {
       clearFilters: 2
     })
 
+    await Vue.nextTick()
     expect(cmp.vm.selectedFilterBy).toBeNull()
     expect(cmp.vm.textInput).toBeNull()
   })
