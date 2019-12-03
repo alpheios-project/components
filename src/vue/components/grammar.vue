@@ -80,7 +80,7 @@ export default {
     updatedGrammarData () {
       if (this.$store.state.app.updatedGrammar) {
         this.waitingForGrammar = false
-        console.info('updatedGrammarData this.waitingForGrammar', this.waitingForGrammar)
+
         Object.keys(this.languageList).forEach(langCode => {
           const langID = this.languageList[langCode].languageID
           this.languageList[langCode].url = this.app.grammarData[langID] ? this.app.grammarData[langID].url : null
@@ -126,7 +126,7 @@ export default {
     checkUrl () {
       if (!this.languageList[this.currentLanguageCode].url) {
         this.waitingForGrammar = true
-        console.info('checkUrl this.waitingForGrammar', this.waitingForGrammar)
+
         this.app.startResourceQuery({ type: 'table-of-contents', value: '', languageID: this.languageList[this.currentLanguageCode].languageID })
       }
     },

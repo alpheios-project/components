@@ -25,8 +25,8 @@ describe('definitions-list.test.js', () => {
   let testHomonymCupidinibus, testHomonymFacili, testHomonymGreek
 
   beforeAll(async () => {
-    testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
-    testHomonymFacili = await BaseTestHelp.collectHomonym('facili', Constants.LANG_LATIN, false)
+    // testHomonymCupidinibus = await BaseTestHelp.collectHomonym('cupidinibus', Constants.LANG_LATIN, false)
+    // testHomonymFacili = await BaseTestHelp.collectHomonym('facili', Constants.LANG_LATIN, false)
     testHomonymGreek = await BaseTestHelp.collectHomonym('ξηρή', Constants.LANG_GREEK, false)
   })
 
@@ -71,7 +71,6 @@ describe('definitions-list.test.js', () => {
     })
 
     store.commit('app/setTestShortDefUpdateTime', 1)
-    console.info(cmp.vm.definitions)
     expect(cmp.vm.definitions.length).toEqual(1)
     expect(cmp.vm.definitions[0].text).toEqual('desire/love/wish/longing (passionate); lust; greed, appetite; desire for gain;')
   })
@@ -91,7 +90,7 @@ describe('definitions-list.test.js', () => {
     expect(cmp.vm.definitions[0].text).toEqual('desire/love/wish/longing (passionate); lust; greed, appetite; desire for gain;')
   })
 
-  it('4 DefinitionsList - computed definitions returns no definitions text  if there are no definitions', () => {
+  it('4 DefinitionsList - computed definitions returns no definitions text  if there are no definitions', async () => {
     let cmp = shallowMount(DefinitionsList, {
       propsData: {
         lexeme: testHomonymGreek.lexemes[1]
@@ -102,6 +101,9 @@ describe('definitions-list.test.js', () => {
     })
 
     store.commit('app/setTestShortDefUpdateTime', 2)
+
+    console.info('testHomonymGreek', testHomonymGreek.lexemes)
+    // console.info('cmp.vm.lexeme', cmp.vm.lexeme)
 
     expect(cmp.vm.definitions.length).toEqual(1)
     expect(cmp.vm.definitions[0].text).toEqual(expect.stringContaining('No definitions'))
