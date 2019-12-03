@@ -315,9 +315,9 @@ export default class BaseTestHelp {
 
         }
       })
-      console.info("Request",targetWord)
+      // console.info("Request",targetWord)
       let homonym = adapterTuftsRes.result
-      console.info(homonym)
+      // console.info(homonym)
 
       if (!homonym) {
         const formLexeme = new Lexeme(new Lemma(targetWord, languageID), [])
