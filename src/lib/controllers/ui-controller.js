@@ -454,9 +454,9 @@ export default class UIController {
       wordUsageExamplesCached: null,
       wordUsageExamples: null,
       wordUsageAuthors: [],
+      grammarData: {},
       // Exposes parsed query parameters to other components
       queryParams: this.queryParams,
-
       isDevMode: () => {
         return this.options.mode === 'development'
       },
@@ -495,9 +495,7 @@ export default class UIController {
       getAllWordLists: () => this.wordlistC ? this.wordlistC.wordLists : [],
 
       enableWordUsageExamples: this.enableWordUsageExamples.bind(this),
-      newLexicalRequest: this.newLexicalRequest.bind(this),
-
-      restoreGrammarIndex: this.restoreGrammarIndex.bind(this)
+      newLexicalRequest: this.newLexicalRequest.bind(this)
     }
 
     this.store.registerModule('app', {
@@ -534,7 +532,9 @@ export default class UIController {
         hasInflData: false, // Whether we have any inflection data available
         morphDataReady: false,
         translationsDataReady: false,
-        grammarRes: null,
+
+        updatedGrammar: 0,
+
         treebankData: {
           word: {},
           page: {}
@@ -563,16 +563,6 @@ export default class UIController {
          */
         fullDefDataReady (state) {
           return state.fullDefUpdateTime > 0
-        },
-
-        /**
-         * Identifies wither grammar resource(s) are available for the current state.
-         *
-         * @param {object} state - A local state.
-         * @returns {boolean} True if grammar resource(s) are available, false otherwise.
-         */
-        hasGrammarRes (state) {
-          return state.grammarRes !== null
         },
 
         hasTreebankData (state) {
@@ -636,10 +626,6 @@ export default class UIController {
           state.treebankData.word = {}
         },
 
-        resetGrammarData (state) {
-          state.grammarRes = null
-        },
-
         lexicalRequestFinished (state) {
           state.inflectionsWaitState = false
           state.morphDataReady = true
@@ -672,12 +658,8 @@ export default class UIController {
           state.hasInflData = false
         },
 
-        setGrammarRes (state, grammarRes) {
-          state.grammarRes = grammarRes
-        },
-
-        resetGrammarRes (state) {
-          state.grammarRes = null
+        setUpdatedGrammar (state) {
+          state.updatedGrammar = state.updatedGrammar + 1
         },
 
         setPageAnnotationData (state, pageData) {
@@ -1150,7 +1132,6 @@ export default class UIController {
     const tabsCheck = {
       definitions: () => this.store.getters['app/fullDefDataReady'],
       inflections: () => this.store.state.app.hasInflData,
-      grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
       status: () => this.api.settings.getUiOptions().items.verboseMode.currentValue === 'verbose',
@@ -1303,9 +1284,11 @@ export default class UIController {
    * If no URLS are provided, will reset grammar data.
    * @param {Array} urls
    */
-  updateGrammar (urls = []) {
-    if (urls.length > 0) {
-      this.store.commit('app/setGrammarRes', urls[0])
+  updateGrammar (data) {
+    if (data && data.urls && data.urls.length > 0) {
+      this.api.app.grammarData[data.languageID] = data.urls[0]
+
+      this.store.commit('app/setUpdatedGrammar')
     }
   }
 
@@ -1336,16 +1319,9 @@ export default class UIController {
     this.store.commit('app/setCurrentLanguage', currentLanguageID)
     const newLanguageCode = LanguageModelFactory.getLanguageCodeFromId(currentLanguageID)
     if (this.state.currentLanguage !== newLanguageCode) {
-      this.store.commit('app/resetGrammarData')
       this.state.setItem('currentLanguage', newLanguageCode)
-      this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     }
     this.resetInflData()
-  }
-
-  restoreGrammarIndex () {
-    const currentLanguageID = this.store.state.app.currentLanguageID
-    this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
   }
 
   updateLemmaTranslations () {
@@ -1612,6 +1588,7 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
+    console.info('startResourceQuery - ', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars
@@ -1731,7 +1708,7 @@ export default class UIController {
 
   onGrammarAvailable (data) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_READY'))
-    this.updateGrammar(data.url)
+    this.updateGrammar(data) // url, languageID
   }
 
   onGrammarNotFound () {

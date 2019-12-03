@@ -6,7 +6,7 @@ import BaseTestHelp from '@tests/helpclasses/base-test-help'
 
 import Vuex from 'vuex'
 
-describe('grammar.test.js', () => {
+describe.skip('grammar.test.js', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
 
