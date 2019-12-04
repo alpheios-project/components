@@ -88,7 +88,7 @@ export default {
       if (this.$store.state.app.updatedGrammar) {
         this.waitingForGrammar = false
         this.updateLanguageList()
-        if (this.currentLanguageCode && !this.currentUrl) {
+        if (this.currentLanguageCode && (!this.currentUrl || this.currentUrl !== this.languageList[this.currentLanguageCode].url) ) {
           this.currentUrl = this.languageList[this.currentLanguageCode].url
         }
       }
@@ -157,12 +157,7 @@ export default {
       }
     },
     returnToIndex () {
-      if (this.currentLanguageCode) {
-        this.currentUrl = null
-        Vue.nextTick().then(() => {
-          this.currentUrl = this.languageList[this.currentLanguageCode].url
-        })
-      }
+      this.app.restoreGrammarIndex()
     }
   }
 }
