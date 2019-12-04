@@ -6,8 +6,9 @@ import L10n from '@/lib/l10n/l10n'
 import Locales from '@/locales/locales'
 import enUS from '@/locales/en-us/messages.json'
 import enGB from '@/locales/en-gb/messages.json'
+import { Constants } from 'alpheios-data-models'
 
-describe.skip('resource-query.test.js', () => {
+describe('resource-query.test.js', () => {
   let l10n = new L10n()
     .addMessages(enUS, Locales.en_US)
     .addMessages(enGB, Locales.en_GB)
@@ -74,12 +75,12 @@ describe.skip('resource-query.test.js', () => {
       }
     }
 
-    let query = ResourceQuery.create('foo feature', { grammars: testGrammars })
+    let query = ResourceQuery.create( { languageID: Constants.LANG_GEEK }, { grammars: testGrammars })
     jest.spyOn(ResourceQuery.evt.GRAMMAR_AVAILABLE, 'pub')
     jest.spyOn(ResourceQuery.evt.RESOURCE_QUERY_COMPLETE, 'pub')
 
     await query.getData()
-    expect(ResourceQuery.evt.GRAMMAR_AVAILABLE.pub).toHaveBeenCalledWith({ url: 'http:/testurl.com' })
+    expect(ResourceQuery.evt.GRAMMAR_AVAILABLE.pub).toHaveBeenCalledWith({ urls: 'http:/testurl.com', languageID: Constants.LANG_GEEK })
     expect(ResourceQuery.evt.RESOURCE_QUERY_COMPLETE.pub).toHaveBeenCalled()
   })
 
