@@ -271,11 +271,6 @@
     "description": "placeholder text for popup data",
     "component": "Popup"
   },
-  "PLACEHOLDER_GRAMMAR_DATA_LOADING": {
-    "message": "Grammar data is loading",
-    "description": "placeholder text for grammar data",
-    "component": "Grammar"
-  },
   "PLACEHOLDER_NO_LANGUAGE_DATA": {
     "message": "Lexical data couldn't be populated because page language is not defined",
     "description": "placeholder text for popup data when language is not defined",
@@ -641,5 +636,15 @@
     "message": "FAQ/Known Issues",
     "description": "Faq button label",
     "component": "info panel"
+  },
+  "PLACEHOLDER_GRAMMAR_DATA_LOADING": {
+    "message": "Grammar data is loading",
+    "description": "placeholder text for grammar data",
+    "component": "Grammar"
+  },
+  "LABEL_BROWSE_GRAMMAR": {
+    "message": "Browse Language Grammar",
+    "description": "Panel title for grammar tab",
+    "component": "Grammar"
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-grammar">
     <div class="alpheios-grammar__titles">
-        <h1 class="alpheios-panel__title">Browse Language Grammar</h1>
+        <h1 class="alpheios-panel__title">{{ l10n.getText('LABEL_BROWSE_GRAMMAR') }}</h1>
       <div class="alpheios-grammar__block alpheios-clickable" 
           :class="{open: !languageItem.collapsed}"
            v-for="(languageItem, langIndex) in languageList" :key="langIndex">
