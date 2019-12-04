@@ -83,6 +83,10 @@ export default {
       Object.values(this.languageList).forEach(langData => langData.collapsed = true)
     })
   },
+  beforeDestroy () {
+    // Teardown the watch function
+    this.$options.lexrqStartedUnwatch()
+  },
   computed: {
     updatedGrammarData () {
       if (this.$store.state.app.updatedGrammar) {
