@@ -1709,7 +1709,7 @@ export default class UIController {
 
   onGrammarAvailable (data) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_READY'))
-    this.updateGrammar(data) // url, languageID
+    this.updateGrammar(data)
   }
 
   onGrammarNotFound () {
