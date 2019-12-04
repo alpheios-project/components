@@ -504,6 +504,7 @@ export default class UIController {
 
       state: {
         currentLanguageID: undefined,
+        currentLanguageCode: null,
         currentLanguageName: '',
         embedLibActive: false,
         selectedText: '',
@@ -581,9 +582,10 @@ export default class UIController {
           state.embedLibActive = status
         },
         setCurrentLanguage (state, languageCodeOrID) {
-          const { id, name } = UIController.getLanguageName(languageCodeOrID)
-          state.currentLanguageID = id
-          state.currentLanguageName = name
+          const langDetails = UIController.getLanguageName(languageCodeOrID)
+          state.currentLanguageID = langDetails.id
+          state.currentLanguageName = langDetails.name
+          state.currentLanguageCode = langDetails.code
         },
 
         setSelectedLookupLang (state, langCode) {
@@ -1588,7 +1590,6 @@ export default class UIController {
   }
 
   startResourceQuery (feature) {
-    console.info('startResourceQuery - ', feature)
     // ExpObjMon.track(
     ResourceQuery.create(feature, {
       grammars: Grammars

@@ -17,7 +17,7 @@
       <div class="alpheios-grammar__frame-progress" v-show="waitingForGrammar">
         <progress-bar :text="l10n.getText('PLACEHOLDER_GRAMMAR_DATA_LOADING')"></progress-bar>
       </div>
-      <div class="alpheios-grammar__frame-cont" v-show="!languageList[currentLanguageCode].collapsed" v-if="currentUrl && updatedGrammarData">
+      <div class="alpheios-grammar__frame-cont" v-show="!languageList[currentLanguageCode].collapsed" v-if="currentUrl">
         <div class="alpheios-grammar__button--back-block">
           <alph-tooltip :tooltipText="l10n.getText('TOOLTIP_BACK_TO_INDEX')" tooltipDirection="bottom-left">
             <button @click="returnToIndex"  class="alpheios-button-primary alpheios-svg-index"><back-icon /></button>
@@ -26,7 +26,7 @@
         <iframe :src="currentUrl" class="alpheios-grammar__frame" scrolling="yes"></iframe>
       </div>
       <div class="alpheios-grammar__provider" v-show="!languageList[currentLanguageCode].collapsed"
-           v-if="currentLanguageCode && updatedGrammarData && languageList[currentLanguageCode].provider">{{ languageList[currentLanguageCode].provider }}
+           v-if="updatedGrammarData && currentLanguageCode && languageList[currentLanguageCode].provider">{{ languageList[currentLanguageCode].provider }}
       </div>
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
   },
   data () {
     return {
+      centralLanguageCode: null,
       currentLanguageCode: null,
       currentUrl: null,
       waitingForGrammar: false,
@@ -76,32 +77,57 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$options.lexrqStartedUnwatch = this.$store.watch((state) => state.app.lexicalRequest.startTime, () => {
+      this.clearCurrentData()
+      Object.values(this.languageList).forEach(langData => langData.collapsed = true)
+    })
+  },
   computed: {
     updatedGrammarData () {
       if (this.$store.state.app.updatedGrammar) {
         this.waitingForGrammar = false
-
-        Object.keys(this.languageList).forEach(langCode => {
-          const langID = this.languageList[langCode].languageID
-          this.languageList[langCode].url = this.app.grammarData[langID] ? this.app.grammarData[langID].url : null
-          this.languageList[langCode].provider = this.app.grammarData[langID] ? this.app.grammarData[langID].provider : null
-        })
+        this.updateLanguageList()
+        if (this.currentLanguageCode && !this.currentUrl) {
+          this.currentUrl = this.languageList[this.currentLanguageCode].url
+        }
       }
-
-      if (this.currentLanguageCode && this.languageList[this.currentLanguageCode].url) {
-        this.currentUrl = this.languageList[this.currentLanguageCode].url
+      
+      if (this.checkIfUpdatedCentralLangCode()) {
+        this.centralLanguageCode = this.$store.state.app.currentLanguageCode
+        if (!this.currentLanguageCode || !this.$store.getters['ui/isActiveTab']('grammar')) {
+          this.collapseLanguage(this.centralLanguageCode, false)
+        }
       }
       return true
     }
   },
   methods: {
-    collapseLanguage (languageCode) {
-      this.languageList[languageCode].collapsed = !this.languageList[languageCode].collapsed
+     
+    checkIfUpdatedCentralLangCode () {
+      return this.$store.state.app.currentLanguageCode && (
+        !this.centralLanguageCode || this.centralLanguageCode !== this.$store.state.app.currentLanguageCode || !this.$store.getters['ui/isActiveTab']('grammar')
+      )
+    },
+    updateLanguageList () {
+      Object.keys(this.languageList).forEach(langCode => {
+        const langID = this.languageList[langCode].languageID
+        this.languageList[langCode].url = this.app.grammarData[langID] ? this.app.grammarData[langID].url : null
+        this.languageList[langCode].provider = this.app.grammarData[langID] ? this.app.grammarData[langID].provider : null
+      })
+    },
+    collapseLanguage (languageCode, collapseValue) {
+
+      if (!this.languageList[languageCode]) {
+        this.collapseOthers()
+        return
+      }
+      this.languageList[languageCode].collapsed = typeof collapseValue !== 'undefined' ? collapseValue : !this.languageList[languageCode].collapsed
 
       if (!this.languageList[languageCode].collapsed) {
         this.updateCurrentData(languageCode)
-        this.checkUrl()
         this.collapseOthers(languageCode)
+        this.checkUrl()
       } else {
         this.clearCurrentData()
       }
