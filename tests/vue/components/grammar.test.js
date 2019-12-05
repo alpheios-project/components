@@ -59,13 +59,13 @@ describe('grammar.test.js', () => {
     expect(cmp.vm.languageList.lat).toEqual(expect.objectContaining({
       languageID: Constants.LANG_LATIN,
       languageCode: 'lat',
-      title: 'Latin Grammar'
+      title: 'New Latin Grammar (Bennett)'
     }))
 
     expect(cmp.vm.languageList.grc).toEqual(expect.objectContaining({
       languageID: Constants.LANG_GREEK,
       languageCode: 'grc',
-      title: 'Greek Grammar'
+      title: 'A Greek Grammar for Colleges (Smyth)'
     }))
   })
 
