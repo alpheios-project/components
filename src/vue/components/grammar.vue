@@ -73,7 +73,7 @@ export default {
         lat: {
           languageID: Constants.LANG_LATIN,
           languageCode: 'lat',
-          title: 'Latin Grammar',
+          title: 'New Latin Grammar (Bennett)',
           url: null,
           provider: null,
           collapsed: true
@@ -81,7 +81,7 @@ export default {
         grc: {
           languageID: Constants.LANG_GREEK,
           languageCode: 'grc',
-          title: 'Greek Grammar',
+          title: 'A Greek Grammar for Colleges (Smyth)',
           url: null,
           provider: null,
           collapsed: true
