@@ -31,6 +31,18 @@
   </div>
 </template>
 <script>
+/*
+  There are the following Vuex Store properties that influence on the grammar tab:
+    - $store.state.app.lexicalRequest.startTime
+      each time lexical query is started, the all languages collapsed
+
+    - $store.state.app.updatedGrammar
+      each time we recieve new results from ResourceQUery we update languageList url and provider
+
+    - $store.state.app.currentLanguageCode
+      each time when the main currentLanguageCode is changed then we store it to local property and open this language 
+      if no language is opened or if tab is not visible
+*/
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 import { Constants, LanguageModelFactory as LMF } from 'alpheios-data-models'
 import { Grammars } from 'alpheios-res-client'
