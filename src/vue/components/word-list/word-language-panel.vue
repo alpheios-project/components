@@ -61,7 +61,7 @@
             <div class="alpheios-wordlist-download-with-filters alpheios-checkbox-block" data-alpheios-ignore="all">
               <input id="alpheios-wordlist-download-with-filters-input" type="checkbox" v-model="downloadWithFilter">
               <label for="alpheios-wordlist-download-with-filters-input">
-                with filtering
+                {{ l10n.getText('WORDLIST_DOWNLOAD_FILTERING_CHECK') }}
               </label>
             </div>
           </div>
