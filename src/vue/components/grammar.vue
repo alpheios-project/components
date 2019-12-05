@@ -100,6 +100,7 @@ export default {
     this.$options.lexrqStartedUnwatch()
   },
   computed: {
+    // used for updating currentURL, languageList and collapse state based on store Vuex properties mutations
     updatedGrammarData () {
       if (this.$store.state.app.updatedGrammar) {
         this.waitingForGrammar = false
@@ -119,21 +120,23 @@ export default {
     }
   },
   methods: {
-     
+    // checks if centralLanguageCode should be updated with store.state.app.currentLanguageCode
     checkIfUpdatedCentralLangCode () {
       return this.$store.state.app.currentLanguageCode && (
         !this.centralLanguageCode || this.centralLanguageCode !== this.$store.state.app.currentLanguageCode || !this.$store.getters['ui/isActiveTab']('grammar')
       )
     },
+
+    // updates languageList from app.grammarData'
     updateLanguageList () {
       Object.keys(this.languageList).forEach(langCode => {
-        const langID = this.languageList[langCode].languageID
-        this.languageList[langCode].url = this.app.grammarData[langID] ? this.app.grammarData[langID].url : null
-        this.languageList[langCode].provider = this.app.grammarData[langID] ? this.app.grammarData[langID].provider : null
+        this.languageList[langCode].url = this.app.grammarData[langCode] ? this.app.grammarData[langCode].url : null
+        this.languageList[langCode].provider = this.app.grammarData[langCode] ? this.app.grammarData[langCode].provider : null
       })
     },
-    collapseLanguage (languageCode, collapseValue) {
 
+    //collapse language by languageCode, if collapseValue is defined - then it sets as collpased value, otherwise it is toggled
+    collapseLanguage (languageCode, collapseValue) {
       if (!this.languageList[languageCode]) {
         this.collapseOthers()
         return
@@ -148,6 +151,8 @@ export default {
         this.clearCurrentData()
       }
     },
+
+    //collapse all languages besides given languageCode
     collapseOthers (languageCode) {
       Object.keys(this.languageList).forEach(langCode => {
         if (langCode !== languageCode) {
@@ -155,16 +160,22 @@ export default {
         }
       })
     },
+
+    //updates currentLanguageCode and currentUrl with given languageCode
     updateCurrentData (languageCode) {
       if (languageCode) {
         this.currentLanguageCode = languageCode
         this.currentUrl = this.languageList[languageCode].url
       }
     },
+
+    //updates currentLanguageCode and currentUrl with null
     clearCurrentData () {
       this.currentLanguageCode = null
       this.currentUrl = null
     },
+
+    //if url for currentLanguageCode is not defined then app.startResourceQuery would be executed and waitingForGrammar becomes true
     checkUrl () {
       if (!this.languageList[this.currentLanguageCode].url) {
         this.waitingForGrammar = true

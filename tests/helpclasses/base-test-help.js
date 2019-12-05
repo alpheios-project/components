@@ -122,7 +122,7 @@ export default class BaseTestHelp {
               lexicalRequest: {
                 startTime: 0
               },
-              currentLanguageCode: ''
+              currentLanguageCode: null
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {

@@ -1290,7 +1290,8 @@ export default class UIController {
    */
   updateGrammar (data) {
     if (data && data.urls && data.urls.length > 0) {
-      this.api.app.grammarData[data.languageID] = data.urls[0]
+      const langCode = LanguageModelFactory.getLanguageCodeFromId(data.languageID)
+      this.api.app.grammarData[langCode] = data.urls[0]
 
       this.store.commit('app/setUpdatedGrammar')
     }
