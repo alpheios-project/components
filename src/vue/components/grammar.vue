@@ -100,6 +100,9 @@ export default {
     this.$options.lexrqStartedUnwatch()
   },
   computed: {
+    currentLanguageID () {
+      return this.languageList[this.currentLanguageCode].languageID
+    },
     // used for updating currentURL, languageList and collapse state based on store Vuex properties mutations
     updatedGrammarData () {
       if (this.$store.state.app.updatedGrammar) {
@@ -184,7 +187,8 @@ export default {
       }
     },
     returnToIndex () {
-      this.app.restoreGrammarIndex()
+      console.info('returnToIndex - ', this.currentLanguageCode)
+      this.app.restoreGrammarIndex(this.currentLanguageID)
     }
   }
 }
