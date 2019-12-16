@@ -187,7 +187,6 @@ export default {
       }
     },
     returnToIndex () {
-      console.info('returnToIndex - ', this.currentLanguageCode)
       this.app.restoreGrammarIndex(this.currentLanguageID)
     }
   }

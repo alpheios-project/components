@@ -1332,7 +1332,6 @@ export default class UIController {
   }
 
   restoreGrammarIndex (currentLanguageID) {
-    // const currentLanguageID = this.store.state.app.currentLanguageID
     this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
   }
 
