@@ -974,18 +974,18 @@ div.alpheios-checkbox-block {
 
 .alpheios-button-tertiary, button.alpheios-button-tertiary {
   color: var(--alpheios-btn-tertiary-font-color) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color) !important;
+  background: var(--alpheios-btn-tertiary-bg-color) !important;
   border-color: var(--alpheios-btn-tertiary-border-color) !important;
 }
 .alpheios-button-tertiary:hover, .alpheios-button-tertiary:focus, button.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:focus {
   color: var(--alpheios-btn-tertiary-font-color-hover) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color-hover) !important;
+  background: var(--alpheios-btn-tertiary-bg-color-hover) !important;
   border-color: var(--alpheios-btn-tertiary-border-color-hover) !important;
   box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25) !important;
 }
 .alpheios-button-tertiary:active, button.alpheios-button-tertiary:active {
   color: var(--alpheios-btn-tertiary-font-color-pressed) !important;
-  background-color: var(--alpheios-btn-tertiary-bg-color-pressed) !important;
+  background: var(--alpheios-btn-tertiary-bg-color-pressed) !important;
   border-color: var(--alpheios-btn-tertiary-border-color-pressed) !important;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1) !important;
 }
@@ -2326,16 +2326,24 @@ h3.alpheios-inflections__credits-title {
  Calculates a size of UI elements relative to the base size.
  Such elements can be scaled proportionally by changing the `--alpheios-base-ui-size` custom prop.
  */
+.alpheios-grammar__titles {
+  padding: 40px 20px 20px !important;
+}
+p.alpheios-grammar__block__title {
+  color: var(--alpheios-inflect-title-color) !important;
+  font-size: calc(var(--alpheios-base-text-size) * 1.375) !important;
+  font-family: var(--alpheios-serif-font-face) !important;
+  font-weight: 700 !important;
+  margin-bottom: calc(var(--alpheios-base-text-size) * 1.25) !important;
+  display: inline-block;
+}
+p.alpheios-grammar__block__title.open {
+  border-bottom: calc(var(--alpheios-base-text-size) * 0.125) solid var(--alpheios-inflect-title-color) !important;
+}
 .alpheios-grammar {
   display: flex;
   flex-direction: column !important;
   height: 100% !important;
-}
-.alpheios-grammar__provider {
-  flex: none !important;
-  font-weight: normal !important;
-  padding: 20px 25px 20px !important;
-  font-size: 80% !important;
 }
 .alpheios-grammar__frame-cont {
   flex: 1 1 auto !important;
@@ -2356,6 +2364,12 @@ h3.alpheios-inflections__credits-title {
   margin: 0 !important;
   padding: 0 !important;
   overflow: scroll !important;
+}
+.alpheios-grammar__provider {
+  flex: none !important;
+  font-weight: normal !important;
+  padding: 20px 25px 20px !important;
+  font-size: 80% !important;
 }
 .alpheios-grammar__button--back-block {
   position: absolute !important;
@@ -2383,6 +2397,9 @@ h3.alpheios-inflections__credits-title {
   color: var(--alpheios-grammar-back-button-color-hover) !important;
   background-color: var(--alpheios-grammar-back-button-bg-hover) !important;
   border-color: var(--alpheios-grammar-back-button-border-color-hover) !important;
+}
+.alpheios-grammar__frame-progress {
+  padding: 20px !important;
 }
 /*
  Calculates a size of text elements relative to the base size.
@@ -2964,6 +2981,12 @@ p.alpheios-word-usage-filter-title {
 .alpheios-wordlist-delete-all-confirmation,
 .alpheios-wordlist-download-confirmation {
   margin-top: 10px !important;
+}
+.alpheios-wordlist-download-with-filters {
+  margin-top: 5px !important;
+}
+.alpheios-wordlist-download-with-filters label {
+  color: var(--alpheios-usage-link-color) !important;
 }
 /*
  Calculates a size of text elements relative to the base size.

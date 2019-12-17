@@ -58,6 +58,12 @@
                 {{ l10n.getText('WORDLIST_DOWNLOAD_BUTTON') }}
               </button>
             </alph-tooltip>
+            <div class="alpheios-wordlist-download-with-filters alpheios-checkbox-block" data-alpheios-ignore="all">
+              <input :id="downloadFilterId" type="checkbox" v-model="downloadWithFilter">
+              <label :for="downloadFilterId">
+                {{ l10n.getText('WORDLIST_DOWNLOAD_FILTERING_CHECK') }}
+              </label>
+            </div>
           </div>
           <div
               class="alpheios-notification-area__close-btn"
@@ -147,11 +153,15 @@ export default {
       clearFilters: 0,
       sortingState: {
         'targetWord': null
-      }
+      },
+      downloadWithFilter: false
     } 
      
   },
   computed: {
+    downloadFilterId () {
+      return `alpheios-wordlist-download-with-filters-input-${this.languageCode}`
+    },
     hasSeveralItems () {
       return this.wordlist && this.wordlist.values && this.wordlist.values.length > 1
     },
@@ -270,7 +280,10 @@ export default {
     },
     downloadList () {
       const exportFields = [ 'targetWord', 'languageCode', 'important', 'currentSession', 'lemmasList', 'context' ]
-      const wordlistData = this.wordlist.values.map(wordItem => {
+
+      const source = this.downloadWithFilter ? this.wordItems : this.wordlist.values
+
+      const wordlistData = source.map(wordItem => {
         return {
           targetWord: wordItem.targetWord,
           languageCode: wordItem.languageCode,
@@ -333,4 +346,12 @@ export default {
     .alpheios-wordlist-download-confirmation {
       margin-top: 10px;
     }
+
+  .alpheios-wordlist-download-with-filters {
+    margin-top: 5px;
+  }
+
+  .alpheios-wordlist-download-with-filters label {
+    color: var(--alpheios-usage-link-color)
+  }
 </style>
