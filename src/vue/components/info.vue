@@ -87,7 +87,7 @@ export default {
 
   methods: {
     requestCEDICTInfo () {
-      this.lexis.getWords(['安', '502膠', '叮噹'], this.lexis.characterForms.TRADITIONAL).then(result => {
+      this.lexis.getWords(['安', '502胶', '叮噹']).then(result => {
         console.info('CEDICT service response is:', result)
       }).catch(error => {
         console.error(error)
