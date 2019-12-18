@@ -6,13 +6,13 @@ import {
 } from 'alpheios-lexis-cs'
 
 export default class Lexis extends Module {
-  // defaultLocale = Locales.en_US, messageBundles = []
-
   /**
    * @param {object} store - A Vuex store.
    * @param {object} api - A public API object.
    * @param {object} config - A module's configuration object:
-   *        {string} defaultLocale - A default locale's code.
+   *        {Function} config.getSelectedText - A UI controller's function to start a lexical query.
+   *        This is a temporary solution until wil fully integrate lexical query functionality into a
+   *        UI controller.
    */
   constructor (store, api, config = {}) {
     super(store, api, config)
@@ -77,6 +77,10 @@ Lexis.api = (moduleInstance, store) => {
           .then(responseMessage => resolve(responseMessage.body))
           .catch(error => reject(error))
       })
+    },
+
+    getSelectedText: (event, domEvent) => {
+      moduleInstance.config.getSelectedText(event, domEvent)
     }
   }
 }
