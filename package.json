@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/alpheios-project/components#readme",
   "devDependencies": {
-    "@babel/core": "^7.7.5",
+    "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/runtime": "^7.7.6",
@@ -128,7 +128,8 @@
       "^@[/](.+)": "<rootDir>/src/$1",
       "^@tests[/](.+)": "<rootDir>/tests/$1",
       "alpheios-morph-client": "<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js",
-      "alpheios-inflection-tables": "<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js"
+      "alpheios-inflection-tables": "<rootDir>/node_modules/alpheios-inflection-tables/dist/alpheios-inflection-tables.js",
+      "alpheios-lexis-cs": "<rootDir>/node_modules/alpheios-lexis-cs/dist/lexis-cs.js"
     },
     "moduleFileExtensions": [
       "js",

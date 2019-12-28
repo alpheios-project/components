@@ -21,8 +21,10 @@ const webpack = {
     resolve: {
       alias: {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
+        // It will also specify that a non-minified version of dependency shall be used (they will be minifed during build anyway)
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-data-models/dist/alpheios-data-models.js'),
         '@lexisCs': path.join(projectRoot, 'node_modules/alpheios-lexis-cs/src/'),
+        'alpheios-client-adapters': path.join(projectRoot, 'node_modules/alpheios-client-adapters/dist/alpheios-client-adapters.js'),
         'alpheios-wordlist': path.join(projectRoot, 'node_modules/alpheios-wordlist/dist/alpheios-wordlist.js'),
         'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
         '@vue-runtime': path.join(projectRoot, 'node_modules/vue/dist/vue.runtime.esm.js'),

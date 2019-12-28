@@ -35,18 +35,12 @@
     </div>
     <h3>{{ l10n.getMsg('TEXT_INFO_TIPS') }}</h3>
     <p class="alpheios-text-small" v-html="l10n.getMsg('TEXT_INFO_LANGDETECT', {languageName: defaultLanguage})"></p>
-
-    <!-- region CEDECT test -->
-    <button @click="requestCEDICTInfo">Request CEDICT info</button>
-    <div>{{ cedictResponse }}</div>
-    <!-- endregion CEDECT test -->
   </div>
 </template>
 <script>
 import DependencyCheck from '@/vue/vuex-modules/support/dependency-check.js'
 import ReadingToolsIcon from '@/images/inline-icons/reading-tools.svg'
 import LookupIcon from '@/images/inline-icons/lookup.svg'
-import OptionsIcon from '@/images/inline-icons/options.svg'
 import LogoIcon from '@/images/alpheios/logo.svg'
 import SwapPosition from '@/images/inline-icons/swap-horizontally.svg'
 import TapGestureIcon from '@/images/inline-icons/tap-gesture-icon.svg'
@@ -56,7 +50,6 @@ export default {
   inject: ['app', 'l10n', 'lexis'],
   storeModules: ['app'],
   components: {
-    optionsIcon: OptionsIcon,
     readingToolsIcon: ReadingToolsIcon,
     lookupIcon: LookupIcon,
     logoIcon: LogoIcon,
@@ -83,16 +76,6 @@ export default {
       }
     }
 
-  },
-
-  methods: {
-    requestCEDICTInfo () {
-      this.lexis.getWords(['安', '502胶', '叮噹']).then(result => {
-        console.info('CEDICT service response is:', result)
-      }).catch(error => {
-        console.error(error)
-      })
-    }
   }
 }
 </script>
