@@ -226,7 +226,7 @@ export default {
   }
   p.alpheios-grammar__block__title {
     color: var(--alpheios-inflect-title-color);
-    font-size: calc(var(--alpheios-base-text-size) * 1.1) !important;
+    font-size: calc(var(--alpheios-base-text-size) * 1.1);
     font-family: var(--alpheios-serif-font-face);
     font-weight: 700;
     margin-bottom: calc(var(--alpheios-base-text-size) * 0.5);
