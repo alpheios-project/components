@@ -58,12 +58,6 @@ export default {
   },
   mixins: [DependencyCheck],
 
-  data: () => {
-    return {
-      cedictResponse: ''
-    }
-  },
-
   computed: {
     defaultLanguage () {
       return this.app.getLanguageName(this.app.getDefaultLangCode()).name
