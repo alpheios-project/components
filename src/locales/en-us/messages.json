@@ -641,5 +641,25 @@
     "message": "FAQ/Known Issues",
     "description": "Faq button label",
     "component": "info panel"
+  },
+  "PLACEHOLDER_GRAMMAR_DATA_LOADING": {
+    "message": "Grammar data is loading",
+    "description": "placeholder text for grammar data",
+    "component": "Grammar"
+  },
+  "LABEL_BROWSE_GRAMMAR": {
+    "message": "Browse Language Grammar",
+    "description": "Panel title for grammar tab",
+    "component": "Grammar"
+  },
+  "TOOLTIP_HIDE_GRAMMAR_TITLES": {
+    "message": "Hide Language Selector",
+    "description": "Tooltip for Hide Languges Titles Block",
+    "component": "Grammar"
+  },
+  "TOOLTIP_SHOW_GRAMMAR_TITLES": {
+    "message": "Show Language Selector",
+    "description": "Tooltip for Show Languges Titles Block",
+    "component": "Grammar"
   }
 }

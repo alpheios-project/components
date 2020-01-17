@@ -11,6 +11,7 @@ import interact from 'interactjs'
 import Logger from '@/lib/log/logger.js'
 // Modules and their support dependencies
 import L10nModule from '@/vue/vuex-modules/data/l10n-module.js'
+import LexisModule from '@/vue/vuex-modules/data/lexis.js'
 import Locales from '@/locales/locales.js'
 
 import EmbedLibWarning from '@/vue/components/embed-lib-warning.vue'
@@ -104,6 +105,9 @@ export default class UIController {
     this.isInitialized = false
     this.isActivated = false
     this.isDeactivated = false
+    // The following indicate whether we're registered getSelectedText callback
+    // TODO: this will probably be not needed in the long run as this functionality will go to a Lexis data module
+    this.isGetSelectedTextRegistered = false
     this.userDataManager = null
 
     // Obtain the logger instance
@@ -124,7 +128,7 @@ export default class UIController {
     // Vuex store. A public API for data and UI module interactions.
     this.store = new Vuex.Store({
       // TODO: Remove this for production as it slows things down
-      strict: true
+      strict: false
     })
     this.api = {} // An API object for functions of registered modules and UI controller.
     this.modules = new Map()
@@ -145,8 +149,10 @@ export default class UIController {
 
   /**
    * Creates an instance of a UI controller with default options. Provide your own implementation of this method
-   * if you want to create a different configuration of a UI controller.
+if you want to create a different configuration of a UI controller.
    *
+   * @param state
+   * @param options
    */
   static create (state, options) {
     let uiController = new UIController(state, options) // eslint-disable-line prefer-const
@@ -160,6 +166,10 @@ export default class UIController {
     uiController.registerModule(L10nModule, {
       defaultLocale: Locales.en_US,
       messageBundles: Locales.bundleArr()
+    })
+
+    uiController.registerModule(LexisModule, {
+      getSelectedText: uiController.getSelectedText.bind(uiController)
     })
 
     /*
@@ -184,7 +194,6 @@ export default class UIController {
 
     // Creates on configures an event listener
     uiController.evc = new UIEventController()
-    uiController.registerGetSelectedText('GetSelectedText', uiController.options.textQuerySelector)
     uiController.evc.registerListener('HandleEscapeKey', document, uiController.handleEscapeKey.bind(uiController), GenericEvt, 'keydown')
     uiController.evc.registerListener('AlpheiosPageLoad', 'body', uiController.updateAnnotations.bind(uiController), GenericEvt, 'Alpheios_Page_Load')
 
@@ -218,7 +227,8 @@ export default class UIController {
   /**
    * Returns an object with default options of a UIController.
    * Can be redefined to provide other default values.
-   * @return {object} An object that contains default options.
+   *
+   * @returns {object} An object that contains default options.
    *     {Object} app - A set of app related options with the following properties:
    *          {string} name - An application name;
    *          {string} version - A version of an application.
@@ -280,9 +290,10 @@ export default class UIController {
    * they will not be copied into a resulting options object.
    * If an option property is itself an object (i.e. is considered as a group of options),
    * it will be copied recursively.
+   *
    * @param {object} options - A user specified options object.
    * @param {object} defaultOptions - A set of default options specified by a UI controller.
-   * @return {object} A resulting options object
+   * @returns {object} A resulting options object
    */
   static setOptions (options, defaultOptions) {
     let result = {} // eslint-disable-line prefer-const
@@ -461,9 +472,9 @@ export default class UIController {
       wordUsageExamplesCached: null,
       wordUsageExamples: null,
       wordUsageAuthors: [],
+      grammarData: {},
       // Exposes parsed query parameters to other components
       queryParams: this.queryParams,
-
       isDevMode: () => {
         return this.options.mode === 'development'
       },
@@ -484,6 +495,7 @@ export default class UIController {
         if (!this.store.state.app.homonymDataReady || lexemes.length === 0) {
           return false
         }
+
         if (Array.isArray(lexemes) && lexemes.length > 0 &&
           (lexemes[0].lemma.principalParts.length > 0 || lexemes[0].inflections.length > 0 || lexemes[0].inflections.length > 0 ||
             lexemes[0].meaning.fullDefs.length > 0 || lexemes[0].meaning.shortDefs.length > 0)
@@ -513,6 +525,7 @@ export default class UIController {
 
       state: {
         currentLanguageID: undefined,
+        currentLanguageCode: null,
         currentLanguageName: '',
         embedLibActive: false,
         selectedText: '',
@@ -541,7 +554,9 @@ export default class UIController {
         hasInflData: false, // Whether we have any inflection data available
         morphDataReady: false,
         translationsDataReady: false,
-        grammarRes: null,
+
+        updatedGrammar: 0,
+
         treebankData: {
           word: {},
           page: {}
@@ -573,16 +588,6 @@ export default class UIController {
           return state.fullDefUpdateTime > 0
         },
 
-        /**
-         * Identifies wither grammar resource(s) are available for the current state.
-         *
-         * @param {object} state - A local state.
-         * @returns {boolean} True if grammar resource(s) are available, false otherwise.
-         */
-        hasGrammarRes (state) {
-          return state.grammarRes !== null
-        },
-
         hasTreebankData (state) {
           // Treebank data is available if we have it for the word or the page
           return Boolean((state.treebankData.page && state.treebankData.page.src) ||
@@ -599,9 +604,10 @@ export default class UIController {
           state.embedLibActive = status
         },
         setCurrentLanguage (state, languageCodeOrID) {
-          const { id, name } = UIController.getLanguageName(languageCodeOrID)
-          state.currentLanguageID = id
-          state.currentLanguageName = name
+          const langDetails = UIController.getLanguageName(languageCodeOrID)
+          state.currentLanguageID = langDetails.id
+          state.currentLanguageName = langDetails.name
+          state.currentLanguageCode = langDetails.code
         },
 
         setSelectedLookupLang (state, langCode) {
@@ -644,10 +650,6 @@ export default class UIController {
           state.treebankData.word = {}
         },
 
-        resetGrammarData (state) {
-          state.grammarRes = null
-        },
-
         lexicalRequestFinished (state) {
           state.inflectionsWaitState = false
           state.morphDataReady = true
@@ -687,12 +689,8 @@ export default class UIController {
           state.hasInflData = false
         },
 
-        setGrammarRes (state, grammarRes) {
-          state.grammarRes = grammarRes
-        },
-
-        resetGrammarRes (state) {
-          state.grammarRes = null
+        setUpdatedGrammar (state) {
+          state.updatedGrammar = state.updatedGrammar + 1
         },
 
         setPageAnnotationData (state, pageData) {
@@ -904,6 +902,12 @@ export default class UIController {
 
     this.state.setWatcher('uiActive', this.updateAnnotations.bind(this))
 
+    // Get selected text must be registered after a Lexis data module is activated because it uses its functionality
+    if (!this.isGetSelectedTextRegistered) {
+      this.registerGetSelectedText('GetSelectedText', this.options.textQuerySelector)
+      this.isGetSelectedTextRegistered = true
+    }
+
     this.isInitialized = true
 
     return this
@@ -911,9 +915,10 @@ export default class UIController {
 
   /**
    * initialize the options using the supplied storage adapter class
+   *
    * @param {Function<StorageAdapter>} StorageAdapter the adapter class to instantiate
-   * @param {Object} authData optional authentication data if the adapter is one that requires it
-   * @return Promise[] an array of promises to load the options data from the adapter
+   * @param {object} authData optional authentication data if the adapter is one that requires it
+   * @returns Promise[] an array of promises to load the options data from the adapter
    */
   initOptions (StorageAdapter, authData = null) {
     this.featureOptions = new Options(this.featureOptionsDefaults, new StorageAdapter(this.featureOptionsDefaults.domain, authData))
@@ -948,6 +953,7 @@ export default class UIController {
 
   /**
    * Activates a UI controller. If `deactivate()` method unloads some resources, we should restore them here.
+   *
    * @returns {Promise<UIController>}
    */
   async activate () {
@@ -1004,6 +1010,7 @@ export default class UIController {
   /**
    * Deactivates a UI controller. May unload some resources to preserve memory.
    * In this case an `activate()` method will be responsible for restoring them.
+   *
    * @returns {Promise<UIController>}
    */
   async deactivate () {
@@ -1041,6 +1048,7 @@ export default class UIController {
    * Returns an unmounted Vue instance of a warning panel.
    * This panel is displayed when UI controller is disabled
    * due to embedded lib presence.
+   *
    * @param {string} message - A message to display within a panel
    */
   static getEmbedLibWarning (message) {
@@ -1079,7 +1087,8 @@ export default class UIController {
 
   /**
    * Load site-specific settings
-   * @param {Object[]} siteOptions - An array of site options
+   *
+   * @param {object[]} siteOptions - An array of site options
    */
   loadSiteOptions (siteOptions) {
     let allSiteOptions = [] // eslint-disable-line prefer-const
@@ -1099,8 +1108,9 @@ export default class UIController {
 
   /**
    * Gets language name details by either language ID (a symbol) or language code (string)
+   *
    * @param {symbol|string} language - Either language ID or language code (see constants in `data-models` for definitions)
-   * @return {Object} An object containing:
+   * @returns {object} An object containing:
    *     {string} name - Language name
    *     {string} code - Language code
    *     {symbol} id - Language ID
@@ -1154,8 +1164,9 @@ export default class UIController {
 
   /**
    * Checks wither a given tab is disabled.
+   *
    * @param {string} tabName - A tab name  to be checked.
-   * @return {boolean} - True if the given tab is disabled,
+   * @returns {boolean} - True if the given tab is disabled,
    *         false otherwise (including if we have no disabling conditions on this tab).
    */
   isDisabledTab (tabName) {
@@ -1166,7 +1177,6 @@ export default class UIController {
     const tabsCheck = {
       definitions: () => this.store.getters['app/fullDefDataReady'],
       inflections: () => this.store.state.app.hasInflData,
-      grammar: () => this.store.getters['app/hasGrammarRes'],
       treebank: () => this.store.getters['app/hasTreebankData'],
       wordUsage: () => this.store.state.app.wordUsageExampleEnabled,
       status: () => this.api.settings.getUiOptions().items.verboseMode.currentValue === 'verbose',
@@ -1181,7 +1191,7 @@ export default class UIController {
    * regarding wither or not current tab can be available.
    *
    * @param {string} tabName - A name of a tab to switch to.
-   * @return {UIController} - An instance of a UI controller, for chaining.
+   * @returns {UIController} - An instance of a UI controller, for chaining.
    */
   changeTab (tabName) {
     // If tab is disabled, switch to a default one
@@ -1207,8 +1217,9 @@ export default class UIController {
 
   /**
    * Opens a panel and switches tab to the one specified.
+   *
    * @param {string} tabName - A name of a tab to switch to.
-   * @return {UIController} - A UI controller's instance reference, for chaining.
+   * @returns {UIController} - A UI controller's instance reference, for chaining.
    */
   showPanelTab (tabName) {
     this.api.ui.changeTab(tabName)
@@ -1221,7 +1232,7 @@ export default class UIController {
    * Reverses the current visibility state of a panel and switches it to the tab specified.
    *
    * @param {string} tabName - A name of a tab to switch to.
-   * @return {UIController} - A UI controller's instance reference, for chaining.
+   * @returns {UIController} - A UI controller's instance reference, for chaining.
    */
   togglePanelTab (tabName) {
     if (this.store.state.ui.activeTab === tabName) {
@@ -1316,12 +1327,17 @@ export default class UIController {
 
   /**
    * Updates grammar data with URLs supplied.
-   * If no URLS are provided, will reset grammar data.
+If no URLS are provided, will reset grammar data.
+   *
+   * @param data
    * @param {Array} urls
    */
-  updateGrammar (urls = []) {
-    if (urls.length > 0) {
-      this.store.commit('app/setGrammarRes', urls[0])
+  updateGrammar (data) {
+    if (data && data.urls && data.urls.length > 0) {
+      const langCode = LanguageModelFactory.getLanguageCodeFromId(data.languageID)
+      this.api.app.grammarData[langCode] = data.urls[0]
+
+      this.store.commit('app/setUpdatedGrammar')
     }
   }
 
@@ -1352,15 +1368,12 @@ export default class UIController {
     this.store.commit('app/setCurrentLanguage', currentLanguageID)
     const newLanguageCode = LanguageModelFactory.getLanguageCodeFromId(currentLanguageID)
     if (this.state.currentLanguage !== newLanguageCode) {
-      this.store.commit('app/resetGrammarData')
       this.state.setItem('currentLanguage', newLanguageCode)
-      this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
     }
     this.resetInflData()
   }
 
-  restoreGrammarIndex () {
-    const currentLanguageID = this.store.state.app.currentLanguageID
+  restoreGrammarIndex (currentLanguageID) {
     this.startResourceQuery({ type: 'table-of-contents', value: '', languageID: currentLanguageID })
   }
 
@@ -1396,6 +1409,8 @@ export default class UIController {
 
   /**
    * Opens a panel. Used from a content script upon a panel status change request.
+   *
+   * @param forceOpen
    */
   openPanel (forceOpen = false) {
     if (this.api.ui.hasModule('panel')) {
@@ -1416,6 +1431,8 @@ export default class UIController {
 
   /**
    * Closes a panel. Used from a content script upon a panel status change request.
+   *
+   * @param syncState
    */
   closePanel (syncState = true) {
     if (this.api.ui.hasModule('panel')) {
@@ -1451,6 +1468,7 @@ export default class UIController {
 
   /**
    * Opens an action panel.
+   *
    * @param {object} panelOptions - An object that specifies parameters of an action panel (see below):
    * @param {boolean} panelOptions.showLookup - Whether to show a lookup input when the action panel is opened.
    * @param {boolean} panelOptions.showNav - Whether to show a nav toolbar when the action panel is opened.
@@ -1584,7 +1602,9 @@ export default class UIController {
 
   /**
    * Check to see if Lemma Translations should be enabled for a query
-   *  NB this is Prototype functionality
+NB this is Prototype functionality
+   *
+   * @param textSelector
    */
   enableLemmaTranslations (textSelector) {
     return textSelector.languageID === Constants.LANG_LATIN &&
@@ -1679,6 +1699,7 @@ export default class UIController {
 
     // Update inflections data
     const inflectionsViewSet = ViewSetFactory.create(homonym, this.featureOptions.items.locale.currentValue)
+
     if (inflectionsViewSet.hasMatchingViews) {
       this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_INFLDATA_READY'))
     }
@@ -1755,7 +1776,7 @@ export default class UIController {
 
   onGrammarAvailable (data) {
     this.store.commit('ui/addMessage', this.api.l10n.getMsg('TEXT_NOTICE_GRAMMAR_READY'))
-    this.updateGrammar(data.url)
+    this.updateGrammar(data)
   }
 
   onGrammarNotFound () {
@@ -1834,8 +1855,9 @@ export default class UIController {
 
   /**
    * Handle a change to a single feature option
-   * @param {String} name the setting name
-   * @param {String} value the new value
+   *
+   * @param {string} name the setting name
+   * @param {string} value the new value
    */
   featureOptionChange (name, value) {
     let featureOptions = this.api.settings.getFeatureOptions() // eslint-disable-line prefer-const
@@ -1851,7 +1873,8 @@ export default class UIController {
 
   /**
    * Updates the state of a feature to correspond to current options
-   * @param {String} settingName the name of the setting
+   *
+   * @param {string} settingName the name of the setting
    */
   featureOptionStateChange (settingName) {
     switch (settingName) {
@@ -1880,6 +1903,7 @@ export default class UIController {
 
   /**
    * Handle a change to a single ui option
+   *
    * @param {string} name - A name of an option.
    * @param {string | value} value - A new value of an options.
    */
@@ -1898,7 +1922,8 @@ export default class UIController {
 
   /**
    * Updates the state of a ui component to correspond to current options
-   * @param {String} settingName the name of the setting
+   *
+   * @param {string} settingName the name of the setting
    */
   uiOptionStateChange (settingName) {
     const uiOptions = this.api.settings.getUiOptions()
@@ -1933,6 +1958,7 @@ export default class UIController {
 
   /**
    * Handle a change to a single resource option
+   *
    * @param {string} name - A name of an option.
    * @param {string | value} value - A new value of an options.
    */
@@ -1978,11 +2004,12 @@ export default class UIController {
           customEv = this.options.textQueryTriggerDesktop
       }
     }
+    const lexisModule = this.getModule('lexis')
     if (ev) {
-      this.evc.registerListener(listenerName, selector, this.getSelectedText.bind(this), ev)
+      this.evc.registerListener(listenerName, selector, this.api.lexis.getSelectedText.bind(lexisModule), ev)
     } else {
       this.evc.registerListener(
-        listenerName, selector, this.getSelectedText.bind(this), GenericEvt, customEv)
+        listenerName, selector, this.api.lexis.getSelectedText.bind(lexisModule), GenericEvt, customEv)
     }
   }
 
@@ -2022,6 +2049,7 @@ UIController.libVersion = packageVersion
 /**
  * An instance of a warning panel that is shown when UI controller is disabled
  * because an Alpheios embedded lib is active on a page
+ *
  * @type {Vue | null}
  */
 UIController.embedLibWarningInstance = null

@@ -117,9 +117,14 @@ export default class BaseTestHelp {
               wordUsageExamplesReady: false,
               wordListUpdateTime: 0,
               grammarRes: {},
+              updatedGrammar: 0,
               linkedFeatures: [],
               selectedLookupLangCode: 'lat',
-              translationsDataReady: false
+              translationsDataReady: false,
+              lexicalRequest: {
+                startTime: 0
+              },
+              currentLanguageCode: null
             },
             mutations: {
               setTestCurrentLanguageName (state, value) {
@@ -127,6 +132,10 @@ export default class BaseTestHelp {
               },
               setTestCurrentLanguageID (state, value) {
                 state.currentLanguageID = value
+              },
+              setCurrentLanguage (state, data) {
+                state.currentLanguageID = data.languageID
+                state.currentLanguageCode = data.languageCode
               },
               setTestMorphDataReady (state, value) {
                 state.morphDataReady = value
@@ -163,6 +172,12 @@ export default class BaseTestHelp {
               },
               setTranslationsDataReady (state, value) {
                 state.translationsDataReady = value
+              },
+              lexicalRequestStarted (state, data) {
+                state.lexicalRequest.startTime = Date.now()
+              },
+              setUpdatedGrammar (state) {
+                state.updatedGrammar = state.updatedGrammar + 1
               }
             },
             getters: {
@@ -318,6 +333,7 @@ export default class BaseTestHelp {
         }
       })
       let homonym = adapterTuftsRes.result
+
       if (!homonym) {
         const formLexeme = new Lexeme(new Lemma(targetWord, languageID), [])
         homonym = this.homonym = new Homonym([formLexeme], targetWord)
@@ -377,14 +393,14 @@ export default class BaseTestHelp {
       let node = document.createTextNode(text)
       testElement2.appendChild(node)
       document.body.appendChild(testElement2)
-  
+
       let evtHandler = jest.fn(() => {})
       let eventEl2 = new MouseDblClick(testElement2, evtHandler)
       eventEl2.start = eventEl.start
       eventEl2.start = eventEl.end
       eventEl2.end.target = testElement2
-  
-  
+
+
       testElement2.ownerDocument.getSelection = jest.fn(() => {
         return {
           anchorNode: {
@@ -399,7 +415,7 @@ export default class BaseTestHelp {
           addRange: () => {}
         }
       })
-  
+
       return eventEl2
     }
 }
