@@ -6,7 +6,7 @@
         <div class="alpheios-morph-data__morphdata" v-if="hasMorphData">
             <span class="alpheios-morph-data__pofs">
                 <inflectionattribute v-for="(feat, featIndex) in featuresList.pofs" v-bind:key="featIndex"
-                    :data="lexeme.lemma.features" :type="types[feat]"
+                    :data="lexeme.lemma.features" :type="feat"
                 />
             </span>
                 <inflectionattribute v-for="(feat, featIndex) in featuresList.others" v-bind:key="featIndex"
@@ -44,7 +44,7 @@
       return {
         types: null,
         featuresList: {
-          pofs: [ 'grmCase', 'gender', 'part' ],
+          pofs: [ 'case', 'gender', 'part of speech' ],
           others: [
             { name: 'radical', decorator: 'brackets' },
             { name: 'kind', decorator: 'parenthesize' },
@@ -66,7 +66,7 @@
 
         let check = false
         this.featuresList.pofs.forEach(feature => {
-          check = check || this.getFeature(feature.name)
+          check = check || this.getFeature(feature)
         })
 
         
