@@ -646,7 +646,16 @@ html {
 .alpheios-content .alpheios-panel__content h6,
 .alpheios-content .alpheios-panel__content p,
 .alpheios-content .alpheios-panel__content span,
-.alpheios-content .alpheios-panel__content a {
+.alpheios-content .alpheios-panel__content a,
+.alpheios-content .alpheios-toolbar__lookup h1,
+.alpheios-content .alpheios-toolbar__lookup h2,
+.alpheios-content .alpheios-toolbar__lookup h3,
+.alpheios-content .alpheios-toolbar__lookup h4,
+.alpheios-content .alpheios-toolbar__lookup h5,
+.alpheios-content .alpheios-toolbar__lookup h6,
+.alpheios-content .alpheios-toolbar__lookup p,
+.alpheios-content .alpheios-toolbar__lookup span,
+.alpheios-content .alpheios-toolbar__lookup a {
   line-height: 1.15 !important;
   text-align: left !important;
   padding: 0 !important;
