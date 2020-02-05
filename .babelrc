@@ -9,7 +9,9 @@
     ["@babel/plugin-proposal-object-rest-spread"],
     ["module-resolver", {
       "alias": {
-        "alpheios-lexis-cs": "./node_modules/alpheios-lexis-cs/dist/test/lexis-cs-test-bundle.js"
+        "alpheios-data-models": "./node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js",
+        "alpheios-client-adapters": "./node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js",
+        "alpheios-messaging": "./node_modules/alpheios-messaging/dist/dev/alpheios-messaging.js"
       }
     }]
   ]
