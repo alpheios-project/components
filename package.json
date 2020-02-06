@@ -1,6 +1,6 @@
 {
   "name": "alpheios-components",
-  "version": "1.6.1-dev",
+  "version": "1.6.4-dev",
   "description": "Alpheios Components",
   "main": "dist/alpheios-components.min.js",
   "module": "src/plugin.js",
@@ -45,8 +45,8 @@
     "alpheios-core": "file:../alpheios-core",
     "alpheios-experience": "github:alpheios-project/experience",
     "alpheios-fixtures": "github:alpheios-project/fixtures",
-    "alpheios-inflection-tables": "github:alpheios-project/inflection-tables#monorepo",
-    "alpheios-messaging": "github:alpheios-project/alpheios-messaging#mss-service-split",
+    "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
+    "alpheios-messaging": "github:alpheios-project/alpheios-messaging",
     "alpheios-node-build": "github:alpheios-project/node-build#v0.6.7",
     "alpheios-res-client": "github:alpheios-project/res-client",
     "alpheios-wordlist": "github:alpheios-project/wordlist",
@@ -160,7 +160,5 @@
     "**/dist",
     "**/support"
   ],
-  "dependencies": {
-    "lexis-cs": "github:alpheios-project/lexis-cs"
-  }
+  "dependencies": {}
 }
