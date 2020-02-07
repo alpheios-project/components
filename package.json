@@ -48,8 +48,6 @@
     "alpheios-inflection-tables": "github:alpheios-project/inflection-tables",
     "alpheios-messaging": "github:alpheios-project/alpheios-messaging",
     "alpheios-node-build": "github:alpheios-project/node-build#v0.6.7",
-    "alpheios-res-client": "github:alpheios-project/res-client",
-    "alpheios-wordlist": "github:alpheios-project/wordlist",
     "autoprefixer": "^9.7.4",
     "axios": "^0.19.2",
     "babel-core": "^7.0.0-bridge.0",
@@ -131,6 +129,8 @@
       "^@[/](.+)": "<rootDir>/src/$1",
       "^@tests[/](.+)": "<rootDir>/tests/$1",
       "alpheios-data-models": "<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js",
+      "alpheios-res-client": "<rootDir>/node_modules/alpheios-core/packages/res-client/dist/alpheios-res-client.js",
+      "alpheios-wordlist": "<rootDir>/node_modules/alpheios-core/packages/wordlist/dist/alpheios-wordlist.js",
       "alpheios-morph-client": "<rootDir>/node_modules/alpheios-morph-client/dist/alpheios-morph-client.js"
     },
     "moduleFileExtensions": [
