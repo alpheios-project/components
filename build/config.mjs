@@ -23,7 +23,6 @@ const webpack = {
         // Below will force all imported modules with unresolved dependencies to use a single instance of that dependency
         'alpheios-client-adapters': path.join(projectRoot, 'node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js'),
         'alpheios-data-models': path.join(projectRoot, 'node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js'),
-        '@messServ': path.join(projectRoot, 'node_modules/alpheios-messaging/src/'),
         'alpheios-res-client': path.join(projectRoot, 'node_modules/alpheios-core/packages/res-client/dist/alpheios-res-client.js'),
         'alpheios-wordlist': path.join(projectRoot, 'node_modules/alpheios-core/packages/wordlist/dist/alpheios-wordlist.js'),
         'vue-multiselect-css': path.join(projectRoot, 'node_modules/vue-multiselect/dist/vue-multiselect.min.css'),
